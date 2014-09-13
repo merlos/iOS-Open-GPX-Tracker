@@ -1,0 +1,439 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		898EECDB19C49B5800B4B207 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 898EECDA19C49B5800B4B207 /* AppDelegate.swift */; };
+		898EECDE19C49B5800B4B207 /* OpenGpxTracker.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 898EECDC19C49B5800B4B207 /* OpenGpxTracker.xcdatamodeld */; };
+		898EECE019C49B5800B4B207 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 898EECDF19C49B5800B4B207 /* ViewController.swift */; };
+		898EECE319C49B5800B4B207 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 898EECE119C49B5800B4B207 /* Main.storyboard */; };
+		898EECE519C49B5800B4B207 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 898EECE419C49B5800B4B207 /* Images.xcassets */; };
+		898EECE819C49B5800B4B207 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 898EECE619C49B5800B4B207 /* LaunchScreen.xib */; };
+		898EECF419C49B5800B4B207 /* OpenGpxTrackerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 898EECF319C49B5800B4B207 /* OpenGpxTrackerTests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		898EECEE19C49B5800B4B207 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 898EECCD19C49B5800B4B207 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 898EECD419C49B5800B4B207;
+			remoteInfo = OpenGpxTracker;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		898EECD519C49B5800B4B207 /* OpenGpxTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OpenGpxTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		898EECD919C49B5800B4B207 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		898EECDA19C49B5800B4B207 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		898EECDD19C49B5800B4B207 /* OpenGpxTracker.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = OpenGpxTracker.xcdatamodel; sourceTree = "<group>"; };
+		898EECDF19C49B5800B4B207 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		898EECE219C49B5800B4B207 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		898EECE419C49B5800B4B207 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		898EECE719C49B5800B4B207 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		898EECED19C49B5800B4B207 /* OpenGpxTrackerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OpenGpxTrackerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		898EECF219C49B5800B4B207 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		898EECF319C49B5800B4B207 /* OpenGpxTrackerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenGpxTrackerTests.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		898EECD219C49B5800B4B207 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		898EECEA19C49B5800B4B207 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		898EECCC19C49B5800B4B207 = {
+			isa = PBXGroup;
+			children = (
+				898EECD719C49B5800B4B207 /* OpenGpxTracker */,
+				898EECF019C49B5800B4B207 /* OpenGpxTrackerTests */,
+				898EECD619C49B5800B4B207 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		898EECD619C49B5800B4B207 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				898EECD519C49B5800B4B207 /* OpenGpxTracker.app */,
+				898EECED19C49B5800B4B207 /* OpenGpxTrackerTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		898EECD719C49B5800B4B207 /* OpenGpxTracker */ = {
+			isa = PBXGroup;
+			children = (
+				898EECDA19C49B5800B4B207 /* AppDelegate.swift */,
+				898EECDF19C49B5800B4B207 /* ViewController.swift */,
+				898EECE119C49B5800B4B207 /* Main.storyboard */,
+				898EECE419C49B5800B4B207 /* Images.xcassets */,
+				898EECE619C49B5800B4B207 /* LaunchScreen.xib */,
+				898EECDC19C49B5800B4B207 /* OpenGpxTracker.xcdatamodeld */,
+				898EECD819C49B5800B4B207 /* Supporting Files */,
+			);
+			path = OpenGpxTracker;
+			sourceTree = "<group>";
+		};
+		898EECD819C49B5800B4B207 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				898EECD919C49B5800B4B207 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		898EECF019C49B5800B4B207 /* OpenGpxTrackerTests */ = {
+			isa = PBXGroup;
+			children = (
+				898EECF319C49B5800B4B207 /* OpenGpxTrackerTests.swift */,
+				898EECF119C49B5800B4B207 /* Supporting Files */,
+			);
+			path = OpenGpxTrackerTests;
+			sourceTree = "<group>";
+		};
+		898EECF119C49B5800B4B207 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				898EECF219C49B5800B4B207 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		898EECD419C49B5800B4B207 /* OpenGpxTracker */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 898EECF719C49B5800B4B207 /* Build configuration list for PBXNativeTarget "OpenGpxTracker" */;
+			buildPhases = (
+				898EECD119C49B5800B4B207 /* Sources */,
+				898EECD219C49B5800B4B207 /* Frameworks */,
+				898EECD319C49B5800B4B207 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = OpenGpxTracker;
+			productName = OpenGpxTracker;
+			productReference = 898EECD519C49B5800B4B207 /* OpenGpxTracker.app */;
+			productType = "com.apple.product-type.application";
+		};
+		898EECEC19C49B5800B4B207 /* OpenGpxTrackerTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 898EECFA19C49B5800B4B207 /* Build configuration list for PBXNativeTarget "OpenGpxTrackerTests" */;
+			buildPhases = (
+				898EECE919C49B5800B4B207 /* Sources */,
+				898EECEA19C49B5800B4B207 /* Frameworks */,
+				898EECEB19C49B5800B4B207 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				898EECEF19C49B5800B4B207 /* PBXTargetDependency */,
+			);
+			name = OpenGpxTrackerTests;
+			productName = OpenGpxTrackerTests;
+			productReference = 898EECED19C49B5800B4B207 /* OpenGpxTrackerTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		898EECCD19C49B5800B4B207 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0600;
+				ORGANIZATIONNAME = TransitBox;
+				TargetAttributes = {
+					898EECD419C49B5800B4B207 = {
+						CreatedOnToolsVersion = 6.0;
+					};
+					898EECEC19C49B5800B4B207 = {
+						CreatedOnToolsVersion = 6.0;
+						TestTargetID = 898EECD419C49B5800B4B207;
+					};
+				};
+			};
+			buildConfigurationList = 898EECD019C49B5800B4B207 /* Build configuration list for PBXProject "OpenGpxTracker" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 898EECCC19C49B5800B4B207;
+			productRefGroup = 898EECD619C49B5800B4B207 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				898EECD419C49B5800B4B207 /* OpenGpxTracker */,
+				898EECEC19C49B5800B4B207 /* OpenGpxTrackerTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		898EECD319C49B5800B4B207 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				898EECE319C49B5800B4B207 /* Main.storyboard in Resources */,
+				898EECE819C49B5800B4B207 /* LaunchScreen.xib in Resources */,
+				898EECE519C49B5800B4B207 /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		898EECEB19C49B5800B4B207 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		898EECD119C49B5800B4B207 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				898EECE019C49B5800B4B207 /* ViewController.swift in Sources */,
+				898EECDE19C49B5800B4B207 /* OpenGpxTracker.xcdatamodeld in Sources */,
+				898EECDB19C49B5800B4B207 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		898EECE919C49B5800B4B207 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				898EECF419C49B5800B4B207 /* OpenGpxTrackerTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		898EECEF19C49B5800B4B207 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 898EECD419C49B5800B4B207 /* OpenGpxTracker */;
+			targetProxy = 898EECEE19C49B5800B4B207 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		898EECE119C49B5800B4B207 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				898EECE219C49B5800B4B207 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		898EECE619C49B5800B4B207 /* LaunchScreen.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				898EECE719C49B5800B4B207 /* Base */,
+			);
+			name = LaunchScreen.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		898EECF519C49B5800B4B207 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		898EECF619C49B5800B4B207 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		898EECF819C49B5800B4B207 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = OpenGpxTracker/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		898EECF919C49B5800B4B207 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = OpenGpxTracker/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		898EECFB19C49B5800B4B207 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = OpenGpxTrackerTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/OpenGpxTracker.app/OpenGpxTracker";
+			};
+			name = Debug;
+		};
+		898EECFC19C49B5800B4B207 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = OpenGpxTrackerTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/OpenGpxTracker.app/OpenGpxTracker";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		898EECD019C49B5800B4B207 /* Build configuration list for PBXProject "OpenGpxTracker" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				898EECF519C49B5800B4B207 /* Debug */,
+				898EECF619C49B5800B4B207 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		898EECF719C49B5800B4B207 /* Build configuration list for PBXNativeTarget "OpenGpxTracker" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				898EECF819C49B5800B4B207 /* Debug */,
+				898EECF919C49B5800B4B207 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		898EECFA19C49B5800B4B207 /* Build configuration list for PBXNativeTarget "OpenGpxTrackerTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				898EECFB19C49B5800B4B207 /* Debug */,
+				898EECFC19C49B5800B4B207 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		898EECDC19C49B5800B4B207 /* OpenGpxTracker.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				898EECDD19C49B5800B4B207 /* OpenGpxTracker.xcdatamodel */,
+			);
+			currentVersion = 898EECDD19C49B5800B4B207 /* OpenGpxTracker.xcdatamodel */;
+			path = OpenGpxTracker.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = 898EECCD19C49B5800B4B207 /* Project object */;
+}
