@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		893BEC8619C7E62200C77354 /* GPXWaypoint+MKAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893BEC8519C7E62200C77354 /* GPXWaypoint+MKAnnotation.swift */; };
 		898EECDB19C49B5800B4B207 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 898EECDA19C49B5800B4B207 /* AppDelegate.swift */; };
 		898EECDE19C49B5800B4B207 /* OpenGpxTracker.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 898EECDC19C49B5800B4B207 /* OpenGpxTracker.xcdatamodeld */; };
 		898EECE019C49B5800B4B207 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 898EECDF19C49B5800B4B207 /* ViewController.swift */; };
@@ -14,6 +15,14 @@
 		898EECE519C49B5800B4B207 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 898EECE419C49B5800B4B207 /* Images.xcassets */; };
 		898EECE819C49B5800B4B207 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 898EECE619C49B5800B4B207 /* LaunchScreen.xib */; };
 		898EECF419C49B5800B4B207 /* OpenGpxTrackerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 898EECF319C49B5800B4B207 /* OpenGpxTrackerTests.swift */; };
+		898EECFE19C49DC700B4B207 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 898EECFD19C49DC700B4B207 /* MapKit.framework */; };
+		898EED0019C4A15E00B4B207 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 898EECFF19C4A15E00B4B207 /* CoreLocation.framework */; };
+		898EED3619C6402900B4B207 /* GPXFilesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 898EED3519C6402900B4B207 /* GPXFilesTableViewController.swift */; };
+		899D676C19CD9E9E00C88A0A /* GPXTrackSegment+MapKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 899D676B19CD9E9E00C88A0A /* GPXTrackSegment+MapKit.swift */; };
+		899D676E19CD9FAF00C88A0A /* GPXTrackPoint+MapKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 899D676D19CD9FAF00C88A0A /* GPXTrackPoint+MapKit.swift */; };
+		899D677019CE024600C88A0A /* GPXFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 899D676F19CE024600C88A0A /* GPXFileManager.swift */; };
+		899D677219CE8B3600C88A0A /* StopWatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 899D677119CE8B3600C88A0A /* StopWatch.swift */; };
+		F9EAA09D6460433BB9A62DE8 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 17E76F21ED5D4C2B9CF8B6E2 /* libPods.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -27,6 +36,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		17E76F21ED5D4C2B9CF8B6E2 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		893BEC8519C7E62200C77354 /* GPXWaypoint+MKAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "GPXWaypoint+MKAnnotation.swift"; sourceTree = "<group>"; };
 		898EECD519C49B5800B4B207 /* OpenGpxTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OpenGpxTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		898EECD919C49B5800B4B207 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		898EECDA19C49B5800B4B207 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -38,6 +49,15 @@
 		898EECED19C49B5800B4B207 /* OpenGpxTrackerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OpenGpxTrackerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		898EECF219C49B5800B4B207 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		898EECF319C49B5800B4B207 /* OpenGpxTrackerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenGpxTrackerTests.swift; sourceTree = "<group>"; };
+		898EECFD19C49DC700B4B207 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		898EECFF19C4A15E00B4B207 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		898EED0219C5EE1500B4B207 /* ObjectiveCBridgingHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ObjectiveCBridgingHeader.h; sourceTree = "<group>"; };
+		898EED3519C6402900B4B207 /* GPXFilesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPXFilesTableViewController.swift; sourceTree = "<group>"; };
+		899D676B19CD9E9E00C88A0A /* GPXTrackSegment+MapKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "GPXTrackSegment+MapKit.swift"; sourceTree = "<group>"; };
+		899D676D19CD9FAF00C88A0A /* GPXTrackPoint+MapKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "GPXTrackPoint+MapKit.swift"; sourceTree = "<group>"; };
+		899D676F19CE024600C88A0A /* GPXFileManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPXFileManager.swift; sourceTree = "<group>"; };
+		899D677119CE8B3600C88A0A /* StopWatch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StopWatch.swift; sourceTree = "<group>"; };
+		D489189F048F444FA902315C /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -45,6 +65,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				898EED0019C4A15E00B4B207 /* CoreLocation.framework in Frameworks */,
+				898EECFE19C49DC700B4B207 /* MapKit.framework in Frameworks */,
+				F9EAA09D6460433BB9A62DE8 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -58,12 +81,26 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8948550619CB954100AB366A /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				893BEC8519C7E62200C77354 /* GPXWaypoint+MKAnnotation.swift */,
+				899D676B19CD9E9E00C88A0A /* GPXTrackSegment+MapKit.swift */,
+				899D676D19CD9FAF00C88A0A /* GPXTrackPoint+MapKit.swift */,
+				899D676F19CE024600C88A0A /* GPXFileManager.swift */,
+				899D677119CE8B3600C88A0A /* StopWatch.swift */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
 		898EECCC19C49B5800B4B207 = {
 			isa = PBXGroup;
 			children = (
+				898EED0119C4A16600B4B207 /* Frameworks */,
 				898EECD719C49B5800B4B207 /* OpenGpxTracker */,
 				898EECF019C49B5800B4B207 /* OpenGpxTrackerTests */,
 				898EECD619C49B5800B4B207 /* Products */,
+				D489189F048F444FA902315C /* Pods.xcconfig */,
 			);
 			sourceTree = "<group>";
 		};
@@ -79,11 +116,14 @@
 		898EECD719C49B5800B4B207 /* OpenGpxTracker */ = {
 			isa = PBXGroup;
 			children = (
+				8948550619CB954100AB366A /* Models */,
 				898EECDA19C49B5800B4B207 /* AppDelegate.swift */,
 				898EECDF19C49B5800B4B207 /* ViewController.swift */,
+				898EED3519C6402900B4B207 /* GPXFilesTableViewController.swift */,
 				898EECE119C49B5800B4B207 /* Main.storyboard */,
 				898EECE419C49B5800B4B207 /* Images.xcassets */,
 				898EECE619C49B5800B4B207 /* LaunchScreen.xib */,
+				898EED0219C5EE1500B4B207 /* ObjectiveCBridgingHeader.h */,
 				898EECDC19C49B5800B4B207 /* OpenGpxTracker.xcdatamodeld */,
 				898EECD819C49B5800B4B207 /* Supporting Files */,
 			);
@@ -115,6 +155,16 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		898EED0119C4A16600B4B207 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				898EECFF19C4A15E00B4B207 /* CoreLocation.framework */,
+				898EECFD19C49DC700B4B207 /* MapKit.framework */,
+				17E76F21ED5D4C2B9CF8B6E2 /* libPods.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -122,9 +172,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 898EECF719C49B5800B4B207 /* Build configuration list for PBXNativeTarget "OpenGpxTracker" */;
 			buildPhases = (
+				4AE80608BF484E02B8A54FE2 /* Check Pods Manifest.lock */,
 				898EECD119C49B5800B4B207 /* Sources */,
 				898EECD219C49B5800B4B207 /* Frameworks */,
 				898EECD319C49B5800B4B207 /* Resources */,
+				AEB1F5FB64A842D195D51C6E /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -164,6 +216,11 @@
 				TargetAttributes = {
 					898EECD419C49B5800B4B207 = {
 						CreatedOnToolsVersion = 6.0;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
 					};
 					898EECEC19C49B5800B4B207 = {
 						CreatedOnToolsVersion = 6.0;
@@ -210,14 +267,53 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		4AE80608BF484E02B8A54FE2 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		AEB1F5FB64A842D195D51C6E /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		898EECD119C49B5800B4B207 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				898EECE019C49B5800B4B207 /* ViewController.swift in Sources */,
+				899D677019CE024600C88A0A /* GPXFileManager.swift in Sources */,
 				898EECDE19C49B5800B4B207 /* OpenGpxTracker.xcdatamodeld in Sources */,
+				899D676E19CD9FAF00C88A0A /* GPXTrackPoint+MapKit.swift in Sources */,
 				898EECDB19C49B5800B4B207 /* AppDelegate.swift in Sources */,
+				899D676C19CD9E9E00C88A0A /* GPXTrackSegment+MapKit.swift in Sources */,
+				899D677219CE8B3600C88A0A /* StopWatch.swift in Sources */,
+				893BEC8619C7E62200C77354 /* GPXWaypoint+MKAnnotation.swift in Sources */,
+				898EED3619C6402900B4B207 /* GPXFilesTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -340,21 +436,27 @@
 		};
 		898EECF819C49B5800B4B207 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D489189F048F444FA902315C /* Pods.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = OpenGpxTracker/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = OpenGpxTracker/ObjectiveCBridgingHeader.h;
 			};
 			name = Debug;
 		};
 		898EECF919C49B5800B4B207 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D489189F048F444FA902315C /* Pods.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = OpenGpxTracker/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = OpenGpxTracker/ObjectiveCBridgingHeader.h;
 			};
 			name = Release;
 		};
@@ -411,6 +513,7 @@
 				898EECF919C49B5800B4B207 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		898EECFA19C49B5800B4B207 /* Build configuration list for PBXNativeTarget "OpenGpxTrackerTests" */ = {
 			isa = XCConfigurationList;
@@ -419,6 +522,7 @@
 				898EECFC19C49B5800B4B207 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 

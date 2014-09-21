@@ -1,0 +1,1 @@
+../../iOS-GPX-Framework/GPX/GPXMetadata.h

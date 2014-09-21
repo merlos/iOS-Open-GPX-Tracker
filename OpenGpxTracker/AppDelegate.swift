@@ -1,3 +1,4 @@
+
 //
 //  AppDelegate.swift
 //  OpenGpxTracker
@@ -8,6 +9,8 @@
 
 import UIKit
 import CoreData
+
+
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
