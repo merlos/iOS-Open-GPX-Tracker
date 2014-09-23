@@ -20,13 +20,19 @@ extension GPXWaypoint : MKAnnotation {
         // Default title now
         
         let timeFormat = NSDateFormatter()
-        timeFormat.setLocalizedDateFormatFromTemplate("HH:mm:ss")
-        let dateFormat = NSDateFormatter()
-        dateFormat.setLocalizedDateFormatFromTemplate("MMM dd, yyyy")
+        timeFormat.dateStyle = NSDateFormatterStyle.NoStyle
+        timeFormat.timeStyle = NSDateFormatterStyle.MediumStyle
+        //timeFormat.setLocalizedDateFormatFromTemplate("HH:mm:ss")
+        
+        let subtitleFormat = NSDateFormatter()
+        //dateFormat.setLocalizedDateFormatFromTemplate("MMM dd, yyyy")
+        subtitleFormat.dateStyle = NSDateFormatterStyle.MediumStyle
+        subtitleFormat.timeStyle = NSDateFormatterStyle.MediumStyle
+        
         let now = NSDate()
         self.time = now
         self.title = timeFormat.stringFromDate(now)
-        self.subtitle = dateFormat.stringFromDate(now)
+        self.subtitle = subtitleFormat.stringFromDate(now)
     }
     
     public var title:String! {

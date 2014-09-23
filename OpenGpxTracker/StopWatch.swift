@@ -9,7 +9,9 @@
 import Foundation
 
 //
-// This class handles the timer that displays the time
+// This class handles the logic behind a stop watch timer
+// It has two statuses: started or stopped. When started it counts time.
+// when stopped it does not count time. You can
 //
 
 enum StopWatchStatus {
@@ -23,15 +25,22 @@ class StopWatch: NSObject {
     var startedTime: NSTimeInterval?
     var status : StopWatchStatus
     
+    var timeInterval: NSTimeInterval = 0.01
+    var timer = NSTimer()
+    
+    var delegate: StopWatchDelegate?
+    
     override init() {
         self.tmpElapsedTime = 0.0
         self.status = StopWatchStatus.Stopped
+        
         super.init()
     }
     
     func start() {
         self.status = .Started
         self.startedTime = NSDate.timeIntervalSinceReferenceDate()
+        timer = NSTimer.scheduledTimerWithTimeInterval(timeInterval, target: self, selector: "updateElapsedTime", userInfo: nil, repeats: true)
     }
     
     func stop() {
@@ -40,9 +49,11 @@ class StopWatch: NSObject {
         var currentTime = NSDate.timeIntervalSinceReferenceDate()
         let diff = currentTime - startedTime!
         tmpElapsedTime = tmpElapsedTime + diff
+        timer.invalidate()
     }
  
     func reset() {
+        timer.invalidate()
         self.tmpElapsedTime = 0.0
         self.startedTime = NSDate.timeIntervalSinceReferenceDate()
         self.status = .Stopped
@@ -58,6 +69,8 @@ class StopWatch: NSObject {
         }
     }
     
+    // The returned string has the format MM:SS:ms
+    // example: elapsed time: 3 min 30 sec 40ms => 03:30:40
     var elapsedTimeString : String {
         get {
             var tmpTime: NSTimeInterval = self.elapsedTime
@@ -80,5 +93,9 @@ class StopWatch: NSObject {
             //concatenate minutes, seconds and milliseconds
             return "\(strMinutes):\(strSeconds):\(strFraction)"
         }
+    }
+    
+    func updateElapsedTime() {
+        self.delegate?.stopWatch(self, didUpdateElapsedTimeString: self.elapsedTimeString)
     }
 }

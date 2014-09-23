@@ -30,12 +30,15 @@ class GPXFileManager : NSObject {
             var filePathsArray : NSArray = defaultManager.subpathsOfDirectoryAtPath(self.gpxFilesFolder, error: nil)!
             let predicate : NSPredicate = NSPredicate(format: "SELF EndsWith '.\(kFileExt)'")
             filePathsArray = filePathsArray.filteredArrayUsingPredicate(predicate)
+            
+            //We want latest files created on top. It seems we have to reverse the path
+            filePathsArray = filePathsArray.reverseObjectEnumerator().allObjects
             return filePathsArray
         }
     }
     //
     // @param filename gpx filename without extension
-    class func pathForFileName(filename: String) -> String {
+    class func pathForFilename(filename: String) -> String {
         let documentsPath = self.gpxFilesFolder
         var ext = ".\(kFileExt)" // add dot to file extension
         //check if extension is already there
@@ -48,7 +51,7 @@ class GPXFileManager : NSObject {
         return fullPath
     }
     class func fileExists(filename: String) -> Bool {
-        let filePath = self.pathForFileName(filename)
+        let filePath = self.pathForFilename(filename)
         return NSFileManager.defaultManager().fileExistsAtPath(filePath);
     }
     
@@ -59,7 +62,7 @@ class GPXFileManager : NSObject {
         while self.fileExists(finalFilename) {
             finalFilename = filename + " (\(i))"
         }
-        let finalFilePath: String = self.pathForFileName(finalFilename)
+        let finalFilePath: String = self.pathForFilename(finalFilename)
         //save file
         println("Saving file at path: \(finalFilePath)")
         // write gpx to file
@@ -75,7 +78,7 @@ class GPXFileManager : NSObject {
     }
     
     class func removeFile(filename: String) {
-        let filepath: String = self.pathForFileName(filename)
+        let filepath: String = self.pathForFilename(filename)
         let defaultManager = NSFileManager.defaultManager()
         var error: NSError?
         let deleted: Bool = defaultManager.removeItemAtPath(filepath, error: &error)

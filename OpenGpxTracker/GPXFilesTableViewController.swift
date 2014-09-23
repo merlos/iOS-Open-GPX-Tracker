@@ -11,10 +11,13 @@ import Foundation
 let kNoFiles = "No gpx files"
 
 import UIKit
+import MessageUI
 
-class GPXFilesTableViewController : UITableViewController, UINavigationBarDelegate {
+class GPXFilesTableViewController : UITableViewController, UINavigationBarDelegate, MFMailComposeViewControllerDelegate, UIActionSheetDelegate  {
     
     var fileList:NSMutableArray = [kNoFiles]
+    var selectedRowIndex = -1
+    var delegate: GPXFilesTableViewControllerDelegate?
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -57,7 +60,6 @@ class GPXFilesTableViewController : UITableViewController, UINavigationBarDelega
     func closeGPXFilesTableViewController() {
         println("closeGPXFIlesTableViewController()")
         self.dismissViewControllerAnimated(true, completion: { () -> Void in
-            
         })
     }
     
@@ -93,13 +95,7 @@ class GPXFilesTableViewController : UITableViewController, UINavigationBarDelega
     {
         if(editingStyle == UITableViewCellEditingStyle.Delete)
         {
-            //Delete File
-            let filename: String = fileList.objectAtIndex(indexPath.row) as String
-            GPXFileManager.removeFile(filename)
-            //Delete from list and Table
-            fileList.removeObjectAtIndex(indexPath.row)
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Fade)
-            tableView.reloadData()
+            actionDeleteFileAtIndex(indexPath.row)
         }
     }
     
@@ -116,7 +112,39 @@ class GPXFilesTableViewController : UITableViewController, UINavigationBarDelega
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)
     {
-        self.showAlert(fileList.objectAtIndex(indexPath.row) as NSString, rowToUseInAlert: indexPath.row)
+       // self.showAlert(fileList.objectAtIndex(indexPath.row) as NSString, rowToUseInAlert: indexPath.row)
+        let sheet = UIActionSheet()
+        sheet.title = "Select option"
+        sheet.addButtonWithTitle("Send by email")
+        sheet.addButtonWithTitle("Load in Map")
+        sheet.addButtonWithTitle("Cancel")
+        sheet.addButtonWithTitle("Delete")
+        sheet.cancelButtonIndex = 2
+        sheet.destructiveButtonIndex = 3
+        
+        
+        sheet.delegate = self
+        sheet.showInView(self.view)
+        self.selectedRowIndex = indexPath.row
+    }
+    
+    func actionSheet(actionSheet: UIActionSheet, clickedButtonAtIndex buttonIndex: Int) {
+        println("action sheet clicked button at index \(buttonIndex)")
+        switch buttonIndex {
+        case 0:
+            self.actionSendEmailWithAttachment(self.selectedRowIndex)
+        case 1:
+            self.actionLoadFileAtIndex(self.selectedRowIndex)
+        case 2:
+            println("ActionSheet: Cancel")
+        case 3: //Delete
+            self.actionDeleteFileAtIndex(self.selectedRowIndex)
+        default: //cancel
+            println("action Sheet do nothing")
+        }
+    }
+    func actionSheetCancel(actionSheet: UIActionSheet) {
+        println("actionsheet cancel")
     }
     
     //#pragma mark - UIAlertView delegate methods
@@ -125,15 +153,61 @@ class GPXFilesTableViewController : UITableViewController, UINavigationBarDelega
         NSLog("Did dismiss button: %d", buttonIndex)
     }
     
-    // Function to init a UIAlertView and show it
-    func showAlert(rowTitle:NSString, rowToUseInAlert: Int) {
-        var alert = UIAlertView()
+    func actionDeleteFileAtIndex(rowIndex: Int) {
+        //Delete File
+        let filename: String = fileList.objectAtIndex(rowIndex) as String
+        GPXFileManager.removeFile(filename)
+        //Delete from list and Table
+        fileList.removeObjectAtIndex(rowIndex)
+        let indexPath = NSIndexPath(forRow: rowIndex, inSection: 0)
+        tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Fade)
+        tableView.reloadData()
+    }
+    
+    func actionLoadFileAtIndex(rowIndex: Int) {
+        let filename: String = fileList.objectAtIndex(rowIndex) as String
+        println("load gpx File: \(filename)")
+        let gpx = GPXParser.parseGPXAtPath(GPXFileManager.pathForFilename(filename))
+        self.delegate?.didLoadGPXFile(gpx)
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    //#pragma mark - Send email
+    func actionSendEmailWithAttachment(rowIndex: Int) {
+        let filename: String = fileList.objectAtIndex(rowIndex) as String
+        let filepath: String = GPXFileManager.pathForFilename(filename)
         
-        alert.delegate = self
-        alert.title = rowTitle
-        alert.message = "You selected row \(rowToUseInAlert)"
-        alert.addButtonWithTitle("OK")
+        let composer = MFMailComposeViewController()
+        composer.mailComposeDelegate = self
         
-        alert.show()
+        // set the subject
+        composer.setSubject("[Open GPX tracker] Gpx File")
+        
+        //Add some text to the body and attach the file
+        var body = "Open GPX Tracker \n is an open source app for Apple devices. Create GPS tracks and export them to GPX files."
+        composer.setMessageBody(body, isHTML: true)
+        let fileData: NSData = NSData.dataWithContentsOfFile(filepath, options: .DataReadingMappedIfSafe, error: nil);
+        composer.addAttachmentData(fileData, mimeType:"application/gpx+xml", fileName: filepath.lastPathComponent);
+        
+        //Display the comopser view controller
+        self.presentViewController(composer, animated: true, completion: nil)
+
+    }
+    
+
+
+    func mailComposeController(controller: MFMailComposeViewController!,
+        didFinishWithResult result: MFMailComposeResult,
+        error: NSError!){
+            
+            switch(result.value){
+            case MFMailComposeResultSent.value:
+                println("Email sent")
+                
+            default:
+                println("Whoops")
+            }
+            self.dismissViewControllerAnimated(true, completion: nil)
+            
     }
 }

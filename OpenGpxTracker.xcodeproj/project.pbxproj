@@ -22,6 +22,11 @@
 		899D676E19CD9FAF00C88A0A /* GPXTrackPoint+MapKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 899D676D19CD9FAF00C88A0A /* GPXTrackPoint+MapKit.swift */; };
 		899D677019CE024600C88A0A /* GPXFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 899D676F19CE024600C88A0A /* GPXFileManager.swift */; };
 		899D677219CE8B3600C88A0A /* StopWatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 899D677119CE8B3600C88A0A /* StopWatch.swift */; };
+		899D677419CE9DEA00C88A0A /* iOSVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 899D677319CE9DEA00C88A0A /* iOSVersion.swift */; };
+		899D677819CF0A9F00C88A0A /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 899D677719CF0A9F00C88A0A /* MessageUI.framework */; };
+		899D677B19D10F7C00C88A0A /* GPXFilesTableViewControlllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 899D677A19D10F7C00C88A0A /* GPXFilesTableViewControlllerDelegate.swift */; };
+		899D677D19D22E1B00C88A0A /* StopWatchDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 899D677C19D22E1B00C88A0A /* StopWatchDelegate.swift */; };
+		899D677F19D2366100C88A0A /* GPXMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 899D677E19D2366100C88A0A /* GPXMapView.swift */; };
 		F9EAA09D6460433BB9A62DE8 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 17E76F21ED5D4C2B9CF8B6E2 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -57,6 +62,11 @@
 		899D676D19CD9FAF00C88A0A /* GPXTrackPoint+MapKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "GPXTrackPoint+MapKit.swift"; sourceTree = "<group>"; };
 		899D676F19CE024600C88A0A /* GPXFileManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPXFileManager.swift; sourceTree = "<group>"; };
 		899D677119CE8B3600C88A0A /* StopWatch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StopWatch.swift; sourceTree = "<group>"; };
+		899D677319CE9DEA00C88A0A /* iOSVersion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = iOSVersion.swift; sourceTree = "<group>"; };
+		899D677719CF0A9F00C88A0A /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		899D677A19D10F7C00C88A0A /* GPXFilesTableViewControlllerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPXFilesTableViewControlllerDelegate.swift; sourceTree = "<group>"; };
+		899D677C19D22E1B00C88A0A /* StopWatchDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StopWatchDelegate.swift; sourceTree = "<group>"; };
+		899D677E19D2366100C88A0A /* GPXMapView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPXMapView.swift; sourceTree = "<group>"; };
 		D489189F048F444FA902315C /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -65,6 +75,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				899D677819CF0A9F00C88A0A /* MessageUI.framework in Frameworks */,
 				898EED0019C4A15E00B4B207 /* CoreLocation.framework in Frameworks */,
 				898EECFE19C49DC700B4B207 /* MapKit.framework in Frameworks */,
 				F9EAA09D6460433BB9A62DE8 /* libPods.a in Frameworks */,
@@ -89,6 +100,8 @@
 				899D676D19CD9FAF00C88A0A /* GPXTrackPoint+MapKit.swift */,
 				899D676F19CE024600C88A0A /* GPXFileManager.swift */,
 				899D677119CE8B3600C88A0A /* StopWatch.swift */,
+				899D677C19D22E1B00C88A0A /* StopWatchDelegate.swift */,
+				899D678019D2373600C88A0A /* Views */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -96,9 +109,9 @@
 		898EECCC19C49B5800B4B207 = {
 			isa = PBXGroup;
 			children = (
-				898EED0119C4A16600B4B207 /* Frameworks */,
 				898EECD719C49B5800B4B207 /* OpenGpxTracker */,
 				898EECF019C49B5800B4B207 /* OpenGpxTrackerTests */,
+				898EED0119C4A16600B4B207 /* Frameworks */,
 				898EECD619C49B5800B4B207 /* Products */,
 				D489189F048F444FA902315C /* Pods.xcconfig */,
 			);
@@ -116,16 +129,16 @@
 		898EECD719C49B5800B4B207 /* OpenGpxTracker */ = {
 			isa = PBXGroup;
 			children = (
+				899D677919D0CAF400C88A0A /* Controllers */,
 				8948550619CB954100AB366A /* Models */,
 				898EECDA19C49B5800B4B207 /* AppDelegate.swift */,
-				898EECDF19C49B5800B4B207 /* ViewController.swift */,
-				898EED3519C6402900B4B207 /* GPXFilesTableViewController.swift */,
 				898EECE119C49B5800B4B207 /* Main.storyboard */,
 				898EECE419C49B5800B4B207 /* Images.xcassets */,
 				898EECE619C49B5800B4B207 /* LaunchScreen.xib */,
 				898EED0219C5EE1500B4B207 /* ObjectiveCBridgingHeader.h */,
 				898EECDC19C49B5800B4B207 /* OpenGpxTracker.xcdatamodeld */,
 				898EECD819C49B5800B4B207 /* Supporting Files */,
+				899D677319CE9DEA00C88A0A /* iOSVersion.swift */,
 			);
 			path = OpenGpxTracker;
 			sourceTree = "<group>";
@@ -158,11 +171,30 @@
 		898EED0119C4A16600B4B207 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				899D677719CF0A9F00C88A0A /* MessageUI.framework */,
 				898EECFF19C4A15E00B4B207 /* CoreLocation.framework */,
 				898EECFD19C49DC700B4B207 /* MapKit.framework */,
 				17E76F21ED5D4C2B9CF8B6E2 /* libPods.a */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		899D677919D0CAF400C88A0A /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				898EECDF19C49B5800B4B207 /* ViewController.swift */,
+				898EED3519C6402900B4B207 /* GPXFilesTableViewController.swift */,
+				899D677A19D10F7C00C88A0A /* GPXFilesTableViewControlllerDelegate.swift */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		899D678019D2373600C88A0A /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				899D677E19D2366100C88A0A /* GPXMapView.swift */,
+			);
+			name = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -216,6 +248,7 @@
 				TargetAttributes = {
 					898EECD419C49B5800B4B207 = {
 						CreatedOnToolsVersion = 6.0;
+						DevelopmentTeam = F89L5N9SFD;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
@@ -305,10 +338,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				899D677419CE9DEA00C88A0A /* iOSVersion.swift in Sources */,
+				899D677F19D2366100C88A0A /* GPXMapView.swift in Sources */,
 				898EECE019C49B5800B4B207 /* ViewController.swift in Sources */,
 				899D677019CE024600C88A0A /* GPXFileManager.swift in Sources */,
 				898EECDE19C49B5800B4B207 /* OpenGpxTracker.xcdatamodeld in Sources */,
 				899D676E19CD9FAF00C88A0A /* GPXTrackPoint+MapKit.swift in Sources */,
+				899D677B19D10F7C00C88A0A /* GPXFilesTableViewControlllerDelegate.swift in Sources */,
+				899D677D19D22E1B00C88A0A /* StopWatchDelegate.swift in Sources */,
 				898EECDB19C49B5800B4B207 /* AppDelegate.swift in Sources */,
 				899D676C19CD9E9E00C88A0A /* GPXTrackSegment+MapKit.swift in Sources */,
 				899D677219CE8B3600C88A0A /* StopWatch.swift in Sources */,

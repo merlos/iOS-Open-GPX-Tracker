@@ -16,25 +16,32 @@ import MapKit
 //  kBadSignalAccuracy would be greate than mediumSignal accuracy
 let kMediumSignalAccuracy = 100.0
 let kGoodSignalAccuracy = 20.0
+
+//Button colors
 let kPauseButtonBackgroundColor: UIColor =  UIColor(red: 146.0/255.0, green: 166.0/255.0, blue: 218.0/255.0, alpha: 0.90)
 let kResumeButtonBackgroundColor: UIColor =  UIColor(red: 142.0/255.0, green: 224.0/255.0, blue: 102.0/255.0, alpha: 0.90)
-
 let kStartButtonBackgroundColor: UIColor = UIColor(red: 142.0/255.0, green: 224.0/255.0, blue: 102.0/255.0, alpha: 0.90)
 let kStopButtonBackgroundColor: UIColor =  UIColor(red: 244.0/255.0, green: 94.0/255.0, blue: 94.0/255.0, alpha: 0.90)
 
-let kDeleteButtonTag = 10000
+//Accesory View buttons tags
+let kDeleteWaypointAccesoryButtonTag = 666
+let kEditWaypointAccesoryButtonTag = 333
 
-class ViewController: UIViewController, MKMapViewDelegate,CLLocationManagerDelegate, UIGestureRecognizerDelegate, UIAlertViewDelegate {
+//AlertViews tags
+let kEditWaypointAlertViewTag = 33
+let kSaveSessionAlertViewTag = 88
+
+
+class ViewController: UIViewController, MKMapViewDelegate,CLLocationManagerDelegate, UIGestureRecognizerDelegate, UIAlertViewDelegate, GPXFilesTableViewControllerDelegate, StopWatchDelegate {
     
-    //MapView and User vars
+    //MapView
     let locationManager : CLLocationManager
     let map: MKMapView
     
     //Status Vars
     var followUser = true // MapView centered in user location
-    
     var stopWatch = StopWatch()
-    var timer = NSTimer()
+   
     
     enum GpxTrackingStatus {
         case NotStarted
@@ -48,8 +55,11 @@ class ViewController: UIViewController, MKMapViewDelegate,CLLocationManagerDeleg
 
     var waypointPins : [GPXWaypoint] = []
     var gpxTrackSegments : [GPXTrackSegment] = []
-    var gpxCurrentSegment: GPXTrackSegment
+    var gpxCurrentSegment: GPXTrackSegment =  GPXTrackSegment()
     var mapCurrentSegmentOverlay: MKPolyline //Polyline conforms MKOverlay protocol
+    //Editing Waypoint Temporal Reference
+    var waypointBeingEdited : GPXWaypoint = GPXWaypoint()
+
     //UI
     //labels
     let appTitleLabel: UILabel
@@ -72,8 +82,7 @@ class ViewController: UIViewController, MKMapViewDelegate,CLLocationManagerDeleg
     let midSignalImage = UIImage(named: "2")
     let goodSignalImage = UIImage(named: "3")
    
-    
-
+ 
     // Initializer. Just initializes the class vars/const
     required init(coder aDecoder: NSCoder) {
         
@@ -94,23 +103,23 @@ class ViewController: UIViewController, MKMapViewDelegate,CLLocationManagerDeleg
         self.stopButton = UIButton(coder: aDecoder)
         self.pauseButton = UIButton(coder: aDecoder)
         
-        self.waypointPins = []
-        self.gpxTrackSegments = []
-        self.gpxCurrentSegment = GPXTrackSegment()
         var tmpCoords: [CLLocationCoordinate2D] = [] //init with empty
         self.mapCurrentSegmentOverlay = MKPolyline(coordinates: &tmpCoords, count: 0)
         
         super.init(coder: aDecoder)
+        stopWatch.delegate = self
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         //Location stuff
-        locationManager.requestAlwaysAuthorization()
+        if iOS8 {
+            locationManager.requestAlwaysAuthorization()
+        }
         locationManager.delegate = self;
         locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-        locationManager.distanceFilter = 10
+        locationManager.distanceFilter = 2
         locationManager.startUpdatingLocation()
         
         
@@ -247,6 +256,7 @@ class ViewController: UIViewController, MKMapViewDelegate,CLLocationManagerDeleg
         println("OpenFolderViewController")
         
         let vc = GPXFilesTableViewController(nibName: nil, bundle: nil)
+        vc.delegate = self
         let navController = UINavigationController(rootViewController: vc)
         self.presentViewController(navController, animated: true) { () -> Void in
             
@@ -276,12 +286,14 @@ class ViewController: UIViewController, MKMapViewDelegate,CLLocationManagerDeleg
         }
     }
     
+    //TODO
     func newPinLongPress(gesture: UILongPressGestureRecognizer) {
         if  gesture.state == UIGestureRecognizerState.Ended {
             println("Long Press");
         }
     }
     
+    //TODO
     func addPinAtMyLocation() {
         println("Adding Pin at my location")
         let pin = GPXWaypoint(coordinate: map.userLocation.coordinate)
@@ -307,8 +319,9 @@ class ViewController: UIViewController, MKMapViewDelegate,CLLocationManagerDeleg
     func pauseGpxTracking() {
         println("Paused/resumed GPX tracking")
         switch gpxTrackingStatus {
-        case .Tracking:
+        case .Tracking, .Finished, .NotStarted:
             println("Paused GPX tracking")
+            
             //update tracking status and add segment to track, new overlay
             self.gpxTrackingStatus = GpxTrackingStatus.Paused
             self.gpxTrackSegments.append(self.gpxCurrentSegment)
@@ -320,7 +333,7 @@ class ViewController: UIViewController, MKMapViewDelegate,CLLocationManagerDeleg
             self.pauseButton.backgroundColor = kResumeButtonBackgroundColor
             
             self.stopWatch.stop()
-            timer.invalidate()
+            
             
         case .Paused:
             println("Resumed GPX tracking")
@@ -328,10 +341,8 @@ class ViewController: UIViewController, MKMapViewDelegate,CLLocationManagerDeleg
             
             //update UI
             self.pauseButton.setTitle("Pause", forState: .Normal)
-            
             //restart timer
             self.stopWatch.start()
-            timer = NSTimer.scheduledTimerWithTimeInterval(0.01, target: self, selector: "updateTime", userInfo: nil, repeats: true)
             self.pauseButton.backgroundColor = kPauseButtonBackgroundColor
             
             
@@ -351,12 +362,8 @@ class ViewController: UIViewController, MKMapViewDelegate,CLLocationManagerDeleg
         default:
             println("ERROR: startGpxTracking")
         }
-        
-        if !timer.valid {
-            timer = NSTimer.scheduledTimerWithTimeInterval(0.01, target: self, selector: "updateTime", userInfo: nil, repeats: true)
-            self.stopWatch.reset()
-            self.stopWatch.start()
-        }
+        self.stopWatch.reset()
+        self.stopWatch.start()
         
         gpxTrackingStatus = .Tracking
         
@@ -374,76 +381,94 @@ class ViewController: UIViewController, MKMapViewDelegate,CLLocationManagerDeleg
     func stopGpxTracking() {
         println("stop GPX Tracking called")
         
-        let alert = UIAlertView(title: "Save as", message: "Enter GPX session name", delegate: self, cancelButtonTitle: "Cancel", otherButtonTitles: "Save")
+        let alert = UIAlertView(title: "Save as", message: "Enter GPX session name", delegate: self, cancelButtonTitle: "Cancel")
+        alert.addButtonWithTitle("Save")
         alert.alertViewStyle = .PlainTextInput;
-        
+        alert.tag = kSaveSessionAlertViewTag
         //set default file name
         let dateFormat = NSDateFormatter()
         let now = NSDate()
-        dateFormat.setLocalizedDateFormatFromTemplate("YYYY-MMM-dd HH:mm:ss")
+        //dateFormat.setLocalizedDateFormatFromTemplate("YYYY-MMM-dd HH:mm:ss")
+        dateFormat.dateStyle = NSDateFormatterStyle.MediumStyle
+        dateFormat.timeStyle = NSDateFormatterStyle.ShortStyle
         alert.textFieldAtIndex(0)?.text = dateFormat.stringFromDate(now)
         alert.show();
+        alert.textFieldAtIndex(0)?.selectAll(self)
     }
     
     
     //UIAlertView Delegate
     func alertView(alertView: UIAlertView, clickedButtonAtIndex buttonIndex: Int) {
-        println("alertViewDelegate clickedButton || this alertview delegate if for saving files")
-        switch buttonIndex {
-        case 0: //cancel
-            println("Finish canceled")
-        case 1:
-            //get name of the file to save
-            let filename = alertView.textFieldAtIndex(0)?.text
-            println("Save File \(filename)")
+        
+        switch alertView.tag {
+        case kSaveSessionAlertViewTag:
             
-            //hide stop and pause, and show start tracking
-            gpxTrackingStatus = .Finished
-            self.startButton.hidden = false
-            self.stopButton.hidden = true
-            self.pauseButton.hidden = true
+            println("alertViewDelegate for Save Session")
+            switch buttonIndex {
+            case 0: //cancel
+                println("Finish canceled")
+            case 1:
+                let filename = (alertView.textFieldAtIndex(0)?.text.utf16Count == 0) ? " " : alertView.textFieldAtIndex(0)?.text
+                
+                println("Save File \(filename)")
+                
+                //hide stop and pause, and show start tracking
+                gpxTrackingStatus = .Finished
+                self.startButton.hidden = false
+                self.stopButton.hidden = true
+                self.pauseButton.hidden = true
             
-            self.pauseButton.setTitle("Pause", forState: .Normal)
-            self.pauseButton.backgroundColor = kPauseButtonBackgroundColor
+                self.pauseButton.setTitle("Pause", forState: .Normal)
+                self.pauseButton.backgroundColor = kPauseButtonBackgroundColor
             
-            //Stop Timer
-            stopWatch.stop()
-            timer.invalidate()
+                //Stop Timer
+                stopWatch.stop()
+                stopWatch.reset()
+                self.timeLabel.text = stopWatch.elapsedTimeString
+                
+                self.gpxTrackSegments.append(self.gpxCurrentSegment)
+                self.gpxCurrentSegment = GPXTrackSegment()
+                self.mapCurrentSegmentOverlay = MKPolyline()
+                
+                //Create the gpx file
+                let gpx = GPXRoot(creator: "Open GPX Tracker for iOS")
+                gpx.addWaypoints(waypointPins)
+                let track = GPXTrack()
+                track.addTracksegments(gpxTrackSegments)
+                gpx.addTrack(track)
+                
+                //save it
+                GPXFileManager.save(filename!, gpxContents: gpx.gpx())
+                
+                
+                //clear tracks, pins and overlays
+                self.gpxTrackSegments = []
+                self.gpxCurrentSegment = GPXTrackSegment()
+                self.waypointPins = []
+                self.map.removeOverlays(map.overlays)
+                map.removeAnnotations(map.annotations)
+                //println(gpx.gpx())
             
-            self.gpxTrackSegments.append(self.gpxCurrentSegment)
-            self.gpxCurrentSegment = GPXTrackSegment()
-            self.mapCurrentSegmentOverlay = MKPolyline()
-            
-            //Create the gpx file
-            let gpx = GPXRoot(creator: "Open GPX Tracker for iOS")
-            gpx.addWaypoints(waypointPins)
-            let track = GPXTrack()
-            track.addTracksegments(gpxTrackSegments)
-            gpx.addTrack(track)
-            
-            //save it
-            GPXFileManager.save(filename!, gpxContents: gpx.gpx())
-            //clear tracks, pins and overlays
-            self.gpxTrackSegments = []
-            self.gpxCurrentSegment = GPXTrackSegment()
-            self.waypointPins = []
-            self.map.removeOverlays(map.overlays)
-            map.removeAnnotations(map.annotations)
-            //println(gpx.gpx())
-            
+            default:
+            println("[ERROR] it seems there are more than two buttons on the alertview.")
+        
+            } //buttonIndex
+        case kEditWaypointAlertViewTag:
+            println("Edit waypoint alert view")
+            self.waypointBeingEdited.title = alertView.textFieldAtIndex(0)?.text
             
         default:
-            println("[ERROR] it seems there are more than two buttons on the alertview.")
+            println("[ERROR] it seems that the AlertView is not handled properly." )
+            
         }
     }
     
     
-    // location Delegate
+    //#pragma mark - location manager Delegate
+    
+    
     func locationManager(manager: CLLocationManager!, didFailWithError error: NSError!) {
          println("didFailWithError\(error)");
-        
-        // var alert : UIAlertView  = UIAlertView(title: "Ouch!", message: "Cannot get your location!", delegate: self, cancelButtonTitle: "Understod")
-        //alert.show()
     }
     
     func locationManager(manager: CLLocationManager!, didUpdateToLocation newLocation: CLLocation!, fromLocation oldLocation: CLLocation!) {
@@ -478,16 +503,30 @@ class ViewController: UIViewController, MKMapViewDelegate,CLLocationManagerDeleg
     }
     
     func mapView(mapView: MKMapView!, viewForAnnotation annotation: MKAnnotation!) -> MKAnnotationView! {
-        if (annotation.isKindOfClass(MKUserLocation)) { return nil }
-          let annotationView : MKPinAnnotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: "PinView")
+        if (annotation.isKindOfClass(MKUserLocation)) {
+            return nil
+        }
+        let annotationView : MKPinAnnotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: "PinView")
         annotationView.canShowCallout = true
-        let detailButton : UIButton = UIButton.buttonWithType(UIButtonType.DetailDisclosure) as UIButton
-        detailButton.tag = kDeleteButtonTag
         annotationView.draggable = true
-        //detailButton.addTarget(self, action: "deleteAnnotation:", forControlEvents: .TouchUpInside)
-        annotationView.rightCalloutAccessoryView = detailButton
+        //let detailButton : UIButton = UIButton.buttonWithType(UIButtonType.DetailDisclosure) as UIButton
+        
+        let deleteButton: UIButton = UIButton(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
+        deleteButton.setImage(UIImage(named: "delete"), forState: .Normal)
+        deleteButton.setImage(UIImage(named: "deleteHigh"), forState: .Highlighted)
+        deleteButton.tag = kDeleteWaypointAccesoryButtonTag
+        annotationView.rightCalloutAccessoryView = deleteButton
+        
+        let editButton: UIButton = UIButton(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
+        editButton.setImage(UIImage(named: "edit"), forState: .Normal)
+        editButton.setImage(UIImage(named: "editHigh"), forState: .Highlighted)
+        editButton.tag = kEditWaypointAccesoryButtonTag
+        annotationView.leftCalloutAccessoryView = editButton
+        
         return annotationView;
     }
+    
+    
     
     func mapView(mapView: MKMapView!, rendererForOverlay overlay: MKOverlay!) -> MKOverlayRenderer! {
         if (overlay is MKPolyline) {
@@ -498,21 +537,41 @@ class ViewController: UIViewController, MKMapViewDelegate,CLLocationManagerDeleg
         }
         return nil
     }
+    
+    
     func mapView(mapView: MKMapView!, annotationView view: MKAnnotationView!, calloutAccessoryControlTapped control: UIControl!) {
-        let button = control as UIButton
-        if (button.tag == kDeleteButtonTag) {
-            println("DELETEEEEERRRR")
-        }
-        
-        println("Toma! Toma! \(view.annotation.title)")
+        println("calloutAccesoryControlTapped ")
         let point = view.annotation as GPXWaypoint
         let index = find(waypointPins, point)
         if index != nil {
-            println("[DELETE] found annotation, deleting it");
-            waypointPins.removeAtIndex(index!)
-            mapView.removeAnnotation(view.annotation!)
+            let button = control as UIButton
+            switch button.tag {
+            case kDeleteWaypointAccesoryButtonTag:
+                println("[DELETE] found annotation, deleting it");
+                waypointPins.removeAtIndex(index!)
+                mapView.removeAnnotation(view.annotation!)
+            case kEditWaypointAccesoryButtonTag:
+                println("[EDIT] annotation")
+                let alert = UIAlertView(title: "Edit Waypoint", message: "Hint: To change the location drag and drop the pin" , delegate: self, cancelButtonTitle: "Cancel")
+                alert.addButtonWithTitle("Save")
+                alert.tag = kEditWaypointAlertViewTag
+                alert.alertViewStyle = .PlainTextInput;
+                alert.textFieldAtIndex(0)?.text = point.title
+                alert.show();
+                self.waypointBeingEdited = point
+                
+                //alert.textFieldAtIndex(0)?.selectAll(self)
+
+            default:
+                println("[ERROR] calloutAccesoryControlTapped from an unknown control")
+            }
         }
+        
+        
+    
     }
+    
+    
     
     func mapView(mapView: MKMapView!, annotationView view: MKAnnotationView!, didChangeDragState newState: MKAnnotationViewDragState, fromOldState oldState: MKAnnotationViewDragState) {
         if (newState == MKAnnotationViewDragState.Ending){
@@ -520,7 +579,6 @@ class ViewController: UIViewController, MKMapViewDelegate,CLLocationManagerDeleg
             println("Annotation name: \(point.title) lat:\(point.latitude) lon \(point.longitude)")
         }
     }
-    
     
     
     func mapView(mapView: MKMapView!, didAddAnnotationViews views: [AnyObject]!) {
@@ -554,15 +612,16 @@ class ViewController: UIViewController, MKMapViewDelegate,CLLocationManagerDeleg
         }
     }
     
-    
-    
-    func updateTime() {
-        //concatenate minuets, seconds and milliseconds as assign it to the UILabel
-        timeLabel.text = stopWatch.elapsedTimeString
+    //GPXFilesTableViewController Delegate
+    func didLoadGPXFile(gpx: GPXRoot) {
+        println("Loaded GPX file", gpx.gpx())
+        
     }
     
-
- 
+    // StopWatchDelegate
+    func stopWatch(stropWatch: StopWatch, didUpdateElapsedTimeString elapsedTimeString: String) {
+        timeLabel.text = elapsedTimeString
+    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
