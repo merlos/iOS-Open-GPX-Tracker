@@ -101,7 +101,6 @@
 				899D676F19CE024600C88A0A /* GPXFileManager.swift */,
 				899D677119CE8B3600C88A0A /* StopWatch.swift */,
 				899D677C19D22E1B00C88A0A /* StopWatchDelegate.swift */,
-				899D678019D2373600C88A0A /* Views */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -129,6 +128,7 @@
 		898EECD719C49B5800B4B207 /* OpenGpxTracker */ = {
 			isa = PBXGroup;
 			children = (
+				899D678019D2373600C88A0A /* Views */,
 				899D677919D0CAF400C88A0A /* Controllers */,
 				8948550619CB954100AB366A /* Models */,
 				898EECDA19C49B5800B4B207 /* AppDelegate.swift */,
