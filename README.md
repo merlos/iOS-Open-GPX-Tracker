@@ -3,6 +3,11 @@ iOS-Open-GPX-Tracker
 
 Open GPX Tracker app for iOS devices allows you to create GPX files and send them by email. With no time restrictions when creating the gpx files, no ads, no in-app-purchases. Open GPX tracker is an open source app.
 
+Requires iOS 7.0 or above.
+
+
+![My image](https://merlos.github.io/iOS-Open-GPX-Tracker/images/open-gpx-tracker-4-screenshots.png)
+
 You can use Open GPX tracker for: 
 
  - Creating routes and waypoints for editing Open Street Map.
@@ -21,6 +26,24 @@ You can use Open GPX tracker for:
  - Send by email saved session (track + waypoints)
  - Load on map a saved session and continue tracking
 
+# Source code
+
+This application is written in Swift, the new programming language of Apple.
+
+Download the code:
+
+``` 
+ git clone https://github.com/merlos/iOS-Open-GPX-Tracker.git
+```
+
+Open the file `OpenGpxTracker.xcworkspace` with XCode
+
+Please note that this source code was released under the GPL license. 
+So any change on the code shall be made publicly available and distributed under the GPL license (this does not apply to the pods included in the project which have their own license)
+
+
+
+
 License
 ====================
 
@@ -38,3 +61,7 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+
+This code makes usage of
+ - [iOS GPX Framework](https://github.com/merlos/ios-gpx-framework) created by Watanabe Toshinori and podified by  [@Pierre-Loup](https://github.com/Pierre-Loup/)
