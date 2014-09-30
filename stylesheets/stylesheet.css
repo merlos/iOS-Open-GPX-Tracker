@@ -366,7 +366,10 @@ Full-Width Styles
   background: #212121;
 }
 
-
+.logo {
+  float: left;
+  margin-right: 2em;
+}
 
 /*******************************************************************************
 Small Device Styles
@@ -377,6 +380,14 @@ Small Device Styles
     font-size:14px;
   }
 
+  .logo {
+    float: none;
+    display: block;
+  }
+  .screenshot {
+    max-width: 320px;
+  }
+  
   #downloads {
     display: none;
   }
