@@ -23,6 +23,8 @@ let kResumeButtonBackgroundColor: UIColor =  UIColor(red: 142.0/255.0, green: 22
 let kStartButtonBackgroundColor: UIColor = UIColor(red: 142.0/255.0, green: 224.0/255.0, blue: 102.0/255.0, alpha: 0.90)
 let kStopButtonBackgroundColor: UIColor =  UIColor(red: 244.0/255.0, green: 94.0/255.0, blue: 94.0/255.0, alpha: 0.90)
 
+let kFolloUserBackgroundColor: UIColor = UIColor(red: 254.0/255.0, green: 254.0/255.0, blue: 254.0/255.0, alpha: 0.90)
+
 //Accesory View buttons tags
 let kDeleteWaypointAccesoryButtonTag = 666
 let kEditWaypointAccesoryButtonTag = 333
@@ -38,10 +40,12 @@ class ViewController: UIViewController, MKMapViewDelegate,CLLocationManagerDeleg
     let locationManager : CLLocationManager
     let map: GPXMapView
     
+    
+    
     //Status Vars
     var followUser = true // MapView centered in user location
     var stopWatch = StopWatch()
-   
+    var lastLoadedSessionFilename: String = ""
     
     enum GpxTrackingStatus {
         case NotStarted
@@ -69,7 +73,7 @@ class ViewController: UIViewController, MKMapViewDelegate,CLLocationManagerDeleg
     let followUserButton: UIButton
     let newPinButton: UIButton
     let folderButton: UIButton
-    
+    let aboutButton: UIButton
     let startButton: UIButton
     let stopButton: UIButton
     var pauseButton: UIButton // Pause & Resume
@@ -88,6 +92,7 @@ class ViewController: UIViewController, MKMapViewDelegate,CLLocationManagerDeleg
         self.appTitleLabel = UILabel(coder: aDecoder)
         self.signalImageView = UIImageView(coder: aDecoder)
         self.coordsLabel = UILabel(coder: aDecoder)
+        
         self.timeLabel = UILabel(coder: aDecoder)
         self.trackedDistanceLabel = UILabel(coder: aDecoder)
         self.segmentDistanceLabel = UILabel(coder: aDecoder)
@@ -95,6 +100,8 @@ class ViewController: UIViewController, MKMapViewDelegate,CLLocationManagerDeleg
         self.followUserButton = UIButton(coder: aDecoder)
         self.newPinButton = UIButton(coder: aDecoder)
         self.folderButton = UIButton(coder: aDecoder)
+        self.aboutButton = UIButton(coder: aDecoder)
+        
         self.startButton = UIButton(coder: aDecoder)
         self.stopButton = UIButton(coder: aDecoder)
         self.pauseButton = UIButton(coder: aDecoder)
@@ -149,7 +156,27 @@ class ViewController: UIViewController, MKMapViewDelegate,CLLocationManagerDeleg
         folderButton.setImage(UIImage(named: "folderHigh"), forState: .Highlighted)
         folderButton.addTarget(self, action: "openFolderViewController", forControlEvents: .TouchUpInside)
         self.view.addSubview(folderButton)
+        
+        //pin button
+        newPinButton.frame = CGRect(x: self.view.frame.width/2 - 20 , y: 25, width: 32, height: 32)
+        newPinButton.setImage(UIImage(named: "addPin"), forState: UIControlState.Normal)
+        newPinButton.setImage(UIImage(named: "addPinHigh"), forState: .Highlighted)
+        newPinButton.addTarget(self, action: "addPinAtMyLocation", forControlEvents: .TouchUpInside)
+        let newPinLongPress = UILongPressGestureRecognizer(target: self, action: "newPinLongPress:")
+        newPinButton.addGestureRecognizer(newPinLongPress)
+        self.view.addSubview(newPinButton)
 
+        
+        
+        //about button
+        aboutButton.frame = CGRect(x: self.view.frame.width - 47, y: 25, width: 32, height: 32)
+        aboutButton.setImage(UIImage(named: "info"), forState: UIControlState.Normal)
+        aboutButton.setImage(UIImage(named: "info_high"), forState: .Highlighted)
+        aboutButton.addTarget(self, action: "openAboutViewController", forControlEvents: .TouchUpInside)
+        self.view.addSubview(aboutButton)
+        
+
+        
         /*
         //add the app title Label (Branding, branding, branding! )
         let appTitleW: CGFloat = 200.0
@@ -167,9 +194,11 @@ class ViewController: UIViewController, MKMapViewDelegate,CLLocationManagerDeleg
         
         //FollowUserButton
         followUserButton.frame = CGRect(x: 5, y: map.frame.height-37, width: 32, height: 32)
-        followUserButton.setImage(UIImage(named: "followUserOn"), forState: UIControlState.Normal)
-        followUserButton.setImage(UIImage(named: "followUserOff"), forState: .Highlighted)
+        followUserButton.setImage(UIImage(named: "follow_user"), forState: UIControlState.Normal)
+        followUserButton.setImage(UIImage(named: "follow_user_high"), forState: .Highlighted)
         followUserButton.addTarget(self, action: "followButtonTroggler", forControlEvents: .TouchUpInside)
+        followUserButton.backgroundColor = kFolloUserBackgroundColor
+        followUserButton.layer.cornerRadius = 16;
         map.addSubview(followUserButton)
         
         
@@ -233,15 +262,8 @@ class ViewController: UIViewController, MKMapViewDelegate,CLLocationManagerDeleg
         map.addSubview(timeLabel)
         
 
-        /*//pin button
-        newPinButton.frame = CGRect(x: self.view.frame.width - 47, y: 25, width: 40, height: 40)
-        newPinButton.setImage(UIImage(named: "addPin"), forState: UIControlState.Normal)
-        newPinButton.setImage(UIImage(named: "addPinHigh"), forState: .Highlighted)
-        newPinButton.addTarget(self, action: "addPinAtMyLocation", forControlEvents: .TouchUpInside)
-        let newPinLongPress = UILongPressGestureRecognizer(target: self, action: "newPinLongPress:")
-        newPinButton.addGestureRecognizer(newPinLongPress)
-        self.view.addSubview(newPinButton)
-        */
+      
+    
         
         
         
@@ -258,10 +280,16 @@ class ViewController: UIViewController, MKMapViewDelegate,CLLocationManagerDeleg
         }
     }
     
+    func openAboutViewController() {
+        let vc = AboutViewController(nibName: nil, bundle: nil)
+        let navController = UINavigationController(rootViewController: vc)
+        self.presentViewController(navController, animated: true) { () -> Void in }
+    }
+    
     func stopFollowingUser(gesture: UIPanGestureRecognizer) {
         println("Pan gesture detected: stop Following user")
         self.followUser = false
-        followUserButton.setImage(UIImage(named: "followUserOff"), forState: .Normal)
+        followUserButton.setImage(UIImage(named: "follow_user"), forState: .Normal)
     }
     
     // UIGestureRecognizerDelegate required for stopFollowingUser
@@ -296,10 +324,10 @@ class ViewController: UIViewController, MKMapViewDelegate,CLLocationManagerDeleg
     func followButtonTroggler(){
         if self.followUser {
             self.followUser = false
-            followUserButton.setImage(UIImage(named: "followUserOff"), forState: .Normal)
+            followUserButton.setImage(UIImage(named: "follow_user"), forState: .Normal)
         } else {
             self.followUser = true
-            followUserButton.setImage(UIImage(named: "followUserOn"), forState: .Normal)
+            followUserButton.setImage(UIImage(named: "follow_user_high"), forState: .Normal)
            
         }
     }
@@ -369,19 +397,24 @@ class ViewController: UIViewController, MKMapViewDelegate,CLLocationManagerDeleg
     func stopGpxTracking() {
         println("stop GPX Tracking called")
         
-        let alert = UIAlertView(title: "Save as", message: "Enter GPX session name", delegate: self, cancelButtonTitle: "Cancel")
+        let alert = UIAlertView(title: "Save as", message: "Enter GPX session name", delegate: self, cancelButtonTitle: "Continue tracking")
+        
         alert.addButtonWithTitle("Save")
+        alert.addButtonWithTitle("Discard session")
         alert.alertViewStyle = .PlainTextInput;
         alert.tag = kSaveSessionAlertViewTag
-        //set default file name
-        let dateFormat = NSDateFormatter()
-        let now = NSDate()
-        //dateFormat.setLocalizedDateFormatFromTemplate("YYYY-MMM-dd HH:mm:ss")
-        dateFormat.dateStyle = NSDateFormatterStyle.MediumStyle
-        dateFormat.timeStyle = NSDateFormatterStyle.ShortStyle
-        alert.textFieldAtIndex(0)?.text = dateFormat.stringFromDate(now)
+        
+        //set default file name -- discarded
+        if self.lastLoadedSessionFilename.utf16Count > 0 {
+            alert.textFieldAtIndex(0)?.text = self.lastLoadedSessionFilename
+        }
+        //let dateFormat = NSDateFormatter()
+        //let now = NSDate()
+        //dateFormat.dateStyle = NSDateFormatterStyle.MediumStyle
+        //dateFormat.timeStyle = NSDateFormatterStyle.ShortStyle
+        //alert.textFieldAtIndex(0)?.text = dateFormat.stringFromDate(now)
         alert.show();
-        alert.textFieldAtIndex(0)?.selectAll(self)
+        //alert.textFieldAtIndex(0)?.selectAll(self)
     }
     
     
@@ -395,12 +428,30 @@ class ViewController: UIViewController, MKMapViewDelegate,CLLocationManagerDeleg
             switch buttonIndex {
             case 0: //cancel
                 println("Finish canceled")
+            case 2:
+                //discard changes
+                
+                //hide stop and pause, and show start tracking ------
+                gpxTrackingStatus = .Finished
+                self.startButton.hidden = false
+                self.stopButton.hidden = true
+                self.pauseButton.hidden = true
+                
+                self.pauseButton.setTitle("Pause", forState: .Normal)
+                self.pauseButton.backgroundColor = kPauseButtonBackgroundColor
+                
+                //Stop Timer
+                stopWatch.stop()
+                stopWatch.reset()
+                self.timeLabel.text = stopWatch.elapsedTimeString
+                
+                self.map.clearMap()
             case 1:
                 let filename = (alertView.textFieldAtIndex(0)?.text.utf16Count == 0) ? " " : alertView.textFieldAtIndex(0)?.text
                 
                 println("Save File \(filename)")
                 
-                //hide stop and pause, and show start tracking
+                //hide stop and pause, and show start tracking ---------
                 gpxTrackingStatus = .Finished
                 self.startButton.hidden = false
                 self.stopButton.hidden = true
@@ -519,7 +570,7 @@ class ViewController: UIViewController, MKMapViewDelegate,CLLocationManagerDeleg
             map.removeWaypoint(waypoint)
         case kEditWaypointAccesoryButtonTag:
             println("[calloutAccesoryControlTapped: EDIT] editing waypoint with name \(waypoint.name)")
-            let alert = UIAlertView(title: "Edit Waypoint", message: "Hint: To change the location drag and drop the pin" , delegate: self, cancelButtonTitle: "Cancel")
+            let alert = UIAlertView(title: "Edit Waypoint", message: "Hint: To change the waypoint location drag and drop the pin" , delegate: self, cancelButtonTitle: "Cancel")
             alert.addButtonWithTitle("Save")
             alert.tag = kEditWaypointAlertViewTag
             alert.alertViewStyle = .PlainTextInput;
@@ -541,6 +592,7 @@ class ViewController: UIViewController, MKMapViewDelegate,CLLocationManagerDeleg
             println("Annotation name: \(point.title) lat:\(point.latitude) lon \(point.longitude)")
         }
     }
+    
     
     
     func mapView(mapView: MKMapView!, didAddAnnotationViews views: [AnyObject]!) {
@@ -574,16 +626,38 @@ class ViewController: UIViewController, MKMapViewDelegate,CLLocationManagerDeleg
         }
     }
     
+    
     //GPXFilesTableViewController Delegate
-    func didLoadGPXFile(gpx: GPXRoot) {
-        println("Loaded GPX file", gpx.gpx())
+    func didLoadGPXFileWithName(gpxFilename: String, gpxRoot: GPXRoot) {
+        //println("Loaded GPX file", gpx.gpx())
         
+        self.lastLoadedSessionFilename = gpxFilename
+        
+        //Set buttons ------------
+        self.startButton.hidden = false
+        self.stopButton.hidden = true
+        self.pauseButton.hidden = true
+        
+        self.pauseButton.setTitle("Pause", forState: .Normal)
+        self.pauseButton.backgroundColor = kPauseButtonBackgroundColor
+        
+        //Update watch
+        self.stopWatch.stop()
+        self.stopWatch.reset()
+        self.timeLabel.text = stopWatch.elapsedTimeString
+        
+        self.map.importFromGPXRoot(gpxRoot)
+        
+    
         
     }
+    
+    
     // StopWatchDelegate
     func stopWatch(stropWatch: StopWatch, didUpdateElapsedTimeString elapsedTimeString: String) {
         timeLabel.text = elapsedTimeString
     }
+    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

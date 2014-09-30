@@ -22,7 +22,7 @@ enum StopWatchStatus {
 class StopWatch: NSObject {
     
     var tmpElapsedTime : NSTimeInterval = 0.0
-    var startedTime: NSTimeInterval?
+    var startedTime: NSTimeInterval = 0.0
     var status : StopWatchStatus
     
     var timeInterval: NSTimeInterval = 0.01
@@ -47,7 +47,7 @@ class StopWatch: NSObject {
         self.status = .Stopped
         //add difference between start and stop to elapsed time
         var currentTime = NSDate.timeIntervalSinceReferenceDate()
-        let diff = currentTime - startedTime!
+        let diff = currentTime - startedTime
         tmpElapsedTime = tmpElapsedTime + diff
         timer.invalidate()
     }
@@ -64,7 +64,7 @@ class StopWatch: NSObject {
             if self.status == .Stopped {
                 return self.tmpElapsedTime
             }
-            let diff = NSDate.timeIntervalSinceReferenceDate() - startedTime!
+            let diff = NSDate.timeIntervalSinceReferenceDate() - startedTime
             return tmpElapsedTime + diff
         }
     }

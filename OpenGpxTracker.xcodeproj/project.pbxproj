@@ -27,6 +27,9 @@
 		899D677B19D10F7C00C88A0A /* GPXFilesTableViewControlllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 899D677A19D10F7C00C88A0A /* GPXFilesTableViewControlllerDelegate.swift */; };
 		899D677D19D22E1B00C88A0A /* StopWatchDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 899D677C19D22E1B00C88A0A /* StopWatchDelegate.swift */; };
 		899D677F19D2366100C88A0A /* GPXMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 899D677E19D2366100C88A0A /* GPXMapView.swift */; };
+		899D678219D351DA00C88A0A /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 899D678119D351DA00C88A0A /* AboutViewController.swift */; };
+		899D678419D3528D00C88A0A /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 899D678319D3528D00C88A0A /* WebKit.framework */; };
+		899D678719D354EB00C88A0A /* about.html in Resources */ = {isa = PBXBuildFile; fileRef = 899D678519D354EB00C88A0A /* about.html */; };
 		F9EAA09D6460433BB9A62DE8 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 17E76F21ED5D4C2B9CF8B6E2 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -67,6 +70,9 @@
 		899D677A19D10F7C00C88A0A /* GPXFilesTableViewControlllerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPXFilesTableViewControlllerDelegate.swift; sourceTree = "<group>"; };
 		899D677C19D22E1B00C88A0A /* StopWatchDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StopWatchDelegate.swift; sourceTree = "<group>"; };
 		899D677E19D2366100C88A0A /* GPXMapView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPXMapView.swift; sourceTree = "<group>"; };
+		899D678119D351DA00C88A0A /* AboutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
+		899D678319D3528D00C88A0A /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
+		899D678519D354EB00C88A0A /* about.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = about.html; sourceTree = "<group>"; };
 		D489189F048F444FA902315C /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -75,6 +81,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				899D678419D3528D00C88A0A /* WebKit.framework in Frameworks */,
 				899D677819CF0A9F00C88A0A /* MessageUI.framework in Frameworks */,
 				898EED0019C4A15E00B4B207 /* CoreLocation.framework in Frameworks */,
 				898EECFE19C49DC700B4B207 /* MapKit.framework in Frameworks */,
@@ -131,14 +138,11 @@
 				899D678019D2373600C88A0A /* Views */,
 				899D677919D0CAF400C88A0A /* Controllers */,
 				8948550619CB954100AB366A /* Models */,
-				898EECDA19C49B5800B4B207 /* AppDelegate.swift */,
-				898EECE119C49B5800B4B207 /* Main.storyboard */,
-				898EECE419C49B5800B4B207 /* Images.xcassets */,
-				898EECE619C49B5800B4B207 /* LaunchScreen.xib */,
+				899D677319CE9DEA00C88A0A /* iOSVersion.swift */,
 				898EED0219C5EE1500B4B207 /* ObjectiveCBridgingHeader.h */,
 				898EECDC19C49B5800B4B207 /* OpenGpxTracker.xcdatamodeld */,
+				899D678919D3551300C88A0A /* Resources */,
 				898EECD819C49B5800B4B207 /* Supporting Files */,
-				899D677319CE9DEA00C88A0A /* iOSVersion.swift */,
 			);
 			path = OpenGpxTracker;
 			sourceTree = "<group>";
@@ -171,6 +175,7 @@
 		898EED0119C4A16600B4B207 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				899D678319D3528D00C88A0A /* WebKit.framework */,
 				899D677719CF0A9F00C88A0A /* MessageUI.framework */,
 				898EECFF19C4A15E00B4B207 /* CoreLocation.framework */,
 				898EECFD19C49DC700B4B207 /* MapKit.framework */,
@@ -185,6 +190,7 @@
 				898EECDF19C49B5800B4B207 /* ViewController.swift */,
 				898EED3519C6402900B4B207 /* GPXFilesTableViewController.swift */,
 				899D677A19D10F7C00C88A0A /* GPXFilesTableViewControlllerDelegate.swift */,
+				899D678119D351DA00C88A0A /* AboutViewController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -195,6 +201,18 @@
 				899D677E19D2366100C88A0A /* GPXMapView.swift */,
 			);
 			name = Views;
+			sourceTree = "<group>";
+		};
+		899D678919D3551300C88A0A /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				898EECE619C49B5800B4B207 /* LaunchScreen.xib */,
+				898EECE119C49B5800B4B207 /* Main.storyboard */,
+				898EECDA19C49B5800B4B207 /* AppDelegate.swift */,
+				899D678519D354EB00C88A0A /* about.html */,
+				898EECE419C49B5800B4B207 /* Images.xcassets */,
+			);
+			name = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -285,6 +303,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				899D678719D354EB00C88A0A /* about.html in Resources */,
 				898EECE319C49B5800B4B207 /* Main.storyboard in Resources */,
 				898EECE819C49B5800B4B207 /* LaunchScreen.xib in Resources */,
 				898EECE519C49B5800B4B207 /* Images.xcassets in Resources */,
@@ -344,6 +363,7 @@
 				899D677019CE024600C88A0A /* GPXFileManager.swift in Sources */,
 				898EECDE19C49B5800B4B207 /* OpenGpxTracker.xcdatamodeld in Sources */,
 				899D676E19CD9FAF00C88A0A /* GPXTrackPoint+MapKit.swift in Sources */,
+				899D678219D351DA00C88A0A /* AboutViewController.swift in Sources */,
 				899D677B19D10F7C00C88A0A /* GPXFilesTableViewControlllerDelegate.swift in Sources */,
 				899D677D19D22E1B00C88A0A /* StopWatchDelegate.swift in Sources */,
 				898EECDB19C49B5800B4B207 /* AppDelegate.swift in Sources */,
@@ -476,6 +496,7 @@
 			baseConfigurationReference = D489189F048F444FA902315C /* Pods.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				INFOPLIST_FILE = OpenGpxTracker/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -489,6 +510,7 @@
 			baseConfigurationReference = D489189F048F444FA902315C /* Pods.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				INFOPLIST_FILE = OpenGpxTracker/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

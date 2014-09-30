@@ -168,7 +168,7 @@ class GPXFilesTableViewController : UITableViewController, UINavigationBarDelega
         let filename: String = fileList.objectAtIndex(rowIndex) as String
         println("load gpx File: \(filename)")
         let gpx = GPXParser.parseGPXAtPath(GPXFileManager.pathForFilename(filename))
-        self.delegate?.didLoadGPXFile(gpx)
+        self.delegate?.didLoadGPXFileWithName(filename.stringByDeletingPathExtension, gpxRoot: gpx)
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     
