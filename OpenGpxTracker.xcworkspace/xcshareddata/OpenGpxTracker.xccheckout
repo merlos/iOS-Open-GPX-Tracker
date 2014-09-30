@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>9F96773D-4BEA-441D-B82B-DF93D37ED97A</string>
+	<key>IDESourceControlProjectName</key>
+	<string>OpenGpxTracker</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>0EB281AB8CA6E7A69AECE5022624B181E2A9F27A</key>
+		<string>https://github.com/merlos/iOS-Open-GPX-Tracker.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>OpenGpxTracker.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>0EB281AB8CA6E7A69AECE5022624B181E2A9F27A</key>
+		<string>..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/merlos/iOS-Open-GPX-Tracker.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>0EB281AB8CA6E7A69AECE5022624B181E2A9F27A</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>0EB281AB8CA6E7A69AECE5022624B181E2A9F27A</string>
+			<key>IDESourceControlWCCName</key>
+			<string>OpenGpxTracker</string>
+		</dict>
+	</array>
+</dict>
+</plist>
