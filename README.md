@@ -42,7 +42,13 @@ Please note that this source code was released under the GPL license.
 So any change on the code shall be made publicly available and distributed under the GPL license (this does not apply to the pods included in the project which have their own license)
 
 
+This code uses:
+ - [iOS GPX Framework](https://github.com/merlos/ios-gpx-framework) created by Watanabe Toshinori and podified by  [@Pierre-Loup](https://github.com/Pierre-Loup/)
 
+# TODO
+
+- Check user location in background when app is not tracking
+- Set map center and extension to tracked data after loading a tracked session.
 
 License
 ====================
@@ -63,5 +69,3 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-This code makes usage of
- - [iOS GPX Framework](https://github.com/merlos/ios-gpx-framework) created by Watanabe Toshinori and podified by  [@Pierre-Loup](https://github.com/Pierre-Loup/)
