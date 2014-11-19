@@ -105,7 +105,7 @@ class GPXFilesTableViewController : UITableViewController, UINavigationBarDelega
         let cell: UITableViewCell = UITableViewCell(style: UITableViewCellStyle.Value1, reuseIdentifier: "Cell")
         //cell.accessoryType = UITableViewCellAccessoryType.DetailDisclosureButton
         //cell.accessoryView = [[ UIImageView alloc ] initWithImage:[UIImage imageNamed:@"Something" ]];
-            cell.textLabel?.text = fileList.objectAtIndex(indexPath.row) as NSString
+        cell.textLabel.text = fileList.objectAtIndex(indexPath.row) as NSString
         
         return cell
     }
@@ -186,8 +186,8 @@ class GPXFilesTableViewController : UITableViewController, UINavigationBarDelega
         //Add some text to the body and attach the file
         var body = "Open GPX Tracker \n is an open source app for Apple devices. Create GPS tracks and export them to GPX files."
         composer.setMessageBody(body, isHTML: true)
-        let fileData: NSData = NSData.dataWithContentsOfFile(filepath, options: .DataReadingMappedIfSafe, error: nil);
-        composer.addAttachmentData(fileData, mimeType:"application/gpx+xml", fileName: filepath.lastPathComponent);
+        let fileData: NSData = NSData(contentsOfFile: filepath, options: .DataReadingMappedIfSafe, error: nil)!
+        composer.addAttachmentData(fileData, mimeType:"application/gpx+xml", fileName: filepath.lastPathComponent)
         
         //Display the comopser view controller
         self.presentViewController(composer, animated: true, completion: nil)

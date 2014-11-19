@@ -37,8 +37,7 @@ class AboutViewController : UIViewController, UIWebViewDelegate {
         self.webView = UIWebView(frame: self.view.frame)
         self.webView?.delegate = self
         var path = NSBundle.mainBundle().pathForResource("about", ofType: "html")
-      //  var path = NSBundle.mainBundle().pathForResource("index", ofType: "html", inDirectory:"" )
-        let text = String.stringWithContentsOfFile(path!, encoding: NSUTF8StringEncoding, error: nil)
+        let text = String(contentsOfFile: path!, encoding: NSUTF8StringEncoding, error: nil);
         
         webView?.loadHTMLString(text, baseURL: nil)
         self.view.addSubview(webView!)

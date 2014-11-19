@@ -28,7 +28,7 @@ class GPXFileManager : NSObject {
         get {
             let defaultManager = NSFileManager.defaultManager()
             var filePathsArray : NSArray = defaultManager.subpathsOfDirectoryAtPath(self.gpxFilesFolder, error: nil)!
-            let predicate : NSPredicate = NSPredicate(format: "SELF EndsWith '.\(kFileExt)'")
+            let predicate : NSPredicate = NSPredicate(format: "SELF EndsWith '.\(kFileExt)'")!
             filePathsArray = filePathsArray.filteredArrayUsingPredicate(predicate)
             
             //We want latest files created on top. It seems we have to reverse the path
