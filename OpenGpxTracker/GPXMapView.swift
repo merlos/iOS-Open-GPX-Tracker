@@ -27,6 +27,7 @@ class GPXMapView : MKMapView {
     var trackSegments : [GPXTrackSegment] = []
     var currentSegment: GPXTrackSegment =  GPXTrackSegment()
     var currentSegmentOverlay: MKPolyline //Polyline conforms MKOverlay protocol
+    var extent: GPXExtentCoordinates = GPXExtentCoordinates() //extent of the GPX points and tracks
     
     
     required init(coder aDecoder: NSCoder) {
@@ -39,7 +40,7 @@ class GPXMapView : MKMapView {
     //
     //For example, this function can be used to add a waypoint after long press on the map view
     func addWaypointAtViewPoint(point: CGPoint) {
-        let coords = self.convertPoint(point, toCoordinateFromView: self)
+        let coords : CLLocationCoordinate2D = self.convertPoint(point, toCoordinateFromView: self)
         let waypoint = GPXWaypoint(coordinate: coords)
         self.addWaypoint(waypoint)
         
@@ -47,6 +48,7 @@ class GPXMapView : MKMapView {
     func addWaypoint(waypoint: GPXWaypoint) {
         self.waypoints.append(waypoint)
         self.addAnnotation(waypoint)
+        self.extent.extendAreaToIncludeLocation(waypoint.coordinate)
     }
     
     func removeWaypoint(waypoint: GPXWaypoint) {
@@ -70,6 +72,7 @@ class GPXMapView : MKMapView {
         self.removeOverlay(currentSegmentOverlay)
         currentSegmentOverlay = currentSegment.overlay
         self.addOverlay(currentSegmentOverlay)
+        self.extent.extendAreaToIncludeLocation(location.coordinate)
     }
     
     func startNewTrackSegment() {
@@ -89,6 +92,7 @@ class GPXMapView : MKMapView {
         self.waypoints = []
         self.removeOverlays(self.overlays)
         self.removeAnnotations(self.annotations)
+        self.extent = GPXExtentCoordinates();
     }
     
     func exportToGPXString() -> String {
@@ -103,33 +107,9 @@ class GPXMapView : MKMapView {
         return gpx.gpx()
     }
    
-    //TODO
-    func getGPXDataExtent() -> MKCoordinateRegion {
-        var maxLat: CLLocationDegrees = 0.0
-        var minLat: CLLocationDegrees = 0.0
-        var maxLon: CLLocationDegrees = 0.0
-        var minLon: CLLocationDegrees = 0.0
-        
-        for waypoint in self.waypoints {
-            if waypoint.latitude < CGFloat(minLat) {
-                minLat = CLLocationDegrees(waypoint.latitude)
-            }
-            //if waypoint
-        }
-        
-        let span = MKCoordinateSpan(latitudeDelta: maxLat - minLat, longitudeDelta: maxLon - minLon)
-        let centerLat = 0.0
-        let centerLon = 0.0
-        let center = CLLocationCoordinate2D(latitude: centerLat, longitude: centerLon)
-        let extent = MKCoordinateRegion(center: center, span: span)
-        return extent
-    }
-    
     //sets the map view center so that all the GPX data is displayed
-    func setRegionToGPXDataExtent() {
-        //TODO
-     
-        //self.setRegion(extent, animated: true)
+    func regionToGPXExtent() {
+        self.setRegion(extent.region, animated: true)
     }
 
 
@@ -156,9 +136,12 @@ class GPXMapView : MKMapView {
         for oneTrack in self.tracks {
             for segment in oneTrack.tracksegments {
                 self.addOverlay(segment.overlay)
+                let segmentTrackpoints = segment.trackpoints as [GPXTrackPoint]
+                //add point to map extent
+                for waypoint in segmentTrackpoints {
+                    self.extent.extendAreaToIncludeLocation(waypoint.coordinate)
+                }
             }
         }
     }
- 
-    //private func getMaxMinCoord(one: CLLocationCoordinate2D, two: CLLocationCoordinate2D)
 }

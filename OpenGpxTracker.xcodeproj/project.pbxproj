@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		893BEC8619C7E62200C77354 /* GPXWaypoint+MKAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893BEC8519C7E62200C77354 /* GPXWaypoint+MKAnnotation.swift */; };
+		895F04B41A7143CE004BEE8A /* GPXExtentCoordinates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895F04B31A7143CE004BEE8A /* GPXExtentCoordinates.swift */; };
 		898EECDB19C49B5800B4B207 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 898EECDA19C49B5800B4B207 /* AppDelegate.swift */; };
 		898EECDE19C49B5800B4B207 /* OpenGpxTracker.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 898EECDC19C49B5800B4B207 /* OpenGpxTracker.xcdatamodeld */; };
 		898EECE019C49B5800B4B207 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 898EECDF19C49B5800B4B207 /* ViewController.swift */; };
@@ -46,6 +47,7 @@
 /* Begin PBXFileReference section */
 		17E76F21ED5D4C2B9CF8B6E2 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		893BEC8519C7E62200C77354 /* GPXWaypoint+MKAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "GPXWaypoint+MKAnnotation.swift"; sourceTree = "<group>"; };
+		895F04B31A7143CE004BEE8A /* GPXExtentCoordinates.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPXExtentCoordinates.swift; sourceTree = "<group>"; };
 		898EECD519C49B5800B4B207 /* OpenGpxTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OpenGpxTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		898EECD919C49B5800B4B207 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		898EECDA19C49B5800B4B207 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -108,6 +110,7 @@
 				899D676F19CE024600C88A0A /* GPXFileManager.swift */,
 				899D677119CE8B3600C88A0A /* StopWatch.swift */,
 				899D677C19D22E1B00C88A0A /* StopWatchDelegate.swift */,
+				895F04B31A7143CE004BEE8A /* GPXExtentCoordinates.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -363,6 +366,7 @@
 				898EECDE19C49B5800B4B207 /* OpenGpxTracker.xcdatamodeld in Sources */,
 				899D676E19CD9FAF00C88A0A /* GPXTrackPoint+MapKit.swift in Sources */,
 				899D678219D351DA00C88A0A /* AboutViewController.swift in Sources */,
+				895F04B41A7143CE004BEE8A /* GPXExtentCoordinates.swift in Sources */,
 				899D677B19D10F7C00C88A0A /* GPXFilesTableViewControlllerDelegate.swift in Sources */,
 				899D677D19D22E1B00C88A0A /* StopWatchDelegate.swift in Sources */,
 				898EECDB19C49B5800B4B207 /* AppDelegate.swift in Sources */,

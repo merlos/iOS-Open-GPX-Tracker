@@ -649,8 +649,15 @@ class ViewController: UIViewController, MKMapViewDelegate,CLLocationManagerDeleg
         self.stopWatch.reset()
         self.timeLabel.text = stopWatch.elapsedTimeString
         
+        //load data
         self.map.importFromGPXRoot(gpxRoot)
         
+        //stop following user
+        self.followUser = false
+        self.followUserButton.setImage(UIImage(named: "follow_user"), forState: UIControlState.Normal)
+        
+        //center map in GPX data
+        self.map.regionToGPXExtent()
     
         
     }
