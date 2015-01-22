@@ -105,8 +105,7 @@ class GPXFilesTableViewController : UITableViewController, UINavigationBarDelega
         let cell: UITableViewCell = UITableViewCell(style: UITableViewCellStyle.Value1, reuseIdentifier: "Cell")
         //cell.accessoryType = UITableViewCellAccessoryType.DetailDisclosureButton
         //cell.accessoryView = [[ UIImageView alloc ] initWithImage:[UIImage imageNamed:@"Something" ]];
-        cell.textLabel.text = fileList.objectAtIndex(indexPath.row) as NSString
-        
+        cell.textLabel?.text = fileList.objectAtIndex(indexPath.row) as NSString
         return cell
     }
     
