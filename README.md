@@ -26,17 +26,21 @@ You can use Open GPX tracker for:
  - Send by email saved session (track + waypoints)
  - Load on map a saved session and continue tracking
 
-# Source code
+# Install
 
-This application is written in Swift, the new programming language of Apple.
+Please note, that because it is still in the first stages of development, at this moment, the app is not available on the App Store. In order try it you need to download the source code and compile it by yourself using Xcode. 
 
-Download the code:
+If you want to run it on a device, you also need an Apple developer account.
+
+
+# Download Source code
+This application is written in Swift. To download the code run this command in a console:
 
 ``` 
  git clone https://github.com/merlos/iOS-Open-GPX-Tracker.git
 ```
 
-Open the file `OpenGpxTracker.xcworkspace` with XCode
+Then, to test it open the file `OpenGpxTracker.xcworkspace` with XCode.
 
 Please note that this source code was released under the GPL license. 
 So any change on the code shall be made publicly available and distributed under the GPL license (this does not apply to the pods included in the project which have their own license)
@@ -47,8 +51,7 @@ This code uses:
 
 # TODO
 
-- Check user location in background when app is not tracking
-- Set map center and extension to tracked data after loading a tracked session.
+- Do not ask for user location to the system when the user is not tracking the location.
 
 License
 ====================
