@@ -194,7 +194,8 @@ class ViewController: UIViewController, MKMapViewDelegate,CLLocationManagerDeleg
         
         //FollowUserButton
         followUserButton.frame = CGRect(x: 5, y: map.frame.height-37, width: 32, height: 32)
-        followUserButton.setImage(UIImage(named: "follow_user"), forState: UIControlState.Normal)
+        //follow_user_high represents the user is being followed. Default status when app starts
+        followUserButton.setImage(UIImage(named: "follow_user_high"), forState: UIControlState.Normal)
         followUserButton.setImage(UIImage(named: "follow_user_high"), forState: .Highlighted)
         followUserButton.addTarget(self, action: "followButtonTroggler", forControlEvents: .TouchUpInside)
         followUserButton.backgroundColor = kFolloUserBackgroundColor
@@ -313,7 +314,6 @@ class ViewController: UIViewController, MKMapViewDelegate,CLLocationManagerDeleg
         }
     }
     
-    //TODO
     func addPinAtMyLocation() {
         println("Adding Pin at my location")
         let waypoint = GPXWaypoint(coordinate: map.userLocation.coordinate)
@@ -328,6 +328,7 @@ class ViewController: UIViewController, MKMapViewDelegate,CLLocationManagerDeleg
         } else {
             self.followUser = true
             followUserButton.setImage(UIImage(named: "follow_user_high"), forState: .Normal)
+            map.setCenterCoordinate(map.userLocation.coordinate, animated: true)
            
         }
     }
@@ -501,6 +502,7 @@ class ViewController: UIViewController, MKMapViewDelegate,CLLocationManagerDeleg
     func locationManager(manager: CLLocationManager!, didUpdateToLocation newLocation: CLLocation!, fromLocation oldLocation: CLLocation!) {
         //println("didUpdateToLocation \(newLocation.coordinate.latitude),\(newLocation.coordinate.longitude), Hacc: \(newLocation.horizontalAccuracy), Vacc: \(newLocation.verticalAccuracy)")
       
+        //updates signal image accuracy
         if (newLocation.horizontalAccuracy < kMediumSignalAccuracy) {
             self.signalImageView.image = midSignalImage;
         } else {
@@ -510,11 +512,11 @@ class ViewController: UIViewController, MKMapViewDelegate,CLLocationManagerDeleg
             self.signalImageView.image = goodSignalImage;
         }
         
-        coordsLabel.text = "(\(newLocation.coordinate.latitude),\(newLocation.coordinate.longitude))"
+        let latFormat = String(format: "%.6f", newLocation.coordinate.latitude)
+        let lonFormat = String(format: "%.6f", newLocation.coordinate.longitude)
+        coordsLabel.text = "(\(latFormat),\(lonFormat))"
         if followUser {
-            //map.centerCoordinate = newLocation.coordinate
-            let region = MKCoordinateRegion(center: newLocation.coordinate, span: map.region.span)
-            map.setRegion(region, animated: true)
+            map.setCenterCoordinate(map.userLocation.coordinate, animated: true)
         }
         if gpxTrackingStatus == .Tracking {
             println("didUpdateLocation: adding point to track \(newLocation.coordinate)")
@@ -522,6 +524,7 @@ class ViewController: UIViewController, MKMapViewDelegate,CLLocationManagerDeleg
         }
         
     }
+    
     
     func mapView(mapView: MKMapView!, viewForAnnotation annotation: MKAnnotation!) -> MKAnnotationView! {
         if (annotation.isKindOfClass(MKUserLocation)) {
