@@ -30,7 +30,7 @@ class GPXMapView : MKMapView {
     var currentSegment: GPXTrackSegment =  GPXTrackSegment()
     var currentSegmentOverlay: MKPolyline //Polyline conforms MKOverlay protocol
     var extent: GPXExtentCoordinates = GPXExtentCoordinates() //extent of the GPX points and tracks
-    var tileServer: GPXTileServer = .OpenStreetMaps {
+    var tileServer: GPXTileServer = .MapQuest {
         willSet {
             // Info about how to use other tile servers:
             //http://www.glimsoft.com/01/31/how-to-use-openstreetmap-on-ios-7-in-7-lines-of-code/

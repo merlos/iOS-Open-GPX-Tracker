@@ -18,7 +18,7 @@ enum GPXTileServer {
     var name: String {
         switch self {
         case .Apple: return "Apple Mapkit"
-        case .OpenStreetMaps: return "Open Street Map"
+        case .OpenStreetMap: return "Open Street Map"
         case .MapQuest: return "MapQuest Open"
         case .OpenCycleMap: return "Open Cycle Maps"
         //case .AnotherMap: return "My Map"
