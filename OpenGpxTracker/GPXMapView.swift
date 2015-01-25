@@ -21,29 +21,6 @@ let kGPXCreatorString = "Open GPX Tracker for iOS"
 // is able to return a GPX file from map
 
 
-enum GPXTileServer {
-    case Apple;
-    case OpenStreetMaps;
-    case MapBox;
-    case OpenCycleMap
-    
-    var name: String {
-        switch self {
-        case .Apple: return "Apple Mapkit";
-        case .OpenStreetMaps: return "Open Street Maps";
-        case .MapBox: return "MapBox";
-        case .OpenCycleMap: return "Open Cycle Maps"
-        }
-    }
-    var templateUrl: String {
-        switch self {
-        case .Apple: return "";
-        case .OpenStreetMaps: return "http://tile.openstreetmap.org/{z}/{x}/{y}.png";
-        case .MapBox: return "http://otile3.mqcdn.com/tiles/1.0.0/osm/{z}/{x}/{y}.jpg";
-        case .OpenCycleMap: return "http://b.tile.opencyclemap.org/cycle/{z}/{x}/{y}.png"
-        }
-    }
-}
 
 class GPXMapView : MKMapView {
     

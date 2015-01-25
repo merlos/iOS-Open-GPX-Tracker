@@ -138,9 +138,8 @@ class ViewController: UIViewController, MKMapViewDelegate,CLLocationManagerDeleg
         let panGesture = UIPanGestureRecognizer(target: self, action: "stopFollowingUser:")
         panGesture.delegate = self
         map.addGestureRecognizer(panGesture)
-        
-        //
-        map.tileServer = GPXTileServer.OpenStreetMaps
+        //Set Tile Server
+        map.tileServer = GPXTileServer.Apple
         
         // set default zoon
         let region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 8.90, longitude: -79.50), span: MKCoordinateSpan(latitudeDelta: 0.001, longitudeDelta: 0.001))
