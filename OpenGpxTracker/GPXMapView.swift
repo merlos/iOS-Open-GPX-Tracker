@@ -20,6 +20,31 @@ let kGPXCreatorString = "Open GPX Tracker for iOS"
 // is able to convert GPX file into map
 // is able to return a GPX file from map
 
+
+enum GPXTileServer {
+    case Apple;
+    case OpenStreetMaps;
+    case MapBox;
+    case OpenCycleMap
+    
+    var name: String {
+        switch self {
+        case .Apple: return "Apple Mapkit";
+        case .OpenStreetMaps: return "Open Street Maps";
+        case .MapBox: return "MapBox";
+        case .OpenCycleMap: return "Open Cycle Maps"
+        }
+    }
+    var templateUrl: String {
+        switch self {
+        case .Apple: return "";
+        case .OpenStreetMaps: return "http://tile.openstreetmap.org/{z}/{x}/{y}.png";
+        case .MapBox: return "http://otile3.mqcdn.com/tiles/1.0.0/osm/{z}/{x}/{y}.jpg";
+        case .OpenCycleMap: return "http://b.tile.opencyclemap.org/cycle/{z}/{x}/{y}.png"
+        }
+    }
+}
+
 class GPXMapView : MKMapView {
     
     var waypoints : [GPXWaypoint] = []
@@ -28,14 +53,38 @@ class GPXMapView : MKMapView {
     var currentSegment: GPXTrackSegment =  GPXTrackSegment()
     var currentSegmentOverlay: MKPolyline //Polyline conforms MKOverlay protocol
     var extent: GPXExtentCoordinates = GPXExtentCoordinates() //extent of the GPX points and tracks
-    
+    var tileServer: GPXTileServer = .OpenStreetMaps {
+        willSet {
+            // Info about how to use other tile servers:
+            //http://www.glimsoft.com/01/31/how-to-use-openstreetmap-on-ios-7-in-7-lines-of-code/
+            //Note: it requires to set in the delegate of the mapview a couple of lines
+            //
+            //Note 2: it seems that there are issues when loading tile images
+            //https://github.com/mapbox/mbxmapkit/issues/132
+            
+            NSLog("Seting map tiles overlay to: \(newValue.name)" )
+            
+            // remove current overlay
+            if self.tileServer != .Apple {
+                //remove current overlay
+                self.removeOverlay(self.tileServerOverlay)
+            }
+            //add new overlay to map
+            if newValue != .Apple {
+                self.tileServerOverlay = MKTileOverlay(URLTemplate: newValue.templateUrl)
+                tileServerOverlay.canReplaceMapContent = true;
+                self.addOverlay(tileServerOverlay, level: .AboveLabels)
+            }
+        }
+    }
+    var tileServerOverlay : MKTileOverlay = MKTileOverlay();
     
     required init(coder aDecoder: NSCoder) {
         var tmpCoords: [CLLocationCoordinate2D] = [] //init with empty
         self.currentSegmentOverlay = MKPolyline(coordinates: &tmpCoords, count: 0)
         super.init(coder: aDecoder)
-
     }
+    
     //point is the a the point in a view where the user touched
     //
     //For example, this function can be used to add a waypoint after long press on the map view
@@ -59,7 +108,7 @@ class GPXMapView : MKMapView {
         }
         self.removeAnnotation(waypoint)
         waypoints.removeAtIndex(index!)
-        
+        //TODO: update map extent?
         
     }
     
@@ -92,8 +141,16 @@ class GPXMapView : MKMapView {
         self.waypoints = []
         self.removeOverlays(self.overlays)
         self.removeAnnotations(self.annotations)
-        self.extent = GPXExtentCoordinates();
+        self.extent = GPXExtentCoordinates()
+        
+        //add tile server overlay
+        //by removing all overlays, tile server overlay is also removed. We need to add it back
+        if (tileServer != .Apple) {
+            self.addOverlay(tileServerOverlay, level: .AboveLabels)
+        }
+        
     }
+    
     
     func exportToGPXString() -> String {
         println("Exporting map data into GPX String")

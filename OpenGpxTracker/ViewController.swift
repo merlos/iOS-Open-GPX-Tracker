@@ -139,24 +139,8 @@ class ViewController: UIViewController, MKMapViewDelegate,CLLocationManagerDeleg
         panGesture.delegate = self
         map.addGestureRecognizer(panGesture)
         
-        // Open Street map Tiles
-        //http://www.glimsoft.com/01/31/how-to-use-openstreetmap-on-ios-7-in-7-lines-of-code/
-        
-        
-        //NOTE: experiencing issues when loading tile images.
         //
-        // Seems it is a ios8 generalized problem
-        //https://github.com/mapbox/mbxmapkit/issues/132
-        //
-        let overlay = MKTileOverlay(URLTemplate: "http://tile.openstreetmap.org/{z}/{x}/{y}.png")
-        
-        //Other tile sources:
-        
-        //let overlay = MKTileOverlay(URLTemplate: "http://otile3.mqcdn.com/tiles/1.0.0/osm/{z}/{x}/{y}.jpg")
-        //let overlay = MKTileOverlay(URLTemplate: "http://b.tile.opencyclemap.org/cycle/{z}/{x}/{y}.png")
-        
-        overlay.canReplaceMapContent = true;
-        map.addOverlay(overlay, level: .AboveLabels)
+        map.tileServer = GPXTileServer.OpenStreetMaps
         
         // set default zoon
         let region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 8.90, longitude: -79.50), span: MKCoordinateSpan(latitudeDelta: 0.001, longitudeDelta: 0.001))
