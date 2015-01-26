@@ -66,6 +66,7 @@ class ViewController: UIViewController, MKMapViewDelegate,CLLocationManagerDeleg
     let signalImageView: UIImageView
     let coordsLabel: UILabel
     let timeLabel : UILabel
+    let speedLabel : UILabel
     let trackedDistanceLabel : UILabel
     let segmentDistanceLabel : UILabel
     
@@ -94,6 +95,7 @@ class ViewController: UIViewController, MKMapViewDelegate,CLLocationManagerDeleg
         self.coordsLabel = UILabel(coder: aDecoder)
         
         self.timeLabel = UILabel(coder: aDecoder)
+        self.speedLabel = UILabel(coder: aDecoder)
         self.trackedDistanceLabel = UILabel(coder: aDecoder)
         self.segmentDistanceLabel = UILabel(coder: aDecoder)
         
@@ -138,6 +140,7 @@ class ViewController: UIViewController, MKMapViewDelegate,CLLocationManagerDeleg
         let panGesture = UIPanGestureRecognizer(target: self, action: "stopFollowingUser:")
         panGesture.delegate = self
         map.addGestureRecognizer(panGesture)
+        
         //Set Tile Server
         map.tileServer = GPXTileServer.Apple
         
@@ -264,8 +267,15 @@ class ViewController: UIViewController, MKMapViewDelegate,CLLocationManagerDeleg
         //timeLabel.backgroundColor = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.5)
         map.addSubview(timeLabel)
         
-
-      
+        //speed Label
+        
+        speedLabel.frame = CGRect(x: self.map.frame.width/2 - 150 + 12.5, y: map.frame.height -  startH - 50, width: 300, height: 20)
+        speedLabel.textAlignment = .Center
+        speedLabel.font = UIFont.boldSystemFontOfSize(14)
+        speedLabel.text = "0.00 km/h"
+        //timeLabel.backgroundColor = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.5)
+        map.addSubview(speedLabel)
+        
     
         
         
@@ -514,9 +524,21 @@ class ViewController: UIViewController, MKMapViewDelegate,CLLocationManagerDeleg
             self.signalImageView.image = goodSignalImage;
         }
         
+        //Update coordsLabel
         let latFormat = String(format: "%.6f", newLocation.coordinate.latitude)
         let lonFormat = String(format: "%.6f", newLocation.coordinate.longitude)
         coordsLabel.text = "(\(latFormat),\(lonFormat))"
+        
+        //Update speed (provided in m/s, but displayed in km/h)
+        var speedFormat: String
+        if newLocation.speed < 0 {
+            speedFormat = "?.??"
+        } else {
+            speedFormat = String(format: "%.2f", (newLocation.speed * 3.6))
+        }
+        speedLabel.text = "\(speedFormat) km/h"
+        
+        //Update Map center and track overlay if user is being followed
         if followUser {
             map.setCenterCoordinate(map.userLocation.coordinate, animated: true)
         }

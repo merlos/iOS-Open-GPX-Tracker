@@ -30,6 +30,10 @@ class GPXMapView : MKMapView {
     var currentSegment: GPXTrackSegment =  GPXTrackSegment()
     var currentSegmentOverlay: MKPolyline //Polyline conforms MKOverlay protocol
     var extent: GPXExtentCoordinates = GPXExtentCoordinates() //extent of the GPX points and tracks
+    
+    var totalTrackedDistance = 0.00 // in meters
+    var currentTrackDistance = 0.00 // in meters
+    
     var tileServer: GPXTileServer = .MapQuest {
         willSet {
             // Info about how to use other tile servers:
