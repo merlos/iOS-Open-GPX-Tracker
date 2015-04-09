@@ -198,13 +198,13 @@ class ViewController: UIViewController, MKMapViewDelegate,CLLocationManagerDeleg
         */
         
         //FollowUserButton
-        followUserButton.frame = CGRect(x: 5, y: map.frame.height-37, width: 32, height: 32)
+        followUserButton.frame = CGRect(x: self.map.frame.width/2 - 115, y: map.frame.height-65, width: 48, height: 48)
         //follow_user_high represents the user is being followed. Default status when app starts
         followUserButton.setImage(UIImage(named: "follow_user_high"), forState: UIControlState.Normal)
         followUserButton.setImage(UIImage(named: "follow_user_high"), forState: .Highlighted)
         followUserButton.addTarget(self, action: "followButtonTroggler", forControlEvents: .TouchUpInside)
         followUserButton.backgroundColor = kFolloUserBackgroundColor
-        followUserButton.layer.cornerRadius = 16;
+        followUserButton.layer.cornerRadius = 24;
         map.addSubview(followUserButton)
         
         
@@ -239,6 +239,7 @@ class ViewController: UIViewController, MKMapViewDelegate,CLLocationManagerDeleg
         stopButton.layer.cornerRadius = 35.0
         map.addSubview(stopButton)
         
+        //Pause
         let pauseW: CGFloat = 70.0
         let pauseH: CGFloat = 70.0
         let pauseX: CGFloat = self.map.frame.width/2  - pauseW + 10.0
@@ -607,7 +608,7 @@ class ViewController: UIViewController, MKMapViewDelegate,CLLocationManagerDeleg
             alert.textFieldAtIndex(0)?.text = waypoint.title
             alert.show();
             self.waypointBeingEdited = waypoint
-            //alert.textFieldAtIndex(0)?.selectAll(self) //display text selected
+            alert.textFieldAtIndex(0)?.selectAll(self) //display text selected <-- TODO Not working WTF!
 
         default:
             println("[calloutAccesoryControlTapped ERROR] unknown control")
