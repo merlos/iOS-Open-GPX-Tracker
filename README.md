@@ -31,9 +31,9 @@ You can use Open GPX tracker for:
 
 # Install
 
-Please note, that because it is still in the early stages of development the app is **NOT AVAILABLE on the App Store**. In order try it you need to download the source code and compile it by yourself using Xcode. 
+A Version of the app has been submitted to the App Store. At the end of April 2015 should be available for download. It uses default Apple Maps.
 
-If you want to run it on a device, you also need an Apple developer account.
+Another option to install the app is to download the source code and compile it by yourself using Xcode. If you want to run it on a device, you also need an Apple developer account.
 
 
 # Download Source code
@@ -44,8 +44,6 @@ This application is written in Swift. To download the code run this command in a
 ```
 
 Then, to test it open the file `OpenGpxTracker.xcworkspace` with XCode.
-
-Please note that this source code was released under the GPL license.  So any change on the code shall be made publicly available and distributed under the GPL license (this does not apply to the pods included in the project which have their own license)
 
 
 ## Selecting the tile server
@@ -62,8 +60,16 @@ Tiles provided by Apple Mapkit are displayed by default. To change the tile serv
        
 ``` 
 
-The list of available tile servers is defined in `GPXTileServer.swift`.
+The list of available tile servers is defined in `GPXTileServer.swift`. Possible values:
 
+```swift
+.Apple
+.OpenStreetMap
+.MapQuest
+.OpenCycleMap
+.CartoDB
+
+```
 
 Please note the [limitations of using Open Street Maps Tile Servers](http://wiki.openstreetmap.org/wiki/Tile_usage_policy)
 
@@ -75,7 +81,12 @@ You have a list of tile servers in [Open Street Map Wiki](http://wiki.openstreet
 # TODO
 
 - Do not request user location while not tracking and in background (to save battery)
-- Add user interface to change the tile server as well as copyright 
+- Add user interface to change the tile server. Also include attributions and copyrights of each tile server.
+
+# Contribute
+You can contribute by forking
+
+Please note that by submitting any pull request you are providing me (Juan M. Merlos) the rights to include and distribute those changes also on the binary app published on the App Store (which is released under Apple's Standard License Agreement) 
 
 
 License
@@ -95,6 +106,10 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+----
+
+Please note that this source code was released under the GPL license.  So any change on the code shall be made publicly available and distributed under the GPL license (this does not apply to the pods included in the project which have their own license).
 
 ----
 
