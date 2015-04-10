@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "OpenGpxTracker/ViewController.swift"
-            timestampString = "443885922.383741"
+            timestampString = "450320412.708228"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "314"
-            endingLineNumber = "314"
+            startingLineNumber = "429"
+            endingLineNumber = "429"
             landmarkName = "addPinAtTappedLocation(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "OpenGpxTracker/ViewController.swift"
-            timestampString = "450239422.545578"
+            timestampString = "450320412.708228"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "637"
-            endingLineNumber = "637"
+            startingLineNumber = "670"
+            endingLineNumber = "670"
             landmarkName = "mapView(_:didAddAnnotationViews:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -42,11 +42,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "OpenGpxTracker/ViewController.swift"
-            timestampString = "450239422.545578"
+            timestampString = "450320412.708228"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "636"
-            endingLineNumber = "636"
+            startingLineNumber = "669"
+            endingLineNumber = "669"
             landmarkName = "mapView(_:didAddAnnotationViews:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -58,11 +58,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "OpenGpxTracker/ViewController.swift"
-            timestampString = "450239422.545578"
+            timestampString = "450320412.708228"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "636"
-            endingLineNumber = "636"
+            startingLineNumber = "669"
+            endingLineNumber = "669"
             landmarkName = "mapView(_:didAddAnnotationViews:)"
             landmarkType = "5">
          </BreakpointContent>

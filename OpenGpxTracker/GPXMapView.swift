@@ -43,7 +43,7 @@ class GPXMapView : MKMapView {
             //Note 2: it seems that there are issues when loading tile images
             //https://github.com/mapbox/mbxmapkit/issues/132
             
-            NSLog("Seting map tiles overlay to: \(newValue.name)" )
+            NSLog("Setting map tiles overlay to: \(newValue.name)" )
             
             // remove current overlay
             if self.tileServer != .Apple {

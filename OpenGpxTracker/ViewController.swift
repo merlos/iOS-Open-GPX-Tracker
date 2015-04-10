@@ -18,12 +18,13 @@ let kMediumSignalAccuracy = 100.0
 let kGoodSignalAccuracy = 20.0
 
 //Button colors
-let kPauseButtonBackgroundColor: UIColor =  UIColor(red: 146.0/255.0, green: 166.0/255.0, blue: 218.0/255.0, alpha: 0.90)
-let kResumeButtonBackgroundColor: UIColor =  UIColor(red: 142.0/255.0, green: 224.0/255.0, blue: 102.0/255.0, alpha: 0.90)
-let kStartButtonBackgroundColor: UIColor = UIColor(red: 142.0/255.0, green: 224.0/255.0, blue: 102.0/255.0, alpha: 0.90)
-let kStopButtonBackgroundColor: UIColor =  UIColor(red: 244.0/255.0, green: 94.0/255.0, blue: 94.0/255.0, alpha: 0.90)
-
-let kFolloUserBackgroundColor: UIColor = UIColor(red: 254.0/255.0, green: 254.0/255.0, blue: 254.0/255.0, alpha: 0.90)
+let kPurpleButtonBackgroundColor: UIColor =  UIColor(red: 146.0/255.0, green: 166.0/255.0, blue: 218.0/255.0, alpha: 0.90)
+let kGreenButtonBackgroundColor: UIColor = UIColor(red: 142.0/255.0, green: 224.0/255.0, blue: 102.0/255.0, alpha: 0.90)
+let kRedButtonBackgroundColor: UIColor =  UIColor(red: 244.0/255.0, green: 94.0/255.0, blue: 94.0/255.0, alpha: 0.90)
+let kBlueButtonBackgroundColor: UIColor = UIColor(red: 74.0/255.0, green: 144.0/255.0, blue: 226.0/255.0, alpha: 0.90)
+let kDisabledBlueButtonBackgroundColor: UIColor = UIColor(red: 74.0/255.0, green: 144.0/255.0, blue: 226.0/255.0, alpha: 0.10)
+let kDisabledRedButtonBackgroundColor: UIColor =  UIColor(red: 244.0/255.0, green: 94.0/255.0, blue: 94.0/255.0, alpha: 0.10)
+let kWhiteBackgroundColor: UIColor = UIColor(red: 254.0/255.0, green: 254.0/255.0, blue: 254.0/255.0, alpha: 0.90)
 
 //Accesory View buttons tags
 let kDeleteWaypointAccesoryButtonTag = 666
@@ -33,8 +34,30 @@ let kEditWaypointAccesoryButtonTag = 333
 let kEditWaypointAlertViewTag = 33
 let kSaveSessionAlertViewTag = 88
 
+let kButtonSmallSize: CGFloat = 48.0
+let kButtonLargeSize: CGFloat = 96.0
+let kButtonSeparation: CGFloat = 6.0
+
 
 class ViewController: UIViewController, MKMapViewDelegate,CLLocationManagerDelegate, UIGestureRecognizerDelegate, UIAlertViewDelegate, GPXFilesTableViewControllerDelegate, StopWatchDelegate {
+    
+    
+    var followUser: Bool = true {
+        didSet {
+            if (followUser) {
+                println("followUser=true");
+                followUserButton.setImage(UIImage(named: "follow_user_high"), forState: .Normal)
+                map.setCenterCoordinate(map.userLocation.coordinate, animated: true)
+                
+            } else {
+                println("followUser=false");
+               followUserButton.setImage(UIImage(named: "follow_user"), forState: .Normal)
+            }
+            
+        }
+    }
+    
+    
     
     //MapView
     let locationManager : CLLocationManager
@@ -43,19 +66,82 @@ class ViewController: UIViewController, MKMapViewDelegate,CLLocationManagerDeleg
     
     
     //Status Vars
-    var followUser = true // MapView centered in user location
     var stopWatch = StopWatch()
-    var lastLoadedSessionFilename: String = ""
+    var lastGpxFilename: String = ""
+    
+    var hasWaypoints: Bool = false { // Was any waypoint added to the map?
+        didSet {
+            if (hasWaypoints) {
+                self.saveButton.backgroundColor = kBlueButtonBackgroundColor
+                self.resetButton.backgroundColor = kRedButtonBackgroundColor
+            }
+        }
+    }
     
     enum GpxTrackingStatus {
         case NotStarted
         case Tracking
         case Paused
-        case Finished
     }
-    var gpxTrackingStatus = GpxTrackingStatus.NotStarted
-    var pinSeq = 1
-    var trackSeq = 1
+    var gpxTrackingStatus: GpxTrackingStatus = GpxTrackingStatus.NotStarted {
+        didSet {
+            println("gpxTrackingStatus changed to \(gpxTrackingStatus)")
+            switch gpxTrackingStatus {
+            case .NotStarted:
+                println("switched to non started")
+                // set Tracker button to allow Start 
+                self.trackerButton.setTitle("Start Tracking", forState: .Normal)
+                self.trackerButton.backgroundColor = kGreenButtonBackgroundColor
+                //save & reset button to transparent.
+                self.saveButton.backgroundColor = kDisabledBlueButtonBackgroundColor
+                self.resetButton.backgroundColor = kDisabledRedButtonBackgroundColor
+                //reset clock
+                self.stopWatch.reset()
+                self.timeLabel.text = stopWatch.elapsedTimeString
+                
+                self.map.clearMap() //clear map
+                self.lastGpxFilename = "" //clear last filename, so when saving it appears an empty field
+                
+                /*
+                // XXX Left here for reference
+                UIView.animateWithDuration(0.2, delay: 0.0, options: UIViewAnimationOptions.CurveLinear, animations: { () -> Void in
+                    self.trackerButton.hidden = true
+                    self.pauseButton.hidden = false
+                    }, completion: {(f: Bool) -> Void in
+                        println("finished animation start tracking")
+                })
+                */
+                
+            case .Tracking:
+                println("switched to tracking mode")
+                // set tracerkButton to allow Pause
+                self.trackerButton.setTitle("Pause", forState: .Normal)
+                self.trackerButton.backgroundColor = kPurpleButtonBackgroundColor
+                //activate save & reset buttons
+                self.saveButton.backgroundColor = kBlueButtonBackgroundColor
+                self.resetButton.backgroundColor = kRedButtonBackgroundColor
+                // start clock
+                self.stopWatch.start()
+                
+            case .Paused:
+                println("switched to paused mode")
+                // set trackerButton to allow Resume
+                self.trackerButton.setTitle("Resume", forState: .Normal)
+                self.trackerButton.backgroundColor = kGreenButtonBackgroundColor
+                // activate save & reset (just in case switched from .NotStarted)
+                self.saveButton.backgroundColor = kBlueButtonBackgroundColor
+                self.resetButton.backgroundColor = kRedButtonBackgroundColor
+                //pause clock
+                self.stopWatch.stop()
+                // start new track segment
+                self.map.startNewTrackSegment()
+                
+            default:
+                println("WTF! This is not possible sir!")
+            
+            }
+        }
+    }
 
     //Editing Waypoint Temporal Reference
     var waypointBeingEdited : GPXWaypoint = GPXWaypoint()
@@ -75,9 +161,10 @@ class ViewController: UIViewController, MKMapViewDelegate,CLLocationManagerDeleg
     let newPinButton: UIButton
     let folderButton: UIButton
     let aboutButton: UIButton
-    let startButton: UIButton
-    let stopButton: UIButton
-    var pauseButton: UIButton // Pause & Resume
+    let resetButton: UIButton
+    let trackerButton: UIButton
+    let saveButton: UIButton
+    
     
     let badSignalImage = UIImage(named: "1")
     let midSignalImage = UIImage(named: "2")
@@ -86,7 +173,7 @@ class ViewController: UIViewController, MKMapViewDelegate,CLLocationManagerDeleg
  
     // Initializer. Just initializes the class vars/const
     required init(coder aDecoder: NSCoder) {
-        
+    
         self.locationManager = CLLocationManager()
         self.map = GPXMapView(coder: aDecoder)
         
@@ -102,21 +189,20 @@ class ViewController: UIViewController, MKMapViewDelegate,CLLocationManagerDeleg
         self.followUserButton = UIButton(coder: aDecoder)
         self.newPinButton = UIButton(coder: aDecoder)
         self.folderButton = UIButton(coder: aDecoder)
+        self.resetButton = UIButton(coder: aDecoder)
         self.aboutButton = UIButton(coder: aDecoder)
         
-        self.startButton = UIButton(coder: aDecoder)
-        self.stopButton = UIButton(coder: aDecoder)
-        self.pauseButton = UIButton(coder: aDecoder)
-        
+        self.trackerButton = UIButton(coder: aDecoder)
+        self.saveButton = UIButton(coder: aDecoder)
         super.init(coder: aDecoder)
-      
+        followUser = true
     }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         stopWatch.delegate = self
-        
         //Location stuff
         if iOS8 {
             locationManager.requestAlwaysAuthorization()
@@ -126,12 +212,11 @@ class ViewController: UIViewController, MKMapViewDelegate,CLLocationManagerDeleg
         locationManager.distanceFilter = 2
         locationManager.startUpdatingLocation()
         
-        
         // Map configuration Stuff
         map.delegate = self
         map.showsUserLocation = true
-        let mapH: CGFloat = self.view.bounds.size.height - 64.0
-        map.frame = CGRect(x: 0, y: 64.0, width: self.view.bounds.size.width, height: mapH)
+        let mapH: CGFloat = self.view.bounds.size.height - 20.0
+        map.frame = CGRect(x: 0.0, y: 20.0, width: self.view.bounds.size.width, height: mapH)
         map.zoomEnabled = true
         map.rotateEnabled = true
         map.addGestureRecognizer(
@@ -152,116 +237,151 @@ class ViewController: UIViewController, MKMapViewDelegate,CLLocationManagerDeleg
         
         //add signal accuracy images.
         signalImageView.image = badSignalImage
-        signalImageView.frame = CGRect(x: self.view.frame.width/2 - 25.0, y: 28, width: 50, height: 30)
+        signalImageView.frame = CGRect(x: self.view.frame.width/2 - 25.0, y: 28 + 14, width: 50, height: 30)
         map.addSubview(signalImageView)
         
-        // add FolderButton
-        folderButton.frame = CGRect(x: 5, y: 25, width: 32, height: 32)
-        folderButton.setImage(UIImage(named: "folder"), forState: UIControlState.Normal)
-        folderButton.setImage(UIImage(named: "folderHigh"), forState: .Highlighted)
-        folderButton.addTarget(self, action: "openFolderViewController", forControlEvents: .TouchUpInside)
-        self.view.addSubview(folderButton)
+        //about button
+        aboutButton.frame = CGRect(x: self.view.frame.width - 47, y: 14 + 5, width: 32, height: 32)
+        aboutButton.setImage(UIImage(named: "info"), forState: UIControlState.Normal)
+        aboutButton.setImage(UIImage(named: "info_high"), forState: .Highlighted)
+        aboutButton.addTarget(self, action: "openAboutViewController", forControlEvents: .TouchUpInside)
+        map.addSubview(aboutButton)
+    
         
-        //pin button
-        newPinButton.frame = CGRect(x: self.view.frame.width/2 - 20 , y: 25, width: 32, height: 32)
+        //add the app title Label (Branding, branding, branding! )
+        let appTitleW: CGFloat = self.view.frame.width//200.0
+        let appTitleH: CGFloat = 14.0
+        let appTitleX: CGFloat = 0 //self.view.frame.width/2 - appTitleW/2
+        let appTitleY: CGFloat = 20
+        appTitleLabel.frame = CGRect(x:appTitleX, y: appTitleY, width: appTitleW, height: appTitleH)
+        appTitleLabel.text = "Open GPX Tracker"
+        appTitleLabel.textAlignment = .Center
+        appTitleLabel.font = UIFont.boldSystemFontOfSize(10)
+        //appTitleLabel.textColor = UIColor(red: 0.0/255.0, green: 0.0/255.0, blue: 0.0/255.0, alpha: 1.0)
+        appTitleLabel.textColor = UIColor.yellowColor()
+        appTitleLabel.backgroundColor = UIColor(red: 58.0/255.0, green: 57.0/255.0, blue: 54.0/255.0, alpha: 0.80)
+        self.view.addSubview(appTitleLabel)
+        
+        
+        //
+        // Button Bar
+        //
+        // [ Small ] [ Small ] [ Large     ] [Medium] [ Small] [Small]
+        //                     [ (tracker) ]
+        //                     [ track     ]
+        // [ follow] [ +Pin  ] [ Pause     ] [ Save ] [ Reset] [ folder
+        //                     [ Resume    ]
+        //
+        //                       trackerX
+        //                         |
+        //                         |
+        // [-----------------------|--------------------------]
+        //                  map.frame/2 (center)
+        
+        let yCenterForButtons: CGFloat = map.frame.height - kButtonLargeSize/2 - 5 //center Y of start
+
+        // Start
+        let trackerW: CGFloat = kButtonLargeSize
+        let trackerH: CGFloat = kButtonLargeSize
+        let trackerX: CGFloat = self.map.frame.width/2 - 0.0 // Center of start
+        let trackerY: CGFloat = yCenterForButtons
+        trackerButton.frame = CGRect(x: 0, y:0, width: trackerW, height: trackerH)
+        trackerButton.center = CGPoint(x: trackerX, y: trackerY)
+        trackerButton.layer.cornerRadius = trackerW/2
+        trackerButton.setTitle("Start Tracking", forState: .Normal)
+        trackerButton.backgroundColor = kGreenButtonBackgroundColor
+        trackerButton.addTarget(self, action: "trackerButtonTapped", forControlEvents: .TouchUpInside)
+        trackerButton.hidden = false
+        trackerButton.titleLabel?.font = UIFont.boldSystemFontOfSize(16)
+        trackerButton.titleLabel?.numberOfLines = 2
+        trackerButton.titleLabel?.textAlignment = .Center
+        map.addSubview(trackerButton)
+        
+        
+        // Pin Button (on the left of start)
+        let newPinW: CGFloat = kButtonSmallSize
+        let newPinH: CGFloat = kButtonSmallSize
+        let newPinX: CGFloat = trackerX - trackerW/2 - kButtonSeparation - newPinW/2
+        let newPinY: CGFloat = yCenterForButtons
+        newPinButton.frame = CGRect(x: 0, y: 0, width: newPinW, height: newPinH)
+        newPinButton.center = CGPoint(x: newPinX, y: newPinY)
+        newPinButton.layer.cornerRadius = newPinW/2;
+        newPinButton.backgroundColor = kWhiteBackgroundColor
         newPinButton.setImage(UIImage(named: "addPin"), forState: UIControlState.Normal)
         newPinButton.setImage(UIImage(named: "addPinHigh"), forState: .Highlighted)
         newPinButton.addTarget(self, action: "addPinAtMyLocation", forControlEvents: .TouchUpInside)
         let newPinLongPress = UILongPressGestureRecognizer(target: self, action: "newPinLongPress:")
         newPinButton.addGestureRecognizer(newPinLongPress)
-        self.view.addSubview(newPinButton)
-
+        map.addSubview(newPinButton)
         
-        
-        //about button
-        aboutButton.frame = CGRect(x: self.view.frame.width - 47, y: 25, width: 32, height: 32)
-        aboutButton.setImage(UIImage(named: "info"), forState: UIControlState.Normal)
-        aboutButton.setImage(UIImage(named: "info_high"), forState: .Highlighted)
-        aboutButton.addTarget(self, action: "openAboutViewController", forControlEvents: .TouchUpInside)
-        self.view.addSubview(aboutButton)
-        
-
-        
-        /*
-        //add the app title Label (Branding, branding, branding! )
-        let appTitleW: CGFloat = 200.0
-        let appTitleH: CGFloat = 34.0
-        let appTitleX: CGFloat = self.view.frame.width/2 - appTitleW/2
-        let appTitleY: CGFloat = 30.0
-        appTitleLabel.frame = CGRect(x:appTitleX, y: appTitleY, width: appTitleW, height: appTitleH)
-        appTitleLabel.text = "Open GPX Tracker"
-        appTitleLabel.textAlignment = .Center
-        appTitleLabel.font = UIFont.boldSystemFontOfSize(20)
-        //appTitleLabel.textColor = UIColor(red: 0.0/255.0, green: 0.0/255.0, blue: 0.0/255.0, alpha: 1.0)
-        appTitleLabel.textColor = UIColor(red: 7.0/255.0, green: 140.0/255.0, blue: 234.0/255.0, alpha: 1.0)
-        self.view.addSubview(appTitleLabel)
-        */
-        
-        //FollowUserButton
-        followUserButton.frame = CGRect(x: self.map.frame.width/2 - 115, y: map.frame.height-65, width: 48, height: 48)
+        // Follow user button
+        let followW: CGFloat = kButtonSmallSize
+        let followH: CGFloat = kButtonSmallSize
+        let followX: CGFloat = newPinX - newPinW/2 - kButtonSeparation - followW/2
+        let followY: CGFloat = yCenterForButtons
+        followUserButton.frame = CGRect(x: 0, y: 0, width: followW, height: followH)
+        followUserButton.center = CGPointMake(followX, followY)
+        followUserButton.layer.cornerRadius = followW/2;
+        followUserButton.backgroundColor = kWhiteBackgroundColor
         //follow_user_high represents the user is being followed. Default status when app starts
         followUserButton.setImage(UIImage(named: "follow_user_high"), forState: UIControlState.Normal)
         followUserButton.setImage(UIImage(named: "follow_user_high"), forState: .Highlighted)
         followUserButton.addTarget(self, action: "followButtonTroggler", forControlEvents: .TouchUpInside)
-        followUserButton.backgroundColor = kFolloUserBackgroundColor
-        followUserButton.layer.cornerRadius = 24;
         map.addSubview(followUserButton)
         
+        // Save button
+        let saveW: CGFloat = kButtonSmallSize
+        let saveH: CGFloat = kButtonSmallSize
+        let saveX: CGFloat = trackerX + trackerW/2 + kButtonSeparation + saveW/2
+        let saveY: CGFloat = yCenterForButtons
+        saveButton.frame = CGRect(x: 0, y: 0, width: saveW, height: saveH)
+        saveButton.center = CGPoint(x: saveX, y: saveY)
+        saveButton.layer.cornerRadius = saveW/2
+        saveButton.setTitle("Save", forState: .Normal)
+        saveButton.backgroundColor = kDisabledBlueButtonBackgroundColor
+        saveButton.addTarget(self, action: "saveButtonTapped", forControlEvents: .TouchUpInside)
+        saveButton.hidden = false
+        saveButton.titleLabel?.textAlignment = .Center
+        map.addSubview(saveButton)
         
-        //tracking buttons
-        //start
-        let startW: CGFloat = 80.0
-        let startH: CGFloat = 80.0
-        let startX: CGFloat = self.map.frame.width/2 - startW/2 + 10
-        let startY: CGFloat = self.map.frame.height - startH - 5
-        startButton.frame = CGRect(x: startX, y:startY, width: startW, height: startH)
-        startButton.setTitle("Start Tracking", forState: .Normal)
-        startButton.backgroundColor = kStartButtonBackgroundColor
-        startButton.addTarget(self, action: "startGpxTracking", forControlEvents: .TouchUpInside)
-        startButton.hidden = false
-        startButton.titleLabel?.font = UIFont.boldSystemFontOfSize(16)
-        startButton.titleLabel?.numberOfLines = 2
-        startButton.titleLabel?.textAlignment = .Center
-        startButton.layer.cornerRadius = 40.0
-        map.addSubview(startButton)
+        // Reset button
+        let resetW: CGFloat = kButtonSmallSize
+        let resetH: CGFloat = kButtonSmallSize
+        let resetX: CGFloat = saveX + saveW/2 + kButtonSeparation + resetW/2
+        let resetY: CGFloat = yCenterForButtons
+        resetButton.frame = CGRect(x: 0, y: 0, width: resetW, height: resetH)
+        resetButton.center = CGPoint(x: resetX, y: resetY)
+        resetButton.layer.cornerRadius = resetW/2
+        resetButton.setTitle("Reset", forState: .Normal)
+        resetButton.backgroundColor = kDisabledRedButtonBackgroundColor
+        resetButton.addTarget(self, action: "resetButtonTapped", forControlEvents: .TouchUpInside)
+        resetButton.hidden = false
+        resetButton.titleLabel?.textAlignment = .Center
+        map.addSubview(resetButton)
         
-        //Stop
-        let stopW: CGFloat = 70.0
-        let stopH: CGFloat = 70.0
-        let stopX: CGFloat = self.map.frame.width/2 + 15.0
-        let stopY: CGFloat = self.map.frame.height - stopH - 5.0
-        stopButton.frame = CGRect(x: stopX, y: stopY, width: stopW, height: stopH)
-        stopButton.setTitle("Finish", forState: .Normal)
-        stopButton.backgroundColor = kStopButtonBackgroundColor
-        stopButton.addTarget(self, action: "stopGpxTracking", forControlEvents: .TouchUpInside)
-        stopButton.hidden = true
-        stopButton.titleLabel?.textAlignment = .Center
-        stopButton.layer.cornerRadius = 35.0
-        map.addSubview(stopButton)
+        // Folder button
+        let folderW: CGFloat = kButtonSmallSize
+        let folderH: CGFloat = kButtonSmallSize
+        let folderX: CGFloat = folderW/2 + 5
+        let folderY: CGFloat = folderH/2 + 5 + 14
+        folderButton.frame = CGRect(x: 0, y: 0, width: folderW, height: folderH)
+        folderButton.center = CGPoint(x: folderX, y: folderY)
+        folderButton.setImage(UIImage(named: "folder"), forState: UIControlState.Normal)
+        folderButton.setImage(UIImage(named: "folderHigh"), forState: .Highlighted)
+        folderButton.addTarget(self, action: "openFolderViewController", forControlEvents: .TouchUpInside)
+        folderButton.backgroundColor = kWhiteBackgroundColor
+        folderButton.layer.cornerRadius = 24;
+        map.addSubview(folderButton)
         
-        //Pause
-        let pauseW: CGFloat = 70.0
-        let pauseH: CGFloat = 70.0
-        let pauseX: CGFloat = self.map.frame.width/2  - pauseW + 10.0
-        let pauseY: CGFloat = self.map.frame.height - pauseH - 5.0
-        pauseButton.frame = CGRect(x: pauseX, y: pauseY, width: pauseW, height: pauseH)
-        pauseButton.backgroundColor = kPauseButtonBackgroundColor
-        pauseButton.setTitle("Pause", forState: .Normal)
-        pauseButton.addTarget(self, action: "pauseGpxTracking", forControlEvents: .TouchUpInside)
-        pauseButton.hidden = true
-        pauseButton.titleLabel?.textAlignment = .Center
-        pauseButton.layer.cornerRadius = 35.0
-        map.addSubview(pauseButton)
-        
-        //CoordLabel
-        coordsLabel.frame = CGRect(x: self.map.frame.width/2 - 150, y: 2, width: 300, height: 20)
+        // CoordLabel
+        coordsLabel.frame = CGRect(x: self.map.frame.width/2 - 150, y: 14 + 2, width: 300, height: 20)
         coordsLabel.textAlignment = .Center
         coordsLabel.font = UIFont.systemFontOfSize(14)
         coordsLabel.text = "Not getting location"
         map.addSubview(coordsLabel)
         
         //timeLabel
-        timeLabel.frame = CGRect(x: self.map.frame.width/2 - 150 + 12.5, y: map.frame.height -  startH - 25, width: 300, height: 20)
+        timeLabel.frame = CGRect(x: self.map.frame.width/2 - 150, y: map.frame.height -  trackerH - 25, width: 300, height: 20)
         timeLabel.textAlignment = .Center
         timeLabel.font = UIFont.boldSystemFontOfSize(14)
         timeLabel.text = "00:00:00"
@@ -269,30 +389,23 @@ class ViewController: UIViewController, MKMapViewDelegate,CLLocationManagerDeleg
         map.addSubview(timeLabel)
         
         //speed Label
-        
-        speedLabel.frame = CGRect(x: self.map.frame.width/2 - 150 + 12.5, y: map.frame.height -  startH - 50, width: 300, height: 20)
+        speedLabel.frame = CGRect(x: self.map.frame.width/2 - 150, y: map.frame.height -  trackerH - 50, width: 300, height: 20)
         speedLabel.textAlignment = .Center
         speedLabel.font = UIFont.boldSystemFontOfSize(14)
         speedLabel.text = "0.00 km/h"
         //timeLabel.backgroundColor = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.5)
         map.addSubview(speedLabel)
-        
-    
-        
-        
-        
     }
 
+    
     func openFolderViewController() {
         println("OpenFolderViewController")
-        
         let vc = GPXFilesTableViewController(nibName: nil, bundle: nil)
         vc.delegate = self
         let navController = UINavigationController(rootViewController: vc)
-        self.presentViewController(navController, animated: true) { () -> Void in
-            
-        }
+        self.presentViewController(navController, animated: true) { () -> Void in }
     }
+    
     
     func openAboutViewController() {
         let vc = AboutViewController(nibName: nil, bundle: nil)
@@ -300,11 +413,13 @@ class ViewController: UIViewController, MKMapViewDelegate,CLLocationManagerDeleg
         self.presentViewController(navController, animated: true) { () -> Void in }
     }
     
+    
     func stopFollowingUser(gesture: UIPanGestureRecognizer) {
-        println("Pan gesture detected: stop Following user")
-        self.followUser = false
-        followUserButton.setImage(UIImage(named: "follow_user"), forState: .Normal)
+        if self.followUser {
+            followUser = false
+        }
     }
+    
     
     // UIGestureRecognizerDelegate required for stopFollowingUser
     func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
@@ -312,11 +427,13 @@ class ViewController: UIViewController, MKMapViewDelegate,CLLocationManagerDeleg
     }
     
    func addPinAtTappedLocation(gesture: UILongPressGestureRecognizer) {
-    
         if  gesture.state == UIGestureRecognizerState.Began {
             println("Adding Pin map Long Press Gesture")
             let point: CGPoint = gesture.locationInView(self.map)
             map.addWaypointAtViewPoint(point)
+            //Allows save and reset
+            self.hasWaypoints = true
+            
         }
     }
     
@@ -331,103 +448,55 @@ class ViewController: UIViewController, MKMapViewDelegate,CLLocationManagerDeleg
         println("Adding Pin at my location")
         let waypoint = GPXWaypoint(coordinate: map.userLocation.coordinate)
         map.addWaypoint(waypoint)
+        self.hasWaypoints = true
     }
     
     
     func followButtonTroggler(){
-        if self.followUser {
-            self.followUser = false
-            followUserButton.setImage(UIImage(named: "follow_user"), forState: .Normal)
-        } else {
-            self.followUser = true
-            followUserButton.setImage(UIImage(named: "follow_user_high"), forState: .Normal)
-            map.setCenterCoordinate(map.userLocation.coordinate, animated: true)
-           
+        self.followUser = !self.followUser
+    }
+    
+    
+    func resetButtonTapped() {
+        //clear tracks, pins and overlays if not already in that status
+        if (self.gpxTrackingStatus != .NotStarted) {
+            self.gpxTrackingStatus = .NotStarted
         }
     }
+    
     ////////////////////////////
     // TRACKING USER
-
-    func pauseGpxTracking() {
-        println("Paused/resumed GPX tracking")
-        switch gpxTrackingStatus {
-        case .Tracking, .Finished, .NotStarted:
-            println("Paused GPX tracking")
-            
-            //update tracking status and add segment to track
-            self.gpxTrackingStatus = GpxTrackingStatus.Paused
-            self.map.startNewTrackSegment()
-            
-            self.pauseButton.setTitle("Resume", forState: .Normal)
-            self.pauseButton.backgroundColor = UIColor.greenColor()
-            self.pauseButton.backgroundColor = kResumeButtonBackgroundColor
-            
-            self.stopWatch.stop()
-            
-            
-        case .Paused:
-            println("Resumed GPX tracking")
-            self.gpxTrackingStatus = GpxTrackingStatus.Tracking
-            
-            //update UI
-            self.pauseButton.setTitle("Pause", forState: .Normal)
-            //restart timer
-            self.stopWatch.start()
-            self.pauseButton.backgroundColor = kPauseButtonBackgroundColor
-            
-            
-        default:
-            println("ERROR: Yeeeeeee! pauseGpxTracking shall never be called with \(gpxTrackingStatus)")
-        }
     
-    }
-    
-    func startGpxTracking() {
+    func trackerButtonTapped() {
         println("startGpxTracking::")
         switch gpxTrackingStatus {
         case .NotStarted:
-            println("Not Started => initializing")
-        case .Finished:
-            println("Finish => RE initializing")
+            gpxTrackingStatus = .Tracking
+        case .Tracking:
+            gpxTrackingStatus = .Paused
+        case .Paused:
+            //set to tracking
+            gpxTrackingStatus = .Tracking
         default:
             println("ERROR: startGpxTracking")
         }
-        self.stopWatch.reset()
-        self.stopWatch.start()
-        
-        gpxTrackingStatus = .Tracking
-        
-        UIView.animateWithDuration(0.2, delay: 0.0, options: UIViewAnimationOptions.CurveLinear, animations: { () -> Void in
-            self.startButton.hidden = true
-            self.stopButton.hidden = false
-            self.pauseButton.hidden = false
-            }, completion: {(f: Bool) -> Void in
-                println("finished animation start tracking")
-            })
-        
     }
     
     
-    func stopGpxTracking() {
-        println("stop GPX Tracking called")
+    func saveButtonTapped() {
+        println("save Button tapped")
+        // ignore the save button if there is nothing to save.
+        if (gpxTrackingStatus == .NotStarted) && !self.hasWaypoints {
+            return;
+        }
         
         let alert = UIAlertView(title: "Save as", message: "Enter GPX session name", delegate: self, cancelButtonTitle: "Continue tracking")
         
         alert.addButtonWithTitle("Save")
-        alert.addButtonWithTitle("Discard session")
         alert.alertViewStyle = .PlainTextInput;
         alert.tag = kSaveSessionAlertViewTag
-        
-        //set default file name -- discarded
-        if self.lastLoadedSessionFilename.utf16Count > 0 {
-            alert.textFieldAtIndex(0)?.text = self.lastLoadedSessionFilename
-        }
-        //let dateFormat = NSDateFormatter()
-        //let now = NSDate()
-        //dateFormat.dateStyle = NSDateFormatterStyle.MediumStyle
-        //dateFormat.timeStyle = NSDateFormatterStyle.ShortStyle
-        //alert.textFieldAtIndex(0)?.text = dateFormat.stringFromDate(now)
         alert.show();
+        alert.textFieldAtIndex(0)?.text = lastGpxFilename
         //alert.textFieldAtIndex(0)?.selectAll(self)
     }
     
@@ -439,57 +508,20 @@ class ViewController: UIViewController, MKMapViewDelegate,CLLocationManagerDeleg
         case kSaveSessionAlertViewTag:
             
             println("alertViewDelegate for Save Session")
+            
             switch buttonIndex {
             case 0: //cancel
-                println("Finish canceled")
-            case 2:
-                //discard changes
+                println("Save canceled")
                 
-                //hide stop and pause, and show start tracking ------
-                gpxTrackingStatus = .Finished
-                self.startButton.hidden = false
-                self.stopButton.hidden = true
-                self.pauseButton.hidden = true
-                
-                self.pauseButton.setTitle("Pause", forState: .Normal)
-                self.pauseButton.backgroundColor = kPauseButtonBackgroundColor
-                
-                //Stop Timer
-                stopWatch.stop()
-                stopWatch.reset()
-                self.timeLabel.text = stopWatch.elapsedTimeString
-                
-                self.map.clearMap()
-            case 1:
+            case 1: //Save
                 let filename = (alertView.textFieldAtIndex(0)?.text.utf16Count == 0) ? " " : alertView.textFieldAtIndex(0)?.text
-                
                 println("Save File \(filename)")
-                
-                //hide stop and pause, and show start tracking ---------
-                gpxTrackingStatus = .Finished
-                self.startButton.hidden = false
-                self.stopButton.hidden = true
-                self.pauseButton.hidden = true
-            
-                self.pauseButton.setTitle("Pause", forState: .Normal)
-                self.pauseButton.backgroundColor = kPauseButtonBackgroundColor
-            
-                //Stop Timer
-                stopWatch.stop()
-                stopWatch.reset()
-                self.timeLabel.text = stopWatch.elapsedTimeString
-                
                 //export to a file
-                self.map.finishCurrentSegment()
                 let gpxString = self.map.exportToGPXString()
-                
                 GPXFileManager.save(filename!, gpxContents: gpxString)
                 //println(gpx.gpx())
+                self.lastGpxFilename = filename!
                 
-                //clear tracks, pins and overlays
-                self.map.clearMap()
-                
-            
             default:
             println("[ERROR] it seems there are more than two buttons on the alertview.")
         
@@ -661,33 +693,17 @@ class ViewController: UIViewController, MKMapViewDelegate,CLLocationManagerDeleg
     //GPXFilesTableViewController Delegate
     func didLoadGPXFileWithName(gpxFilename: String, gpxRoot: GPXRoot) {
         //println("Loaded GPX file", gpx.gpx())
-        
-        self.lastLoadedSessionFilename = gpxFilename
-        
-        //Set buttons ------------
-        self.startButton.hidden = false
-        self.stopButton.hidden = true
-        self.pauseButton.hidden = true
-        
-        self.pauseButton.setTitle("Pause", forState: .Normal)
-        self.pauseButton.backgroundColor = kPauseButtonBackgroundColor
-        
-        //Update watch
-        self.stopWatch.stop()
-        self.stopWatch.reset()
-        self.timeLabel.text = stopWatch.elapsedTimeString
-        
+        self.lastGpxFilename = gpxFilename
+        //emulate a reset button tap
+        self.resetButtonTapped()
         //load data
         self.map.importFromGPXRoot(gpxRoot)
-        
         //stop following user
         self.followUser = false
-        self.followUserButton.setImage(UIImage(named: "follow_user"), forState: UIControlState.Normal)
-        
         //center map in GPX data
         self.map.regionToGPXExtent()
-    
         
+        self.gpxTrackingStatus = .Paused
     }
     
     
@@ -701,7 +717,5 @@ class ViewController: UIViewController, MKMapViewDelegate,CLLocationManagerDeleg
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
-
 }
 
