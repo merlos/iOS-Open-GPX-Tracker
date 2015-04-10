@@ -30,7 +30,11 @@ class GPXMapView : MKMapView {
     var currentSegment: GPXTrackSegment =  GPXTrackSegment()
     var currentSegmentOverlay: MKPolyline //Polyline conforms MKOverlay protocol
     var extent: GPXExtentCoordinates = GPXExtentCoordinates() //extent of the GPX points and tracks
-    var tileServer: GPXTileServer = .OpenStreetMaps {
+    
+    var totalTrackedDistance = 0.00 // in meters
+    var currentTrackDistance = 0.00 // in meters
+    
+    var tileServer: GPXTileServer = .MapQuest {
         willSet {
             // Info about how to use other tile servers:
             //http://www.glimsoft.com/01/31/how-to-use-openstreetmap-on-ios-7-in-7-lines-of-code/
@@ -39,7 +43,7 @@ class GPXMapView : MKMapView {
             //Note 2: it seems that there are issues when loading tile images
             //https://github.com/mapbox/mbxmapkit/issues/132
             
-            NSLog("Seting map tiles overlay to: \(newValue.name)" )
+            NSLog("Setting map tiles overlay to: \(newValue.name)" )
             
             // remove current overlay
             if self.tileServer != .Apple {

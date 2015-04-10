@@ -57,17 +57,10 @@ class GPXFileManager : NSObject {
     
     class func save(filename: String, gpxContents : String) {
         //check if name exists
-        var finalFilename = filename
-        var i = 2
-        while self.fileExists(finalFilename) {
-            finalFilename = filename + " (\(i))"
-        }
-        let finalFilePath: String = self.pathForFilename(finalFilename)
+        let finalFilePath: String = self.pathForFilename(filename)
         //save file
         println("Saving file at path: \(finalFilePath)")
         // write gpx to file
-        
-
         var writeError: NSError?
         let saved: Bool = gpxContents.writeToFile(finalFilePath, atomically: true, encoding: NSUTF8StringEncoding, error: &writeError)
         if !saved {
