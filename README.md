@@ -1,14 +1,15 @@
 iOS Open GPX Tracker
 ====================
 
-Open GPX Tracker is an app for iOS devices (iPhone, iPad, iPod). It allows you to create GPX files and send them by email. 
+Open GPX Tracker is an app for iOS devices (iPhone, iPad, iPod). Track your location, add waypoints and send your logs by email as GPX files.
 
 This app has no annoying time restrictions, no ads and no in-app-purchases. Create unlimited GPX traces :)
 
 Requires iOS 7.0 or above. Open GPX tracker is an open source app.
 
+[![Available on the app store](https://merlos.github.io/iOS-Open-GPX-Tracker/images/download-app-store.svg)](https://github.com/merlos/iOS-Open-GPX-Tracker/blob/master/README.md) 
 
-![My image](https://merlos.github.io/iOS-Open-GPX-Tracker/images/open-gpx-tracker-4-screenshots.png)
+![GPS Tracker logs](https://merlos.github.io/iOS-Open-GPX-Tracker/images/open-gpx-tracker-4-screenshots.png)
 
 You can use Open GPX tracker for: 
 
