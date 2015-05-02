@@ -108,12 +108,12 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 ----
-
 Please note that this source code was released under the GPL license.  So any change on the code shall be made publicly available and distributed under the GPL license (this does not apply to the pods included in the project which have their own license).
-
 ----
 
 This app uses:
  - [iOS GPX Framework](https://github.com/merlos/ios-gpx-framework) created by Watanabe Toshinori and podified by  [@Pierre-Loup](https://github.com/Pierre-Loup/)
 
+
+Entry on the [Open Street Maps Wiki](https://wiki.openstreetmap.org/wiki/OpenGpxTracker)
 
