@@ -140,6 +140,10 @@ class GPXMapView : MKMapView {
         gpx.addWaypoints(self.waypoints)
         let track = GPXTrack()
         track.addTracksegments(self.trackSegments)
+        //add current segment if not empty
+        if self.currentSegment.trackpoints.count > 0 {
+            track.addTracksegment(self.currentSegment);
+        }
         self.tracks.append(track)
         gpx.addTracks(self.tracks)
         return gpx.gpx()
