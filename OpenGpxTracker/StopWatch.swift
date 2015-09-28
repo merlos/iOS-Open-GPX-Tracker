@@ -46,7 +46,7 @@ class StopWatch: NSObject {
     func stop() {
         self.status = .Stopped
         //add difference between start and stop to elapsed time
-        var currentTime = NSDate.timeIntervalSinceReferenceDate()
+        let currentTime = NSDate.timeIntervalSinceReferenceDate()
         let diff = currentTime - startedTime
         tmpElapsedTime = tmpElapsedTime + diff
         timer.invalidate()

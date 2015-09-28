@@ -34,7 +34,7 @@ extension GPXTrackSegment {
         var coords: [CLLocationCoordinate2D] = []
         
         for point in self.trackpoints   {
-            let pt = point as GPXTrackPoint
+            let pt = point as! GPXTrackPoint
             coords.append(pt.coordinate)
         }
         return coords

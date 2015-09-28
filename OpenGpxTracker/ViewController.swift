@@ -45,18 +45,18 @@ class ViewController: UIViewController, MKMapViewDelegate,CLLocationManagerDeleg
     var followUser: Bool = true {
         didSet {
             if (followUser) {
-                println("followUser=true");
+                print("followUser=true");
                 followUserButton.setImage(UIImage(named: "follow_user_high"), forState: .Normal)
                 map.setCenterCoordinate(map.userLocation.coordinate, animated: true)
                 
             } else {
-                println("followUser=false");
+                print("followUser=false");
                followUserButton.setImage(UIImage(named: "follow_user"), forState: .Normal)
             }
             
         }
     }
-    
+    var followUserBeforePinchGesture = true
     
     
     //MapView
@@ -85,10 +85,10 @@ class ViewController: UIViewController, MKMapViewDelegate,CLLocationManagerDeleg
     }
     var gpxTrackingStatus: GpxTrackingStatus = GpxTrackingStatus.NotStarted {
         didSet {
-            println("gpxTrackingStatus changed to \(gpxTrackingStatus)")
+            print("gpxTrackingStatus changed to \(gpxTrackingStatus)")
             switch gpxTrackingStatus {
             case .NotStarted:
-                println("switched to non started")
+                print("switched to non started")
                 // set Tracker button to allow Start 
                 self.trackerButton.setTitle("Start Tracking", forState: .Normal)
                 self.trackerButton.backgroundColor = kGreenButtonBackgroundColor
@@ -113,7 +113,7 @@ class ViewController: UIViewController, MKMapViewDelegate,CLLocationManagerDeleg
                 */
                 
             case .Tracking:
-                println("switched to tracking mode")
+                print("switched to tracking mode")
                 // set tracerkButton to allow Pause
                 self.trackerButton.setTitle("Pause", forState: .Normal)
                 self.trackerButton.backgroundColor = kPurpleButtonBackgroundColor
@@ -124,7 +124,7 @@ class ViewController: UIViewController, MKMapViewDelegate,CLLocationManagerDeleg
                 self.stopWatch.start()
                 
             case .Paused:
-                println("switched to paused mode")
+                print("switched to paused mode")
                 // set trackerButton to allow Resume
                 self.trackerButton.setTitle("Resume", forState: .Normal)
                 self.trackerButton.backgroundColor = kGreenButtonBackgroundColor
@@ -137,7 +137,7 @@ class ViewController: UIViewController, MKMapViewDelegate,CLLocationManagerDeleg
                 self.map.startNewTrackSegment()
                 
             default:
-                println("WTF! This is not possible sir!")
+                print("WTF! This is not possible sir!")
             
             }
         }
@@ -175,26 +175,26 @@ class ViewController: UIViewController, MKMapViewDelegate,CLLocationManagerDeleg
     required init(coder aDecoder: NSCoder) {
     
         self.locationManager = CLLocationManager()
-        self.map = GPXMapView(coder: aDecoder)
+        self.map = GPXMapView(coder: aDecoder)!
         
-        self.appTitleLabel = UILabel(coder: aDecoder)
-        self.signalImageView = UIImageView(coder: aDecoder)
-        self.coordsLabel = UILabel(coder: aDecoder)
+        self.appTitleLabel = UILabel(coder: aDecoder)!
+        self.signalImageView = UIImageView(coder: aDecoder)!
+        self.coordsLabel = UILabel(coder: aDecoder)!
         
-        self.timeLabel = UILabel(coder: aDecoder)
-        self.speedLabel = UILabel(coder: aDecoder)
-        self.trackedDistanceLabel = UILabel(coder: aDecoder)
-        self.segmentDistanceLabel = UILabel(coder: aDecoder)
+        self.timeLabel = UILabel(coder: aDecoder)!
+        self.speedLabel = UILabel(coder: aDecoder)!
+        self.trackedDistanceLabel = UILabel(coder: aDecoder)!
+        self.segmentDistanceLabel = UILabel(coder: aDecoder)!
         
-        self.followUserButton = UIButton(coder: aDecoder)
-        self.newPinButton = UIButton(coder: aDecoder)
-        self.folderButton = UIButton(coder: aDecoder)
-        self.resetButton = UIButton(coder: aDecoder)
-        self.aboutButton = UIButton(coder: aDecoder)
+        self.followUserButton = UIButton(coder: aDecoder)!
+        self.newPinButton = UIButton(coder: aDecoder)!
+        self.folderButton = UIButton(coder: aDecoder)!
+        self.resetButton = UIButton(coder: aDecoder)!
+        self.aboutButton = UIButton(coder: aDecoder)!
         
-        self.trackerButton = UIButton(coder: aDecoder)
-        self.saveButton = UIButton(coder: aDecoder)
-        super.init(coder: aDecoder)
+        self.trackerButton = UIButton(coder: aDecoder)!
+        self.saveButton = UIButton(coder: aDecoder)!
+        super.init(coder: aDecoder)!
         followUser = true
     }
     
@@ -204,9 +204,8 @@ class ViewController: UIViewController, MKMapViewDelegate,CLLocationManagerDeleg
 
         stopWatch.delegate = self
         //Location stuff
-        if iOS8 {
-            locationManager.requestAlwaysAuthorization()
-        }
+        locationManager.requestAlwaysAuthorization()
+        
         locationManager.delegate = self;
         locationManager.desiredAccuracy = kCLLocationAccuracyBest;
         locationManager.distanceFilter = 2
@@ -225,6 +224,10 @@ class ViewController: UIViewController, MKMapViewDelegate,CLLocationManagerDeleg
         let panGesture = UIPanGestureRecognizer(target: self, action: "stopFollowingUser:")
         panGesture.delegate = self
         map.addGestureRecognizer(panGesture)
+       
+        
+        let pinchGesture = UIPinchGestureRecognizer(target: self, action: "pinchGesture")
+        map.addGestureRecognizer(pinchGesture)
         
         //Set Tile Server
         map.tileServer = GPXTileServer.Apple
@@ -399,7 +402,7 @@ class ViewController: UIViewController, MKMapViewDelegate,CLLocationManagerDeleg
 
     
     func openFolderViewController() {
-        println("OpenFolderViewController")
+        print("OpenFolderViewController")
         let vc = GPXFilesTableViewController(nibName: nil, bundle: nil)
         vc.delegate = self
         let navController = UINavigationController(rootViewController: vc)
@@ -416,7 +419,7 @@ class ViewController: UIViewController, MKMapViewDelegate,CLLocationManagerDeleg
     
     func stopFollowingUser(gesture: UIPanGestureRecognizer) {
         if self.followUser {
-            followUser = false
+            self.followUser = false
         }
     }
     
@@ -428,7 +431,7 @@ class ViewController: UIViewController, MKMapViewDelegate,CLLocationManagerDeleg
     
    func addPinAtTappedLocation(gesture: UILongPressGestureRecognizer) {
         if  gesture.state == UIGestureRecognizerState.Began {
-            println("Adding Pin map Long Press Gesture")
+            print("Adding Pin map Long Press Gesture")
             let point: CGPoint = gesture.locationInView(self.map)
             map.addWaypointAtViewPoint(point)
             //Allows save and reset
@@ -437,15 +440,22 @@ class ViewController: UIViewController, MKMapViewDelegate,CLLocationManagerDeleg
         }
     }
     
-    //TODO
-    func newPinLongPress(gesture: UILongPressGestureRecognizer) {
-        if  gesture.state == UIGestureRecognizerState.Ended {
-            println("Long Press");
+    // zoom gesture controls that follow user to
+    func pinchGesture(gesture: UIPinchGestureRecognizer) {
+        print("pinchGesture");
+     /*   if gesture.state == UIGestureRecognizerState.Began {
+            self.followUserBeforePinchGesture = self.followUser
+            self.followUser = false
         }
+        //return to back
+        if gesture.state == UIGestureRecognizerState.Ended {
+            self.followUser = self.followUserBeforePinchGesture
+        }
+        */
     }
     
     func addPinAtMyLocation() {
-        println("Adding Pin at my location")
+        print("Adding Pin at my location")
         let waypoint = GPXWaypoint(coordinate: map.userLocation.coordinate)
         map.addWaypoint(waypoint)
         self.hasWaypoints = true
@@ -468,7 +478,7 @@ class ViewController: UIViewController, MKMapViewDelegate,CLLocationManagerDeleg
     // TRACKING USER
     
     func trackerButtonTapped() {
-        println("startGpxTracking::")
+        print("startGpxTracking::")
         switch gpxTrackingStatus {
         case .NotStarted:
             gpxTrackingStatus = .Tracking
@@ -478,13 +488,13 @@ class ViewController: UIViewController, MKMapViewDelegate,CLLocationManagerDeleg
             //set to tracking
             gpxTrackingStatus = .Tracking
         default:
-            println("ERROR: startGpxTracking")
+            print("ERROR: startGpxTracking")
         }
     }
     
     
     func saveButtonTapped() {
-        println("save Button tapped")
+        print("save Button tapped")
         // ignore the save button if there is nothing to save.
         if (gpxTrackingStatus == .NotStarted) && !self.hasWaypoints {
             return;
@@ -507,15 +517,15 @@ class ViewController: UIViewController, MKMapViewDelegate,CLLocationManagerDeleg
         switch alertView.tag {
         case kSaveSessionAlertViewTag:
             
-            println("alertViewDelegate for Save Session")
+            print("alertViewDelegate for Save Session")
             
             switch buttonIndex {
             case 0: //cancel
-                println("Save canceled")
+                print("Save canceled")
                 
             case 1: //Save
-                let filename = (alertView.textFieldAtIndex(0)?.text.utf16Count == 0) ? " " : alertView.textFieldAtIndex(0)?.text
-                println("Save File \(filename)")
+                let filename = (alertView.textFieldAtIndex(0)?.text!.utf16.count == 0) ? " " : alertView.textFieldAtIndex(0)?.text
+                print("Save File \(filename)")
                 //export to a file
                 let gpxString = self.map.exportToGPXString()
                 GPXFileManager.save(filename!, gpxContents: gpxString)
@@ -523,15 +533,15 @@ class ViewController: UIViewController, MKMapViewDelegate,CLLocationManagerDeleg
                 self.lastGpxFilename = filename!
                 
             default:
-            println("[ERROR] it seems there are more than two buttons on the alertview.")
+            print("[ERROR] it seems there are more than two buttons on the alertview.")
         
             } //buttonIndex
         case kEditWaypointAlertViewTag:
-            println("Edit waypoint alert view")
+            print("Edit waypoint alert view")
             self.waypointBeingEdited.title = alertView.textFieldAtIndex(0)?.text
             
         default:
-            println("[ERROR] it seems that the AlertView is not handled properly." )
+            print("[ERROR] it seems that the AlertView is not handled properly." )
             
         }
     }
@@ -540,8 +550,8 @@ class ViewController: UIViewController, MKMapViewDelegate,CLLocationManagerDeleg
     //#pragma mark - location manager Delegate
     
     
-    func locationManager(manager: CLLocationManager!, didFailWithError error: NSError!) {
-         println("didFailWithError\(error)");
+    func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
+         print("didFailWithError\(error)");
     }
     
     func locationManager(manager: CLLocationManager!, didUpdateToLocation newLocation: CLLocation!, fromLocation oldLocation: CLLocation!) {
@@ -576,14 +586,14 @@ class ViewController: UIViewController, MKMapViewDelegate,CLLocationManagerDeleg
             map.setCenterCoordinate(map.userLocation.coordinate, animated: true)
         }
         if gpxTrackingStatus == .Tracking {
-            println("didUpdateLocation: adding point to track \(newLocation.coordinate)")
+            print("didUpdateLocation: adding point to track \(newLocation.coordinate)")
             map.addPointToCurrentTrackSegmentAtLocation(newLocation)
         }
         
     }
     
     
-    func mapView(mapView: MKMapView!, viewForAnnotation annotation: MKAnnotation!) -> MKAnnotationView! {
+    func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView! {
         if (annotation.isKindOfClass(MKUserLocation)) {
             return nil
         }
@@ -608,13 +618,13 @@ class ViewController: UIViewController, MKMapViewDelegate,CLLocationManagerDeleg
     }
     
     
-    func mapView(mapView: MKMapView!, rendererForOverlay overlay: MKOverlay!) -> MKOverlayRenderer! {
+    func mapView(mapView: MKMapView, rendererForOverlay overlay: MKOverlay) -> MKOverlayRenderer! {
         if (overlay.isKindOfClass(MKTileOverlay)) {
             return MKTileOverlayRenderer(overlay: overlay)
         }
         
         if (overlay is MKPolyline) {
-            var pr = MKPolylineRenderer(overlay: overlay);
+            let pr = MKPolylineRenderer(overlay: overlay);
             pr.strokeColor = UIColor.blueColor().colorWithAlphaComponent(0.5);
             pr.lineWidth = 3;
             return pr;
@@ -623,16 +633,16 @@ class ViewController: UIViewController, MKMapViewDelegate,CLLocationManagerDeleg
     }
     
     
-    func mapView(mapView: MKMapView!, annotationView view: MKAnnotationView!, calloutAccessoryControlTapped control: UIControl!) {
-        println("calloutAccesoryControlTapped ")
-        let waypoint = view.annotation as GPXWaypoint
-        let button = control as UIButton
+    func mapView(mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+        print("calloutAccesoryControlTapped ")
+        let waypoint = view.annotation as! GPXWaypoint
+        let button = control as! UIButton
         switch button.tag {
         case kDeleteWaypointAccesoryButtonTag:
-            println("[calloutAccesoryControlTapped: DELETE button] deleting waypoint with name \(waypoint.name)");
+            print("[calloutAccesoryControlTapped: DELETE button] deleting waypoint with name \(waypoint.name)");
             map.removeWaypoint(waypoint)
         case kEditWaypointAccesoryButtonTag:
-            println("[calloutAccesoryControlTapped: EDIT] editing waypoint with name \(waypoint.name)")
+            print("[calloutAccesoryControlTapped: EDIT] editing waypoint with name \(waypoint.name)")
             let alert = UIAlertView(title: "Edit Waypoint", message: "Hint: To change the waypoint location drag and drop the pin" , delegate: self, cancelButtonTitle: "Cancel")
             alert.addButtonWithTitle("Save")
             alert.tag = kEditWaypointAlertViewTag
@@ -643,29 +653,29 @@ class ViewController: UIViewController, MKMapViewDelegate,CLLocationManagerDeleg
             alert.textFieldAtIndex(0)?.selectAll(self) //display text selected <-- TODO Not working WTF!
 
         default:
-            println("[calloutAccesoryControlTapped ERROR] unknown control")
+            print("[calloutAccesoryControlTapped ERROR] unknown control")
         }
     }
     
 
     
-    func mapView(mapView: MKMapView!, annotationView view: MKAnnotationView!, didChangeDragState newState: MKAnnotationViewDragState, fromOldState oldState: MKAnnotationViewDragState) {
+    func mapView(mapView: MKMapView, annotationView view: MKAnnotationView, didChangeDragState newState: MKAnnotationViewDragState, fromOldState oldState: MKAnnotationViewDragState) {
         if (newState == MKAnnotationViewDragState.Ending){
-            let point = view.annotation as GPXWaypoint
-            println("Annotation name: \(point.title) lat:\(point.latitude) lon \(point.longitude)")
+            let point = view.annotation as! GPXWaypoint
+            print("Annotation name: \(point.title) lat:\(point.latitude) lon \(point.longitude)")
         }
     }
     
     
     
-    func mapView(mapView: MKMapView!, didAddAnnotationViews views: [AnyObject]!) {
+    func mapView(mapView: MKMapView, didAddAnnotationViews views: [MKAnnotationView]) {
         var i = 0
         for object in views {
             i++
             let aV = object as MKAnnotationView
-            if aV.annotation.isKindOfClass(MKUserLocation) { continue }
+            if aV.annotation!.isKindOfClass(MKUserLocation) { continue }
             
-            let point : MKMapPoint = MKMapPointForCoordinate(aV.annotation.coordinate)
+            let point : MKMapPoint = MKMapPointForCoordinate(aV.annotation!.coordinate)
             if !MKMapRectContainsPoint(self.map.visibleMapRect, point) { continue }
          
             let endFrame: CGRect = aV.frame
