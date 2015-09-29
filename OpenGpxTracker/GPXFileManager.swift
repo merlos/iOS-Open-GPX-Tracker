@@ -26,18 +26,35 @@ class GPXFileManager : NSObject {
     //Gets the list of .gpx files in Documents directory
     class var fileList: [AnyObject]  {
         get {
-            return []
+            var GPXFiles:[String] = []
+            let fileManager = NSFileManager.defaultManager()
+            // We need just to get the documents folder url
+                let documentsURL = fileManager.URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)[0] as NSURL
+                
+                do {
+                    // if you want to filter the directory contents you can do like this:
+                    if let directoryURLs = try? NSFileManager.defaultManager().contentsOfDirectoryAtURL(documentsURL, includingPropertiesForKeys: nil, options: NSDirectoryEnumerationOptions.SkipsSubdirectoryDescendants) {
+                        print(directoryURLs)
+                        for url:NSURL in directoryURLs {
+                            if url.pathExtension == kFileExt {
+                                GPXFiles.append(url.URLByDeletingPathExtension!.lastPathComponent!)
+                            }
+                        }
+                    }//if
+                }
+            return GPXFiles
         }
     }
     //
     // @param filename gpx filename without extension
     class func URLForFilename(filename: String) -> NSURL {
-        let fullURL = self.GPXFilesFolderURL.URLByAppendingPathComponent(filename)
+        var fullURL = self.GPXFilesFolderURL.URLByAppendingPathComponent(filename)
         //var ext = ".\(kFileExt)" // add dot to file extension
         print("pathForFilename: \(fullURL)")
         //check if filename has extension
-        if fullURL.pathExtension != "gpx" {
+        if fullURL.pathExtension != kFileExt {
             print("oh! is not a gpx file");
+            fullURL = fullURL.URLByAppendingPathExtension(kFileExt)
         }
         return fullURL
     }

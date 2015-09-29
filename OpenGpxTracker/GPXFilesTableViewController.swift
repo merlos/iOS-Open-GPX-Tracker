@@ -41,15 +41,6 @@ class GPXFilesTableViewController : UITableViewController, UINavigationBarDelega
         self.navigationItem.rightBarButtonItems = [shareItem]
         
         //get gpx files
-        /*let documentsDirectory = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as String
-
-        let defaultManager = NSFileManager.defaultManager()
-        var filePathsArray : NSArray = defaultManager.subpathsOfDirectoryAtPath(documentsDirectory, error: nil)!
-        let predicate : NSPredicate = NSPredicate(format: "SELF EndsWith '.gpx'")
-        filePathsArray = filePathsArray.filteredArrayUsingPredicate(predicate)
-        
-        println(filePathsArray)
-        */
         let list: NSArray = GPXFileManager.fileList
         if list.count != 0 {
             self.fileList.removeAllObjects()
@@ -164,12 +155,13 @@ class GPXFilesTableViewController : UITableViewController, UINavigationBarDelega
     }
     
     func actionLoadFileAtIndex(rowIndex: Int) {
-        /*let filename: String = fileList.objectAtIndex(rowIndex) as! String
+        let filename: String = fileList.objectAtIndex(rowIndex) as! String
         print("load gpx File: \(filename)")
-        let gpx = GPXParser.parseGPXAtPath(GPXFileManager.URLForFilename(filename).path)
-        self.delegate?.didLoadGPXFileWithName(filename.stringByDeletingPathExtension, gpxRoot: gpx)
+        let fileURL: NSURL = GPXFileManager.URLForFilename(filename)
+        let gpx = GPXParser.parseGPXAtPath(fileURL.path)
+        self.delegate?.didLoadGPXFileWithName(filename, gpxRoot: gpx)
         self.dismissViewControllerAnimated(true, completion: nil)
-        */
+
     }
     
     //#pragma mark - Send email
