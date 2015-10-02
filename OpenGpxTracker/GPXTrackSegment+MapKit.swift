@@ -39,4 +39,28 @@ extension GPXTrackSegment {
         }
         return coords
     }
+    
+    //Calculates length in meters of the segment
+    func length() -> CLLocationDistance {
+        
+        var length :CLLocationDistance = 0.0
+        var distanceTwoPoints: CLLocationDistance
+        //we need at least two points
+        if self.trackpoints.count < 2 {
+            return length
+        }
+        var prev: CLLocation? //previous
+        for point in self.trackpoints as! [GPXTrackPoint]  {
+            let pt:CLLocation = CLLocation(latitude: Double(point.latitude), longitude: Double(point.longitude) )
+            if prev == nil { //if first point => set it as previous and go for next
+                prev = pt
+                continue
+            }
+            distanceTwoPoints = pt.distanceFromLocation(prev!)
+            length += distanceTwoPoints
+            //set current point as previous point
+            prev = pt
+        }
+        return length
+    }    
 }

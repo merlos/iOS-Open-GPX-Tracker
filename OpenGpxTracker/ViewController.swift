@@ -41,7 +41,6 @@ let kButtonSeparation: CGFloat = 6.0
 
 class ViewController: UIViewController, MKMapViewDelegate,CLLocationManagerDelegate, UIGestureRecognizerDelegate, UIAlertViewDelegate, GPXFilesTableViewControllerDelegate, StopWatchDelegate {
     
-    
     var followUser: Bool = true {
         didSet {
             if (followUser) {
@@ -102,6 +101,9 @@ class ViewController: UIViewController, MKMapViewDelegate,CLLocationManagerDeleg
                 self.map.clearMap() //clear map
                 self.lastGpxFilename = "" //clear last filename, so when saving it appears an empty field
                 
+                self.totalTrackedDistanceLabel.distance = self.map.totalTrackedDistance
+                self.currentSegmentDistanceLabel.distance = self.map.currentSegmentDistance
+                
                 /*
                 // XXX Left here for reference
                 UIView.animateWithDuration(0.2, delay: 0.0, options: UIViewAnimationOptions.CurveLinear, animations: { () -> Void in
@@ -135,17 +137,15 @@ class ViewController: UIViewController, MKMapViewDelegate,CLLocationManagerDeleg
                 self.stopWatch.stop()
                 // start new track segment
                 self.map.startNewTrackSegment()
-                
-            default:
-                print("WTF! This is not possible sir!")
-            
             }
         }
     }
 
     //Editing Waypoint Temporal Reference
     var waypointBeingEdited : GPXWaypoint = GPXWaypoint()
-
+    var lastLocation: CLLocation? //Last point of current segment.
+    
+    
     //UI
     //labels
     let appTitleLabel: UILabel
@@ -153,8 +153,9 @@ class ViewController: UIViewController, MKMapViewDelegate,CLLocationManagerDeleg
     let coordsLabel: UILabel
     let timeLabel : UILabel
     let speedLabel : UILabel
-    let trackedDistanceLabel : UILabel
-    let segmentDistanceLabel : UILabel
+    let totalTrackedDistanceLabel : UIDistanceLabel
+    let currentSegmentDistanceLabel : UIDistanceLabel
+ 
     
     //buttons
     let followUserButton: UIButton
@@ -183,8 +184,8 @@ class ViewController: UIViewController, MKMapViewDelegate,CLLocationManagerDeleg
         
         self.timeLabel = UILabel(coder: aDecoder)!
         self.speedLabel = UILabel(coder: aDecoder)!
-        self.trackedDistanceLabel = UILabel(coder: aDecoder)!
-        self.segmentDistanceLabel = UILabel(coder: aDecoder)!
+        self.totalTrackedDistanceLabel = UIDistanceLabel(coder: aDecoder)!
+        self.currentSegmentDistanceLabel = UIDistanceLabel(coder: aDecoder)!
         
         self.followUserButton = UIButton(coder: aDecoder)!
         self.newPinButton = UIButton(coder: aDecoder)!
@@ -203,6 +204,7 @@ class ViewController: UIViewController, MKMapViewDelegate,CLLocationManagerDeleg
         super.viewDidLoad()
 
         stopWatch.delegate = self
+        
         //Location stuff
         locationManager.requestAlwaysAuthorization()
         
@@ -210,6 +212,7 @@ class ViewController: UIViewController, MKMapViewDelegate,CLLocationManagerDeleg
         locationManager.desiredAccuracy = kCLLocationAccuracyBest;
         locationManager.distanceFilter = 2
         locationManager.startUpdatingLocation()
+        
         
         // Map configuration Stuff
         map.delegate = self
@@ -392,12 +395,27 @@ class ViewController: UIViewController, MKMapViewDelegate,CLLocationManagerDeleg
         map.addSubview(timeLabel)
         
         //speed Label
-        speedLabel.frame = CGRect(x: self.map.frame.width/2 - 150, y: map.frame.height -  trackerH - 50, width: 300, height: 20)
+        speedLabel.frame = CGRect(x: self.map.frame.width/2 - 150, y: map.frame.height -  trackerH - 45, width: 300, height: 20)
         speedLabel.textAlignment = .Center
         speedLabel.font = UIFont.boldSystemFontOfSize(14)
         speedLabel.text = "0.00 km/h"
         //timeLabel.backgroundColor = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.5)
         map.addSubview(speedLabel)
+        
+        //tracked distance
+        totalTrackedDistanceLabel.frame = CGRect(x: self.map.frame.width/2 - 150, y: map.frame.height -  trackerH - 65, width: 300, height: 20)
+        totalTrackedDistanceLabel.textAlignment = .Center
+        totalTrackedDistanceLabel.font = UIFont.boldSystemFontOfSize(14)
+        totalTrackedDistanceLabel.text = "0 m"
+        //timeLabel.backgroundColor = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.5)
+        map.addSubview(totalTrackedDistanceLabel)
+        
+        currentSegmentDistanceLabel.frame = CGRect(x: self.map.frame.width/2 - 150, y: map.frame.height -  trackerH - 85, width: 300, height: 20)
+        currentSegmentDistanceLabel.textAlignment = .Center
+        currentSegmentDistanceLabel.font = UIFont.boldSystemFontOfSize(14)
+        currentSegmentDistanceLabel.text = "0 m"
+        //timeLabel.backgroundColor = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.5)
+        map.addSubview(currentSegmentDistanceLabel)
     }
 
     
@@ -588,6 +606,8 @@ class ViewController: UIViewController, MKMapViewDelegate,CLLocationManagerDeleg
         if gpxTrackingStatus == .Tracking {
             print("didUpdateLocation: adding point to track \(newLocation.coordinate)")
             map.addPointToCurrentTrackSegmentAtLocation(newLocation)
+            totalTrackedDistanceLabel.distance = map.totalTrackedDistance;
+            currentSegmentDistanceLabel.distance = map.currentSegmentDistance;
         }
         
     }
@@ -706,14 +726,18 @@ class ViewController: UIViewController, MKMapViewDelegate,CLLocationManagerDeleg
         self.lastGpxFilename = gpxFilename
         //emulate a reset button tap
         self.resetButtonTapped()
+        //force reset timer just in case reset does not do it
+        self.stopWatch.reset()
         //load data
         self.map.importFromGPXRoot(gpxRoot)
         //stop following user
         self.followUser = false
         //center map in GPX data
         self.map.regionToGPXExtent()
-        
         self.gpxTrackingStatus = .Paused
+        
+        self.totalTrackedDistanceLabel.distance = self.map.totalTrackedDistance
+        
     }
     
     

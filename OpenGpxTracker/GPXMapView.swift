@@ -20,7 +20,18 @@ let kGPXCreatorString = "Open GPX Tracker for iOS"
 // is able to convert GPX file into map
 // is able to return a GPX file from map
 
-
+//
+// How GPX tracking is
+// ------------------------
+// A track is a set of segments.
+// A segment is set of points (linked with a line/Polyline overlay in the map)
+// Each time the user touches "Start Tracking" => a segment is created (currentSegment)
+// Each time the users touches "Pause Tracking" => the segment is added to trackSegments
+// When the user saves the file => trackSegments are consolidated in a single track that is
+// added to the file.
+// If the user opens the file in a session for the second, then tracks some segments and saves
+// the file again, the resulting gpx file will have two tracks.
+//
 
 class GPXMapView : MKMapView {
     
@@ -33,6 +44,7 @@ class GPXMapView : MKMapView {
     
     var totalTrackedDistance = 0.00 // in meters
     var currentTrackDistance = 0.00 // in meters
+    var currentSegmentDistance = 0.00 //in meters
     
     var tileServer: GPXTileServer = .MapQuest {
         willSet {
@@ -59,6 +71,9 @@ class GPXMapView : MKMapView {
         }
     }
     var tileServerOverlay : MKTileOverlay = MKTileOverlay();
+    
+    
+    
     
     required init?(coder aDecoder: NSCoder) {
         var tmpCoords: [CLLocationCoordinate2D] = [] //init with empty
@@ -103,12 +118,24 @@ class GPXMapView : MKMapView {
         currentSegmentOverlay = currentSegment.overlay
         self.addOverlay(currentSegmentOverlay)
         self.extent.extendAreaToIncludeLocation(location.coordinate)
+        
+        //add the distance to previous tracked point
+        if self.currentSegment.trackpoints.count >= 2 { //at elast there are two points in the segment
+            let prevPt = self.currentSegment.trackpoints[self.currentSegment.trackpoints.count-2] //get previous point
+            let prevPtLoc = CLLocation(latitude: Double(prevPt.latitude), longitude: Double(prevPt.longitude))
+            //now get the distance
+            let distance = prevPtLoc.distanceFromLocation(location)
+            self.currentTrackDistance += distance
+            self.totalTrackedDistance += distance
+            self.currentSegmentDistance += distance
+        }
     }
     
     func startNewTrackSegment() {
         self.trackSegments.append(self.currentSegment)
         self.currentSegment = GPXTrackSegment()
         self.currentSegmentOverlay = MKPolyline()
+        self.currentSegmentDistance = 0.00;
     }
     
     func finishCurrentSegment() {
@@ -123,6 +150,10 @@ class GPXMapView : MKMapView {
         self.removeOverlays(self.overlays)
         self.removeAnnotations(self.annotations)
         self.extent = GPXExtentCoordinates()
+        
+        self.totalTrackedDistance = 0.00
+        self.currentTrackDistance = 0.00
+        self.currentSegmentDistance = 0.00
         
         //add tile server overlay
         //by removing all overlays, tile server overlay is also removed. We need to add it back
@@ -169,13 +200,13 @@ class GPXMapView : MKMapView {
         
         //add waypoints
         self.waypoints = gpx.waypoints as! [GPXWaypoint]
-        var pt: GPXWaypoint
         for pt in self.waypoints {
             self.addWaypoint(pt)
         }
         //add track segments
         self.tracks = gpx.tracks as! [GPXTrack]
         for oneTrack in self.tracks {
+            totalTrackedDistance += oneTrack.length
             for segment in oneTrack.tracksegments {
                 self.addOverlay(segment.overlay)
                 let segmentTrackpoints = segment.trackpoints as! [GPXTrackPoint]

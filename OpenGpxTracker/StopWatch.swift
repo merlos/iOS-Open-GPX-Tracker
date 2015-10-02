@@ -38,12 +38,14 @@ class StopWatch: NSObject {
     }
     
     func start() {
+        print("StopWatch: started")
         self.status = .Started
         self.startedTime = NSDate.timeIntervalSinceReferenceDate()
         timer = NSTimer.scheduledTimerWithTimeInterval(timeInterval, target: self, selector: "updateElapsedTime", userInfo: nil, repeats: true)
     }
     
     func stop() {
+        print("StopWatch: stopped")
         self.status = .Stopped
         //add difference between start and stop to elapsed time
         let currentTime = NSDate.timeIntervalSinceReferenceDate()
@@ -53,6 +55,7 @@ class StopWatch: NSObject {
     }
  
     func reset() {
+        print("StopWatch: reset")
         timer.invalidate()
         self.tmpElapsedTime = 0.0
         self.startedTime = NSDate.timeIntervalSinceReferenceDate()
