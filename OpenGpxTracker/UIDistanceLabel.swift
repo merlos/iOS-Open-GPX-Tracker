@@ -19,10 +19,10 @@ public class UIDistanceLabel : UILabel {
         set {
             if (newValue > 1000.0) { //use km
                 let formatted = String(format: "%.2f", (newValue/1000.0))
-                self.text = "\(formatted) km"
+                self.text = "\(formatted)km"
             } else {
                 let formatted = String(format: "%.0f", (newValue))
-                self.text = "\(formatted) m"
+                self.text = "\(formatted)m"
             }
         }
     }

@@ -238,21 +238,10 @@ class ViewController: UIViewController, MKMapViewDelegate,CLLocationManagerDeleg
         // set default zoon
         let region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 8.90, longitude: -79.50), span: MKCoordinateSpan(latitudeDelta: 0.001, longitudeDelta: 0.001))
         map.setRegion(region, animated: true)
-        
         self.view.addSubview(map)
         
-        //add signal accuracy images.
-        signalImageView.image = badSignalImage
-        signalImageView.frame = CGRect(x: self.view.frame.width/2 - 25.0, y: 28 + 14, width: 50, height: 30)
-        map.addSubview(signalImageView)
+        // HEADER
         
-        //about button
-        aboutButton.frame = CGRect(x: self.view.frame.width - 47, y: 14 + 5, width: 32, height: 32)
-        aboutButton.setImage(UIImage(named: "info"), forState: UIControlState.Normal)
-        aboutButton.setImage(UIImage(named: "info_high"), forState: .Highlighted)
-        aboutButton.addTarget(self, action: "openAboutViewController", forControlEvents: .TouchUpInside)
-        map.addSubview(aboutButton)
-    
         
         //add the app title Label (Branding, branding, branding! )
         let appTitleW: CGFloat = self.view.frame.width//200.0
@@ -260,13 +249,83 @@ class ViewController: UIViewController, MKMapViewDelegate,CLLocationManagerDeleg
         let appTitleX: CGFloat = 0 //self.view.frame.width/2 - appTitleW/2
         let appTitleY: CGFloat = 20
         appTitleLabel.frame = CGRect(x:appTitleX, y: appTitleY, width: appTitleW, height: appTitleH)
-        appTitleLabel.text = "Open GPX Tracker"
-        appTitleLabel.textAlignment = .Center
+        appTitleLabel.text = "  Open GPX Tracker"
+        appTitleLabel.textAlignment = .Left
         appTitleLabel.font = UIFont.boldSystemFontOfSize(10)
         //appTitleLabel.textColor = UIColor(red: 0.0/255.0, green: 0.0/255.0, blue: 0.0/255.0, alpha: 1.0)
         appTitleLabel.textColor = UIColor.yellowColor()
         appTitleLabel.backgroundColor = UIColor(red: 58.0/255.0, green: 57.0/255.0, blue: 54.0/255.0, alpha: 0.80)
         self.view.addSubview(appTitleLabel)
+        
+        ////////////// LABELS
+        
+        // CoordLabel
+        coordsLabel.frame = CGRect(x: self.map.frame.width - 305, y: 20, width: 300, height: 12)
+        coordsLabel.textAlignment = .Right
+        coordsLabel.font = UIFont(name:"DinAlternate-Bold", size: 12.0)
+        coordsLabel.textColor = UIColor.whiteColor()
+        coordsLabel.text = "Not getting location"
+        self.view.addSubview(coordsLabel)
+        
+        
+        //timeLabel
+        timeLabel.frame = CGRect(x: self.map.frame.width/2 + 10, y: 14+5 , width: 150, height: 50)
+        timeLabel.textAlignment = .Left
+        timeLabel.font = UIFont(name: "DinCondensed-Bold", size:36.0)
+        timeLabel.text = "00:00:00"
+        //timeLabel.shadowColor = UIColor.whiteColor()
+        //timeLabel.shadowOffset = CGSize(width: 1, height: 1)
+        //timeLabel.backgroundColor = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.5)
+        map.addSubview(timeLabel)
+        
+        //speed Label
+        speedLabel.frame = CGRect(x: self.map.frame.width/2 + 10,  y: 54 , width: 150, height: 20)
+        speedLabel.textAlignment = .Left
+        speedLabel.font = UIFont(name: "DinAlternate-Bold", size: 18.0)
+        speedLabel.text = "0.00 km/h"
+        //timeLabel.backgroundColor = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.5)
+        map.addSubview(speedLabel)
+        
+        //tracked distance
+        totalTrackedDistanceLabel.frame = CGRect(x: self.map.frame.width/2 - 160, y: 14+5, width: 150, height: 50)
+        totalTrackedDistanceLabel.textAlignment = .Right
+        totalTrackedDistanceLabel.font = UIFont(name: "DinCondensed-Bold", size: 36.0)
+        totalTrackedDistanceLabel.text = "0m"
+        //timeLabel.backgroundColor = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.5)
+        map.addSubview(totalTrackedDistanceLabel)
+        
+        currentSegmentDistanceLabel.frame = CGRect(x: self.map.frame.width/2 - 160, y: 54, width: 150, height: 20)
+        currentSegmentDistanceLabel.textAlignment = .Right
+        currentSegmentDistanceLabel.font = UIFont(name: "DinAlternate-Bold", size: 18.0)
+        currentSegmentDistanceLabel.text = "0m"
+        //timeLabel.backgroundColor = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.5)
+        map.addSubview(currentSegmentDistanceLabel)
+        
+        
+        //about button
+        aboutButton.frame = CGRect(x: self.view.frame.width - 47, y: 14 + 5, width: 48, height: 48)
+        aboutButton.setImage(UIImage(named: "info"), forState: UIControlState.Normal)
+        aboutButton.setImage(UIImage(named: "info_high"), forState: .Highlighted)
+        aboutButton.addTarget(self, action: "openAboutViewController", forControlEvents: .TouchUpInside)
+        //aboutButton.backgroundColor = kWhiteBackgroundColor
+        //aboutButton.layer.cornerRadius = 24;
+        map.addSubview(aboutButton)
+        
+        
+        // Folder button
+        let folderW: CGFloat = kButtonSmallSize
+        let folderH: CGFloat = kButtonSmallSize
+        let folderX: CGFloat = folderW/2 + 5
+        let folderY: CGFloat = folderH/2 + 5 + 14
+        folderButton.frame = CGRect(x: 0, y: 0, width: folderW, height: folderH)
+        folderButton.center = CGPoint(x: folderX, y: folderY)
+        folderButton.setImage(UIImage(named: "folder"), forState: UIControlState.Normal)
+        folderButton.setImage(UIImage(named: "folderHigh"), forState: .Highlighted)
+        folderButton.addTarget(self, action: "openFolderViewController", forControlEvents: .TouchUpInside)
+        folderButton.backgroundColor = kWhiteBackgroundColor
+        folderButton.layer.cornerRadius = 24;
+        map.addSubview(folderButton)
+
         
         
         //
@@ -286,6 +345,14 @@ class ViewController: UIViewController, MKMapViewDelegate,CLLocationManagerDeleg
         
         let yCenterForButtons: CGFloat = map.frame.height - kButtonLargeSize/2 - 5 //center Y of start
 
+        
+        
+        //add signal accuracy images.
+        signalImageView.image = badSignalImage
+        signalImageView.frame = CGRect(x: self.view.frame.width/2 - 25.0, y: yCenterForButtons - 100, width: 50, height: 30)
+        map.addSubview(signalImageView)
+
+        
         // Start
         let trackerW: CGFloat = kButtonLargeSize
         let trackerH: CGFloat = kButtonLargeSize
@@ -365,57 +432,6 @@ class ViewController: UIViewController, MKMapViewDelegate,CLLocationManagerDeleg
         resetButton.titleLabel?.textAlignment = .Center
         map.addSubview(resetButton)
         
-        // Folder button
-        let folderW: CGFloat = kButtonSmallSize
-        let folderH: CGFloat = kButtonSmallSize
-        let folderX: CGFloat = folderW/2 + 5
-        let folderY: CGFloat = folderH/2 + 5 + 14
-        folderButton.frame = CGRect(x: 0, y: 0, width: folderW, height: folderH)
-        folderButton.center = CGPoint(x: folderX, y: folderY)
-        folderButton.setImage(UIImage(named: "folder"), forState: UIControlState.Normal)
-        folderButton.setImage(UIImage(named: "folderHigh"), forState: .Highlighted)
-        folderButton.addTarget(self, action: "openFolderViewController", forControlEvents: .TouchUpInside)
-        folderButton.backgroundColor = kWhiteBackgroundColor
-        folderButton.layer.cornerRadius = 24;
-        map.addSubview(folderButton)
-        
-        // CoordLabel
-        coordsLabel.frame = CGRect(x: self.map.frame.width/2 - 150, y: 14 + 2, width: 300, height: 20)
-        coordsLabel.textAlignment = .Center
-        coordsLabel.font = UIFont.systemFontOfSize(14)
-        coordsLabel.text = "Not getting location"
-        map.addSubview(coordsLabel)
-        
-        //timeLabel
-        timeLabel.frame = CGRect(x: self.map.frame.width/2 - 150, y: map.frame.height -  trackerH - 25, width: 300, height: 20)
-        timeLabel.textAlignment = .Center
-        timeLabel.font = UIFont.boldSystemFontOfSize(14)
-        timeLabel.text = "00:00:00"
-        //timeLabel.backgroundColor = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.5)
-        map.addSubview(timeLabel)
-        
-        //speed Label
-        speedLabel.frame = CGRect(x: self.map.frame.width/2 - 150, y: map.frame.height -  trackerH - 45, width: 300, height: 20)
-        speedLabel.textAlignment = .Center
-        speedLabel.font = UIFont.boldSystemFontOfSize(14)
-        speedLabel.text = "0.00 km/h"
-        //timeLabel.backgroundColor = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.5)
-        map.addSubview(speedLabel)
-        
-        //tracked distance
-        totalTrackedDistanceLabel.frame = CGRect(x: self.map.frame.width/2 - 150, y: map.frame.height -  trackerH - 65, width: 300, height: 20)
-        totalTrackedDistanceLabel.textAlignment = .Center
-        totalTrackedDistanceLabel.font = UIFont.boldSystemFontOfSize(14)
-        totalTrackedDistanceLabel.text = "0 m"
-        //timeLabel.backgroundColor = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.5)
-        map.addSubview(totalTrackedDistanceLabel)
-        
-        currentSegmentDistanceLabel.frame = CGRect(x: self.map.frame.width/2 - 150, y: map.frame.height -  trackerH - 85, width: 300, height: 20)
-        currentSegmentDistanceLabel.textAlignment = .Center
-        currentSegmentDistanceLabel.font = UIFont.boldSystemFontOfSize(14)
-        currentSegmentDistanceLabel.text = "0 m"
-        //timeLabel.backgroundColor = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.5)
-        map.addSubview(currentSegmentDistanceLabel)
     }
 
     
@@ -588,7 +604,7 @@ class ViewController: UIViewController, MKMapViewDelegate,CLLocationManagerDeleg
         //Update coordsLabel
         let latFormat = String(format: "%.6f", newLocation.coordinate.latitude)
         let lonFormat = String(format: "%.6f", newLocation.coordinate.longitude)
-        coordsLabel.text = "(\(latFormat),\(lonFormat))"
+        coordsLabel.text = "\(latFormat),\(lonFormat)"
         
         //Update speed (provided in m/s, but displayed in km/h)
         var speedFormat: String
