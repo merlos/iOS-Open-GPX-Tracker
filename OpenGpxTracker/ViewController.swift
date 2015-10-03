@@ -349,7 +349,7 @@ class ViewController: UIViewController, MKMapViewDelegate,CLLocationManagerDeleg
         
         //add signal accuracy images.
         signalImageView.image = badSignalImage
-        signalImageView.frame = CGRect(x: self.view.frame.width/2 - 25.0, y: yCenterForButtons - 100, width: 50, height: 30)
+        signalImageView.frame = CGRect(x: self.view.frame.width/2 - 25.0, y:  14 + 5, width: 50, height: 30)
         map.addSubview(signalImageView)
 
         
