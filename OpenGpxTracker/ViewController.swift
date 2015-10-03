@@ -242,7 +242,6 @@ class ViewController: UIViewController, MKMapViewDelegate,CLLocationManagerDeleg
         
         // HEADER
         
-        
         //add the app title Label (Branding, branding, branding! )
         let appTitleW: CGFloat = self.view.frame.width//200.0
         let appTitleH: CGFloat = 14.0
@@ -257,7 +256,6 @@ class ViewController: UIViewController, MKMapViewDelegate,CLLocationManagerDeleg
         appTitleLabel.backgroundColor = UIColor(red: 58.0/255.0, green: 57.0/255.0, blue: 54.0/255.0, alpha: 0.80)
         self.view.addSubview(appTitleLabel)
         
-        ////////////// LABELS
         
         // CoordLabel
         coordsLabel.frame = CGRect(x: self.map.frame.width - 305, y: 20, width: 300, height: 12)
@@ -268,9 +266,11 @@ class ViewController: UIViewController, MKMapViewDelegate,CLLocationManagerDeleg
         self.view.addSubview(coordsLabel)
         
         
+        // Tracked info
+        
         //timeLabel
-        timeLabel.frame = CGRect(x: self.map.frame.width/2 + 10, y: 14+5 , width: 150, height: 50)
-        timeLabel.textAlignment = .Left
+        timeLabel.frame = CGRect(x: self.map.frame.width - 160, y: 20 , width: 150, height: 40)
+        timeLabel.textAlignment = .Right
         timeLabel.font = UIFont(name: "DinCondensed-Bold", size:36.0)
         timeLabel.text = "00:00:00"
         //timeLabel.shadowColor = UIColor.whiteColor()
@@ -279,22 +279,22 @@ class ViewController: UIViewController, MKMapViewDelegate,CLLocationManagerDeleg
         map.addSubview(timeLabel)
         
         //speed Label
-        speedLabel.frame = CGRect(x: self.map.frame.width/2 + 10,  y: 54 , width: 150, height: 20)
-        speedLabel.textAlignment = .Left
+        speedLabel.frame = CGRect(x: self.map.frame.width - 160,  y: 20 + 36, width: 150, height: 20)
+        speedLabel.textAlignment = .Right
         speedLabel.font = UIFont(name: "DinAlternate-Bold", size: 18.0)
         speedLabel.text = "0.00 km/h"
         //timeLabel.backgroundColor = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.5)
         map.addSubview(speedLabel)
         
         //tracked distance
-        totalTrackedDistanceLabel.frame = CGRect(x: self.map.frame.width/2 - 160, y: 14+5, width: 150, height: 50)
+        totalTrackedDistanceLabel.frame = CGRect(x: self.map.frame.width - 160, y: 60 + 20, width: 150, height: 40)
         totalTrackedDistanceLabel.textAlignment = .Right
         totalTrackedDistanceLabel.font = UIFont(name: "DinCondensed-Bold", size: 36.0)
         totalTrackedDistanceLabel.text = "0m"
         //timeLabel.backgroundColor = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.5)
         map.addSubview(totalTrackedDistanceLabel)
         
-        currentSegmentDistanceLabel.frame = CGRect(x: self.map.frame.width/2 - 160, y: 54, width: 150, height: 20)
+        currentSegmentDistanceLabel.frame = CGRect(x: self.map.frame.width - 160, y: 80 + 36, width: 150, height: 20)
         currentSegmentDistanceLabel.textAlignment = .Right
         currentSegmentDistanceLabel.font = UIFont(name: "DinAlternate-Bold", size: 18.0)
         currentSegmentDistanceLabel.text = "0m"
@@ -303,7 +303,7 @@ class ViewController: UIViewController, MKMapViewDelegate,CLLocationManagerDeleg
         
         
         //about button
-        aboutButton.frame = CGRect(x: self.view.frame.width - 47, y: 14 + 5, width: 48, height: 48)
+        aboutButton.frame = CGRect(x: 5 + 8, y: 14 + 5 + 48 + 5, width: 32, height: 32)
         aboutButton.setImage(UIImage(named: "info"), forState: UIControlState.Normal)
         aboutButton.setImage(UIImage(named: "info_high"), forState: .Highlighted)
         aboutButton.addTarget(self, action: "openAboutViewController", forControlEvents: .TouchUpInside)
