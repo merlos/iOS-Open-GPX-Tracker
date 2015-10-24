@@ -232,8 +232,8 @@ class ViewController: UIViewController, MKMapViewDelegate,CLLocationManagerDeleg
         map.addGestureRecognizer(panGesture)
        
         
-        let pinchGesture = UIPinchGestureRecognizer(target: self, action: "pinchGesture")
-        map.addGestureRecognizer(pinchGesture)
+        //let pinchGesture = UIPinchGestureRecognizer(target: self, action: "pinchGesture")
+        //map.addGestureRecognizer(pinchGesture)
         
         //Set Tile Server
         let defaults = NSUserDefaults.standardUserDefaults()
