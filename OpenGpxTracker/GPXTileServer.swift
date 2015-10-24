@@ -8,13 +8,14 @@
 
 import Foundation
 
-enum GPXTileServer {
+enum GPXTileServer:Int {
     case Apple
     case OpenStreetMap
     case MapQuest
     case OpenCycleMap
-    case CartoDB
     //case AnotherMap
+    case CartoDB
+    
     
     var name: String {
         switch self {
@@ -26,6 +27,7 @@ enum GPXTileServer {
         //case .AnotherMap: return "My Map"
         }
     }
+
     var templateUrl: String {
         switch self {
         case .Apple: return ""
@@ -37,4 +39,7 @@ enum GPXTileServer {
         //case .AnotherMap: return "http://another.map.tile.server/{z}/{x}/{y}.png"
         }
     }
+    static var count: Int { return GPXTileServer.CartoDB.hashValue + 1}
 }
+
+

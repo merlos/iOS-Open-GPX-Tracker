@@ -39,7 +39,7 @@ let kButtonLargeSize: CGFloat = 96.0
 let kButtonSeparation: CGFloat = 6.0
 
 
-class ViewController: UIViewController, MKMapViewDelegate,CLLocationManagerDelegate, UIGestureRecognizerDelegate, UIAlertViewDelegate, GPXFilesTableViewControllerDelegate, StopWatchDelegate {
+class ViewController: UIViewController, MKMapViewDelegate,CLLocationManagerDelegate, UIGestureRecognizerDelegate, UIAlertViewDelegate, GPXFilesTableViewControllerDelegate, PreferencesTableViewControllerDelegate, StopWatchDelegate {
     
     var followUser: Bool = true {
         didSet {
@@ -162,6 +162,7 @@ class ViewController: UIViewController, MKMapViewDelegate,CLLocationManagerDeleg
     let newPinButton: UIButton
     let folderButton: UIButton
     let aboutButton: UIButton
+    let preferencesButton: UIButton
     let resetButton: UIButton
     let trackerButton: UIButton
     let saveButton: UIButton
@@ -192,9 +193,11 @@ class ViewController: UIViewController, MKMapViewDelegate,CLLocationManagerDeleg
         self.folderButton = UIButton(coder: aDecoder)!
         self.resetButton = UIButton(coder: aDecoder)!
         self.aboutButton = UIButton(coder: aDecoder)!
+        self.preferencesButton = UIButton(coder: aDecoder)!
         
         self.trackerButton = UIButton(coder: aDecoder)!
         self.saveButton = UIButton(coder: aDecoder)!
+        
         super.init(coder: aDecoder)!
         followUser = true
     }
@@ -233,7 +236,14 @@ class ViewController: UIViewController, MKMapViewDelegate,CLLocationManagerDeleg
         map.addGestureRecognizer(pinchGesture)
         
         //Set Tile Server
-        map.tileServer = GPXTileServer.Apple
+        let defaults = NSUserDefaults.standardUserDefaults()
+        if let tileServerInt: Int = defaults.integerForKey("tileServerInt") {
+            print("tileServer preference loaded: \(tileServerInt)")
+            map.tileServer = GPXTileServer(rawValue: tileServerInt)!
+        } else {
+            print("using default tileServer: Apple")
+            map.tileServer = GPXTileServer.Apple
+        }
         
         // set default zoon
         let region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 8.90, longitude: -79.50), span: MKCoordinateSpan(latitudeDelta: 0.001, longitudeDelta: 0.001))
@@ -311,6 +321,15 @@ class ViewController: UIViewController, MKMapViewDelegate,CLLocationManagerDeleg
         //aboutButton.layer.cornerRadius = 24;
         map.addSubview(aboutButton)
         
+        //preferences button
+        preferencesButton.frame = CGRect(x: 5 + 10 + 48, y: 14 + 5 + 8, width: 32, height: 32)
+        preferencesButton.setImage(UIImage(named: "prefs"), forState: UIControlState.Normal)
+        preferencesButton.setImage(UIImage(named: "prefs_high"), forState: .Highlighted)
+        preferencesButton.addTarget(self, action: "openPreferencesTableViewController", forControlEvents: .TouchUpInside)
+        //aboutButton.backgroundColor = kWhiteBackgroundColor
+        //aboutButton.layer.cornerRadius = 24;
+        map.addSubview(preferencesButton)
+
         
         // Folder button
         let folderW: CGFloat = kButtonSmallSize
@@ -436,7 +455,7 @@ class ViewController: UIViewController, MKMapViewDelegate,CLLocationManagerDeleg
 
     
     func openFolderViewController() {
-        print("OpenFolderViewController")
+        print("openFolderViewController")
         let vc = GPXFilesTableViewController(nibName: nil, bundle: nil)
         vc.delegate = self
         let navController = UINavigationController(rootViewController: vc)
@@ -446,6 +465,14 @@ class ViewController: UIViewController, MKMapViewDelegate,CLLocationManagerDeleg
     
     func openAboutViewController() {
         let vc = AboutViewController(nibName: nil, bundle: nil)
+        let navController = UINavigationController(rootViewController: vc)
+        self.presentViewController(navController, animated: true) { () -> Void in }
+    }
+    
+    func openPreferencesTableViewController() {
+        print("openPreferencesTableViewController")
+        let vc = PreferencesTableViewController(nibName: nil, bundle: nil)
+        vc.delegate = self
         let navController = UINavigationController(rootViewController: vc)
         self.presentViewController(navController, animated: true) { () -> Void in }
     }
@@ -735,6 +762,12 @@ class ViewController: UIViewController, MKMapViewDelegate,CLLocationManagerDeleg
         }
     }
     
+    //PreferencesTableViewController Delegate 
+    func didUpdateTileServer(newGpxTileServer: Int) {
+        print("didUpdateTileServer: \(newGpxTileServer)")
+        self.map.tileServer = GPXTileServer(rawValue: newGpxTileServer)!
+        
+    }
     
     //GPXFilesTableViewController Delegate
     func didLoadGPXFileWithName(gpxFilename: String, gpxRoot: GPXRoot) {
