@@ -252,8 +252,11 @@ class ViewController: UIViewController, MKMapViewDelegate,CLLocationManagerDeleg
             map.tileServer = GPXTileServer.Apple
         }
         
-        // set default zoon
-        let region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 8.90, longitude: -79.50), span: MKCoordinateSpan(latitudeDelta: 0.001, longitudeDelta: 0.001))
+        
+        // set default zoom
+        let center = locationManager.location?.coordinate ?? CLLocationCoordinate2D(latitude: 8.90, longitude: -79.50)
+        let span = MKCoordinateSpan(latitudeDelta: 0.005, longitudeDelta: 0.005)
+        let region = MKCoordinateRegion(center: center, span: span)
         map.setRegion(region, animated: true)
         self.view.addSubview(map)
         
@@ -667,7 +670,7 @@ class ViewController: UIViewController, MKMapViewDelegate,CLLocationManagerDeleg
         
         //Update Map center and track overlay if user is being followed
         if followUser {
-            map.setCenterCoordinate(map.userLocation.coordinate, animated: true)
+            map.setCenterCoordinate(newLocation.coordinate, animated: true)
         }
         if gpxTrackingStatus == .Tracking {
             print("didUpdateLocation: adding point to track \(newLocation.coordinate)")
