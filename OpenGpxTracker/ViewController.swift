@@ -319,6 +319,7 @@ class ViewController: UIViewController,
         }
         alertController.addAction(okAction)
         alertController.addAction(cancelAction)
+        presentViewController(alertController, animated: true, completion: nil)
     }
     
     //PreferencesTableViewController Delegate
