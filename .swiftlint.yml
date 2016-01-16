@@ -8,9 +8,11 @@ excluded:
 
 line_length: 150
 
+
+# try and remove these after we refactor some concerns out of the main view controller
 type_body_length:
   - 300 # warning
-  - 800 # error
+  - 665 # error
 function_body_length:
   - 40
   - 246
