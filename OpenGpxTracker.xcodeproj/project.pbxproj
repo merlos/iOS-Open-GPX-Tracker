@@ -40,6 +40,7 @@
 		DC4908A11C4A136F009484AE /* TrackerButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC4908A01C4A136F009484AE /* TrackerButton.swift */; };
 		DC4908A31C4A332E009484AE /* MapViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC4908A21C4A332E009484AE /* MapViewDelegate.swift */; };
 		DC4908A51C4A3587009484AE /* TrackRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC4908A41C4A3587009484AE /* TrackRecorder.swift */; };
+		DC4908A71C4A3FBD009484AE /* Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC4908A61C4A3FBD009484AE /* Style.swift */; };
 		F9EAA09D6460433BB9A62DE8 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 17E76F21ED5D4C2B9CF8B6E2 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -94,6 +95,7 @@
 		DC4908A01C4A136F009484AE /* TrackerButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackerButton.swift; sourceTree = "<group>"; };
 		DC4908A21C4A332E009484AE /* MapViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewDelegate.swift; sourceTree = "<group>"; };
 		DC4908A41C4A3587009484AE /* TrackRecorder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackRecorder.swift; sourceTree = "<group>"; };
+		DC4908A61C4A3FBD009484AE /* Style.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Style.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -167,6 +169,7 @@
 				898EECDC19C49B5800B4B207 /* OpenGpxTracker.xcdatamodeld */,
 				899D678919D3551300C88A0A /* Resources */,
 				898EECD819C49B5800B4B207 /* Supporting Files */,
+				DC4908A61C4A3FBD009484AE /* Style.swift */,
 			);
 			path = OpenGpxTracker;
 			sourceTree = "<group>";
@@ -410,6 +413,7 @@
 				898EECE019C49B5800B4B207 /* ViewController.swift in Sources */,
 				899D677019CE024600C88A0A /* GPXFileManager.swift in Sources */,
 				898EECDE19C49B5800B4B207 /* OpenGpxTracker.xcdatamodeld in Sources */,
+				DC4908A71C4A3FBD009484AE /* Style.swift in Sources */,
 				8913CD8E1BDB2477009EC729 /* PreferencesTableViewControllerDelegate.swift in Sources */,
 				899D676E19CD9FAF00C88A0A /* GPXTrackPoint+MapKit.swift in Sources */,
 				89F8749B1BBB7362004EF41A /* GPXTrack+length.swift in Sources */,

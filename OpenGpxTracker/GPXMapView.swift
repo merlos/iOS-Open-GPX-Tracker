@@ -78,6 +78,12 @@ class GPXMapView: MKMapView {
         super.init(coder: aDecoder)
     }
     
+    func centerAtCoordinate(coordinate: CLLocationCoordinate2D) {
+        let span = MKCoordinateSpan(latitudeDelta: 0.005, longitudeDelta: 0.005)
+        let region = MKCoordinateRegion(center: coordinate, span: span)
+        setRegion(region, animated: true)
+    }
+    
     //point is the a the point in a view where the user touched
     //
     //For example, this function can be used to add a waypoint after long press on the map view

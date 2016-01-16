@@ -2,6 +2,7 @@ import MapKit
 
 class MapViewDelegate: NSObject, MKMapViewDelegate, UIAlertViewDelegate {
 
+    let kEditWaypointAlertViewTag = 33
     var waypointBeingEdited: GPXWaypoint = GPXWaypoint()
     
     func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
@@ -73,7 +74,8 @@ class MapViewDelegate: NSObject, MKMapViewDelegate, UIAlertViewDelegate {
             alert.textFieldAtIndex(0)?.text = waypoint.title
             alert.show()
             self.waypointBeingEdited = waypoint
-            alert.textFieldAtIndex(0)?.selectAll(self) //display text selected <-- TODO Not working WTF!
+            let textField = alert.textFieldAtIndex(0)!
+            textField.selectAll(self) //display text selected <-- TODO Not working WTF!
             
         default:
             print("[calloutAccesoryControlTapped ERROR] unknown control")
