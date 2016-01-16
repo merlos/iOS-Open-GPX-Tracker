@@ -202,6 +202,9 @@ class ViewController: UIViewController, MKMapViewDelegate,CLLocationManagerDeleg
         followUser = true
     }
     
+    deinit {
+        removeNotificationObservers()
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -214,6 +217,10 @@ class ViewController: UIViewController, MKMapViewDelegate,CLLocationManagerDeleg
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.distanceFilter = 2
+        locationManager.pausesLocationUpdatesAutomatically = false
+        if #available(iOS 9.0, *) {
+            locationManager.allowsBackgroundLocationUpdates = true
+        }
         locationManager.startUpdatingLocation()
         
         
@@ -451,8 +458,24 @@ class ViewController: UIViewController, MKMapViewDelegate,CLLocationManagerDeleg
         resetButton.titleLabel?.textAlignment = .Center
         map.addSubview(resetButton)
         
+        addNotificationObservers()
+    }
+    
+    func addNotificationObservers() {
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "didEnterBackground", name: UIApplicationDidEnterBackgroundNotification, object: nil)
     }
 
+    func removeNotificationObservers() {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
+    }
+    
+    // MARK: Notifications
+    
+    func didEnterBackground() {
+        if gpxTrackingStatus != .Tracking {
+            locationManager.stopUpdatingLocation()
+        }
+    }
     
     func openFolderViewController() {
         print("openFolderViewController")
