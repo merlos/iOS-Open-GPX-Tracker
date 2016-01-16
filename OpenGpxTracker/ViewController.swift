@@ -44,12 +44,12 @@ class ViewController: UIViewController, MKMapViewDelegate,CLLocationManagerDeleg
     var followUser: Bool = true {
         didSet {
             if (followUser) {
-                print("followUser=true");
+                print("followUser=true")
                 followUserButton.setImage(UIImage(named: "follow_user_high"), forState: .Normal)
                 map.setCenterCoordinate(map.userLocation.coordinate, animated: true)
                 
             } else {
-                print("followUser=false");
+                print("followUser=false")
                followUserButton.setImage(UIImage(named: "follow_user"), forState: .Normal)
             }
             
@@ -211,8 +211,8 @@ class ViewController: UIViewController, MKMapViewDelegate,CLLocationManagerDeleg
         //Location stuff
         locationManager.requestAlwaysAuthorization()
         
-        locationManager.delegate = self;
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.distanceFilter = 2
         locationManager.startUpdatingLocation()
         
@@ -318,7 +318,7 @@ class ViewController: UIViewController, MKMapViewDelegate,CLLocationManagerDeleg
         aboutButton.setImage(UIImage(named: "info_high"), forState: .Highlighted)
         aboutButton.addTarget(self, action: "openAboutViewController", forControlEvents: .TouchUpInside)
         //aboutButton.backgroundColor = kWhiteBackgroundColor
-        //aboutButton.layer.cornerRadius = 24;
+        //aboutButton.layer.cornerRadius = 24
         map.addSubview(aboutButton)
         
         //preferences button
@@ -327,7 +327,7 @@ class ViewController: UIViewController, MKMapViewDelegate,CLLocationManagerDeleg
         preferencesButton.setImage(UIImage(named: "prefs_high"), forState: .Highlighted)
         preferencesButton.addTarget(self, action: "openPreferencesTableViewController", forControlEvents: .TouchUpInside)
         //aboutButton.backgroundColor = kWhiteBackgroundColor
-        //aboutButton.layer.cornerRadius = 24;
+        //aboutButton.layer.cornerRadius = 24
         map.addSubview(preferencesButton)
 
         
@@ -342,7 +342,7 @@ class ViewController: UIViewController, MKMapViewDelegate,CLLocationManagerDeleg
         folderButton.setImage(UIImage(named: "folderHigh"), forState: .Highlighted)
         folderButton.addTarget(self, action: "openFolderViewController", forControlEvents: .TouchUpInside)
         folderButton.backgroundColor = kWhiteBackgroundColor
-        folderButton.layer.cornerRadius = 24;
+        folderButton.layer.cornerRadius = 24
         map.addSubview(folderButton)
 
         
@@ -397,7 +397,7 @@ class ViewController: UIViewController, MKMapViewDelegate,CLLocationManagerDeleg
         let newPinY: CGFloat = yCenterForButtons
         newPinButton.frame = CGRect(x: 0, y: 0, width: newPinW, height: newPinH)
         newPinButton.center = CGPoint(x: newPinX, y: newPinY)
-        newPinButton.layer.cornerRadius = newPinW/2;
+        newPinButton.layer.cornerRadius = newPinW/2
         newPinButton.backgroundColor = kWhiteBackgroundColor
         newPinButton.setImage(UIImage(named: "addPin"), forState: UIControlState.Normal)
         newPinButton.setImage(UIImage(named: "addPinHigh"), forState: .Highlighted)
@@ -413,7 +413,7 @@ class ViewController: UIViewController, MKMapViewDelegate,CLLocationManagerDeleg
         let followY: CGFloat = yCenterForButtons
         followUserButton.frame = CGRect(x: 0, y: 0, width: followW, height: followH)
         followUserButton.center = CGPointMake(followX, followY)
-        followUserButton.layer.cornerRadius = followW/2;
+        followUserButton.layer.cornerRadius = followW/2
         followUserButton.backgroundColor = kWhiteBackgroundColor
         //follow_user_high represents the user is being followed. Default status when app starts
         followUserButton.setImage(UIImage(named: "follow_user_high"), forState: UIControlState.Normal)
@@ -503,7 +503,7 @@ class ViewController: UIViewController, MKMapViewDelegate,CLLocationManagerDeleg
     
     // zoom gesture controls that follow user to
     func pinchGesture(gesture: UIPinchGestureRecognizer) {
-        print("pinchGesture");
+        print("pinchGesture")
      /*   if gesture.state == UIGestureRecognizerState.Began {
             self.followUserBeforePinchGesture = self.followUser
             self.followUser = false
@@ -558,15 +558,15 @@ class ViewController: UIViewController, MKMapViewDelegate,CLLocationManagerDeleg
         print("save Button tapped")
         // ignore the save button if there is nothing to save.
         if (gpxTrackingStatus == .NotStarted) && !self.hasWaypoints {
-            return;
+            return
         }
         
         let alert = UIAlertView(title: "Save as", message: "Enter GPX session name", delegate: self, cancelButtonTitle: "Continue tracking")
         
         alert.addButtonWithTitle("Save")
-        alert.alertViewStyle = .PlainTextInput;
+        alert.alertViewStyle = .PlainTextInput
         alert.tag = kSaveSessionAlertViewTag
-        alert.show();
+        alert.show()
         alert.textFieldAtIndex(0)?.text = lastGpxFilename
         //alert.textFieldAtIndex(0)?.selectAll(self)
     }
@@ -612,20 +612,20 @@ class ViewController: UIViewController, MKMapViewDelegate,CLLocationManagerDeleg
     
     
     func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
-         print("didFailWithError\(error)");
+         print("didFailWithError\(error)")
     }
     
-    func locationManager(manager: CLLocationManager!, didUpdateToLocation newLocation: CLLocation!, fromLocation oldLocation: CLLocation!) {
+    func locationManager(manager: CLLocationManager, didUpdateToLocation newLocation: CLLocation, fromLocation oldLocation: CLLocation) {
         //println("didUpdateToLocation \(newLocation.coordinate.latitude),\(newLocation.coordinate.longitude), Hacc: \(newLocation.horizontalAccuracy), Vacc: \(newLocation.verticalAccuracy)")
       
         //updates signal image accuracy
         if (newLocation.horizontalAccuracy < kMediumSignalAccuracy) {
-            self.signalImageView.image = midSignalImage;
+            self.signalImageView.image = midSignalImage
         } else {
-            self.signalImageView.image = badSignalImage;
+            self.signalImageView.image = badSignalImage
         }
         if (newLocation.horizontalAccuracy < kGoodSignalAccuracy) {
-            self.signalImageView.image = goodSignalImage;
+            self.signalImageView.image = goodSignalImage
         }
         
         //Update coordsLabel
@@ -649,8 +649,8 @@ class ViewController: UIViewController, MKMapViewDelegate,CLLocationManagerDeleg
         if gpxTrackingStatus == .Tracking {
             print("didUpdateLocation: adding point to track \(newLocation.coordinate)")
             map.addPointToCurrentTrackSegmentAtLocation(newLocation)
-            totalTrackedDistanceLabel.distance = map.totalTrackedDistance;
-            currentSegmentDistanceLabel.distance = map.currentSegmentDistance;
+            totalTrackedDistanceLabel.distance = map.totalTrackedDistance
+            currentSegmentDistanceLabel.distance = map.currentSegmentDistance
         }
         
     }
@@ -677,7 +677,7 @@ class ViewController: UIViewController, MKMapViewDelegate,CLLocationManagerDeleg
         editButton.tag = kEditWaypointAccesoryButtonTag
         annotationView.leftCalloutAccessoryView = editButton
         
-        return annotationView;
+        return annotationView
     }
     
     
@@ -687,10 +687,10 @@ class ViewController: UIViewController, MKMapViewDelegate,CLLocationManagerDeleg
         }
         
         if (overlay is MKPolyline) {
-            let pr = MKPolylineRenderer(overlay: overlay);
-            pr.strokeColor = UIColor.blueColor().colorWithAlphaComponent(0.5);
-            pr.lineWidth = 3;
-            return pr;
+            let pr = MKPolylineRenderer(overlay: overlay)
+            pr.strokeColor = UIColor.blueColor().colorWithAlphaComponent(0.5)
+            pr.lineWidth = 3
+            return pr
         }
         return nil
     }
@@ -702,16 +702,16 @@ class ViewController: UIViewController, MKMapViewDelegate,CLLocationManagerDeleg
         let button = control as! UIButton
         switch button.tag {
         case kDeleteWaypointAccesoryButtonTag:
-            print("[calloutAccesoryControlTapped: DELETE button] deleting waypoint with name \(waypoint.name)");
+            print("[calloutAccesoryControlTapped: DELETE button] deleting waypoint with name \(waypoint.name)")
             map.removeWaypoint(waypoint)
         case kEditWaypointAccesoryButtonTag:
             print("[calloutAccesoryControlTapped: EDIT] editing waypoint with name \(waypoint.name)")
             let alert = UIAlertView(title: "Edit Waypoint", message: "Hint: To change the waypoint location drag and drop the pin" , delegate: self, cancelButtonTitle: "Cancel")
             alert.addButtonWithTitle("Save")
             alert.tag = kEditWaypointAlertViewTag
-            alert.alertViewStyle = .PlainTextInput;
+            alert.alertViewStyle = .PlainTextInput
             alert.textFieldAtIndex(0)?.text = waypoint.title
-            alert.show();
+            alert.show()
             self.waypointBeingEdited = waypoint
             alert.textFieldAtIndex(0)?.selectAll(self) //display text selected <-- TODO Not working WTF!
 
@@ -749,7 +749,7 @@ class ViewController: UIViewController, MKMapViewDelegate,CLLocationManagerDeleg
                 }, completion: { (finished) -> Void in
                     if finished {
                         UIView.animateWithDuration(0.05, animations: { () -> Void in
-                            //aV.transform = CGAffineTransformMakeScale(1.0, 0.8);
+                            //aV.transform = CGAffineTransformMakeScale(1.0, 0.8)
                             aV.transform = CGAffineTransform(a: 1.0, b: 0, c: 0, d: 0.8, tx: 0, ty: aV.frame.size.height*0.1)
                             
                             }, completion: { (finished: Bool) -> Void in
