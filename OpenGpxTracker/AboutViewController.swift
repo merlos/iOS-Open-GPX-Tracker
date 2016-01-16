@@ -9,9 +9,9 @@
 import Foundation
 //import WebKit //<-- To support ios7 UIWebview will be used
 
-class AboutViewController : UIViewController, UIWebViewDelegate {
+class AboutViewController: UIViewController, UIWebViewDelegate {
     
-    var webView : UIWebView?
+    var webView: UIWebView?
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -37,7 +37,7 @@ class AboutViewController : UIViewController, UIWebViewDelegate {
         self.webView = UIWebView(frame: self.view.frame)
         self.webView?.delegate = self
         let path = NSBundle.mainBundle().pathForResource("about", ofType: "html")
-        let text = try? String(contentsOfFile: path!, encoding: NSUTF8StringEncoding);
+        let text = try? String(contentsOfFile: path!, encoding: NSUTF8StringEncoding)
         
         webView?.loadHTMLString(text!, baseURL: nil)
         self.view.addSubview(webView!)

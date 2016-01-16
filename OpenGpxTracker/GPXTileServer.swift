@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum GPXTileServer:Int {
+enum GPXTileServer: Int {
     case Apple
     case OpenStreetMap
     case MapQuest
@@ -41,5 +41,3 @@ enum GPXTileServer:Int {
     }
     static var count: Int { return GPXTileServer.CartoDB.hashValue + 1}
 }
-
-

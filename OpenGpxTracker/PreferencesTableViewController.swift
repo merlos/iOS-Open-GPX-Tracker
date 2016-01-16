@@ -11,7 +11,7 @@ import Foundation
 import UIKit
 
 
-class PreferencesTableViewController : UITableViewController, UINavigationBarDelegate {
+class PreferencesTableViewController: UITableViewController, UINavigationBarDelegate {
     
     var selectedRowIndex = -1
     var delegate: PreferencesTableViewControllerDelegate?
@@ -20,7 +20,7 @@ class PreferencesTableViewController : UITableViewController, UINavigationBarDel
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }
     
-    required init(coder aDecoder: NSCoder)  {
+    required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)!
     }
     
@@ -45,8 +45,7 @@ class PreferencesTableViewController : UITableViewController, UINavigationBarDel
         })
     }
     
-    override func viewDidAppear(animated: Bool)
-    {
+    override func viewDidAppear(animated: Bool) {
         self.tableView.reloadData()
     }
     
@@ -65,7 +64,7 @@ class PreferencesTableViewController : UITableViewController, UINavigationBarDel
     override func tableView(tableView: UITableView?, numberOfRowsInSection section: Int) -> Int {
         
         // Return the number of rows in the section.
-        return GPXTileServer.count;
+        return GPXTileServer.count
     }
     
     
@@ -80,8 +79,7 @@ class PreferencesTableViewController : UITableViewController, UINavigationBarDel
         return cell
     }
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)
-    {
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
        print("preferences: selected row at index:  \(indexPath.row)")
        self.selectedRowIndex = indexPath.row
        let defaults = NSUserDefaults.standardUserDefaults()
@@ -90,4 +88,4 @@ class PreferencesTableViewController : UITableViewController, UINavigationBarDel
        self.dismissViewControllerAnimated(true, completion: nil)
  
     }
-  }
+}

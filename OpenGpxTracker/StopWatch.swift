@@ -21,9 +21,9 @@ enum StopWatchStatus {
 
 class StopWatch: NSObject {
     
-    var tmpElapsedTime : NSTimeInterval = 0.0
+    var tmpElapsedTime: NSTimeInterval = 0.0
     var startedTime: NSTimeInterval = 0.0
-    var status : StopWatchStatus
+    var status: StopWatchStatus
     
     var timeInterval: NSTimeInterval = 0.01
     var timer = NSTimer()
@@ -74,7 +74,7 @@ class StopWatch: NSObject {
     
     // The returned string has the format MM:SS:ms
     // example: elapsed time: 3 min 30 sec 40ms => 03:30:40
-    var elapsedTimeString : String {
+    var elapsedTimeString: String {
         get {
             var tmpTime: NSTimeInterval = self.elapsedTime
             //calculate the minutes in elapsed time.

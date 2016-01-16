@@ -18,8 +18,7 @@ extension GPXTrackPoint {
         self.init()
         self.latitude = CGFloat(location.coordinate.latitude)
         self.longitude = CGFloat(location.coordinate.longitude)
-        self.time = NSDate();
+        self.time = NSDate()
         self.elevation = CGFloat(location.altitude)
-    }
-    
+    }    
 }

@@ -13,9 +13,9 @@ let kNoFiles = "No gpx files"
 import UIKit
 import MessageUI
 
-class GPXFilesTableViewController : UITableViewController, UINavigationBarDelegate, MFMailComposeViewControllerDelegate, UIActionSheetDelegate  {
+class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegate, MFMailComposeViewControllerDelegate, UIActionSheetDelegate {
     
-    var fileList:NSMutableArray = [kNoFiles]
+    var fileList: NSMutableArray = [kNoFiles]
     var selectedRowIndex = -1
     var delegate: GPXFilesTableViewControllerDelegate?
     
@@ -23,7 +23,7 @@ class GPXFilesTableViewController : UITableViewController, UINavigationBarDelega
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }
     
-    required init(coder aDecoder: NSCoder)  {
+    required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)!
     }
     
@@ -54,8 +54,7 @@ class GPXFilesTableViewController : UITableViewController, UINavigationBarDelega
         })
     }
     
-    override func viewDidAppear(animated: Bool)
-    {
+    override func viewDidAppear(animated: Bool) {
         self.tableView.reloadData()
     }
     
@@ -74,18 +73,18 @@ class GPXFilesTableViewController : UITableViewController, UINavigationBarDelega
     override func tableView(tableView: UITableView?, numberOfRowsInSection section: Int) -> Int {
         
         // Return the number of rows in the section.
-        return fileList.count;
+        return fileList.count
     }
     
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool
-    {
-        return true;
+    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        return true
     }
     
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath)
-    {
-        if(editingStyle == UITableViewCellEditingStyle.Delete)
-        {
+    override func tableView(tableView: UITableView,
+        commitEditingStyle editingStyle: UITableViewCellEditingStyle,
+        forRowAtIndexPath indexPath: NSIndexPath) {
+            
+        if editingStyle == UITableViewCellEditingStyle.Delete {
             actionDeleteFileAtIndex(indexPath.row)
         }
     }
@@ -96,12 +95,11 @@ class GPXFilesTableViewController : UITableViewController, UINavigationBarDelega
         let cell: UITableViewCell = UITableViewCell(style: UITableViewCellStyle.Value1, reuseIdentifier: "Cell")
         //cell.accessoryType = UITableViewCellAccessoryType.DetailDisclosureButton
         //cell.accessoryView = [[ UIImageView alloc ] initWithImage:[UIImage imageNamed:@"Something" ]];
-        cell.textLabel?.text = fileList.objectAtIndex(indexPath.row) as! NSString as String
+        cell.textLabel?.text = fileList.objectAtIndex(indexPath.row) as? NSString as String? ?? ""
         return cell
     }
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)
-    {
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
        // self.showAlert(fileList.objectAtIndex(indexPath.row) as NSString, rowToUseInAlert: indexPath.row)
         let sheet = UIActionSheet()
         sheet.title = "Select option"
@@ -145,7 +143,10 @@ class GPXFilesTableViewController : UITableViewController, UINavigationBarDelega
     
     func actionDeleteFileAtIndex(rowIndex: Int) {
         //Delete File
-        let filename: String = fileList.objectAtIndex(rowIndex) as! String
+        guard let filename: String = fileList.objectAtIndex(rowIndex) as? String else {
+            return
+        }
+        
         GPXFileManager.removeFile(filename)
         //Delete from list and Table
         fileList.removeObjectAtIndex(rowIndex)
@@ -155,7 +156,10 @@ class GPXFilesTableViewController : UITableViewController, UINavigationBarDelega
     }
     
     func actionLoadFileAtIndex(rowIndex: Int) {
-        let filename: String = fileList.objectAtIndex(rowIndex) as! String
+        guard let filename: String = fileList.objectAtIndex(rowIndex) as? String else {
+            return
+        }
+        
         print("load gpx File: \(filename)")
         let fileURL: NSURL = GPXFileManager.URLForFilename(filename)
         let gpx = GPXParser.parseGPXAtPath(fileURL.path)
@@ -166,7 +170,10 @@ class GPXFilesTableViewController : UITableViewController, UINavigationBarDelega
     
     //#pragma mark - Send email
     func actionSendEmailWithAttachment(rowIndex: Int) {
-        let filename: String = fileList.objectAtIndex(rowIndex) as! String
+        guard let filename: String = fileList.objectAtIndex(rowIndex) as? String else {
+            return
+        }
+        
         let fileURL: NSURL = GPXFileManager.URLForFilename(filename)
         
         let composer = MFMailComposeViewController()
@@ -178,21 +185,22 @@ class GPXFilesTableViewController : UITableViewController, UINavigationBarDelega
         //Add some text to the body and attach the file
         let body = "Open GPX Tracker \n is an open source app for Apple devices. Create GPS tracks and export them to GPX files."
         composer.setMessageBody(body, isHTML: true)
-        let fileData: NSData = try! NSData(contentsOfFile: fileURL.path!, options: .DataReadingMappedIfSafe)
-        composer.addAttachmentData(fileData, mimeType:"application/gpx+xml", fileName: fileURL.lastPathComponent!)
-        
-        //Display the comopser view controller
-        self.presentViewController(composer, animated: true, completion: nil)
-
+        do {
+            let fileData: NSData = try NSData(contentsOfFile: fileURL.path!, options: .DataReadingMappedIfSafe)
+            composer.addAttachmentData(fileData, mimeType:"application/gpx+xml", fileName: fileURL.lastPathComponent!)
+            //Display the comopser view controller
+            self.presentViewController(composer, animated: true, completion: nil)
+        } catch {
+        }
     }
     
 
 
     func mailComposeController(controller: MFMailComposeViewController,
         didFinishWithResult result: MFMailComposeResult,
-        error: NSError?){
+        error: NSError?) {
             
-            switch(result.rawValue){
+            switch result.rawValue {
             case MFMailComposeResultSent.rawValue:
                 print("Email sent")
                 

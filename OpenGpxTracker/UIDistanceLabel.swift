@@ -10,14 +10,14 @@ import Foundation
 import UIKit
 import MapKit
 
-public class UIDistanceLabel : UILabel {
+public class UIDistanceLabel: UILabel {
     
-    public var distance : CLLocationDistance {
+    public var distance: CLLocationDistance {
         get {
-            return 0;
+            return 0
         }
         set {
-            if (newValue > 1000.0) { //use km
+            if newValue > 1000.0 { //use km
                 let formatted = String(format: "%.2f", (newValue/1000.0))
                 self.text = "\(formatted)km"
             } else {

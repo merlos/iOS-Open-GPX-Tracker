@@ -1,0 +1,13 @@
+disabled_rules:
+  - trailing_whitespace
+  - nesting
+  - variable_name
+
+excluded:
+  - Pods
+
+line_length: 150
+
+type_body_length:
+  - 300 # warning
+  - 400400400400 # error
