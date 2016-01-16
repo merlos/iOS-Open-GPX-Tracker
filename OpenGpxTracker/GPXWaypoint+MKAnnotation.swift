@@ -13,7 +13,7 @@ import MapKit
 extension GPXWaypoint : MKAnnotation {
     
 
-    convenience init (coordinate:CLLocationCoordinate2D) {
+    convenience init (coordinate: CLLocationCoordinate2D) {
        
         self.init(latitude: CGFloat(coordinate.latitude), longitude: CGFloat(coordinate.longitude))
         //set default title and subtitle
@@ -35,7 +35,7 @@ extension GPXWaypoint : MKAnnotation {
         self.subtitle = subtitleFormat.stringFromDate(now)
     }
     
-    public var title:String? {
+    public var title: String? {
         set {
             self.name = newValue
         }
@@ -44,8 +44,8 @@ extension GPXWaypoint : MKAnnotation {
         }
     }
     
-    public var subtitle:String? {
-        set{
+    public var subtitle: String? {
+        set {
             self.desc = newValue
         }
         get {
@@ -61,6 +61,5 @@ extension GPXWaypoint : MKAnnotation {
         get {
             return CLLocationCoordinate2D(latitude: CLLocationDegrees(self.latitude), longitude: CLLocationDegrees(self.longitude))
         }
-    }
-    
+    }    
 }

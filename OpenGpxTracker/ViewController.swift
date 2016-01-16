@@ -39,11 +39,18 @@ let kButtonLargeSize: CGFloat = 96.0
 let kButtonSeparation: CGFloat = 6.0
 
 
-class ViewController: UIViewController, MKMapViewDelegate,CLLocationManagerDelegate, UIGestureRecognizerDelegate, UIAlertViewDelegate, GPXFilesTableViewControllerDelegate, PreferencesTableViewControllerDelegate, StopWatchDelegate {
+class ViewController: UIViewController,
+                        MKMapViewDelegate,
+                        CLLocationManagerDelegate,
+                        UIGestureRecognizerDelegate,
+                        UIAlertViewDelegate,
+                        GPXFilesTableViewControllerDelegate,
+                        PreferencesTableViewControllerDelegate,
+                        StopWatchDelegate {
     
     var followUser: Bool = true {
         didSet {
-            if (followUser) {
+            if followUser {
                 print("followUser=true")
                 followUserButton.setImage(UIImage(named: "follow_user_high"), forState: .Normal)
                 map.setCenterCoordinate(map.userLocation.coordinate, animated: true)
@@ -59,7 +66,19 @@ class ViewController: UIViewController, MKMapViewDelegate,CLLocationManagerDeleg
     
     
     //MapView
-    let locationManager : CLLocationManager
+    let locationManager: CLLocationManager = {
+        let manager = CLLocationManager()
+        manager.requestAlwaysAuthorization()
+        
+        manager.desiredAccuracy = kCLLocationAccuracyBest
+        manager.distanceFilter = 2
+        manager.pausesLocationUpdatesAutomatically = false
+        if #available(iOS 9.0, *) {
+            manager.allowsBackgroundLocationUpdates = true
+        }
+        return manager
+    }()
+    
     let map: GPXMapView
     
     
@@ -70,7 +89,7 @@ class ViewController: UIViewController, MKMapViewDelegate,CLLocationManagerDeleg
     
     var hasWaypoints: Bool = false { // Was any waypoint added to the map?
         didSet {
-            if (hasWaypoints) {
+            if hasWaypoints {
                 self.saveButton.backgroundColor = kBlueButtonBackgroundColor
                 self.resetButton.backgroundColor = kRedButtonBackgroundColor
             }
@@ -142,7 +161,7 @@ class ViewController: UIViewController, MKMapViewDelegate,CLLocationManagerDeleg
     }
 
     //Editing Waypoint Temporal Reference
-    var waypointBeingEdited : GPXWaypoint = GPXWaypoint()
+    var waypointBeingEdited: GPXWaypoint = GPXWaypoint()
     var lastLocation: CLLocation? //Last point of current segment.
     
     
@@ -151,10 +170,10 @@ class ViewController: UIViewController, MKMapViewDelegate,CLLocationManagerDeleg
     let appTitleLabel: UILabel
     let signalImageView: UIImageView
     let coordsLabel: UILabel
-    let timeLabel : UILabel
-    let speedLabel : UILabel
-    let totalTrackedDistanceLabel : UIDistanceLabel
-    let currentSegmentDistanceLabel : UIDistanceLabel
+    let timeLabel: UILabel
+    let speedLabel: UILabel
+    let totalTrackedDistanceLabel: UIDistanceLabel
+    let currentSegmentDistanceLabel: UIDistanceLabel
  
     
     //buttons
@@ -176,7 +195,6 @@ class ViewController: UIViewController, MKMapViewDelegate,CLLocationManagerDeleg
     // Initializer. Just initializes the class vars/const
     required init(coder aDecoder: NSCoder) {
     
-        self.locationManager = CLLocationManager()
         self.map = GPXMapView(coder: aDecoder)!
         
         self.appTitleLabel = UILabel(coder: aDecoder)!
@@ -211,19 +229,6 @@ class ViewController: UIViewController, MKMapViewDelegate,CLLocationManagerDeleg
 
         stopWatch.delegate = self
         
-        //Location stuff
-        locationManager.requestAlwaysAuthorization()
-        
-        locationManager.delegate = self
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        locationManager.distanceFilter = 2
-        locationManager.pausesLocationUpdatesAutomatically = false
-        if #available(iOS 9.0, *) {
-            locationManager.allowsBackgroundLocationUpdates = true
-        }
-        locationManager.startUpdatingLocation()
-        
-        
         // Map configuration Stuff
         map.delegate = self
         map.showsUserLocation = true
@@ -238,7 +243,9 @@ class ViewController: UIViewController, MKMapViewDelegate,CLLocationManagerDeleg
         panGesture.delegate = self
         map.addGestureRecognizer(panGesture)
        
-        
+        locationManager.delegate = self
+        locationManager.startUpdatingLocation()
+
         //let pinchGesture = UIPinchGestureRecognizer(target: self, action: "pinchGesture")
         //map.addGestureRecognizer(pinchGesture)
         
@@ -289,7 +296,7 @@ class ViewController: UIViewController, MKMapViewDelegate,CLLocationManagerDeleg
         // Tracked info
         
         //timeLabel
-        timeLabel.frame = CGRect(x: self.map.frame.width - 160, y: 20 , width: 150, height: 40)
+        timeLabel.frame = CGRect(x: self.map.frame.width - 160, y: 20, width: 150, height: 40)
         timeLabel.textAlignment = .Right
         timeLabel.font = UIFont(name: "DinCondensed-Bold", size:36.0)
         timeLabel.text = "00:00:00"
@@ -465,7 +472,8 @@ class ViewController: UIViewController, MKMapViewDelegate,CLLocationManagerDeleg
     }
     
     func addNotificationObservers() {
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "didEnterBackground", name: UIApplicationDidEnterBackgroundNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "didEnterBackground",
+            name: UIApplicationDidEnterBackgroundNotification, object: nil)
     }
 
     func removeNotificationObservers() {
@@ -512,7 +520,8 @@ class ViewController: UIViewController, MKMapViewDelegate,CLLocationManagerDeleg
     
     
     // UIGestureRecognizerDelegate required for stopFollowingUser
-    func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+    func gestureRecognizer(gestureRecognizer: UIGestureRecognizer,
+        shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         return true
     }
     
@@ -549,14 +558,14 @@ class ViewController: UIViewController, MKMapViewDelegate,CLLocationManagerDeleg
     }
     
     
-    func followButtonTroggler(){
+    func followButtonTroggler() {
         self.followUser = !self.followUser
     }
     
     
     func resetButtonTapped() {
         //clear tracks, pins and overlays if not already in that status
-        if (self.gpxTrackingStatus != .NotStarted) {
+        if self.gpxTrackingStatus != .NotStarted {
             self.gpxTrackingStatus = .NotStarted
         }
     }
@@ -574,8 +583,6 @@ class ViewController: UIViewController, MKMapViewDelegate,CLLocationManagerDeleg
         case .Paused:
             //set to tracking
             gpxTrackingStatus = .Tracking
-        default:
-            print("ERROR: startGpxTracking")
         }
     }
     
@@ -642,15 +649,16 @@ class ViewController: UIViewController, MKMapViewDelegate,CLLocationManagerDeleg
     }
     
     func locationManager(manager: CLLocationManager, didUpdateToLocation newLocation: CLLocation, fromLocation oldLocation: CLLocation) {
-        //println("didUpdateToLocation \(newLocation.coordinate.latitude),\(newLocation.coordinate.longitude), Hacc: \(newLocation.horizontalAccuracy), Vacc: \(newLocation.verticalAccuracy)")
+//        print("didUpdateToLocation \(newLocation.coordinate.latitude),\(newLocation.coordinate.longitude),",
+//            "Hacc: \(newLocation.horizontalAccuracy), Vacc: \(newLocation.verticalAccuracy)")
       
         //updates signal image accuracy
-        if (newLocation.horizontalAccuracy < kMediumSignalAccuracy) {
+        if newLocation.horizontalAccuracy < kMediumSignalAccuracy {
             self.signalImageView.image = midSignalImage
         } else {
             self.signalImageView.image = badSignalImage
         }
-        if (newLocation.horizontalAccuracy < kGoodSignalAccuracy) {
+        if newLocation.horizontalAccuracy < kGoodSignalAccuracy {
             self.signalImageView.image = goodSignalImage
         }
         
@@ -682,14 +690,14 @@ class ViewController: UIViewController, MKMapViewDelegate,CLLocationManagerDeleg
     }
     
     
-    func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView! {
-        if (annotation.isKindOfClass(MKUserLocation)) {
+    func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
+        if annotation.isKindOfClass(MKUserLocation) {
             return nil
         }
-        let annotationView : MKPinAnnotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: "PinView")
+        let annotationView: MKPinAnnotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: "PinView")
         annotationView.canShowCallout = true
         annotationView.draggable = true
-        //let detailButton : UIButton = UIButton.buttonWithType(UIButtonType.DetailDisclosure) as UIButton
+        //let detailButton: UIButton = UIButton.buttonWithType(UIButtonType.DetailDisclosure) as UIButton
         
         let deleteButton: UIButton = UIButton(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
         deleteButton.setImage(UIImage(named: "delete"), forState: .Normal)
@@ -707,32 +715,40 @@ class ViewController: UIViewController, MKMapViewDelegate,CLLocationManagerDeleg
     }
     
     
-    func mapView(mapView: MKMapView, rendererForOverlay overlay: MKOverlay) -> MKOverlayRenderer! {
-        if (overlay.isKindOfClass(MKTileOverlay)) {
+    func mapView(mapView: MKMapView, rendererForOverlay overlay: MKOverlay) -> MKOverlayRenderer {
+        if overlay.isKindOfClass(MKTileOverlay) {
             return MKTileOverlayRenderer(overlay: overlay)
         }
         
-        if (overlay is MKPolyline) {
+        if overlay is MKPolyline {
             let pr = MKPolylineRenderer(overlay: overlay)
             pr.strokeColor = UIColor.blueColor().colorWithAlphaComponent(0.5)
             pr.lineWidth = 3
             return pr
         }
-        return nil
+        return MKOverlayRenderer()
     }
     
     
     func mapView(mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
         print("calloutAccesoryControlTapped ")
-        let waypoint = view.annotation as! GPXWaypoint
-        let button = control as! UIButton
+        guard let waypoint = view.annotation as? GPXWaypoint else {
+            return
+        }
+
+        guard let button = control as? UIButton else {
+            return
+        }
+
         switch button.tag {
         case kDeleteWaypointAccesoryButtonTag:
             print("[calloutAccesoryControlTapped: DELETE button] deleting waypoint with name \(waypoint.name)")
             map.removeWaypoint(waypoint)
         case kEditWaypointAccesoryButtonTag:
             print("[calloutAccesoryControlTapped: EDIT] editing waypoint with name \(waypoint.name)")
-            let alert = UIAlertView(title: "Edit Waypoint", message: "Hint: To change the waypoint location drag and drop the pin" , delegate: self, cancelButtonTitle: "Cancel")
+            let alert = UIAlertView(title: "Edit Waypoint",
+                message: "Hint: To change the waypoint location drag and drop the pin",
+                delegate: self, cancelButtonTitle: "Cancel")
             alert.addButtonWithTitle("Save")
             alert.tag = kEditWaypointAlertViewTag
             alert.alertViewStyle = .PlainTextInput
@@ -748,10 +764,13 @@ class ViewController: UIViewController, MKMapViewDelegate,CLLocationManagerDeleg
     
 
     
-    func mapView(mapView: MKMapView, annotationView view: MKAnnotationView, didChangeDragState newState: MKAnnotationViewDragState, fromOldState oldState: MKAnnotationViewDragState) {
-        if (newState == MKAnnotationViewDragState.Ending){
-            let point = view.annotation as! GPXWaypoint
-            print("Annotation name: \(point.title) lat:\(point.latitude) lon \(point.longitude)")
+    func mapView(mapView: MKMapView, annotationView view: MKAnnotationView,
+        didChangeDragState newState: MKAnnotationViewDragState, fromOldState oldState: MKAnnotationViewDragState) {
+            
+        if newState == MKAnnotationViewDragState.Ending {
+            if let point = view.annotation as? GPXWaypoint {
+                print("Annotation name: \(point.title) lat:\(point.latitude) lon \(point.longitude)")
+            }
         }
     }
     
@@ -764,12 +783,13 @@ class ViewController: UIViewController, MKMapViewDelegate,CLLocationManagerDeleg
             let aV = object as MKAnnotationView
             if aV.annotation!.isKindOfClass(MKUserLocation) { continue }
             
-            let point : MKMapPoint = MKMapPointForCoordinate(aV.annotation!.coordinate)
+            let point: MKMapPoint = MKMapPointForCoordinate(aV.annotation!.coordinate)
             if !MKMapRectContainsPoint(self.map.visibleMapRect, point) { continue }
          
             let endFrame: CGRect = aV.frame
-            aV.frame = CGRect(x: aV.frame.origin.x, y: aV.frame.origin.y - self.view.frame.size.height, width: aV.frame.size.width, height:aV.frame.size.height)
-            let interval : NSTimeInterval = 0.04 * 1.1
+            aV.frame = CGRect(x: aV.frame.origin.x, y: aV.frame.origin.y - self.view.frame.size.height,
+                width: aV.frame.size.width, height:aV.frame.size.height)
+            let interval: NSTimeInterval = 0.04 * 1.1
             UIView.animateWithDuration(0.5, delay: interval, options: UIViewAnimationOptions.CurveLinear, animations: { () -> Void in
                 aV.frame = endFrame
                 }, completion: { (finished) -> Void in
@@ -827,4 +847,3 @@ class ViewController: UIViewController, MKMapViewDelegate,CLLocationManagerDeleg
         // Dispose of any resources that can be recreated.
     }
 }
-

@@ -33,11 +33,11 @@ let kGPXCreatorString = "Open GPX Tracker for iOS"
 // the file again, the resulting gpx file will have two tracks.
 //
 
-class GPXMapView : MKMapView {
+class GPXMapView: MKMapView {
     
-    var waypoints : [GPXWaypoint] = []
-    var tracks : [GPXTrack] = []
-    var trackSegments : [GPXTrackSegment] = []
+    var waypoints: [GPXWaypoint] = []
+    var tracks: [GPXTrack] = []
+    var trackSegments: [GPXTrackSegment] = []
     var currentSegment: GPXTrackSegment =  GPXTrackSegment()
     var currentSegmentOverlay: MKPolyline //Polyline conforms MKOverlay protocol
     var extent: GPXExtentCoordinates = GPXExtentCoordinates() //extent of the GPX points and tracks
@@ -65,15 +65,12 @@ class GPXMapView : MKMapView {
             //add new overlay to map
             if newValue != .Apple {
                 self.tileServerOverlay = MKTileOverlay(URLTemplate: newValue.templateUrl)
-                tileServerOverlay.canReplaceMapContent = true;
+                tileServerOverlay.canReplaceMapContent = true
                 self.addOverlay(tileServerOverlay, level: .AboveLabels)
             }
         }
     }
-    var tileServerOverlay : MKTileOverlay = MKTileOverlay();
-    
-    
-    
+    var tileServerOverlay: MKTileOverlay = MKTileOverlay()
     
     required init?(coder aDecoder: NSCoder) {
         var tmpCoords: [CLLocationCoordinate2D] = [] //init with empty
@@ -85,7 +82,7 @@ class GPXMapView : MKMapView {
     //
     //For example, this function can be used to add a waypoint after long press on the map view
     func addWaypointAtViewPoint(point: CGPoint) {
-        let coords : CLLocationCoordinate2D = self.convertPoint(point, toCoordinateFromView: self)
+        let coords: CLLocationCoordinate2D = self.convertPoint(point, toCoordinateFromView: self)
         let waypoint = GPXWaypoint(coordinate: coords)
         self.addWaypoint(waypoint)
         
@@ -135,7 +132,7 @@ class GPXMapView : MKMapView {
         self.trackSegments.append(self.currentSegment)
         self.currentSegment = GPXTrackSegment()
         self.currentSegmentOverlay = MKPolyline()
-        self.currentSegmentDistance = 0.00;
+        self.currentSegmentDistance = 0.00
     }
     
     func finishCurrentSegment() {
@@ -157,7 +154,7 @@ class GPXMapView : MKMapView {
         
         //add tile server overlay
         //by removing all overlays, tile server overlay is also removed. We need to add it back
-        if (tileServer != .Apple) {
+        if tileServer != .Apple {
             self.addOverlay(tileServerOverlay, level: .AboveLabels)
         }
         
@@ -173,7 +170,7 @@ class GPXMapView : MKMapView {
         track.addTracksegments(self.trackSegments)
         //add current segment if not empty
         if self.currentSegment.trackpoints.count > 0 {
-            track.addTracksegment(self.currentSegment);
+            track.addTracksegment(self.currentSegment)
         }
         self.tracks.append(track)
         gpx.addTracks(self.tracks)
@@ -199,20 +196,27 @@ class GPXMapView : MKMapView {
         self.clearMap()
         
         //add waypoints
-        self.waypoints = gpx.waypoints as! [GPXWaypoint]
+        if let waypoints = gpx.waypoints as? [GPXWaypoint] {
+            self.waypoints = waypoints
+        }
         for pt in self.waypoints {
             self.addWaypoint(pt)
         }
+
         //add track segments
-        self.tracks = gpx.tracks as! [GPXTrack]
+        if let tracks = gpx.tracks as? [GPXTrack] {
+            self.tracks = tracks
+        }
+        
         for oneTrack in self.tracks {
             totalTrackedDistance += oneTrack.length
             for segment in oneTrack.tracksegments {
                 self.addOverlay(segment.overlay)
-                let segmentTrackpoints = segment.trackpoints as! [GPXTrackPoint]
-                //add point to map extent
-                for waypoint in segmentTrackpoints {
-                    self.extent.extendAreaToIncludeLocation(waypoint.coordinate)
+                if let segmentTrackpoints = segment.trackpoints as? [GPXTrackPoint] {
+                    //add point to map extent
+                    for waypoint in segmentTrackpoints {
+                        self.extent.extendAreaToIncludeLocation(waypoint.coordinate)
+                    }
                 }
             }
         }

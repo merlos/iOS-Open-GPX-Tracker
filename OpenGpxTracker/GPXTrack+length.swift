@@ -20,6 +20,5 @@ extension GPXTrack {
             }
             return trackLength
         }
-    }
-    
+    }    
 }
