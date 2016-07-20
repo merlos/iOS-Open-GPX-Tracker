@@ -97,7 +97,7 @@ class MapViewDelegate: NSObject, MKMapViewDelegate, UIAlertViewDelegate {
     func mapView(mapView: MKMapView, didAddAnnotationViews views: [MKAnnotationView]) {
         var i = 0
         for object in views {
-            i++
+            i += 1
             let aV = object as MKAnnotationView
             if aV.annotation!.isKindOfClass(MKUserLocation) { continue }
             

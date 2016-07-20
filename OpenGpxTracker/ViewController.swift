@@ -223,9 +223,9 @@ class ViewController: UIViewController,
         map?.zoomEnabled = true
         map?.rotateEnabled = true
         map?.addGestureRecognizer(
-            UILongPressGestureRecognizer(target: self, action: "addPinAtTappedLocation:")
+            UILongPressGestureRecognizer(target: self, action: #selector(ViewController.addPinAtTappedLocation(_:)))
         )
-        let panGesture = UIPanGestureRecognizer(target: self, action: "stopFollowingUser:")
+        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(ViewController.stopFollowingUser(_:)))
         panGesture.delegate = self
         map?.addGestureRecognizer(panGesture)
        
@@ -283,7 +283,7 @@ class ViewController: UIViewController,
     }
     
     func addNotificationObservers() {
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "didEnterBackground",
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ViewController.didEnterBackground),
             name: UIApplicationDidEnterBackgroundNotification, object: nil)
     }
 

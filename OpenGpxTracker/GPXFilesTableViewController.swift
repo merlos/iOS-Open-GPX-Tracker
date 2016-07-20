@@ -36,7 +36,7 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
         
         self.title = "Your GPX Files"
         
-        let shareItem = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.Plain, target: self, action: "closeGPXFilesTableViewController")
+        let shareItem = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.Plain, target: self, action: #selector(GPXFilesTableViewController.closeGPXFilesTableViewController))
         
         self.navigationItem.rightBarButtonItems = [shareItem]
         

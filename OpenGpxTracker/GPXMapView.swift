@@ -46,7 +46,7 @@ class GPXMapView: MKMapView {
     var currentTrackDistance = 0.00 // in meters
     var currentSegmentDistance = 0.00 //in meters
     
-    var tileServer: GPXTileServer = .MapQuest {
+    var tileServer: GPXTileServer = .Apple {
         willSet {
             // Info about how to use other tile servers:
             //http://www.glimsoft.com/01/31/how-to-use-openstreetmap-on-ios-7-in-7-lines-of-code/

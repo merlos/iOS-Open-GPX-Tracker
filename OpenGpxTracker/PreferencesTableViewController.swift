@@ -33,7 +33,7 @@ class PreferencesTableViewController: UITableViewController, UINavigationBarDele
         
         self.title = "Map Tile Server"
         
-        let shareItem = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.Plain, target: self, action: "closePreferencesTableViewController")
+        let shareItem = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.Plain, target: self, action: #selector(PreferencesTableViewController.closePreferencesTableViewController))
         
         self.navigationItem.rightBarButtonItems = [shareItem]
         

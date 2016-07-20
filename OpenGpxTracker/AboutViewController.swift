@@ -30,7 +30,7 @@ class AboutViewController: UIViewController, UIWebViewDelegate {
         self.title = "About"
         
         //Add the done button
-        let shareItem = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.Plain, target: self, action: "closeViewController")
+        let shareItem = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.Plain, target: self, action: #selector(AboutViewController.closeViewController))
         self.navigationItem.rightBarButtonItems = [shareItem]
   
         //Add the Webview
