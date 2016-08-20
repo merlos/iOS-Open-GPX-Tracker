@@ -77,7 +77,9 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
     }
     
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        return true
+        // Allow editing for all rows except the initial "empty list"-placeholder row.
+        // The string comparison is not optimal, but does the job.
+        return fileList.objectAtIndex(indexPath.row) as! String != kNoFiles
     }
     
     override func tableView(tableView: UITableView,
@@ -133,6 +135,15 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
     }
     func actionSheetCancel(actionSheet: UIActionSheet) {
         print("actionsheet cancel")
+    }
+    
+    //#pragma mark - UITableView delegate methods
+    
+    override func tableView(tableView: UITableView,
+                            shouldHighlightRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        // Allow editing for all rows except the initial "empty list"-placeholder row.
+        // The string comparison is not optimal, but does the job.
+        return fileList.objectAtIndex(indexPath.row) as! String != kNoFiles
     }
     
     //#pragma mark - UIAlertView delegate methods
