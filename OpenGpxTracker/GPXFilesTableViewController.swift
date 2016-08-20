@@ -16,8 +16,10 @@ import MessageUI
 class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegate, MFMailComposeViewControllerDelegate, UIActionSheetDelegate {
     
     var fileList: NSMutableArray = [kNoFiles]
+    var gpxFilesFound = false;
     var selectedRowIndex = -1
     var delegate: GPXFilesTableViewControllerDelegate?
+
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -45,6 +47,7 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
         if list.count != 0 {
             self.fileList.removeAllObjects()
             self.fileList.addObjectsFromArray(list as [AnyObject])
+            self.gpxFilesFound = true
         }
     }
     
@@ -79,7 +82,7 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
         // Allow editing for all rows except the initial "empty list"-placeholder row.
         // The string comparison is not optimal, but does the job.
-        return fileList.objectAtIndex(indexPath.row) as! String != kNoFiles
+        return gpxFilesFound
     }
     
     override func tableView(tableView: UITableView,
@@ -143,7 +146,7 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
                             shouldHighlightRowAtIndexPath indexPath: NSIndexPath) -> Bool {
         // Allow editing for all rows except the initial "empty list"-placeholder row.
         // The string comparison is not optimal, but does the job.
-        return fileList.objectAtIndex(indexPath.row) as! String != kNoFiles
+        return gpxFilesFound
     }
     
     //#pragma mark - UIAlertView delegate methods
