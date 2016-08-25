@@ -508,10 +508,6 @@ class ViewController: UIViewController,
     func didUpdateTileServer(newGpxTileServer: Int) {
         print("didUpdateTileServer: \(newGpxTileServer)")
         self.map?.tileServer = GPXTileServer(rawValue: newGpxTileServer)!
-        var tileserver = "none"
-        tileserver = (self.map?.tileServer.name)!
-        print("Tileservername: \(tileserver)")
-        tileServerLabel.text = "\(tileserver)"
         
     }
     
