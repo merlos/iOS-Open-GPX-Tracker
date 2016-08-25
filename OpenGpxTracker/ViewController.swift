@@ -162,7 +162,6 @@ class ViewController: UIViewController,
     @IBOutlet var appTitleBackgroundView: UIView?
     @IBOutlet var signalImageView: UIImageView?
     @IBOutlet var coordsLabel: UILabel?
-    @IBOutlet weak var tileServerLabel: UILabel!
     @IBOutlet var timeLabel: UILabel?
     @IBOutlet var speedLabel: UILabel?
     @IBOutlet var totalTrackedDistanceLabel: UIDistanceLabel?
@@ -455,8 +454,8 @@ class ViewController: UIViewController,
     }
     
     func locationManager(manager: CLLocationManager, didUpdateToLocation newLocation: CLLocation, fromLocation oldLocation: CLLocation) {
-        print("didUpdateToLocation \(newLocation.coordinate.latitude),\(newLocation.coordinate.longitude),",
-            "Hacc: \(newLocation.horizontalAccuracy), Vacc: \(newLocation.verticalAccuracy)")
+        //print("didUpdateToLocation \(newLocation.coordinate.latitude),\(newLocation.coordinate.longitude),",
+        //    "Hacc: \(newLocation.horizontalAccuracy), Vacc: \(newLocation.verticalAccuracy)")
       
         //updates signal image accuracy
         var hAcc = newLocation.horizontalAccuracy
