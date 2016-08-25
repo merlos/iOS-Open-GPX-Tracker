@@ -11,12 +11,6 @@ import UIKit
 import CoreLocation
 import MapKit
 
-
-//Accuracy levels
-//  kBadSignalAccuracy would be greate than mediumSignal accuracy
-let kMediumSignalAccuracy = 100.0
-let kGoodSignalAccuracy = 20.0
-
 //Button colors
 let kPurpleButtonBackgroundColor: UIColor =  UIColor(red: 146.0/255.0, green: 166.0/255.0, blue: 218.0/255.0, alpha: 0.90)
 let kGreenButtonBackgroundColor: UIColor = UIColor(red: 142.0/255.0, green: 224.0/255.0, blue: 102.0/255.0, alpha: 0.90)
@@ -168,6 +162,7 @@ class ViewController: UIViewController,
     @IBOutlet var appTitleBackgroundView: UIView?
     @IBOutlet var signalImageView: UIImageView?
     @IBOutlet var coordsLabel: UILabel?
+    @IBOutlet weak var tileServerLabel: UILabel!
     @IBOutlet var timeLabel: UILabel?
     @IBOutlet var speedLabel: UILabel?
     @IBOutlet var totalTrackedDistanceLabel: UIDistanceLabel?
@@ -185,10 +180,13 @@ class ViewController: UIViewController,
     @IBOutlet var saveButton: UIButton?
     
     
-    let badSignalImage = UIImage(named: "1")
-    let midSignalImage = UIImage(named: "2")
-    let goodSignalImage = UIImage(named: "3")
-   
+    let SignalImage0 = UIImage(named: "signal0")
+    let SignalImage1 = UIImage(named: "signal1")
+    let SignalImage2 = UIImage(named: "signal2")
+    let SignalImage3 = UIImage(named: "signal3")
+    let SignalImage4 = UIImage(named: "signal4")
+    let SignalImage5 = UIImage(named: "signal5")
+    let SignalImage6 = UIImage(named: "signal6")
  
     // Initializer. Just initializes the class vars/const
     required init(coder aDecoder: NSCoder) {
@@ -457,18 +455,28 @@ class ViewController: UIViewController,
     }
     
     func locationManager(manager: CLLocationManager, didUpdateToLocation newLocation: CLLocation, fromLocation oldLocation: CLLocation) {
-//        print("didUpdateToLocation \(newLocation.coordinate.latitude),\(newLocation.coordinate.longitude),",
-//            "Hacc: \(newLocation.horizontalAccuracy), Vacc: \(newLocation.verticalAccuracy)")
+        print("didUpdateToLocation \(newLocation.coordinate.latitude),\(newLocation.coordinate.longitude),",
+            "Hacc: \(newLocation.horizontalAccuracy), Vacc: \(newLocation.verticalAccuracy)")
       
         //updates signal image accuracy
-        if newLocation.horizontalAccuracy < kMediumSignalAccuracy {
-            self.signalImageView?.image = midSignalImage
-        } else {
-            self.signalImageView?.image = badSignalImage
+        var hAcc = newLocation.horizontalAccuracy
+        if hAcc < 6 {
+            self.signalImageView?.image = SignalImage6
+        } else if hAcc < 11 {
+            self.signalImageView?.image = SignalImage5
+        } else if hAcc < 31 {
+            self.signalImageView?.image = SignalImage4
+        } else if hAcc < 51 {
+            self.signalImageView?.image = SignalImage3
+        } else if hAcc < 101 {
+            self.signalImageView?.image = SignalImage2
+        } else if hAcc < 201 {
+            self.signalImageView?.image = SignalImage1
+        } else{
+            self.signalImageView?.image = SignalImage0
         }
-        if newLocation.horizontalAccuracy < kGoodSignalAccuracy {
-            self.signalImageView?.image = goodSignalImage
-        }
+        
+
         
         //Update coordsLabel
         let latFormat = String(format: "%.6f", newLocation.coordinate.latitude)
@@ -501,6 +509,10 @@ class ViewController: UIViewController,
     func didUpdateTileServer(newGpxTileServer: Int) {
         print("didUpdateTileServer: \(newGpxTileServer)")
         self.map?.tileServer = GPXTileServer(rawValue: newGpxTileServer)!
+        var tileserver = "none"
+        tileserver = (self.map?.tileServer.name)!
+        print("Tileservername: \(tileserver)")
+        tileServerLabel.text = "\(tileserver)"
         
     }
     
