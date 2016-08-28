@@ -20,7 +20,7 @@ You can use Open GPX tracker for:
 # Main Features
 
  - Displays tracking information in a map
- - Supports Apple Map Kit, [Open Street Map](http://wiki.openstreetmap.org/wiki/Tile_usage_policy), [MapQuest](http://open.mapquest.co.uk/),  [Open Cycle Map](http://www.opencyclemap.org) and [Carto DB](http://www.cartodb.com) as map sources
+ - Supports Apple Map Kit, [Open Street Map](http://wiki.openstreetmap.org/wiki/Tile_usage_policy), [Open Cycle Map](http://www.opencyclemap.org) and [Carto DB](http://www.cartodb.com) as map sources
  - Pause / Resume tracking
  - Add waypoint to user location
  - Add waypoint to any place in the map with a long press
@@ -53,7 +53,6 @@ The list of available tile servers is defined in `GPXTileServer.swift`. Possible
 ```swift
 .Apple
 .OpenStreetMap
-.MapQuest
 .OpenCycleMap
 .CartoDB
 
@@ -66,10 +65,6 @@ Adding a tile server is easy, just edit the file `GPXTileServer.swift`, uncommen
 
 You have a list of tile servers in [Open Street Map Wiki](http://wiki.openstreetmap.org/wiki/Tile_servers)
 
-# TODO
-
-- Do not request user location while not tracking and in background (to save battery)
-- Add user interface to change the tile server. Also include attributions and copyrights of each tile server.
 
 # Contribute
 You can contribute by forking and submitting a pull request.
