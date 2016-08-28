@@ -271,6 +271,10 @@ class ViewController: UIViewController,
         self.view.addSubview(map)
         
         // HEADER
+        let font36 = UIFont(name: "DinCondensed-Bold", size: 36.0)
+        let font18 = UIFont(name: "DinAlternate-Bold", size: 18.0)
+        let font12 = UIFont(name: "DinAlternate-Bold", size: 12.0)
+
         
         //add the app title Label (Branding, branding, branding! )
         let appTitleW: CGFloat = self.view.frame.width//200.0
@@ -290,7 +294,7 @@ class ViewController: UIViewController,
         // CoordLabel
         coordsLabel.frame = CGRect(x: self.map.frame.width - 305, y: 20, width: 300, height: 12)
         coordsLabel.textAlignment = .Right
-        coordsLabel.font = UIFont(name:"DinAlternate-Bold", size: 12.0)
+        coordsLabel.font = font12
         coordsLabel.textColor = UIColor.whiteColor()
         coordsLabel.text = "Not getting location"
         self.view.addSubview(coordsLabel)
@@ -301,7 +305,7 @@ class ViewController: UIViewController,
         //timeLabel
         timeLabel.frame = CGRect(x: self.map.frame.width - 160, y: 20, width: 150, height: 40)
         timeLabel.textAlignment = .Right
-        timeLabel.font = UIFont(name: "DinCondensed-Bold", size:36.0)
+        timeLabel.font = font36
         timeLabel.text = "00:00:00"
         //timeLabel.shadowColor = UIColor.whiteColor()
         //timeLabel.shadowOffset = CGSize(width: 1, height: 1)
@@ -311,7 +315,7 @@ class ViewController: UIViewController,
         //speed Label
         speedLabel.frame = CGRect(x: self.map.frame.width - 160,  y: 20 + 36, width: 150, height: 20)
         speedLabel.textAlignment = .Right
-        speedLabel.font = UIFont(name: "DinAlternate-Bold", size: 18.0)
+        speedLabel.font = font18
         speedLabel.text = "0.00 km/h"
         //timeLabel.backgroundColor = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.5)
         map.addSubview(speedLabel)
@@ -319,14 +323,14 @@ class ViewController: UIViewController,
         //tracked distance
         totalTrackedDistanceLabel.frame = CGRect(x: self.map.frame.width - 160, y: 60 + 20, width: 150, height: 40)
         totalTrackedDistanceLabel.textAlignment = .Right
-        totalTrackedDistanceLabel.font = UIFont(name: "DinCondensed-Bold", size: 36.0)
+        totalTrackedDistanceLabel.font = font36
         totalTrackedDistanceLabel.text = "0m"
         //timeLabel.backgroundColor = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.5)
         map.addSubview(totalTrackedDistanceLabel)
         
         currentSegmentDistanceLabel.frame = CGRect(x: self.map.frame.width - 160, y: 80 + 36, width: 150, height: 20)
         currentSegmentDistanceLabel.textAlignment = .Right
-        currentSegmentDistanceLabel.font = UIFont(name: "DinAlternate-Bold", size: 18.0)
+        currentSegmentDistanceLabel.font = font18
         currentSegmentDistanceLabel.text = "0m"
         //timeLabel.backgroundColor = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.5)
         map.addSubview(currentSegmentDistanceLabel)
@@ -370,10 +374,11 @@ class ViewController: UIViewController,
         //
         // Button Bar
         //
-        // [ Small ] [ Small ] [ Large     ] [Medium] [ Small] [Small]
+        // [ Small ] [ Small ] [ Large     ] [Small] [ Small]
         //                     [ (tracker) ]
+        //
         //                     [ track     ]
-        // [ follow] [ +Pin  ] [ Pause     ] [ Save ] [ Reset] [ folder
+        // [ follow] [ +Pin  ] [ Pause     ] [ Save ] [ Reset]
         //                     [ Resume    ]
         //
         //                       trackerX
@@ -473,76 +478,6 @@ class ViewController: UIViewController,
         
         addNotificationObservers()
     }
-    /*
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        stopWatch.delegate = self
-        
-        // Map configuration Stuff
-        map?.delegate = mapViewDelegate
-
-        let mapH: CGFloat = self.view.bounds.size.height - 20.0
-        map?.frame = CGRect(x: 0.0, y: 20.0, width: self.view.bounds.size.width, height: mapH)
-        map?.zoomEnabled = true
-        map?.rotateEnabled = true
-        map?.addGestureRecognizer(
-            UILongPressGestureRecognizer(target: self, action: #selector(ViewController.addPinAtTappedLocation(_:)))
-        )
-        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(ViewController.stopFollowingUser(_:)))
-        panGesture.delegate = self
-        map?.addGestureRecognizer(panGesture)
-       
-        locationManager.delegate = self
-        locationManager.startUpdatingLocation()
-
-        //let pinchGesture = UIPinchGestureRecognizer(target: self, action: "pinchGesture")
-        //map?.addGestureRecognizer(pinchGesture)
-        
-        //Set Tile Server
-        let defaults = NSUserDefaults.standardUserDefaults()
-        if let tileServerInt: Int = defaults.integerForKey("tileServerInt") {
-            print("tileServer preference loaded: \(tileServerInt)")
-            map?.tileServer = GPXTileServer(rawValue: tileServerInt)!
-        } else {
-            print("using default tileServer: Apple")
-            map?.tileServer = GPXTileServer.Apple
-        }
-        
-        let center = locationManager.location?.coordinate ?? CLLocationCoordinate2D(latitude: 8.90, longitude: -79.50)
-        let span = MKCoordinateSpan(latitudeDelta: 0.005, longitudeDelta: 0.005)
-        let region = MKCoordinateRegion(center: center, span: span)
-        map?.setRegion(region, animated: true)
-        
-        setupFonts()
-        setupTrackerButtons()
-        
-        addNotificationObservers()
-    }
- 
-    func setupFonts() {
-        let font1 = UIFont(name: "DinCondensed-Bold", size: 36.0)
-        let font2 = UIFont(name: "DinAlternate-Bold", size: 18.0)
-        let font3 = UIFont(name: "DinAlternate-Bold", size: 12.0)
-        
-        appTitleBackgroundView.backgroundColor = UIColor(red: 58.0/255.0, green: 57.0/255.0, blue: 54.0/255.0, alpha: 0.80)
-        coordsLabel.font = font3
-        timeLabel.font = font1
-        speedLabel.font = font2
-        totalTrackedDistanceLabel.font = font1
-        currentSegmentDistanceLabel.font = font2
-    }
-    
-    func setupTrackerButtons() {
-        
-        trackerButton.backgroundColor = kGreenButtonBackgroundColor
-        trackerButton.titleLabel?.numberOfLines = 2
-        trackerButton.titleLabel?.textAlignment = .Center
-        
-        saveButton.backgroundColor = kDisabledBlueButtonBackgroundColor
-        resetButton.backgroundColor = kDisabledRedButtonBackgroundColor
-    }
-    */
     
     func addNotificationObservers() {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ViewController.didEnterBackground),
