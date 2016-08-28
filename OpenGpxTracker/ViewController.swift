@@ -32,6 +32,14 @@ let kButtonSmallSize: CGFloat = 48.0
 let kButtonLargeSize: CGFloat = 96.0
 let kButtonSeparation: CGFloat = 6.0
 
+// Upper limits threshold (in meters) on signal accuracy.
+let kSignalAccuracy6 = 6.0
+let kSignalAccuracy5 = 11.0
+let kSignalAccuracy4 = 31.0
+let kSignalAccuracy3 = 51.0
+let kSignalAccuracy2 = 101.0
+let kSignalAccuracy1 = 201.0
+
 
 class ViewController: UIViewController,
                         CLLocationManagerDelegate,
@@ -178,14 +186,14 @@ class ViewController: UIViewController,
     @IBOutlet var trackerButton: UIButton?
     @IBOutlet var saveButton: UIButton?
     
-    
-    let SignalImage0 = UIImage(named: "signal0")
-    let SignalImage1 = UIImage(named: "signal1")
-    let SignalImage2 = UIImage(named: "signal2")
-    let SignalImage3 = UIImage(named: "signal3")
-    let SignalImage4 = UIImage(named: "signal4")
-    let SignalImage5 = UIImage(named: "signal5")
-    let SignalImage6 = UIImage(named: "signal6")
+    //signal accuracy images
+    let signalImage0 = UIImage(named: "signal0")
+    let signalImage1 = UIImage(named: "signal1")
+    let signalImage2 = UIImage(named: "signal2")
+    let signalImage3 = UIImage(named: "signal3")
+    let signalImage4 = UIImage(named: "signal4")
+    let signalImage5 = UIImage(named: "signal5")
+    let signalImage6 = UIImage(named: "signal6")
  
     // Initializer. Just initializes the class vars/const
     required init(coder aDecoder: NSCoder) {
@@ -458,21 +466,21 @@ class ViewController: UIViewController,
         //    "Hacc: \(newLocation.horizontalAccuracy), Vacc: \(newLocation.verticalAccuracy)")
       
         //updates signal image accuracy
-        var hAcc = newLocation.horizontalAccuracy
-        if hAcc < 6 {
-            self.signalImageView?.image = SignalImage6
-        } else if hAcc < 11 {
-            self.signalImageView?.image = SignalImage5
-        } else if hAcc < 31 {
-            self.signalImageView?.image = SignalImage4
-        } else if hAcc < 51 {
-            self.signalImageView?.image = SignalImage3
-        } else if hAcc < 101 {
-            self.signalImageView?.image = SignalImage2
-        } else if hAcc < 201 {
-            self.signalImageView?.image = SignalImage1
+        let hAcc = newLocation.horizontalAccuracy
+        if hAcc < kSignalAccuracy6 {
+            self.signalImageView?.image = signalImage6
+        } else if hAcc < kSignalAccuracy5 {
+            self.signalImageView?.image = signalImage5
+        } else if hAcc < kSignalAccuracy4 {
+            self.signalImageView?.image = signalImage4
+        } else if hAcc < kSignalAccuracy3 {
+            self.signalImageView?.image = signalImage3
+        } else if hAcc < kSignalAccuracy2 {
+            self.signalImageView?.image = signalImage2
+        } else if hAcc < kSignalAccuracy1 {
+            self.signalImageView?.image = signalImage1
         } else{
-            self.signalImageView?.image = SignalImage0
+            self.signalImageView?.image = signalImage0
         }
         
 
