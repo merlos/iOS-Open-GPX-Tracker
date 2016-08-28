@@ -31,6 +31,7 @@ You can use Open GPX tracker for:
  - Load on map a saved session and continue tracking
  - Displays tracked time
  - Displays tracked distance (total and current segment)
+ - File sharing through iTunes __new!__ (but currently only available on github version) 
 
 # Install
 
