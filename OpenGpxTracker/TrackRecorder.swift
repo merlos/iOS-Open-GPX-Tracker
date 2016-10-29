@@ -1,13 +1,13 @@
 import CoreLocation
 
 public protocol TrackRecorderDelegate: NSObjectProtocol {
-    func trackRecorder(recorder: TrackRecorder, didUpdateToLocation newLocation: CLLocation)
+    func trackRecorder(_ recorder: TrackRecorder, didUpdateToLocation newLocation: CLLocation)
 }
 
-public class TrackRecorder: NSObject, CLLocationManagerDelegate {
+open class TrackRecorder: NSObject, CLLocationManagerDelegate {
     weak var delegate: TrackRecorderDelegate?
     
-    public var currentCoordinate: CLLocationCoordinate2D {
+    open var currentCoordinate: CLLocationCoordinate2D {
         get {
             return locationManager.location?.coordinate ?? CLLocationCoordinate2D(latitude: 8.90, longitude: -79.50)
         }
@@ -32,22 +32,21 @@ public class TrackRecorder: NSObject, CLLocationManagerDelegate {
         locationManager.startUpdatingLocation()
     }
     
-    public func start() {
+    open func start() {
         locationManager.startUpdatingLocation()
     }
     
-    public func stop() {
+    open func stop() {
         locationManager.stopUpdatingLocation()
     }
     
-    public func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
+    open func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print("didFailWithError\(error)")
     }
     
-    public func locationManager(manager: CLLocationManager, didUpdateToLocation newLocation: CLLocation, fromLocation oldLocation: CLLocation) {
-        //        print("didUpdateToLocation \(newLocation.coordinate.latitude),\(newLocation.coordinate.longitude),",
-        //            "Hacc: \(newLocation.horizontalAccuracy), Vacc: \(newLocation.verticalAccuracy)")
-        
+    open func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        let newLocation = locations.first!
         delegate?.trackRecorder(self, didUpdateToLocation: newLocation)
+
     }
 }

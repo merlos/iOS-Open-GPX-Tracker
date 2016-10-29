@@ -14,6 +14,6 @@ import Foundation
 //
 protocol PreferencesTableViewControllerDelegate {
     
-    func didUpdateTileServer(newGpxTileServer: Int)
+    func didUpdateTileServer(_ newGpxTileServer: Int)
     
 }

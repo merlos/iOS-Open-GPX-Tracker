@@ -10,5 +10,5 @@ import Foundation
 
 protocol StopWatchDelegate {
     
-    func stopWatch(stropWatch: StopWatch, didUpdateElapsedTimeString elapsedTimeString: String)
+    func stopWatch(_ stropWatch: StopWatch, didUpdateElapsedTimeString elapsedTimeString: String)
 }

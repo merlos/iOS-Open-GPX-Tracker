@@ -10,9 +10,9 @@ import Foundation
 import UIKit
 import MapKit
 
-public class UIDistanceLabel: UILabel {
+open class UIDistanceLabel: UILabel {
     
-    public var distance: CLLocationDistance {
+    open var distance: CLLocationDistance {
         get {
             return 0
         }

@@ -17,9 +17,9 @@ let kFileExt = "gpx"
 //
 class GPXFileManager: NSObject {
     
-    class var GPXFilesFolderURL: NSURL {
+    class var GPXFilesFolderURL: URL {
         get {
-            let documentsUrl =  NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)[0] as NSURL
+            let documentsUrl =  FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0] as URL
             return documentsUrl
         }
     }
@@ -27,56 +27,56 @@ class GPXFileManager: NSObject {
     class var fileList: [AnyObject] {
         get {
             var GPXFiles: [String] = []
-            let fileManager = NSFileManager.defaultManager()
+            let fileManager = FileManager.default
             // We need just to get the documents folder url
-                let documentsURL = fileManager.URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)[0] as NSURL
+                let documentsURL = fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0] as URL
                 
                 do {
                     // if you want to filter the directory contents you can do like this:
-                    if let directoryURLs = try? NSFileManager.defaultManager().contentsOfDirectoryAtURL(documentsURL,
+                    if let directoryURLs = try? FileManager.default.contentsOfDirectory(at: documentsURL,
                         includingPropertiesForKeys: nil,
-                        options: NSDirectoryEnumerationOptions.SkipsSubdirectoryDescendants) {
+                        options: FileManager.DirectoryEnumerationOptions.skipsSubdirectoryDescendants) {
                             
                         print(directoryURLs)
-                        for url: NSURL in directoryURLs {
+                        for url: URL in directoryURLs {
                             if url.pathExtension == kFileExt {
-                                GPXFiles.append(url.URLByDeletingPathExtension!.lastPathComponent!)
+                                GPXFiles.append(url.deletingPathExtension().lastPathComponent)
                             }
                         }
                     }//if
                 }
-            return GPXFiles
+            return GPXFiles as [AnyObject]
         }
     }
     //
     // @param filename gpx filename without extension
-    class func URLForFilename(filename: String) -> NSURL {
-        var fullURL = self.GPXFilesFolderURL.URLByAppendingPathComponent(filename)
+    class func URLForFilename(_ filename: String) -> URL {
+        var fullURL = self.GPXFilesFolderURL.appendingPathComponent(filename)
         //var ext = ".\(kFileExt)" // add dot to file extension
         print("pathForFilename: \(fullURL)")
         //check if filename has extension
         if fullURL.pathExtension != kFileExt {
             print("oh! is not a gpx file")
-            fullURL = fullURL.URLByAppendingPathExtension(kFileExt)
+            fullURL = fullURL.appendingPathExtension(kFileExt)
         }
         return fullURL
     }
     
-    class func fileExists(filename: String) -> Bool {
+    class func fileExists(_ filename: String) -> Bool {
         let fileURL = self.URLForFilename(filename)
-        return NSFileManager.defaultManager().fileExistsAtPath(fileURL.path!)
+        return FileManager.default.fileExists(atPath: fileURL.path)
     }
     
-    class func save(filename: String, gpxContents: String) {
+    class func save(_ filename: String, gpxContents: String) {
         //check if name exists
-        let finalFileURL: NSURL = self.URLForFilename(filename)
+        let finalFileURL: URL = self.URLForFilename(filename)
         //save file
         print("Saving file at path: \(finalFileURL)")
         // write gpx to file
         var writeError: NSError?
         let saved: Bool
         do {
-            try gpxContents.writeToFile(finalFileURL.path!, atomically: true, encoding: NSUTF8StringEncoding)
+            try gpxContents.write(toFile: finalFileURL.path, atomically: true, encoding: String.Encoding.utf8)
             saved = true
         } catch let error as NSError {
             writeError = error
@@ -89,13 +89,13 @@ class GPXFileManager: NSObject {
         }
     }
     
-    class func removeFile(filename: String) {
-        let fileURL: NSURL = self.URLForFilename(filename)
-        let defaultManager = NSFileManager.defaultManager()
+    class func removeFile(_ filename: String) {
+        let fileURL: URL = self.URLForFilename(filename)
+        let defaultManager = FileManager.default
         var error: NSError?
         let deleted: Bool
         do {
-            try defaultManager.removeItemAtPath(fileURL.path!)
+            try defaultManager.removeItem(atPath: fileURL.path)
             deleted = true
         } catch let error1 as NSError {
             error = error1

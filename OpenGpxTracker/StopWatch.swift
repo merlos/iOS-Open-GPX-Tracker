@@ -15,40 +15,40 @@ import Foundation
 //
 
 enum StopWatchStatus {
-    case Started
-    case Stopped
+    case started
+    case stopped
 }
 
 class StopWatch: NSObject {
     
-    var tmpElapsedTime: NSTimeInterval = 0.0
-    var startedTime: NSTimeInterval = 0.0
+    var tmpElapsedTime: TimeInterval = 0.0
+    var startedTime: TimeInterval = 0.0
     var status: StopWatchStatus
     
-    var timeInterval: NSTimeInterval = 0.01
-    var timer = NSTimer()
+    var timeInterval: TimeInterval = 0.01
+    var timer = Timer()
     
     var delegate: StopWatchDelegate?
     
     override init() {
         self.tmpElapsedTime = 0.0
-        self.status = StopWatchStatus.Stopped
+        self.status = StopWatchStatus.stopped
         
         super.init()
     }
     
     func start() {
         print("StopWatch: started")
-        self.status = .Started
-        self.startedTime = NSDate.timeIntervalSinceReferenceDate()
-        timer = NSTimer.scheduledTimerWithTimeInterval(timeInterval, target: self, selector: #selector(StopWatch.updateElapsedTime), userInfo: nil, repeats: true)
+        self.status = .started
+        self.startedTime = Date.timeIntervalSinceReferenceDate
+        timer = Timer.scheduledTimer(timeInterval: timeInterval, target: self, selector: #selector(StopWatch.updateElapsedTime), userInfo: nil, repeats: true)
     }
     
     func stop() {
         print("StopWatch: stopped")
-        self.status = .Stopped
+        self.status = .stopped
         //add difference between start and stop to elapsed time
-        let currentTime = NSDate.timeIntervalSinceReferenceDate()
+        let currentTime = Date.timeIntervalSinceReferenceDate
         let diff = currentTime - startedTime
         tmpElapsedTime = tmpElapsedTime + diff
         timer.invalidate()
@@ -58,16 +58,16 @@ class StopWatch: NSObject {
         print("StopWatch: reset")
         timer.invalidate()
         self.tmpElapsedTime = 0.0
-        self.startedTime = NSDate.timeIntervalSinceReferenceDate()
-        self.status = .Stopped
+        self.startedTime = Date.timeIntervalSinceReferenceDate
+        self.status = .stopped
     }
     
-    var elapsedTime: NSTimeInterval {
+    var elapsedTime: TimeInterval {
         get {
-            if self.status == .Stopped {
+            if self.status == .stopped {
                 return self.tmpElapsedTime
             }
-            let diff = NSDate.timeIntervalSinceReferenceDate() - startedTime
+            let diff = Date.timeIntervalSinceReferenceDate - startedTime
             return tmpElapsedTime + diff
         }
     }
@@ -76,14 +76,14 @@ class StopWatch: NSObject {
     // example: elapsed time: 3 min 30 sec 40ms => 03:30:40
     var elapsedTimeString: String {
         get {
-            var tmpTime: NSTimeInterval = self.elapsedTime
+            var tmpTime: TimeInterval = self.elapsedTime
             //calculate the minutes in elapsed time.
             let minutes = UInt8(tmpTime / 60.0)
-            tmpTime -= (NSTimeInterval(minutes) * 60)
+            tmpTime -= (TimeInterval(minutes) * 60)
 
             //calculate the seconds in elapsed time.
             let seconds = UInt8(tmpTime)
-            tmpTime -= NSTimeInterval(seconds)
+            tmpTime -= TimeInterval(seconds)
         
             //find out the fraction of milliseconds to be displayed.
             let fraction = UInt8(tmpTime * 100)

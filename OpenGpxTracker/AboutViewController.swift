@@ -17,7 +17,7 @@ class AboutViewController: UIViewController, UIWebViewDelegate {
         super.init(coder: aDecoder)
     }
 
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }
     
@@ -30,31 +30,31 @@ class AboutViewController: UIViewController, UIWebViewDelegate {
         self.title = "About"
         
         //Add the done button
-        let shareItem = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.Plain, target: self, action: #selector(AboutViewController.closeViewController))
+        let shareItem = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.plain, target: self, action: #selector(AboutViewController.closeViewController))
         self.navigationItem.rightBarButtonItems = [shareItem]
   
         //Add the Webview
         self.webView = UIWebView(frame: self.view.frame)
         self.webView?.delegate = self
-        let path = NSBundle.mainBundle().pathForResource("about", ofType: "html")
-        let text = try? String(contentsOfFile: path!, encoding: NSUTF8StringEncoding)
+        let path = Bundle.main.path(forResource: "about", ofType: "html")
+        let text = try? String(contentsOfFile: path!, encoding: String.Encoding.utf8)
         
         webView?.loadHTMLString(text!, baseURL: nil)
         self.view.addSubview(webView!)
     }
     
-    func webView(webView: UIWebView, shouldStartLoadWithRequest request: NSURLRequest, navigationType: UIWebViewNavigationType) -> Bool {
+    func webView(_ webView: UIWebView, shouldStartLoadWith request: URLRequest, navigationType: UIWebViewNavigationType) -> Bool {
         print("shouldStartLoadWithRequest")
         
-        if navigationType == UIWebViewNavigationType.LinkClicked {
-            UIApplication.sharedApplication().openURL(request.URL!)
+        if navigationType == UIWebViewNavigationType.linkClicked {
+            UIApplication.shared.openURL(request.url!)
             return false
         }
         return true
     }
     
     func closeViewController() {
-        self.dismissViewControllerAnimated(true, completion: { () -> Void in
+        self.dismiss(animated: true, completion: { () -> Void in
             
         })
     }

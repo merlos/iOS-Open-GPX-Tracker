@@ -57,7 +57,7 @@ extension GPXTrackSegment {
                 prev = pt
                 continue
             }
-            distanceTwoPoints = pt.distanceFromLocation(prev!)
+            distanceTwoPoints = pt.distance(from: prev!)
             length += distanceTwoPoints
             //set current point as previous point
             prev = pt

@@ -16,6 +16,6 @@ protocol GPXFilesTableViewControllerDelegate {
   
     //GPXFilesTableView controller will be dismissed after calling this method
     //gpxFile is the name without extension
-    func didLoadGPXFileWithName(gpxFilename: String, gpxRoot: GPXRoot)
+    func didLoadGPXFileWithName(_ gpxFilename: String, gpxRoot: GPXRoot)
     
 }

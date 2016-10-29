@@ -19,20 +19,20 @@ extension GPXWaypoint : MKAnnotation {
         //set default title and subtitle
         // Default title now
         
-        let timeFormat = NSDateFormatter()
-        timeFormat.dateStyle = NSDateFormatterStyle.NoStyle
-        timeFormat.timeStyle = NSDateFormatterStyle.MediumStyle
+        let timeFormat = DateFormatter()
+        timeFormat.dateStyle = DateFormatter.Style.none
+        timeFormat.timeStyle = DateFormatter.Style.medium
         //timeFormat.setLocalizedDateFormatFromTemplate("HH:mm:ss")
         
-        let subtitleFormat = NSDateFormatter()
+        let subtitleFormat = DateFormatter()
         //dateFormat.setLocalizedDateFormatFromTemplate("MMM dd, yyyy")
-        subtitleFormat.dateStyle = NSDateFormatterStyle.MediumStyle
-        subtitleFormat.timeStyle = NSDateFormatterStyle.MediumStyle
+        subtitleFormat.dateStyle = DateFormatter.Style.medium
+        subtitleFormat.timeStyle = DateFormatter.Style.medium
         
-        let now = NSDate()
+        let now = Date()
         self.time = now
-        self.title = timeFormat.stringFromDate(now)
-        self.subtitle = subtitleFormat.stringFromDate(now)
+        self.title = timeFormat.string(from: now)
+        self.subtitle = subtitleFormat.string(from: now)
     }
     
     public var title: String? {

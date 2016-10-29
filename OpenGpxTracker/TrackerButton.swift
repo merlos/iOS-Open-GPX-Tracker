@@ -9,6 +9,6 @@ class TrackerButton: UIButton {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        layer.cornerRadius = CGRectGetWidth(frame) / 2
+        layer.cornerRadius = frame.width / 2
     }
 }

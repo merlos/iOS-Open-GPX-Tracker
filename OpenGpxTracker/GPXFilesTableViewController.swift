@@ -21,7 +21,7 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
     var delegate: GPXFilesTableViewControllerDelegate?
 
     
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }
     
@@ -38,26 +38,26 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
         
         self.title = "Your GPX Files"
         
-        let shareItem = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.Plain, target: self, action: #selector(GPXFilesTableViewController.closeGPXFilesTableViewController))
+        let shareItem = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.plain, target: self, action: #selector(GPXFilesTableViewController.closeGPXFilesTableViewController))
         
         self.navigationItem.rightBarButtonItems = [shareItem]
         
         //get gpx files
-        let list: NSArray = GPXFileManager.fileList
+        let list: NSArray = GPXFileManager.fileList as NSArray
         if list.count != 0 {
             self.fileList.removeAllObjects()
-            self.fileList.addObjectsFromArray(list as [AnyObject])
+            self.fileList.addObjects(from: list as [AnyObject])
             self.gpxFilesFound = true
         }
     }
     
     func closeGPXFilesTableViewController() {
         print("closeGPXFIlesTableViewController()")
-        self.dismissViewControllerAnimated(true, completion: { () -> Void in
+        self.dismiss(animated: true, completion: { () -> Void in
         })
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         self.tableView.reloadData()
     }
     
@@ -68,60 +68,60 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
     
     //#pragma mark - Table view data source
     
-    override func numberOfSectionsInTableView(tableView: UITableView?) -> Int {
+    override func numberOfSections(in tableView: UITableView?) -> Int {
         // Return the number of sections.
         return 1
     }
     
-    override func tableView(tableView: UITableView?, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView?, numberOfRowsInSection section: Int) -> Int {
         
         // Return the number of rows in the section.
         return fileList.count
     }
     
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         // Allow editing for all rows except the initial "empty list"-placeholder row.
         // The string comparison is not optimal, but does the job.
         return gpxFilesFound
     }
     
-    override func tableView(tableView: UITableView,
-        commitEditingStyle editingStyle: UITableViewCellEditingStyle,
-        forRowAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(_ tableView: UITableView,
+        commit editingStyle: UITableViewCellEditingStyle,
+        forRowAt indexPath: IndexPath) {
             
-        if editingStyle == UITableViewCellEditingStyle.Delete {
-            actionDeleteFileAtIndex(indexPath.row)
+        if editingStyle == UITableViewCellEditingStyle.delete {
+            actionDeleteFileAtIndex((indexPath as NSIndexPath).row)
         }
     }
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         //let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as UITableViewCell
         
-        let cell: UITableViewCell = UITableViewCell(style: UITableViewCellStyle.Value1, reuseIdentifier: "Cell")
+        let cell: UITableViewCell = UITableViewCell(style: UITableViewCellStyle.value1, reuseIdentifier: "Cell")
         //cell.accessoryType = UITableViewCellAccessoryType.DetailDisclosureButton
         //cell.accessoryView = [[ UIImageView alloc ] initWithImage:[UIImage imageNamed:@"Something" ]];
-        cell.textLabel?.text = fileList.objectAtIndex(indexPath.row) as? NSString as String? ?? ""
+        cell.textLabel?.text = fileList.object(at: (indexPath as NSIndexPath).row) as? NSString as String? ?? ""
         return cell
     }
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
        // self.showAlert(fileList.objectAtIndex(indexPath.row) as NSString, rowToUseInAlert: indexPath.row)
         let sheet = UIActionSheet()
         sheet.title = "Select option"
-        sheet.addButtonWithTitle("Send by email")
-        sheet.addButtonWithTitle("Load in Map")
-        sheet.addButtonWithTitle("Cancel")
-        sheet.addButtonWithTitle("Delete")
+        sheet.addButton(withTitle: "Send by email")
+        sheet.addButton(withTitle: "Load in Map")
+        sheet.addButton(withTitle: "Cancel")
+        sheet.addButton(withTitle: "Delete")
         sheet.cancelButtonIndex = 2
         sheet.destructiveButtonIndex = 3
         
         
         sheet.delegate = self
-        sheet.showInView(self.view)
-        self.selectedRowIndex = indexPath.row
+        sheet.show(in: self.view)
+        self.selectedRowIndex = (indexPath as NSIndexPath).row
     }
     
-    func actionSheet(actionSheet: UIActionSheet, clickedButtonAtIndex buttonIndex: Int) {
+    func actionSheet(_ actionSheet: UIActionSheet, clickedButtonAt buttonIndex: Int) {
         print("action sheet clicked button at index \(buttonIndex)")
         switch buttonIndex {
         case 0:
@@ -136,14 +136,14 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
             print("action Sheet do nothing")
         }
     }
-    func actionSheetCancel(actionSheet: UIActionSheet) {
+    func actionSheetCancel(_ actionSheet: UIActionSheet) {
         print("actionsheet cancel")
     }
     
     //#pragma mark - UITableView delegate methods
     
-    override func tableView(tableView: UITableView,
-                            shouldHighlightRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+    override func tableView(_ tableView: UITableView,
+                            shouldHighlightRowAt indexPath: IndexPath) -> Bool {
         // Allow editing for all rows except the initial "empty list"-placeholder row.
         // The string comparison is not optimal, but does the job.
         return gpxFilesFound
@@ -151,44 +151,44 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
     
     //#pragma mark - UIAlertView delegate methods
     
-    func alertView(alertView: UIAlertView!, didDismissWithButtonIndex buttonIndex: Int) {
+    func alertView(_ alertView: UIAlertView!, didDismissWithButtonIndex buttonIndex: Int) {
         NSLog("Did dismiss button: %d", buttonIndex)
     }
     
-    func actionDeleteFileAtIndex(rowIndex: Int) {
+    func actionDeleteFileAtIndex(_ rowIndex: Int) {
         //Delete File
-        guard let filename: String = fileList.objectAtIndex(rowIndex) as? String else {
+        guard let filename: String = fileList.object(at: rowIndex) as? String else {
             return
         }
         
         GPXFileManager.removeFile(filename)
         //Delete from list and Table
-        fileList.removeObjectAtIndex(rowIndex)
-        let indexPath = NSIndexPath(forRow: rowIndex, inSection: 0)
-        tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Fade)
+        fileList.removeObject(at: rowIndex)
+        let indexPath = IndexPath(row: rowIndex, section: 0)
+        tableView.deleteRows(at: [indexPath], with: UITableViewRowAnimation.fade)
         tableView.reloadData()
     }
     
-    func actionLoadFileAtIndex(rowIndex: Int) {
-        guard let filename: String = fileList.objectAtIndex(rowIndex) as? String else {
+    func actionLoadFileAtIndex(_ rowIndex: Int) {
+        guard let filename: String = fileList.object(at: rowIndex) as? String else {
             return
         }
         
         print("load gpx File: \(filename)")
-        let fileURL: NSURL = GPXFileManager.URLForFilename(filename)
-        let gpx = GPXParser.parseGPXAtPath(fileURL.path)
-        self.delegate?.didLoadGPXFileWithName(filename, gpxRoot: gpx)
-        self.dismissViewControllerAnimated(true, completion: nil)
+        let fileURL: URL = GPXFileManager.URLForFilename(filename)
+        let gpx = GPXParser.parseGPX(atPath: fileURL.path)
+        self.delegate?.didLoadGPXFileWithName(filename, gpxRoot: gpx!)
+        self.dismiss(animated: true, completion: nil)
 
     }
     
     //#pragma mark - Send email
-    func actionSendEmailWithAttachment(rowIndex: Int) {
-        guard let filename: String = fileList.objectAtIndex(rowIndex) as? String else {
+    func actionSendEmailWithAttachment(_ rowIndex: Int) {
+        guard let filename: String = fileList.object(at: rowIndex) as? String else {
             return
         }
         
-        let fileURL: NSURL = GPXFileManager.URLForFilename(filename)
+        let fileURL: URL = GPXFileManager.URLForFilename(filename)
         
         let composer = MFMailComposeViewController()
         composer.mailComposeDelegate = self
@@ -200,28 +200,28 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
         let body = "Open GPX Tracker \n is an open source app for Apple devices. Create GPS tracks and export them to GPX files."
         composer.setMessageBody(body, isHTML: true)
         do {
-            let fileData: NSData = try NSData(contentsOfFile: fileURL.path!, options: .DataReadingMappedIfSafe)
-            composer.addAttachmentData(fileData, mimeType:"application/gpx+xml", fileName: fileURL.lastPathComponent!)
+            let fileData: Data = try Data(contentsOf: URL(fileURLWithPath: fileURL.path), options: .mappedIfSafe)
+            composer.addAttachmentData(fileData, mimeType:"application/gpx+xml", fileName: fileURL.lastPathComponent)
             //Display the comopser view controller
-            self.presentViewController(composer, animated: true, completion: nil)
+            self.present(composer, animated: true, completion: nil)
         } catch {
         }
     }
     
 
 
-    func mailComposeController(controller: MFMailComposeViewController,
-        didFinishWithResult result: MFMailComposeResult,
-        error: NSError?) {
+    func mailComposeController(_ controller: MFMailComposeViewController,
+        didFinishWith result: MFMailComposeResult,
+        error: Error?) {
             
             switch result.rawValue {
-            case MFMailComposeResultSent.rawValue:
+            case MFMailComposeResult.sent.rawValue:
                 print("Email sent")
                 
             default:
                 print("Whoops")
             }
-            self.dismissViewControllerAnimated(true, completion: nil)
+            self.dismiss(animated: true, completion: nil)
             
     }
 }

@@ -9,35 +9,35 @@
 import Foundation
 
 enum GPXTileServer: Int {
-    case Apple
-    case OpenStreetMap
+    case apple
+    case openStreetMap
     //case MapQuest
-    case OpenCycleMap
+    case openCycleMap
     //case AnotherMap
-    case CartoDB
+    case cartoDB
     
     
     var name: String {
         switch self {
-        case .Apple: return "Apple Mapkit"
-        case .OpenStreetMap: return "Open Street Map"
+        case .apple: return "Apple Mapkit"
+        case .openStreetMap: return "Open Street Map"
         //case .MapQuest: return "MapQuest Open"
-        case .OpenCycleMap: return "Open Cycle Maps"
-        case .CartoDB: return "Carto DB"
+        case .openCycleMap: return "Open Cycle Maps"
+        case .cartoDB: return "Carto DB"
         //case .AnotherMap: return "My Map"
         }
     }
 
     var templateUrl: String {
         switch self {
-        case .Apple: return ""
-        case .OpenStreetMap: return "http://tile.openstreetmap.org/{z}/{x}/{y}.png"
+        case .apple: return ""
+        case .openStreetMap: return "http://tile.openstreetmap.org/{z}/{x}/{y}.png"
         //case .MapQuest: return "http://otile3.mqcdn.com/tiles/1.0.0/osm/{z}/{x}/{y}.jpg"
-        case .OpenCycleMap: return "http://b.tile.opencyclemap.org/cycle/{z}/{x}/{y}.png"
-        case .CartoDB: return "http://b.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png"
+        case .openCycleMap: return "http://b.tile.opencyclemap.org/cycle/{z}/{x}/{y}.png"
+        case .cartoDB: return "http://b.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png"
         
         //case .AnotherMap: return "http://another.map.tile.server/{z}/{x}/{y}.png"
         }
     }
-    static var count: Int { return GPXTileServer.CartoDB.hashValue + 1}
+    static var count: Int { return GPXTileServer.cartoDB.hashValue + 1}
 }

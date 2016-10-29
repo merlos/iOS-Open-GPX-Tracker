@@ -20,7 +20,7 @@ class GPXExtentCoordinates: NSObject {
     
     
     //sets the area to einclude the location point
-    func extendAreaToIncludeLocation(location: CLLocationCoordinate2D) {
+    func extendAreaToIncludeLocation(_ location: CLLocationCoordinate2D) {
         if (topLeftCoordinate.latitude == 0.00) || (location.latitude < topLeftCoordinate.latitude) {
             topLeftCoordinate.latitude = location.latitude
         }
