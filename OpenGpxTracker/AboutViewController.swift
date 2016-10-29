@@ -21,11 +21,8 @@ class AboutViewController: UIViewController, UIWebViewDelegate {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }
     
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         
         self.title = "About"
         
@@ -58,7 +55,5 @@ class AboutViewController: UIViewController, UIWebViewDelegate {
             
         })
     }
-    
-    
     
 }

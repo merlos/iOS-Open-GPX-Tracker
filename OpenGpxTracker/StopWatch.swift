@@ -28,7 +28,7 @@ class StopWatch: NSObject {
     var timeInterval: TimeInterval = 0.01
     var timer = Timer()
     
-    var delegate: StopWatchDelegate?
+    weak var delegate: StopWatchDelegate?
     
     override init() {
         self.tmpElapsedTime = 0.0

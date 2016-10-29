@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol StopWatchDelegate {
+protocol StopWatchDelegate: class {
     
     func stopWatch(_ stropWatch: StopWatch, didUpdateElapsedTimeString elapsedTimeString: String)
 }

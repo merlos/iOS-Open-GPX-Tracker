@@ -41,12 +41,7 @@ let kSignalAccuracy2 = 101.0
 let kSignalAccuracy1 = 201.0
 
 
-class ViewController: UIViewController,
-                        UIGestureRecognizerDelegate,
-                        UIAlertViewDelegate,
-                        GPXFilesTableViewControllerDelegate,
-                        PreferencesTableViewControllerDelegate,
-                        StopWatchDelegate {
+class ViewController: UIViewController, UIGestureRecognizerDelegate  {
     
     var followUser: Bool = true {
         didSet {
@@ -253,7 +248,7 @@ class ViewController: UIViewController,
         
         //Set Tile Server
         let defaults = UserDefaults.standard
-        if let tileServerInt: Int = defaults.integer(forKey: "tileServerInt") {
+        if let tileServerInt = defaults.object(forKey: "tileServerInt") as? Int {
             print("tileServer preference loaded: \(tileServerInt)")
             map.tileServer = GPXTileServer(rawValue: tileServerInt)!
         } else {
@@ -593,7 +588,6 @@ class ViewController: UIViewController,
         }
     }
     
-    
     func saveButtonTapped() {
         print("save Button tapped")
         // ignore the save button if there is nothing to save.
@@ -611,8 +605,16 @@ class ViewController: UIViewController,
         //alert.textFieldAtIndex(0)?.selectAll(self)
     }
     
-    
-    //UIAlertView Delegate
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+}
+
+// MARK: UIAlertViewDelegate
+
+extension ViewController: UIAlertViewDelegate {
+
     func alertView(_ alertView: UIAlertView, clickedButtonAt buttonIndex: Int) {
         
         switch alertView.tag {
@@ -633,26 +635,36 @@ class ViewController: UIViewController,
                 self.lastGpxFilename = filename!
                 
             default:
-            print("[ERROR] it seems there are more than two buttons on the alertview.")
-        
-            } //buttonIndex
+                print("[ERROR] it seems there are more than two buttons on the alertview.")
+                
+        } //buttonIndex
         default:
             print("[ERROR] it seems that the AlertView is not handled properly." )
             
         }
     }
-    
-    
-   
-    
-    //PreferencesTableViewController Delegate 
+}
+
+// MARK: StopWatchDelegate
+
+extension ViewController: StopWatchDelegate {
+    func stopWatch(_ stropWatch: StopWatch, didUpdateElapsedTimeString elapsedTimeString: String) {
+        timeLabel.text = elapsedTimeString
+    }
+}
+
+// MARK: PreferencesTableViewControllerDelegate
+
+extension ViewController: PreferencesTableViewControllerDelegate{
     func didUpdateTileServer(_ newGpxTileServer: Int) {
         print("didUpdateTileServer: \(newGpxTileServer)")
         self.map.tileServer = GPXTileServer(rawValue: newGpxTileServer)!
-        
     }
-    
-    //GPXFilesTableViewController Delegate
+}
+
+// MARK: location manager Delegate
+
+extension ViewController: GPXFilesTableViewControllerDelegate {
     func didLoadGPXFileWithName(_ gpxFilename: String, gpxRoot: GPXRoot) {
         //println("Loaded GPX file", gpx.gpx())
         self.lastGpxFilename = gpxFilename
@@ -671,22 +683,9 @@ class ViewController: UIViewController,
         self.totalTrackedDistanceLabel.distance = self.map.totalTrackedDistance
         
     }
-    
-    // StopWatchDelegate
-    func stopWatch(_ stropWatch: StopWatch, didUpdateElapsedTimeString elapsedTimeString: String) {
-        timeLabel.text = elapsedTimeString
-    }
-    
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
 }
 
-
-//#pragma mark - location manager Delegate
-
+// MARK: CLLocationManagerDelegate
 
 extension ViewController: CLLocationManagerDelegate {
 

@@ -13,13 +13,13 @@ let kNoFiles = "No gpx files"
 import UIKit
 import MessageUI
 
-class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegate, MFMailComposeViewControllerDelegate, UIActionSheetDelegate {
+class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegate {
     
     var fileList: NSMutableArray = [kNoFiles]
     var gpxFilesFound = false;
     var selectedRowIndex = -1
-    var delegate: GPXFilesTableViewControllerDelegate?
-
+    weak var delegate: GPXFilesTableViewControllerDelegate?
+    
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -66,7 +66,7 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
         // Dispose of any resources that can be recreated.
     }
     
-    //#pragma mark - Table view data source
+    // MARK: Table view data source
     
     override func numberOfSections(in tableView: UITableView?) -> Int {
         // Return the number of sections.
@@ -86,9 +86,9 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
     }
     
     override func tableView(_ tableView: UITableView,
-        commit editingStyle: UITableViewCellEditingStyle,
-        forRowAt indexPath: IndexPath) {
-            
+                            commit editingStyle: UITableViewCellEditingStyle,
+                            forRowAt indexPath: IndexPath) {
+        
         if editingStyle == UITableViewCellEditingStyle.delete {
             actionDeleteFileAtIndex((indexPath as NSIndexPath).row)
         }
@@ -105,7 +105,7 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-       // self.showAlert(fileList.objectAtIndex(indexPath.row) as NSString, rowToUseInAlert: indexPath.row)
+        // self.showAlert(fileList.objectAtIndex(indexPath.row) as NSString, rowToUseInAlert: indexPath.row)
         let sheet = UIActionSheet()
         sheet.title = "Select option"
         sheet.addButton(withTitle: "Send by email")
@@ -120,27 +120,8 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
         sheet.show(in: self.view)
         self.selectedRowIndex = (indexPath as NSIndexPath).row
     }
-    
-    func actionSheet(_ actionSheet: UIActionSheet, clickedButtonAt buttonIndex: Int) {
-        print("action sheet clicked button at index \(buttonIndex)")
-        switch buttonIndex {
-        case 0:
-            self.actionSendEmailWithAttachment(self.selectedRowIndex)
-        case 1:
-            self.actionLoadFileAtIndex(self.selectedRowIndex)
-        case 2:
-            print("ActionSheet: Cancel")
-        case 3: //Delete
-            self.actionDeleteFileAtIndex(self.selectedRowIndex)
-        default: //cancel
-            print("action Sheet do nothing")
-        }
-    }
-    func actionSheetCancel(_ actionSheet: UIActionSheet) {
-        print("actionsheet cancel")
-    }
-    
-    //#pragma mark - UITableView delegate methods
+
+    // MARK: UITableView delegate methods
     
     override func tableView(_ tableView: UITableView,
                             shouldHighlightRowAt indexPath: IndexPath) -> Bool {
@@ -149,13 +130,12 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
         return gpxFilesFound
     }
     
-    //#pragma mark - UIAlertView delegate methods
-    
-    func alertView(_ alertView: UIAlertView!, didDismissWithButtonIndex buttonIndex: Int) {
-        NSLog("Did dismiss button: %d", buttonIndex)
+    // MARK: Action Sheet - Actions
+    internal func actionSheetCancel(_ actionSheet: UIActionSheet) {
+        print("actionsheet cancel")
     }
     
-    func actionDeleteFileAtIndex(_ rowIndex: Int) {
+    internal func actionDeleteFileAtIndex(_ rowIndex: Int) {
         //Delete File
         guard let filename: String = fileList.object(at: rowIndex) as? String else {
             return
@@ -169,7 +149,7 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
         tableView.reloadData()
     }
     
-    func actionLoadFileAtIndex(_ rowIndex: Int) {
+    internal func actionLoadFileAtIndex(_ rowIndex: Int) {
         guard let filename: String = fileList.object(at: rowIndex) as? String else {
             return
         }
@@ -179,11 +159,10 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
         let gpx = GPXParser.parseGPX(atPath: fileURL.path)
         self.delegate?.didLoadGPXFileWithName(filename, gpxRoot: gpx!)
         self.dismiss(animated: true, completion: nil)
-
+        
     }
     
-    //#pragma mark - Send email
-    func actionSendEmailWithAttachment(_ rowIndex: Int) {
+    internal func actionSendEmailWithAttachment(_ rowIndex: Int) {
         guard let filename: String = fileList.object(at: rowIndex) as? String else {
             return
         }
@@ -207,21 +186,35 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
         } catch {
         }
     }
-    
+}
 
+extension GPXFilesTableViewController: UIActionSheetDelegate{
+    func actionSheet(_ actionSheet: UIActionSheet, clickedButtonAt buttonIndex: Int) {
+        print("action sheet clicked button at index \(buttonIndex)")
+        switch buttonIndex {
+        case 0:
+            self.actionSendEmailWithAttachment(self.selectedRowIndex)
+        case 1:
+            self.actionLoadFileAtIndex(self.selectedRowIndex)
+        case 2:
+            print("ActionSheet: Cancel")
+        case 3: //Delete
+            self.actionDeleteFileAtIndex(self.selectedRowIndex)
+        default: //cancel
+            print("action Sheet do nothing")
+        }
+    }
+}
 
-    func mailComposeController(_ controller: MFMailComposeViewController,
-        didFinishWith result: MFMailComposeResult,
-        error: Error?) {
+extension GPXFilesTableViewController: MFMailComposeViewControllerDelegate {
+    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+        switch result.rawValue {
+        case MFMailComposeResult.sent.rawValue:
+            print("Email sent")
             
-            switch result.rawValue {
-            case MFMailComposeResult.sent.rawValue:
-                print("Email sent")
-                
-            default:
-                print("Whoops")
-            }
-            self.dismiss(animated: true, completion: nil)
-            
+        default:
+            print("Whoops")
+        }
+        self.dismiss(animated: true, completion: nil)
     }
 }

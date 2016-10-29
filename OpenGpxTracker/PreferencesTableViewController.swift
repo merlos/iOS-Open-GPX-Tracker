@@ -14,7 +14,7 @@ import UIKit
 class PreferencesTableViewController: UITableViewController, UINavigationBarDelegate {
     
     var selectedRowIndex = -1
-    var delegate: PreferencesTableViewControllerDelegate?
+    weak var delegate: PreferencesTableViewControllerDelegate?
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
