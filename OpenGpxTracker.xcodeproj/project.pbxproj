@@ -309,6 +309,7 @@
 					};
 					898EECEC19C49B5800B4B207 = {
 						CreatedOnToolsVersion = 6.0;
+						DevelopmentTeam = SU64RGPDF2;
 						LastSwiftMigration = 0800;
 						TestTargetID = 898EECD419C49B5800B4B207;
 					};
@@ -598,6 +599,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = SU64RGPDF2;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -619,6 +621,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = SU64RGPDF2;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
