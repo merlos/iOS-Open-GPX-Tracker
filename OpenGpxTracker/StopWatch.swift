@@ -78,15 +78,15 @@ class StopWatch: NSObject {
         get {
             var tmpTime: TimeInterval = self.elapsedTime
             //calculate the minutes in elapsed time.
-            let minutes = UInt8(tmpTime / 60.0)
+            let minutes = UInt32(tmpTime / 60.0)
             tmpTime -= (TimeInterval(minutes) * 60)
 
             //calculate the seconds in elapsed time.
-            let seconds = UInt8(tmpTime)
+            let seconds = UInt32(tmpTime)
             tmpTime -= TimeInterval(seconds)
         
             //find out the fraction of milliseconds to be displayed.
-            let fraction = UInt8(tmpTime * 100)
+            let fraction = UInt32(tmpTime * 100)
         
             //add the leading zero for minutes, seconds and millseconds and store them as string constants
             let strMinutes = minutes > 9 ? String(minutes):"0" + String(minutes)
