@@ -25,13 +25,13 @@ class StopWatch: NSObject {
     var startedTime: TimeInterval = 0.0
     var status: StopWatchStatus
     
-    var timeInterval: TimeInterval = 0.01
+    var timeInterval: TimeInterval = 1.00 //seconds
     var timer = Timer()
     
     weak var delegate: StopWatchDelegate?
     
     override init() {
-        self.tmpElapsedTime = 0.0
+        self.tmpElapsedTime = 0.0 //seconds
         self.status = StopWatchStatus.stopped
         
         super.init()
@@ -72,29 +72,33 @@ class StopWatch: NSObject {
         }
     }
     
-    // The returned string has the format MM:SS:ms
-    // example: elapsed time: 3 min 30 sec 40ms => 03:30:40
+    // The returned string has the format MM:SS or HhMM:SS
+    // example: elapsed time: 3 min 30 sec => 03:30
+    // example2: elapsed time 3h 40 min 30 sec => 3h40:20
     var elapsedTimeString: String {
         get {
             var tmpTime: TimeInterval = self.elapsedTime
-            //calculate the minutes in elapsed time.
+            //calculate the minutes and hours in elapsed time.
+            
+            let hours = UInt32(tmpTime / 3600.0)
+            tmpTime -= (TimeInterval(hours) * 3600)
+            
             let minutes = UInt32(tmpTime / 60.0)
             tmpTime -= (TimeInterval(minutes) * 60)
-
+           
             //calculate the seconds in elapsed time.
             let seconds = UInt32(tmpTime)
             tmpTime -= TimeInterval(seconds)
         
-            //find out the fraction of milliseconds to be displayed.
-            let fraction = UInt32(tmpTime * 100)
-        
+            //display hours only if >0
+            let strHours = hours > 0 ? String(hours) + "h" : ""
             //add the leading zero for minutes, seconds and millseconds and store them as string constants
+ 
             let strMinutes = minutes > 9 ? String(minutes):"0" + String(minutes)
             let strSeconds = seconds > 9 ? String(seconds):"0" + String(seconds)
-            let strFraction = fraction > 9 ? String(fraction):"0" + String(fraction)
-        
-            //concatenate minutes, seconds and milliseconds
-            return "\(strMinutes):\(strSeconds):\(strFraction)"
+           
+            //concatenate hours, minutes and seconds
+            return "\(strHours)\(strMinutes):\(strSeconds)"
         }
     }
     

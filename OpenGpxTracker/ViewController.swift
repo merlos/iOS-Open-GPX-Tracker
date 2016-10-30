@@ -300,7 +300,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         timeLabel.frame = CGRect(x: self.map.frame.width - 160, y: 20, width: 150, height: 40)
         timeLabel.textAlignment = .right
         timeLabel.font = font36
-        timeLabel.text = "00:00:00"
+        timeLabel.text = "00:00"
         //timeLabel.shadowColor = UIColor.whiteColor()
         //timeLabel.shadowOffset = CGSize(width: 1, height: 1)
         //timeLabel.backgroundColor = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.5)
