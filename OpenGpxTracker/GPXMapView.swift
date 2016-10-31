@@ -64,7 +64,7 @@ class GPXMapView: MKMapView {
             }
             //add new overlay to map
             if newValue != .apple {
-                self.tileServerOverlay = MKTileOverlay(urlTemplate: newValue.templateUrl)
+                self.tileServerOverlay = CachedTileOverlay(urlTemplate: newValue.templateUrl)
                 tileServerOverlay.canReplaceMapContent = true
                 self.add(tileServerOverlay, level: .aboveLabels)
             }
