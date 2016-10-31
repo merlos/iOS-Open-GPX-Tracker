@@ -24,7 +24,7 @@ class CachedTileOverlay : MKTileOverlay {
         //var urlString = urlTemplate?.replacingOccurrences(of: "{z}", with: String(path.z))
         //urlString = urlString?.replacingOccurrences(of: "{x}", with: String(path.x))
         //urlString = urlString?.replacingOccurrences(of: "{y}", with: String(path.y))
-        print("CachedTileOverlay:: url() urlString: \(urlString)")
+        //print("CachedTileOverlay:: url() urlString: \(urlString)")
         //let urlString = "http://tile.openstreetmap.org/\(path.z)/\(path.x)/\(path.y)"
         //return URL(string: urlString)!
         return super.url(forTilePath: path)
