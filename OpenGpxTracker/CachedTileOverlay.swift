@@ -8,33 +8,72 @@
 
 import Foundation
 import MapKit
+import Cache
 
 /**
  * Overwrites the default overlay to store downloaded images
  */
 
 class CachedTileOverlay : MKTileOverlay {
-    let cache = NSCache<AnyObject, AnyObject>()
     let operationQueue = OperationQueue()
+    let useCache: Bool = true
     
-    override func url(forTilePath path: MKTileOverlayPath) -> URL {
-        print("CachedTileOverlay:: url() urlTemplate: \(urlTemplate)")
+   override func url(forTilePath path: MKTileOverlayPath) -> URL {
+        //print("CachedTileOverlay:: url() urlTemplate: \(urlTemplate)")
         
         //TODO: there shall be a more elegant way to do this replace
-        //var urlString = urlTemplate?.replacingOccurrences(of: "{z}", with: String(path.z))
-        //urlString = urlString?.replacingOccurrences(of: "{x}", with: String(path.x))
-        //urlString = urlString?.replacingOccurrences(of: "{y}", with: String(path.y))
-        //print("CachedTileOverlay:: url() urlString: \(urlString)")
+        var urlString = urlTemplate?.replacingOccurrences(of: "{z}", with: String(path.z))
+        urlString = urlString?.replacingOccurrences(of: "{x}", with: String(path.x))
+        urlString = urlString?.replacingOccurrences(of: "{y}", with: String(path.y))
+        //get random subdomain
+        let subdomains = "abc"
+        let rand = arc4random_uniform(UInt32(subdomains.characters.count))
+        let randIndex = subdomains.index(subdomains.startIndex, offsetBy: String.IndexDistance(rand));
+        urlString = urlString?.replacingOccurrences(of: "{s}", with:String(subdomains[randIndex]))
+        print("CachedTileOverlay:: url() urlString: \(urlString)")
         //let urlString = "http://tile.openstreetmap.org/\(path.z)/\(path.x)/\(path.y)"
-        //return URL(string: urlString)!
-        return super.url(forTilePath: path)
+        return URL(string: urlString!)!
+        //return super.url(forTilePath: path)
     }
+
     
     override func loadTile(at path: MKTileOverlayPath,
                            result: @escaping (Data?, Error?) -> Void) {
-        //let url = self.url(forTilePath: path)
-        //print ("CachedTileOverlay::loadTile() url=\(url)")
-        return super.loadTile(at: path, result: result)
+        let url = self.url(forTilePath: path)
+        print ("CachedTileOverlay::loadTile() url=\(url)")
+        
+        if !useCache {
+            print("CachedTileOverlay:: loadTile cache off")
+            return super.loadTile(at: path, result: result)
+        }
+        //use
+        let config = Config(
+            frontKind: .memory,  // Your front cache type
+            backKind: .disk,  // Your back cache type
+            expiry: .date(Date().addingTimeInterval(10000000000)),
+            maxSize: 100000)
+        let cache = Cache<Data>(name: "ImageCache", config: config)
+       
+        let cacheKey = "\(self.urlTemplate)-\(path.x)-\(path.y)-\(path.z)"
+        print("CachedTileOverlay::loadTile cacheKey = \(cacheKey)")
+        cache.object(cacheKey) { (data: Data?) in
+            //result(data, nil
+            if data != nil {
+                result(data,nil)
+            } else {
+                print("Requesting data....");
+                let request = URLRequest(url: url)
+                NSURLConnection.sendAsynchronousRequest(request, queue: self.operationQueue) {
+                    [weak self]
+                    response, data, error in
+                    if let data = data {
+                        cache.add(cacheKey, object: data)
+                    }
+                    result(data, error)
+                }
+            }
+        }
+        //
         
         /*if let cachedData = cache.objectForKey(url as AnyObject) as? NSData {
             result(cachedData, nil)
