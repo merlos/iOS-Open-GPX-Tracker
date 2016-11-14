@@ -20,11 +20,10 @@ class CachedTileOverlay : MKTileOverlay {
     
    override func url(forTilePath path: MKTileOverlayPath) -> URL {
         //print("CachedTileOverlay:: url() urlTemplate: \(urlTemplate)")
-        
-        //TODO: there shall be a more elegant way to do this replace
         var urlString = urlTemplate?.replacingOccurrences(of: "{z}", with: String(path.z))
         urlString = urlString?.replacingOccurrences(of: "{x}", with: String(path.x))
         urlString = urlString?.replacingOccurrences(of: "{y}", with: String(path.y))
+    
         //get random subdomain
         let subdomains = "abc"
         let rand = arc4random_uniform(UInt32(subdomains.characters.count))
@@ -32,9 +31,6 @@ class CachedTileOverlay : MKTileOverlay {
         urlString = urlString?.replacingOccurrences(of: "{s}", with:String(subdomains[randIndex]))
         //print("CachedTileOverlay:: url() urlString: \(urlString)")
         return URL(string: urlString!)!
-    
-        // for debug purposes
-        //return super.url(forTilePath: path)
     }
 
     
@@ -47,7 +43,7 @@ class CachedTileOverlay : MKTileOverlay {
             print("CachedTileOverlay:: not using cache")
             return super.loadTile(at: path, result: result)
         }
-        //use
+        //use this config
         let config = Config(
             frontKind: .disk,  // Your front cache type
             backKind: .disk,  // Your back cache type
@@ -65,7 +61,6 @@ class CachedTileOverlay : MKTileOverlay {
                 //print("Requesting data....");
                 let request = URLRequest(url: url)
                 NSURLConnection.sendAsynchronousRequest(request, queue: self.operationQueue) {
-                    [weak self]
                     response, data, error in
                     if let data = data {
                         cache.add(cacheKey, object: data)
@@ -74,22 +69,5 @@ class CachedTileOverlay : MKTileOverlay {
                 }
             }
         }
-        //
-        
-        /*if let cachedData = cache.objectForKey(url as AnyObject) as? NSData {
-            result(cachedData, nil)
-        } else {
-            let request = NSURLRequest(URL: url)
-            NSURLConnection.sendAsynchronousRequest(request, queue: operationQueue) {
-                [weak self]
-                response, data, error in
-                if let data = data {
-                    self?.cache.setObject(data, forKey: url)
-                }
-                result(data, error)
-            }
-        }
-         */
-        
     }
 }
