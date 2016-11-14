@@ -246,16 +246,19 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         //let pinchGesture = UIPinchGestureRecognizer(target: self, action: "pinchGesture")
         //map.addGestureRecognizer(pinchGesture)
         
-        //Set Tile Server
+        //Preferences load
         let defaults = UserDefaults.standard
-        if let tileServerInt = defaults.object(forKey: "tileServerInt") as? Int {
-            print("tileServer preference loaded: \(tileServerInt)")
+        if let tileServerInt = defaults.object(forKey: kDefaultsKeyTileServerInt) as? Int {
+            print("** Preferences : setting saved tileServer \(tileServerInt)")
             map.tileServer = GPXTileServer(rawValue: tileServerInt)!
         } else {
-            print("using default tileServer: Apple")
-            map.tileServer = GPXTileServer.apple
+            print("** Preferences: using default tileServer: OpenCycleMaps")
+            map.tileServer = .openCycleMap
         }
-        
+        if let useCacheBool = defaults.object(forKey: kDefaultsKeyUseCache) as? Bool {
+            print("** Preferences: setting saved useCache: \(useCacheBool)")
+            map.useCache = useCacheBool
+        }
         
         // set default zoom
         let center = locationManager.location?.coordinate ?? CLLocationCoordinate2D(latitude: 8.90, longitude: -79.50)
@@ -507,7 +510,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
     
     func openPreferencesTableViewController() {
         print("openPreferencesTableViewController")
-        let vc = PreferencesTableViewController(nibName: nil, bundle: nil)
+        let vc = PreferencesTableViewController(style: .grouped)
         vc.delegate = self
         let navController = UINavigationController(rootViewController: vc)
         self.present(navController, animated: true) { () -> Void in }
@@ -658,8 +661,12 @@ extension ViewController: StopWatchDelegate {
 
 extension ViewController: PreferencesTableViewControllerDelegate{
     func didUpdateTileServer(_ newGpxTileServer: Int) {
-        print("didUpdateTileServer: \(newGpxTileServer)")
+        print("** Preferences:: didUpdateTileServer: \(newGpxTileServer)")
         self.map.tileServer = GPXTileServer(rawValue: newGpxTileServer)!
+    }
+    func didUpdateUseCache(_ newUseCache: Bool) {
+        print("** Preferences:: didUpdateUseCache: \(newUseCache)")
+        self.map.useCache = newUseCache
     }
 }
 
@@ -697,7 +704,7 @@ extension ViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         //updates signal image accuracy
         let newLocation = locations.first!
-        print("didUpdateLocation: received \(newLocation.coordinate) hAcc: \(newLocation.horizontalAccuracy)")
+        //print("didUpdateLocation: received \(newLocation.coordinate) hAcc: \(newLocation.horizontalAccuracy)")
         let hAcc = newLocation.horizontalAccuracy
         if hAcc < kSignalAccuracy6 {
             self.signalImageView.image = signalImage6

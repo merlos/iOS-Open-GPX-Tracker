@@ -45,17 +45,21 @@ class GPXMapView: MKMapView {
     var totalTrackedDistance = 0.00 // in meters
     var currentTrackDistance = 0.00 // in meters
     var currentSegmentDistance = 0.00 //in meters
-    
-    var tileServer: GPXTileServer = .apple {
+
+    var useCache: Bool = true { //use tile overlay cache (
+        didSet {
+            if self.tileServerOverlay is CachedTileOverlay {
+                print("GPXMapView:: setting useCache \(self.useCache)")
+                (self.tileServerOverlay as! CachedTileOverlay).useCache = self.useCache
+            }
+        }
+    }
+    var tileServer: GPXTileServer = .openCycleMap {
         willSet {
             // Info about how to use other tile servers:
-            //http://www.glimsoft.com/01/31/how-to-use-openstreetmap-on-ios-7-in-7-lines-of-code/
-            //Note: it requires to set in the delegate of the mapview a couple of lines
-            //
-            //Note 2: it seems that there are issues when loading tile images
-            //https://github.com/mapbox/mbxmapkit/issues/132
+            //http://www.glimsoft.com/01/31/how-to-use-openstreetmap-on-ios-7-in-7-lines-of-code/2
             
-            NSLog("Setting map tiles overlay to: \(newValue.name)" )
+            print("Setting map tiles overlay to: \(newValue.name)" )
             
             // remove current overlay
             if self.tileServer != .apple {
@@ -65,8 +69,10 @@ class GPXMapView: MKMapView {
             //add new overlay to map
             if newValue != .apple {
                 self.tileServerOverlay = CachedTileOverlay(urlTemplate: newValue.templateUrl)
+                (self.tileServerOverlay as! CachedTileOverlay).useCache = self.useCache
                 tileServerOverlay.canReplaceMapContent = true
                 self.add(tileServerOverlay, level: .aboveLabels)
+            
             }
         }
     }

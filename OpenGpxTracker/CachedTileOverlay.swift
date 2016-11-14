@@ -16,7 +16,7 @@ import Cache
 
 class CachedTileOverlay : MKTileOverlay {
     let operationQueue = OperationQueue()
-    let useCache: Bool = true
+    var useCache: Bool = true
     
    override func url(forTilePath path: MKTileOverlayPath) -> URL {
         //print("CachedTileOverlay:: url() urlTemplate: \(urlTemplate)")
@@ -30,9 +30,10 @@ class CachedTileOverlay : MKTileOverlay {
         let rand = arc4random_uniform(UInt32(subdomains.characters.count))
         let randIndex = subdomains.index(subdomains.startIndex, offsetBy: String.IndexDistance(rand));
         urlString = urlString?.replacingOccurrences(of: "{s}", with:String(subdomains[randIndex]))
-        print("CachedTileOverlay:: url() urlString: \(urlString)")
-        //let urlString = "http://tile.openstreetmap.org/\(path.z)/\(path.x)/\(path.y)"
+        //print("CachedTileOverlay:: url() urlString: \(urlString)")
         return URL(string: urlString!)!
+    
+        // for debug purposes
         //return super.url(forTilePath: path)
     }
 
@@ -40,10 +41,10 @@ class CachedTileOverlay : MKTileOverlay {
     override func loadTile(at path: MKTileOverlayPath,
                            result: @escaping (Data?, Error?) -> Void) {
         let url = self.url(forTilePath: path)
-        print ("CachedTileOverlay::loadTile() url=\(url)")
+        //print ("CachedTileOverlay::loadTile() url=\(url)")
         
-        if !useCache {
-            print("CachedTileOverlay:: loadTile cache off")
+        if !self.useCache {
+            print("CachedTileOverlay:: not using cache")
             return super.loadTile(at: path, result: result)
         }
         //use
@@ -55,13 +56,13 @@ class CachedTileOverlay : MKTileOverlay {
         let cache = Cache<Data>(name: "ImageCache", config: config)
        
         let cacheKey = "\(self.urlTemplate)-\(path.x)-\(path.y)-\(path.z)"
-        print("CachedTileOverlay::loadTile cacheKey = \(cacheKey)")
+        //print("CachedTileOverlay::loadTile cacheKey = \(cacheKey)")
         cache.object(cacheKey) { (data: Data?) in
             //result(data, nil
             if data != nil {
                 result(data,nil)
             } else {
-                print("Requesting data....");
+                //print("Requesting data....");
                 let request = URLRequest(url: url)
                 NSURLConnection.sendAsynchronousRequest(request, queue: self.operationQueue) {
                     [weak self]
