@@ -78,6 +78,15 @@ class GPXMapView: MKMapView {
         super.init(coder: aDecoder)
     }
     
+    //relocate the compass
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        // set compass position by setting its frame
+        if let compassView = self.subviews.filter({ $0.isKind(of:NSClassFromString("MKCompassView")!) }).first {
+            compassView.frame = CGRect(x: self.frame.width/2 - 18, y: 55, width: 36, height: 36)
+        }
+    }
+    
     //point is the a the point in a view where the user touched
     //
     //For example, this function can be used to add a waypoint after long press on the map view
