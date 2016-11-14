@@ -49,7 +49,7 @@ class CachedTileOverlay : MKTileOverlay {
         }
         //use
         let config = Config(
-            frontKind: .memory,  // Your front cache type
+            frontKind: .disk,  // Your front cache type
             backKind: .disk,  // Your back cache type
             expiry: .date(Date().addingTimeInterval(10000000000)),
             maxSize: 100000)
