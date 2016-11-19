@@ -11,8 +11,19 @@ import Foundation
 import UIKit
 import Cache
 
+//Sections
+let kCacheSection = 0
+let kMapSourceSection = 1
+
+//CacheSection Cells
+let kUseOfflineCacheCell = 0
+let kClearCacheCell = 1
+
+
+
 let kDefaultsKeyTileServerInt: String = "TileServerInt"
 let kDefaultsKeyUseCache: String = "UseCache"
+
 
 //
 // There are two preferences available:
@@ -73,8 +84,8 @@ class PreferencesTableViewController: UITableViewController, UINavigationBarDele
     // Customize the section headings for each section
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch(section) {
-        case 0: return "Cache"
-        case 1: return "Map source"
+        case kCacheSection: return "Cache"
+        case kMapSourceSection: return "Map source"
         default: fatalError("Unknown section")
         }
     }
@@ -82,32 +93,33 @@ class PreferencesTableViewController: UITableViewController, UINavigationBarDele
     override func tableView(_ tableView: UITableView?, numberOfRowsInSection section: Int) -> Int {
         
         // Return the number of rows in the section.
-        if section == 0 {
-            return 2
-        } else {
-            return GPXTileServer.count
+        switch(section) {
+        case kCacheSection: return 2
+        case kMapSourceSection: return GPXTileServer.count
+        default: fatalError("Unknown section")
         }
     }
     
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var cell = UITableViewCell(style: .value1, reuseIdentifier: "MapCell")
-        if indexPath.section == 0 {
+        
+        if indexPath.section == kCacheSection {
             switch (indexPath.row) {
-            case 0:
+            case kUseOfflineCacheCell:
                 cell = UITableViewCell(style: .value1, reuseIdentifier: "CacheCell")
-                cell.textLabel?.text = "Use offline cache"
+                cell.textLabel?.text = "Offline cache"
                 if currentUseCache {
                     cell.accessoryType = .checkmark
                 }
-            case 1:
+            case kClearCacheCell:
                 cell = UITableViewCell(style: .value1, reuseIdentifier: "CacheCell")
                 cell.textLabel?.text = "Clear cache"
                 cell.textLabel?.textColor = UIColor.red
             default: fatalError("Unknown section")
             }
         }
-        if indexPath.section == 1 {
+        if indexPath.section == kMapSourceSection {
             //cell.accessoryType = UITableViewCellAccessoryType.DetailDisclosureButton
             //cell.accessoryView = [[ UIImageView alloc ] initWithImage:[UIImage imageNamed:@"Something" ]];
             let tileServer = GPXTileServer(rawValue: indexPath.row)
@@ -127,7 +139,7 @@ class PreferencesTableViewController: UITableViewController, UINavigationBarDele
         //section 0 (Cache)
         if indexPath.section == 0 {  // 0 -> sets and unsets cache
             switch indexPath.row {
-            case 0:
+            case kCacheSection:
                 print("toggle cache")
                 let newUseCache = !self.currentUseCache //toggle value
                 defaults.set(newUseCache, forKey: kDefaultsKeyUseCache)
