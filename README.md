@@ -1,11 +1,13 @@
-Open GPX Tracker for iOS
-========================
+Open GPX Tracker for iOS (with offline maps!)
+===============================================
 
 [![Available on the app store](https://merlos.github.io/iOS-Open-GPX-Tracker/images/download-app-store.svg)](https://itunes.apple.com/app/open-gpx-tracker/id984503772) 
 
-Open GPX Tracker is a GPS logger for iOS (iPhone, iPad, iPod). Track your location, add waypoints and send your logs by email as GPX files.
+Open GPX Tracker is a GPS logger for iOS (iPhone, iPad, iPod) with offline map cache support. Track your location, add waypoints and send your logs by email as GPX files.
 
-This app has no annoying time restrictions, no ads and no in-app-purchases. Create unlimited GPX traces :)
+This app has no annoying time restrictions, no ads and no in-app-purchases. Create unlimited GPX traces :). 
+
+If you are goint to track without Internet... don't worry! Just browse the area where you'll be tracking and it will be cached.
 
 Requires iOS 8.0 or above. Open GPX tracker is an open source app.
 
@@ -19,23 +21,30 @@ You can use Open GPX tracker for:
 
 # Main Features
 
- - Displays tracking information in a map
+ - Displays tracking route in a map
  - Supports Apple Map Kit, [Open Street Map](http://wiki.openstreetmap.org/wiki/Tile_usage_policy), [Open Cycle Map](http://www.opencyclemap.org) and [Carto DB](http://www.cartodb.com) as map sources
+ - Support of offline maps (of browsed areas) __new!__
  - Pause / Resume tracking
  - Add waypoint to user location
  - Add waypoint to any place in the map with a long press
  - Edit waypoint name
  - Drag & Drop waypoint pin
- - Remove waypoints
+ - Remove waypoint
  - Send by email saved session (track + waypoints)
  - Load on map a saved session and continue tracking
+ - Displays current location and altitude
  - Displays tracked time
  - Displays tracked distance (total and current segment)
  - File sharing through iTunes __new!__
+ - Settings
+    - Offline caching activation
+    - Clear chache
+    - Select the map.
+
 
 # Install
 
-The app is [available on the App Store](https://itunes.apple.com/app/open-gpx-tracker/id984503772) since May 2015. This version uses Apple Maps as tile server. 
+The app is [available on the App Store](https://itunes.apple.com/app/open-gpx-tracker/id984503772) since May 2015.
 
 Another option to install the app is to download the source code and compile it by yourself using Xcode. If you want to run it on a device, you also need an Apple developer account.
 
@@ -48,17 +57,6 @@ This application is written in Swift. To download the code run this command in a
 
 Then, to test it open the file `OpenGpxTracker.xcworkspace` with XCode.
 
-
-The list of available tile servers is defined in `GPXTileServer.swift`. Possible values:
-
-```swift
-.Apple
-.OpenStreetMap
-.OpenCycleMap
-.CartoDB
-
-```
-
 Please note the [limitations of using Open Street Maps Tile Servers](http://wiki.openstreetmap.org/wiki/Tile_usage_policy)
 
 ### Adding another tile server
@@ -66,12 +64,10 @@ Adding a tile server is easy, just edit the file `GPXTileServer.swift`, uncommen
 
 You have a list of tile servers in [Open Street Map Wiki](http://wiki.openstreetmap.org/wiki/Tile_servers)
 
-
 # Contribute
 You can contribute by forking and submitting a pull request.
 
 Please note that by submitting any pull request you are providing me (Juan M. Merlos) the rights to include and distribute those changes also on the binary app published on the App Store (which is released under Apple's Standard License Agreement) 
-
 
 License
 ====================
