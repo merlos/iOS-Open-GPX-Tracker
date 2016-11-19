@@ -1,5 +1,0 @@
-#include "Pods-iOS-GPX-Framework.xcconfig"
-GCC_PREPROCESSOR_DEFINITIONS = COCOAPODS=1
-HEADER_SEARCH_PATHS = "${PODS_ROOT}/BuildHeaders" "${PODS_ROOT}/BuildHeaders/iOS-GPX-Framework" "${PODS_ROOT}/Headers" "${PODS_ROOT}/Headers/TBXML" "${PODS_ROOT}/Headers/iOS-GPX-Framework"
-OTHER_LDFLAGS = -ObjC ${PODS_IOS_GPX_FRAMEWORK_OTHER_LDFLAGS}
-PODS_ROOT = ${SRCROOT}

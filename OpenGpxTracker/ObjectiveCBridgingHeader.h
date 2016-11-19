@@ -13,7 +13,4 @@
 
 #import "GPX.h"
 
-
-
-
 #endif

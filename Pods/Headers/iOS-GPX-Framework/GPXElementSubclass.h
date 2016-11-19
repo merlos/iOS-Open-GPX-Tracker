@@ -1,1 +1,0 @@
-../../iOS-GPX-Framework/GPX/GPXElementSubclass.h

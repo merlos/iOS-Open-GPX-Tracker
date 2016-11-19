@@ -4,17 +4,27 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>Pods-TBXML.xcscheme</key>
+		<key>Cache.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>Pods-iOS-GPX-Framework.xcscheme</key>
+		<key>CryptoSwift.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>Pods.xcscheme</key>
+		<key>Pods-OpenGpxTracker.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>TBXML.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>iOS-GPX-Framework.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -33,26 +43,32 @@
 			<true/>
 		</dict>
 		<key>211412599AED94810745EFA1400B1C7F</key>
+<<<<<<< HEAD
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>574F7BBA39BB498D838DD104</key>
+=======
+>>>>>>> features/offline-tiles
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>62ABFDFCD717DAA82676B8B08856FF8E</key>
+<<<<<<< HEAD
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>64F7C00F9D6B4526849DFFD7</key>
+=======
+>>>>>>> features/offline-tiles
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>83CAC42FEAE7465DA2D6894F</key>
+		<key>FEE131C1A6C1AFD15D2BB3C5BAD505F4</key>
 		<dict>
 			<key>primary</key>
 			<true/>

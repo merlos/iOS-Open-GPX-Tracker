@@ -22,17 +22,19 @@ iOS-KML-Framework is available through [CocoaPods](http://cocoapods.org), to ins
 it simply add the following line to your Podfile:
 
 ```ruby
-platform :ios, '5.1'
+platform :ios, '6.0'
 pod 'iOS-GPX-Framework', "~> 0.0"
 ```
 
+ Source files of the podified version are [on this repository](https://github.com/Pierre-Loup/iOS-GPX-Framework)
+ 
 Usage
 ---------------------------------
 
 ```objc
 //Import the umbrella header
 
-#import "KML.h"
+#import "GPX.h"
 
 
 //To parsing the GPX file, simply call the parse method :
@@ -56,7 +58,27 @@ track.name = @"My New Track";
 [track newTrackpointWithLatitude:35.828609f longitude:139.745447f];
 ```
 
+# Usage with Swift
+ 
+In order to use this library with the new Swift programming language you need to use the [Objective-C Bridging header] (https://developer.apple.com/library/prerelease/ios/documentation/Swift/Conceptual/BuildingCocoaApps/MixandMatch.html). 
 
+Basically, you have to create a .h file that imports *GPX.h*
+
+```objc
+// <YourProjectName>/Bridge.h
+ 
+ #ifndef GpxTest_Bridge_h
+ #define GpxTest_Bridge_h
+ 
+   #import "GPX.h"
+ 
+ #endif
+```
+Then in Build Settings of your project name search for the key **"Objective-C Bridging header"** and add that file ie: *YourProjectName/Bridge.h*
+  
+That's it.
+ 
+ 
 ## Requirements
 
 - iOS 6.0 or later
@@ -64,6 +86,8 @@ track.name = @"My New Track";
 ## Author
 
 Watanabe Toshinori, t@flcl.jp
+
+Cocoapod version created by [@Pierre-Loup](https://github.com/Pierre-Loup/)
 
 ## License
 

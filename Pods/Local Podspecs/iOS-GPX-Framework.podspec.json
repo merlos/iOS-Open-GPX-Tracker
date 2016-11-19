@@ -1,0 +1,36 @@
+{
+  "name": "iOS-GPX-Framework",
+  "version": "0.0.4",
+  "summary": "The iOS framework for parsing/generating GPX files. (@merlos fork)",
+  "description": "This is a iOS framework for parsing/generating GPX files.\nThis Framework parses the GPX from a URL or Strings and create Objective-C Instances of GPX structure.",
+  "homepage": "https://github.com/merlos/iOS-GPX-Framework.",
+  "screenshots": [
+    "http://gpxframework.com/img/gpx_viewer.png",
+    "http://gpxframework.com/img/gpx_logger.png"
+  ],
+  "license": "MIT",
+  "authors": {
+    "Watanabe Toshinori": "t@flcl.jp",
+    "Juan M. Merlos": ""
+  },
+  "source": {
+    "git": "https://github.com/merlos/iOS-GPX-Framework.git",
+    "tag": "0.0.4"
+  },
+  "platforms": {
+    "ios": "6.0"
+  },
+  "requires_arc": true,
+  "xcconfig": {
+    "USER_HEADER_SEARCH_PATHS": "\"${PODS_ROOT}/iOS-GPX-Framework/GPX\""
+  },
+  "source_files": "GPX",
+  "ios": {
+    "frameworks": "UIKit"
+  },
+  "dependencies": {
+    "TBXML": [
+      "~> 1.5"
+    ]
+  }
+}

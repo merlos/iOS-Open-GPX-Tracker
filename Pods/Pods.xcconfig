@@ -1,5 +1,0 @@
-GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1 $(inherited) ARC_ENABLED
-HEADER_SEARCH_PATHS = "${PODS_ROOT}/Headers" "${PODS_ROOT}/Headers/TBXML" "${PODS_ROOT}/Headers/iOS-GPX-Framework"
-OTHER_CFLAGS = $(inherited) -isystem "${PODS_ROOT}/Headers" -isystem "${PODS_ROOT}/Headers/TBXML" -isystem "${PODS_ROOT}/Headers/iOS-GPX-Framework"
-OTHER_LDFLAGS = -ObjC -lz -framework UIKit
-PODS_ROOT = ${SRCROOT}/Pods
