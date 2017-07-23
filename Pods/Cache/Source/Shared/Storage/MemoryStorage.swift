@@ -1,171 +1,99 @@
 import Foundation
 
 /**
- Memory cache storage based on NSCache
+ Memory cache storage based on NSCache.
  */
-public final class MemoryStorage: StorageAware {
-
-  /// Domain prefix
-  public static let prefix = "no.hyper.Cache.Memory"
-
-  /// Storage root path
-  public var path: String {
-    return cache.name
-  }
-
-  /// Maximum size of the cache storage
-  public var maxSize: UInt
-
+final class MemoryStorage: StorageAware {
   /// Memory cache instance
-  public let cache = NSCache<AnyObject, AnyObject>()
-  /// Queue for write operations
-  public fileprivate(set) var writeQueue: DispatchQueue
-  /// Queue for read operations
-  public fileprivate(set) var readQueue: DispatchQueue
+  private let cache = NSCache<NSString, Capsule>()
+  // Memory cache keys
+  private var keys = Set<String>()
 
   // MARK: - Initialization
 
   /**
    Creates a new memory storage.
-
    - Parameter name: A name of the storage
-   - Parameter maxSize: Maximum size of the cache storage
+   - Parameter countLimit: The maximum number of objects the cache should hold.
+   - Parameter totalCostLimit: The maximum total cost that the cache can hold before it starts evicting objects.
    */
-  public required init(name: String, maxSize: UInt = 0) {
-    self.maxSize = maxSize
-
-    cache.countLimit = Int(maxSize)
-    cache.totalCostLimit = Int(maxSize)
-    cache.name = "\(MemoryStorage.prefix).\(name.capitalized)"
-    writeQueue = DispatchQueue(label: "\(cache.name).WriteQueue", attributes: [])
-    readQueue = DispatchQueue(label: "\(cache.name).ReadQueue", attributes: [])
+  required init(name: String, countLimit: UInt = 0, totalCostLimit: UInt = 0) {
+    cache.countLimit = Int(countLimit)
+    cache.totalCostLimit = Int(totalCostLimit)
+    cache.name = name
   }
 
   // MARK: - CacheAware
 
   /**
    Saves passed object in the memory.
-
    - Parameter key: Unique key to identify the object in the cache
    - Parameter object: Object that needs to be cached
    - Parameter expiry: Expiration date for the cached object
-   - Parameter completion: Completion closure to be called when the task is done
    */
-  public func add<T: Cachable>(_ key: String, object: T, expiry: Expiry = .never, completion: (() -> Void)? = nil) {
-    writeQueue.async { [weak self] in
-      guard let weakSelf = self else {
-        completion?()
-        return
-      }
-
-      let capsule = Capsule(value: object, expiry: expiry)
-
-      weakSelf.cache.setObject(capsule, forKey: key as AnyObject)
-      completion?()
-    }
+  func addObject<T: Cachable>(_ object: T, forKey key: String, expiry: Expiry = .never) {
+    let capsule = Capsule(value: object, expiry: expiry)
+    cache.setObject(capsule, forKey: key as NSString)
+    keys.insert(key)
   }
 
   /**
    Tries to retrieve the object from the memory storage.
-
    - Parameter key: Unique key to identify the object in the cache
-   - Parameter completion: Completion closure returns object or nil
+   - Returns: Cached object or nil if not found
    */
-  public func object<T: Cachable>(_ key: String, completion: @escaping (_ object: T?) -> Void) {
-    readQueue.async { [weak self] in
-      guard let weakSelf = self else {
-        completion(nil)
-        return
-      }
+  func object<T: Cachable>(forKey key: String) -> T? {
+    return (cacheEntry(forKey: key) as CacheEntry<T>?)?.object
+  }
 
-      let capsule = weakSelf.cache.object(forKey: key as AnyObject) as? Capsule
-      completion(capsule?.object as? T)
-
-      if let capsule = capsule {
-        weakSelf.removeIfExpired(key, capsule: capsule)
-      }
+  /**
+   Get cache entry which includes object with metadata.
+   - Parameter key: Unique key to identify the object in the cache
+   - Returns: Object wrapper with metadata or nil if not found
+   */
+  func cacheEntry<T: Cachable>(forKey key: String) -> CacheEntry<T>? {
+    guard let capsule = cache.object(forKey: key as NSString) else {
+      return nil
     }
+    guard let object = capsule.object as? T else {
+      return nil
+    }
+    return CacheEntry(object: object, expiry: Expiry.date(capsule.expiryDate))
   }
 
   /**
    Removes the object from the cache by the given key.
-
    - Parameter key: Unique key to identify the object in the cache
-   - Parameter completion: Completion closure to be called when the task is done
    */
-  public func remove(_ key: String, completion: (() -> Void)? = nil) {
-    writeQueue.async { [weak self] in
-      guard let weakSelf = self else {
-        completion?()
-        return
-      }
-
-      weakSelf.cache.removeObject(forKey: key as AnyObject)
-      completion?()
-    }
+  func removeObject(forKey key: String) {
+    cache.removeObject(forKey: key as NSString)
+    keys.remove(key)
   }
 
   /**
    Removes the object from the cache if it's expired.
-
    - Parameter key: Unique key to identify the object in the cache
-   - Parameter completion: Completion closure to be called when the task is done
    */
-  public func removeIfExpired(_ key: String, completion: (() -> Void)?) {
-    writeQueue.async { [weak self] in
-      guard let weakSelf = self else {
-        completion?()
-        return
-      }
-
-      if let capsule = weakSelf.cache.object(forKey: key as AnyObject) as? Capsule {
-        weakSelf.removeIfExpired(key, capsule: capsule, completion: completion)
-      } else {
-        completion?()
-      }
+  func removeObjectIfExpired(forKey key: String) {
+    if let capsule = cache.object(forKey: key as NSString), capsule.isExpired {
+      removeObject(forKey: key)
     }
   }
 
   /**
-   Clears the cache storage.
-
-   - Parameter completion: Completion closure to be called when the task is done
+   Removes all objects from the cache storage.
    */
-  public func clear(_ completion: (() -> Void)? = nil) {
-    writeQueue.async { [weak self] in
-      guard let weakSelf = self else {
-        completion?()
-        return
-      }
-
-      weakSelf.cache.removeAllObjects()
-      completion?()
-    }
+  func clear() {
+    cache.removeAllObjects()
   }
 
   /**
    Clears all expired objects.
-
-   - Parameter completion: Completion closure to be called when the task is done
    */
-  public func clearExpired(_ completion: (() -> Void)? = nil) {
-    clear(completion)
-  }
-
-  // MARK: - Helpers
-
-  /**
-   Removes the object from the cache if it's expired.
-
-   - Parameter key: Unique key to identify the object in the cache
-   - Parameter capsule: cached object wrapper
-   - Parameter completion: Completion closure to be called when the task is done
-   */
-  func removeIfExpired(_ key: String, capsule: Capsule, completion: (() -> Void)? = nil) {
-    if capsule.expired {
-      remove(key, completion: completion)
-    } else {
-      completion?()
+  func clearExpired() {
+    let allKeys = keys
+    for key in allKeys {
+      removeObjectIfExpired(forKey: key)
     }
   }
 }

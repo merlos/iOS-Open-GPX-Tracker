@@ -1,0 +1,6 @@
+framework module SwiftHash {
+  umbrella header "SwiftHash-umbrella.h"
+
+  export *
+  module * { export * }
+}

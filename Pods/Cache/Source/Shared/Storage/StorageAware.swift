@@ -1,80 +1,50 @@
 import Foundation
 
 /**
- Defines basic cache behaviour
+ Defines basic cache behaviour.
  */
-public protocol CacheAware {
-
+protocol StorageAware {
   /**
    Saves passed object in the cache.
-
-   - Parameter key: Unique key to identify the object in the cache
    - Parameter object: Object that needs to be cached
+   - Parameter key: Unique key to identify the object in the cache
    - Parameter expiry: Expiration date for the cached object
-   - Parameter completion: Completion closure to be called when the task is done
    */
-  func add<T: Cachable>(_ key: String, object: T, expiry: Expiry, completion: (() -> Void)?)
+  func addObject<T: Cachable>(_ object: T, forKey key: String, expiry: Expiry) throws
 
   /**
    Tries to retrieve the object from the cache.
-
    - Parameter key: Unique key to identify the object in the cache
-   - Parameter completion: Completion closure returns object or nil
+   - Returns: Cached object or nil if not found
    */
-  func object<T: Cachable>(_ key: String, completion: @escaping (_ object: T?) -> Void)
+  func object<T: Cachable>(forKey key: String) throws -> T?
+
+  /**
+   Get cache entry which includes object with metadata.
+   - Parameter key: Unique key to identify the object in the cache
+   - Returns: Object wrapper with metadata or nil if not found
+   */
+  func cacheEntry<T: Cachable>(forKey key: String) throws -> CacheEntry<T>?
 
   /**
    Removes the object from the cache by the given key.
-
    - Parameter key: Unique key to identify the object in the cache
-   - Parameter completion: Completion closure to be called when the task is done
    */
-  func remove(_ key: String, completion: (() -> Void)?)
+  func removeObject(forKey key: String) throws
 
   /**
    Removes the object from the cache if it's expired.
-
    - Parameter key: Unique key to identify the object in the cache
-   - Parameter completion: Completion closure to be called when the task is done
    */
-  func removeIfExpired(_ key: String, completion: (() -> Void)?)
+  func removeObjectIfExpired(forKey key: String) throws
 
   /**
-   Clears the cache storage.
-
-   - Parameter completion: Completion closure to be called when the task is done
+   Removes all objects from the cache storage.
    */
-  func clear(_ completion: (() -> Void)?)
+  func clear() throws
 
   /**
-   Clears all expired objects.
-
-   - Parameter completion: Completion closure to be called when the task is done
+   Removes all expired objects from the cache storage.
    */
-  func clearExpired(_ completion: (() -> Void)?)
-}
-
-/**
- Defines basic storage properties
- */
-public protocol StorageAware: CacheAware {
-  /// Prefix used in the queue or cache names
-  static var prefix: String { get }
-
-  /// Storage root path
-  var path: String { get }
-  /// Maximum size of the cache storage
-  var maxSize: UInt { get set }
-  /// Queue for write operations
-  var writeQueue: DispatchQueue { get }
-  /// Queue for read operations
-  var readQueue: DispatchQueue { get }
-
-  /**
-   Storage initialization.
-
-   - Parameter name: A name of the storage
-   - Parameter maxSize: Maximum size of the cache storage
-   */
-  init(name: String, maxSize: UInt)
+  func clearExpired() throws
 }

@@ -45,29 +45,54 @@ class CachedTileOverlay : MKTileOverlay {
         }
         //use this config
         let config = Config(
-            frontKind: .disk,  // Your front cache type
-            backKind: .disk,  // Your back cache type
-            expiry: .date(Date().addingTimeInterval(10000000000)),
-            maxSize: 100000)
-        let cache = Cache<Data>(name: "ImageCache", config: config)
-       
-        let cacheKey = "\(self.urlTemplate)-\(path.x)-\(path.y)-\(path.z)"
-        //print("CachedTileOverlay::loadTile cacheKey = \(cacheKey)")
-        cache.object(cacheKey) { (data: Data?) in
-            //result(data, nil
-            if data != nil {
-                result(data,nil)
-            } else {
-                //print("Requesting data....");
+            // Expiry date that will be applied by default for every added object
+            // if it's not overridden in the add(key: object: expiry: completion:) method
+            expiry: .date(Date().addingTimeInterval(604800)), // 7 days
+            /// The maximum number of objects in memory the cache should hold
+            memoryCountLimit: 0,
+            /// The maximum total cost that the cache can hold before it starts evicting objects
+            memoryTotalCostLimit: 0,
+            /// Maximum size of the disk cache storage (in bytes)
+            maxDiskSize: 5000000, // 50 MB cache for all your local content to use without GPS signal
+            // Where to store the disk cache. If nil, it is placed in an automatically generated directory in Caches
+            cacheDirectory: NSSearchPathForDirectoriesInDomains(.documentDirectory,
+                                                                FileManager.SearchPathDomainMask.userDomainMask,
+                                                                true).first! + "/cache-in-documents"
+        )
+        let cache = SpecializedCache<Data>(name: "ImageCache", config: config)
+        let cacheKey = "\(self.urlTemplate ?? "none")-\(path.x)-\(path.y)-\(path.z)"
+        print("CachedTileOverlay::loadTile cacheKey = \(cacheKey)")
+        
+        // Get object from cache
+        cache.async.object(forKey: cacheKey) { (cacheData: Data?) in
+            if let cacheData = cacheData {
+                result(cacheData, nil)
+            } else  {
+                print("Requesting data....");
                 let request = URLRequest(url: url)
                 NSURLConnection.sendAsynchronousRequest(request, queue: self.operationQueue) {
                     response, data, error in
                     if let data = data {
-                        cache.add(cacheKey, object: data)
+                        // Add object to cache
+                        cache.async.addObject(data, forKey: cacheKey) { error in
+                            if let error = error {
+                                print(error)
+                                result(nil, error)
+                            } else {
+                                result(data, nil)
+                            }
+                        }
                     }
-                    result(data, error)
                 }
             }
         }
+        
+        do {
+            let size = try cache.totalDiskSize()
+            print("cache size \(size)")
+        } catch {
+            print("cache size could not be retrieved")
+        }
+        
     }
 }
