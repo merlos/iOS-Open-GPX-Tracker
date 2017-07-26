@@ -54,6 +54,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.saveContext()
     }
 
+    func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
+        print("load gpx File: \(url.absoluteString)")
+        let fileManager = FileManager.default
+        do {
+            try fileManager.moveItem(at: url, to: GPXFileManager.GPXFilesFolderURL.appendingPathComponent(url.lastPathComponent))
+        }
+        catch let error as NSError {
+            print("Ooops! Something went wrong: \(error)")
+        }
+        
+        return true
+    }
+    
     // MARK: - Core Data stack
 
     lazy var applicationDocumentsDirectory: URL = {
