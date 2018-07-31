@@ -150,15 +150,28 @@ class PreferencesTableViewController: UITableViewController, UINavigationBarDele
                 self.delegate?.didUpdateUseCache(newUseCache)
             case 1:
                 print("clear cache")
+                // usage example of cache https://github.com/hyperoslo/Cache/blob/master/Playgrounds/Storage.playground/Contents.swift
                 // 1 -> clears cache
-                let cache = SpecializedCache<Data>(name: "ImageCache")
-                // Clear cache
-                cache.async.clear() { error in
-                    print(error ?? "")
+                do {
+                    let diskConfig = DiskConfig(name: "ImageCache")
+                    let cache = try Storage(
+                        diskConfig: diskConfig,
+                        memoryConfig: MemoryConfig(),
+                        transformer: TransformerFactory.forData()
+                    )
+                    //Clear cache
+                    cache.async.removeAll(completion: { (result) in
+                        if case .value = result {
+                            print("Cache cleaned")
+                            let cell = tableView.cellForRow(at: indexPath)!
+                            cell.textLabel?.text = "Cache is now empty"
+                            cell.textLabel?.textColor = UIColor.gray
+                        }
+                    })
+                } catch {
+                    print(error)
                 }
-                let cell = tableView.cellForRow(at: indexPath)!
-                cell.textLabel?.text = "Cache is now empty"
-                cell.textLabel?.textColor = UIColor.gray
+                
             default:
                 fatalError("didSelectRowAt: Unknown cell")
             }

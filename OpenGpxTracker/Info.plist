@@ -44,10 +44,15 @@
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
-	<key>NSLocationAlwaysUsageDescription</key>
-	<string>Location is needed to create the GPX track even when the app is in background.</string>
-	<key>NSLocationUsageDescription</key>
-	<string>Location is needed to create GPX and add PDIs</string>
+    <key>NSLocationAlwaysUsageDescription</key>
+    <string>Location is needed to create the GPX track even when the app is in background.</string>
+    <key>NSLocationUsageDescription</key>
+    <string>Location is needed to create GPX and add PDIs</string>
+
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Location is only used to display your position in the map. Select always allow to track your position even if the app is in background.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Location is used to display in the map where are you and where you have been.</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>location</string>

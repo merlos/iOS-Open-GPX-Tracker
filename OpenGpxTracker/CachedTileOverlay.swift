@@ -43,28 +43,72 @@ class CachedTileOverlay : MKTileOverlay {
             print("CachedTileOverlay:: not using cache")
             return super.loadTile(at: path, result: result)
         }
+        //TODO --- It seems inapropriate to initialize the cache in this method. Move move it out.
         //use this config
-        let config = Config(
+        let diskConfig = DiskConfig(
+            // The name of disk storage, this will be used as folder name within directory
+            name: "ImageCache",
             // Expiry date that will be applied by default for every added object
-            // if it's not overridden in the add(key: object: expiry: completion:) method
-            expiry: .date(Date().addingTimeInterval(604800)), // 7 days
-            /// The maximum number of objects in memory the cache should hold
-            memoryCountLimit: 0,
-            /// The maximum total cost that the cache can hold before it starts evicting objects
-            memoryTotalCostLimit: 0,
-            /// Maximum size of the disk cache storage (in bytes)
-            maxDiskSize: 5000000, // 50 MB cache for all your local content to use without GPS signal
-            // Where to store the disk cache. If nil, it is placed in an automatically generated directory in Caches
-            cacheDirectory: NSSearchPathForDirectoriesInDomains(.documentDirectory,
-                                                                FileManager.SearchPathDomainMask.userDomainMask,
-                                                                true).first! + "/cache-in-documents"
+            // if it's not overridden in the `setObject(forKey:expiry:)` method
+            expiry: .date(Date().addingTimeInterval(60*24*3600)), //60 days
+            // Maximum size of the disk cache storage (in bytes)
+            maxSize: 500 * 1000 * 1000, //= 500 MB
+            // Where to store the disk cache. If nil, it is placed in `cachesDirectory` directory.
+            directory: nil
         )
-        let cache = SpecializedCache<Data>(name: "ImageCache", config: config)
+        let memoryConfig = MemoryConfig(
+            // Expiry date that will be applied by default for every added object
+            // if it's not overridden in the `setObject(forKey:expiry:)` method
+            expiry: .date(Date().addingTimeInterval(2*60)),
+            /// The maximum number of objects in memory the cache should hold
+            countLimit: 50,
+            /// The maximum total cost that the cache can hold before it starts evicting objects
+            totalCostLimit: 0
+        )
+        let cache = try? Storage(
+            diskConfig: diskConfig,
+            memoryConfig: memoryConfig,
+            transformer: TransformerFactory.forCodable(ofType: Data.self) // Storage<User>
+        )
         let cacheKey = "\(self.urlTemplate ?? "none")-\(path.x)-\(path.y)-\(path.z)"
         print("CachedTileOverlay::loadTile cacheKey = \(cacheKey)")
-        
+        cache?.async.object(forKey: cacheKey) { object in
+            switch object {
+            case .value(let cached):
+                print("Object found in cache!!!!")
+                result(cached,nil)
+            case .error:
+                print("CachedTileOverlay:LoadTile. Error no such object")
+                print("Requesting data....");
+                let task = URLSession.shared.dataTask(with: url) { data, response, error in
+                    if let error = error {
+                        result(nil,error)
+                        return
+                    }
+                    guard let httpResponse = response as? HTTPURLResponse,
+                        (200...299).contains(httpResponse.statusCode) else {
+                            DispatchQueue.main.async {
+                                result(nil, error)
+                            }
+                            return
+                    }
+                    //let data = data
+                    //save data in cache
+                    cache?.async.setObject(data!, forKey: cacheKey) { error in
+                        if error == nil {
+                            print("ERROR saving in cache: \(error)")
+                        }
+                    }
+                    DispatchQueue.main.async {
+                        result(data, nil)
+                    }
+                } // dataTask
+                task.resume()
+            }
+        }
+
         // Get object from cache
-        cache.async.object(forKey: cacheKey) { (cacheData: Data?) in
+        /* cache.async.object(forKey: cacheKey) { (cacheData: Data?) in
             if let cacheData = cacheData {
                 result(cacheData, nil)
             } else  {
@@ -85,14 +129,15 @@ class CachedTileOverlay : MKTileOverlay {
                     }
                 }
             }
-        }
+        }*/
         
+        /*
         do {
             let size = try cache.totalDiskSize()
             print("cache size \(size)")
         } catch {
             print("cache size could not be retrieved")
         }
-        
+        */
     }
 }

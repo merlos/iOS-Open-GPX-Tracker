@@ -19,6 +19,7 @@
 			<key>orderHint</key>
 			<integer>4</integer>
 		</dict>
+<<<<<<< HEAD
 		<key>SwiftHash.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -35,5 +36,20 @@
 			<integer>3</integer>
 		</dict>
 	</dict>
+=======
+		<key>TBXML.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>iOS-GPX-Framework.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+	</dict>
+	<key>SuppressBuildableAutocreation</key>
+	<dict/>
+>>>>>>> NSMutableString-feature/updateLibraries
 </dict>
 </plist>

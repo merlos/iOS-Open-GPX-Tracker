@@ -1,13 +1,19 @@
 //
-//  HMAC.swift
 //  CryptoSwift
 //
-//  Created by Marcin Krzyzanowski on 13/01/15.
-//  Copyright (c) 2015 Marcin Krzyzanowski. All rights reserved.
+//  Copyright (C) 2014-2017 Marcin Krzyżanowski <marcin@krzyzanowskim.com>
+//  This software is provided 'as-is', without any express or implied warranty.
+//
+//  In no event will the authors be held liable for any damages arising from the use of this software.
+//
+//  Permission is granted to anyone to use this software for any purpose,including commercial applications, and to alter it and redistribute it freely, subject to the following restrictions:
+//
+//  - The origin of this software must not be misrepresented; you must not claim that you wrote the original software. If you use this software in a product, an acknowledgment in the product documentation is required.
+//  - Altered source versions must be plainly marked as such, and must not be misrepresented as being the original software.
+//  - This notice may not be removed or altered from any source or binary distribution.
 //
 
 public final class HMAC: Authenticator {
-
     public enum Error: Swift.Error {
         case authenticateError
         case invalidInput
@@ -17,7 +23,7 @@ public final class HMAC: Authenticator {
         case sha1, sha256, sha384, sha512, md5
 
         var digestLength: Int {
-            switch (self) {
+            switch self {
             case .sha1:
                 return SHA1.digestLength
             case .sha256:
@@ -32,7 +38,7 @@ public final class HMAC: Authenticator {
         }
 
         func calculateHash(_ bytes: Array<UInt8>) -> Array<UInt8>? {
-            switch (self) {
+            switch self {
             case .sha1:
                 return Digest.sha1(bytes)
             case .sha256:

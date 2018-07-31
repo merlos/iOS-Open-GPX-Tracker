@@ -1,10 +1,18 @@
 //
-//  Poly1305.swift
 //  CryptoSwift
 //
-//  Created by Marcin Krzyzanowski on 30/08/14.
-//  Copyright (c) 2014 Marcin Krzyzanowski. All rights reserved.
+//  Copyright (C) 2014-2017 Marcin Krzyżanowski <marcin@krzyzanowskim.com>
+//  This software is provided 'as-is', without any express or implied warranty.
 //
+//  In no event will the authors be held liable for any damages arising from the use of this software.
+//
+//  Permission is granted to anyone to use this software for any purpose,including commercial applications, and to alter it and redistribute it freely, subject to the following restrictions:
+//
+//  - The origin of this software must not be misrepresented; you must not claim that you wrote the original software. If you use this software in a product, an acknowledgment in the product documentation is required.
+//  - Altered source versions must be plainly marked as such, and must not be misrepresented as being the original software.
+//  - This notice may not be removed or altered from any source or binary distribution.
+//
+
 //  http://tools.ietf.org/html/draft-agl-tls-chacha20poly1305-04#section-4
 //  nacl/crypto_onetimeauth/poly1305/ref/auth.c
 //
@@ -12,7 +20,6 @@
 ///  message such that an attacker has a negligible chance of producing a valid tag for an inauthentic message.
 
 public final class Poly1305: Authenticator {
-
     public enum Error: Swift.Error {
         case authenticateError
     }
@@ -74,7 +81,7 @@ public final class Poly1305: Authenticator {
             hr[i] = u
         }
         h = hr
-        self.squeeze(h: &h)
+        squeeze(h: &h)
     }
 
     private func freeze(h: inout Array<UInt32>) {
@@ -111,7 +118,6 @@ public final class Poly1305: Authenticator {
         r[15] = UInt32(k[15] & 15)
         r[16] = 0
 
-
         var inlen = input.count
         var inpos = 0
         while inlen > 0 {
@@ -126,11 +132,11 @@ public final class Poly1305: Authenticator {
             c[maxj] = 1
             inpos = inpos + maxj
             inlen = inlen - maxj
-            self.add(h: &h, c: c)
-            self.mulmod(h: &h, r: r)
+            add(h: &h, c: c)
+            mulmod(h: &h, r: r)
         }
 
-        self.freeze(h: &h)
+        freeze(h: &h)
 
         for j in 0..<16 {
             c[j] = UInt32(k[j + 16])
@@ -139,7 +145,7 @@ public final class Poly1305: Authenticator {
         add(h: &h, c: c)
 
         return h[0..<16].map {
-            UInt8($0 & 0xFF)
+            UInt8($0 & 0xff)
         }
     }
 
@@ -154,6 +160,6 @@ public final class Poly1305: Authenticator {
      - returns: 16-byte tag that authenticates the message
      */
     public func authenticate(_ bytes: Array<UInt8>) throws -> Array<UInt8> {
-        return onetimeauth(message: bytes, key: Array(self.key))
+        return onetimeauth(message: bytes, key: Array(key))
     }
 }
