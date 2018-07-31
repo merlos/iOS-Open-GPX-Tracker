@@ -1,50 +1,40 @@
+import Foundation
+
 /**
  Configuration needed to create a new cache instance
  */
 public struct Config {
-
-  /// Front cache type
-  public let frontKind: StorageKind
-  /// Back cache type
-  public let backKind: StorageKind
   /// Expiry date that will be applied by default for every added object
   /// if it's not overridden in the add(key: object: expiry: completion:) method
   public let expiry: Expiry
-  /// Maximum size of the cache storage
-  public let maxSize: UInt
-  /// Maximum amount of items to store in memory
-  public let maxObjects: Int
+  /// The maximum number of objects in memory the cache should hold
+  public let memoryCountLimit: UInt
+  /// The maximum total cost that the cache can hold before it starts evicting objects
+  public let memoryTotalCostLimit: UInt
+  /// Maximum size of the disk cache storage (in bytes)
+  public let maxDiskSize: UInt
+  /// A folder to store the disk cache contents. Defaults to a prefixed directory in Caches if nil
+  public let cacheDirectory: String?
 
   // MARK: - Initialization
 
   /**
    Creates a new instance of Config.
-
-   - Parameter frontKind: Front cache type
-   - Parameter backKind: Back cache type
    - Parameter expiry: Expiry date that will be applied by default for every added object
-   - Parameter maxSize: Maximum size of the cache storage
-   - Parameter maxObjects: Maximum amount of objects to be stored in memory
+   - Parameter memoryCountLimit: The maximum number of objects the cache should hold
+   - Parameter memoryTotalCostLimit: The maximum total cost that the cache can hold before it starts evicting objects
+   - Parameter maxDiskSize: Maximum size of the disk cache storage (in bytes)
+   - Parameter cacheDirectory: A folder to store the disk cache contents (Caches is default)
    */
-  public init(frontKind: StorageKind, backKind: StorageKind, expiry: Expiry = .never, maxSize: UInt = 0, maxObjects: Int = 0) {
-    self.frontKind = frontKind
-    self.backKind = backKind
+  public init(expiry: Expiry = .never,
+              memoryCountLimit: UInt = 0,
+              memoryTotalCostLimit: UInt = 0,
+              maxDiskSize: UInt = 0,
+              cacheDirectory: String? = nil) {
     self.expiry = expiry
-    self.maxSize = maxSize
-    self.maxObjects = maxObjects
-  }
-}
-
-// MARK: - Defaults
-
-extension Config {
-
-  /**
-   Default configuration used when config is not specified
-   */
-  public static var defaultConfig: Config {
-    return Config(
-      frontKind: .memory,
-      backKind: .disk)
+    self.memoryCountLimit = memoryCountLimit
+    self.memoryTotalCostLimit = memoryTotalCostLimit
+    self.maxDiskSize = maxDiskSize
+    self.cacheDirectory = cacheDirectory
   }
 }

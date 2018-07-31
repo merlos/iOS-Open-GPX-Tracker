@@ -151,8 +151,11 @@ class PreferencesTableViewController: UITableViewController, UINavigationBarDele
             case 1:
                 print("clear cache")
                 // 1 -> clears cache
-                let cache = Cache<Data>(name: "ImageCache")
-                cache.clear()
+                let cache = SpecializedCache<Data>(name: "ImageCache")
+                // Clear cache
+                cache.async.clear() { error in
+                    print(error ?? "")
+                }
                 let cell = tableView.cellForRow(at: indexPath)!
                 cell.textLabel?.text = "Cache is now empty"
                 cell.textLabel?.textColor = UIColor.gray

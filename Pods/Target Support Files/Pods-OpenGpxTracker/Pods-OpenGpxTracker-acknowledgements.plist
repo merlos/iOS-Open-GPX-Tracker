@@ -46,7 +46,7 @@
 		</dict>
 		<dict>
 			<key>FooterText</key>
-			<string>Copyright (C) 2014 Marcin Krzyżanowski &lt;marcin.krzyzanowski@gmail.com&gt;
+			<string>Copyright (C) 2014-2017 Marcin Krzyżanowski &lt;marcin.krzyzanowski@gmail.com&gt;
 This software is provided 'as-is', without any express or implied warranty. 
 
 In no event will the authors be held liable for any damages arising from the use of this software. 
@@ -55,11 +55,44 @@ Permission is granted to anyone to use this software for any purpose,including c
 
 - The origin of this software must not be misrepresented; you must not claim that you wrote the original software. If you use this software in a product, an acknowledgment in the product documentation is required.
 - Altered source versions must be plainly marked as such, and must not be misrepresented as being the original software.
-- This notice may not be removed or altered from any source or binary distribution.</string>
+- This notice may not be removed or altered from any source or binary distribution.
+</string>
 			<key>License</key>
 			<string>Attribution License</string>
 			<key>Title</key>
 			<string>CryptoSwift</string>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+		</dict>
+		<dict>
+			<key>FooterText</key>
+			<string>Licensed under the **MIT** license
+
+&gt; Copyright (c) 2015 Khoa Pham
+&gt;
+&gt; Permission is hereby granted, free of charge, to any person obtaining
+&gt; a copy of this software and associated documentation files (the
+&gt; "Software"), to deal in the Software without restriction, including
+&gt; without limitation the rights to use, copy, modify, merge, publish,
+&gt; distribute, sublicense, and/or sell copies of the Software, and to
+&gt; permit persons to whom the Software is furnished to do so, subject to
+&gt; the following conditions:
+&gt;
+&gt; The above copyright notice and this permission notice shall be
+&gt; included in all copies or substantial portions of the Software.
+&gt;
+&gt; THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+&gt; EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+&gt; MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+&gt; IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+&gt; CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+&gt; TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+&gt; SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+</string>
+			<key>License</key>
+			<string>MIT</string>
+			<key>Title</key>
+			<string>SwiftHash</string>
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 		</dict>

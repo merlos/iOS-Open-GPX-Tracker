@@ -5,14 +5,12 @@ import Foundation
  Used in memory storage to work with NSCache.
  */
 final class Capsule: NSObject {
-
   /// Object to be cached
   let object: Any
   /// Expiration date
   let expiryDate: Date
-
   /// Checks if cached object is expired according to expiration date
-  var expired: Bool {
+  var isExpired: Bool {
     return expiryDate.inThePast
   }
 
@@ -20,12 +18,11 @@ final class Capsule: NSObject {
 
   /**
    Creates a new instance of Capsule.
-
    - Parameter value: Object to be cached
    - Parameter expiry: Expiration date
    */
   init(value: Any, expiry: Expiry) {
     self.object = value
-    self.expiryDate = expiry.date as Date
+    self.expiryDate = expiry.date
   }
 }

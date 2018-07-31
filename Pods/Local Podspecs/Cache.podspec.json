@@ -1,7 +1,7 @@
 {
   "name": "Cache",
   "summary": "Nothing but cache.",
-  "version": "2.1.1",
+  "version": "3.3.0",
   "homepage": "https://github.com/hyperoslo/Cache",
   "license": "MIT",
   "authors": {
@@ -9,13 +9,14 @@
   },
   "source": {
     "git": "https://github.com/hyperoslo/Cache.git",
-    "tag": "2.1.1"
+    "tag": "3.3.0"
   },
   "social_media_url": "https://twitter.com/hyperoslo",
   "platforms": {
     "ios": "8.0",
     "osx": "10.9",
-    "tvos": "9.2"
+    "tvos": "9.2",
+    "watchos": "2.0"
   },
   "requires_arc": true,
   "ios": {
@@ -29,8 +30,8 @@
   },
   "frameworks": "Foundation",
   "dependencies": {
-    "CryptoSwift": [
-
+    "SwiftHash": [
+      "~> 1.4.0"
     ]
   },
   "pod_target_xcconfig": {
