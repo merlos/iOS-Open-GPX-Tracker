@@ -225,12 +225,21 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         
         stopWatch.delegate = self
         
+        //iPhone X requires a couple of fixes
+        var isIPhoneX = false
+        if UIDevice().userInterfaceIdiom == .phone {
+            if UIScreen.main.nativeBounds.height == 2436 {
+                print("iPhone X detected Bazinga!")
+                isIPhoneX = true
+            }
+        }
+
+        
         // Map configuration Stuff
         map.delegate = mapViewDelegate
-        
-        map.showsUserLocation = true
-        let mapH: CGFloat = self.view.bounds.size.height - 20.0
-        map.frame = CGRect(x: 0.0, y: 20.0, width: self.view.bounds.size.width, height: mapH)
+                map.showsUserLocation = true
+        let mapH: CGFloat = self.view.bounds.size.height - (isIPhoneX ? 0.0 : 20.0)
+        map.frame = CGRect(x: 0.0, y: (isIPhoneX ? 0.0 : 20.0), width: self.view.bounds.size.width, height: mapH)
         map.isZoomEnabled = true
         map.isRotateEnabled = true
         map.addGestureRecognizer(
@@ -277,7 +286,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         let appTitleW: CGFloat = self.view.frame.width//200.0
         let appTitleH: CGFloat = 14.0
         let appTitleX: CGFloat = 0 //self.view.frame.width/2 - appTitleW/2
-        let appTitleY: CGFloat = 20
+        let appTitleY: CGFloat = isIPhoneX ? 40.0 : 20.0
         appTitleLabel.frame = CGRect(x:appTitleX, y: appTitleY, width: appTitleW, height: appTitleH)
         appTitleLabel.text = "  Open GPX Tracker"
         appTitleLabel.textAlignment = .left
@@ -289,7 +298,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         
         
         // CoordLabel
-        coordsLabel.frame = CGRect(x: self.map.frame.width - 305, y: 20, width: 300, height: 12)
+        coordsLabel.frame = CGRect(x: self.map.frame.width - 305, y: appTitleY, width: 300, height: 12)
         coordsLabel.textAlignment = .right
         coordsLabel.font = font12
         coordsLabel.textColor = UIColor.white
@@ -298,9 +307,9 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         
         
         // Tracked info
-        
+        let iPhoneXdiff: CGFloat  = isIPhoneX ? 40 : 0
         //timeLabel
-        timeLabel.frame = CGRect(x: self.map.frame.width - 160, y: 20, width: 150, height: 40)
+        timeLabel.frame = CGRect(x: self.map.frame.width - 160, y: 20 + iPhoneXdiff, width: 150, height: 40)
         timeLabel.textAlignment = .right
         timeLabel.font = font36
         timeLabel.text = "00:00"
@@ -310,7 +319,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         map.addSubview(timeLabel)
         
         //speed Label
-        speedLabel.frame = CGRect(x: self.map.frame.width - 160,  y: 20 + 36, width: 150, height: 20)
+        speedLabel.frame = CGRect(x: self.map.frame.width - 160,  y: 20 + 36 + iPhoneXdiff, width: 150, height: 20)
         speedLabel.textAlignment = .right
         speedLabel.font = font18
         speedLabel.text = "0.00 km/h"
@@ -318,14 +327,14 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         map.addSubview(speedLabel)
         
         //tracked distance
-        totalTrackedDistanceLabel.frame = CGRect(x: self.map.frame.width - 160, y: 60 + 20, width: 150, height: 40)
+        totalTrackedDistanceLabel.frame = CGRect(x: self.map.frame.width - 160, y: 60 + 20 + iPhoneXdiff, width: 150, height: 40)
         totalTrackedDistanceLabel.textAlignment = .right
         totalTrackedDistanceLabel.font = font36
         totalTrackedDistanceLabel.text = "0m"
         //timeLabel.backgroundColor = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.5)
         map.addSubview(totalTrackedDistanceLabel)
         
-        currentSegmentDistanceLabel.frame = CGRect(x: self.map.frame.width - 160, y: 80 + 36, width: 150, height: 20)
+        currentSegmentDistanceLabel.frame = CGRect(x: self.map.frame.width - 160, y: 80 + 36 + iPhoneXdiff, width: 150, height: 20)
         currentSegmentDistanceLabel.textAlignment = .right
         currentSegmentDistanceLabel.font = font18
         currentSegmentDistanceLabel.text = "0m"
@@ -334,7 +343,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         
         
         //about button
-        aboutButton.frame = CGRect(x: 5 + 8, y: 14 + 5 + 48 + 5, width: 32, height: 32)
+        aboutButton.frame = CGRect(x: 5 + 8, y: 14 + 5 + 48 + 5 + iPhoneXdiff, width: 32, height: 32)
         aboutButton.setImage(UIImage(named: "info"), for: UIControlState())
         aboutButton.setImage(UIImage(named: "info_high"), for: .highlighted)
         aboutButton.addTarget(self, action: #selector(ViewController.openAboutViewController), for: .touchUpInside)
@@ -343,7 +352,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         map.addSubview(aboutButton)
         
         //preferences button
-        preferencesButton.frame = CGRect(x: 5 + 10 + 48, y: 14 + 5 + 8, width: 32, height: 32)
+        preferencesButton.frame = CGRect(x: 5 + 10 + 48, y: 14 + 5 + 8  + iPhoneXdiff, width: 32, height: 32)
         preferencesButton.setImage(UIImage(named: "prefs"), for: UIControlState())
         preferencesButton.setImage(UIImage(named: "prefs_high"), for: .highlighted)
         preferencesButton.addTarget(self, action: #selector(ViewController.openPreferencesTableViewController), for: .touchUpInside)
@@ -356,7 +365,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         let folderW: CGFloat = kButtonSmallSize
         let folderH: CGFloat = kButtonSmallSize
         let folderX: CGFloat = folderW/2 + 5
-        let folderY: CGFloat = folderH/2 + 5 + 14
+        let folderY: CGFloat = folderH/2 + 5 + 14  + iPhoneXdiff
         folderButton.frame = CGRect(x: 0, y: 0, width: folderW, height: folderH)
         folderButton.center = CGPoint(x: folderX, y: folderY)
         folderButton.setImage(UIImage(named: "folder"), for: UIControlState())
