@@ -252,8 +252,8 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
             print("** Preferences : setting saved tileServer \(tileServerInt)")
             map.tileServer = GPXTileServer(rawValue: tileServerInt)!
         } else {
-            print("** Preferences: using default tileServer: OpenCycleMaps")
-            map.tileServer = .openCycleMap
+            print("** Preferences: using default tileServer: Apple")
+            map.tileServer = .apple
         }
         if let useCacheBool = defaults.object(forKey: kDefaultsKeyUseCache) as? Bool {
             print("** Preferences: setting saved useCache: \(useCacheBool)")
