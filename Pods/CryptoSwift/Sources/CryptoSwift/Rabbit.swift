@@ -1,15 +1,19 @@
 //
-//  Rabbit.swift
 //  CryptoSwift
 //
-//  Created by Dima Kalachov on 12/11/15.
-//  Copyright © 2015 Marcin Krzyzanowski. All rights reserved.
+//  Copyright (C) 2014-2017 Marcin Krzyżanowski <marcin@krzyzanowskim.com>
+//  This software is provided 'as-is', without any express or implied warranty.
+//
+//  In no event will the authors be held liable for any damages arising from the use of this software.
+//
+//  Permission is granted to anyone to use this software for any purpose,including commercial applications, and to alter it and redistribute it freely, subject to the following restrictions:
+//
+//  - The origin of this software must not be misrepresented; you must not claim that you wrote the original software. If you use this software in a product, an acknowledgment in the product documentation is required.
+//  - Altered source versions must be plainly marked as such, and must not be misrepresented as being the original software.
+//  - This notice may not be removed or altered from any source or binary distribution.
 //
 
-private typealias Key = SecureBytes
-
 public final class Rabbit: BlockCipher {
-
     public enum Error: Swift.Error {
         case invalidKeyOrInitializationVector
     }
@@ -22,6 +26,10 @@ public final class Rabbit: BlockCipher {
 
     /// Size of block in bytes
     public static let blockSize = 128 / 8
+
+    public var keySize: Int {
+        return key.count
+    }
 
     /// Key
     private let key: Key
@@ -40,17 +48,18 @@ public final class Rabbit: BlockCipher {
 
     /// 'a' constants
     private var a: Array<UInt32> = [
-        0x4D34D34D,
-        0xD34D34D3,
-        0x34D34D34,
-        0x4D34D34D,
-        0xD34D34D3,
-        0x34D34D34,
-        0x4D34D34D,
-        0xD34D34D3,
+        0x4d34d34d,
+        0xd34d34d3,
+        0x34d34d34,
+        0x4d34d34d,
+        0xd34d34d3,
+        0x34d34d34,
+        0x4d34d34d,
+        0xd34d34d3,
     ]
 
     // MARK: - Initializers
+
     public convenience init(key: Array<UInt8>) throws {
         try self.init(key: key, iv: nil)
     }
@@ -65,17 +74,18 @@ public final class Rabbit: BlockCipher {
     }
 
     // MARK: -
+
     fileprivate func setup() {
         p7 = 0
 
         // Key divided into 8 subkeys
         var k = Array<UInt32>(repeating: 0, count: 8)
-        for j in 0 ..< 8 {
+        for j in 0..<8 {
             k[j] = UInt32(key[Rabbit.blockSize - (2 * j + 1)]) | (UInt32(key[Rabbit.blockSize - (2 * j + 2)]) << 8)
         }
 
         // Initialize state and counter variables from subkeys
-        for j in 0 ..< 8 {
+        for j in 0..<8 {
             if j % 2 == 0 {
                 x[j] = (k[(j + 1) % 8] << 16) | k[j]
                 c[j] = (k[(j + 4) % 8] << 16) | k[(j + 5) % 8]
@@ -92,7 +102,7 @@ public final class Rabbit: BlockCipher {
         nextState()
 
         // Reinitialize counter variables
-        for j in 0 ..< 8 {
+        for j in 0..<8 {
             c[j] = c[j] ^ x[(j + 4) % 8]
         }
 
@@ -129,7 +139,7 @@ public final class Rabbit: BlockCipher {
     private func nextState() {
         // Before an iteration the counters are incremented
         var carry = p7
-        for j in 0 ..< 8 {
+        for j in 0..<8 {
             let prev = c[j]
             c[j] = prev &+ a[j] &+ carry
             carry = prev > c[j] ? 1 : 0 // detect overflow
@@ -152,35 +162,35 @@ public final class Rabbit: BlockCipher {
     private func g(_ j: Int) -> UInt32 {
         let sum = x[j] &+ c[j]
         let square = UInt64(sum) * UInt64(sum)
-        return UInt32(truncatingBitPattern: square ^ (square >> 32))
+        return UInt32(truncatingIfNeeded: square ^ (square >> 32))
     }
 
     fileprivate func nextOutput() -> Array<UInt8> {
         nextState()
 
-        var output16 = [UInt16](repeating: 0, count: Rabbit.blockSize / 2)
-        output16[7] = UInt16(truncatingBitPattern: x[0]) ^ UInt16(truncatingBitPattern: x[5] >> 16)
-        output16[6] = UInt16(truncatingBitPattern: x[0] >> 16) ^ UInt16(truncatingBitPattern: x[3])
-        output16[5] = UInt16(truncatingBitPattern: x[2]) ^ UInt16(truncatingBitPattern: x[7] >> 16)
-        output16[4] = UInt16(truncatingBitPattern: x[2] >> 16) ^ UInt16(truncatingBitPattern: x[5])
-        output16[3] = UInt16(truncatingBitPattern: x[4]) ^ UInt16(truncatingBitPattern: x[1] >> 16)
-        output16[2] = UInt16(truncatingBitPattern: x[4] >> 16) ^ UInt16(truncatingBitPattern: x[7])
-        output16[1] = UInt16(truncatingBitPattern: x[6]) ^ UInt16(truncatingBitPattern: x[3] >> 16)
-        output16[0] = UInt16(truncatingBitPattern: x[6] >> 16) ^ UInt16(truncatingBitPattern: x[1])
+        var output16 = Array<UInt16>(repeating: 0, count: Rabbit.blockSize / 2)
+        output16[7] = UInt16(truncatingIfNeeded: x[0]) ^ UInt16(truncatingIfNeeded: x[5] >> 16)
+        output16[6] = UInt16(truncatingIfNeeded: x[0] >> 16) ^ UInt16(truncatingIfNeeded: x[3])
+        output16[5] = UInt16(truncatingIfNeeded: x[2]) ^ UInt16(truncatingIfNeeded: x[7] >> 16)
+        output16[4] = UInt16(truncatingIfNeeded: x[2] >> 16) ^ UInt16(truncatingIfNeeded: x[5])
+        output16[3] = UInt16(truncatingIfNeeded: x[4]) ^ UInt16(truncatingIfNeeded: x[1] >> 16)
+        output16[2] = UInt16(truncatingIfNeeded: x[4] >> 16) ^ UInt16(truncatingIfNeeded: x[7])
+        output16[1] = UInt16(truncatingIfNeeded: x[6]) ^ UInt16(truncatingIfNeeded: x[3] >> 16)
+        output16[0] = UInt16(truncatingIfNeeded: x[6] >> 16) ^ UInt16(truncatingIfNeeded: x[1])
 
         var output8 = Array<UInt8>(repeating: 0, count: Rabbit.blockSize)
-        for j in 0 ..< output16.count {
-            output8[j * 2] = UInt8(truncatingBitPattern: output16[j] >> 8)
-            output8[j * 2 + 1] = UInt8(truncatingBitPattern: output16[j])
+        for j in 0..<output16.count {
+            output8[j * 2] = UInt8(truncatingIfNeeded: output16[j] >> 8)
+            output8[j * 2 + 1] = UInt8(truncatingIfNeeded: output16[j])
         }
         return output8
     }
 }
 
 // MARK: Cipher
-extension Rabbit: Cipher {
 
-    public func encrypt<C: Collection>(_ bytes: C) -> Array<UInt8> where C.Iterator.Element == UInt8, C.IndexDistance == Int, C.Index == Int {
+extension Rabbit: Cipher {
+    public func encrypt(_ bytes: ArraySlice<UInt8>) throws -> Array<UInt8> {
         setup()
 
         var result = Array<UInt8>(repeating: 0, count: bytes.count)
@@ -188,7 +198,7 @@ extension Rabbit: Cipher {
         var byteIdx = 0
         var outputIdx = 0
         while byteIdx < bytes.count {
-            if (outputIdx == Rabbit.blockSize) {
+            if outputIdx == Rabbit.blockSize {
                 output = nextOutput()
                 outputIdx = 0
             }
@@ -201,7 +211,7 @@ extension Rabbit: Cipher {
         return result
     }
 
-    public func decrypt<C: Collection>(_ bytes: C) -> Array<UInt8> where C.Iterator.Element == UInt8, C.IndexDistance == Int, C.Index == Int {
-        return encrypt(bytes)
+    public func decrypt(_ bytes: ArraySlice<UInt8>) throws -> Array<UInt8> {
+        return try encrypt(bytes)
     }
 }
