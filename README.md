@@ -22,7 +22,7 @@ You can use Open GPX tracker for:
 # Main Features
 
  - Displays tracking route in a map
- - Supports Apple Map Kit, [Open Street Map](http://wiki.openstreetmap.org/wiki/Tile_usage_policy), [Open Cycle Map](http://www.opencyclemap.org) and [Carto DB](http://www.cartodb.com) as map sources
+ - Supports Apple Map Kit, [Open Street Map](http://wiki.openstreetmap.org/wiki/Tile_usage_policy) and [Carto DB](http://www.cartodb.com) as map sources
  - Offline maps support (of browsed areas) __new!__
  - Pause / Resume tracking
  - Add waypoint to user location
