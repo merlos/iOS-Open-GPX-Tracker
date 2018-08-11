@@ -1,9 +1,10 @@
+
 import UIKit
 
+/// Creates a round button
 class TrackerButton: UIButton {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        
         backgroundColor = kWhiteBackgroundColor
     }
     
