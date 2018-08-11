@@ -12,13 +12,12 @@ import MapKit
 
 extension GPXWaypoint : MKAnnotation {
     
-
     convenience init (coordinate: CLLocationCoordinate2D) {
        
         self.init(latitude: CGFloat(coordinate.latitude), longitude: CGFloat(coordinate.longitude))
         //set default title and subtitle
-        // Default title now
         
+        // Default title now
         let timeFormat = DateFormatter()
         timeFormat.dateStyle = DateFormatter.Style.none
         timeFormat.timeStyle = DateFormatter.Style.medium

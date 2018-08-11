@@ -3,7 +3,8 @@
 //  OpenGpxTracker
 //
 //  Created by merlos on 21/09/14.
-//  Copyright (c) 2014 TransitBox. All rights reserved.
+//  Copyright (c) 2014. All rights reserved.
+
 //
 
 import Foundation

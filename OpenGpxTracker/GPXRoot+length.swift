@@ -3,15 +3,15 @@
 //  OpenGpxTracker
 //
 //  Created by merlos on 01/10/15.
-//  Copyright © 2015 TransitBox. All rights reserved.
 //
 
 import Foundation
 import MapKit
 
+/// Extends GPXRoot to support getting the length of all tracks in meters
 extension GPXRoot {
     
-    //Distance in meters of all the track segments
+    ///Distance in meters of all the track segments
     public var tracksLength: CLLocationDistance {
         get {
             var tLength: CLLocationDistance = 0.0
@@ -21,7 +21,4 @@ extension GPXRoot {
             return tLength
         }
     }
-    
-    //public var routesLength: CLLLocationDist {
-    //}
 }

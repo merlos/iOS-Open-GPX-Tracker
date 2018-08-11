@@ -64,6 +64,12 @@ Adding a tile server is easy, just edit the file `GPXTileServer.swift`, uncommen
 
 You have a list of tile servers in [Open Street Map Wiki](http://wiki.openstreetmap.org/wiki/Tile_servers)
 
+# Reference docummentation
+
+The application is being documented using [jazzy](https://github.com/realm/jazzy) and following [NSHipster tutorial on swift documentation](https://nshipster.com/swift-documentation/).
+
+## [Read Source code documentation](http://www.merlos.org/iOS-Open-GPX-Tracker/docs)
+
 # Contribute
 You can contribute by forking and submitting a pull request.
 

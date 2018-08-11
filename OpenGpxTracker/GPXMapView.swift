@@ -3,29 +3,30 @@
 //  OpenGpxTracker
 //
 //  Created by merlos on 24/09/14.
-//  Copyright (c) 2014 TransitBox. All rights reserved.
+//  Copyright (c) 2014. All rights reserved.
 //
+
+
 
 import Foundation
 import UIKit
 import MapKit
 
-//GPX creator identifier
+/// GPX creator identifier. Used on generated files identify this app created it .
 let kGPXCreatorString = "Open GPX Tracker for iOS"
 
-// 
-// A mapview that automatically tracks user 
-// Can add annotations, annotations 
+///
+/// A mapview that tracks user position
+///
+/// - it is able to convert GPX file into map
+/// - it is able to return a GPX file from map
+///
+///
+/// ###Some definitions
+/// 1. A **track** is a set of segments.
+/// 2. A **segment** is set of points. A segment is linked to a MKPolyline overlay in the map.
 
-// is able to convert GPX file into map
-// is able to return a GPX file from map
-
-//
-// How GPX tracking is
-// ------------------------
-// A track is a set of segments.
-// A segment is set of points (linked with a line/Polyline overlay in the map)
-// Each time the user touches "Start Tracking" => a segment is created (currentSegment)
+/// Each time the user touches "Start Tracking" => a segment is created (currentSegment)
 // Each time the users touches "Pause Tracking" => the segment is added to trackSegments
 // When the user saves the file => trackSegments are consolidated in a single track that is
 // added to the file.
@@ -35,16 +36,32 @@ let kGPXCreatorString = "Open GPX Tracker for iOS"
 
 class GPXMapView: MKMapView {
     
+    /// List of waypoints currently displayed on the map.
     var waypoints: [GPXWaypoint] = []
+    
+    /// List of tracks currently displayed on the map.
     var tracks: [GPXTrack] = []
+    
+    /// Current track segments
     var trackSegments: [GPXTrackSegment] = []
+    
+    /// Segment in which device locations are added.
     var currentSegment: GPXTrackSegment =  GPXTrackSegment()
-    var currentSegmentOverlay: MKPolyline //Polyline conforms MKOverlay protocol
+    
+    /// The line being displayed on the map that corresponds to the current segment.
+    var currentSegmentOverlay: MKPolyline
+    
+    ///
     var extent: GPXExtentCoordinates = GPXExtentCoordinates() //extent of the GPX points and tracks
     
-    var totalTrackedDistance = 0.00 // in meters
-    var currentTrackDistance = 0.00 // in meters
-    var currentSegmentDistance = 0.00 //in meters
+    /// Total tracked distance in meters
+    var totalTrackedDistance = 0.00
+    
+    /// Distance in meters of current track (track in which new user positions are being added)
+    var currentTrackDistance = 0.00
+    
+    /// Current segment distance in meters
+    var currentSegmentDistance = 0.00
 
     var useCache: Bool = true { //use tile overlay cache (
         didSet {
@@ -54,6 +71,10 @@ class GPXMapView: MKMapView {
             }
         }
     }
+    
+    /// Selected tile server.
+    /// - SeeAlso: GPXTileServer
+    
     var tileServer: GPXTileServer = .apple {
         willSet {
             // Info about how to use other tile servers:
@@ -84,7 +105,7 @@ class GPXMapView: MKMapView {
         super.init(coder: aDecoder)
     }
     
-    //relocate the compass
+    /// Override default implementation to set the compass that appears in the map in a better position.
     override func layoutSubviews() {
         super.layoutSubviews()
         // set compass position by setting its frame
@@ -102,12 +123,21 @@ class GPXMapView: MKMapView {
         self.addWaypoint(waypoint)
         
     }
+    /// Adds a waypoint to the map.
+    ///
+    /// - Parameters: The waypoint to add to the map.
+    ///
     func addWaypoint(_ waypoint: GPXWaypoint) {
         self.waypoints.append(waypoint)
         self.addAnnotation(waypoint)
         self.extent.extendAreaToIncludeLocation(waypoint.coordinate)
     }
     
+    ///
+    /// Removes a Waypoint from the map
+    ///
+    /// - Parameters: The waypoint to remove from the map.
+    ///
     func removeWaypoint(_ waypoint: GPXWaypoint) {
         let index = waypoints.index(of: waypoint)
         if index == nil {
@@ -120,6 +150,7 @@ class GPXMapView: MKMapView {
         
     }
     
+    ///
     
     func addPointToCurrentTrackSegmentAtLocation(_ location: CLLocation) {
         let pt = GPXTrackPoint(location: location)
