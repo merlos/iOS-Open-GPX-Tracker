@@ -3,12 +3,16 @@
 //  OpenGpxTracker
 //
 //  Created by merlos on 24/09/14.
-//  Copyright (c) 2014 TransitBox. All rights reserved.
 //
 
 import Foundation
 //import WebKit //<-- To support ios7 UIWebview will be used
 
+///
+/// Controller to display the About page.
+///
+/// Internally it is a UIWebView that displays the resource file about.html.
+///
 class AboutViewController: UIViewController, UIWebViewDelegate {
     
     var webView: UIWebView?
@@ -21,6 +25,13 @@ class AboutViewController: UIViewController, UIWebViewDelegate {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }
     
+    ///
+    /// Configures the view. Performs the following actions:
+    ///
+    /// 1. Sets the title to About
+    /// 2. Adds "Done" button
+    /// 3. Adds the webview that loads about.html from the bundle.
+    ///
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -50,6 +61,7 @@ class AboutViewController: UIViewController, UIWebViewDelegate {
         return true
     }
     
+    /// Closes this view controller. Triggered by pressing the "Done" button in navigation bar.
     func closeViewController() {
         self.dismiss(animated: true, completion: { () -> Void in
             
