@@ -3,15 +3,23 @@
 //  OpenGpxTracker
 //
 //  Created by merlos on 01/10/15.
-//  Copyright © 2015 TransitBox. All rights reserved.
 //
 
 import Foundation
 import UIKit
 import MapKit
 
+///
+/// A label to display distances.
+///
+/// The text is displated in meters if is less than 1km (for instance "980m") and in km with two decimals if
+/// it is larger than 1km (for instance "1.20km")
+///
+/// To update the text displayed use the distance variable.
+///
 open class UIDistanceLabel: UILabel {
     
+    /// Distance in meters
     open var distance: CLLocationDistance {
         get {
             return 0
