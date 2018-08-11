@@ -3,21 +3,40 @@
 //  OpenGpxTracker
 //
 //  Created by merlos on 14/09/14.
-//  Copyright (c) 2014 TransitBox. All rights reserved.
 //
 
 import Foundation
-
-let kNoFiles = "No gpx files"
-
 import UIKit
 import MessageUI
 
+/// Text displayed when there are no GPX files in the folder.
+let kNoFiles = "No gpx files"
+
+///
+/// TableViewController that displays the list of files that have been saved in previous sessions.
+///
+/// This view controller allows users to manage their GPX Files.
+///
+/// Currently the following actions with a file are supported
+///
+/// 1. Send it by email
+/// 2. Load in the map
+/// 3. Delete the file
+///
+/// It also displays a button "Done" in the navigation bar to return to the map.
+///
 class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegate {
-    
+   
+    /// List of strings with the filenames.
     var fileList: NSMutableArray = [kNoFiles]
+    
+    /// Is there any GPX file in the directory?
     var gpxFilesFound = false;
+    
+    /// Temporary variable to manage
     var selectedRowIndex = -1
+    
+    ///
     weak var delegate: GPXFilesTableViewControllerDelegate?
     
     
@@ -29,20 +48,27 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
         super.init(coder: aDecoder)!
     }
     
+    ///
+    /// Setups the view controller.
+    ///
+    /// 1. Sets the title
+    /// 2. Adds the "Done" button
+    /// 3. Loads existing GPX File list.
+    ///
     override func viewDidLoad() {
         super.viewDidLoad()
         let navBarFrame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: 64)
-        //let navigationBar : UINavigationBar = UINavigationBar(frame: navBarFrame)
         self.tableView.frame = CGRect(x: navBarFrame.width + 1, y: 0, width: self.view.frame.width, height:
             self.view.frame.height - navBarFrame.height)
         
         self.title = "Your GPX Files"
         
+        // Button to return to the map
         let shareItem = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.plain, target: self, action: #selector(GPXFilesTableViewController.closeGPXFilesTableViewController))
         
         self.navigationItem.rightBarButtonItems = [shareItem]
         
-        //get gpx files
+        // Get gpx files
         let list: NSArray = GPXFileManager.fileList as NSArray
         if list.count != 0 {
             self.fileList.removeAllObjects()
@@ -51,6 +77,7 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
         }
     }
     
+    /// Closes this view controller.
     func closeGPXFilesTableViewController() {
         print("closeGPXFIlesTableViewController()")
         self.dismiss(animated: true, completion: { () -> Void in
@@ -66,6 +93,7 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
         // Dispose of any resources that can be recreated.
     }
     
+    
     // MARK: Table view data source
     
     override func numberOfSections(in tableView: UITableView?) -> Int {
@@ -73,18 +101,17 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
         return 1
     }
     
+    /// Returns the number of files in the section.
     override func tableView(_ tableView: UITableView?, numberOfRowsInSection section: Int) -> Int {
-        
-        // Return the number of rows in the section.
         return fileList.count
     }
     
+    /// Allow edit rows? Returns true only if there are files.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Allow editing for all rows except the initial "empty list"-placeholder row.
-        // The string comparison is not optimal, but does the job.
         return gpxFilesFound
     }
     
+    /// Displays the delete button.
     override func tableView(_ tableView: UITableView,
                             commit editingStyle: UITableViewCellEditingStyle,
                             forRowAt indexPath: IndexPath) {
@@ -94,6 +121,7 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
         }
     }
     
+    /// Displays the name of the cell
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         //let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as UITableViewCell
         
@@ -104,8 +132,8 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
         return cell
     }
     
+    /// Displays an action sheet with the actions for that file (Send it by email, Load in map and Delete)
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        // self.showAlert(fileList.objectAtIndex(indexPath.row) as NSString, rowToUseInAlert: indexPath.row)
         let sheet = UIActionSheet()
         sheet.title = "Select option"
         sheet.addButton(withTitle: "Send by email")
@@ -115,7 +143,6 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
         sheet.cancelButtonIndex = 2
         sheet.destructiveButtonIndex = 3
         
-        
         sheet.delegate = self
         sheet.show(in: self.view)
         self.selectedRowIndex = (indexPath as NSIndexPath).row
@@ -123,25 +150,26 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
 
     // MARK: UITableView delegate methods
     
+    /// Only highlight rows if there are files.
     override func tableView(_ tableView: UITableView,
                             shouldHighlightRowAt indexPath: IndexPath) -> Bool {
-        // Allow editing for all rows except the initial "empty list"-placeholder row.
-        // The string comparison is not optimal, but does the job.
         return gpxFilesFound
     }
     
     // MARK: Action Sheet - Actions
+    
     internal func actionSheetCancel(_ actionSheet: UIActionSheet) {
-        print("actionsheet cancel")
+        print("ActionSheet cancel")
     }
     
+    /// Deletes from the disk storage the file of `fileList` at `rowIndex`
     internal func actionDeleteFileAtIndex(_ rowIndex: Int) {
-        //Delete File
+
         guard let filename: String = fileList.object(at: rowIndex) as? String else {
             return
         }
-        
         GPXFileManager.removeFile(filename)
+        
         //Delete from list and Table
         fileList.removeObject(at: rowIndex)
         let indexPath = IndexPath(row: rowIndex, section: 0)
@@ -149,6 +177,7 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
         tableView.reloadData()
     }
     
+    /// Loads the GPX file that corresponds to rowIndex in fileList in the map.
     internal func actionLoadFileAtIndex(_ rowIndex: Int) {
         guard let filename: String = fileList.object(at: rowIndex) as? String else {
             return
@@ -161,7 +190,7 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
         self.dismiss(animated: true, completion: nil)
         
     }
-    
+    /// Sends the file at `rowIndex` by email
     internal func actionSendEmailWithAttachment(_ rowIndex: Int) {
         guard let filename: String = fileList.object(at: rowIndex) as? String else {
             return
