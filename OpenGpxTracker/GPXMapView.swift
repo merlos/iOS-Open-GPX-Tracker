@@ -3,26 +3,27 @@
 //  OpenGpxTracker
 //
 //  Created by merlos on 24/09/14.
-//  Copyright (c) 2014. All rights reserved.
 //
-
 
 
 import Foundation
 import UIKit
 import MapKit
 
-/// GPX creator identifier. Used on generated files identify this app created it .
+
+/// GPX creator identifier. Used on generated files identify this app created them.
 let kGPXCreatorString = "Open GPX Tracker for iOS"
 
+
 ///
-/// A mapview that tracks user position
+/// A MapView that Tracks user position
 ///
 /// - it is able to convert GPX file into map
 /// - it is able to return a GPX file from map
 ///
 ///
-/// ###Some definitions
+/// ### Some definitions
+///
 /// 1. A **track** is a set of segments.
 /// 2. A **segment** is set of points. A segment is linked to a MKPolyline overlay in the map.
 
@@ -33,7 +34,6 @@ let kGPXCreatorString = "Open GPX Tracker for iOS"
 // If the user opens the file in a session for the second, then tracks some segments and saves
 // the file again, the resulting gpx file will have two tracks.
 //
-
 class GPXMapView: MKMapView {
     
     /// List of waypoints currently displayed on the map.
@@ -97,15 +97,22 @@ class GPXMapView: MKMapView {
             }
         }
     }
+    
+    /// Overlay that holds map tiles
     var tileServerOverlay: MKTileOverlay = MKTileOverlay()
     
+    ///
+    /// Initializes the map with an empty currentSegmentOverlay.
+    ///
     required init?(coder aDecoder: NSCoder) {
         var tmpCoords: [CLLocationCoordinate2D] = [] //init with empty
         self.currentSegmentOverlay = MKPolyline(coordinates: &tmpCoords, count: 0)
         super.init(coder: aDecoder)
     }
     
+    ///
     /// Override default implementation to set the compass that appears in the map in a better position.
+    ///
     override func layoutSubviews() {
         super.layoutSubviews()
         // set compass position by setting its frame
@@ -114,15 +121,22 @@ class GPXMapView: MKMapView {
         }
     }
     
-    //point is the a the point in a view where the user touched
-    //
-    //For example, this function can be used to add a waypoint after long press on the map view
+    ///
+    /// Adds a waypoint annotation in the point passed as arguments
+    ///
+    /// For example, this function can be used to add a waypoint after long press on the map view
+    ///
+    /// - Parameters:
+    ///     - point: The location in which the waypoint has to be added.
+    ///
     func addWaypointAtViewPoint(_ point: CGPoint) {
         let coords: CLLocationCoordinate2D = self.convert(point, toCoordinateFrom: self)
         let waypoint = GPXWaypoint(coordinate: coords)
         self.addWaypoint(waypoint)
         
     }
+    
+    ///
     /// Adds a waypoint to the map.
     ///
     /// - Parameters: The waypoint to add to the map.
@@ -151,7 +165,10 @@ class GPXMapView: MKMapView {
     }
     
     ///
-    
+    /// Adds a new point to current segment.
+    /// - Parameters:
+    ///    - location: Typically a location provided by CLLocation
+    ///
     func addPointToCurrentTrackSegmentAtLocation(_ location: CLLocation) {
         let pt = GPXTrackPoint(location: location)
         self.currentSegment.addTrackpoint(pt)
@@ -174,6 +191,9 @@ class GPXMapView: MKMapView {
         }
     }
     
+    ///
+    /// Appends currentSegment to trackSegments and initializes currentSegment to a new one.
+    ///
     func startNewTrackSegment() {
         self.trackSegments.append(self.currentSegment)
         self.currentSegment = GPXTrackSegment()
@@ -181,10 +201,16 @@ class GPXMapView: MKMapView {
         self.currentSegmentDistance = 0.00
     }
     
+    ///
+    /// Finishes current segmet.
+    ///
     func finishCurrentSegment() {
         self.startNewTrackSegment() //basically, we need to append the segment to the list of segments
     }
     
+    ///
+    /// Clears map.
+    ///
     func clearMap() {
         self.trackSegments = []
         self.tracks = []
@@ -203,10 +229,13 @@ class GPXMapView: MKMapView {
         if tileServer != .apple {
             self.add(tileServerOverlay, level: .aboveLabels)
         }
-        
     }
     
-    
+    ///
+    ///
+    /// Converts current map into a GPX String
+    ///
+    ///
     func exportToGPXString() -> String {
         print("Exporting map data into GPX String")
         //Create the gpx structure
@@ -223,7 +252,9 @@ class GPXMapView: MKMapView {
         return gpx!.gpx()
     }
    
-    //sets the map view center so that all the GPX data is displayed
+    ///
+    /// Sets the map region to display all the GPX data in the map (segments and waypoints).
+    ///
     func regionToGPXExtent() {
         self.setRegion(extent.region, animated: true)
     }
@@ -235,7 +266,11 @@ class GPXMapView: MKMapView {
     }
     */
     
-    
+    /// Imports GPX contents into the map.
+    ///
+    /// - Parameters:
+    ///     - gpx: The result of loading a gpx file with iOS-GPX-Framework.
+    ///
     func importFromGPXRoot(_ gpx: GPXRoot) {
         
         //clear current map
