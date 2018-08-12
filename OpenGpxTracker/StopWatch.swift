@@ -3,7 +3,6 @@
 //  OpenGpxTracker
 //
 //  Created by merlos on 21/09/14.
-//  Copyright (c) 2014 TransitBox. All rights reserved.
 //
 
 import Foundation
@@ -19,11 +18,11 @@ enum StopWatchStatus {
     case stopped
 }
 
+
 ///
 /// This class handles the logic behind a stop watch timer
 /// It has two statuses: started or stopped. When started it counts time.
 /// when stopped it does not count time.
-///
 ///
 class StopWatch: NSObject {
     
@@ -39,7 +38,7 @@ class StopWatch: NSObject {
     /// Defines the interval in which the delegate is called
     var timeInterval: TimeInterval = 1.00 //seconds
     
-    //Timer that handles the synchronous notifications calls to `updateElapsedTime`
+    /// Timer that handles the synchronous notifications calls to `updateElapsedTime`
     var timer = Timer()
     
     /// Delegate that receives the time updates every `timeInterval`

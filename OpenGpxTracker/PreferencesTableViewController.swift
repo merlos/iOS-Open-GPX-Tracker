@@ -3,25 +3,29 @@
 //  OpenGpxTracker
 //
 //  Created by merlos on 24/10/15.
-//  Copyright © 2015 TransitBox. All rights reserved.
 //
 
 import Foundation
-
 import UIKit
+
 import Cache
 
-//Sections
+/// Cache Section Id in PreferencesTableViewController
 let kCacheSection = 0
+
+/// Map Source Section Id in PreferencesTableViewController
 let kMapSourceSection = 1
 
-//CacheSection Cells
+/// Cell Id for Use offline cache in CacheSection of PreferencesTableViewController
 let kUseOfflineCacheCell = 0
+
+/// Cell Id for Clear cache in CacheSection of PreferencesTableViewController
 let kClearCacheCell = 1
 
 
-
+/// String Key on Defaults for the Tile Server integer
 let kDefaultsKeyTileServerInt: String = "TileServerInt"
+/// String Key on Defaults for the use cache setting
 let kDefaultsKeyUseCache: String = "UseCache"
 
 

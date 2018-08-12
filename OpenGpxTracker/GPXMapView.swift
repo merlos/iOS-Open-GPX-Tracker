@@ -63,6 +63,7 @@ class GPXMapView: MKMapView {
     /// Current segment distance in meters
     var currentSegmentDistance = 0.00
 
+    /// Is the map using local image cache??
     var useCache: Bool = true { //use tile overlay cache (
         didSet {
             if self.tileServerOverlay is CachedTileOverlay {
@@ -74,7 +75,6 @@ class GPXMapView: MKMapView {
     
     /// Selected tile server.
     /// - SeeAlso: GPXTileServer
-    
     var tileServer: GPXTileServer = .apple {
         willSet {
             // Info about how to use other tile servers:

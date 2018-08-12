@@ -8,6 +8,7 @@
 import Foundation
 //import WebKit //<-- To support ios7 UIWebview will be used
 
+
 ///
 /// Controller to display the About page.
 ///
@@ -15,12 +16,15 @@ import Foundation
 ///
 class AboutViewController: UIViewController, UIWebViewDelegate {
     
+    /// Embedded web browser
     var webView: UIWebView?
     
+    /// Initializer. Only calls super
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
-
+    
+    /// Initializer. Only calls super
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }
@@ -51,6 +55,7 @@ class AboutViewController: UIViewController, UIWebViewDelegate {
         self.view.addSubview(webView!)
     }
     
+    /// Opens Safari when user clicks a link in the About page.
     func webView(_ webView: UIWebView, shouldStartLoadWith request: URLRequest, navigationType: UIWebViewNavigationType) -> Bool {
         print("shouldStartLoadWithRequest")
         

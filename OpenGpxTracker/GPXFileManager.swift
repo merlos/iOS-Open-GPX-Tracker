@@ -3,18 +3,16 @@
 //  OpenGpxTracker
 //
 //  Created by merlos on 20/09/14.
-//  Copyright (c) 2014 TransitBox. All rights reserved.
 //
 
 import Foundation
 
-//GPX File extension
+/// GPX File extension
 let kFileExt = "gpx"
 
-//
-// Class to handle actions with gpx files (save, delete, etc..)
-//
-//
+///
+/// Class to handle actions with gpx files (save, delete, etc..)
+///
 class GPXFileManager: NSObject {
     
     class var GPXFilesFolderURL: URL {
@@ -23,7 +21,8 @@ class GPXFileManager: NSObject {
             return documentsUrl
         }
     }
-    //Gets the list of .gpx files in Documents directory
+    
+    /// Gets the list of .gpx files in Documents directory
     class var fileList: [AnyObject] {
         get {
             var GPXFiles: [String] = []
@@ -49,7 +48,7 @@ class GPXFileManager: NSObject {
         }
     }
     //
-    // @param filename gpx filename without extension
+    // '@param' filename gpx filename without extension
     class func URLForFilename(_ filename: String) -> URL {
         var fullURL = self.GPXFilesFolderURL.appendingPathComponent(filename)
         //var ext = ".\(kFileExt)" // add dot to file extension
