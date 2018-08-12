@@ -1,0 +1,943 @@
+{
+  "warnings": [
+    {
+      "file": "/Users/merlos/Projects/panamapps/gtfs/gpx-tracker/OpenGpxTracker/OpenGpxTracker/AppDelegate.swift",
+      "line": 15,
+      "symbol": "AppDelegate",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/merlos/Projects/panamapps/gtfs/gpx-tracker/OpenGpxTracker/OpenGpxTracker/AppDelegate.swift",
+      "line": 17,
+      "symbol": "AppDelegate.window",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/merlos/Projects/panamapps/gtfs/gpx-tracker/OpenGpxTracker/OpenGpxTracker/AppDelegate.swift",
+      "line": 20,
+      "symbol": "AppDelegate.application(_:didFinishLaunchingWithOptions:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/merlos/Projects/panamapps/gtfs/gpx-tracker/OpenGpxTracker/OpenGpxTracker/AppDelegate.swift",
+      "line": 25,
+      "symbol": "AppDelegate.applicationWillResignActive(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/merlos/Projects/panamapps/gtfs/gpx-tracker/OpenGpxTracker/OpenGpxTracker/AppDelegate.swift",
+      "line": 34,
+      "symbol": "AppDelegate.applicationDidEnterBackground(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/merlos/Projects/panamapps/gtfs/gpx-tracker/OpenGpxTracker/OpenGpxTracker/AppDelegate.swift",
+      "line": 41,
+      "symbol": "AppDelegate.applicationWillEnterForeground(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/merlos/Projects/panamapps/gtfs/gpx-tracker/OpenGpxTracker/OpenGpxTracker/AppDelegate.swift",
+      "line": 46,
+      "symbol": "AppDelegate.applicationDidBecomeActive(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/merlos/Projects/panamapps/gtfs/gpx-tracker/OpenGpxTracker/OpenGpxTracker/AppDelegate.swift",
+      "line": 51,
+      "symbol": "AppDelegate.applicationWillTerminate(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/merlos/Projects/panamapps/gtfs/gpx-tracker/OpenGpxTracker/OpenGpxTracker/AppDelegate.swift",
+      "line": 57,
+      "symbol": "AppDelegate.application(_:open:options:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/merlos/Projects/panamapps/gtfs/gpx-tracker/OpenGpxTracker/OpenGpxTracker/AppDelegate.swift",
+      "line": 72,
+      "symbol": "AppDelegate.applicationDocumentsDirectory",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/merlos/Projects/panamapps/gtfs/gpx-tracker/OpenGpxTracker/OpenGpxTracker/AppDelegate.swift",
+      "line": 79,
+      "symbol": "AppDelegate.managedObjectModel",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/merlos/Projects/panamapps/gtfs/gpx-tracker/OpenGpxTracker/OpenGpxTracker/AppDelegate.swift",
+      "line": 86,
+      "symbol": "AppDelegate.persistentStoreCoordinator",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/merlos/Projects/panamapps/gtfs/gpx-tracker/OpenGpxTracker/OpenGpxTracker/AppDelegate.swift",
+      "line": 114,
+      "symbol": "AppDelegate.managedObjectContext",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/merlos/Projects/panamapps/gtfs/gpx-tracker/OpenGpxTracker/OpenGpxTracker/AppDelegate.swift",
+      "line": 126,
+      "symbol": "AppDelegate.saveContext()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/merlos/Projects/panamapps/gtfs/gpx-tracker/OpenGpxTracker/OpenGpxTracker/CachedTileOverlay.swift",
+      "line": 18,
+      "symbol": "CachedTileOverlay.operationQueue",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/merlos/Projects/panamapps/gtfs/gpx-tracker/OpenGpxTracker/OpenGpxTracker/CachedTileOverlay.swift",
+      "line": 19,
+      "symbol": "CachedTileOverlay.useCache",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/merlos/Projects/panamapps/gtfs/gpx-tracker/OpenGpxTracker/OpenGpxTracker/CachedTileOverlay.swift",
+      "line": 21,
+      "symbol": "CachedTileOverlay.url(forTilePath:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/merlos/Projects/panamapps/gtfs/gpx-tracker/OpenGpxTracker/OpenGpxTracker/CachedTileOverlay.swift",
+      "line": 37,
+      "symbol": "CachedTileOverlay.loadTile(at:result:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/merlos/Projects/panamapps/gtfs/gpx-tracker/OpenGpxTracker/OpenGpxTracker/GPXExtentCoordinates.swift",
+      "line": 15,
+      "symbol": "GPXExtentCoordinates",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/merlos/Projects/panamapps/gtfs/gpx-tracker/OpenGpxTracker/OpenGpxTracker/GPXExtentCoordinates.swift",
+      "line": 17,
+      "symbol": "GPXExtentCoordinates.topLeftCoordinate",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/merlos/Projects/panamapps/gtfs/gpx-tracker/OpenGpxTracker/OpenGpxTracker/GPXExtentCoordinates.swift",
+      "line": 18,
+      "symbol": "GPXExtentCoordinates.bottomRightCoordinate",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/merlos/Projects/panamapps/gtfs/gpx-tracker/OpenGpxTracker/OpenGpxTracker/GPXExtentCoordinates.swift",
+      "line": 22,
+      "symbol": "GPXExtentCoordinates.extendAreaToIncludeLocation(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/merlos/Projects/panamapps/gtfs/gpx-tracker/OpenGpxTracker/OpenGpxTracker/GPXExtentCoordinates.swift",
+      "line": 41,
+      "symbol": "GPXExtentCoordinates.region",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/merlos/Projects/panamapps/gtfs/gpx-tracker/OpenGpxTracker/OpenGpxTracker/GPXFileManager.swift",
+      "line": 18,
+      "symbol": "GPXFileManager.GPXFilesFolderURL",
+      "symbol_kind": "source.lang.swift.decl.var.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/merlos/Projects/panamapps/gtfs/gpx-tracker/OpenGpxTracker/OpenGpxTracker/GPXFileManager.swift",
+      "line": 52,
+      "symbol": "GPXFileManager.URLForFilename(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/merlos/Projects/panamapps/gtfs/gpx-tracker/OpenGpxTracker/OpenGpxTracker/GPXFileManager.swift",
+      "line": 64,
+      "symbol": "GPXFileManager.fileExists(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/merlos/Projects/panamapps/gtfs/gpx-tracker/OpenGpxTracker/OpenGpxTracker/GPXFileManager.swift",
+      "line": 69,
+      "symbol": "GPXFileManager.save(_:gpxContents:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/merlos/Projects/panamapps/gtfs/gpx-tracker/OpenGpxTracker/OpenGpxTracker/GPXFileManager.swift",
+      "line": 91,
+      "symbol": "GPXFileManager.removeFile(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/merlos/Projects/panamapps/gtfs/gpx-tracker/OpenGpxTracker/OpenGpxTracker/GPXFilesTableViewController.swift",
+      "line": 43,
+      "symbol": "GPXFilesTableViewController.init(nibName:bundle:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/merlos/Projects/panamapps/gtfs/gpx-tracker/OpenGpxTracker/OpenGpxTracker/GPXFilesTableViewController.swift",
+      "line": 47,
+      "symbol": "GPXFilesTableViewController.init(coder:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/merlos/Projects/panamapps/gtfs/gpx-tracker/OpenGpxTracker/OpenGpxTracker/GPXFilesTableViewController.swift",
+      "line": 87,
+      "symbol": "GPXFilesTableViewController.viewDidAppear(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/merlos/Projects/panamapps/gtfs/gpx-tracker/OpenGpxTracker/OpenGpxTracker/GPXFilesTableViewController.swift",
+      "line": 91,
+      "symbol": "GPXFilesTableViewController.didReceiveMemoryWarning()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/merlos/Projects/panamapps/gtfs/gpx-tracker/OpenGpxTracker/OpenGpxTracker/GPXFilesTableViewController.swift",
+      "line": 99,
+      "symbol": "GPXFilesTableViewController.numberOfSections(in:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/merlos/Projects/panamapps/gtfs/gpx-tracker/OpenGpxTracker/OpenGpxTracker/GPXFilesTableViewController.swift",
+      "line": 161,
+      "symbol": "GPXFilesTableViewController.actionSheetCancel(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/merlos/Projects/panamapps/gtfs/gpx-tracker/OpenGpxTracker/OpenGpxTracker/GPXFilesTableViewController.swift",
+      "line": 221,
+      "symbol": "GPXFilesTableViewController.actionSheet(_:clickedButtonAt:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/merlos/Projects/panamapps/gtfs/gpx-tracker/OpenGpxTracker/OpenGpxTracker/GPXFilesTableViewController.swift",
+      "line": 239,
+      "symbol": "GPXFilesTableViewController.mailComposeController(_:didFinishWith:error:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/merlos/Projects/panamapps/gtfs/gpx-tracker/OpenGpxTracker/OpenGpxTracker/GPXMapView.swift",
+      "line": 37,
+      "symbol": "GPXMapView",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/merlos/Projects/panamapps/gtfs/gpx-tracker/OpenGpxTracker/OpenGpxTracker/GPXTileServer.swift",
+      "line": 51,
+      "symbol": "GPXTileServer.count",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/merlos/Projects/panamapps/gtfs/gpx-tracker/OpenGpxTracker/OpenGpxTracker/GPXTrackPoint+MapKit.swift",
+      "line": 16,
+      "symbol": "GPXTrackPoint.init(location:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/merlos/Projects/panamapps/gtfs/gpx-tracker/OpenGpxTracker/OpenGpxTracker/GPXTrackSegment+MapKit.swift",
+      "line": 20,
+      "symbol": "GPXTrackSegment.overlay",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/merlos/Projects/panamapps/gtfs/gpx-tracker/OpenGpxTracker/OpenGpxTracker/GPXTrackSegment+MapKit.swift",
+      "line": 32,
+      "symbol": "GPXTrackSegment.trackPointsToCoordinates()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/merlos/Projects/panamapps/gtfs/gpx-tracker/OpenGpxTracker/OpenGpxTracker/GPXTrackSegment+MapKit.swift",
+      "line": 44,
+      "symbol": "GPXTrackSegment.length()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/merlos/Projects/panamapps/gtfs/gpx-tracker/OpenGpxTracker/OpenGpxTracker/GPXWaypoint+MKAnnotation.swift",
+      "line": 14,
+      "symbol": "GPXWaypoint.init(coordinate:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/merlos/Projects/panamapps/gtfs/gpx-tracker/OpenGpxTracker/OpenGpxTracker/GPXWaypoint+MKAnnotation.swift",
+      "line": 36,
+      "symbol": "GPXWaypoint.title",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/merlos/Projects/panamapps/gtfs/gpx-tracker/OpenGpxTracker/OpenGpxTracker/GPXWaypoint+MKAnnotation.swift",
+      "line": 45,
+      "symbol": "GPXWaypoint.subtitle",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/merlos/Projects/panamapps/gtfs/gpx-tracker/OpenGpxTracker/OpenGpxTracker/GPXWaypoint+MKAnnotation.swift",
+      "line": 54,
+      "symbol": "GPXWaypoint.coordinate",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/merlos/Projects/panamapps/gtfs/gpx-tracker/OpenGpxTracker/OpenGpxTracker/MapViewDelegate.swift",
+      "line": 3,
+      "symbol": "MapViewDelegate",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/merlos/Projects/panamapps/gtfs/gpx-tracker/OpenGpxTracker/OpenGpxTracker/MapViewDelegate.swift",
+      "line": 5,
+      "symbol": "MapViewDelegate.waypointBeingEdited",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/merlos/Projects/panamapps/gtfs/gpx-tracker/OpenGpxTracker/OpenGpxTracker/MapViewDelegate.swift",
+      "line": 7,
+      "symbol": "MapViewDelegate.mapView(_:viewFor:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/merlos/Projects/panamapps/gtfs/gpx-tracker/OpenGpxTracker/OpenGpxTracker/MapViewDelegate.swift",
+      "line": 32,
+      "symbol": "MapViewDelegate.mapView(_:rendererFor:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/merlos/Projects/panamapps/gtfs/gpx-tracker/OpenGpxTracker/OpenGpxTracker/MapViewDelegate.swift",
+      "line": 47,
+      "symbol": "MapViewDelegate.mapView(_:annotationView:calloutAccessoryControlTapped:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/merlos/Projects/panamapps/gtfs/gpx-tracker/OpenGpxTracker/OpenGpxTracker/MapViewDelegate.swift",
+      "line": 85,
+      "symbol": "MapViewDelegate.mapView(_:annotationView:didChange:fromOldState:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/merlos/Projects/panamapps/gtfs/gpx-tracker/OpenGpxTracker/OpenGpxTracker/MapViewDelegate.swift",
+      "line": 97,
+      "symbol": "MapViewDelegate.mapView(_:didAdd:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/merlos/Projects/panamapps/gtfs/gpx-tracker/OpenGpxTracker/OpenGpxTracker/MapViewDelegate.swift",
+      "line": 129,
+      "symbol": "MapViewDelegate.alertView(_:clickedButtonAt:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/merlos/Projects/panamapps/gtfs/gpx-tracker/OpenGpxTracker/OpenGpxTracker/PreferencesTableViewController.swift",
+      "line": 39,
+      "symbol": "PreferencesTableViewController",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/merlos/Projects/panamapps/gtfs/gpx-tracker/OpenGpxTracker/OpenGpxTracker/PreferencesTableViewController.swift",
+      "line": 41,
+      "symbol": "PreferencesTableViewController.selectedTileServerInt",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/merlos/Projects/panamapps/gtfs/gpx-tracker/OpenGpxTracker/OpenGpxTracker/PreferencesTableViewController.swift",
+      "line": 42,
+      "symbol": "PreferencesTableViewController.currentUseCache",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/merlos/Projects/panamapps/gtfs/gpx-tracker/OpenGpxTracker/OpenGpxTracker/PreferencesTableViewController.swift",
+      "line": 43,
+      "symbol": "PreferencesTableViewController.defaults",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/merlos/Projects/panamapps/gtfs/gpx-tracker/OpenGpxTracker/OpenGpxTracker/PreferencesTableViewController.swift",
+      "line": 44,
+      "symbol": "PreferencesTableViewController.delegate",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/merlos/Projects/panamapps/gtfs/gpx-tracker/OpenGpxTracker/OpenGpxTracker/PreferencesTableViewController.swift",
+      "line": 47,
+      "symbol": "PreferencesTableViewController.viewDidLoad()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/merlos/Projects/panamapps/gtfs/gpx-tracker/OpenGpxTracker/OpenGpxTracker/PreferencesTableViewController.swift",
+      "line": 66,
+      "symbol": "PreferencesTableViewController.closePreferencesTableViewController()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/merlos/Projects/panamapps/gtfs/gpx-tracker/OpenGpxTracker/OpenGpxTracker/PreferencesTableViewController.swift",
+      "line": 72,
+      "symbol": "PreferencesTableViewController.viewDidAppear(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/merlos/Projects/panamapps/gtfs/gpx-tracker/OpenGpxTracker/OpenGpxTracker/PreferencesTableViewController.swift",
+      "line": 76,
+      "symbol": "PreferencesTableViewController.didReceiveMemoryWarning()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/merlos/Projects/panamapps/gtfs/gpx-tracker/OpenGpxTracker/OpenGpxTracker/PreferencesTableViewController.swift",
+      "line": 83,
+      "symbol": "PreferencesTableViewController.numberOfSections(in:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/merlos/Projects/panamapps/gtfs/gpx-tracker/OpenGpxTracker/OpenGpxTracker/PreferencesTableViewController.swift",
+      "line": 89,
+      "symbol": "PreferencesTableViewController.tableView(_:titleForHeaderInSection:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/merlos/Projects/panamapps/gtfs/gpx-tracker/OpenGpxTracker/OpenGpxTracker/PreferencesTableViewController.swift",
+      "line": 97,
+      "symbol": "PreferencesTableViewController.tableView(_:numberOfRowsInSection:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/merlos/Projects/panamapps/gtfs/gpx-tracker/OpenGpxTracker/OpenGpxTracker/PreferencesTableViewController.swift",
+      "line": 108,
+      "symbol": "PreferencesTableViewController.tableView(_:cellForRowAt:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/merlos/Projects/panamapps/gtfs/gpx-tracker/OpenGpxTracker/OpenGpxTracker/PreferencesTableViewController.swift",
+      "line": 140,
+      "symbol": "PreferencesTableViewController.tableView(_:didSelectRowAt:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/merlos/Projects/panamapps/gtfs/gpx-tracker/OpenGpxTracker/OpenGpxTracker/PreferencesTableViewControllerDelegate.swift",
+      "line": 16,
+      "symbol": "PreferencesTableViewControllerDelegate.didUpdateTileServer(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/merlos/Projects/panamapps/gtfs/gpx-tracker/OpenGpxTracker/OpenGpxTracker/PreferencesTableViewControllerDelegate.swift",
+      "line": 18,
+      "symbol": "PreferencesTableViewControllerDelegate.didUpdateUseCache(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/merlos/Projects/panamapps/gtfs/gpx-tracker/OpenGpxTracker/OpenGpxTracker/StopWatch.swift",
+      "line": 47,
+      "symbol": "StopWatch.init()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/merlos/Projects/panamapps/gtfs/gpx-tracker/OpenGpxTracker/OpenGpxTracker/StopWatch.swift",
+      "line": 62,
+      "symbol": "StopWatch.stop()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/merlos/Projects/panamapps/gtfs/gpx-tracker/OpenGpxTracker/OpenGpxTracker/TrackRecorder.swift",
+      "line": 3,
+      "symbol": "TrackRecorderDelegate",
+      "symbol_kind": "source.lang.swift.decl.protocol",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/merlos/Projects/panamapps/gtfs/gpx-tracker/OpenGpxTracker/OpenGpxTracker/TrackRecorder.swift",
+      "line": 4,
+      "symbol": "TrackRecorderDelegate.trackRecorder(_:didUpdateToLocation:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/merlos/Projects/panamapps/gtfs/gpx-tracker/OpenGpxTracker/OpenGpxTracker/TrackRecorder.swift",
+      "line": 7,
+      "symbol": "TrackRecorder",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/merlos/Projects/panamapps/gtfs/gpx-tracker/OpenGpxTracker/OpenGpxTracker/TrackRecorder.swift",
+      "line": 8,
+      "symbol": "TrackRecorder.delegate",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/merlos/Projects/panamapps/gtfs/gpx-tracker/OpenGpxTracker/OpenGpxTracker/TrackRecorder.swift",
+      "line": 10,
+      "symbol": "TrackRecorder.currentCoordinate",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/merlos/Projects/panamapps/gtfs/gpx-tracker/OpenGpxTracker/OpenGpxTracker/TrackRecorder.swift",
+      "line": 16,
+      "symbol": "TrackRecorder.locationManager",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/merlos/Projects/panamapps/gtfs/gpx-tracker/OpenGpxTracker/OpenGpxTracker/TrackRecorder.swift",
+      "line": 29,
+      "symbol": "TrackRecorder.init()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/merlos/Projects/panamapps/gtfs/gpx-tracker/OpenGpxTracker/OpenGpxTracker/TrackRecorder.swift",
+      "line": 35,
+      "symbol": "TrackRecorder.start()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/merlos/Projects/panamapps/gtfs/gpx-tracker/OpenGpxTracker/OpenGpxTracker/TrackRecorder.swift",
+      "line": 39,
+      "symbol": "TrackRecorder.stop()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/merlos/Projects/panamapps/gtfs/gpx-tracker/OpenGpxTracker/OpenGpxTracker/TrackRecorder.swift",
+      "line": 43,
+      "symbol": "TrackRecorder.locationManager(_:didFailWithError:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/merlos/Projects/panamapps/gtfs/gpx-tracker/OpenGpxTracker/OpenGpxTracker/TrackRecorder.swift",
+      "line": 47,
+      "symbol": "TrackRecorder.locationManager(_:didUpdateLocations:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/merlos/Projects/panamapps/gtfs/gpx-tracker/OpenGpxTracker/OpenGpxTracker/TrackerButton.swift",
+      "line": 6,
+      "symbol": "TrackerButton.init(coder:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/merlos/Projects/panamapps/gtfs/gpx-tracker/OpenGpxTracker/OpenGpxTracker/TrackerButton.swift",
+      "line": 11,
+      "symbol": "TrackerButton.layoutSubviews()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/merlos/Projects/panamapps/gtfs/gpx-tracker/OpenGpxTracker/OpenGpxTracker/ViewController.swift",
+      "line": 13,
+      "symbol": "kPurpleButtonBackgroundColor",
+      "symbol_kind": "source.lang.swift.decl.var.global",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/merlos/Projects/panamapps/gtfs/gpx-tracker/OpenGpxTracker/OpenGpxTracker/ViewController.swift",
+      "line": 14,
+      "symbol": "kGreenButtonBackgroundColor",
+      "symbol_kind": "source.lang.swift.decl.var.global",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/merlos/Projects/panamapps/gtfs/gpx-tracker/OpenGpxTracker/OpenGpxTracker/ViewController.swift",
+      "line": 15,
+      "symbol": "kRedButtonBackgroundColor",
+      "symbol_kind": "source.lang.swift.decl.var.global",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/merlos/Projects/panamapps/gtfs/gpx-tracker/OpenGpxTracker/OpenGpxTracker/ViewController.swift",
+      "line": 16,
+      "symbol": "kBlueButtonBackgroundColor",
+      "symbol_kind": "source.lang.swift.decl.var.global",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/merlos/Projects/panamapps/gtfs/gpx-tracker/OpenGpxTracker/OpenGpxTracker/ViewController.swift",
+      "line": 17,
+      "symbol": "kDisabledBlueButtonBackgroundColor",
+      "symbol_kind": "source.lang.swift.decl.var.global",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/merlos/Projects/panamapps/gtfs/gpx-tracker/OpenGpxTracker/OpenGpxTracker/ViewController.swift",
+      "line": 18,
+      "symbol": "kDisabledRedButtonBackgroundColor",
+      "symbol_kind": "source.lang.swift.decl.var.global",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/merlos/Projects/panamapps/gtfs/gpx-tracker/OpenGpxTracker/OpenGpxTracker/ViewController.swift",
+      "line": 19,
+      "symbol": "kWhiteBackgroundColor",
+      "symbol_kind": "source.lang.swift.decl.var.global",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/merlos/Projects/panamapps/gtfs/gpx-tracker/OpenGpxTracker/OpenGpxTracker/ViewController.swift",
+      "line": 22,
+      "symbol": "kDeleteWaypointAccesoryButtonTag",
+      "symbol_kind": "source.lang.swift.decl.var.global",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/merlos/Projects/panamapps/gtfs/gpx-tracker/OpenGpxTracker/OpenGpxTracker/ViewController.swift",
+      "line": 23,
+      "symbol": "kEditWaypointAccesoryButtonTag",
+      "symbol_kind": "source.lang.swift.decl.var.global",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/merlos/Projects/panamapps/gtfs/gpx-tracker/OpenGpxTracker/OpenGpxTracker/ViewController.swift",
+      "line": 26,
+      "symbol": "kEditWaypointAlertViewTag",
+      "symbol_kind": "source.lang.swift.decl.var.global",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/merlos/Projects/panamapps/gtfs/gpx-tracker/OpenGpxTracker/OpenGpxTracker/ViewController.swift",
+      "line": 27,
+      "symbol": "kSaveSessionAlertViewTag",
+      "symbol_kind": "source.lang.swift.decl.var.global",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/merlos/Projects/panamapps/gtfs/gpx-tracker/OpenGpxTracker/OpenGpxTracker/ViewController.swift",
+      "line": 38,
+      "symbol": "kSignalAccuracy5",
+      "symbol_kind": "source.lang.swift.decl.var.global",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/merlos/Projects/panamapps/gtfs/gpx-tracker/OpenGpxTracker/OpenGpxTracker/ViewController.swift",
+      "line": 39,
+      "symbol": "kSignalAccuracy4",
+      "symbol_kind": "source.lang.swift.decl.var.global",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/merlos/Projects/panamapps/gtfs/gpx-tracker/OpenGpxTracker/OpenGpxTracker/ViewController.swift",
+      "line": 40,
+      "symbol": "kSignalAccuracy3",
+      "symbol_kind": "source.lang.swift.decl.var.global",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/merlos/Projects/panamapps/gtfs/gpx-tracker/OpenGpxTracker/OpenGpxTracker/ViewController.swift",
+      "line": 41,
+      "symbol": "kSignalAccuracy2",
+      "symbol_kind": "source.lang.swift.decl.var.global",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/merlos/Projects/panamapps/gtfs/gpx-tracker/OpenGpxTracker/OpenGpxTracker/ViewController.swift",
+      "line": 42,
+      "symbol": "kSignalAccuracy1",
+      "symbol_kind": "source.lang.swift.decl.var.global",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/merlos/Projects/panamapps/gtfs/gpx-tracker/OpenGpxTracker/OpenGpxTracker/ViewController.swift",
+      "line": 69,
+      "symbol": "ViewController.followUserBeforePinchGesture",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/merlos/Projects/panamapps/gtfs/gpx-tracker/OpenGpxTracker/OpenGpxTracker/ViewController.swift",
+      "line": 73,
+      "symbol": "ViewController.locationManager",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/merlos/Projects/panamapps/gtfs/gpx-tracker/OpenGpxTracker/OpenGpxTracker/ViewController.swift",
+      "line": 93,
+      "symbol": "ViewController.stopWatch",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/merlos/Projects/panamapps/gtfs/gpx-tracker/OpenGpxTracker/OpenGpxTracker/ViewController.swift",
+      "line": 94,
+      "symbol": "ViewController.lastGpxFilename",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/merlos/Projects/panamapps/gtfs/gpx-tracker/OpenGpxTracker/OpenGpxTracker/ViewController.swift",
+      "line": 186,
+      "symbol": "ViewController.appTitleLabel",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/merlos/Projects/panamapps/gtfs/gpx-tracker/OpenGpxTracker/OpenGpxTracker/ViewController.swift",
+      "line": 188,
+      "symbol": "ViewController.signalImageView",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/merlos/Projects/panamapps/gtfs/gpx-tracker/OpenGpxTracker/OpenGpxTracker/ViewController.swift",
+      "line": 189,
+      "symbol": "ViewController.coordsLabel",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/merlos/Projects/panamapps/gtfs/gpx-tracker/OpenGpxTracker/OpenGpxTracker/ViewController.swift",
+      "line": 190,
+      "symbol": "ViewController.timeLabel",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/merlos/Projects/panamapps/gtfs/gpx-tracker/OpenGpxTracker/OpenGpxTracker/ViewController.swift",
+      "line": 191,
+      "symbol": "ViewController.speedLabel",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/merlos/Projects/panamapps/gtfs/gpx-tracker/OpenGpxTracker/OpenGpxTracker/ViewController.swift",
+      "line": 192,
+      "symbol": "ViewController.totalTrackedDistanceLabel",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/merlos/Projects/panamapps/gtfs/gpx-tracker/OpenGpxTracker/OpenGpxTracker/ViewController.swift",
+      "line": 193,
+      "symbol": "ViewController.currentSegmentDistanceLabel",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/merlos/Projects/panamapps/gtfs/gpx-tracker/OpenGpxTracker/OpenGpxTracker/ViewController.swift",
+      "line": 197,
+      "symbol": "ViewController.followUserButton",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/merlos/Projects/panamapps/gtfs/gpx-tracker/OpenGpxTracker/OpenGpxTracker/ViewController.swift",
+      "line": 198,
+      "symbol": "ViewController.newPinButton",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/merlos/Projects/panamapps/gtfs/gpx-tracker/OpenGpxTracker/OpenGpxTracker/ViewController.swift",
+      "line": 199,
+      "symbol": "ViewController.folderButton",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/merlos/Projects/panamapps/gtfs/gpx-tracker/OpenGpxTracker/OpenGpxTracker/ViewController.swift",
+      "line": 200,
+      "symbol": "ViewController.aboutButton",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/merlos/Projects/panamapps/gtfs/gpx-tracker/OpenGpxTracker/OpenGpxTracker/ViewController.swift",
+      "line": 201,
+      "symbol": "ViewController.preferencesButton",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/merlos/Projects/panamapps/gtfs/gpx-tracker/OpenGpxTracker/OpenGpxTracker/ViewController.swift",
+      "line": 202,
+      "symbol": "ViewController.resetButton",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/merlos/Projects/panamapps/gtfs/gpx-tracker/OpenGpxTracker/OpenGpxTracker/ViewController.swift",
+      "line": 203,
+      "symbol": "ViewController.trackerButton",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/merlos/Projects/panamapps/gtfs/gpx-tracker/OpenGpxTracker/OpenGpxTracker/ViewController.swift",
+      "line": 204,
+      "symbol": "ViewController.saveButton",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/merlos/Projects/panamapps/gtfs/gpx-tracker/OpenGpxTracker/OpenGpxTracker/ViewController.swift",
+      "line": 207,
+      "symbol": "ViewController.signalImage0",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/merlos/Projects/panamapps/gtfs/gpx-tracker/OpenGpxTracker/OpenGpxTracker/ViewController.swift",
+      "line": 208,
+      "symbol": "ViewController.signalImage1",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/merlos/Projects/panamapps/gtfs/gpx-tracker/OpenGpxTracker/OpenGpxTracker/ViewController.swift",
+      "line": 209,
+      "symbol": "ViewController.signalImage2",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/merlos/Projects/panamapps/gtfs/gpx-tracker/OpenGpxTracker/OpenGpxTracker/ViewController.swift",
+      "line": 210,
+      "symbol": "ViewController.signalImage3",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/merlos/Projects/panamapps/gtfs/gpx-tracker/OpenGpxTracker/OpenGpxTracker/ViewController.swift",
+      "line": 211,
+      "symbol": "ViewController.signalImage4",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/merlos/Projects/panamapps/gtfs/gpx-tracker/OpenGpxTracker/OpenGpxTracker/ViewController.swift",
+      "line": 212,
+      "symbol": "ViewController.signalImage5",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/merlos/Projects/panamapps/gtfs/gpx-tracker/OpenGpxTracker/OpenGpxTracker/ViewController.swift",
+      "line": 213,
+      "symbol": "ViewController.signalImage6",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/merlos/Projects/panamapps/gtfs/gpx-tracker/OpenGpxTracker/OpenGpxTracker/ViewController.swift",
+      "line": 216,
+      "symbol": "ViewController.init(coder:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/merlos/Projects/panamapps/gtfs/gpx-tracker/OpenGpxTracker/OpenGpxTracker/ViewController.swift",
+      "line": 571,
+      "symbol": "ViewController.openPreferencesTableViewController()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/merlos/Projects/panamapps/gtfs/gpx-tracker/OpenGpxTracker/OpenGpxTracker/ViewController.swift",
+      "line": 610,
+      "symbol": "ViewController.pinchGesture(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/merlos/Projects/panamapps/gtfs/gpx-tracker/OpenGpxTracker/OpenGpxTracker/ViewController.swift",
+      "line": 713,
+      "symbol": "ViewController.alertView(_:clickedButtonAt:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/merlos/Projects/panamapps/gtfs/gpx-tracker/OpenGpxTracker/OpenGpxTracker/ViewController.swift",
+      "line": 816,
+      "symbol": "ViewController.locationManager(_:didFailWithError:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/merlos/Projects/panamapps/gtfs/gpx-tracker/OpenGpxTracker/OpenGpxTracker/iOSVersion.swift",
+      "line": 12,
+      "symbol": "iOS7",
+      "symbol_kind": "source.lang.swift.decl.var.global",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/merlos/Projects/panamapps/gtfs/gpx-tracker/OpenGpxTracker/OpenGpxTracker/iOSVersion.swift",
+      "line": 13,
+      "symbol": "iOS8",
+      "symbol_kind": "source.lang.swift.decl.var.global",
+      "warning": "undocumented"
+    }
+  ],
+  "source_directory": "/Users/merlos/Projects/panamapps/gtfs/gpx-tracker/OpenGpxTracker"
+}
