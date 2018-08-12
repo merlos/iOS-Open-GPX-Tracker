@@ -68,7 +68,9 @@ You have a list of tile servers in [Open Street Map Wiki](http://wiki.openstreet
 
 The application is being documented using [jazzy](https://github.com/realm/jazzy) and following [NSHipster tutorial on swift documentation](https://nshipster.com/swift-documentation/).
 
-## [Read Source code documentation](http://www.merlos.org/iOS-Open-GPX-Tracker/docs)
+![Documentation Status](https://www.merlos.org/iOS-Open-GPX-Tracker/docs/badge.svg)
+
+[Read Source code documentation](https://www.merlos.org/iOS-Open-GPX-Tracker/docs/index.html)
 
 # Contribute
 You can contribute by forking and submitting a pull request.
