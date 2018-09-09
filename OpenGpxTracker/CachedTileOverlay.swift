@@ -71,15 +71,15 @@ class CachedTileOverlay : MKTileOverlay {
             transformer: TransformerFactory.forCodable(ofType: Data.self) // Storage<User>
         )
         let cacheKey = "\(self.urlTemplate ?? "none")-\(path.x)-\(path.y)-\(path.z)"
-        print("CachedTileOverlay::loadTile cacheKey = \(cacheKey)")
+        //print("CachedTileOverlay::loadTile cacheKey = \(cacheKey)")
         cache?.async.object(forKey: cacheKey) { object in
             switch object {
             case .value(let cached):
-                print("Object found in cache!!!!")
+                //print("Object found in cache!!!!")
                 result(cached,nil)
             case .error:
-                print("CachedTileOverlay:LoadTile. Error no such object")
-                print("Requesting data....");
+                //print("CachedTileOverlay:LoadTile. Error no such object")
+                //print("Requesting data....");
                 let task = URLSession.shared.dataTask(with: url) { data, response, error in
                     if let error = error {
                         result(nil,error)
