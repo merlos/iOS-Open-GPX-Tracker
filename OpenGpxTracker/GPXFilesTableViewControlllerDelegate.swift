@@ -8,7 +8,7 @@
 import Foundation
 
 ///
-/// Delegate protocol of the view controller that displays the list of files.
+/// Delegate protocol for the view controller that displays the list of files (GPXFilesTableViewController).
 ///
 /// Used to inform the main ViewController that user wants to load a GPX File on it.
 ///
