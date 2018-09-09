@@ -22,6 +22,9 @@ let kWhiteBackgroundColor: UIColor = UIColor(red: 254.0/255.0, green: 254.0/255.
 let kDeleteWaypointAccesoryButtonTag = 666
 let kEditWaypointAccesoryButtonTag = 333
 
+let kNotGettingLocationText = "Not getting location"
+let kUnknownAccuracyText = "±···m"
+let kUnknownSpeedText = "·.··"
 
 let kEditWaypointAlertViewTag = 33
 let kSaveSessionAlertViewTag = 88
@@ -186,6 +189,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
     var appTitleLabel: UILabel
     //var appTitleBackgroundView: UIView
     var signalImageView: UIImageView
+    var signalAccuracyLabel: UILabel
     var coordsLabel: UILabel
     var timeLabel: UILabel
     var speedLabel: UILabel
@@ -218,6 +222,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         
         self.appTitleLabel = UILabel(coder: aDecoder)!
         self.signalImageView = UIImageView(coder: aDecoder)!
+        self.signalAccuracyLabel = UILabel(coder: aDecoder)!
         self.coordsLabel = UILabel(coder: aDecoder)!
         
         self.timeLabel = UILabel(coder: aDecoder)!
@@ -245,9 +250,11 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
     /// Current implementation removes notification observers
     ///
     deinit {
+        print("*** deinit")
         removeNotificationObservers()
     }
    
+    
     ///
     /// Initializes the view. It adds the UI elements to the view.
     ///
@@ -323,7 +330,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         let font36 = UIFont(name: "DinCondensed-Bold", size: 36.0)
         let font18 = UIFont(name: "DinAlternate-Bold", size: 18.0)
         let font12 = UIFont(name: "DinAlternate-Bold", size: 12.0)
-
+        let font8 = UIFont(name: "DinAlternate-Bold", size: 8.0)
         
         //add the app title Label (Branding, branding, branding! )
         let appTitleW: CGFloat = self.view.frame.width//200.0
@@ -344,7 +351,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         coordsLabel.textAlignment = .right
         coordsLabel.font = font12
         coordsLabel.textColor = UIColor.white
-        coordsLabel.text = "Not getting location"
+        coordsLabel.text = kNotGettingLocationText
         self.view.addSubview(coordsLabel)
         
         // Tracked info
@@ -433,10 +440,16 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         let yCenterForButtons: CGFloat = map.frame.height - kButtonLargeSize/2 - 5 //center Y of start
         
         
-        // Add signal accuracy images.
+        // Add signal accuracy images and labels
         signalImageView.image = signalImage0
         signalImageView.frame = CGRect(x: self.view.frame.width/2 - 25.0, y:  14 + 5, width: 50, height: 30)
         map.addSubview(signalImageView)
+        signalAccuracyLabel.frame = CGRect(x: self.view.frame.width/2 - 25.0, y:  14 + 5 + 30 , width: 50, height: 10)
+        signalAccuracyLabel.font = font8
+        signalAccuracyLabel.text = kUnknownAccuracyText
+        signalAccuracyLabel.textAlignment = .center
+        map.addSubview(signalAccuracyLabel)
+        
         
         // Start/Pause button
         let trackerW: CGFloat = kButtonLargeSize
@@ -543,6 +556,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
     /// sharing the location to save battery.
     ///
     func didEnterBackground() {
+        print("viewController:: didEnterBackground")
         if gpxTrackingStatus != .tracking {
             locationManager.stopUpdatingLocation()
         }
@@ -723,7 +737,7 @@ extension ViewController: UIAlertViewDelegate {
                 
             case 1: //Save
                 let filename = (alertView.textField(at: 0)?.text!.utf16.count == 0) ? " " : alertView.textField(at: 0)?.text
-                print("Save File \(filename)")
+                print("Save File \(String(describing: filename))")
                 //export to a file
                 let gpxString = self.map.exportToGPXString()
                 GPXFileManager.save(filename!, gpxContents: gpxString)
@@ -815,6 +829,9 @@ extension ViewController: CLLocationManagerDelegate {
 
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print("didFailWithError\(error)")
+        coordsLabel.text = kNotGettingLocationText
+        signalAccuracyLabel.text = kUnknownAccuracyText
+        signalImageView.image = signalImage0
     }
     
     ///
@@ -824,8 +841,10 @@ extension ViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         //updates signal image accuracy
         let newLocation = locations.first!
-        //print("didUpdateLocation: received \(newLocation.coordinate) hAcc: \(newLocation.horizontalAccuracy)")
+        print("isUserLocationVisible: \(map.isUserLocationVisible) showUserLocation: \(map.showsUserLocation)")
+        print("didUpdateLocation: received \(newLocation.coordinate) hAcc: \(newLocation.horizontalAccuracy) vAcc: \(newLocation.verticalAccuracy) floor: \(newLocation.floor)")
         let hAcc = newLocation.horizontalAccuracy
+        signalAccuracyLabel.text = "±\(hAcc)m"
         if hAcc < kSignalAccuracy6 {
             self.signalImageView.image = signalImage6
         } else if hAcc < kSignalAccuracy5 {
@@ -852,7 +871,7 @@ extension ViewController: CLLocationManagerDelegate {
         //Update speed (provided in m/s, but displayed in km/h)
         var speedFormat: String
         if newLocation.speed < 0 {
-            speedFormat = "?.??"
+            speedFormat = kUnknownSpeedText
         } else {
             speedFormat = String(format: "%.2f", (newLocation.speed * 3.6))
         }
