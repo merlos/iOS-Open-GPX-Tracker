@@ -8,10 +8,10 @@
 import Foundation
 import MapKit
 
-// 
-//
-// Defines an area extension by its top left and bottom right points
-//
+///
+///
+/// Defines an area extension by its top left and bottom right points
+///
 class GPXExtentCoordinates: NSObject {
     
     var topLeftCoordinate = CLLocationCoordinate2D(latitude: 0.00, longitude: 0.00)

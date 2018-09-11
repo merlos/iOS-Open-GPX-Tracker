@@ -28,6 +28,7 @@ let kUnknownSpeedText = "·.··"
 
 let kEditWaypointAlertViewTag = 33
 let kSaveSessionAlertViewTag = 88
+let kLocationServicesDeniedAlertViewTag = 69
 
 /// Size for small buttons
 let  kButtonSmallSize: CGFloat = 48.0
@@ -95,6 +96,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
     //Status Vars
     var stopWatch = StopWatch()
     var lastGpxFilename: String = ""
+    var wasSentToBackground: Bool = false //Was the app sent to background
     
     /// Has the map any waypoint?
     var hasWaypoints: Bool = false {
@@ -314,6 +316,13 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
             map.useCache = useCacheBool
         }
         
+        let notificationCenter = NotificationCenter.default
+        notificationCenter.addObserver(self, selector: #selector(applicationDidBecomeActive), name: Notification.Name.UIApplicationDidBecomeActive, object: nil)
+        
+        //
+        // Config user interface
+        //
+        
         // Set default zoom
         let center = locationManager.location?.coordinate ?? CLLocationCoordinate2D(latitude: 8.90, longitude: -79.50)
         let span = MKCoordinateSpan(latitudeDelta: 0.005, longitudeDelta: 0.005)
@@ -330,7 +339,6 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         let font36 = UIFont(name: "DinCondensed-Bold", size: 36.0)
         let font18 = UIFont(name: "DinAlternate-Bold", size: 18.0)
         let font12 = UIFont(name: "DinAlternate-Bold", size: 12.0)
-        let font8 = UIFont(name: "DinAlternate-Bold", size: 8.0)
         
         //add the app title Label (Branding, branding, branding! )
         let appTitleW: CGFloat = self.view.frame.width//200.0
@@ -444,8 +452,8 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         signalImageView.image = signalImage0
         signalImageView.frame = CGRect(x: self.view.frame.width/2 - 25.0, y:  14 + 5, width: 50, height: 30)
         map.addSubview(signalImageView)
-        signalAccuracyLabel.frame = CGRect(x: self.view.frame.width/2 - 25.0, y:  14 + 5 + 30 , width: 50, height: 10)
-        signalAccuracyLabel.font = font8
+        signalAccuracyLabel.frame = CGRect(x: self.view.frame.width/2 - 25.0, y:  14 + 5 + 30 , width: 50, height: 12)
+        signalAccuracyLabel.font = font12
         signalAccuracyLabel.text = kUnknownAccuracyText
         signalAccuracyLabel.textAlignment = .center
         map.addSubview(signalAccuracyLabel)
@@ -547,7 +555,30 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         NotificationCenter.default.removeObserver(self)
     }
     
-    // MARK: Notifications
+    
+    ///
+    /// Called when the application Becomes active (background -> foreground) this function verifies if
+    /// it has permissions to get the location.
+    ///
+    func applicationDidBecomeActive() {
+        print("viewController:: applicationDidBecomeActive wasSentToBackground: \(wasSentToBackground) locationServices: \(CLLocationManager.locationServicesEnabled())")
+        
+        //If the app was never sent to background do nothing
+        if !wasSentToBackground {
+            return
+        }
+        //Are location services enabled?
+        if !CLLocationManager.locationServicesEnabled() {
+            displayLocationServicesDeniedAlert()
+            return
+        }
+        //Does the app has
+        if !([.authorizedAlways, .authorizedWhenInUse].contains(CLLocationManager.authorizationStatus())) {
+            displayLocationServicesDeniedAlert()
+            return
+        }
+        locationManager.startUpdatingLocation()
+    }
     
     ///
     /// Actions to do in case the app entered in background
@@ -555,7 +586,9 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
     /// In current implementation if the app is not tracking it requests the OS to stop
     /// sharing the location to save battery.
     ///
+    ///
     func didEnterBackground() {
+        wasSentToBackground = true // flag the application was sent to background
         print("viewController:: didEnterBackground")
         if gpxTrackingStatus != .tracking {
             locationManager.stopUpdatingLocation()
@@ -712,6 +745,15 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    
+    func displayLocationServicesDeniedAlert() {
+        let alert = UIAlertView(title: "Access to location denied", message: "Please, enable access to location. Go to settings and set it to Always", delegate: self, cancelButtonTitle: "Settings")
+        alert.addButton(withTitle: "Cancel")
+        alert.tag = kLocationServicesDeniedAlertViewTag
+        alert.show()
+    }
+
 }
 
 // MARK: UIAlertViewDelegate
@@ -723,14 +765,11 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
 /// The alertview displays two text field with the name of the file to be saved and two buttons (0) Cancel and (1) Save.
 
 extension ViewController: UIAlertViewDelegate {
-
     func alertView(_ alertView: UIAlertView, clickedButtonAt buttonIndex: Int) {
         
         switch alertView.tag {
         case kSaveSessionAlertViewTag:
-            
             print("alertViewDelegate for Save Session")
-            
             switch buttonIndex {
             case 0: //cancel
                 print("Save canceled")
@@ -746,10 +785,21 @@ extension ViewController: UIAlertViewDelegate {
             default:
                 print("[ERROR] it seems there are more than two buttons on the alertview.")
                 
-        } //buttonIndex
+            }
+        case kLocationServicesDeniedAlertViewTag:
+            switch buttonIndex {
+                case 0:
+                    print("Button 0")
+                    if let url = NSURL(string: UIApplicationOpenSettingsURLString) as URL? {
+                        UIApplication.shared.openURL(url)
+                }
+                case 1:
+                    print("Button 1")
+                default:
+                    print("[ERROR] it seems there are more than two buttons on the alertview.")
+            }
         default:
             print("[ERROR] it seems that the AlertView is not handled properly." )
-            
         }
     }
 }
@@ -825,13 +875,27 @@ extension ViewController: GPXFilesTableViewControllerDelegate {
 
 // MARK: CLLocationManagerDelegate
 
+
 extension ViewController: CLLocationManagerDelegate {
 
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        print("didFailWithError\(error)")
+        print("didFailWithError \(error)")
         coordsLabel.text = kNotGettingLocationText
         signalAccuracyLabel.text = kUnknownAccuracyText
         signalImageView.image = signalImage0
+        let locationError = error as? CLError
+        switch locationError?.code {
+        case CLError.locationUnknown:
+            print("Location Unknown")
+        case CLError.denied:
+            print("Access to location services denied. Display message")
+            //displayLocationServicesDeniedAlert()
+        case CLError.headingFailure:
+            print("Heading failure")
+        default:
+            print("Default error")
+        }
+  
     }
     
     ///
@@ -842,7 +906,7 @@ extension ViewController: CLLocationManagerDelegate {
         //updates signal image accuracy
         let newLocation = locations.first!
         print("isUserLocationVisible: \(map.isUserLocationVisible) showUserLocation: \(map.showsUserLocation)")
-        print("didUpdateLocation: received \(newLocation.coordinate) hAcc: \(newLocation.horizontalAccuracy) vAcc: \(newLocation.verticalAccuracy) floor: \(newLocation.floor)")
+        print("didUpdateLocation: received \(newLocation.coordinate) hAcc: \(newLocation.horizontalAccuracy) vAcc: \(newLocation.verticalAccuracy) floor: \(newLocation.floor) map.userTrackingMode: \(map.userTrackingMode.hashValue)")
         let hAcc = newLocation.horizontalAccuracy
         signalAccuracyLabel.text = "±\(hAcc)m"
         if hAcc < kSignalAccuracy6 {
@@ -882,7 +946,7 @@ extension ViewController: CLLocationManagerDelegate {
             map.setCenter(newLocation.coordinate, animated: true)
         }
         if gpxTrackingStatus == .tracking {
-            print("didUpdateLocation: adding point to track \(newLocation.coordinate)")
+            print("didUpdateLocation: adding point to track (\(newLocation.coordinate.latitude),\(newLocation.coordinate.longitude))")
             map.addPointToCurrentTrackSegmentAtLocation(newLocation)
             totalTrackedDistanceLabel.distance = map.totalTrackedDistance
             currentSegmentDistanceLabel.distance = map.currentSegmentDistance
