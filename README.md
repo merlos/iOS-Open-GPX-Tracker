@@ -23,7 +23,7 @@ You can use Open GPX tracker for:
 
  - Displays tracking route in a map
  - Supports Apple Map Kit, [Open Street Map](http://wiki.openstreetmap.org/wiki/Tile_usage_policy) and [Carto DB](http://www.cartodb.com) as map sources
- - Offline maps support (of browsed areas) __new!__
+ - Offline maps support (of browsed areas)
  - Pause / Resume tracking
  - Add waypoint to user location
  - Add waypoint to any place in the map with a long press
@@ -34,8 +34,9 @@ You can use Open GPX tracker for:
  - Load on map a saved session and continue tracking
  - Displays current location and altitude
  - Displays tracked time
+ - Displays location accuracy (in meters) __new!__
  - Displays tracked distance (total and current segment)
- - File sharing through iTunes __new!__
+ - File sharing through iTunes
  - Settings
     - Offline caching activation
     - Clear chache
