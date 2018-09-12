@@ -29,6 +29,7 @@ let kUnknownSpeedText = "·.··"
 let kEditWaypointAlertViewTag = 33
 let kSaveSessionAlertViewTag = 88
 let kLocationServicesDeniedAlertViewTag = 69
+let kLocationServicesDisabledAlertViewTag = 70
 
 /// Size for small buttons
 let  kButtonSmallSize: CGFloat = 48.0
@@ -568,16 +569,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         if !wasSentToBackground {
             return
         }
-        //Are location services enabled?
-        if !CLLocationManager.locationServicesEnabled() {
-            displayLocationServicesDeniedAlert()
-            return
-        }
-        //Does the app has
-        if !([.authorizedAlways, .authorizedWhenInUse].contains(CLLocationManager.authorizationStatus())) {
-            displayLocationServicesDeniedAlert()
-            return
-        }
+        checkLocationServicesStatus()
         locationManager.startUpdatingLocation()
     }
     
@@ -748,14 +740,46 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
     }
     
     ///
-    /// Displays an alert that informs the user that access to location was denied. It also dispays a button
-    /// allows the user to go to settings to activate the location.
+    /// Checks the location services status
+    /// - Are location services enabled (access to location device wide)? If not => displays an alert
+    /// - Are location services allowed to this app? If not => displays an alert
+    ///
+    /// - Seealso: displayLocationServicesDisabledAlert, displayLocationServicesDeniedAlert
+    ///
+    func checkLocationServicesStatus() {
+        //Are location services enabled?
+        if !CLLocationManager.locationServicesEnabled() {
+            displayLocationServicesDisabledAlert()
+            return
+        }
+        //Does the app have permissions to use the location servies?
+        if !([.authorizedAlways, .authorizedWhenInUse].contains(CLLocationManager.authorizationStatus())) {
+            displayLocationServicesDeniedAlert()
+            return
+        }
+    }
+    ///
+    /// Displays an alert that informs the user that location services are disabled.
+    ///
+    /// When location services are disabled is for all applications, not only this one.
+    ///
+    func displayLocationServicesDisabledAlert() {
+        let alert = UIAlertView(title: "Location services disabled", message: "Go to settings and enable location.", delegate: self, cancelButtonTitle: "Settings")
+        alert.addButton(withTitle: "Cancel")
+        alert.tag = kLocationServicesDisabledAlertViewTag
+        alert.show()
+    }
+
+    
+    ///
+    /// Displays an alert that informs the user that access to location was denied for this app (other apps may have access).
+    /// It also dispays a button allows the user to go to settings to activate the location.
     ///
     func displayLocationServicesDeniedAlert() {
         if isDisplayingLocationServicesDenied {
             return // display it only once.
         }
-        let alert = UIAlertView(title: "Access to location denied", message: "Please, enable access to location. Go to settings and set it to Always", delegate: self, cancelButtonTitle: "Settings")
+        let alert = UIAlertView(title: "Access to location denied", message: "On Location settings, allow always access to location for GPX Tracker ", delegate: self, cancelButtonTitle: "Settings")
         alert.addButton(withTitle: "Cancel")
         alert.tag = kLocationServicesDeniedAlertViewTag
         alert.show()
@@ -794,10 +818,10 @@ extension ViewController: UIAlertViewDelegate {
                 
             }
         case kLocationServicesDeniedAlertViewTag:
-            isDisplayingLocationServicesDenied = false 
+            isDisplayingLocationServicesDenied = false
             switch buttonIndex {
                 case 0:
-                    print("Settings button 0")
+                    print("Settings button")
                     if let url = NSURL(string: UIApplicationOpenSettingsURLString) as URL? {
                         UIApplication.shared.openURL(url)
                 }
@@ -805,6 +829,19 @@ extension ViewController: UIAlertViewDelegate {
                     print("Cancel button")
                 default:
                     print("[ERROR] it seems there are more than two buttons on the alertview.")
+            }
+        case kLocationServicesDisabledAlertViewTag:
+            switch buttonIndex {
+            case 0:
+                print("Settings button")
+                if let url = URL(string: "App-Prefs:root=Privacy&path=LOCATION") {
+                    // If general location settings are disabled then open general location settings
+                    UIApplication.shared.openURL(url)
+                }
+            case 1:
+                print("Cancel button")
+            default:
+                print("[ERROR] it seems there are more than two buttons on the alertview.")
             }
         default:
             print("[ERROR] it seems that the AlertView is not handled properly." )
@@ -897,7 +934,7 @@ extension ViewController: CLLocationManagerDelegate {
             print("Location Unknown")
         case CLError.denied:
             print("Access to location services denied. Display message")
-            displayLocationServicesDeniedAlert()
+            checkLocationServicesStatus()
         case CLError.headingFailure:
             print("Heading failure")
         default:
