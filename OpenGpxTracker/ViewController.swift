@@ -97,6 +97,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
     var stopWatch = StopWatch()
     var lastGpxFilename: String = ""
     var wasSentToBackground: Bool = false //Was the app sent to background
+    var isDisplayingLocationServicesDenied: Bool = false
     
     /// Has the map any waypoint?
     var hasWaypoints: Bool = false {
@@ -746,8 +747,14 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         // Dispose of any resources that can be recreated.
     }
     
-    
+    ///
+    /// Displays an alert that informs the user that access to location was denied. It also dispays a button
+    /// allows the user to go to settings to activate the location.
+    ///
     func displayLocationServicesDeniedAlert() {
+        if isDisplayingLocationServicesDenied {
+            return // display it only once.
+        }
         let alert = UIAlertView(title: "Access to location denied", message: "Please, enable access to location. Go to settings and set it to Always", delegate: self, cancelButtonTitle: "Settings")
         alert.addButton(withTitle: "Cancel")
         alert.tag = kLocationServicesDeniedAlertViewTag
@@ -787,14 +794,15 @@ extension ViewController: UIAlertViewDelegate {
                 
             }
         case kLocationServicesDeniedAlertViewTag:
+            isDisplayingLocationServicesDenied = false 
             switch buttonIndex {
                 case 0:
-                    print("Button 0")
+                    print("Settings button 0")
                     if let url = NSURL(string: UIApplicationOpenSettingsURLString) as URL? {
                         UIApplication.shared.openURL(url)
                 }
                 case 1:
-                    print("Button 1")
+                    print("Cancel button")
                 default:
                     print("[ERROR] it seems there are more than two buttons on the alertview.")
             }
@@ -889,7 +897,7 @@ extension ViewController: CLLocationManagerDelegate {
             print("Location Unknown")
         case CLError.denied:
             print("Access to location services denied. Display message")
-            //displayLocationServicesDeniedAlert()
+            displayLocationServicesDeniedAlert()
         case CLError.headingFailure:
             print("Heading failure")
         default:
