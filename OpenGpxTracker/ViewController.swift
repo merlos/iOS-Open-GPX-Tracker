@@ -80,7 +80,8 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         manager.requestAlwaysAuthorization()
         
         manager.desiredAccuracy = kCLLocationAccuracyBest
-        manager.distanceFilter = 2
+        manager.distanceFilter = 2 //meters
+        manager.headingFilter = 1 //degrees (1 is default)
         manager.pausesLocationUpdatesAutomatically = false
         if #available(iOS 9.0, *) {
             manager.allowsBackgroundLocationUpdates = true
@@ -298,6 +299,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         
         locationManager.delegate = self
         locationManager.startUpdatingLocation()
+        locationManager.startUpdatingHeading()
         
         //let pinchGesture = UIPinchGestureRecognizer(target: self, action: "pinchGesture")
         //map.addGestureRecognizer(pinchGesture)
@@ -571,6 +573,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         }
         checkLocationServicesStatus()
         locationManager.startUpdatingLocation()
+        locationManager.startUpdatingHeading()
     }
     
     ///
@@ -996,5 +999,17 @@ extension ViewController: CLLocationManagerDelegate {
             totalTrackedDistanceLabel.distance = map.totalTrackedDistance
             currentSegmentDistanceLabel.distance = map.currentSegmentDistance
         }
+    }
+    
+    
+    ///
+    ///
+    /// When there is a change on the heading (direction in which the device oriented) it makes a request to the map
+    /// to updathe the heading indicator (a small arrow next to user location point)
+    ///
+    func locationManager(_ manager: CLLocationManager, didUpdateHeading newHeading: CLHeading) {
+        print("ViewController::didUpdateHeading \(newHeading.trueHeading)")
+        map.updateHeading(newHeading)
+        
     }
 }

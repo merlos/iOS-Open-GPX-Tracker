@@ -2,7 +2,9 @@ import MapKit
 
 class MapViewDelegate: NSObject, MKMapViewDelegate, UIAlertViewDelegate {
 
+    /// The Waypoint is being edited (if there is any)
     var waypointBeingEdited: GPXWaypoint = GPXWaypoint()
+    
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         if annotation.isKind(of: MKUserLocation.self) {
@@ -87,7 +89,7 @@ class MapViewDelegate: NSObject, MKMapViewDelegate, UIAlertViewDelegate {
             
             if newState == MKAnnotationViewDragState.ending {
                 if let point = view.annotation as? GPXWaypoint {
-                    print("Annotation name: \(point.title) lat:\(point.latitude) lon \(point.longitude)")
+                    print("Annotation name: \(String(describing: point.title)) lat:\(point.latitude) lon \(point.longitude)")
                 }
             }
     }
@@ -96,35 +98,54 @@ class MapViewDelegate: NSObject, MKMapViewDelegate, UIAlertViewDelegate {
     
     func mapView(_ mapView: MKMapView, didAdd views: [MKAnnotationView]) {
         var i = 0
+        let gpxMapView = mapView as! GPXMapView
+        //adds the pins with an annimation
         for object in views {
             i += 1
-            let aV = object as MKAnnotationView
-            if aV.annotation!.isKind(of: MKUserLocation.self) { continue }
-            
-            let point: MKMapPoint = MKMapPointForCoordinate(aV.annotation!.coordinate)
+            let annotationView = object as MKAnnotationView
+            //The only exception is the user location, we add to this the heading icon.
+            if annotationView.annotation!.isKind(of: MKUserLocation.self) {
+                if gpxMapView.headingImageView == nil {
+                    let image = UIImage(named: "heading")!
+                    gpxMapView.headingImageView = UIImageView(image: image)
+                    gpxMapView.headingImageView!.frame = CGRect(x: (annotationView.frame.size.width - image.size.width)/2, y: (annotationView.frame.size.height - image.size.height)/2, width: image.size.width, height: image.size.height)
+                    annotationView.insertSubview(gpxMapView.headingImageView!, at: 0)
+                    gpxMapView.headingImageView!.isHidden = true
+                }
+                continue
+            }
+            let point: MKMapPoint = MKMapPointForCoordinate(annotationView.annotation!.coordinate)
             if !MKMapRectContainsPoint(mapView.visibleMapRect, point) { continue }
             
-            let endFrame: CGRect = aV.frame
-            aV.frame = CGRect(x: aV.frame.origin.x, y: aV.frame.origin.y - mapView.superview!.frame.size.height,
-                width: aV.frame.size.width, height:aV.frame.size.height)
+            let endFrame: CGRect = annotationView.frame
+            annotationView.frame = CGRect(x: annotationView.frame.origin.x, y: annotationView.frame.origin.y - mapView.superview!.frame.size.height,
+                width: annotationView.frame.size.width, height:annotationView.frame.size.height)
             let interval: TimeInterval = 0.04 * 1.1
             UIView.animate(withDuration: 0.5, delay: interval, options: UIViewAnimationOptions.curveLinear, animations: { () -> Void in
-                aV.frame = endFrame
+                annotationView.frame = endFrame
                 }, completion: { (finished) -> Void in
                     if finished {
                         UIView.animate(withDuration: 0.05, animations: { () -> Void in
                             //aV.transform = CGAffineTransformMakeScale(1.0, 0.8)
-                            aV.transform = CGAffineTransform(a: 1.0, b: 0, c: 0, d: 0.8, tx: 0, ty: aV.frame.size.height*0.1)
+                            annotationView.transform = CGAffineTransform(a: 1.0, b: 0, c: 0, d: 0.8, tx: 0, ty: annotationView.frame.size.height*0.1)
                             
                             }, completion: { (finished: Bool) -> Void in
                                 UIView.animate(withDuration: 0.1, animations: { () -> Void in
-                                    aV.transform = CGAffineTransform.identity
+                                    annotationView.transform = CGAffineTransform.identity
                                 })
                         })
                     }
             })
         }
     }
+    
+    ///
+    /// Adds a small arrow image to the annotationView.
+    /// This annotationView should be the MKUserLocation
+    ///
+    func addHeadingView(toAnnotationView annotationView: MKAnnotationView) {
+           }
+    
     
     func alertView(_ alertView: UIAlertView, clickedButtonAt buttonIndex: Int) {
         

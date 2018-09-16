@@ -73,6 +73,11 @@ class GPXMapView: MKMapView {
         }
     }
     
+    /// Arrow image to display heading (orientation of the device)
+    /// initialized on MapViewDelegate
+    var headingImageView: UIImageView?
+    
+    
     /// Selected tile server.
     /// - SeeAlso: GPXTileServer
     var tileServer: GPXTileServer = .apple {
@@ -163,6 +168,16 @@ class GPXMapView: MKMapView {
         //TODO: update map extent?
         
     }
+    
+    ///
+    /// Updates the heading arrow based on the heading information
+    ///
+    func updateHeading(_ heading: CLHeading) {
+        headingImageView?.isHidden = false
+        let rotation = CGFloat(heading.trueHeading/180 * Double.pi)
+        headingImageView?.transform = CGAffineTransform(rotationAngle: rotation)
+    }
+    
     
     ///
     /// Adds a new point to current segment.
