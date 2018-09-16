@@ -431,6 +431,17 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         folderButton.layer.cornerRadius = 24
         map.addSubview(folderButton)
         
+        // Add signal accuracy images and labels
+        signalImageView.image = signalImage0
+        signalImageView.frame = CGRect(x: self.view.frame.width/2 - 25.0, y:  14 + 5 + iPhoneXdiff, width: 50, height: 30)
+        map.addSubview(signalImageView)
+        signalAccuracyLabel.frame = CGRect(x: self.view.frame.width/2 - 25.0, y:  14 + 5 + 30 + iPhoneXdiff , width: 50, height: 12)
+        signalAccuracyLabel.font = font12
+        signalAccuracyLabel.text = kUnknownAccuracyText
+        signalAccuracyLabel.textAlignment = .center
+        map.addSubview(signalAccuracyLabel)
+        
+        
         //
         // Button Bar
         //
@@ -448,17 +459,6 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         //                  map.frame/2 (center)
         
         let yCenterForButtons: CGFloat = map.frame.height - kButtonLargeSize/2 - 5 //center Y of start
-        
-        
-        // Add signal accuracy images and labels
-        signalImageView.image = signalImage0
-        signalImageView.frame = CGRect(x: self.view.frame.width/2 - 25.0, y:  14 + 5, width: 50, height: 30)
-        map.addSubview(signalImageView)
-        signalAccuracyLabel.frame = CGRect(x: self.view.frame.width/2 - 25.0, y:  14 + 5 + 30 , width: 50, height: 12)
-        signalAccuracyLabel.font = font12
-        signalAccuracyLabel.text = kUnknownAccuracyText
-        signalAccuracyLabel.textAlignment = .center
-        map.addSubview(signalAccuracyLabel)
         
         
         // Start/Pause button
