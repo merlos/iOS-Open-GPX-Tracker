@@ -1,11 +1,11 @@
 Open GPX Tracker for iOS (with offline maps!)
 ===============================================
 
-[![Available on the app store](https://merlos.github.io/iOS-Open-GPX-Tracker/images/download-app-store.svg)](https://itunes.apple.com/app/open-gpx-tracker/id984503772) 
+[![Available on the app store](https://merlos.github.io/iOS-Open-GPX-Tracker/images/download-app-store.svg)](https://itunes.apple.com/app/open-gpx-tracker/id984503772)
 
 Open GPX Tracker is a GPS logger for iOS (iPhone, iPad, iPod) with offline map cache support. Track your location, add waypoints and send your logs by email as GPX files.
 
-This app has no annoying time restrictions, no ads and no in-app-purchases. Create unlimited GPX traces :). 
+This app has no annoying time restrictions, no ads and no in-app-purchases. Create unlimited GPX traces :).
 
 If you are goint to track without Internet... don't worry! Just browse the area where you'll be tracking and it will be cached.
 
@@ -13,7 +13,7 @@ Requires iOS 8.0 or above. Open GPX tracker is an open source app.
 
 ![GPS Tracker logs](https://merlos.github.io/iOS-Open-GPX-Tracker/images/open-gpx-tracker-4-screenshots.png)
 
-You can use Open GPX tracker for: 
+You can use Open GPX tracker for:
 
  - Creating routes and waypoints for editing Open Street Map.
  - Publishing Open Street Map Traces.
@@ -34,12 +34,14 @@ You can use Open GPX tracker for:
  - Load on map a saved session and continue tracking
  - Displays current location and altitude
  - Displays tracked time
+ - Displays user heading (device orientation) __new!__
  - Displays location accuracy (in meters) __new!__
  - Displays tracked distance (total and current segment)
+ - GPX files can be imported from any other app using the share option __new!__
  - File sharing through iTunes
  - Settings
     - Offline caching activation
-    - Clear chache
+    - Clear cache
     - Select the map.
 
 
@@ -52,7 +54,7 @@ Another option to install the app is to download the source code and compile it 
 # Download Source code
 This application is written in Swift. To download the code run this command in a console:
 
-``` 
+```
  git clone https://github.com/merlos/iOS-Open-GPX-Tracker.git
 ```
 
@@ -76,7 +78,7 @@ The application is being documented using [jazzy](https://github.com/realm/jazzy
 # Contribute
 You can contribute by forking and submitting a pull request.
 
-Please note that by submitting any pull request you are providing me (Juan M. Merlos) the rights to include and distribute those changes also on the binary app published on the App Store (which is released under Apple's Standard License Agreement) 
+Please note that by submitting any pull request you are providing me (Juan M. Merlos) the rights to include and distribute those changes also on the binary app published on the App Store (which is released under Apple's Standard License Agreement)
 
 License
 ====================
@@ -107,4 +109,3 @@ This app uses:
 
 
 Entry on the [Open Street Maps Wiki](https://wiki.openstreetmap.org/wiki/OpenGpxTracker)
-
