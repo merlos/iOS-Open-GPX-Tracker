@@ -62,10 +62,10 @@ class MapViewDelegate: NSObject, MKMapViewDelegate, UIAlertViewDelegate {
         
         switch button.tag {
         case kDeleteWaypointAccesoryButtonTag:
-            print("[calloutAccesoryControlTapped: DELETE button] deleting waypoint with name \(waypoint.name)")
+            print("[calloutAccesoryControlTapped: DELETE button] deleting waypoint with name \(waypoint.name ?? "''")")
             map.removeWaypoint(waypoint)
         case kEditWaypointAccesoryButtonTag:
-            print("[calloutAccesoryControlTapped: EDIT] editing waypoint with name \(waypoint.name)")
+            print("[calloutAccesoryControlTapped: EDIT] editing waypoint with name \(waypoint.name ?? "''")")
             let alert = UIAlertView(title: "Edit Waypoint",
                 message: "Hint: To change the waypoint location drag and drop the pin",
                 delegate: self, cancelButtonTitle: "Cancel")
