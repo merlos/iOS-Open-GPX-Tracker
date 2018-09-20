@@ -208,6 +208,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
     var folderButton: UIButton
     var aboutButton: UIButton
     var preferencesButton: UIButton
+    var shareButton: UIButton
     var resetButton: UIButton
     var trackerButton: UIButton
     var saveButton: UIButton
@@ -241,6 +242,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         self.resetButton = UIButton(coder: aDecoder)!
         self.aboutButton = UIButton(coder: aDecoder)!
         self.preferencesButton = UIButton(coder: aDecoder)!
+        self.shareButton = UIButton(coder: aDecoder)!
         
         self.trackerButton = UIButton(coder: aDecoder)!
         self.saveButton = UIButton(coder: aDecoder)!
@@ -418,6 +420,15 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         //aboutButton.backgroundColor = kWhiteBackgroundColor
         //aboutButton.layer.cornerRadius = 24
         map.addSubview(preferencesButton)
+        
+        // Share button
+        shareButton.frame = CGRect(x: 5 + 10 + 48 * 2, y: 14 + 5 + 8  + iPhoneXdiff, width: 32, height: 32)
+        shareButton.setImage(UIImage(named: "share"), for: UIControlState())
+        shareButton.setImage(UIImage(named: "share_high"), for: .highlighted)
+        shareButton.addTarget(self, action: #selector(ViewController.openShare), for: .touchUpInside)
+        //aboutButton.backgroundColor = kWhiteBackgroundColor
+        //aboutButton.layer.cornerRadius = 24
+        map.addSubview(shareButton)
         
         // Folder button
         let folderW: CGFloat = kButtonSmallSize
@@ -617,6 +628,24 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         vc.delegate = self
         let navController = UINavigationController(rootViewController: vc)
         self.present(navController, animated: true) { () -> Void in }
+    }
+    
+    func openShare() {
+        print("share")
+        
+        let gpxString: String = self.map.exportToGPXString()
+        guard let gpxData: Data = gpxString.data(using: .utf8) else {
+            print("Unable to prepare GPX data for sharing")
+            return
+        }
+        
+        let activityItems: [AnyObject] = [
+            GPXActivityItemProvider(gpxFileData: gpxData)
+        ]
+        
+        let activityViewController = UIActivityViewController(activityItems: activityItems, applicationActivities: nil)
+        
+        self.present(activityViewController, animated: true, completion: nil)
     }
     
     ///
