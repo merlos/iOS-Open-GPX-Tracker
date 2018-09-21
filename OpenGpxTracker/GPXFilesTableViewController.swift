@@ -134,15 +134,17 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
     
     /// Displays an action sheet with the actions for that file (Send it by email, Load in map and Delete)
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+
         let sheet = UIActionSheet()
         sheet.title = "Select option"
         sheet.addButton(withTitle: "Send by email")
         sheet.addButton(withTitle: "Load in Map")
+        sheet.addButton(withTitle: "Share")
         sheet.addButton(withTitle: "Cancel")
         sheet.addButton(withTitle: "Delete")
-        sheet.cancelButtonIndex = 2
-        sheet.destructiveButtonIndex = 3
-        
+        sheet.cancelButtonIndex = 3
+        sheet.destructiveButtonIndex = 4
+
         sheet.delegate = self
         sheet.show(in: self.view)
         self.selectedRowIndex = (indexPath as NSIndexPath).row
@@ -154,6 +156,10 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
     override func tableView(_ tableView: UITableView,
                             shouldHighlightRowAt indexPath: IndexPath) -> Bool {
         return gpxFilesFound
+    }
+    
+    internal func fileListObjectTitle(_ rowIndex: Int) -> String {
+        return fileList.object(at: rowIndex) as? NSString as String? ?? ""
     }
     
     // MARK: Action Sheet - Actions
@@ -190,6 +196,17 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
         self.dismiss(animated: true, completion: nil)
         
     }
+    /// Shares file at `rowIndex`
+    internal func actionShareFileAtIndex(_ rowIndex: Int) {
+        guard let filename: String = fileList.object(at: rowIndex) as? String else {
+            print("Unable to get filename at row \(rowIndex), cannot respond to \(type(of: self))didSelectRowAt")
+            return
+        }
+        let fileURL: URL = GPXFileManager.URLForFilename(filename)
+        let activityViewController = UIActivityViewController(activityItems: [fileURL], applicationActivities: nil)
+        self.present(activityViewController, animated: true, completion: nil)
+    }
+    
     /// Sends the file at `rowIndex` by email
     internal func actionSendEmailWithAttachment(_ rowIndex: Int) {
         guard let filename: String = fileList.object(at: rowIndex) as? String else {
@@ -226,8 +243,10 @@ extension GPXFilesTableViewController: UIActionSheetDelegate{
         case 1:
             self.actionLoadFileAtIndex(self.selectedRowIndex)
         case 2:
+            self.actionShareFileAtIndex(self.selectedRowIndex)
+        case 3:
             print("ActionSheet: Cancel")
-        case 3: //Delete
+        case 4: //Delete
             self.actionDeleteFileAtIndex(self.selectedRowIndex)
         default: //cancel
             print("action Sheet do nothing")

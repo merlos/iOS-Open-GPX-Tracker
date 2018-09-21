@@ -26,7 +26,7 @@ class CachedTileOverlay : MKTileOverlay {
     
         //get random subdomain
         let subdomains = "abc"
-        let rand = arc4random_uniform(UInt32(subdomains.characters.count))
+        let rand = arc4random_uniform(UInt32(subdomains.count))
         let randIndex = subdomains.index(subdomains.startIndex, offsetBy: String.IndexDistance(rand));
         urlString = urlString?.replacingOccurrences(of: "{s}", with:String(subdomains[randIndex]))
         //print("CachedTileOverlay:: url() urlString: \(urlString)")
@@ -95,9 +95,7 @@ class CachedTileOverlay : MKTileOverlay {
                     //let data = data
                     //save data in cache
                     cache?.async.setObject(data!, forKey: cacheKey) { error in
-                        if error == nil {
-                            print("ERROR saving in cache: \(error)")
-                        }
+                        print("ERROR saving in cache: \(error)")
                     }
                     DispatchQueue.main.async {
                         result(data, nil)
