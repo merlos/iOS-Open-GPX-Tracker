@@ -196,28 +196,14 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
         self.dismiss(animated: true, completion: nil)
         
     }
-    
+    /// Shares file at `rowIndex`
     internal func actionShareFileAtIndex(_ rowIndex: Int) {
         guard let filename: String = fileList.object(at: rowIndex) as? String else {
             print("Unable to get filename at row \(rowIndex), cannot respond to \(type(of: self))didSelectRowAt")
             return
         }
-        
         let fileURL: URL = GPXFileManager.URLForFilename(filename)
-        let fileData: Data
-        do {
-            fileData = try Data(contentsOf: URL(fileURLWithPath: fileURL.path), options: .mappedIfSafe)
-        } catch {
-            print("Unable to load GPX file data from \(fileURL): \(error)")
-            return
-        }
-        
-        let activityItems: [AnyObject] = [
-            GPXActivityItemProvider(filename: self.fileListObjectTitle(rowIndex), gpxFileData: fileData)
-        ]
-        
-        let activityViewController = UIActivityViewController(activityItems: activityItems, applicationActivities: nil)
-        
+        let activityViewController = UIActivityViewController(activityItems: [fileURL], applicationActivities: nil)
         self.present(activityViewController, animated: true, completion: nil)
     }
     
