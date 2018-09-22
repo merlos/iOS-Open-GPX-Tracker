@@ -938,10 +938,10 @@ extension ViewController: GPXFilesTableViewControllerDelegate {
     /// Resets whatever estatus was before.
     ///
     func didLoadGPXFileWithName(_ gpxFilename: String, gpxRoot: GPXRoot) {
-        //println("Loaded GPX file", gpx.gpx())
-        self.lastGpxFilename = gpxFilename
         //emulate a reset button tap
         self.resetButtonTapped()
+        //println("Loaded GPX file", gpx.gpx())
+        lastGpxFilename = gpxFilename
         //force reset timer just in case reset does not do it
         self.stopWatch.reset()
         //load data
