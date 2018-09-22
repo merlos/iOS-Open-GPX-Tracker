@@ -38,11 +38,12 @@ You can use Open GPX tracker for:
  - Displays location accuracy (in meters) __new!__
  - Displays tracked distance (total and current segment)
  - GPX files can be imported from any other app using the share option __new!__
+ - Share GPX files with other apps __new!__
  - File sharing through iTunes
  - Settings
-    - Offline caching activation
+    - Offline cache On/Off
     - Clear cache
-    - Select the map.
+    - Select the map server.
 
 
 # Install
