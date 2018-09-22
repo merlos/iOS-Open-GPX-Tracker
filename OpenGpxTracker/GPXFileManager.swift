@@ -66,16 +66,15 @@ class GPXFileManager: NSObject {
         return FileManager.default.fileExists(atPath: fileURL.path)
     }
     
-    class func save(_ filename: String, gpxContents: String) {
-        //check if name exists
-        let finalFileURL: URL = self.URLForFilename(filename)
+    //Saves the GPX contents to the specified URL
+    class func saveToURL(_ fileURL: URL, gpxContents: String) {
         //save file
-        print("Saving file at path: \(finalFileURL)")
+        print("Saving file at path: \(fileURL)")
         // write gpx to file
         var writeError: NSError?
         let saved: Bool
         do {
-            try gpxContents.write(toFile: finalFileURL.path, atomically: true, encoding: String.Encoding.utf8)
+            try gpxContents.write(toFile: fileURL.path, atomically: true, encoding: String.Encoding.utf8)
             saved = true
         } catch let error as NSError {
             writeError = error
@@ -86,6 +85,14 @@ class GPXFileManager: NSObject {
                 print("[ERROR] GPXFileManager:save: \(error.localizedDescription)")
             }
         }
+
+    }
+    
+    //Saves in the default folder the filename with the gpxContents 
+    class func save(_ filename: String, gpxContents: String) {
+        //check if name exists
+        let fileURL: URL = self.URLForFilename(filename)
+        GPXFileManager.saveToURL(fileURL, gpxContents: gpxContents)
     }
     
     class func removeFile(_ filename: String) {

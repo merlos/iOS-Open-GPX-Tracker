@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3C0C335821535C6400C1AF4B /* GPXActivityItemProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C0C335721535C6400C1AF4B /* GPXActivityItemProvider.swift */; };
 		8913CD8C1BDB0A9A009EC729 /* PreferencesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8913CD8B1BDB0A9A009EC729 /* PreferencesTableViewController.swift */; };
 		8913CD8E1BDB2477009EC729 /* PreferencesTableViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8913CD8D1BDB2477009EC729 /* PreferencesTableViewControllerDelegate.swift */; };
 		893BEC8619C7E62200C77354 /* GPXWaypoint+MKAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893BEC8519C7E62200C77354 /* GPXWaypoint+MKAnnotation.swift */; };
@@ -60,7 +59,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		3C0C335721535C6400C1AF4B /* GPXActivityItemProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPXActivityItemProvider.swift; sourceTree = "<group>"; };
 		44E786790A477838358F948C /* Pods-OpenGpxTracker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenGpxTracker.debug.xcconfig"; path = "Pods/Target Support Files/Pods-OpenGpxTracker/Pods-OpenGpxTracker.debug.xcconfig"; sourceTree = "<group>"; };
 		8913CD8B1BDB0A9A009EC729 /* PreferencesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferencesTableViewController.swift; sourceTree = "<group>"; };
 		8913CD8D1BDB2477009EC729 /* PreferencesTableViewControllerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferencesTableViewControllerDelegate.swift; sourceTree = "<group>"; };
@@ -149,7 +147,6 @@
 				895F04B31A7143CE004BEE8A /* GPXExtentCoordinates.swift */,
 				89F8749A1BBB7362004EF41A /* GPXTrack+length.swift */,
 				89F8749E1BBCB97F004EF41A /* GPXRoot+length.swift */,
-				3C0C335721535C6400C1AF4B /* GPXActivityItemProvider.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -473,7 +470,6 @@
 				899D677219CE8B3600C88A0A /* StopWatch.swift in Sources */,
 				893BEC8619C7E62200C77354 /* GPXWaypoint+MKAnnotation.swift in Sources */,
 				DC4908A31C4A332E009484AE /* MapViewDelegate.swift in Sources */,
-				3C0C335821535C6400C1AF4B /* GPXActivityItemProvider.swift in Sources */,
 				898EED3619C6402900B4B207 /* GPXFilesTableViewController.swift in Sources */,
 				DC4908A11C4A136F009484AE /* TrackerButton.swift in Sources */,
 				89F8749F1BBCB97F004EF41A /* GPXRoot+length.swift in Sources */,

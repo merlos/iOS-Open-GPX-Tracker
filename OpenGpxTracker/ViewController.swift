@@ -570,6 +570,15 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         NotificationCenter.default.removeObserver(self)
     }
     
+    /// returns a string with the format of current date dd-MMM-yyyy-HHmm' (20-Jun-2018-1133)
+    ///
+    
+    func defaultFilename() -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd-MMM-yyyy-HHmm"
+        print("fileName:" + dateFormatter.string(from: Date()))
+        return dateFormatter.string(from: Date())
+    }
     
     ///
     /// Called when the application Becomes active (background -> foreground) this function verifies if
@@ -630,22 +639,20 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         self.present(navController, animated: true) { () -> Void in }
     }
     
+    
+    /// Opens an Activity View Controller to share the file
     func openShare() {
         print("share")
-        
+        //Create a temporary file
+        let filename =  lastGpxFilename.isEmpty ? defaultFilename() : lastGpxFilename
         let gpxString: String = self.map.exportToGPXString()
-        guard let gpxData: Data = gpxString.data(using: .utf8) else {
-            print("Unable to prepare GPX data for sharing")
-            return
-        }
+        let tmpFile = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent("\(filename).gpx")
+        GPXFileManager.saveToURL(tmpFile, gpxContents: gpxString)
         
-        let activityItems: [AnyObject] = [
-            GPXActivityItemProvider(gpxFileData: gpxData)
-        ]
-        
-        let activityViewController = UIActivityViewController(activityItems: activityItems, applicationActivities: nil)
-        
+        //Call Share activity View controller
+        let activityViewController = UIActivityViewController(activityItems: [tmpFile], applicationActivities: nil)
         self.present(activityViewController, animated: true, completion: nil)
+    
     }
     
     ///
@@ -752,13 +759,13 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
             return
         }
         
-        let alert = UIAlertView(title: "Save as", message: "Enter GPX session name", delegate: self, cancelButtonTitle: "Continue tracking")
+        let alert = UIAlertView(title: "Save as", message: "Enter GPX session name", delegate: self, cancelButtonTitle: "Cancel")
         
         alert.addButton(withTitle: "Save")
         alert.alertViewStyle = .plainTextInput
         alert.tag = kSaveSessionAlertViewTag
         alert.show()
-        alert.textField(at: 0)?.text = lastGpxFilename
+        alert.textField(at: 0)?.text = lastGpxFilename.isEmpty ? defaultFilename() : lastGpxFilename
         //alert.textFieldAtIndex(0)?.selectAll(self)
     }
     
@@ -838,7 +845,7 @@ extension ViewController: UIAlertViewDelegate {
                 print("Save canceled")
                 
             case 1: //Save
-                let filename = (alertView.textField(at: 0)?.text!.utf16.count == 0) ? " " : alertView.textField(at: 0)?.text
+                let filename = (alertView.textField(at: 0)?.text!.utf16.count == 0) ? defaultFilename() : alertView.textField(at: 0)?.text
                 print("Save File \(String(describing: filename))")
                 //export to a file
                 let gpxString = self.map.exportToGPXString()
