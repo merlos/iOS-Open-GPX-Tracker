@@ -208,6 +208,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
     var folderButton: UIButton
     var aboutButton: UIButton
     var preferencesButton: UIButton
+    var shareButton: UIButton
     var resetButton: UIButton
     var trackerButton: UIButton
     var saveButton: UIButton
@@ -241,6 +242,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         self.resetButton = UIButton(coder: aDecoder)!
         self.aboutButton = UIButton(coder: aDecoder)!
         self.preferencesButton = UIButton(coder: aDecoder)!
+        self.shareButton = UIButton(coder: aDecoder)!
         
         self.trackerButton = UIButton(coder: aDecoder)!
         self.saveButton = UIButton(coder: aDecoder)!
@@ -419,6 +421,15 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         //aboutButton.layer.cornerRadius = 24
         map.addSubview(preferencesButton)
         
+        // Share button
+        shareButton.frame = CGRect(x: 5 + 10 + 48 * 2, y: 14 + 5 + 8  + iPhoneXdiff, width: 32, height: 32)
+        shareButton.setImage(UIImage(named: "share"), for: UIControlState())
+        shareButton.setImage(UIImage(named: "share_high"), for: .highlighted)
+        shareButton.addTarget(self, action: #selector(ViewController.openShare), for: .touchUpInside)
+        //aboutButton.backgroundColor = kWhiteBackgroundColor
+        //aboutButton.layer.cornerRadius = 24
+        map.addSubview(shareButton)
+        
         // Folder button
         let folderW: CGFloat = kButtonSmallSize
         let folderH: CGFloat = kButtonSmallSize
@@ -559,6 +570,15 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         NotificationCenter.default.removeObserver(self)
     }
     
+    /// returns a string with the format of current date dd-MMM-yyyy-HHmm' (20-Jun-2018-1133)
+    ///
+    
+    func defaultFilename() -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd-MMM-yyyy-HHmm"
+        print("fileName:" + dateFormatter.string(from: Date()))
+        return dateFormatter.string(from: Date())
+    }
     
     ///
     /// Called when the application Becomes active (background -> foreground) this function verifies if
@@ -617,6 +637,22 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         vc.delegate = self
         let navController = UINavigationController(rootViewController: vc)
         self.present(navController, animated: true) { () -> Void in }
+    }
+    
+    
+    /// Opens an Activity View Controller to share the file
+    func openShare() {
+        print("share")
+        //Create a temporary file
+        let filename =  lastGpxFilename.isEmpty ? defaultFilename() : lastGpxFilename
+        let gpxString: String = self.map.exportToGPXString()
+        let tmpFile = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent("\(filename).gpx")
+        GPXFileManager.saveToURL(tmpFile, gpxContents: gpxString)
+        
+        //Call Share activity View controller
+        let activityViewController = UIActivityViewController(activityItems: [tmpFile], applicationActivities: nil)
+        self.present(activityViewController, animated: true, completion: nil)
+    
     }
     
     ///
@@ -723,13 +759,13 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
             return
         }
         
-        let alert = UIAlertView(title: "Save as", message: "Enter GPX session name", delegate: self, cancelButtonTitle: "Continue tracking")
+        let alert = UIAlertView(title: "Save as", message: "Enter GPX session name", delegate: self, cancelButtonTitle: "Cancel")
         
         alert.addButton(withTitle: "Save")
         alert.alertViewStyle = .plainTextInput
         alert.tag = kSaveSessionAlertViewTag
         alert.show()
-        alert.textField(at: 0)?.text = lastGpxFilename
+        alert.textField(at: 0)?.text = lastGpxFilename.isEmpty ? defaultFilename() : lastGpxFilename
         //alert.textFieldAtIndex(0)?.selectAll(self)
     }
     
@@ -809,7 +845,7 @@ extension ViewController: UIAlertViewDelegate {
                 print("Save canceled")
                 
             case 1: //Save
-                let filename = (alertView.textField(at: 0)?.text!.utf16.count == 0) ? " " : alertView.textField(at: 0)?.text
+                let filename = (alertView.textField(at: 0)?.text!.utf16.count == 0) ? defaultFilename() : alertView.textField(at: 0)?.text
                 print("Save File \(String(describing: filename))")
                 //export to a file
                 let gpxString = self.map.exportToGPXString()
