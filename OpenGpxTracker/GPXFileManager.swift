@@ -61,12 +61,13 @@ class GPXFileManager: NSObject {
         return fullURL
     }
     
+    //Returns true if the file with filename exists on the default folder. False in othercase.
     class func fileExists(_ filename: String) -> Bool {
         let fileURL = self.URLForFilename(filename)
         return FileManager.default.fileExists(atPath: fileURL.path)
     }
     
-    //Saves the GPX contents to the specified URL
+    ///Saves the GPX contents to the specified URL
     class func saveToURL(_ fileURL: URL, gpxContents: String) {
         //save file
         print("Saving file at path: \(fileURL)")
@@ -88,15 +89,16 @@ class GPXFileManager: NSObject {
 
     }
     
-    //Saves in the default folder the filename with the gpxContents 
+    ///Saves in the default folder the filename with the gpxContents
     class func save(_ filename: String, gpxContents: String) {
         //check if name exists
         let fileURL: URL = self.URLForFilename(filename)
         GPXFileManager.saveToURL(fileURL, gpxContents: gpxContents)
     }
     
-    class func removeFile(_ filename: String) {
-        let fileURL: URL = self.URLForFilename(filename)
+    //Removes a file on the specified URL
+    class func removeFileFromURL(_ fileURL: URL) {
+        print("Removing file at path: \(fileURL)")
         let defaultManager = FileManager.default
         var error: NSError?
         let deleted: Bool
@@ -108,9 +110,28 @@ class GPXFileManager: NSObject {
             deleted = false
         }
         if !deleted {
-             if let e = error {
+            if let e = error {
                 print("[ERROR] GPXFileManager:removeFile: \(fileURL) : \(e.localizedDescription)")
             }
+        }
+    }
+    /// Removes file on the default directory for GPX files
+    class func removeFile(_ filename: String) {
+        let fileURL: URL = self.URLForFilename(filename)
+        GPXFileManager.removeFileFromURL(fileURL)
+    }
+    
+    /// Removes all files on the application temporary directory
+    class func removeTemporaryFiles() {
+        let fileManager = FileManager.default
+        do {
+            let tmpDirectory = try fileManager.contentsOfDirectory(atPath: NSTemporaryDirectory())
+            tmpDirectory.forEach { file in
+                let fileURL = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(file)
+                GPXFileManager.removeFileFromURL(fileURL)
+            }
+        } catch {
+            print(error)
         }
     }
 }

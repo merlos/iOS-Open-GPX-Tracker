@@ -322,9 +322,6 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
             map.useCache = useCacheBool
         }
         
-        let notificationCenter = NotificationCenter.default
-        notificationCenter.addObserver(self, selector: #selector(applicationDidBecomeActive), name: Notification.Name.UIApplicationDidBecomeActive, object: nil)
-        
         //
         // Config user interface
         //
@@ -556,11 +553,22 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
     ///
     /// Asks the system to notify the app on some events
     ///
-    /// Current implementation requests the system to notify the app whenever it enters background
+    /// Current implementation requests the system to notify the app:
+    ///
+    ///  1. whenever it enters background
+    ///  2. whenever it becomes active
+    ///  3. whenever it will terminate
     ///
     func addNotificationObservers() {
-        NotificationCenter.default.addObserver(self, selector: #selector(ViewController.didEnterBackground),
+        let notificationCenter = NotificationCenter.default
+        
+        notificationCenter.addObserver(self, selector: #selector(ViewController.didEnterBackground),
             name: NSNotification.Name.UIApplicationDidEnterBackground, object: nil)
+       
+        notificationCenter.addObserver(self, selector: #selector(applicationDidBecomeActive), name: Notification.Name.UIApplicationDidBecomeActive, object: nil)
+        
+        
+        notificationCenter.addObserver(self, selector: #selector(applicationWillTerminate), name: NSNotification.Name.UIApplicationWillTerminate, object: nil)
     }
 
     ///
@@ -612,6 +620,15 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
     }
     
     ///
+    /// Actions to do when the app will terminate
+    ///
+    /// In current implementation it removes all the temporary files that may have been created
+    func applicationWillTerminate() {
+        print("viewController:: applicationWillTerminate")
+        GPXFileManager.removeTemporaryFiles()
+    }
+    
+    ///
     /// Displays the view controller with the list of GPX Files.
     ///
     func openFolderViewController() {
@@ -648,6 +665,8 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         let gpxString: String = self.map.exportToGPXString()
         let tmpFile = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent("\(filename).gpx")
         GPXFileManager.saveToURL(tmpFile, gpxContents: gpxString)
+        //Add it to the list of tmpFiles.
+        //Note: it may add more than once the same file to the list.
         
         //Call Share activity View controller
         let activityViewController = UIActivityViewController(activityItems: [tmpFile], applicationActivities: nil)
@@ -764,8 +783,8 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         alert.addButton(withTitle: "Save")
         alert.alertViewStyle = .plainTextInput
         alert.tag = kSaveSessionAlertViewTag
-        alert.show()
         alert.textField(at: 0)?.text = lastGpxFilename.isEmpty ? defaultFilename() : lastGpxFilename
+        alert.show()
         //alert.textFieldAtIndex(0)?.selectAll(self)
     }
     
