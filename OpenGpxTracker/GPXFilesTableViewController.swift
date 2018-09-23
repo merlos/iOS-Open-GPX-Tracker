@@ -124,16 +124,21 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
     /// Displays the name of the cell
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         //let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as UITableViewCell
-        
-        let cell: UITableViewCell = UITableViewCell(style: UITableViewCellStyle.subtitle, reuseIdentifier: "Cell")
-        //cell.accessoryType = UITableViewCellAccessoryType.DetailDisclosureButton
-        //cell.accessoryView = [[ UIImageView alloc ] initWithImage:[UIImage imageNamed:@"Something" ]];
-        let gpxFileInfo = fileList.object(at: (indexPath as NSIndexPath).row) as! GPXFileInfo
-        cell.textLabel?.text = gpxFileInfo.fileName
-        cell.detailTextLabel?.text =
-            "last saved \(gpxFileInfo.modifiedDatetimeAgo) (\(gpxFileInfo.fileSizeHumanised))"
-        cell.detailTextLabel?.textColor = UIColor.darkGray
-        return cell
+        if gpxFilesFound {
+            let cell: UITableViewCell = UITableViewCell(style: UITableViewCellStyle.subtitle, reuseIdentifier: "Cell")
+            //cell.accessoryType = UITableViewCellAccessoryType.DetailDisclosureButton
+            //cell.accessoryView = [[ UIImageView alloc ] initWithImage:[UIImage imageNamed:@"Something" ]];
+            let gpxFileInfo = fileList.object(at: (indexPath as NSIndexPath).row) as! GPXFileInfo
+            cell.textLabel?.text = gpxFileInfo.fileName
+            cell.detailTextLabel?.text =
+                "last saved \(gpxFileInfo.modifiedDatetimeAgo) (\(gpxFileInfo.fileSizeHumanised))"
+            cell.detailTextLabel?.textColor = UIColor.darkGray
+            return cell
+        } else {
+            let cell: UITableViewCell = UITableViewCell(style: UITableViewCellStyle.subtitle, reuseIdentifier: "Cell")
+            cell.textLabel?.text = fileList.object(at: (indexPath as NSIndexPath).row) as? NSString as String? ?? ""
+            return cell
+        }
     }
     
     /// Displays an action sheet with the actions for that file (Send it by email, Load in map and Delete)
