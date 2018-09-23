@@ -41,6 +41,8 @@
 		89D2F8FF1DD7FAFF00A52D64 /* TBXML.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89D2F8FE1DD7FAFF00A52D64 /* TBXML.framework */; };
 		89E327BE1A7481EA00FC559E /* GPXTileServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E327BD1A7481EA00FC559E /* GPXTileServer.swift */; };
 		89EA86612157A08E002E03A7 /* Date+timeAgo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89EA86602157A08E002E03A7 /* Date+timeAgo.swift */; };
+		89EA86632157B42C002E03A7 /* GPXFileInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89EA86622157B42C002E03A7 /* GPXFileInfo.swift */; };
+		89EA86652157C444002E03A7 /* Int+asFilesize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89EA86642157C444002E03A7 /* Int+asFilesize.swift */; };
 		89F8749B1BBB7362004EF41A /* GPXTrack+length.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89F8749A1BBB7362004EF41A /* GPXTrack+length.swift */; };
 		89F8749F1BBCB97F004EF41A /* GPXRoot+length.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89F8749E1BBCB97F004EF41A /* GPXRoot+length.swift */; };
 		89F874A11BBCC74C004EF41A /* UIDistanceLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89F874A01BBCC74C004EF41A /* UIDistanceLabel.swift */; };
@@ -100,6 +102,8 @@
 		89D2F8FE1DD7FAFF00A52D64 /* TBXML.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TBXML.framework; path = "../../../../../Library/Developer/Xcode/DerivedData/OpenGpxTracker-ckihxvafhxclokeryoesprvioczh/Build/Products/Debug-iphonesimulator/TBXML/TBXML.framework"; sourceTree = "<group>"; };
 		89E327BD1A7481EA00FC559E /* GPXTileServer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPXTileServer.swift; sourceTree = "<group>"; };
 		89EA86602157A08E002E03A7 /* Date+timeAgo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+timeAgo.swift"; sourceTree = "<group>"; };
+		89EA86622157B42C002E03A7 /* GPXFileInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPXFileInfo.swift; sourceTree = "<group>"; };
+		89EA86642157C444002E03A7 /* Int+asFilesize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+asFilesize.swift"; sourceTree = "<group>"; };
 		89F8749A1BBB7362004EF41A /* GPXTrack+length.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "GPXTrack+length.swift"; sourceTree = "<group>"; };
 		89F8749E1BBCB97F004EF41A /* GPXRoot+length.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "GPXRoot+length.swift"; sourceTree = "<group>"; };
 		89F874A01BBCC74C004EF41A /* UIDistanceLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIDistanceLabel.swift; sourceTree = "<group>"; };
@@ -150,6 +154,8 @@
 				89F8749A1BBB7362004EF41A /* GPXTrack+length.swift */,
 				89F8749E1BBCB97F004EF41A /* GPXRoot+length.swift */,
 				89EA86602157A08E002E03A7 /* Date+timeAgo.swift */,
+				89EA86642157C444002E03A7 /* Int+asFilesize.swift */,
+				89EA86622157B42C002E03A7 /* GPXFileInfo.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -458,6 +464,7 @@
 				8945A90E1DC7AD040029AF93 /* CachedTileOverlay.swift in Sources */,
 				899D677019CE024600C88A0A /* GPXFileManager.swift in Sources */,
 				898EECDE19C49B5800B4B207 /* OpenGpxTracker.xcdatamodeld in Sources */,
+				89EA86652157C444002E03A7 /* Int+asFilesize.swift in Sources */,
 				8913CD8E1BDB2477009EC729 /* PreferencesTableViewControllerDelegate.swift in Sources */,
 				899D676E19CD9FAF00C88A0A /* GPXTrackPoint+MapKit.swift in Sources */,
 				89F8749B1BBB7362004EF41A /* GPXTrack+length.swift in Sources */,
@@ -470,6 +477,7 @@
 				8913CD8C1BDB0A9A009EC729 /* PreferencesTableViewController.swift in Sources */,
 				899D677D19D22E1B00C88A0A /* StopWatchDelegate.swift in Sources */,
 				898EECDB19C49B5800B4B207 /* AppDelegate.swift in Sources */,
+				89EA86632157B42C002E03A7 /* GPXFileInfo.swift in Sources */,
 				899D676C19CD9E9E00C88A0A /* GPXTrackSegment+MapKit.swift in Sources */,
 				899D677219CE8B3600C88A0A /* StopWatch.swift in Sources */,
 				893BEC8619C7E62200C77354 /* GPXWaypoint+MKAnnotation.swift in Sources */,

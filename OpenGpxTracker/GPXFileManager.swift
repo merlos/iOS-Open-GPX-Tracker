@@ -30,9 +30,9 @@ class GPXFileManager: NSObject {
     ///
     /// Gets the list of `.gpx` files in Documents directory ordered by modified date
     ///
-    class var fileList: [AnyObject] {
+    class var fileList: [GPXFileInfo] {
         get {
-            var GPXFiles: [String] = []
+            var GPXFiles: [GPXFileInfo] = []
             let fileManager = FileManager.default
             let documentsURL = fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0]
                 do {
@@ -54,13 +54,14 @@ class GPXFileManager: NSObject {
                         //Now we filter GPX Files
                         for (url, modificationDate, fileSize) in sortedURLs {
                             if url.pathExtension == kFileExt {
-                                GPXFiles.append(url.deletingPathExtension().lastPathComponent)
+                                GPXFiles.append(GPXFileInfo(fileURL: url))
+                                //GPXFiles.append(url.deletingPathExtension().lastPathComponent)
                                 print("\(modificationDate) \(modificationDate.timeAgo(numericDates: true)) \(fileSize)bytes -- \(url.deletingPathExtension().lastPathComponent)")
                             }
                         }
                     }
                 }
-            return GPXFiles as [AnyObject]
+            return GPXFiles
         }
     }
     

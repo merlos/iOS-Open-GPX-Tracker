@@ -69,10 +69,10 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
         self.navigationItem.rightBarButtonItems = [shareItem]
         
         // Get gpx files
-        let list: NSArray = GPXFileManager.fileList as NSArray
+        let list: [GPXFileInfo] = GPXFileManager.fileList
         if list.count != 0 {
             self.fileList.removeAllObjects()
-            self.fileList.addObjects(from: list as [AnyObject])
+            self.fileList.addObjects(from: list)
             self.gpxFilesFound = true
         }
     }
@@ -125,10 +125,14 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         //let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as UITableViewCell
         
-        let cell: UITableViewCell = UITableViewCell(style: UITableViewCellStyle.value1, reuseIdentifier: "Cell")
+        let cell: UITableViewCell = UITableViewCell(style: UITableViewCellStyle.subtitle, reuseIdentifier: "Cell")
         //cell.accessoryType = UITableViewCellAccessoryType.DetailDisclosureButton
         //cell.accessoryView = [[ UIImageView alloc ] initWithImage:[UIImage imageNamed:@"Something" ]];
-        cell.textLabel?.text = fileList.object(at: (indexPath as NSIndexPath).row) as? NSString as String? ?? ""
+        let gpxFileInfo = fileList.object(at: (indexPath as NSIndexPath).row) as! GPXFileInfo
+        cell.textLabel?.text = gpxFileInfo.fileName
+        cell.detailTextLabel?.text =
+            "last saved \(gpxFileInfo.modifiedDatetimeAgo) (\(gpxFileInfo.fileSizeHumanised))"
+        cell.detailTextLabel?.textColor = UIColor.darkGray
         return cell
     }
     
@@ -159,7 +163,7 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
     }
     
     internal func fileListObjectTitle(_ rowIndex: Int) -> String {
-        return fileList.object(at: rowIndex) as? NSString as String? ?? ""
+        return (fileList.object(at: rowIndex) as! GPXFileInfo).fileName
     }
     
     // MARK: Action Sheet - Actions
@@ -171,10 +175,11 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
     /// Deletes from the disk storage the file of `fileList` at `rowIndex`
     internal func actionDeleteFileAtIndex(_ rowIndex: Int) {
 
-        guard let filename: String = fileList.object(at: rowIndex) as? String else {
+        guard let fileURL: URL = (fileList.object(at: rowIndex) as? GPXFileInfo)?.fileURL else {
+            print("GPXFileTableViewController:: actionDeleteFileAtIndex: failed to get fileURL")
             return
         }
-        GPXFileManager.removeFile(filename)
+        GPXFileManager.removeFileFromURL(fileURL)
         
         //Delete from list and Table
         fileList.removeObject(at: rowIndex)
@@ -185,55 +190,53 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
     
     /// Loads the GPX file that corresponds to rowIndex in fileList in the map.
     internal func actionLoadFileAtIndex(_ rowIndex: Int) {
-        guard let filename: String = fileList.object(at: rowIndex) as? String else {
+        guard let gpxFileInfo: GPXFileInfo = (fileList.object(at: rowIndex) as? GPXFileInfo) else {
+            print("GPXFileTableViewController:: actionLoadFileAtIndex(\(rowIndex)): failed to get fileURL")
             return
         }
         
-        print("load gpx File: \(filename)")
-        let fileURL: URL = GPXFileManager.URLForFilename(filename)
-        let gpx = GPXParser.parseGPX(atPath: fileURL.path)
-        self.delegate?.didLoadGPXFileWithName(filename, gpxRoot: gpx!)
+        print("Load gpx File: \(gpxFileInfo.fileName)")
+        let gpx = GPXParser.parseGPX(atPath: gpxFileInfo.fileURL.path)
+        self.delegate?.didLoadGPXFileWithName(gpxFileInfo.fileName, gpxRoot: gpx!)
         self.dismiss(animated: true, completion: nil)
         
     }
+    
     /// Shares file at `rowIndex`
     internal func actionShareFileAtIndex(_ rowIndex: Int) {
-        guard let filename: String = fileList.object(at: rowIndex) as? String else {
+        guard let gpxFileInfo: GPXFileInfo = (fileList.object(at: rowIndex) as? GPXFileInfo) else {
             print("Unable to get filename at row \(rowIndex), cannot respond to \(type(of: self))didSelectRowAt")
             return
         }
-        let fileURL: URL = GPXFileManager.URLForFilename(filename)
-        let activityViewController = UIActivityViewController(activityItems: [fileURL], applicationActivities: nil)
+        let activityViewController = UIActivityViewController(activityItems: [gpxFileInfo.fileURL], applicationActivities: nil)
         self.present(activityViewController, animated: true, completion: nil)
     }
     
     /// Sends the file at `rowIndex` by email
     internal func actionSendEmailWithAttachment(_ rowIndex: Int) {
-        guard let filename: String = fileList.object(at: rowIndex) as? String else {
+        guard let gpxFileInfo: GPXFileInfo = (fileList.object(at: rowIndex) as? GPXFileInfo) else {
             return
         }
-        
-        let fileURL: URL = GPXFileManager.URLForFilename(filename)
-        
+        let fileURL: URL = gpxFileInfo.fileURL
         let composer = MFMailComposeViewController()
         composer.mailComposeDelegate = self
-        
         // set the subject
-        composer.setSubject("[Open GPX tracker] Gpx File")
-        
+        composer.setSubject("[Open GPX tracker] Share file \(gpxFileInfo.fileName).gpx")
         //Add some text to the body and attach the file
-        let body = "Open GPX Tracker \n is an open source app for Apple devices. Create GPS tracks and export them to GPX files."
+        let body = "File sent with Open GPX Tracker for iOS. Create GPS tracks and share them as GPX files."
         composer.setMessageBody(body, isHTML: true)
         do {
-            let fileData: Data = try Data(contentsOf: URL(fileURLWithPath: fileURL.path), options: .mappedIfSafe)
+            let fileData: Data = try Data(contentsOf: fileURL, options: .mappedIfSafe)
             composer.addAttachmentData(fileData, mimeType:"application/gpx+xml", fileName: fileURL.lastPathComponent)
             //Display the comopser view controller
             self.present(composer, animated: true, completion: nil)
         } catch {
+            print("Error while composing email")
         }
     }
 }
 
+/// Handles what to do when user touches one of the options of the action sheet
 extension GPXFilesTableViewController: UIActionSheetDelegate{
     func actionSheet(_ actionSheet: UIActionSheet, clickedButtonAt buttonIndex: Int) {
         print("action sheet clicked button at index \(buttonIndex)")
@@ -261,7 +264,7 @@ extension GPXFilesTableViewController: MFMailComposeViewControllerDelegate {
             print("Email sent")
             
         default:
-            print("Whoops")
+            print("Whoops email was not sent :-(")
         }
         self.dismiss(animated: true, completion: nil)
     }
