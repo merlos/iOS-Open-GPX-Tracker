@@ -40,6 +40,7 @@
 		89D2F8FD1DD7FAFA00A52D64 /* iOS_GPX_Framework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89D2F8FC1DD7FAFA00A52D64 /* iOS_GPX_Framework.framework */; };
 		89D2F8FF1DD7FAFF00A52D64 /* TBXML.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89D2F8FE1DD7FAFF00A52D64 /* TBXML.framework */; };
 		89E327BE1A7481EA00FC559E /* GPXTileServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E327BD1A7481EA00FC559E /* GPXTileServer.swift */; };
+		89EA86612157A08E002E03A7 /* Date+timeAgo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89EA86602157A08E002E03A7 /* Date+timeAgo.swift */; };
 		89F8749B1BBB7362004EF41A /* GPXTrack+length.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89F8749A1BBB7362004EF41A /* GPXTrack+length.swift */; };
 		89F8749F1BBCB97F004EF41A /* GPXRoot+length.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89F8749E1BBCB97F004EF41A /* GPXRoot+length.swift */; };
 		89F874A11BBCC74C004EF41A /* UIDistanceLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89F874A01BBCC74C004EF41A /* UIDistanceLabel.swift */; };
@@ -98,6 +99,7 @@
 		89D2F8FC1DD7FAFA00A52D64 /* iOS_GPX_Framework.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iOS_GPX_Framework.framework; path = "../../../../../Library/Developer/Xcode/DerivedData/OpenGpxTracker-ckihxvafhxclokeryoesprvioczh/Build/Products/Debug-iphonesimulator/iOS-GPX-Framework/iOS_GPX_Framework.framework"; sourceTree = "<group>"; };
 		89D2F8FE1DD7FAFF00A52D64 /* TBXML.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TBXML.framework; path = "../../../../../Library/Developer/Xcode/DerivedData/OpenGpxTracker-ckihxvafhxclokeryoesprvioczh/Build/Products/Debug-iphonesimulator/TBXML/TBXML.framework"; sourceTree = "<group>"; };
 		89E327BD1A7481EA00FC559E /* GPXTileServer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPXTileServer.swift; sourceTree = "<group>"; };
+		89EA86602157A08E002E03A7 /* Date+timeAgo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+timeAgo.swift"; sourceTree = "<group>"; };
 		89F8749A1BBB7362004EF41A /* GPXTrack+length.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "GPXTrack+length.swift"; sourceTree = "<group>"; };
 		89F8749E1BBCB97F004EF41A /* GPXRoot+length.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "GPXRoot+length.swift"; sourceTree = "<group>"; };
 		89F874A01BBCC74C004EF41A /* UIDistanceLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIDistanceLabel.swift; sourceTree = "<group>"; };
@@ -147,6 +149,7 @@
 				895F04B31A7143CE004BEE8A /* GPXExtentCoordinates.swift */,
 				89F8749A1BBB7362004EF41A /* GPXTrack+length.swift */,
 				89F8749E1BBCB97F004EF41A /* GPXRoot+length.swift */,
+				89EA86602157A08E002E03A7 /* Date+timeAgo.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -460,6 +463,7 @@
 				89F8749B1BBB7362004EF41A /* GPXTrack+length.swift in Sources */,
 				8991CA3F1D3F01D10092E1DE /* TrackRecorder.swift in Sources */,
 				899D678219D351DA00C88A0A /* AboutViewController.swift in Sources */,
+				89EA86612157A08E002E03A7 /* Date+timeAgo.swift in Sources */,
 				89F874A11BBCC74C004EF41A /* UIDistanceLabel.swift in Sources */,
 				895F04B41A7143CE004BEE8A /* GPXExtentCoordinates.swift in Sources */,
 				899D677B19D10F7C00C88A0A /* GPXFilesTableViewControlllerDelegate.swift in Sources */,
