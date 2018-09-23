@@ -1024,7 +1024,7 @@ extension ViewController: CLLocationManagerDelegate {
         //updates signal image accuracy
         let newLocation = locations.first!
         print("isUserLocationVisible: \(map.isUserLocationVisible) showUserLocation: \(map.showsUserLocation)")
-        print("didUpdateLocation: received \(newLocation.coordinate) hAcc: \(newLocation.horizontalAccuracy) vAcc: \(newLocation.verticalAccuracy) floor: \(newLocation.floor?.description ?? "''") map.userTrackingMode: \(map.userTrackingMode.hashValue)")
+        print("didUpdateLocation: received \(newLocation.coordinate) hAcc: \(newLocation.horizontalAccuracy) vAcc: \(newLocation.verticalAccuracy) floor: \(newLocation.floor?.description ?? "''") map.userTrackingMode: \(map.userTrackingMode.rawValue)")
         let hAcc = newLocation.horizontalAccuracy
         signalAccuracyLabel.text = "±\(hAcc)m"
         if hAcc < kSignalAccuracy6 {
