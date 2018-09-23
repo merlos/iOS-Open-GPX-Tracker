@@ -48,5 +48,5 @@ enum GPXTileServer: Int {
         }
     }
     // Number of tile servers defined
-    static var count: Int { return GPXTileServer.cartoDB.hashValue + 1}
+    static var count: Int { return GPXTileServer.cartoDB.rawValue + 1}
 }
