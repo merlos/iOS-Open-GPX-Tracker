@@ -271,16 +271,31 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         super.viewDidLoad()
         stopWatch.delegate = self
         
-        //Because of the edges, iPhone X is slightly different on the layout.
+        //Because of the edges, iPhone X* is slightly different on the layout.
         //So, Is the current device an iPhone X?
         var isIPhoneX = false
         if UIDevice().userInterfaceIdiom == .phone {
-            if UIScreen.main.nativeBounds.height == 2436 {
-                print("iPhone X detected Bazinga!")
+            switch UIScreen.main.nativeBounds.height {
+            case 1136:
+                print("device: IPHONE 5,5S,5C")
+            case 1334:
+                print("device: IPHONE 6,7,8 IPHONE 6S,7S,8S ")
+            case 1920, 2208:
+                print("device: IPHONE 6PLUS, 6SPLUS, 7PLUS, 8PLUS")
+            case 2436:
+                print("device: IPHONE X, IPHONE XS")
                 isIPhoneX = true
+            case 2688:
+                print("device: IPHONE XS_MAX")
+                isIPhoneX = true
+            case 1792:
+                print("device: IPHONE XR")
+                isIPhoneX = true
+            default:
+                print("UNDETERMINED")
             }
         }
-        
+
         // Map configuration Stuff
         map.delegate = mapViewDelegate
         map.showsUserLocation = true
