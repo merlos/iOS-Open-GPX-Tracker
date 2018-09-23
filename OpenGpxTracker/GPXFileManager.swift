@@ -11,10 +11,15 @@ import Foundation
 let kFileExt = "gpx"
 
 ///
-/// Class to handle actions with gpx files (save, delete, etc..)
+/// Class to handle actions with GPX files (save, delete, etc..)
+///
+/// It works on the default document directory of the app.
 ///
 class GPXFileManager: NSObject {
     
+    ///
+    /// Folder that where all GPX files are stored
+    ///
     class var GPXFilesFolderURL: URL {
         get {
             let documentsUrl =  FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0] as URL
@@ -22,7 +27,9 @@ class GPXFileManager: NSObject {
         }
     }
     
-    /// Gets the list of .gpx files in Documents directory ordered by modified date
+    ///
+    /// Gets the list of `.gpx` files in Documents directory ordered by modified date
+    ///
     class var fileList: [AnyObject] {
         get {
             var GPXFiles: [String] = []
@@ -48,6 +55,7 @@ class GPXFileManager: NSObject {
                         for (url, modificationDate, fileSize) in sortedURLs {
                             if url.pathExtension == kFileExt {
                                 GPXFiles.append(url.deletingPathExtension().lastPathComponent)
+                                print("\(modificationDate) \(modificationDate.timeAgo(numericDates: true)) \(fileSize)bytes -- \(url.deletingPathExtension().lastPathComponent)")
                             }
                         }
                     }
@@ -55,27 +63,40 @@ class GPXFileManager: NSObject {
             return GPXFiles as [AnyObject]
         }
     }
-    //
-    // '@param' filename gpx filename without extension
+    
+    ///
+    /// Provides the URL in the GPXFilesFolderURL for the filename provided as argument.
+    ///
+    /// - Parameters:
+    ///     - filename: gpx filename with .gpx extension (f.i: `hola.gpx`) or without extension (f.i: `hola`)
+    ///
     class func URLForFilename(_ filename: String) -> URL {
         var fullURL = self.GPXFilesFolderURL.appendingPathComponent(filename)
-        //var ext = ".\(kFileExt)" // add dot to file extension
-        print("pathForFilename: \(fullURL)")
+        print("URLForFilename(\(filename): pathForFilename: \(fullURL)")
         //check if filename has extension
         if fullURL.pathExtension != kFileExt {
-            print("oh! is not a gpx file")
             fullURL = fullURL.appendingPathExtension(kFileExt)
         }
         return fullURL
     }
     
-    //Returns true if the file with filename exists on the default folder. False in othercase.
+    ///
+    /// Returns true if the file with filename exists on the default folder (GPXFilesFolderURL).
+    /// False in othercase.
+    ///
+    /// - Parameters:
+    ///     - filename: Name of the file without extension.
     class func fileExists(_ filename: String) -> Bool {
         let fileURL = self.URLForFilename(filename)
         return FileManager.default.fileExists(atPath: fileURL.path)
     }
     
-    ///Saves the GPX contents to the specified URL
+    ///
+    /// Saves the GPX contents to the specified URL
+    /// - Parameters:
+    ///     - fileURL: destination URL, basically it is file path.
+    ///     - gpxContents: String with the contents to be saved. The XML contents of the GPX file
+    ///
     class func saveToURL(_ fileURL: URL, gpxContents: String) {
         //save file
         print("Saving file at path: \(fileURL)")
@@ -96,8 +117,13 @@ class GPXFileManager: NSObject {
         }
 
     }
-    
-    ///Saves in the default folder the filename with the gpxContents
+    ///
+    /// Saves in the default folder the filename with the gpxContents
+    ///
+    /// - Parameters:
+    ///     - filename: gpx filename with .gpx extension (f.i: `hola.gpx`) or without extension (f.i: `hola`)
+    ///     - gpxContents: String with the contents to be saved. The XML contents of the GPX file
+    ///
     class func save(_ filename: String, gpxContents: String) {
         //check if name exists
         let fileURL: URL = self.URLForFilename(filename)
@@ -123,13 +149,20 @@ class GPXFileManager: NSObject {
             }
         }
     }
+    ///
     /// Removes file on the default directory for GPX files
+    ///
+    /// - Parameters:
+    ///     - filename: gpx filename with .gpx extension (f.i: `hola.gpx`) or without extension (f.i: `hola`)
+    ///
     class func removeFile(_ filename: String) {
         let fileURL: URL = self.URLForFilename(filename)
         GPXFileManager.removeFileFromURL(fileURL)
     }
     
-    /// Removes all files on the application temporary directory
+    ///
+    /// Removes all files on the application temporary directory (NSTemporaryDirectory())
+    ///
     class func removeTemporaryFiles() {
         let fileManager = FileManager.default
         do {
