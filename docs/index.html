@@ -13,7 +13,7 @@
     <a title="  Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="index.html"> Docs</a> (50% documented)</p>
+        <p><a href="index.html"> Docs</a> (55% documented)</p>
       </div>
     </header>
     <div class="content-wrapper">
@@ -40,6 +40,9 @@
               </li>
               <li class="nav-group-task">
                 <a href="Classes/GPXExtentCoordinates.html">GPXExtentCoordinates</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/GPXFileInfo.html">GPXFileInfo</a>
               </li>
               <li class="nav-group-task">
                 <a href="Classes/GPXFileManager.html">GPXFileManager</a>
@@ -134,6 +137,12 @@
                 <a href="Global Variables.html#/s:14OpenGpxTracker27kGreenButtonBackgroundColorSo7UIColorCvp">kGreenButtonBackgroundColor</a>
               </li>
               <li class="nav-group-task">
+                <a href="Global Variables.html#/s:14OpenGpxTracker35kLocationServicesDeniedAlertViewTagSivp">kLocationServicesDeniedAlertViewTag</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Global Variables.html#/s:14OpenGpxTracker37kLocationServicesDisabledAlertViewTagSivp">kLocationServicesDisabledAlertViewTag</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="Global Variables.html#/s:14OpenGpxTracker17kMapSourceSectionSivp">kMapSourceSection</a>
               </li>
               <li class="nav-group-task">
@@ -198,6 +207,9 @@
             <a href="Extensions.html">Extensions</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
+                <a href="Extensions/Date.html">Date</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="Extensions/GPXRoot.html">GPXRoot</a>
               </li>
               <li class="nav-group-task">
@@ -211,6 +223,9 @@
               </li>
               <li class="nav-group-task">
                 <a href="Extensions/GPXWaypoint.html">GPXWaypoint</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Extensions/Int.html">Int</a>
               </li>
             </ul>
           </li>
@@ -239,11 +254,11 @@
             
             <h1 id='open-gpx-tracker-for-ios-with-offline-maps' class='heading'>Open GPX Tracker for iOS (with offline maps!)</h1>
 
-<p><a href="https://itunes.apple.com/app/open-gpx-tracker/id984503772"><img src="https://merlos.github.io/iOS-Open-GPX-Tracker/images/download-app-store.svg" alt="Available on the app store"></a> </p>
+<p><a href="https://itunes.apple.com/app/open-gpx-tracker/id984503772"><img src="https://merlos.github.io/iOS-Open-GPX-Tracker/images/download-app-store.svg" alt="Available on the app store"></a></p>
 
 <p>Open GPX Tracker is a GPS logger for iOS (iPhone, iPad, iPod) with offline map cache support. Track your location, add waypoints and send your logs by email as GPX files.</p>
 
-<p>This app has no annoying time restrictions, no ads and no in-app-purchases. Create unlimited GPX traces :). </p>
+<p>This app has no annoying time restrictions, no ads and no in-app-purchases. Create unlimited GPX traces :).</p>
 
 <p>If you are goint to track without Internet&hellip; don&rsquo;t worry! Just browse the area where you&rsquo;ll be tracking and it will be cached.</p>
 
@@ -251,7 +266,7 @@
 
 <p><img src="https://merlos.github.io/iOS-Open-GPX-Tracker/images/open-gpx-tracker-4-screenshots.png" alt="GPS Tracker logs"></p>
 
-<p>You can use Open GPX tracker for: </p>
+<p>You can use Open GPX tracker for:</p>
 
 <ul>
 <li>Creating routes and waypoints for editing Open Street Map.</li>
@@ -263,7 +278,7 @@
 <ul>
 <li>Displays tracking route in a map</li>
 <li>Supports Apple Map Kit, <a href="http://wiki.openstreetmap.org/wiki/Tile_usage_policy">Open Street Map</a> and <a href="http://www.cartodb.com">Carto DB</a> as map sources</li>
-<li>Offline maps support (of browsed areas) <strong>new!</strong></li>
+<li>Offline maps support (of browsed areas)</li>
 <li>Pause / Resume tracking</li>
 <li>Add waypoint to user location</li>
 <li>Add waypoint to any place in the map with a long press</li>
@@ -274,14 +289,18 @@
 <li>Load on map a saved session and continue tracking</li>
 <li>Displays current location and altitude</li>
 <li>Displays tracked time</li>
+<li>Displays user heading (device orientation) <strong>new!</strong></li>
+<li>Displays location accuracy (in meters) <strong>new!</strong></li>
 <li>Displays tracked distance (total and current segment)</li>
-<li>File sharing through iTunes <strong>new!</strong></li>
+<li>GPX files can be imported from any other app using the share option <strong>new!</strong></li>
+<li>Share GPX files with other apps <strong>new!</strong></li>
+<li>File sharing through iTunes</li>
 <li>Settings
 
 <ul>
-<li>Offline caching activation</li>
-<li>Clear chache</li>
-<li>Select the map.</li>
+<li>Offline cache On/Off</li>
+<li>Clear cache</li>
+<li>Select the map server.</li>
 </ul></li>
 </ul>
 <h1 id='install' class='heading'>Install</h1>
@@ -314,7 +333,7 @@
 
 <p>You can contribute by forking and submitting a pull request.</p>
 
-<p>Please note that by submitting any pull request you are providing me (Juan M. Merlos) the rights to include and distribute those changes also on the binary app published on the App Store (which is released under Apple&rsquo;s Standard License Agreement) </p>
+<p>Please note that by submitting any pull request you are providing me (Juan M. Merlos) the rights to include and distribute those changes also on the binary app published on the App Store (which is released under Apple&rsquo;s Standard License Agreement)</p>
 <h1 id='license' class='heading'>License</h1>
 
 <p>Open GPX Tracker app for iOS.  Copyright &copy; 2014  Juan M. Merlos (@merlos)</p>
@@ -349,7 +368,7 @@ along with this program.  If not, see <a href="http://www.gnu.org/licenses/">htt
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2018 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2018-09-09)</p>
+          <p>&copy; 2018 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2018-09-23)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

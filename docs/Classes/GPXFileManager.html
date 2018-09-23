@@ -14,7 +14,7 @@
     <a title="GPXFileManager Class Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html"> Docs</a> (50% documented)</p>
+        <p><a href="../index.html"> Docs</a> (55% documented)</p>
       </div>
     </header>
     <div class="content-wrapper">
@@ -41,6 +41,9 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Classes/GPXExtentCoordinates.html">GPXExtentCoordinates</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/GPXFileInfo.html">GPXFileInfo</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Classes/GPXFileManager.html">GPXFileManager</a>
@@ -135,6 +138,12 @@
                 <a href="../Global Variables.html#/s:14OpenGpxTracker27kGreenButtonBackgroundColorSo7UIColorCvp">kGreenButtonBackgroundColor</a>
               </li>
               <li class="nav-group-task">
+                <a href="../Global Variables.html#/s:14OpenGpxTracker35kLocationServicesDeniedAlertViewTagSivp">kLocationServicesDeniedAlertViewTag</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Global Variables.html#/s:14OpenGpxTracker37kLocationServicesDisabledAlertViewTagSivp">kLocationServicesDisabledAlertViewTag</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Global Variables.html#/s:14OpenGpxTracker17kMapSourceSectionSivp">kMapSourceSection</a>
               </li>
               <li class="nav-group-task">
@@ -199,6 +208,9 @@
             <a href="../Extensions.html">Extensions</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
+                <a href="../Extensions/Date.html">Date</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Extensions/GPXRoot.html">GPXRoot</a>
               </li>
               <li class="nav-group-task">
@@ -212,6 +224,9 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Extensions/GPXWaypoint.html">GPXWaypoint</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/Int.html">Int</a>
               </li>
             </ul>
           </li>
@@ -244,7 +259,9 @@
 
                 </div>
               </div>
-            <p>Class to handle actions with gpx files (save, delete, etc..)</p>
+            <p>Class to handle actions with GPX files (save, delete, etc..)</p>
+
+<p>It works on the default document directory of the app.</p>
 
           </section>
           <section class="section task-group-section">
@@ -263,7 +280,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Folder that where all GPX files are stored</p>
 
                       </div>
                       <div class="declaration">
@@ -290,14 +307,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Gets the list of .gpx files in Documents directory</p>
+                        <p>Gets the list of <code>.gpx</code> files in Documents directory ordered by modified date</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">class</span> <span class="k">var</span> <span class="nv">fileList</span><span class="p">:</span> <span class="p">[</span><span class="kt">AnyObject</span><span class="p">]</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">class</span> <span class="k">var</span> <span class="nv">fileList</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Classes/GPXFileInfo.html">GPXFileInfo</a></span><span class="p">]</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
 
                         </div>
                       </div>
@@ -317,7 +334,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Provides the URL in the GPXFilesFolderURL for the filename provided as argument.</p>
 
                       </div>
                       <div class="declaration">
@@ -327,6 +344,25 @@
                           <pre class="highlight swift"><code><span class="kd">class</span> <span class="kd">func</span> <span class="kt">URLForFilename</span><span class="p">(</span><span class="n">_</span> <span class="nv">filename</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">URL</span></code></pre>
 
                         </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>filename</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>gpx filename with .gpx extension (f.i: <code>hola.gpx</code>) or without extension (f.i: <code>hola</code>)</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
                       </div>
                     </section>
                   </div>
@@ -344,7 +380,8 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Returns true if the file with filename exists on the default folder (GPXFilesFolderURL).
+False in othercase.</p>
 
                       </div>
                       <div class="declaration">
@@ -354,6 +391,83 @@
                           <pre class="highlight swift"><code><span class="kd">class</span> <span class="kd">func</span> <span class="nf">fileExists</span><span class="p">(</span><span class="n">_</span> <span class="nv">filename</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
 
                         </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>filename</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Name of the file without extension.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@OpenGpxTracker@objc(cs)GPXFileManager(cm)saveToURL:gpxContents:"></a>
+                    <a name="//apple_ref/swift/Method/saveToURL(_:gpxContents:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@OpenGpxTracker@objc(cs)GPXFileManager(cm)saveToURL:gpxContents:">saveToURL(_:gpxContents:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Saves the GPX contents to the specified URL</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">class</span> <span class="kd">func</span> <span class="nf">saveToURL</span><span class="p">(</span><span class="n">_</span> <span class="nv">fileURL</span><span class="p">:</span> <span class="kt">URL</span><span class="p">,</span> <span class="nv">gpxContents</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>fileURL</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>destination URL, basically it is file path.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>gpxContents</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>String with the contents to be saved. The XML contents of the GPX file</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
                       </div>
                     </section>
                   </div>
@@ -371,7 +485,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Saves in the default folder the filename with the gpxContents</p>
 
                       </div>
                       <div class="declaration">
@@ -379,6 +493,64 @@
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">class</span> <span class="kd">func</span> <span class="nf">save</span><span class="p">(</span><span class="n">_</span> <span class="nv">filename</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">gpxContents</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>filename</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>gpx filename with .gpx extension (f.i: <code>hola.gpx</code>) or without extension (f.i: <code>hola</code>)</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>gpxContents</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>String with the contents to be saved. The XML contents of the GPX file</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@OpenGpxTracker@objc(cs)GPXFileManager(cm)removeFileFromURL:"></a>
+                    <a name="//apple_ref/swift/Method/removeFileFromURL(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@OpenGpxTracker@objc(cs)GPXFileManager(cm)removeFileFromURL:">removeFileFromURL(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">class</span> <span class="kd">func</span> <span class="nf">removeFileFromURL</span><span class="p">(</span><span class="n">_</span> <span class="nv">fileURL</span><span class="p">:</span> <span class="kt">URL</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -398,7 +570,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Removes file on the default directory for GPX files</p>
 
                       </div>
                       <div class="declaration">
@@ -406,6 +578,52 @@
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">class</span> <span class="kd">func</span> <span class="nf">removeFile</span><span class="p">(</span><span class="n">_</span> <span class="nv">filename</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>filename</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>gpx filename with .gpx extension (f.i: <code>hola.gpx</code>) or without extension (f.i: <code>hola</code>)</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@OpenGpxTracker@objc(cs)GPXFileManager(cm)removeTemporaryFiles"></a>
+                    <a name="//apple_ref/swift/Method/removeTemporaryFiles()" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@OpenGpxTracker@objc(cs)GPXFileManager(cm)removeTemporaryFiles">removeTemporaryFiles()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Removes all files on the application temporary directory (NSTemporaryDirectory())</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">class</span> <span class="kd">func</span> <span class="nf">removeTemporaryFiles</span><span class="p">()</span></code></pre>
 
                         </div>
                       </div>
@@ -417,7 +635,7 @@
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2018 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2018-09-09)</p>
+          <p>&copy; 2018 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2018-09-23)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>
