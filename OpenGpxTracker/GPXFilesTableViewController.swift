@@ -64,7 +64,7 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
         self.title = "Your GPX Files"
         
         // Button to return to the map
-        let shareItem = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.plain, target: self, action: #selector(GPXFilesTableViewController.closeGPXFilesTableViewController))
+        let shareItem = UIBarButtonItem(title: "Done", style: UIBarButtonItem.Style.plain, target: self, action: #selector(GPXFilesTableViewController.closeGPXFilesTableViewController))
         
         self.navigationItem.rightBarButtonItems = [shareItem]
         
@@ -78,7 +78,7 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
     }
     
     /// Closes this view controller.
-    func closeGPXFilesTableViewController() {
+    @objc func closeGPXFilesTableViewController() {
         print("closeGPXFIlesTableViewController()")
         self.dismiss(animated: true, completion: { () -> Void in
         })
@@ -113,10 +113,10 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
     
     /// Displays the delete button.
     override func tableView(_ tableView: UITableView,
-                            commit editingStyle: UITableViewCellEditingStyle,
+                            commit editingStyle: UITableViewCell.EditingStyle,
                             forRowAt indexPath: IndexPath) {
         
-        if editingStyle == UITableViewCellEditingStyle.delete {
+        if editingStyle == UITableViewCell.EditingStyle.delete {
             actionDeleteFileAtIndex((indexPath as NSIndexPath).row)
         }
     }
@@ -125,7 +125,7 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         //let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as UITableViewCell
         if gpxFilesFound {
-            let cell: UITableViewCell = UITableViewCell(style: UITableViewCellStyle.subtitle, reuseIdentifier: "Cell")
+            let cell: UITableViewCell = UITableViewCell(style: UITableViewCell.CellStyle.subtitle, reuseIdentifier: "Cell")
             //cell.accessoryType = UITableViewCellAccessoryType.DetailDisclosureButton
             //cell.accessoryView = [[ UIImageView alloc ] initWithImage:[UIImage imageNamed:@"Something" ]];
             let gpxFileInfo = fileList.object(at: (indexPath as NSIndexPath).row) as! GPXFileInfo
@@ -135,7 +135,7 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
             cell.detailTextLabel?.textColor = UIColor.darkGray
             return cell
         } else {
-            let cell: UITableViewCell = UITableViewCell(style: UITableViewCellStyle.subtitle, reuseIdentifier: "Cell")
+            let cell: UITableViewCell = UITableViewCell(style: UITableViewCell.CellStyle.subtitle, reuseIdentifier: "Cell")
             cell.textLabel?.text = fileList.object(at: (indexPath as NSIndexPath).row) as? NSString as String? ?? ""
             return cell
         }
@@ -189,7 +189,7 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
         //Delete from list and Table
         fileList.removeObject(at: rowIndex)
         let indexPath = IndexPath(row: rowIndex, section: 0)
-        tableView.deleteRows(at: [indexPath], with: UITableViewRowAnimation.fade)
+        tableView.deleteRows(at: [indexPath], with: UITableView.RowAnimation.fade)
         tableView.reloadData()
     }
     

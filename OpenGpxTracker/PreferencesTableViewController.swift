@@ -52,7 +52,7 @@ class PreferencesTableViewController: UITableViewController, UINavigationBarDele
             self.view.frame.height - navBarFrame.height)
         
         self.title = "Preferences"
-        let shareItem = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.plain, target: self, action: #selector(PreferencesTableViewController.closePreferencesTableViewController))
+        let shareItem = UIBarButtonItem(title: "Done", style: UIBarButtonItem.Style.plain, target: self, action: #selector(PreferencesTableViewController.closePreferencesTableViewController))
         self.navigationItem.rightBarButtonItems = [shareItem]
         
         //Load preferences from defaults
@@ -63,7 +63,7 @@ class PreferencesTableViewController: UITableViewController, UINavigationBarDele
         }
     }
     
-    func closePreferencesTableViewController() {
+    @objc func closePreferencesTableViewController() {
         print("closePreferencesTableViewController()")
         self.dismiss(animated: true, completion: { () -> Void in
         })

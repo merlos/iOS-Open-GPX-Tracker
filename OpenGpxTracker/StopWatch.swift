@@ -124,7 +124,7 @@ class StopWatch: NSObject {
     }
     
     /// Calls the delegate (didUpdateElapsedTimeString) to inform there was an update of the elapsed time.
-    func updateElapsedTime() {
+    @objc func updateElapsedTime() {
         self.delegate?.stopWatch(self, didUpdateElapsedTimeString: self.elapsedTimeString)
     }
 }

@@ -60,12 +60,12 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         didSet {
             if followUser {
                 print("followUser=true")
-                followUserButton.setImage(UIImage(named: "follow_user_high"), for: UIControlState())
+                followUserButton.setImage(UIImage(named: "follow_user_high"), for: UIControl.State())
                 map.setCenter((map.userLocation.coordinate), animated: true)
                 
             } else {
                 print("followUser=false")
-               followUserButton.setImage(UIImage(named: "follow_user"), for: UIControlState())
+               followUserButton.setImage(UIImage(named: "follow_user"), for: UIControl.State())
             }
             
         }
@@ -133,7 +133,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
             case .notStarted:
                 print("switched to non started")
                 // set Tracker button to allow Start 
-                trackerButton.setTitle("Start Tracking", for: UIControlState())
+                trackerButton.setTitle("Start Tracking", for: UIControl.State())
                 trackerButton.backgroundColor = kGreenButtonBackgroundColor
                 //save & reset button to transparent.
                 saveButton.backgroundColor = kDisabledBlueButtonBackgroundColor
@@ -161,7 +161,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
             case .tracking:
                 print("switched to tracking mode")
                 // set tracerkButton to allow Pause
-                trackerButton.setTitle("Pause", for: UIControlState())
+                trackerButton.setTitle("Pause", for: UIControl.State())
                 trackerButton.backgroundColor = kPurpleButtonBackgroundColor
                 //activate save & reset buttons
                 saveButton.backgroundColor = kBlueButtonBackgroundColor
@@ -172,7 +172,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
             case .paused:
                 print("switched to paused mode")
                 // set trackerButton to allow Resume
-                self.trackerButton.setTitle("Resume", for: UIControlState())
+                self.trackerButton.setTitle("Resume", for: UIControl.State())
                 self.trackerButton.backgroundColor = kGreenButtonBackgroundColor
                 // activate save & reset (just in case switched from .NotStarted)
                 saveButton.backgroundColor = kBlueButtonBackgroundColor
@@ -417,7 +417,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         
         //about button
         aboutButton.frame = CGRect(x: 5 + 8, y: 14 + 5 + 48 + 5 + iPhoneXdiff, width: 32, height: 32)
-        aboutButton.setImage(UIImage(named: "info"), for: UIControlState())
+        aboutButton.setImage(UIImage(named: "info"), for: UIControl.State())
         aboutButton.setImage(UIImage(named: "info_high"), for: .highlighted)
         aboutButton.addTarget(self, action: #selector(ViewController.openAboutViewController), for: .touchUpInside)
         //aboutButton.backgroundColor = kWhiteBackgroundColor
@@ -426,7 +426,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         
         // Preferences button
         preferencesButton.frame = CGRect(x: 5 + 10 + 48, y: 14 + 5 + 8  + iPhoneXdiff, width: 32, height: 32)
-        preferencesButton.setImage(UIImage(named: "prefs"), for: UIControlState())
+        preferencesButton.setImage(UIImage(named: "prefs"), for: UIControl.State())
         preferencesButton.setImage(UIImage(named: "prefs_high"), for: .highlighted)
         preferencesButton.addTarget(self, action: #selector(ViewController.openPreferencesTableViewController), for: .touchUpInside)
         //aboutButton.backgroundColor = kWhiteBackgroundColor
@@ -435,7 +435,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         
         // Share button
         shareButton.frame = CGRect(x: 5 + 10 + 48 * 2, y: 14 + 5 + 8  + iPhoneXdiff, width: 32, height: 32)
-        shareButton.setImage(UIImage(named: "share"), for: UIControlState())
+        shareButton.setImage(UIImage(named: "share"), for: UIControl.State())
         shareButton.setImage(UIImage(named: "share_high"), for: .highlighted)
         shareButton.addTarget(self, action: #selector(ViewController.openShare), for: .touchUpInside)
         //aboutButton.backgroundColor = kWhiteBackgroundColor
@@ -449,7 +449,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         let folderY: CGFloat = folderH/2 + 5 + 14  + iPhoneXdiff
         folderButton.frame = CGRect(x: 0, y: 0, width: folderW, height: folderH)
         folderButton.center = CGPoint(x: folderX, y: folderY)
-        folderButton.setImage(UIImage(named: "folder"), for: UIControlState())
+        folderButton.setImage(UIImage(named: "folder"), for: UIControl.State())
         folderButton.setImage(UIImage(named: "folderHigh"), for: .highlighted)
         folderButton.addTarget(self, action: #selector(ViewController.openFolderViewController), for: .touchUpInside)
         folderButton.backgroundColor = kWhiteBackgroundColor
@@ -494,7 +494,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         trackerButton.frame = CGRect(x: 0, y:0, width: trackerW, height: trackerH)
         trackerButton.center = CGPoint(x: trackerX, y: trackerY)
         trackerButton.layer.cornerRadius = trackerW/2
-        trackerButton.setTitle("Start Tracking", for: UIControlState())
+        trackerButton.setTitle("Start Tracking", for: UIControl.State())
         trackerButton.backgroundColor = kGreenButtonBackgroundColor
         trackerButton.addTarget(self, action: #selector(ViewController.trackerButtonTapped), for: .touchUpInside)
         trackerButton.isHidden = false
@@ -512,7 +512,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         newPinButton.center = CGPoint(x: newPinX, y: newPinY)
         newPinButton.layer.cornerRadius = newPinW/2
         newPinButton.backgroundColor = kWhiteBackgroundColor
-        newPinButton.setImage(UIImage(named: "addPin"), for: UIControlState())
+        newPinButton.setImage(UIImage(named: "addPin"), for: UIControl.State())
         newPinButton.setImage(UIImage(named: "addPinHigh"), for: .highlighted)
         newPinButton.addTarget(self, action: #selector(ViewController.addPinAtMyLocation), for: .touchUpInside)
         //let newPinLongPress = UILongPressGestureRecognizer(target: self, action: Selector("newPinLongPress:"))
@@ -529,7 +529,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         followUserButton.layer.cornerRadius = followW/2
         followUserButton.backgroundColor = kWhiteBackgroundColor
         //follow_user_high represents the user is being followed. Default status when app starts
-        followUserButton.setImage(UIImage(named: "follow_user_high"), for: UIControlState())
+        followUserButton.setImage(UIImage(named: "follow_user_high"), for: UIControl.State())
         followUserButton.setImage(UIImage(named: "follow_user_high"), for: .highlighted)
         followUserButton.addTarget(self, action: #selector(ViewController.followButtonTroggler), for: .touchUpInside)
         map.addSubview(followUserButton)
@@ -542,7 +542,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         saveButton.frame = CGRect(x: 0, y: 0, width: saveW, height: saveH)
         saveButton.center = CGPoint(x: saveX, y: saveY)
         saveButton.layer.cornerRadius = saveW/2
-        saveButton.setTitle("Save", for: UIControlState())
+        saveButton.setTitle("Save", for: UIControl.State())
         saveButton.backgroundColor = kDisabledBlueButtonBackgroundColor
         saveButton.addTarget(self, action: #selector(ViewController.saveButtonTapped), for: .touchUpInside)
         saveButton.isHidden = false
@@ -557,7 +557,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         resetButton.frame = CGRect(x: 0, y: 0, width: resetW, height: resetH)
         resetButton.center = CGPoint(x: resetX, y: resetY)
         resetButton.layer.cornerRadius = resetW/2
-        resetButton.setTitle("Reset", for: UIControlState())
+        resetButton.setTitle("Reset", for: UIControl.State())
         resetButton.backgroundColor = kDisabledRedButtonBackgroundColor
         resetButton.addTarget(self, action: #selector(ViewController.resetButtonTapped), for: .touchUpInside)
         resetButton.isHidden = false
@@ -578,12 +578,12 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         let notificationCenter = NotificationCenter.default
         
         notificationCenter.addObserver(self, selector: #selector(ViewController.didEnterBackground),
-            name: NSNotification.Name.UIApplicationDidEnterBackground, object: nil)
+            name: UIApplication.didEnterBackgroundNotification, object: nil)
        
-        notificationCenter.addObserver(self, selector: #selector(applicationDidBecomeActive), name: Notification.Name.UIApplicationDidBecomeActive, object: nil)
+        notificationCenter.addObserver(self, selector: #selector(applicationDidBecomeActive), name: UIApplication.didBecomeActiveNotification, object: nil)
         
         
-        notificationCenter.addObserver(self, selector: #selector(applicationWillTerminate), name: NSNotification.Name.UIApplicationWillTerminate, object: nil)
+        notificationCenter.addObserver(self, selector: #selector(applicationWillTerminate), name: UIApplication.willTerminateNotification, object: nil)
     }
 
     ///
@@ -607,7 +607,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
     /// Called when the application Becomes active (background -> foreground) this function verifies if
     /// it has permissions to get the location.
     ///
-    func applicationDidBecomeActive() {
+    @objc func applicationDidBecomeActive() {
         print("viewController:: applicationDidBecomeActive wasSentToBackground: \(wasSentToBackground) locationServices: \(CLLocationManager.locationServicesEnabled())")
         
         //If the app was never sent to background do nothing
@@ -626,7 +626,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
     /// sharing the location to save battery.
     ///
     ///
-    func didEnterBackground() {
+    @objc func didEnterBackground() {
         wasSentToBackground = true // flag the application was sent to background
         print("viewController:: didEnterBackground")
         if gpxTrackingStatus != .tracking {
@@ -638,7 +638,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
     /// Actions to do when the app will terminate
     ///
     /// In current implementation it removes all the temporary files that may have been created
-    func applicationWillTerminate() {
+    @objc func applicationWillTerminate() {
         print("viewController:: applicationWillTerminate")
         GPXFileManager.removeTemporaryFiles()
     }
@@ -646,7 +646,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
     ///
     /// Displays the view controller with the list of GPX Files.
     ///
-    func openFolderViewController() {
+    @objc func openFolderViewController() {
         print("openFolderViewController")
         let vc = GPXFilesTableViewController(nibName: nil, bundle: nil)
         vc.delegate = self
@@ -657,13 +657,13 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
     ///
     /// Displays the view controller with the About information.
     ///
-    func openAboutViewController() {
+    @objc func openAboutViewController() {
         let vc = AboutViewController(nibName: nil, bundle: nil)
         let navController = UINavigationController(rootViewController: vc)
         self.present(navController, animated: true) { () -> Void in }
     }
     
-    func openPreferencesTableViewController() {
+    @objc func openPreferencesTableViewController() {
         print("openPreferencesTableViewController")
         let vc = PreferencesTableViewController(style: .grouped)
         vc.delegate = self
@@ -673,7 +673,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
     
     
     /// Opens an Activity View Controller to share the file
-    func openShare() {
+    @objc func openShare() {
         print("share")
         //Create a temporary file
         let filename =  lastGpxFilename.isEmpty ? defaultFilename() : lastGpxFilename
@@ -692,7 +692,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
     ///
     /// After invoking this fuction, the map will not be centered on current user position.
     ///
-    func stopFollowingUser(_ gesture: UIPanGestureRecognizer) {
+    @objc func stopFollowingUser(_ gesture: UIPanGestureRecognizer) {
         if self.followUser {
             self.followUser = false
         }
@@ -709,8 +709,8 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
     ///
     /// If user long presses the map for a while a Pin (Waypoint/Annotation) will be dropped at that point.
     ///
-    func addPinAtTappedLocation(_ gesture: UILongPressGestureRecognizer) {
-        if  gesture.state == UIGestureRecognizerState.began {
+    @objc func addPinAtTappedLocation(_ gesture: UILongPressGestureRecognizer) {
+        if  gesture.state == UIGestureRecognizer.State.began {
             print("Adding Pin map Long Press Gesture")
             let point: CGPoint = gesture.location(in: self.map)
             map.addWaypointAtViewPoint(point)
@@ -736,7 +736,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
     ///
     /// It adds a Pin (Waypoint/Annotation) to current user location.
     ///
-    func addPinAtMyLocation() {
+    @objc func addPinAtMyLocation() {
         print("Adding Pin at my location")
         let waypoint = GPXWaypoint(coordinate: map.userLocation.coordinate)
         map.addWaypoint(waypoint)
@@ -749,7 +749,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
     /// Trogles between following or not following the user, that is, automatically centering the map
     //  in current user´s position.
     ///
-    func followButtonTroggler() {
+    @objc func followButtonTroggler() {
         self.followUser = !self.followUser
     }
     
@@ -758,7 +758,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
     ///
     /// It sets map to status .notStarted which clears the map.
     ///
-    func resetButtonTapped() {
+    @objc func resetButtonTapped() {
         self.gpxTrackingStatus = .notStarted
     }
     
@@ -768,7 +768,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
     ///
     /// It sets the status to tracking or paused.
     ///
-    func trackerButtonTapped() {
+    @objc func trackerButtonTapped() {
         print("startGpxTracking::")
         switch gpxTrackingStatus {
         case .notStarted:
@@ -786,7 +786,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
     ///
     /// It prompts the user to set a name of the file.
     ///
-    func saveButtonTapped() {
+    @objc func saveButtonTapped() {
         print("save Button tapped")
         // ignore the save button if there is nothing to save.
         if (gpxTrackingStatus == .notStarted) && !self.hasWaypoints {
@@ -895,7 +895,7 @@ extension ViewController: UIAlertViewDelegate {
             switch buttonIndex {
                 case 0:
                     print("Settings button")
-                    if let url = NSURL(string: UIApplicationOpenSettingsURLString) as URL? {
+                    if let url = NSURL(string: UIApplication.openSettingsURLString) as URL? {
                         UIApplication.shared.openURL(url)
                 }
                 case 1:

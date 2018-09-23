@@ -42,7 +42,7 @@ class AboutViewController: UIViewController, UIWebViewDelegate {
         self.title = "About"
         
         //Add the done button
-        let shareItem = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.plain, target: self, action: #selector(AboutViewController.closeViewController))
+        let shareItem = UIBarButtonItem(title: "Done", style: UIBarButtonItem.Style.plain, target: self, action: #selector(AboutViewController.closeViewController))
         self.navigationItem.rightBarButtonItems = [shareItem]
   
         //Add the Webview
@@ -56,10 +56,10 @@ class AboutViewController: UIViewController, UIWebViewDelegate {
     }
     
     /// Opens Safari when user clicks a link in the About page.
-    func webView(_ webView: UIWebView, shouldStartLoadWith request: URLRequest, navigationType: UIWebViewNavigationType) -> Bool {
+    func webView(_ webView: UIWebView, shouldStartLoadWith request: URLRequest, navigationType: UIWebView.NavigationType) -> Bool {
         print("shouldStartLoadWithRequest")
         
-        if navigationType == UIWebViewNavigationType.linkClicked {
+        if navigationType == UIWebView.NavigationType.linkClicked {
             UIApplication.shared.openURL(request.url!)
             return false
         }
@@ -67,7 +67,7 @@ class AboutViewController: UIViewController, UIWebViewDelegate {
     }
     
     /// Closes this view controller. Triggered by pressing the "Done" button in navigation bar.
-    func closeViewController() {
+    @objc func closeViewController() {
         self.dismiss(animated: true, completion: { () -> Void in
             
         })
