@@ -68,7 +68,7 @@ Adding a tile server is easy, just edit the file `GPXTileServer.swift`, uncommen
 
 You have a list of tile servers in [Open Street Map Wiki](http://wiki.openstreetmap.org/wiki/Tile_servers)
 
-# Reference docummentation
+# Reference documentation
 
 The application is being documented using [jazzy](https://github.com/realm/jazzy) and following [NSHipster tutorial on swift documentation](https://nshipster.com/swift-documentation/).
 
