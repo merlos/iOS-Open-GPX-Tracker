@@ -337,7 +337,7 @@
 				TargetAttributes = {
 					898EECD419C49B5800B4B207 = {
 						CreatedOnToolsVersion = 6.0;
-						DevelopmentTeam = SU64RGPDF2;
+						DevelopmentTeam = 9J2S23WJH3;
 						LastSwiftMigration = 1000;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
@@ -347,7 +347,7 @@
 					};
 					898EECEC19C49B5800B4B207 = {
 						CreatedOnToolsVersion = 6.0;
-						DevelopmentTeam = SU64RGPDF2;
+						DevelopmentTeam = 9J2S23WJH3;
 						LastSwiftMigration = 1000;
 						TestTargetID = 898EECD419C49B5800B4B207;
 					};
@@ -448,7 +448,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if which swiftlint >/dev/null; then\nswiftlint\nelse\necho \"SwiftLint does not exist, download from https://github.com/realm/SwiftLint\"\nfi";
+			shellScript = "if which swiftlint >/dev/null; then\nswiftlint\nelse\necho \"SwiftLint does not exist, download from https://github.com/realm/SwiftLint\"\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -637,7 +637,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				DEVELOPMENT_TEAM = SU64RGPDF2;
+				DEVELOPMENT_TEAM = 9J2S23WJH3;
 				INFOPLIST_FILE = OpenGpxTracker/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -658,7 +658,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				DEVELOPMENT_TEAM = SU64RGPDF2;
+				DEVELOPMENT_TEAM = 9J2S23WJH3;
 				INFOPLIST_FILE = OpenGpxTracker/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -675,7 +675,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				DEVELOPMENT_TEAM = SU64RGPDF2;
+				DEVELOPMENT_TEAM = 9J2S23WJH3;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -698,7 +698,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				DEVELOPMENT_TEAM = SU64RGPDF2;
+				DEVELOPMENT_TEAM = 9J2S23WJH3;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",

@@ -41,10 +41,10 @@ enum GPXTileServer: Int {
     var templateUrl: String {
         switch self {
         case .apple: return ""
-        case .openStreetMap: return "http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        case .cartoDB: return "http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png"
+        case .openStreetMap: return "https://a.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        case .cartoDB: return "https://a.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png"
             
-        //case .AnotherMap: return "http://another.map.tile.server/{z}/{x}/{y}.png"
+        //case .AnotherMap: return "https://another.map.tile.server/{z}/{x}/{y}.png"
         }
     }
     // Number of tile servers defined
