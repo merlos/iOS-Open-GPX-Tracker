@@ -798,6 +798,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         alert.addButton(withTitle: "Save")
         alert.alertViewStyle = .plainTextInput
         alert.tag = kSaveSessionAlertViewTag
+        alert.textField(at: 0)?.clearButtonMode = .always
         alert.textField(at: 0)?.text = lastGpxFilename.isEmpty ? defaultFilename() : lastGpxFilename
         alert.show()
         //alert.textFieldAtIndex(0)?.selectAll(self)
