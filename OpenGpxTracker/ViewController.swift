@@ -898,7 +898,7 @@ extension ViewController: UIAlertViewDelegate {
                     print("Settings button")
                     if let url = NSURL(string: UIApplicationOpenSettingsURLString) as URL? {
                         UIApplication.shared.openURL(url)
-                }
+                    }
                 case 1:
                     print("Cancel button")
                 default:
@@ -908,8 +908,7 @@ extension ViewController: UIAlertViewDelegate {
             switch buttonIndex {
             case 0:
                 print("Settings button")
-                if let url = URL(string: "App-Prefs:root=Privacy&path=LOCATION") {
-                    // If general location settings are disabled then open general location settings
+                if let url = NSURL(string: UIApplicationOpenSettingsURLString) as URL? {
                     UIApplication.shared.openURL(url)
                 }
             case 1:
