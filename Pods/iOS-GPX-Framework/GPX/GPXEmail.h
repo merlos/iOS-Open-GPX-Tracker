@@ -30,10 +30,10 @@
 /// ---------------------------------
 
 /** Creates and returns a new email element.
-@param id half of email address (billgates2004)
-@param domain half of email address (hotmail.com)
-@return A newly created email element.
-*/
+ @param emailID half of email address (billgates2004)
+ @param domain half of email address (hotmail.com)
+ @return A newly created email element.
+ */
 + (GPXEmail *)emailWithID:(NSString *)emailID domain:(NSString *)domain;
 
 @end

@@ -30,7 +30,7 @@ CHECKOUT OPTIONS:
     :commit: 2bcb008fe23d286e5da79311051e19b3345f1cd5
     :git: https://github.com/krzyzanowskim/CryptoSwift
   iOS-GPX-Framework:
-    :commit: 9ac7b6ca3d1ab9b28007d3e88c9888a2f78099db
+    :commit: 5fd50abbd722e0d16fc68dfb5b8a4251cc82a87e
     :git: http://github.com/merlos/iOS-GPX-Framework
 
 SPEC CHECKSUMS:
