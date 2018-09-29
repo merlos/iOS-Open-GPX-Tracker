@@ -231,7 +231,7 @@ static char encodingTable[64] = {
 	strm.opaque = Z_NULL;
 	strm.total_out = 0;
 	strm.next_in=(Bytef *)[self bytes];
-	strm.avail_in = [self length];
+    strm.avail_in = (unsigned int)[self length];
 	
 	// Compresssion Levels:
 	//   Z_NO_COMPRESSION
@@ -249,7 +249,7 @@ static char encodingTable[64] = {
 			[compressed increaseLengthBy: 16384];
 		
 		strm.next_out = [compressed mutableBytes] + strm.total_out;
-		strm.avail_out = [compressed length] - strm.total_out;
+        strm.avail_out = (unsigned int) [compressed length] -(unsigned int) strm.total_out;
 		
 		deflate(&strm, Z_FINISH);  
 		
@@ -265,8 +265,8 @@ static char encodingTable[64] = {
 {
 	if ([self length] == 0) return self;
 	
-	unsigned full_length = [self length];
-	unsigned half_length = [self length] / 2;
+    unsigned full_length = (unsigned int) [self length];
+    unsigned half_length = (unsigned int) [self length] / 2;
 	
 	NSMutableData *decompressed = [NSMutableData dataWithLength: full_length + half_length];
 	BOOL done = NO;
@@ -274,7 +274,7 @@ static char encodingTable[64] = {
 	
 	z_stream strm;
 	strm.next_in = (Bytef *)[self bytes];
-	strm.avail_in = [self length];
+    strm.avail_in = (unsigned int)[self length];
 	strm.total_out = 0;
 	strm.zalloc = Z_NULL;
 	strm.zfree = Z_NULL;
@@ -286,7 +286,7 @@ static char encodingTable[64] = {
 		if (strm.total_out >= [decompressed length])
 			[decompressed increaseLengthBy: half_length];
 		strm.next_out = [decompressed mutableBytes] + strm.total_out;
-		strm.avail_out = [decompressed length] - strm.total_out;
+        strm.avail_out = (unsigned int)[decompressed length] -(unsigned int) strm.total_out;
 		
 		// Inflate another chunk.
 		status = inflate (&strm, Z_SYNC_FLUSH);

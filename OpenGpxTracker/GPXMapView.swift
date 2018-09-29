@@ -90,14 +90,14 @@ class GPXMapView: MKMapView {
             // remove current overlay
             if self.tileServer != .apple {
                 //remove current overlay
-                self.remove(self.tileServerOverlay)
+                self.removeOverlay(self.tileServerOverlay)
             }
             //add new overlay to map
             if newValue != .apple {
                 self.tileServerOverlay = CachedTileOverlay(urlTemplate: newValue.templateUrl)
                 (self.tileServerOverlay as! CachedTileOverlay).useCache = self.useCache
                 tileServerOverlay.canReplaceMapContent = true
-                self.add(tileServerOverlay, level: .aboveLabels)
+                self.addOverlay(tileServerOverlay, level: .aboveLabels)
             
             }
         }
@@ -189,9 +189,9 @@ class GPXMapView: MKMapView {
         self.currentSegment.addTrackpoint(pt)
         //redrawCurrent track segment overlay
         //First remove last overlay, then re-add the overlay updated with the new point
-        self.remove(currentSegmentOverlay)
+        self.removeOverlay(currentSegmentOverlay)
         currentSegmentOverlay = currentSegment.overlay
-        self.add(currentSegmentOverlay)
+        self.addOverlay(currentSegmentOverlay)
         self.extent.extendAreaToIncludeLocation(location.coordinate)
         
         //add the distance to previous tracked point
@@ -242,7 +242,7 @@ class GPXMapView: MKMapView {
         //add tile server overlay
         //by removing all overlays, tile server overlay is also removed. We need to add it back
         if tileServer != .apple {
-            self.add(tileServerOverlay, level: .aboveLabels)
+            self.addOverlay(tileServerOverlay, level: .aboveLabels)
         }
     }
     
@@ -307,7 +307,7 @@ class GPXMapView: MKMapView {
         for oneTrack in self.tracks {
             totalTrackedDistance += oneTrack.length
             for segment in oneTrack.tracksegments {
-                self.add((segment as AnyObject).overlay)
+                self.addOverlay((segment as AnyObject).overlay)
                 if let segmentTrackpoints = (segment as AnyObject).trackpoints as? [GPXTrackPoint] {
                     //add point to map extent
                     for waypoint in segmentTrackpoints {

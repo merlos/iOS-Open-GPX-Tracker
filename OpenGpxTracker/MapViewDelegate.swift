@@ -16,13 +16,13 @@ class MapViewDelegate: NSObject, MKMapViewDelegate, UIAlertViewDelegate {
         //let detailButton: UIButton = UIButton.buttonWithType(UIButtonType.DetailDisclosure) as UIButton
         
         let deleteButton: UIButton = UIButton(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
-        deleteButton.setImage(UIImage(named: "delete"), for: UIControlState())
+        deleteButton.setImage(UIImage(named: "delete"), for: UIControl.State())
         deleteButton.setImage(UIImage(named: "deleteHigh"), for: .highlighted)
         deleteButton.tag = kDeleteWaypointAccesoryButtonTag
         annotationView.rightCalloutAccessoryView = deleteButton
         
         let editButton: UIButton = UIButton(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
-        editButton.setImage(UIImage(named: "edit"), for: UIControlState())
+        editButton.setImage(UIImage(named: "edit"), for: UIControl.State())
         editButton.setImage(UIImage(named: "editHigh"), for: .highlighted)
         editButton.tag = kEditWaypointAccesoryButtonTag
         annotationView.leftCalloutAccessoryView = editButton
@@ -85,9 +85,9 @@ class MapViewDelegate: NSObject, MKMapViewDelegate, UIAlertViewDelegate {
     
     
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView,
-        didChange newState: MKAnnotationViewDragState, fromOldState oldState: MKAnnotationViewDragState) {
+        didChange newState: MKAnnotationView.DragState, fromOldState oldState: MKAnnotationView.DragState) {
             
-            if newState == MKAnnotationViewDragState.ending {
+            if newState == MKAnnotationView.DragState.ending {
                 if let point = view.annotation as? GPXWaypoint {
                     print("Annotation name: \(String(describing: point.title)) lat:\(point.latitude) lon \(point.longitude)")
                 }
@@ -114,14 +114,14 @@ class MapViewDelegate: NSObject, MKMapViewDelegate, UIAlertViewDelegate {
                 }
                 continue
             }
-            let point: MKMapPoint = MKMapPointForCoordinate(annotationView.annotation!.coordinate)
-            if !MKMapRectContainsPoint(mapView.visibleMapRect, point) { continue }
+            let point: MKMapPoint = MKMapPoint.init(annotationView.annotation!.coordinate)
+            if !mapView.visibleMapRect.contains(point) { continue }
             
             let endFrame: CGRect = annotationView.frame
             annotationView.frame = CGRect(x: annotationView.frame.origin.x, y: annotationView.frame.origin.y - mapView.superview!.frame.size.height,
                 width: annotationView.frame.size.width, height:annotationView.frame.size.height)
             let interval: TimeInterval = 0.04 * 1.1
-            UIView.animate(withDuration: 0.5, delay: interval, options: UIViewAnimationOptions.curveLinear, animations: { () -> Void in
+            UIView.animate(withDuration: 0.5, delay: interval, options: UIView.AnimationOptions.curveLinear, animations: { () -> Void in
                 annotationView.frame = endFrame
                 }, completion: { (finished) -> Void in
                     if finished {

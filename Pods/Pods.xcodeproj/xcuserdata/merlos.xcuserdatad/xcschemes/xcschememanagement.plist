@@ -6,37 +6,19 @@
 	<dict>
 		<key>Cache.xcscheme</key>
 		<dict>
-			<key>orderHint</key>
-			<integer>1</integer>
+			<key>isShown</key>
+			<false/>
 		</dict>
 		<key>CryptoSwift.xcscheme</key>
 		<dict>
-			<key>orderHint</key>
-			<integer>2</integer>
+			<key>isShown</key>
+			<false/>
 		</dict>
 		<key>Pods-OpenGpxTracker.xcscheme</key>
 		<dict>
-			<key>orderHint</key>
-			<integer>4</integer>
+			<key>isShown</key>
+			<false/>
 		</dict>
-<<<<<<< HEAD
-		<key>SwiftHash.xcscheme</key>
-		<dict>
-			<key>orderHint</key>
-			<integer>6</integer>
-		</dict>
-		<key>TBXML.xcscheme</key>
-		<dict>
-			<key>orderHint</key>
-			<integer>5</integer>
-		</dict>
-		<key>iOS-GPX-Framework.xcscheme</key>
-		<dict>
-			<key>orderHint</key>
-			<integer>3</integer>
-		</dict>
-	</dict>
-=======
 		<key>TBXML.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -50,6 +32,5 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict/>
->>>>>>> NSMutableString-feature/updateLibraries
 </dict>
 </plist>

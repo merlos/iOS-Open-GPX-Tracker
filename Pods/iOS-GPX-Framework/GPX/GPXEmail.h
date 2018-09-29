@@ -30,7 +30,7 @@
 /// ---------------------------------
 
 /** Creates and returns a new email element.
- @param id half of email address (billgates2004)
+ @param emailID half of email address (billgates2004)
  @param domain half of email address (hotmail.com)
  @return A newly created email element.
  */

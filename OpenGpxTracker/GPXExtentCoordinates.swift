@@ -54,9 +54,9 @@ class GPXExtentCoordinates: NSObject {
             
             let latitudeDelta = bottomRightCoordinate.latitude - topLeftCoordinate.latitude
             let longitudeDelta = topLeftCoordinate.longitude - bottomRightCoordinate.longitude
-            let span: MKCoordinateSpan = MKCoordinateSpanMake(latitudeDelta, longitudeDelta)
+            let span: MKCoordinateSpan = MKCoordinateSpan.init(latitudeDelta: latitudeDelta, longitudeDelta: longitudeDelta)
             
-            return MKCoordinateRegionMake(center, span)
+            return MKCoordinateRegion.init(center: center, span: span)
         }
     }
     
