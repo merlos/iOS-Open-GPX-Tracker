@@ -908,7 +908,7 @@ extension ViewController: UIAlertViewDelegate {
             switch buttonIndex {
             case 0:
                 print("Settings button")
-                if let url = NSURL(string: UIApplicationOpenSettingsURLString) as URL? {
+                if let url = NSURL(string: UIApplication.openSettingsURLString) as URL? {
                     UIApplication.shared.openURL(url)
                 }
             case 1:
