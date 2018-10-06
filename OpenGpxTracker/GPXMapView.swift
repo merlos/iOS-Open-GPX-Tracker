@@ -307,13 +307,19 @@ class GPXMapView: MKMapView {
         for oneTrack in self.tracks {
             totalTrackedDistance += oneTrack.length
             for segment in oneTrack.tracksegments {
-                self.addOverlay((segment as AnyObject).overlay)
-                if let segmentTrackpoints = (segment as AnyObject).trackpoints as? [GPXTrackPoint] {
-                    //add point to map extent
-                    for waypoint in segmentTrackpoints {
-                        self.extent.extendAreaToIncludeLocation(waypoint.coordinate)
-                    }
-                }
+				if let segment = segment as? GPXTrackSegment {
+					let overlay = segment.overlay
+					self.addOverlay(overlay)
+
+					if let segmentTrackpoints = segment.trackpoints as? [GPXTrackPoint] {
+						//add point to map extent
+						for waypoint in segmentTrackpoints {
+							self.extent.extendAreaToIncludeLocation(waypoint.coordinate)
+						}
+					}
+				} else {
+					assert(false, "\(String(describing: type(of: segment)))")
+				}
             }
         }
     }
