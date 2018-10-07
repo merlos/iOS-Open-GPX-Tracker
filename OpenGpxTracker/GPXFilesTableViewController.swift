@@ -206,7 +206,7 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
         self.dismiss(animated: true, completion: nil)
         
     }
-    
+    var firstInit = true
     /// Shares file at `rowIndex`
     internal func actionShareFileAtIndex(_ rowIndex: Int, actionSheet: UIActionSheet) {
         guard let gpxFileInfo: GPXFileInfo = (fileList.object(at: rowIndex) as? GPXFileInfo) else {
@@ -214,9 +214,18 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
             return
         }
         let activityViewController = UIActivityViewController(activityItems: [gpxFileInfo.fileURL], applicationActivities: nil)
-        self.present(activityViewController, animated: true, completion: nil)
         activityViewController.popoverPresentationController?.sourceView = actionSheet
         activityViewController.popoverPresentationController?.sourceRect = actionSheet.bounds
+        if !firstInit {
+            self.dismiss(animated: true) {
+                self.present(activityViewController, animated: true, completion: nil)
+            }
+        }
+        else {
+            firstInit = false
+            self.present(activityViewController, animated: true, completion: nil)
+        }
+        print(firstInit)
     }
     
     /// Sends the file at `rowIndex` by email
@@ -236,7 +245,9 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
             let fileData: Data = try Data(contentsOf: fileURL, options: .mappedIfSafe)
             composer.addAttachmentData(fileData, mimeType:"application/gpx+xml", fileName: fileURL.lastPathComponent)
             //Display the comopser view controller
-            self.present(composer, animated: true, completion: nil)
+            self.dismiss(animated: true) {
+                self.present(composer, animated: true, completion: nil)
+            }
         } catch {
             print("Error while composing email")
         }
