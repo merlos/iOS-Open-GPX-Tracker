@@ -245,9 +245,7 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
             let fileData: Data = try Data(contentsOf: fileURL, options: .mappedIfSafe)
             composer.addAttachmentData(fileData, mimeType:"application/gpx+xml", fileName: fileURL.lastPathComponent)
             //Display the comopser view controller
-            self.dismiss(animated: true) {
-                self.present(composer, animated: true, completion: nil)
-            }
+            self.present(composer, animated: true, completion: nil)
         } catch {
             print("Error while composing email")
         }
