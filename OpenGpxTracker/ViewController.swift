@@ -685,6 +685,8 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         
         //Call Share activity View controller
         let activityViewController = UIActivityViewController(activityItems: [tmpFile], applicationActivities: nil)
+        activityViewController.popoverPresentationController?.sourceView = shareButton
+        activityViewController.popoverPresentationController?.sourceRect = shareButton.bounds
         self.present(activityViewController, animated: true, completion: nil)
     
     }

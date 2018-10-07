@@ -21,10 +21,6 @@
 			</array>
 		</dict>
 	</array>
-	<key>UISupportsDocumentBrowser</key>
-	<true/>
-	<key>LSApplicationCategoryType</key>
-	<false/>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -41,6 +37,8 @@
 	<string>????</string>
 	<key>CFBundleVersion</key>
 	<string>1</string>
+	<key>LSApplicationCategoryType</key>
+	<false/>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
@@ -82,19 +80,21 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>UISupportsDocumentBrowser</key>
+	<true/>
 	<key>UTImportedTypeDeclarations</key>
 	<array>
 		<dict>
-			<key>UTTypeIdentifier</key>
-			<string>com.topografix.gpx</string>
-			<key>UTTypeReferenceURL</key>
-			<string>http://www.topografix.com/GPX/1/1</string>
-			<key>UTTypeDescription</key>
-			<string>GPS Exchange Format (GPX)</string>
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.xml</string>
 			</array>
+			<key>UTTypeDescription</key>
+			<string>GPS Exchange Format (GPX)</string>
+			<key>UTTypeIdentifier</key>
+			<string>com.topografix.gpx</string>
+			<key>UTTypeReferenceURL</key>
+			<string>http://www.topografix.com/GPX/1/1</string>
 			<key>UTTypeTagSpecification</key>
 			<dict>
 				<key>public.filename-extension</key>
