@@ -39,15 +39,6 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
     ///
     weak var delegate: GPXFilesTableViewControllerDelegate?
     
-    
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
-        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-    }
-    
-    required init(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)!
-    }
-    
     ///
     /// Setups the view controller.
     ///
@@ -77,6 +68,7 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
         }
     }
     
+    
     /// Closes this view controller.
     @objc func closeGPXFilesTableViewController() {
         print("closeGPXFIlesTableViewController()")
@@ -84,9 +76,11 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
         })
     }
     
+    
     override func viewDidAppear(_ animated: Bool) {
         self.tableView.reloadData()
     }
+    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -101,15 +95,18 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
         return 1
     }
     
+    
     /// Returns the number of files in the section.
     override func tableView(_ tableView: UITableView?, numberOfRowsInSection section: Int) -> Int {
         return fileList.count
     }
     
+    
     /// Allow edit rows? Returns true only if there are files.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return gpxFilesFound
     }
+    
     
     /// Displays the delete button.
     override func tableView(_ tableView: UITableView,
@@ -120,6 +117,7 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
             actionDeleteFileAtIndex((indexPath as NSIndexPath).row)
         }
     }
+    
     
     /// Displays the name of the cell
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
