@@ -63,6 +63,11 @@ class GPXMapView: MKMapView {
     /// Current segment distance in meters
     var currentSegmentDistance = 0.00
 
+    ///position of the compass in the map
+    ///Example:
+    /// map.compassRect = CGRect(x: map.frame.width/2 - 18, y: 70, width: 36, height: 36)
+    var compassRect : CGRect
+    
     /// Is the map using local image cache??
     var useCache: Bool = true { //use tile overlay cache (
         didSet {
@@ -112,6 +117,7 @@ class GPXMapView: MKMapView {
     required init?(coder aDecoder: NSCoder) {
         var tmpCoords: [CLLocationCoordinate2D] = [] //init with empty
         self.currentSegmentOverlay = MKPolyline(coordinates: &tmpCoords, count: 0)
+        self.compassRect = CGRect.init(x: 0, y: 0, width: 36, height: 36)
         super.init(coder: aDecoder)
     }
     
@@ -122,7 +128,9 @@ class GPXMapView: MKMapView {
         super.layoutSubviews()
         // set compass position by setting its frame
         if let compassView = self.subviews.filter({ $0.isKind(of:NSClassFromString("MKCompassView")!) }).first {
-            compassView.frame = CGRect(x: self.frame.width/2 - 18, y: 55, width: 36, height: 36)
+            if compassRect.origin.x != 0 {
+                compassView.frame = compassRect
+            }
         }
     }
     
