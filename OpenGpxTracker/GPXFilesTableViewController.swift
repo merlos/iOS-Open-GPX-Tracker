@@ -206,26 +206,29 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
         self.dismiss(animated: true, completion: nil)
         
     }
-    var firstInit = true
+    
+    
     /// Shares file at `rowIndex`
     internal func actionShareFileAtIndex(_ rowIndex: Int, actionSheet: UIActionSheet) {
         guard let gpxFileInfo: GPXFileInfo = (fileList.object(at: rowIndex) as? GPXFileInfo) else {
             print("Unable to get filename at row \(rowIndex), cannot respond to \(type(of: self))didSelectRowAt")
             return
         }
+        print("GPXTableViewController: actionShareFileAtIndex")
+        
         let activityViewController = UIActivityViewController(activityItems: [gpxFileInfo.fileURL], applicationActivities: nil)
         activityViewController.popoverPresentationController?.sourceView = actionSheet
         activityViewController.popoverPresentationController?.sourceRect = actionSheet.bounds
-        if !firstInit {
-            self.dismiss(animated: true) {
-                self.present(activityViewController, animated: true, completion: nil)
+        activityViewController.completionWithItemsHandler = {(activityType: UIActivity.ActivityType?, completed: Bool, returnedItems: [Any]?, error: Error?) in
+            if !completed {
+                // User canceled
+                print("actionShareAtIndex: Cancelled")
+                return
             }
+            // User completed activity
+            print("actionShareFileAtIndex: User completed activity")
         }
-        else {
-            firstInit = false
-            self.present(activityViewController, animated: true, completion: nil)
-        }
-        print(firstInit)
+        self.present(activityViewController, animated: true, completion: nil)
     }
     
     /// Sends the file at `rowIndex` by email
