@@ -303,6 +303,8 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         map.frame = CGRect(x: 0.0, y: (isIPhoneX ? 0.0 : 20.0), width: self.view.bounds.size.width, height: mapH)
         map.isZoomEnabled = true
         map.isRotateEnabled = true
+        //set the position of the compass.
+        map.compassRect = CGRect(x: map.frame.width/2 - 18, y: isIPhoneX ? 105.0 : 70.0 , width: 36, height: 36)
         
         //If user long presses the map, it will add a Pin (waypoint) at that point
         map.addGestureRecognizer(
