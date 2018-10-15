@@ -143,19 +143,32 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
     /// Displays an action sheet with the actions for that file (Send it by email, Load in map and Delete)
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
-        let sheet = UIActionSheet()
-        sheet.title = "Select option"
-        sheet.addButton(withTitle: "Load in Map")
-        sheet.addButton(withTitle: "Share")
-        sheet.addButton(withTitle: "Cancel")
-        sheet.addButton(withTitle: "Delete")
-        sheet.cancelButtonIndex = 2
-        sheet.destructiveButtonIndex = 3
-
-        sheet.delegate = self
-        sheet.show(in: self.view)
-        self.selectedRowIndex = (indexPath as NSIndexPath).row
+        let sheet = UIAlertController(title: nil, message: "Select option", preferredStyle: .actionSheet)
+        let mapOption = UIAlertAction(title: "Load in Map", style: .default) { action in
+            self.actionLoadFileAtIndex(indexPath.row)
+        }
+        let shareOption = UIAlertAction(title: "Share", style: .default) { action in
+            self.actionShareFileAtIndex(indexPath.row, tableView: tableView, indexPath: indexPath)
+        }
         
+        let cancelOption = UIAlertAction(title: "Cancel", style: .cancel) { action in
+            self.actionSheetCancel(sheet)
+        }
+        
+        let deleteOption = UIAlertAction(title: "Delete", style: .destructive) { action in
+            self.actionDeleteFileAtIndex(indexPath.row)
+        }
+        
+        sheet.addAction(mapOption)
+        sheet.addAction(shareOption)
+        sheet.addAction(cancelOption)
+        sheet.addAction(deleteOption)
+        sheet.popoverPresentationController?.sourceView = tableView.cellForRow(at: indexPath)
+        sheet.popoverPresentationController?.sourceRect = (tableView.cellForRow(at: indexPath)?.frame)!
+        
+        self.present(sheet, animated: true) {
+            print("Loaded actionSheet")
+        }
     }
 
     // MARK: UITableView delegate methods
@@ -177,7 +190,7 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
     // Cancel button is taped.
     //
     // Does nothing, it only displays a log message
-    internal func actionSheetCancel(_ actionSheet: UIActionSheet) {
+    internal func actionSheetCancel(_ actionSheet: UIAlertController) {
         print("ActionSheet cancel")
     }
     
@@ -214,7 +227,7 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
     
     
     /// Shares file at `rowIndex`
-    internal func actionShareFileAtIndex(_ rowIndex: Int, actionSheet: UIActionSheet) {
+    internal func actionShareFileAtIndex(_ rowIndex: Int, tableView: UITableView, indexPath: IndexPath) {
         guard let gpxFileInfo: GPXFileInfo = (fileList.object(at: rowIndex) as? GPXFileInfo) else {
             print("Unable to get filename at row \(rowIndex), cannot respond to \(type(of: self))didSelectRowAt")
             return
@@ -222,8 +235,8 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
         print("GPXTableViewController: actionShareFileAtIndex")
         
         let activityViewController = UIActivityViewController(activityItems: [gpxFileInfo.fileURL], applicationActivities: nil)
-        activityViewController.popoverPresentationController?.sourceView = actionSheet
-        activityViewController.popoverPresentationController?.sourceRect = actionSheet.bounds
+        activityViewController.popoverPresentationController?.sourceView = tableView.cellForRow(at: indexPath)
+        activityViewController.popoverPresentationController?.sourceRect = (tableView.cellForRow(at: indexPath)?.frame)!
         activityViewController.completionWithItemsHandler = {(activityType: UIActivity.ActivityType?, completed: Bool, returnedItems: [Any]?, error: Error?) in
             if !completed {
                 // User canceled
@@ -234,26 +247,5 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
             print("actionShareFileAtIndex: User completed activity")
         }
         self.present(activityViewController, animated: true, completion: nil)
-    }
-}
-
-
-extension GPXFilesTableViewController: UIActionSheetDelegate{
-    
-    /// Handles what to do when user touches one of the options of the action sheet
-    func actionSheet(_ actionSheet: UIActionSheet, clickedButtonAt buttonIndex: Int) {
-        print("action sheet clicked button at index \(buttonIndex)")
-        switch buttonIndex {
-        case 0:
-            self.actionLoadFileAtIndex(self.selectedRowIndex)
-        case 1:
-            self.actionShareFileAtIndex(self.selectedRowIndex, actionSheet: actionSheet)
-        case 2:
-            print("ActionSheet: Cancel")
-        case 3: //Delete
-            self.actionDeleteFileAtIndex(self.selectedRowIndex)
-        default: //cancel
-            print("action Sheet do nothing")
-        }
     }
 }
