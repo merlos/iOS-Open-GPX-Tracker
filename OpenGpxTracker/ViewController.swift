@@ -295,6 +295,12 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
                 print("UNDETERMINED")
             }
         }
+        
+        // Map autorotate configuration
+        map.autoresizesSubviews = true
+        map.autoresizingMask = [.flexibleHeight, .flexibleWidth]
+        self.view.autoresizesSubviews = true
+        self.view.autoresizingMask = [.flexibleHeight, .flexibleWidth]
 
         // Map configuration Stuff
         map.delegate = mapViewDelegate
@@ -370,6 +376,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         //appTitleLabel.textColor = UIColor(red: 0.0/255.0, green: 0.0/255.0, blue: 0.0/255.0, alpha: 1.0)
         appTitleLabel.textColor = UIColor.yellow
         appTitleLabel.backgroundColor = UIColor(red: 58.0/255.0, green: 57.0/255.0, blue: 54.0/255.0, alpha: 0.80)
+        appTitleLabel.autoresizingMask = [.flexibleWidth, .flexibleLeftMargin, .flexibleRightMargin] //doesnt work
         self.view.addSubview(appTitleLabel)
         
         // CoordLabel
@@ -1082,4 +1089,29 @@ extension ViewController: CLLocationManagerDelegate {
         map.updateHeading(newHeading)
         
     }
+}
+
+extension ViewController {
+    
+    override var shouldAutorotate: Bool {
+        if let shouldRotate = self.presentedViewController?.shouldAutorotate {
+            return shouldRotate
+        }
+        return super.shouldAutorotate
+    }
+    
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        if let orientation = self.presentedViewController?.supportedInterfaceOrientations {
+            return orientation
+        }
+        return super.supportedInterfaceOrientations
+    }
+    
+    override var preferredInterfaceOrientationForPresentation: UIInterfaceOrientation {
+        if let orientation = self.presentedViewController?.preferredInterfaceOrientationForPresentation {
+            return orientation
+        }
+        return super.preferredInterfaceOrientationForPresentation
+    }
+    
 }
