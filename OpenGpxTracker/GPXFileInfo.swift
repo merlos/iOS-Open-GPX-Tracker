@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import MapKit
 
 ///
 /// A handy way of getting info of a GPX file.
@@ -43,6 +44,15 @@ class GPXFileInfo: NSObject {
         get {
             return fileSize.asFileSize()
         }
+    }
+    
+    /// distance from file log
+    var fileDistance: CLLocationDistance {
+        get {
+            let gpx = GPXParser.parseGPX(atPath: fileURL.path)
+            return (gpx?.tracksLength)!
+        }
+        
     }
     
     /// The filename without extension

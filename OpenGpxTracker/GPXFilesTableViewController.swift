@@ -124,21 +124,36 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
     /// Displays the name of the cell
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         //let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as UITableViewCell
+        tableView.register(UINib(nibName: "GPXFilesTableViewCell", bundle: nil), forCellReuseIdentifier: "newCell")
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "newCell", for: indexPath) as! GPXFilesTableViewCell
+        
         if gpxFilesFound {
-            let cell: UITableViewCell = UITableViewCell(style: UITableViewCell.CellStyle.subtitle, reuseIdentifier: "Cell")
             //cell.accessoryType = UITableViewCellAccessoryType.DetailDisclosureButton
             //cell.accessoryView = [[ UIImageView alloc ] initWithImage:[UIImage imageNamed:@"Something" ]];
             let gpxFileInfo = fileList.object(at: (indexPath as NSIndexPath).row) as! GPXFileInfo
-            cell.textLabel?.text = gpxFileInfo.fileName
-            cell.detailTextLabel?.text =
-                "last saved \(gpxFileInfo.modifiedDatetimeAgo) (\(gpxFileInfo.fileSizeHumanised))"
-            cell.detailTextLabel?.textColor = UIColor.darkGray
-            return cell
+            
+            cell.nameLabel.text = gpxFileInfo.fileName
+            cell.lastModifiedLabel.text = "last saved \(gpxFileInfo.modifiedDatetimeAgo) (\(gpxFileInfo.fileSizeHumanised))"
+            cell.lastModifiedLabel.textColor = .darkGray
+            
+            if gpxFileInfo.fileDistance > 1000.0 { //use km
+                let formatted = String(format: "%.2f", (gpxFileInfo.fileDistance/1000.0))
+                cell.startLocationLabel.text = "\(formatted)km"
+            } else {
+                let formatted = String(format: "%.0f", (gpxFileInfo.fileDistance))
+                cell.startLocationLabel.text = "\(formatted)m"
+            }
+            //cell.textLabel?.text = gpxFileInfo.fileName
+            //cell.detailTextLabel?.text =
+            //  "last saved \(gpxFileInfo.modifiedDatetimeAgo) (\(gpxFileInfo.fileSizeHumanised))"
+            //cell.detailTextLabel?.textColor = UIColor.darkGray
         } else {
-            let cell: UITableViewCell = UITableViewCell(style: UITableViewCell.CellStyle.subtitle, reuseIdentifier: "Cell")
-            cell.textLabel?.text = fileList.object(at: (indexPath as NSIndexPath).row) as? NSString as String? ?? ""
-            return cell
+            cell.nameLabel?.text = fileList.object(at: (indexPath as NSIndexPath).row) as? NSString as String? ?? ""
         }
+        
+        return cell
+
     }
     
     /// Displays an action sheet with the actions for that file (Send it by email, Load in map and Delete)
