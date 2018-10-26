@@ -252,8 +252,6 @@
 				8913CD8D1BDB2477009EC729 /* PreferencesTableViewControllerDelegate.swift */,
 				DC4908A21C4A332E009484AE /* MapViewDelegate.swift */,
 				8991CA3E1D3F01D10092E1DE /* TrackRecorder.swift */,
-				BF0299B32181E9E300EB1935 /* GPXFilesTableViewCell.swift */,
-				BF0299B42181E9E300EB1935 /* GPXFilesTableViewCell.xib */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -264,6 +262,8 @@
 				899D677E19D2366100C88A0A /* GPXMapView.swift */,
 				89F874A01BBCC74C004EF41A /* UIDistanceLabel.swift */,
 				DC4908A01C4A136F009484AE /* TrackerButton.swift */,
+				BF0299B32181E9E300EB1935 /* GPXFilesTableViewCell.swift */,
+				BF0299B42181E9E300EB1935 /* GPXFilesTableViewCell.xib */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -343,7 +343,7 @@
 				TargetAttributes = {
 					898EECD419C49B5800B4B207 = {
 						CreatedOnToolsVersion = 6.0;
-						DevelopmentTeam = 3X69W4AQD6;
+						DevelopmentTeam = SU64RGPDF2;
 						LastSwiftMigration = 1000;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
@@ -644,11 +644,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				DEVELOPMENT_TEAM = 3X69W4AQD6;
+				DEVELOPMENT_TEAM = SU64RGPDF2;
 				INFOPLIST_FILE = OpenGpxTracker/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = org2.merlos.OpenGpxTracker;
+				PRODUCT_BUNDLE_IDENTIFIER = org.merlos.OpenGpxTracker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = OpenGpxTracker/ObjectiveCBridgingHeader.h;
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
@@ -665,11 +665,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				DEVELOPMENT_TEAM = 3X69W4AQD6;
+				DEVELOPMENT_TEAM = SU64RGPDF2;
 				INFOPLIST_FILE = OpenGpxTracker/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = org2.merlos.OpenGpxTracker;
+				PRODUCT_BUNDLE_IDENTIFIER = org.merlos.OpenGpxTracker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = OpenGpxTracker/ObjectiveCBridgingHeader.h;
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
