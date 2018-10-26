@@ -33,7 +33,7 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Start location" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ykq-mI-eha">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Distance" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ykq-mI-eha">
                         <rect key="frame" x="16" y="57" width="307" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <nil key="textColor"/>
@@ -55,9 +55,9 @@
                 </constraints>
             </tableViewCellContentView>
             <connections>
+                <outlet property="distanceLabel" destination="Ykq-mI-eha" id="haA-rp-dar"/>
                 <outlet property="lastModifiedLabel" destination="tYC-hK-LUD" id="TIk-B6-c7B"/>
                 <outlet property="nameLabel" destination="m5M-na-ipi" id="fO4-bL-dEY"/>
-                <outlet property="startLocationLabel" destination="Ykq-mI-eha" id="wnr-XV-Grc"/>
             </connections>
             <point key="canvasLocation" x="137.59999999999999" y="149.32533733133434"/>
         </tableViewCell>

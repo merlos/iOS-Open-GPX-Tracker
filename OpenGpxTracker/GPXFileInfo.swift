@@ -52,7 +52,6 @@ class GPXFileInfo: NSObject {
             let gpx = GPXParser.parseGPX(atPath: fileURL.path)
             return (gpx?.tracksLength)!
         }
-        
     }
     
     /// The filename without extension

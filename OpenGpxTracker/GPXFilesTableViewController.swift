@@ -136,13 +136,14 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
             cell.nameLabel.text = gpxFileInfo.fileName
             cell.lastModifiedLabel.text = "last saved \(gpxFileInfo.modifiedDatetimeAgo) (\(gpxFileInfo.fileSizeHumanised))"
             cell.lastModifiedLabel.textColor = .darkGray
+            cell.distanceLabel.textColor = .darkGray
             
             if gpxFileInfo.fileDistance > 1000.0 { //use km
                 let formatted = String(format: "%.2f", (gpxFileInfo.fileDistance/1000.0))
-                cell.startLocationLabel.text = "\(formatted)km"
+                cell.distanceLabel.text = "\(formatted)km"
             } else {
                 let formatted = String(format: "%.0f", (gpxFileInfo.fileDistance))
-                cell.startLocationLabel.text = "\(formatted)m"
+                cell.distanceLabel.text = "\(formatted)m"
             }
             //cell.textLabel?.text = gpxFileInfo.fileName
             //cell.detailTextLabel?.text =
