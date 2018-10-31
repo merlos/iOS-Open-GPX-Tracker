@@ -86,8 +86,6 @@ class GPXFileInfo: NSObject {
         let gpx = GPXParser.parseGPX(atPath: fileURL.path) // path of file
         let track = gpx?.tracks as! [GPXTrack] // tracks of gpx file
         let trackSegments = track.first?.tracksegments as! [GPXTrackSegment] // first track segment of tracks
-        let tr = trackSegments.first?.trackpoints.first as! GPXTrackPoint
-        let t3 = tr.time
         let coordinates = trackSegments.first?.trackPointsToCoordinates().first
         let coder = CLGeocoder()
         
