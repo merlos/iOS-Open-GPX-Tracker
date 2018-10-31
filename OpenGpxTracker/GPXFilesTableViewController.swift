@@ -140,10 +140,10 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
             
             if gpxFileInfo.fileDistance > 1000.0 { //use km
                 let formatted = String(format: "%.2f", (gpxFileInfo.fileDistance/1000.0))
-                cell.distanceLabel.text = "distance travelled \(formatted)km"
+                cell.distanceLabel.text = "distance travelled \(formatted)km, time elapsed \(gpxFileInfo.fileTimeElapsed)"
             } else {
                 let formatted = String(format: "%.0f", (gpxFileInfo.fileDistance))
-                cell.distanceLabel.text = "distance travelled \(formatted)m"
+                cell.distanceLabel.text = "distance travelled \(formatted)m, time elapsed \(gpxFileInfo.fileTimeElapsed)"
             }
             
             gpxFileInfo.geocode{ (results: String?, error: Error?) -> () in
