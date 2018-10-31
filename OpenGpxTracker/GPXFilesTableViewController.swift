@@ -138,11 +138,13 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
             // line shows distance travelled and time elapsed
             if gpxFileInfo.fileDistance > 1000.0 { //use km
                 let formatted = String(format: "%.2f", (gpxFileInfo.fileDistance/1000.0))
-                cell.distanceLabel.text = "distance travelled \(formatted)km, time elapsed \(gpxFileInfo.fileTimeElapsed)"
+                cell.distanceLabel.text = "distance travelled \(formatted)km"
             } else {
                 let formatted = String(format: "%.0f", (gpxFileInfo.fileDistance))
-                cell.distanceLabel.text = "distance travelled \(formatted)m, time elapsed \(gpxFileInfo.fileTimeElapsed)"
+                cell.distanceLabel.text = "distance travelled \(formatted)m"
             }
+        
+            cell.timeElapsedLabel.text = "time elapsed \(gpxFileInfo.fileTimeElapsed)"
             
             // provides location data via reverse geocode
             gpxFileInfo.geocode{ (results: String?, error: Error?) -> () in
@@ -151,14 +153,17 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
             
             // setting subtitle colours
             cell.lastModifiedLabel.textColor = .darkGray
+            cell.timeElapsedLabel.textColor = .darkGray
             cell.distanceLabel.textColor = .darkGray
             cell.locationLabel.textColor = .darkGray
             
         } else {
             cell.nameLabel?.text = fileList.object(at: (indexPath as NSIndexPath).row) as? NSString as String? ?? ""
+            cell.nameLabel.textAlignment = .center
             cell.lastModifiedLabel.isHidden = true
             cell.distanceLabel.isHidden = true
             cell.locationLabel.isHidden = true
+            cell.timeElapsedLabel.isHidden = true
         }
         
         return cell
