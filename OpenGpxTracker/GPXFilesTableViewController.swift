@@ -145,10 +145,13 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
                 let formatted = String(format: "%.0f", (gpxFileInfo.fileDistance))
                 cell.distanceLabel.text = "distance travelled \(formatted)m"
             }
-            //cell.textLabel?.text = gpxFileInfo.fileName
-            //cell.detailTextLabel?.text =
-            //  "last saved \(gpxFileInfo.modifiedDatetimeAgo) (\(gpxFileInfo.fileSizeHumanised))"
-            //cell.detailTextLabel?.textColor = UIColor.darkGray
+            
+            gpxFileInfo.geocode{ (results: String?, error: Error?) -> () in
+               cell.locationLabel.text = results
+            }
+            
+            cell.locationLabel.textColor = .darkGray
+            
         } else {
             cell.nameLabel?.text = fileList.object(at: (indexPath as NSIndexPath).row) as? NSString as String? ?? ""
         }

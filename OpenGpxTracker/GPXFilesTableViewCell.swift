@@ -13,6 +13,8 @@ class GPXFilesTableViewCell: UITableViewCell {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var lastModifiedLabel: UILabel!
     @IBOutlet weak var distanceLabel: UILabel!
+    @IBOutlet weak var locationLabel: UILabel!
+ 
     
     
     override func awakeFromNib() {
