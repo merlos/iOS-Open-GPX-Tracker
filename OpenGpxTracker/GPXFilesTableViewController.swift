@@ -123,21 +123,19 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
     
     /// Displays the name of the cell
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        //let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as UITableViewCell
+        
+        // registers the xib file
         tableView.register(UINib(nibName: "GPXFilesTableViewCell", bundle: nil), forCellReuseIdentifier: "newCell")
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "newCell", for: indexPath) as! GPXFilesTableViewCell
         
         if gpxFilesFound {
-            //cell.accessoryType = UITableViewCellAccessoryType.DetailDisclosureButton
-            //cell.accessoryView = [[ UIImageView alloc ] initWithImage:[UIImage imageNamed:@"Something" ]];
             let gpxFileInfo = fileList.object(at: (indexPath as NSIndexPath).row) as! GPXFileInfo
             
             cell.nameLabel.text = gpxFileInfo.fileName
             cell.lastModifiedLabel.text = "last saved \(gpxFileInfo.modifiedDatetimeAgo) (\(gpxFileInfo.fileSizeHumanised))"
-            cell.lastModifiedLabel.textColor = .darkGray
-            cell.distanceLabel.textColor = .darkGray
             
+            // line shows distance travelled and time elapsed
             if gpxFileInfo.fileDistance > 1000.0 { //use km
                 let formatted = String(format: "%.2f", (gpxFileInfo.fileDistance/1000.0))
                 cell.distanceLabel.text = "distance travelled \(formatted)km, time elapsed \(gpxFileInfo.fileTimeElapsed)"
@@ -146,14 +144,21 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
                 cell.distanceLabel.text = "distance travelled \(formatted)m, time elapsed \(gpxFileInfo.fileTimeElapsed)"
             }
             
+            // provides location data via reverse geocode
             gpxFileInfo.geocode{ (results: String?, error: Error?) -> () in
                cell.locationLabel.text = results
             }
             
+            // setting subtitle colours
+            cell.lastModifiedLabel.textColor = .darkGray
+            cell.distanceLabel.textColor = .darkGray
             cell.locationLabel.textColor = .darkGray
             
         } else {
             cell.nameLabel?.text = fileList.object(at: (indexPath as NSIndexPath).row) as? NSString as String? ?? ""
+            cell.lastModifiedLabel.isHidden = true
+            cell.distanceLabel.isHidden = true
+            cell.locationLabel.isHidden = true
         }
         
         return cell

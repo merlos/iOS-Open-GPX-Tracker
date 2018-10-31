@@ -54,6 +54,7 @@ class GPXFileInfo: NSObject {
         }
     }
     
+    /// time elapsed by calculating difference between start and last date
     var fileTimeElapsed: String {
         get {
             let gpx = GPXParser.parseGPX(atPath: fileURL.path)
