@@ -60,23 +60,28 @@ class GPXFileInfo: NSObject {
             let gpx = GPXParser.parseGPX(atPath: fileURL.path)
             let track = gpx?.tracks as! [GPXTrack] // tracks of gpx file
             let trackSegments = track.first?.tracksegments as! [GPXTrackSegment] // first track segment of tracks
-            let startDate = trackSegments.first?.trackpoints.first as! GPXTrackPoint
-            let lastDate = trackSegments.last?.trackpoints.last as! GPXTrackPoint
-            
-            let timeElapsed = Int(lastDate.time.timeIntervalSince(startDate.time))
-            
-            let seconds = timeElapsed % 60
-            let minutes = (timeElapsed / 60) % 60
-            let hours = (timeElapsed / 3600)
-            
-            if hours == 0 && minutes > 0 {
-                return String(format: "%0.2dmins %0.2ds",minutes,seconds)
-            }
-            else if minutes == 0 && seconds > 0 {
-                return String(format: "%0.2ds",seconds)
+            if trackSegments.first?.trackpoints.first != nil {
+                let startDate = trackSegments.first?.trackpoints.first as! GPXTrackPoint
+                let lastDate = trackSegments.last?.trackpoints.last as! GPXTrackPoint
+                
+                let timeElapsed = Int(lastDate.time.timeIntervalSince(startDate.time))
+                
+                let seconds = timeElapsed % 60
+                let minutes = (timeElapsed / 60) % 60
+                let hours = (timeElapsed / 3600)
+                
+                if hours == 0 && minutes > 0 {
+                    return String(format: "%0.2dmins %0.2ds",minutes,seconds)
+                }
+                else if minutes == 0 && seconds > 0 {
+                    return String(format: "%0.2ds",seconds)
+                }
+                else {
+                    return String(format: "%0.2dhrs %0.2dmins %0.2ds",hours,minutes,seconds)
+                }
             }
             else {
-                 return String(format: "%0.2dhrs %0.2dmins %0.2ds",hours,minutes,seconds)
+                return "0s"
             }
 
         }
@@ -96,8 +101,14 @@ class GPXFileInfo: NSObject {
                 
                 var placeMark: CLPlacemark!
                 placeMark = placemarks?[0]
-                let geocodeResult = placeMark.thoroughfare! + ", " + placeMark.country!
-                completion(geocodeResult, error)
+                if placeMark.thoroughfare != nil {
+                    let geocodeResult = placeMark.thoroughfare! + ", " + placeMark.locality! + ", " + placeMark.country!
+                    completion(geocodeResult, error)
+                }
+                else {
+                    let geocodeResult = placeMark.locality! + ", " + placeMark.country!
+                    completion(geocodeResult, error)
+                }
 
             }
         }
