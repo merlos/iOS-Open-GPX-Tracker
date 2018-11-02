@@ -121,24 +121,61 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
         }
     }
     
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if gpxFilesFound {
+            return 130
+        }
+        else {
+            return 45
+        }
+    }
+    
     /// Displays the name of the cell
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        //let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as UITableViewCell
+        
+        tableView.register(GPXFilesTableViewCell.self, forCellReuseIdentifier: "newCell")
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "newCell", for: indexPath) as! GPXFilesTableViewCell
+        
         if gpxFilesFound {
-            let cell: UITableViewCell = UITableViewCell(style: UITableViewCell.CellStyle.subtitle, reuseIdentifier: "Cell")
-            //cell.accessoryType = UITableViewCellAccessoryType.DetailDisclosureButton
-            //cell.accessoryView = [[ UIImageView alloc ] initWithImage:[UIImage imageNamed:@"Something" ]];
             let gpxFileInfo = fileList.object(at: (indexPath as NSIndexPath).row) as! GPXFileInfo
-            cell.textLabel?.text = gpxFileInfo.fileName
-            cell.detailTextLabel?.text =
-                "last saved \(gpxFileInfo.modifiedDatetimeAgo) (\(gpxFileInfo.fileSizeHumanised))"
-            cell.detailTextLabel?.textColor = UIColor.darkGray
-            return cell
+            
+            cell.nameLabel.text = gpxFileInfo.fileName
+            cell.lastModifiedLabel.text = "last saved \(gpxFileInfo.modifiedDatetimeAgo) (\(gpxFileInfo.fileSizeHumanised))"
+            
+            // line shows distance travelled and time elapsed
+            if gpxFileInfo.fileDistance > 1000.0 { //use km
+                let formatted = String(format: "%.2f", (gpxFileInfo.fileDistance/1000.0))
+                cell.distanceLabel.text = "distance travelled \(formatted)km"
+            } else {
+                let formatted = String(format: "%.0f", (gpxFileInfo.fileDistance))
+                cell.distanceLabel.text = "distance travelled \(formatted)m"
+            }
+        
+            cell.timeElapsedLabel.text = "time elapsed \(gpxFileInfo.fileTimeElapsed)"
+            
+            // provides location data via reverse geocode
+            gpxFileInfo.geocode{ (results: String?, error: Error?) -> () in
+               cell.locationLabel.text = results
+            }
+            
+            // setting subtitle colours
+            cell.lastModifiedLabel.textColor = .darkGray
+            cell.timeElapsedLabel.textColor = .darkGray
+            cell.distanceLabel.textColor = .darkGray
+            cell.locationLabel.textColor = .darkGray
+            
         } else {
-            let cell: UITableViewCell = UITableViewCell(style: UITableViewCell.CellStyle.subtitle, reuseIdentifier: "Cell")
-            cell.textLabel?.text = fileList.object(at: (indexPath as NSIndexPath).row) as? NSString as String? ?? ""
-            return cell
+            cell.nameLabel.text = fileList.object(at: (indexPath as NSIndexPath).row) as? NSString as String? ?? ""
+            cell.nameLabel.textAlignment = .center
+            cell.lastModifiedLabel.isHidden = true
+            cell.distanceLabel.isHidden = true
+            cell.locationLabel.isHidden = true
+            cell.timeElapsedLabel.isHidden = true
         }
+        
+        return cell
+
     }
     
     /// Displays an action sheet with the actions for that file (Send it by email, Load in map and Delete)
