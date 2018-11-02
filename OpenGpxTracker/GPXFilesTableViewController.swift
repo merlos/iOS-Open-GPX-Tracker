@@ -121,11 +121,19 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
         }
     }
     
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if gpxFilesFound {
+            return 130
+        }
+        else {
+            return 45
+        }
+    }
+    
     /// Displays the name of the cell
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        // registers the xib file
-        tableView.register(UINib(nibName: "GPXFilesTableViewCell", bundle: nil), forCellReuseIdentifier: "newCell")
+        tableView.register(GPXFilesTableViewCell.self, forCellReuseIdentifier: "newCell")
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "newCell", for: indexPath) as! GPXFilesTableViewCell
         
@@ -158,7 +166,7 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
             cell.locationLabel.textColor = .darkGray
             
         } else {
-            cell.nameLabel?.text = fileList.object(at: (indexPath as NSIndexPath).row) as? NSString as String? ?? ""
+            cell.nameLabel.text = fileList.object(at: (indexPath as NSIndexPath).row) as? NSString as String? ?? ""
             cell.nameLabel.textAlignment = .center
             cell.lastModifiedLabel.isHidden = true
             cell.distanceLabel.isHidden = true
