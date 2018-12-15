@@ -295,6 +295,12 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
                 print("UNDETERMINED")
             }
         }
+        
+        // Map autorotate configuration
+        map.autoresizesSubviews = true
+        map.autoresizingMask = [.flexibleHeight, .flexibleWidth]
+        self.view.autoresizesSubviews = true
+        self.view.autoresizingMask = [.flexibleHeight, .flexibleWidth]
 
         // Map configuration Stuff
         map.delegate = mapViewDelegate
@@ -303,6 +309,8 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         map.frame = CGRect(x: 0.0, y: (isIPhoneX ? 0.0 : 20.0), width: self.view.bounds.size.width, height: mapH)
         map.isZoomEnabled = true
         map.isRotateEnabled = true
+        //set the position of the compass.
+        map.compassRect = CGRect(x: map.frame.width/2 - 18, y: isIPhoneX ? 105.0 : 70.0 , width: 36, height: 36)
         
         //If user long presses the map, it will add a Pin (waypoint) at that point
         map.addGestureRecognizer(
@@ -370,6 +378,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         //appTitleLabel.textColor = UIColor(red: 0.0/255.0, green: 0.0/255.0, blue: 0.0/255.0, alpha: 1.0)
         appTitleLabel.textColor = UIColor.yellow
         appTitleLabel.backgroundColor = UIColor(red: 58.0/255.0, green: 57.0/255.0, blue: 54.0/255.0, alpha: 0.80)
+        appTitleLabel.autoresizingMask = [.flexibleWidth, .flexibleLeftMargin, .flexibleRightMargin]
         self.view.addSubview(appTitleLabel)
         
         // CoordLabel
@@ -378,6 +387,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         coordsLabel.font = font12
         coordsLabel.textColor = UIColor.white
         coordsLabel.text = kNotGettingLocationText
+        coordsLabel.autoresizingMask = [.flexibleWidth, .flexibleLeftMargin, .flexibleRightMargin]
         self.view.addSubview(coordsLabel)
         
         // Tracked info
@@ -387,6 +397,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         timeLabel.textAlignment = .right
         timeLabel.font = font36
         timeLabel.text = "00:00"
+        timeLabel.autoresizingMask = [.flexibleWidth, .flexibleLeftMargin, .flexibleRightMargin]
         //timeLabel.shadowColor = UIColor.whiteColor()
         //timeLabel.shadowOffset = CGSize(width: 1, height: 1)
         //timeLabel.backgroundColor = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.5)
@@ -397,6 +408,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         speedLabel.textAlignment = .right
         speedLabel.font = font18
         speedLabel.text = "0.00 km/h"
+        speedLabel.autoresizingMask = [.flexibleWidth, .flexibleLeftMargin, .flexibleRightMargin]
         //timeLabel.backgroundColor = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.5)
         map.addSubview(speedLabel)
         
@@ -405,6 +417,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         totalTrackedDistanceLabel.textAlignment = .right
         totalTrackedDistanceLabel.font = font36
         totalTrackedDistanceLabel.text = "0m"
+        totalTrackedDistanceLabel.autoresizingMask = [.flexibleWidth, .flexibleLeftMargin, .flexibleRightMargin]
         //timeLabel.backgroundColor = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.5)
         map.addSubview(totalTrackedDistanceLabel)
         
@@ -412,6 +425,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         currentSegmentDistanceLabel.textAlignment = .right
         currentSegmentDistanceLabel.font = font18
         currentSegmentDistanceLabel.text = "0m"
+        currentSegmentDistanceLabel.autoresizingMask = [.flexibleWidth, .flexibleLeftMargin, .flexibleRightMargin]
         //timeLabel.backgroundColor = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.5)
         map.addSubview(currentSegmentDistanceLabel)
         
@@ -420,6 +434,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         aboutButton.setImage(UIImage(named: "info"), for: UIControl.State())
         aboutButton.setImage(UIImage(named: "info_high"), for: .highlighted)
         aboutButton.addTarget(self, action: #selector(ViewController.openAboutViewController), for: .touchUpInside)
+        aboutButton.autoresizingMask = [.flexibleRightMargin]
         //aboutButton.backgroundColor = kWhiteBackgroundColor
         //aboutButton.layer.cornerRadius = 24
         map.addSubview(aboutButton)
@@ -429,6 +444,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         preferencesButton.setImage(UIImage(named: "prefs"), for: UIControl.State())
         preferencesButton.setImage(UIImage(named: "prefs_high"), for: .highlighted)
         preferencesButton.addTarget(self, action: #selector(ViewController.openPreferencesTableViewController), for: .touchUpInside)
+        preferencesButton.autoresizingMask = [.flexibleRightMargin]
         //aboutButton.backgroundColor = kWhiteBackgroundColor
         //aboutButton.layer.cornerRadius = 24
         map.addSubview(preferencesButton)
@@ -438,6 +454,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         shareButton.setImage(UIImage(named: "share"), for: UIControl.State())
         shareButton.setImage(UIImage(named: "share_high"), for: .highlighted)
         shareButton.addTarget(self, action: #selector(ViewController.openShare), for: .touchUpInside)
+        shareButton.autoresizingMask = [.flexibleRightMargin]
         //aboutButton.backgroundColor = kWhiteBackgroundColor
         //aboutButton.layer.cornerRadius = 24
         map.addSubview(shareButton)
@@ -454,16 +471,19 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         folderButton.addTarget(self, action: #selector(ViewController.openFolderViewController), for: .touchUpInside)
         folderButton.backgroundColor = kWhiteBackgroundColor
         folderButton.layer.cornerRadius = 24
+        folderButton.autoresizingMask = [.flexibleRightMargin]
         map.addSubview(folderButton)
         
         // Add signal accuracy images and labels
         signalImageView.image = signalImage0
         signalImageView.frame = CGRect(x: self.view.frame.width/2 - 25.0, y:  14 + 5 + iPhoneXdiff, width: 50, height: 30)
+        signalImageView.autoresizingMask  = [.flexibleLeftMargin, .flexibleRightMargin]
         map.addSubview(signalImageView)
         signalAccuracyLabel.frame = CGRect(x: self.view.frame.width/2 - 25.0, y:  14 + 5 + 30 + iPhoneXdiff , width: 50, height: 12)
         signalAccuracyLabel.font = font12
         signalAccuracyLabel.text = kUnknownAccuracyText
         signalAccuracyLabel.textAlignment = .center
+        signalAccuracyLabel.autoresizingMask = [.flexibleLeftMargin, .flexibleRightMargin]
         map.addSubview(signalAccuracyLabel)
         
         
@@ -501,6 +521,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         trackerButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
         trackerButton.titleLabel?.numberOfLines = 2
         trackerButton.titleLabel?.textAlignment = .center
+        trackerButton.autoresizingMask = [.flexibleLeftMargin, .flexibleTopMargin, .flexibleBottomMargin, .flexibleRightMargin]
         map.addSubview(trackerButton)
         
         // Pin Button (on the left of start)
@@ -515,6 +536,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         newPinButton.setImage(UIImage(named: "addPin"), for: UIControl.State())
         newPinButton.setImage(UIImage(named: "addPinHigh"), for: .highlighted)
         newPinButton.addTarget(self, action: #selector(ViewController.addPinAtMyLocation), for: .touchUpInside)
+        newPinButton.autoresizingMask = [.flexibleLeftMargin, .flexibleTopMargin, .flexibleBottomMargin, .flexibleRightMargin]
         //let newPinLongPress = UILongPressGestureRecognizer(target: self, action: Selector("newPinLongPress:"))
         //newPinButton.addGestureRecognizer(newPinLongPress)
         map.addSubview(newPinButton)
@@ -532,6 +554,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         followUserButton.setImage(UIImage(named: "follow_user_high"), for: UIControl.State())
         followUserButton.setImage(UIImage(named: "follow_user_high"), for: .highlighted)
         followUserButton.addTarget(self, action: #selector(ViewController.followButtonTroggler), for: .touchUpInside)
+        followUserButton.autoresizingMask = [.flexibleLeftMargin, .flexibleTopMargin, .flexibleBottomMargin, .flexibleRightMargin]
         map.addSubview(followUserButton)
         
         // Save button
@@ -547,6 +570,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         saveButton.addTarget(self, action: #selector(ViewController.saveButtonTapped), for: .touchUpInside)
         saveButton.isHidden = false
         saveButton.titleLabel?.textAlignment = .center
+        saveButton.autoresizingMask = [.flexibleLeftMargin, .flexibleTopMargin, .flexibleBottomMargin, .flexibleRightMargin]
         map.addSubview(saveButton)
         
         // Reset button
@@ -562,6 +586,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         resetButton.addTarget(self, action: #selector(ViewController.resetButtonTapped), for: .touchUpInside)
         resetButton.isHidden = false
         resetButton.titleLabel?.textAlignment = .center
+        resetButton.autoresizingMask = [.flexibleLeftMargin, .flexibleTopMargin, .flexibleBottomMargin, .flexibleRightMargin]
         map.addSubview(resetButton)
     }
     
@@ -685,6 +710,8 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         
         //Call Share activity View controller
         let activityViewController = UIActivityViewController(activityItems: [tmpFile], applicationActivities: nil)
+        activityViewController.popoverPresentationController?.sourceView = shareButton
+        activityViewController.popoverPresentationController?.sourceRect = shareButton.bounds
         self.present(activityViewController, animated: true, completion: nil)
     
     }

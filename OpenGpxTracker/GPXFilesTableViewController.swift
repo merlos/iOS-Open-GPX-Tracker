@@ -39,15 +39,6 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
     ///
     weak var delegate: GPXFilesTableViewControllerDelegate?
     
-    
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
-        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-    }
-    
-    required init(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)!
-    }
-    
     ///
     /// Setups the view controller.
     ///
@@ -77,6 +68,7 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
         }
     }
     
+    
     /// Closes this view controller.
     @objc func closeGPXFilesTableViewController() {
         print("closeGPXFIlesTableViewController()")
@@ -84,9 +76,11 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
         })
     }
     
+    
     override func viewDidAppear(_ animated: Bool) {
         self.tableView.reloadData()
     }
+    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -101,15 +95,18 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
         return 1
     }
     
+    
     /// Returns the number of files in the section.
     override func tableView(_ tableView: UITableView?, numberOfRowsInSection section: Int) -> Int {
         return fileList.count
     }
     
+    
     /// Allow edit rows? Returns true only if there are files.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return gpxFilesFound
     }
+    
     
     /// Displays the delete button.
     override func tableView(_ tableView: UITableView,
@@ -120,6 +117,7 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
             actionDeleteFileAtIndex((indexPath as NSIndexPath).row)
         }
     }
+    
     
     /// Displays the name of the cell
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -141,22 +139,36 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
         }
     }
     
+    
     /// Displays an action sheet with the actions for that file (Send it by email, Load in map and Delete)
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
-        let sheet = UIActionSheet()
-        sheet.title = "Select option"
-        sheet.addButton(withTitle: "Send by email")
-        sheet.addButton(withTitle: "Load in Map")
-        sheet.addButton(withTitle: "Share")
-        sheet.addButton(withTitle: "Cancel")
-        sheet.addButton(withTitle: "Delete")
-        sheet.cancelButtonIndex = 3
-        sheet.destructiveButtonIndex = 4
-
-        sheet.delegate = self
-        sheet.show(in: self.view)
-        self.selectedRowIndex = (indexPath as NSIndexPath).row
+        let sheet = UIAlertController(title: nil, message: "Select option", preferredStyle: .actionSheet)
+        let mapOption = UIAlertAction(title: "Load in Map", style: .default) { action in
+            self.actionLoadFileAtIndex(indexPath.row)
+        }
+        let shareOption = UIAlertAction(title: "Share", style: .default) { action in
+            self.actionShareFileAtIndex(indexPath.row, tableView: tableView, indexPath: indexPath)
+        }
+        
+        let cancelOption = UIAlertAction(title: "Cancel", style: .cancel) { action in
+            self.actionSheetCancel(sheet)
+        }
+        
+        let deleteOption = UIAlertAction(title: "Delete", style: .destructive) { action in
+            self.actionDeleteFileAtIndex(indexPath.row)
+        }
+        
+        sheet.addAction(mapOption)
+        sheet.addAction(shareOption)
+        sheet.addAction(cancelOption)
+        sheet.addAction(deleteOption)
+        sheet.popoverPresentationController?.sourceView = tableView.cellForRow(at: indexPath)
+        sheet.popoverPresentationController?.sourceRect = (tableView.cellForRow(at: indexPath)?.frame)!
+        
+        self.present(sheet, animated: true) {
+            print("Loaded actionSheet")
+        }
     }
 
     // MARK: UITableView delegate methods
@@ -171,11 +183,17 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
         return (fileList.object(at: rowIndex) as! GPXFileInfo).fileName
     }
     
+    //
     // MARK: Action Sheet - Actions
+    //
     
-    internal func actionSheetCancel(_ actionSheet: UIActionSheet) {
+    // Cancel button is taped.
+    //
+    // Does nothing, it only displays a log message
+    internal func actionSheetCancel(_ actionSheet: UIAlertController) {
         print("ActionSheet cancel")
     }
+    
     
     /// Deletes from the disk storage the file of `fileList` at `rowIndex`
     internal func actionDeleteFileAtIndex(_ rowIndex: Int) {
@@ -193,13 +211,13 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
         tableView.reloadData()
     }
     
+    
     /// Loads the GPX file that corresponds to rowIndex in fileList in the map.
     internal func actionLoadFileAtIndex(_ rowIndex: Int) {
         guard let gpxFileInfo: GPXFileInfo = (fileList.object(at: rowIndex) as? GPXFileInfo) else {
             print("GPXFileTableViewController:: actionLoadFileAtIndex(\(rowIndex)): failed to get fileURL")
             return
         }
-        
         print("Load gpx File: \(gpxFileInfo.fileName)")
         let gpx = GPXParser.parseGPX(atPath: gpxFileInfo.fileURL.path)
         self.delegate?.didLoadGPXFileWithName(gpxFileInfo.fileName, gpxRoot: gpx!)
@@ -207,70 +225,27 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
         
     }
     
+    
     /// Shares file at `rowIndex`
-    internal func actionShareFileAtIndex(_ rowIndex: Int) {
+    internal func actionShareFileAtIndex(_ rowIndex: Int, tableView: UITableView, indexPath: IndexPath) {
         guard let gpxFileInfo: GPXFileInfo = (fileList.object(at: rowIndex) as? GPXFileInfo) else {
             print("Unable to get filename at row \(rowIndex), cannot respond to \(type(of: self))didSelectRowAt")
             return
         }
+        print("GPXTableViewController: actionShareFileAtIndex")
+        
         let activityViewController = UIActivityViewController(activityItems: [gpxFileInfo.fileURL], applicationActivities: nil)
+        activityViewController.popoverPresentationController?.sourceView = tableView.cellForRow(at: indexPath)
+        activityViewController.popoverPresentationController?.sourceRect = (tableView.cellForRow(at: indexPath)?.frame)!
+        activityViewController.completionWithItemsHandler = {(activityType: UIActivity.ActivityType?, completed: Bool, returnedItems: [Any]?, error: Error?) in
+            if !completed {
+                // User canceled
+                print("actionShareAtIndex: Cancelled")
+                return
+            }
+            // User completed activity
+            print("actionShareFileAtIndex: User completed activity")
+        }
         self.present(activityViewController, animated: true, completion: nil)
-    }
-    
-    /// Sends the file at `rowIndex` by email
-    internal func actionSendEmailWithAttachment(_ rowIndex: Int) {
-        guard let gpxFileInfo: GPXFileInfo = (fileList.object(at: rowIndex) as? GPXFileInfo) else {
-            return
-        }
-        let fileURL: URL = gpxFileInfo.fileURL
-        let composer = MFMailComposeViewController()
-        composer.mailComposeDelegate = self
-        // set the subject
-        composer.setSubject("[Open GPX tracker] Share file \(gpxFileInfo.fileName).gpx")
-        //Add some text to the body and attach the file
-        let body = "File sent with Open GPX Tracker for iOS. Create GPS tracks and share them as GPX files."
-        composer.setMessageBody(body, isHTML: true)
-        do {
-            let fileData: Data = try Data(contentsOf: fileURL, options: .mappedIfSafe)
-            composer.addAttachmentData(fileData, mimeType:"application/gpx+xml", fileName: fileURL.lastPathComponent)
-            //Display the comopser view controller
-            self.present(composer, animated: true, completion: nil)
-        } catch {
-            print("Error while composing email")
-        }
-    }
-}
-
-/// Handles what to do when user touches one of the options of the action sheet
-extension GPXFilesTableViewController: UIActionSheetDelegate{
-    func actionSheet(_ actionSheet: UIActionSheet, clickedButtonAt buttonIndex: Int) {
-        print("action sheet clicked button at index \(buttonIndex)")
-        switch buttonIndex {
-        case 0:
-            self.actionSendEmailWithAttachment(self.selectedRowIndex)
-        case 1:
-            self.actionLoadFileAtIndex(self.selectedRowIndex)
-        case 2:
-            self.actionShareFileAtIndex(self.selectedRowIndex)
-        case 3:
-            print("ActionSheet: Cancel")
-        case 4: //Delete
-            self.actionDeleteFileAtIndex(self.selectedRowIndex)
-        default: //cancel
-            print("action Sheet do nothing")
-        }
-    }
-}
-
-extension GPXFilesTableViewController: MFMailComposeViewControllerDelegate {
-    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
-        switch result.rawValue {
-        case MFMailComposeResult.sent.rawValue:
-            print("Email sent")
-            
-        default:
-            print("Whoops email was not sent :-(")
-        }
-        self.dismiss(animated: true, completion: nil)
     }
 }
