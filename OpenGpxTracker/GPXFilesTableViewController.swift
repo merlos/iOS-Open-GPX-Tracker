@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import GPXKit
 import MessageUI
 
 /// Text displayed when there are no GPX files in the folder.

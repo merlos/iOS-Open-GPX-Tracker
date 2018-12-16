@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import MapKit
+import GPXKit
 
 //
 //This extension adds some methods to work with mapkit

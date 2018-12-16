@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import MapKit
+import GPXKit
 
 
 extension GPXTrackPoint {
@@ -19,5 +20,7 @@ extension GPXTrackPoint {
         self.longitude = CGFloat(location.coordinate.longitude)
         self.time = Date()
         self.elevation = CGFloat(location.altitude)
-    }    
+    }
+    
+    
 }

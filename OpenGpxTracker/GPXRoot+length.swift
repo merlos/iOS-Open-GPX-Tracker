@@ -7,6 +7,7 @@
 
 import Foundation
 import MapKit
+import GPXKit
 
 /// Extends GPXRoot to support getting the length of all tracks in meters
 extension GPXRoot {

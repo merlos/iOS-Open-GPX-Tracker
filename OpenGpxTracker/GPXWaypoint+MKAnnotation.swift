@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 import MapKit
+import GPXKit
 
 extension GPXWaypoint : MKAnnotation {
     

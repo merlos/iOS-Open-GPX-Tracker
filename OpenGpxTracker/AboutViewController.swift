@@ -5,7 +5,7 @@
 //  Created by merlos on 24/09/14.
 //
 
-import Foundation
+import UIKit
 //import WebKit //<-- To support ios7 UIWebview will be used
 
 

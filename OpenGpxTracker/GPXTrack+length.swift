@@ -7,6 +7,7 @@
 
 import Foundation
 import MapKit
+import GPXKit
 
 /// Extension to support getting the distance of a track in meters.
 extension GPXTrack {

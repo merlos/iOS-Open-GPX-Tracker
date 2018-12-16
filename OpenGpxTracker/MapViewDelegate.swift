@@ -1,4 +1,5 @@
 import MapKit
+import GPXKit
 
 class MapViewDelegate: NSObject, MKMapViewDelegate, UIAlertViewDelegate {
 
