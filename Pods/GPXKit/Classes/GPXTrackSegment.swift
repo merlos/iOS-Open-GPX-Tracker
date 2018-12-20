@@ -10,12 +10,12 @@ import UIKit
 open class GPXTrackSegment: GPXElement {
     
     public let trackpoints = NSMutableArray()
-    var extensions: GPXExtensions?
+    public var extensions: GPXExtensions?
     
     
     // MARK:- Instance
     
-    override init() {
+    public override init() {
         super.init()
     }
     
@@ -32,14 +32,14 @@ open class GPXTrackSegment: GPXElement {
     
     // MARK:- Public Methods
     
-    func newTrackpointWith(latitude: CGFloat, longitude: CGFloat) -> GPXTrackPoint {
+    open func newTrackpointWith(latitude: CGFloat, longitude: CGFloat) -> GPXTrackPoint {
         let trackpoint = GPXTrackPoint().trackpointWith(latitude: latitude, longitude: longitude)
         self.add(trackpoint: trackpoint)
         
         return trackpoint
     }
     
-    func add(trackpoint: GPXTrackPoint?) {
+    open func add(trackpoint: GPXTrackPoint?) {
         if trackpoint != nil {
             let index = trackpoints.index(of: trackpoint!)
             
@@ -50,13 +50,13 @@ open class GPXTrackSegment: GPXElement {
         }
     }
     
-    func add(trackpoints: NSArray) {
-        for case let trackpoint as GPXTrackPoint in trackpoints {
+    open func add(trackpoints: [GPXTrackPoint]) {
+        for trackpoint in trackpoints {
             self.add(trackpoint: trackpoint)
         }
     }
     
-    func remove(trackpoint: GPXTrackPoint) {
+    open func remove(trackpoint: GPXTrackPoint) {
         let index = trackpoints.index(of: trackpoint)
         
         if index != NSNotFound {

@@ -195,7 +195,7 @@ class GPXMapView: MKMapView {
     ///
     func addPointToCurrentTrackSegmentAtLocation(_ location: CLLocation) {
         let pt = GPXTrackPoint(location: location)
-        self.currentSegment.addTrackpoint(pt)
+        self.currentSegment.add(trackpoint: pt)
         //redrawCurrent track segment overlay
         //First remove last overlay, then re-add the overlay updated with the new point
         self.removeOverlay(currentSegmentOverlay)
@@ -206,7 +206,7 @@ class GPXMapView: MKMapView {
         //add the distance to previous tracked point
         if self.currentSegment.trackpoints.count >= 2 { //at elast there are two points in the segment
             let prevPt = self.currentSegment.trackpoints[self.currentSegment.trackpoints.count-2] //get previous point
-            let prevPtLoc = CLLocation(latitude: Double((prevPt as AnyObject).latitude), longitude: Double((prevPt as AnyObject).longitude))
+            let prevPtLoc = CLLocation(latitude: Double((prevPt as! GPXTrackPoint).latitude), longitude: Double((prevPt as! GPXTrackPoint).longitude))
             //now get the distance
             let distance = prevPtLoc.distance(from: location)
             self.currentTrackDistance += distance
@@ -264,16 +264,16 @@ class GPXMapView: MKMapView {
         print("Exporting map data into GPX String")
         //Create the gpx structure
         let gpx = GPXRoot(creator: kGPXCreatorString)
-        gpx?.addWaypoints(self.waypoints)
+        gpx.add(waypoints: self.waypoints)
         let track = GPXTrack()
-        track.addTracksegments(self.trackSegments)
+        track.add(trackSegments: self.trackSegments)
         //add current segment if not empty
         if self.currentSegment.trackpoints.count > 0 {
-            track.addTracksegment(self.currentSegment)
+            track.add(trackSegment: self.currentSegment)
         }
         self.tracks.append(track)
-        gpx?.addTracks(self.tracks)
-        return gpx!.gpx()
+        gpx.add(tracks: self.tracks)
+        return gpx.gpx()
     }
    
     ///

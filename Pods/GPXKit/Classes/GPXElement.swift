@@ -9,8 +9,8 @@ import UIKit
 
 open class GPXElement: NSObject {
     
-    var parent: GPXElement?
-    var element: TBXMLElement
+    public var parent: GPXElement? = nil
+    public var element: TBXMLElement
     
     //from GPXConst
     let kGPXInvalidGPXFormatNotification = "kGPXInvalidGPXFormatNotification"
@@ -34,8 +34,8 @@ open class GPXElement: NSObject {
         self.parent = parent!
     }
  */
-    override init() {
-        self.parent = GPXElement()
+    public override init() {
+        //self.parent = GPXElement()
         self.element = TBXMLElement()
         super.init()
     }
@@ -49,6 +49,7 @@ open class GPXElement: NSObject {
         element?.initialize(to: self.element)
         
     }
+    
     
     // MARK:- Elements
     
@@ -165,7 +166,7 @@ open class GPXElement: NSObject {
     
     // MARK:- GPX
    
-    func gpx() -> String {
+    open func gpx() -> String {
         let gpx: NSMutableString = ""
         self.gpx(gpx, indentationLevel: 0)
         return gpx as String

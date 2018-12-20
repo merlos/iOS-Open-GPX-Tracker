@@ -37,8 +37,6 @@
 		899D678719D354EB00C88A0A /* about.html in Resources */ = {isa = PBXBuildFile; fileRef = 899D678519D354EB00C88A0A /* about.html */; };
 		89D2F8F91DD7FA7800A52D64 /* Cache.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89D2F8F81DD7FA7700A52D64 /* Cache.framework */; };
 		89D2F8FB1DD7FAF600A52D64 /* CryptoSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89D2F8FA1DD7FAF600A52D64 /* CryptoSwift.framework */; };
-		89D2F8FD1DD7FAFA00A52D64 /* iOS_GPX_Framework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89D2F8FC1DD7FAFA00A52D64 /* iOS_GPX_Framework.framework */; };
-		89D2F8FF1DD7FAFF00A52D64 /* TBXML.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89D2F8FE1DD7FAFF00A52D64 /* TBXML.framework */; };
 		89E327BE1A7481EA00FC559E /* GPXTileServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E327BD1A7481EA00FC559E /* GPXTileServer.swift */; };
 		89EA86612157A08E002E03A7 /* Date+timeAgo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89EA86602157A08E002E03A7 /* Date+timeAgo.swift */; };
 		89EA86632157B42C002E03A7 /* GPXFileInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89EA86622157B42C002E03A7 /* GPXFileInfo.swift */; };
@@ -119,8 +117,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				89D2F8F91DD7FA7800A52D64 /* Cache.framework in Frameworks */,
-				89D2F8FF1DD7FAFF00A52D64 /* TBXML.framework in Frameworks */,
-				89D2F8FD1DD7FAFA00A52D64 /* iOS_GPX_Framework.framework in Frameworks */,
 				89D2F8FB1DD7FAF600A52D64 /* CryptoSwift.framework in Frameworks */,
 				899D678419D3528D00C88A0A /* WebKit.framework in Frameworks */,
 				899D677819CF0A9F00C88A0A /* MessageUI.framework in Frameworks */,

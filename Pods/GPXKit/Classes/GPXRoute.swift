@@ -69,7 +69,7 @@ open class GPXRoute: GPXElement {
         return link
     }
     
-    func add(Link link: GPXLink?) {
+    func add(link: GPXLink?) {
         if link != nil {
             let index = links.index(of: link!)
             if index == NSNotFound {
@@ -79,9 +79,9 @@ open class GPXRoute: GPXElement {
         }
     }
     
-    func add(Links array: NSArray) {
-        for case let link as GPXLink in array {
-            add(Link: link)
+    func add(links: [GPXLink]) {
+        for link in links {
+            add(link: link)
         }
     }
     
@@ -112,8 +112,8 @@ open class GPXRoute: GPXElement {
         }
     }
     
-    func add(routepoints: NSArray) {
-        for case let routepoint as GPXRoutePoint in routepoints {
+    func add(routepoints: [GPXRoutePoint]) {
+        for routepoint in routepoints {
             add(routepoint: routepoint)
         }
     }

@@ -11,7 +11,7 @@ open class GPXParser: NSObject {
 
     // MARK: Instance
     
-    func parseGPXAt(url: URL) -> GPXRoot? {
+    public func parseGPXAt(url: URL) -> GPXRoot? {
         do {
             let data = try Data(contentsOf: url)
             return self.parseGPXWith(data: data)
@@ -22,13 +22,13 @@ open class GPXParser: NSObject {
         return nil
     }
     
-    func parseGPXAt(path: String) -> GPXRoot? {
+    public func parseGPXAt(path: String) -> GPXRoot? {
         
         let url = URL(fileURLWithPath: path)
         return GPXParser().parseGPXAt(url: url)
     }
     
-    func parseGPXWith(string: String) -> GPXRoot? {
+    public func parseGPXWith(string: String) -> GPXRoot? {
         
         let xml = try? TBXML(xmlString: string, error: ())
 
@@ -39,7 +39,7 @@ open class GPXParser: NSObject {
         return nil
     }
     
-    func parseGPXWith(data: Data) -> GPXRoot? {
+    public func parseGPXWith(data: Data) -> GPXRoot? {
         let xml = try? TBXML(xmlData: data, error: ())
         
         if xml?.rootXMLElement != nil {

@@ -12,7 +12,7 @@ open class GPXWaypoint: GPXElement {
     var timeValue = String()
     var magneticVariationValue = String()
     var geoidHeightValue = String()
-    var links = NSMutableArray()
+    public var links = NSMutableArray()
     var fixValue = String()
     var satellitesValue = String()
     var horizontalDilutionValue = String()
@@ -23,29 +23,31 @@ open class GPXWaypoint: GPXElement {
     var latitudeValue:String?
     var longitudeValue:String?
     
-    //var elevation = CGFloat()
-    //var time = Date()
-    //public var magneticVariation = CGFloat()
-    //var geoidHeight = CGFloat()
-    public var name = String()
+    public var elevation = CGFloat()
+    public var time: Date?
+    public var magneticVariation = CGFloat()
+    public var geoidHeight = CGFloat()
+    public var name: String?
     public var comment = String()
-    public var desc = String()
+    public var desc: String?
     public var source = String()
-    //var links = NSArray()
+    //public var links = NSArray()
     public var symbol = String()
     public var type = String()
-    //var fix = Int()
-    //var satellites = Int()
-    //var horizontalDilution = CGFloat()
-    //var positionDilution = CGFloat()
+    public var fix = Int()
+    public var satellites = Int()
+    public var horizontalDilution = CGFloat()
+    public var verticalDilution = CGFloat()
+    public var positionDilution = CGFloat()
     public var ageofDGPSData = CGFloat()
     public var DGPSid = Int()
     public var extensions: GPXExtensions?
     public var latitude = CGFloat()
     public var longitude = CGFloat()
     
-    override init() {
+    public override init() {
         self.extensions = GPXExtensions()
+        self.time = Date()
         super.init()
     }
     
@@ -82,45 +84,60 @@ open class GPXWaypoint: GPXElement {
         
         self.latitude = GPXType().latitude(latitudeValue)
         self.longitude =  GPXType().longitude(longitudeValue)
-        
+        self.elevation = GPXType().decimal(elevationValue)
+        self.time = GPXType().dateTime(value: timeValue)
+        self.magneticVariation = GPXType().degrees(magneticVariationValue)
+        self.geoidHeight = GPXType().decimal(geoidHeightValue)
+        self.fix = GPXType().fix(value: fixValue).rawValue
+        self.satellites = GPXType().nonNegativeInt(satellitesValue)
+        self.horizontalDilution = GPXType().decimal(horizontalDilutionValue)
+        self.verticalDilution = GPXType().decimal(verticalDilutionValue)
+        self.positionDilution = GPXType().decimal(positionDilutionValue)
+        self.ageofDGPSData = GPXType().decimal(ageOfDGPSDataValue)
     }
     
-    open func waypoint(With latitude: CGFloat, longitude: CGFloat) -> GPXWaypoint {
-        let waypoint = GPXWaypoint()
-        waypoint.latitude = latitude
-        waypoint.longitude = longitude
-        return waypoint
+    public init(latitude: CGFloat, longitude: CGFloat) {
+        super.init()
+        self.latitude = latitude
+        self.longitude = longitude
     }
     
     // MARK:- Public Methods
     
+    /*
     public var elevation: CGFloat {
         return GPXType().decimal(elevationValue)
     }
-    
+    */
     func set(Elevation elevation: CGFloat) {
         elevationValue = GPXType().value(forDecimal: elevation)
     }
     
+    /*
     public var time: Date? {
         return GPXType().dateTime(value: timeValue)
     }
+    */
     
     func set(Time time: Date) {
         timeValue = GPXType().value(forDateTime: time)
     }
     
+    /*
     public var magneticVariation: CGFloat {
         return GPXType().degrees(magneticVariationValue)
     }
+    */
     
     func set(MagneticVariation magneticVariation: CGFloat) {
         magneticVariationValue = GPXType().value(forDegrees: magneticVariation)
     }
     
+    /*
     public var geoidHeight: CGFloat {
         return GPXType().decimal(geoidHeightValue)
     }
+    */
     
     func set(GeoidHeight geoidHeight: CGFloat) {
         geoidHeightValue = GPXType().value(forDecimal: geoidHeight)
@@ -131,7 +148,7 @@ open class GPXWaypoint: GPXElement {
         return link
     }
     
-    open func add(Link link: GPXLink?) {
+    open func add(link: GPXLink?) {
         if link != nil {
             let index = links.index(of: link!)
             if index == NSNotFound {
@@ -141,9 +158,9 @@ open class GPXWaypoint: GPXElement {
         }
     }
     
-    open func add(Links array: NSArray) {
-        for case let link as GPXLink in array {
-            add(Link: link)
+    open func add(links: [GPXLink]) {
+        for link in links {
+            add(link: link)
         }
     }
     
@@ -156,49 +173,61 @@ open class GPXWaypoint: GPXElement {
         }
     }
     
+    /*
     public var fix: Int { // maybe GPXFix would be better?
         return GPXType().fix(value: fixValue).rawValue
     }
+    */
     
     func set(Fix: Int) {
         fixValue = GPXType().value(forFix: GPXFix(rawValue: Fix) ?? .none)
     }
     
+    /*
     public var satellites: Int {
         return GPXType().nonNegativeInt(satellitesValue)
     }
+    */
     
     func set(Satellites: Int) {
         satellitesValue = GPXType().value(forNonNegativeInt: Satellites)
     }
     
+    /*
     public var horizontalDilution: CGFloat {
         return GPXType().decimal(horizontalDilutionValue)
     }
+    */
     
     func set(HorizontalDilution: CGFloat) {
         horizontalDilutionValue = GPXType().value(forDecimal: HorizontalDilution)
     }
     
+    /*
     public var verticalDilution: CGFloat {
         return GPXType().decimal(horizontalDilutionValue)
     }
+    */
     
     func set(VerticalDilution: CGFloat) {
         verticalDilutionValue = GPXType().value(forDecimal: VerticalDilution)
     }
     
+    /*
     public var positionDilution: CGFloat {
         return GPXType().decimal(positionDilutionValue)
     }
+    */
     
     func set(PositionDilution: CGFloat) {
         positionDilutionValue = GPXType().value(forDecimal: PositionDilution)
     }
     
+    /*
     public var ageOfDGPSData: CGFloat {
         return GPXType().decimal(ageOfDGPSDataValue)
     }
+    */
     
     func set(DGPSid: Int) {
         DGPSidValue = GPXType().value(forDgpsStation: DGPSid)
@@ -241,8 +270,8 @@ open class GPXWaypoint: GPXElement {
         self.addProperty(forValue: timeValue as NSString, gpx: gpx, tagName: "time", indentationLevel: indentationLevel)
         self.addProperty(forValue: magneticVariationValue as NSString, gpx: gpx, tagName: "magvar", indentationLevel: indentationLevel)
         self.addProperty(forValue: geoidHeightValue as NSString, gpx: gpx, tagName: "geoidheight", indentationLevel: indentationLevel)
-        self.addProperty(forValue: name as NSString, gpx: gpx, tagName: "name", indentationLevel: indentationLevel)
-        self.addProperty(forValue: desc as NSString, gpx: gpx, tagName: "desc", indentationLevel: indentationLevel)
+        self.addProperty(forValue: name as NSString?, gpx: gpx, tagName: "name", indentationLevel: indentationLevel)
+        self.addProperty(forValue: desc as NSString?, gpx: gpx, tagName: "desc", indentationLevel: indentationLevel)
         self.addProperty(forValue: source as NSString, gpx: gpx, tagName: "source", indentationLevel: indentationLevel)
         
         for case let link as GPXLink in self.links {

@@ -10,17 +10,17 @@ import UIKit
 open class GPXRoot: GPXElement {
 
     //var schema = String()
-    var version: String?
-    var creator: String?
-    var metadata: GPXMetadata?
-    var waypoints = NSMutableArray()
-    var routes = NSMutableArray()
-    var tracks = NSMutableArray()
-    var extensions: GPXExtensions?
+    public var version: String?
+    public var creator: String?
+    public var metadata: GPXMetadata?
+    public var waypoints = NSMutableArray()
+    public var routes = NSMutableArray()
+    public var tracks = NSMutableArray()
+    public var extensions: GPXExtensions?
     
     // MARK:- Instance
     
-    override init() {
+    public override init() {
         super.init()
         
         version = "1.1"
@@ -55,12 +55,9 @@ open class GPXRoot: GPXElement {
         
     }
     
-    func rootWith(Creator: String) -> GPXRoot {
-        
-        let root = GPXRoot()
-        root.creator = creator
-        
-        return root
+    public init(creator: String) {
+        super.init()
+        self.creator = creator
     }
     
     // MARK:- Public Methods
@@ -69,15 +66,16 @@ open class GPXRoot: GPXElement {
         return "http://www.topografix.com/GPX/1/1"
     }
     
-    func newWaypointWith(latitude: CGFloat, longitude: CGFloat) -> GPXWaypoint {
-        let waypoint = GPXWaypoint().waypoint(With: latitude, longitude: longitude)
+    public func newWaypointWith(latitude: CGFloat, longitude: CGFloat) -> GPXWaypoint {
+        //let waypoint = GPXWaypoint().waypoint(With: latitude, longitude: longitude)
+        let waypoint = GPXWaypoint.init(latitude: latitude, longitude: longitude)
         
         self.add(waypoint: waypoint)
         
         return waypoint
     }
     
-    func add(waypoint: GPXWaypoint?) {
+    public func add(waypoint: GPXWaypoint?) {
         if waypoint != nil {
             let index: Int = waypoints.index(of: waypoint!)
             
@@ -88,13 +86,13 @@ open class GPXRoot: GPXElement {
         }
     }
     
-    func add(waypoints: NSArray) {
-        for case let waypoint as GPXWaypoint in waypoints {
+    public func add(waypoints: [GPXWaypoint]) {
+        for waypoint in waypoints {
             self.add(waypoint: waypoint)
         }
     }
     
-    func remove(waypoint: GPXWaypoint) {
+    public func remove(waypoint: GPXWaypoint) {
         let index = waypoints.index(of: waypoint)
         
         if index != NSNotFound {
@@ -103,7 +101,7 @@ open class GPXRoot: GPXElement {
         }
     }
     
-    func newRoute() -> GPXRoute {
+    public func newRoute() -> GPXRoute {
         let route = GPXRoute()
         
         self.add(route: route)
@@ -111,7 +109,7 @@ open class GPXRoot: GPXElement {
         return route
     }
     
-    func add(route: GPXRoute?) {
+    public func add(route: GPXRoute?) {
         if route != nil {
             let index = routes.index(of: route!)
             if index == NSNotFound {
@@ -121,13 +119,13 @@ open class GPXRoot: GPXElement {
         }
     }
     
-    func add(routes: NSArray) {
-        for case let route as GPXRoute in routes {
+    public func add(routes: [GPXRoute]) {
+        for route in routes {
             self.add(route: route)
         }
     }
     
-    func remove(route: GPXRoute) {
+    public func remove(route: GPXRoute) {
         let index = routes.index(of: route)
         
         if index != NSNotFound {
@@ -136,13 +134,13 @@ open class GPXRoot: GPXElement {
         }
     }
     
-    func newTrack() -> GPXTrack {
+    public func newTrack() -> GPXTrack {
         let track = GPXTrack()
         
         return track
     }
     
-    func add(track: GPXTrack?) {
+    public func add(track: GPXTrack?) {
         if track != nil {
             let index = tracks.index(of: track!)
             if index == NSNotFound {
@@ -152,13 +150,13 @@ open class GPXRoot: GPXElement {
         }
     }
     
-    func add(tracks: NSArray) {
-        for case let track as GPXTrack in tracks {
+    public func add(tracks: [GPXTrack]) {
+        for track in tracks {
             self.add(track: track)
         }
     }
     
-    func remove(track: GPXTrack) {
+    public func remove(track: GPXTrack) {
         let index = tracks.index(of: track)
         
         if index != NSNotFound {

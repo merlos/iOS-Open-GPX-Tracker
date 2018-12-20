@@ -46,8 +46,8 @@ open class GPXPointSegment: GPXElement {
         }
     }
     
-    func add(points array: NSArray) {
-        for case let point as GPXPoint in array {
+    func add(points: [GPXPoint]) {
+        for point in points {
             add(point: point)
         }
     }

@@ -9,6 +9,10 @@ import UIKit
 
 open class GPXTrackPoint: GPXWaypoint {
     
+    public override init() {
+        super.init()
+    }
+    
     // MARK:- Instance
     
     func trackpointWith(latitude: CGFloat, longitude: CGFloat) -> GPXTrackPoint {

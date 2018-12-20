@@ -220,7 +220,7 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
             return
         }
         print("Load gpx File: \(gpxFileInfo.fileName)")
-        let gpx = GPXParser.parseGPX(atPath: gpxFileInfo.fileURL.path)
+        let gpx = GPXParser().parseGPXAt(path: gpxFileInfo.fileURL.path)
         self.delegate?.didLoadGPXFileWithName(gpxFileInfo.fileName, gpxRoot: gpx!)
         self.dismiss(animated: true, completion: nil)
         

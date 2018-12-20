@@ -1,7 +1,7 @@
 PODS:
   - Cache (5.2.0)
   - CryptoSwift (0.13.1)
-  - GPXKit (0.1.3)
+  - GPXKit (0.1.5)
 
 DEPENDENCIES:
   - Cache (from `https://github.com/hyperoslo/Cache`)
@@ -24,13 +24,13 @@ CHECKOUT OPTIONS:
     :commit: 288692d159d1babc245a031dc59be759efd531bc
     :git: https://github.com/krzyzanowskim/CryptoSwift
   GPXKit:
-    :commit: eef589b1310a20e828922f3b8910597e46e93559
+    :commit: bdd23cf675785c525d5711e99b83c3af6a78bc37
     :git: https://github.com/VincentNeo/GPXKit.git
 
 SPEC CHECKSUMS:
   Cache: 807c5d86d01a177f06ede9865add3aea269bbfd4
   CryptoSwift: ff68c35a53e03177d31aaa2c1e8b3e010aeed6cb
-  GPXKit: 328c1cc9e6ded34a73ef11107186a04b77f7a1d6
+  GPXKit: a66d65be76b96b52fbb3e4f3c46d8851baec8ced
 
 PODFILE CHECKSUM: b988c0db908d1fd0829e39414612a84bc75eddf1
 
