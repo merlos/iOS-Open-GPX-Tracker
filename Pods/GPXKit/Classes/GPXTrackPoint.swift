@@ -9,8 +9,12 @@ import UIKit
 
 open class GPXTrackPoint: GPXWaypoint {
     
-    public override init() {
+    public required init() {
         super.init()
+    }
+    
+    public required init(XMLElement element: UnsafeMutablePointer<TBXMLElement>?, parent: GPXElement?) {
+        super.init(XMLElement: element, parent: parent)
     }
     
     // MARK:- Instance

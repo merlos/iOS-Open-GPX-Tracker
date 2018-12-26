@@ -21,13 +21,13 @@ open class GPXRoute: GPXElement {
     
     // MARK:- Instance
     
-    override init() {
+    public required init() {
         //links = NSMutableArray()
         //routepoints = NSMutableArray()
         super.init()
     }
     
-    override init(XMLElement element: UnsafeMutablePointer<TBXMLElement>?, parent: GPXElement?) {
+    public required init(XMLElement element: UnsafeMutablePointer<TBXMLElement>?, parent: GPXElement?) {
         
         super.init(XMLElement: element, parent: parent)
         

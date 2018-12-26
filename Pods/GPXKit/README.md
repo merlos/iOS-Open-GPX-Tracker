@@ -9,9 +9,10 @@
 -->
 
 ## *** WORK IN PROGRESS ***
-Current status: access control issues needs fixing.
-Ported probably everything; untested. Will start testing. 
+Current status: Bug hunt.
 
+~~EXC_BAD_ACCESS at GPXElement parent variable. Don't quite get whats wrong, will take a break for now./~~
+fixed
 ## Aim
 This project aims to update/port iOS-GPX-Framework to Swift language, due to its original code being seemingly abandoned.
 

@@ -9,6 +9,14 @@ import UIKit
 
 open class GPXRoutePoint: GPXWaypoint {
     
+    public required init() {
+        super.init()
+    }
+    
+    public required init(XMLElement element: UnsafeMutablePointer<TBXMLElement>?, parent: GPXElement?) {
+        super.init(XMLElement: element, parent: parent)
+    }
+    
     // MARK:- Instance
     
     func routePoint(with latitude: CGFloat, longitude: CGFloat) -> GPXRoutePoint {

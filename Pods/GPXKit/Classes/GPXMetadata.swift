@@ -22,14 +22,14 @@ open class GPXMetadata: GPXElement {
     
     // MARK:- Instance
     
-    override init() {
+    required public init() {
         author = GPXAuthor()
         timeValue = String()
         
         super.init()
     }
     
-    override init(XMLElement element: UnsafeMutablePointer<TBXMLElement>?, parent: GPXElement?) {
+    public required init(XMLElement element: UnsafeMutablePointer<TBXMLElement>?, parent: GPXElement?) {
         author = GPXAuthor()
         timeValue = String()
         

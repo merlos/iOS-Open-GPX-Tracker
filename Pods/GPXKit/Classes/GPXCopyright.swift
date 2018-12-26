@@ -16,11 +16,11 @@ open class GPXCopyright: GPXElement {
     
     // MARK:- Instance
     
-    override init() {
+    public required init() {
         super.init()
     }
     
-    override init(XMLElement element: UnsafeMutablePointer<TBXMLElement>?, parent: GPXElement?) {
+    public required init(XMLElement element: UnsafeMutablePointer<TBXMLElement>?, parent: GPXElement?) {
         super.init(XMLElement: element, parent: parent)
         yearValue = self.text(forSingleChildElement: "year", xmlElement: element)
         license = self.text(forSingleChildElement: "license", xmlElement: element)

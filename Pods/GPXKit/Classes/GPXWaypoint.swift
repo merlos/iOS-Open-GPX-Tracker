@@ -41,17 +41,17 @@ open class GPXWaypoint: GPXElement {
     public var positionDilution = CGFloat()
     public var ageofDGPSData = CGFloat()
     public var DGPSid = Int()
-    public var extensions: GPXExtensions?
+    public var extensions: GPXExtensions? = GPXExtensions()
     public var latitude = CGFloat()
     public var longitude = CGFloat()
     
-    public override init() {
-        self.extensions = GPXExtensions()
+    public required init() {
+        //self.extensions = GPXExtensions()
         self.time = Date()
         super.init()
     }
     
-    override init(XMLElement element: UnsafeMutablePointer<TBXMLElement>?, parent: GPXElement?) {
+    public required init(XMLElement element: UnsafeMutablePointer<TBXMLElement>?, parent: GPXElement?) {
         self.extensions = GPXExtensions(XMLElement: element, parent: parent)
         
         super.init(XMLElement: element, parent: parent)

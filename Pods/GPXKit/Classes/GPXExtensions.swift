@@ -10,11 +10,11 @@ import UIKit
 open class GPXExtensions: GPXElement {
     
     // MARK:- Instance
-    override init() {
+    public required init() {
         super.init()
     }
     
-    override init(XMLElement element: UnsafeMutablePointer<TBXMLElement>?, parent: GPXElement?) {
+    public required init(XMLElement element: UnsafeMutablePointer<TBXMLElement>?, parent: GPXElement?) {
         super.init(XMLElement: element, parent: parent)
     }
     

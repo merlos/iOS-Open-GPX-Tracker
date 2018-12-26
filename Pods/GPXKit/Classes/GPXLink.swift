@@ -23,14 +23,14 @@ open class GPXLink: GPXElement {
    
     // MARK:- Instance
     
-    override init() {
+    public required init() {
         self.text = String()
         self.mimetype = String()
         self.href = String()
         super.init()
     }
     
-    override init(XMLElement element: UnsafeMutablePointer<TBXMLElement>?, parent: GPXElement?) {
+    public required init(XMLElement element: UnsafeMutablePointer<TBXMLElement>?, parent: GPXElement?) {
         self.text = String()
         self.mimetype = String()
         self.href = String()

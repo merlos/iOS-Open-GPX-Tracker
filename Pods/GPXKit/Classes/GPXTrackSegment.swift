@@ -15,11 +15,11 @@ open class GPXTrackSegment: GPXElement {
     
     // MARK:- Instance
     
-    public override init() {
+    public required init() {
         super.init()
     }
     
-    override init(XMLElement element: UnsafeMutablePointer<TBXMLElement>?, parent: GPXElement?) {
+    public required init(XMLElement element: UnsafeMutablePointer<TBXMLElement>?, parent: GPXElement?) {
         super.init(XMLElement: element, parent: parent)
         
         extensions = childElement(ofClass: GPXExtensions.self, xmlElement: element) as! GPXExtensions?

@@ -20,7 +20,7 @@ open class GPXRoot: GPXElement {
     
     // MARK:- Instance
     
-    public override init() {
+    public required init() {
         super.init()
         
         version = "1.1"
@@ -28,13 +28,13 @@ open class GPXRoot: GPXElement {
         
     }
     
-    override init(XMLElement element: UnsafeMutablePointer<TBXMLElement>?, parent: GPXElement?) {
+    public required init(XMLElement element: UnsafeMutablePointer<TBXMLElement>?, parent: GPXElement?) {
         super.init(XMLElement: element, parent: parent)
         
         version = value(ofAttribute: "version", xmlElement: element, required: true) ?? ""
         creator = value(ofAttribute: "creator", xmlElement: element, required: true) ?? ""
         
-        metadata = childElement(ofClass: GPXMetadata.self, xmlElement: element) as! GPXMetadata?
+        metadata = childElement(ofClass: GPXMetadata.self, xmlElement: element) as? GPXMetadata
         
         self.childElement(ofClass: GPXWaypoint.self, xmlElement: element, eachBlock: { element in
             if element != nil {

@@ -15,14 +15,14 @@ open class GPXPerson: GPXElement {
     
     // MARK:- Instance
     
-    override init() {
+    public required init() {
         name = String()
         email = GPXEmail()
         link = GPXLink()
         super.init()
     }
     
-    override init(XMLElement element: UnsafeMutablePointer<TBXMLElement>?, parent: GPXElement?) {
+    public required init(XMLElement element: UnsafeMutablePointer<TBXMLElement>?, parent: GPXElement?) {
         name = String()
         email = GPXEmail()
         link = GPXLink()
