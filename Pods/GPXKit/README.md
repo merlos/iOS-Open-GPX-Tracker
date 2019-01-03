@@ -9,12 +9,11 @@
 -->
 
 ## *** WORK IN PROGRESS ***
-Current status: Bug hunt.
+Current status: Tons of debugging required.
 
-~~EXC_BAD_ACCESS at GPXElement parent variable. Don't quite get whats wrong, will take a break for now./~~
-fixed
 ## Aim
 This project aims to update/port iOS-GPX-Framework to Swift language, due to its original code being seemingly abandoned.
+Once the project reaches stability (if it ever will), I will focus on attempting to optimise the code and/or to add new features.
 
 ## Example
 
@@ -32,7 +31,7 @@ it, simply add the following line to your Podfile:
 pod 'GPXKit'
 ```
 
-Right now, GPXKit can be added to your project, by adding the following line to your Podfile.
+Right now, as I do not wish to have people not being able to use this pod, due to critical errors, GPXKit can be added to your project for testing purposes only, by adding the following line to your Podfile.
 ```ruby
 pod 'GPXKit', :git => 'https://github.com/VincentNeo/GPXKit.git'
 ```

@@ -206,7 +206,7 @@ class GPXMapView: MKMapView {
         //add the distance to previous tracked point
         if self.currentSegment.trackpoints.count >= 2 { //at elast there are two points in the segment
             let prevPt = self.currentSegment.trackpoints[self.currentSegment.trackpoints.count-2] //get previous point
-            let prevPtLoc = CLLocation(latitude: Double((prevPt as! GPXTrackPoint).latitude), longitude: Double((prevPt as! GPXTrackPoint).longitude))
+            let prevPtLoc = CLLocation(latitude: Double((prevPt as! GPXTrackPoint).latitude!), longitude: Double((prevPt as! GPXTrackPoint).longitude!))
             //now get the distance
             let distance = prevPtLoc.distance(from: location)
             self.currentTrackDistance += distance

@@ -52,7 +52,7 @@ extension GPXTrackSegment {
         }
         var prev: CLLocation? //previous
         for point in (self.trackpoints as? [GPXTrackPoint])! {
-            let pt: CLLocation = CLLocation(latitude: Double(point.latitude), longitude: Double(point.longitude) )
+            let pt: CLLocation = CLLocation(latitude: Double(point.latitude!), longitude: Double(point.longitude!) )
             if prev == nil { //if first point => set it as previous and go for next
                 prev = pt
                 continue

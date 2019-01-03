@@ -10,7 +10,8 @@ import UIKit
 open class GPXElement: NSObject {
     
     public var parent: GPXElement?
-    public var element: TBXMLElement
+    //public var element: TBXMLElement
+    public var element: UnsafeMutablePointer<TBXMLElement>? = nil
     
     //from GPXConst
     let kGPXInvalidGPXFormatNotification = "kGPXInvalidGPXFormatNotification"
@@ -36,18 +37,19 @@ open class GPXElement: NSObject {
  */
     public required override init() {
         //self.parent = GPXElement()
-        self.element = TBXMLElement()
+        //self.element = TBXMLElement()
         super.init()
     }
     
     
     public required init(XMLElement element: UnsafeMutablePointer<TBXMLElement>?, parent: GPXElement?) {
-        self.element = TBXMLElement()
-    
+        //self.element = TBXMLElement()
+        self.element = element
+        
         super.init()
     
         self.parent = self
-        element?.initialize(to: self.element)
+        //element?.initialize(to: self.element)
         
     }
     
@@ -188,7 +190,7 @@ open class GPXElement: NSObject {
     }
     
     func addCloseTag(toGPX gpx: NSMutableString, indentationLevel: Int) {
-        gpx.append(String(format: "%@<%@>\r\n", indent(forIndentationLevel: indentationLevel), self.tagName()))
+        gpx.append(String(format: "%@</%@>\r\n", indent(forIndentationLevel: indentationLevel), self.tagName()))
     }
     
     func addProperty(forValue value: NSString?, gpx: NSMutableString, tagName: NSString, indentationLevel: Int) {

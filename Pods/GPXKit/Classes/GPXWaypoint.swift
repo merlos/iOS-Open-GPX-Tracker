@@ -42,8 +42,8 @@ open class GPXWaypoint: GPXElement {
     public var ageofDGPSData = CGFloat()
     public var DGPSid = Int()
     public var extensions: GPXExtensions? = GPXExtensions()
-    public var latitude = CGFloat()
-    public var longitude = CGFloat()
+    public var latitude: CGFloat?
+    public var longitude: CGFloat?
     
     public required init() {
         //self.extensions = GPXExtensions()
@@ -104,45 +104,6 @@ open class GPXWaypoint: GPXElement {
     
     // MARK:- Public Methods
     
-    /*
-    public var elevation: CGFloat {
-        return GPXType().decimal(elevationValue)
-    }
-    */
-    func set(Elevation elevation: CGFloat) {
-        elevationValue = GPXType().value(forDecimal: elevation)
-    }
-    
-    /*
-    public var time: Date? {
-        return GPXType().dateTime(value: timeValue)
-    }
-    */
-    
-    func set(Time time: Date) {
-        timeValue = GPXType().value(forDateTime: time)
-    }
-    
-    /*
-    public var magneticVariation: CGFloat {
-        return GPXType().degrees(magneticVariationValue)
-    }
-    */
-    
-    func set(MagneticVariation magneticVariation: CGFloat) {
-        magneticVariationValue = GPXType().value(forDegrees: magneticVariation)
-    }
-    
-    /*
-    public var geoidHeight: CGFloat {
-        return GPXType().decimal(geoidHeightValue)
-    }
-    */
-    
-    func set(GeoidHeight geoidHeight: CGFloat) {
-        geoidHeightValue = GPXType().value(forDecimal: geoidHeight)
-    }
-    
     open func newLink(withHref href: String) -> GPXLink {
         let link: GPXLink = GPXLink().link(with: href)
         return link
@@ -172,75 +133,7 @@ open class GPXWaypoint: GPXElement {
             links.remove(link)
         }
     }
-    
-    /*
-    public var fix: Int { // maybe GPXFix would be better?
-        return GPXType().fix(value: fixValue).rawValue
-    }
-    */
-    
-    func set(Fix: Int) {
-        fixValue = GPXType().value(forFix: GPXFix(rawValue: Fix) ?? .none)
-    }
-    
-    /*
-    public var satellites: Int {
-        return GPXType().nonNegativeInt(satellitesValue)
-    }
-    */
-    
-    func set(Satellites: Int) {
-        satellitesValue = GPXType().value(forNonNegativeInt: Satellites)
-    }
-    
-    /*
-    public var horizontalDilution: CGFloat {
-        return GPXType().decimal(horizontalDilutionValue)
-    }
-    */
-    
-    func set(HorizontalDilution: CGFloat) {
-        horizontalDilutionValue = GPXType().value(forDecimal: HorizontalDilution)
-    }
-    
-    /*
-    public var verticalDilution: CGFloat {
-        return GPXType().decimal(horizontalDilutionValue)
-    }
-    */
-    
-    func set(VerticalDilution: CGFloat) {
-        verticalDilutionValue = GPXType().value(forDecimal: VerticalDilution)
-    }
-    
-    /*
-    public var positionDilution: CGFloat {
-        return GPXType().decimal(positionDilutionValue)
-    }
-    */
-    
-    func set(PositionDilution: CGFloat) {
-        positionDilutionValue = GPXType().value(forDecimal: PositionDilution)
-    }
-    
-    /*
-    public var ageOfDGPSData: CGFloat {
-        return GPXType().decimal(ageOfDGPSDataValue)
-    }
-    */
-    
-    func set(DGPSid: Int) {
-        DGPSidValue = GPXType().value(forDgpsStation: DGPSid)
-    }
-    
-    func set(Latitude: CGFloat) {
-        latitudeValue = GPXType().value(forLatitude: Latitude)
-    }
-    
-    func set(Longitude: CGFloat) {
-        longitudeValue = GPXType().value(forLongitude: Longitude)
-    }
-    
+
     // MARK:- Tag
     
     override func tagName() -> String! {
@@ -252,12 +145,12 @@ open class GPXWaypoint: GPXElement {
     override func addOpenTag(toGPX gpx: NSMutableString, indentationLevel: Int) {
         let attribute: NSMutableString = ""
         
-        if latitudeValue != nil {
-            attribute.appendFormat(" lat=\"%@\"", latitudeValue!)
+        if latitude != nil {
+            attribute.appendFormat(" lat=\"%f\"", latitude!)
         }
         
-        if longitudeValue != nil {
-            attribute.appendFormat(" lon=\"%@\"", longitudeValue!)
+        if longitude != nil {
+            attribute.appendFormat(" lon=\"%f\"", longitude!)
         }
         
         gpx.appendFormat("%@<%@%@>\r\n", indent(forIndentationLevel: indentationLevel), self.tagName(), attribute)

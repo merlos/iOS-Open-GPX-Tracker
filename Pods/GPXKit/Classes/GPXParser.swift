@@ -40,6 +40,7 @@ open class GPXParser: NSObject {
     }
     
     public func parseGPXWith(data: Data) -> GPXRoot? {
+        
         let xml = try? TBXML(xmlData: data, error: ())
         
         if xml?.rootXMLElement != nil {

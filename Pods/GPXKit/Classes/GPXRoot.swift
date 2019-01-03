@@ -10,12 +10,12 @@ import UIKit
 open class GPXRoot: GPXElement {
 
     //var schema = String()
-    public var version: String?
+    public var version: String? = "1.1"
     public var creator: String?
     public var metadata: GPXMetadata?
-    public var waypoints = NSMutableArray()
-    public var routes = NSMutableArray()
-    public var tracks = NSMutableArray()
+    public var waypoints = [GPXWaypoint]()
+    public var routes = [GPXRoute]()
+    public var tracks = [GPXTrack]()
     public var extensions: GPXExtensions?
     
     // MARK:- Instance
@@ -23,7 +23,6 @@ open class GPXRoot: GPXElement {
     public required init() {
         super.init()
         
-        version = "1.1"
         creator = "OSS Project"
         
     }
@@ -38,17 +37,18 @@ open class GPXRoot: GPXElement {
         
         self.childElement(ofClass: GPXWaypoint.self, xmlElement: element, eachBlock: { element in
             if element != nil {
-                self.waypoints.add(element!)
+                self.waypoints.append(element as! GPXWaypoint)
+ 
             } })
         
         self.childElement(ofClass: GPXRoute.self, xmlElement: element, eachBlock: { element in
             if element != nil {
-                self.routes.add(element!)
+                self.routes.append(element as! GPXRoute)
             } })
         
         self.childElement(ofClass: GPXTrack.self, xmlElement: element, eachBlock: { element in
             if element != nil {
-                self.tracks.add(element!)
+                self.tracks.append(element as! GPXTrack)
             } })
         
         extensions = childElement(ofClass: GPXExtensions.self, xmlElement: element) as! GPXExtensions?
@@ -77,11 +77,10 @@ open class GPXRoot: GPXElement {
     
     public func add(waypoint: GPXWaypoint?) {
         if waypoint != nil {
-            let index: Int = waypoints.index(of: waypoint!)
-            
-            if index == NSNotFound {
+            let contains = waypoints.contains(waypoint!)
+            if contains == false {
                 waypoint?.parent = self
-                waypoints.add(waypoint!)
+                waypoints.append(waypoint!)
             }
         }
     }
@@ -93,11 +92,12 @@ open class GPXRoot: GPXElement {
     }
     
     public func remove(waypoint: GPXWaypoint) {
-        let index = waypoints.index(of: waypoint)
-        
-        if index != NSNotFound {
+        let contains = waypoints.contains(waypoint)
+        if contains == true {
             waypoint.parent = nil
-            waypoints.remove(waypoint)
+            if let index = waypoints.firstIndex(of: waypoint) {
+                waypoints.remove(at: index)
+            }
         }
     }
     
@@ -111,10 +111,10 @@ open class GPXRoot: GPXElement {
     
     public func add(route: GPXRoute?) {
         if route != nil {
-            let index = routes.index(of: route!)
-            if index == NSNotFound {
+            let contains = routes.contains(route!)
+            if contains == false {
                 route?.parent = self
-                routes.add(route!)
+                routes.append(route!)
             }
         }
     }
@@ -126,11 +126,12 @@ open class GPXRoot: GPXElement {
     }
     
     public func remove(route: GPXRoute) {
-        let index = routes.index(of: route)
-        
-        if index != NSNotFound {
+        let contains = routes.contains(route)
+        if contains == true {
             route.parent = nil
-            routes.remove(route)
+            if let index = routes.firstIndex(of: route) {
+                waypoints.remove(at: index)
+            }
         }
     }
     
@@ -142,10 +143,10 @@ open class GPXRoot: GPXElement {
     
     public func add(track: GPXTrack?) {
         if track != nil {
-            let index = tracks.index(of: track!)
-            if index == NSNotFound {
+            let contains = tracks.contains(track!)
+            if contains == false {
                 track?.parent = self
-                tracks.add(track!)
+                tracks.append(track!)
             }
         }
     }
@@ -157,11 +158,12 @@ open class GPXRoot: GPXElement {
     }
     
     public func remove(track: GPXTrack) {
-        let index = tracks.index(of: track)
-        
-        if index != NSNotFound {
+        let contains = tracks.contains(track)
+        if contains == true {
             track.parent = nil
-            tracks.remove(track)
+            if let index = tracks.firstIndex(of: track) {
+                waypoints.remove(at: index)
+            }
         }
     }
     
@@ -201,20 +203,20 @@ open class GPXRoot: GPXElement {
             self.metadata?.gpx(gpx, indentationLevel: indentationLevel)
         }
         
-        for case let waypoint as GPXWaypoint in self.waypoints {
+        for waypoint in waypoints {
             waypoint.gpx(gpx, indentationLevel: indentationLevel)
         }
         
-        for case let route as GPXRoute in self.routes {
+        for route in routes {
             route.gpx(gpx, indentationLevel: indentationLevel)
         }
         
-        for case let track as GPXTrack in self.tracks {
+        for track in tracks {
             track.gpx(gpx, indentationLevel: indentationLevel)
         }
         
         if self.extensions != nil {
-            self.extensions!.gpx(gpx, indentationLevel: indentationLevel)
+            self.extensions?.gpx(gpx, indentationLevel: indentationLevel)
         }
     }
 }

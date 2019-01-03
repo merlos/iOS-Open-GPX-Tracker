@@ -77,7 +77,7 @@ open class GPXTrackSegment: GPXElement {
         super.addChildTag(toGPX: gpx, indentationLevel: indentationLevel)
         
         if self.extensions != nil {
-            self.extensions!.gpx(gpx, indentationLevel: indentationLevel)
+            self.extensions?.gpx(gpx, indentationLevel: indentationLevel)
         }
         
         for case let trackpoint as GPXTrackPoint in self.trackpoints {

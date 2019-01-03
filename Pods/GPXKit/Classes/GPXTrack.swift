@@ -158,7 +158,7 @@ open class GPXTrack: GPXElement {
         self.addProperty(forValue: type as NSString, gpx: gpx, tagName: "number", indentationLevel: indentationLevel)
         
         if extensions != nil {
-            self.extensions!.gpx(gpx, indentationLevel: indentationLevel)
+            self.extensions?.gpx(gpx, indentationLevel: indentationLevel)
         }
         
         for case let tracksegent as GPXTrackSegment in self.tracksegments {

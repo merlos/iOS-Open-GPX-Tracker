@@ -4,6 +4,8 @@
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
+	<key>CFBundleDisplayName</key>
+	<string>GPXKit</string>
 	<key>CFBundleDocumentTypes</key>
 	<array>
 		<dict>
