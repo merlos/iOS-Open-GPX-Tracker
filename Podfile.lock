@@ -25,14 +25,14 @@ CHECKOUT OPTIONS:
     :commit: 288692d159d1babc245a031dc59be759efd531bc
     :git: https://github.com/krzyzanowskim/CryptoSwift
   GPXKit:
-    :commit: 422faf4b5286c79a7bb0de1d98f7d951e855e16f
+    :commit: 6f536956fcaa6856d071c97d13217b5a2afee068
     :git: https://github.com/VincentNeo/GPXKit.git
 
 SPEC CHECKSUMS:
   Cache: 807c5d86d01a177f06ede9865add3aea269bbfd4
   CryptoSwift: ff68c35a53e03177d31aaa2c1e8b3e010aeed6cb
-  GPXKit: 2c0a5a802c3fc9c1bbb6f2b6ff4cc6792ced5739
+  GPXKit: a9865a7ebe711fd62aa34c794dd8089a19926f04
 
-PODFILE CHECKSUM: b988c0db908d1fd0829e39414612a84bc75eddf1
+PODFILE CHECKSUM: 750f4c1020e9992be0106f47489b801d2188a1a9
 
 COCOAPODS: 1.5.3
