@@ -13,10 +13,6 @@ open class GPXTrackPoint: GPXWaypoint {
         super.init()
     }
     
-    public required init(XMLElement element: UnsafeMutablePointer<TBXMLElement>?, parent: GPXElement?) {
-        super.init(XMLElement: element, parent: parent)
-    }
-    
     // MARK:- Instance
     
     func trackpointWith(latitude: CGFloat, longitude: CGFloat) -> GPXTrackPoint {

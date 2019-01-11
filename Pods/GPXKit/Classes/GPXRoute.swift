@@ -25,33 +25,6 @@ open class GPXRoute: GPXElement {
         super.init()
     }
     
-    public required init(XMLElement element: UnsafeMutablePointer<TBXMLElement>?, parent: GPXElement?) {
-        
-        super.init(XMLElement: element, parent: parent)
-        
-        name = text(forSingleChildElement: "name", xmlElement: element)
-        comment = text(forSingleChildElement: "cmt", xmlElement: element)
-        desc = text(forSingleChildElement: "desc", xmlElement: element)
-        source = text(forSingleChildElement: "src", xmlElement: element)
-        
-        self.childElement(ofClass: GPXLink.self, xmlElement: element, eachBlock: { element in
-            if element != nil {
-                self.links.append(element! as! GPXLink)
-            } })
-        
-        numberValue = text(forSingleChildElement: "number", xmlElement: element)
-        
-        type = text(forSingleChildElement: "type", xmlElement: element)
-        
-        extensions = childElement(ofClass: GPXExtensions.self, xmlElement: element) as? GPXExtensions
-        
-        self.childElement(ofClass: GPXRoutePoint.self, xmlElement: element, eachBlock: { element in
-            if element != nil {
-                self.routepoints.append(element! as! GPXRoutePoint)
-            } })
-        
-    }
-    
     // MARK: Public Methods
     
     var number: Int {

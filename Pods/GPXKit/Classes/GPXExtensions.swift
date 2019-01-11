@@ -14,11 +14,6 @@ open class GPXExtensions: GPXElement {
         super.init()
     }
     
-    public required init(XMLElement element: UnsafeMutablePointer<TBXMLElement>?, parent: GPXElement?) {
-        super.init(XMLElement: element, parent: parent)
-    }
-    
-    
     // MARK:- Tag
     override func tagName() -> String! {
         return "extensions"

@@ -48,51 +48,7 @@ open class GPXWaypoint: GPXElement {
         self.time = Date()
         super.init()
     }
-    
-    public required init(XMLElement element: UnsafeMutablePointer<TBXMLElement>?, parent: GPXElement?) {
-        
-        super.init(XMLElement: element, parent: parent)
-        
-        self.elevationValue = text(forSingleChildElement: "ele", xmlElement: element)
-        self.timeValue = text(forSingleChildElement: "time", xmlElement: element)
-        self.magneticVariationValue = text(forSingleChildElement: "magvar", xmlElement: element)
-        self.geoidHeightValue = text(forSingleChildElement: "geoidheight", xmlElement: element)
-        self.name = text(forSingleChildElement: "name", xmlElement: element)
-        self.comment = text(forSingleChildElement: "cmt", xmlElement: element)
-        self.desc = text(forSingleChildElement: "desc", xmlElement: element)
-        self.source = text(forSingleChildElement: "src", xmlElement: element)
-        self.childElement(ofClass: GPXLink.self, xmlElement: element, eachBlock: { element in
-            if element != nil {
-                self.links.append(element! as! GPXLink)
-            } })
-        self.symbol = text(forSingleChildElement: "sym", xmlElement: element)
-        self.type = text(forSingleChildElement: "type", xmlElement: element)
-        self.fixValue = text(forSingleChildElement: "fix", xmlElement: element)
-        self.satellitesValue = text(forSingleChildElement: "sat", xmlElement: element)
-        self.horizontalDilutionValue = text(forSingleChildElement: "hdop", xmlElement: element)
-        self.verticalDilutionValue = text(forSingleChildElement: "vdop", xmlElement: element)
-        self.positionDilutionValue = text(forSingleChildElement: "pdop", xmlElement: element)
-        self.ageOfDGPSDataValue = text(forSingleChildElement: "ageofdgpsdata", xmlElement: element)
-        self.DGPSidValue = text(forSingleChildElement: "dgpsid", xmlElement: element)
-        self.extensions = childElement(ofClass: GPXExtensions.self, xmlElement: element) as? GPXExtensions
-        
-        self.latitudeValue = value(ofAttribute: "lat", xmlElement: element, required: true)!
-        self.longitudeValue = value(ofAttribute: "lon", xmlElement: element, required: true)!
-        
-        self.latitude = GPXType().latitude(latitudeValue)
-        self.longitude =  GPXType().longitude(longitudeValue)
-        self.elevation = GPXType().decimal(elevationValue)
-        //self.time = GPXType().dateTime(value: timeValue)
-        self.magneticVariation = GPXType().degrees(magneticVariationValue)
-        self.geoidHeight = GPXType().decimal(geoidHeightValue)
-        self.fix = GPXType().fix(value: fixValue).rawValue
-        self.satellites = GPXType().nonNegativeInt(satellitesValue)
-        self.horizontalDilution = GPXType().decimal(horizontalDilutionValue)
-        self.verticalDilution = GPXType().decimal(verticalDilutionValue)
-        self.positionDilution = GPXType().decimal(positionDilutionValue)
-        self.ageofDGPSData = GPXType().decimal(ageOfDGPSDataValue)
-    }
-    
+     
     public init(latitude: CGFloat, longitude: CGFloat) {
         super.init()
         self.latitude = latitude

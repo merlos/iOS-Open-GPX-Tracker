@@ -22,18 +22,6 @@ open class GPXPerson: GPXElement {
         super.init()
     }
     
-    public required init(XMLElement element: UnsafeMutablePointer<TBXMLElement>?, parent: GPXElement?) {
-        name = String()
-        email = GPXEmail()
-        link = GPXLink()
-        
-        super.init(XMLElement: element, parent: parent)
-        
-        name = text(forSingleChildElement: "name", xmlElement: element)
-        email = childElement(ofClass: GPXEmail.self, xmlElement: element) as! GPXEmail?
-        link = childElement(ofClass: GPXLink.self, xmlElement: element) as! GPXLink?
-    }
-    
     // MARK:- Public Methods
     
     

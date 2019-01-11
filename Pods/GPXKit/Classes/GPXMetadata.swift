@@ -28,22 +28,6 @@ open class GPXMetadata: GPXElement {
         super.init()
     }
     
-    public required init(XMLElement element: UnsafeMutablePointer<TBXMLElement>?, parent: GPXElement?) {
-        author = GPXAuthor()
-        
-        super.init(XMLElement: element, parent: parent)
-        
-        name = text(forSingleChildElement: "name", xmlElement: element)
-        desc = text(forSingleChildElement: "desc", xmlElement: element)
-        author = childElement(ofClass: GPXAuthor.self, xmlElement: element) as? GPXAuthor
-        copyright = childElement(ofClass: GPXCopyright.self, xmlElement: element) as? GPXCopyright
-        link = childElement(ofClass: GPXLink.self, xmlElement: element) as? GPXLink
-        keyword = text(forSingleChildElement: "keyword", xmlElement: element)
-        bounds = childElement(ofClass: GPXBounds.self, xmlElement: element) as? GPXBounds
-        extensions = childElement(ofClass: GPXExtensions.self, xmlElement: element) as? GPXExtensions
-        
-    }
-    
     // MARK:- Public Methods
 
     

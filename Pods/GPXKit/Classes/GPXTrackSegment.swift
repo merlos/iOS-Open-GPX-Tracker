@@ -19,17 +19,6 @@ open class GPXTrackSegment: GPXElement {
         super.init()
     }
     
-    public required init(XMLElement element: UnsafeMutablePointer<TBXMLElement>?, parent: GPXElement?) {
-        super.init(XMLElement: element, parent: parent)
-        
-        extensions = childElement(ofClass: GPXExtensions.self, xmlElement: element) as? GPXExtensions
-        
-        self.childElement(ofClass: GPXTrackPoint.self, xmlElement: element, eachBlock: { element in
-            if element != nil {
-                self.trackpoints.append(element! as! GPXTrackPoint)
-            } })
-    }
-    
     // MARK:- Public Methods
     
     open func newTrackpointWith(latitude: CGFloat, longitude: CGFloat) -> GPXTrackPoint {

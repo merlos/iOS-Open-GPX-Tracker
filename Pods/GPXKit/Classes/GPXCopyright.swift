@@ -20,13 +20,6 @@ open class GPXCopyright: GPXElement {
         super.init()
     }
     
-    public required init(XMLElement element: UnsafeMutablePointer<TBXMLElement>?, parent: GPXElement?) {
-        super.init(XMLElement: element, parent: parent)
-        yearValue = self.text(forSingleChildElement: "year", xmlElement: element)
-        license = self.text(forSingleChildElement: "license", xmlElement: element)
-        author = self.text(forSingleChildElement: "author", xmlElement: element, required: true)
-    }
-    
     func copyright(with author: String) -> GPXCopyright {
         let copyright = GPXCopyright()
         copyright.author = author

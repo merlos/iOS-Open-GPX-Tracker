@@ -30,18 +30,6 @@ open class GPXLink: GPXElement {
         super.init()
     }
     
-    public required init(XMLElement element: UnsafeMutablePointer<TBXMLElement>?, parent: GPXElement?) {
-        self.text = String()
-        self.mimetype = String()
-        self.href = String()
-        
-        super.init(XMLElement: element, parent: parent)
-        
-        self.text = text(forSingleChildElement: "text", xmlElement: element)
-        self.mimetype = text(forSingleChildElement: "type", xmlElement: element)
-        self.href = text(forSingleChildElement: "href", xmlElement: element, required: true)
-    }
-    
     /// ---------------------------------
     /// @name Create Link
     /// ---------------------------------

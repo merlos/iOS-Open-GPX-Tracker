@@ -10,8 +10,6 @@ import UIKit
 open class GPXElement: NSObject {
     
     public var parent: GPXElement?
-    //public var element: TBXMLElement
-    public var element: UnsafeMutablePointer<TBXMLElement>? = nil
     
     //from GPXConst
     let kGPXInvalidGPXFormatNotification = "kGPXInvalidGPXFormatNotification"
@@ -29,144 +27,11 @@ open class GPXElement: NSObject {
     }
     
     // MARK:- Instance
-    /*
-    convenience init(XMLElement element: UnsafeMutablePointer<TBXMLElement>, parent: GPXElement?) {
-        self.init(XMLElement: element, parent: parent)
-        self.parent = parent!
-    }
- */
+  
     public required override init() {
-        //self.parent = GPXElement()
-        //self.element = TBXMLElement()
         super.init()
     }
-    
-    
-    public required init(XMLElement element: UnsafeMutablePointer<TBXMLElement>?, parent: GPXElement?) {
-        //self.element = TBXMLElement()
-        self.element = element
-        
-        super.init()
-    
-        self.parent = self
-        //element?.initialize(to: self.element)
-        
-    }
-    
-    
-    // MARK:- Elements
-    
-    func value(ofAttribute name: String?, xmlElement: UnsafeMutablePointer<TBXMLElement>?) -> String? {
-        return value(ofAttribute: name, xmlElement: xmlElement, required: false)
-    }
-    
-    func value(ofAttribute name: String?, xmlElement: UnsafeMutablePointer<TBXMLElement>?, required: Bool) -> String? {
-        let value = TBXML.value(ofAttributeNamed: name, for: xmlElement)
-        
-        if value != nil && required == true {
-            
-            let description = String(format: "%@ element require %@ attribute.", self.tagName(), name ?? "")
-            
-            NotificationCenter.default.post(name: NSNotification.Name(rawValue: kGPXInvalidGPXFormatNotification), object: self, userInfo: [kGPXDescriptionKey : description])
-        }
-        
-        return value
-    }
-    
-    func text(forSingleChildElement name: String?, xmlElement: UnsafeMutablePointer<TBXMLElement>?) -> String {
-        
-        return text(forSingleChildElement: name, xmlElement: xmlElement, required: false)
-    }
-    
-    func text(forSingleChildElement name: String?, xmlElement: UnsafeMutablePointer<TBXMLElement>?, required: Bool) -> String! {
-        
-        if let element: UnsafeMutablePointer<TBXMLElement> = TBXML.childElementNamed(name, parentElement: xmlElement) {
-            return TBXML.text(for: element)
-        }
-        else {
-            if required {
-                let description = String(format: "%@ element require %@ element.", self.tagName(), name ?? "")
-                
-                NotificationCenter.default.post(name: NSNotification.Name(rawValue: kGPXInvalidGPXFormatNotification), object: self, userInfo: [kGPXDescriptionKey : description])
-            }
-        }
-        
-        return nil
-    }
-    
-    func childElement(ofClass Class: GPXElement.Type, xmlElement: UnsafeMutablePointer<TBXMLElement>?) -> GPXElement? {
-       
-        return childElement(ofClass: Class, xmlElement: xmlElement, required: false)
-    }
-    
-    func childElement(ofClass Class: GPXElement.Type, xmlElement: UnsafeMutablePointer<TBXMLElement>?, required: Bool) -> GPXElement? {
-        let firstElement: GPXElement?
-        let element: UnsafeMutablePointer<TBXMLElement>? = TBXML.childElementNamed(Class.init().tagName(), parentElement: xmlElement)
-        
-        
-        firstElement = Class.init(XMLElement: element, parent: self)
-        
-        if element != nil {
-            
-            let secondElement: UnsafeMutablePointer<TBXMLElement>? = TBXML.nextSiblingNamed(Class.init().tagName(), searchFrom: element)
-            if secondElement != nil {
-                let description = String(format: "%@ element has more than two %@ elements.", self.tagName(), Class.init().tagName())
-                
-                NotificationCenter.default.post(name: NSNotification.Name(rawValue: kGPXInvalidGPXFormatNotification), object: self, userInfo: [kGPXDescriptionKey : description])
-            }
-        }
-        
-        if required {
-            if firstElement == nil {
-                let description = String(format: "%@ element require %@ element.", self.tagName(), Class.init().tagName())
-                
-                NotificationCenter.default.post(name: NSNotification.Name(rawValue: kGPXInvalidGPXFormatNotification), object: self, userInfo: [kGPXDescriptionKey : description])
-            }
-        }
-        
-        return firstElement
-    }
-    
-    func childElement(Named name: String, Class: GPXElement.Type, xmlElement: UnsafeMutablePointer<TBXMLElement>?) -> GPXElement? {
-        return childElement(ofClass: Class, xmlElement: xmlElement, required: false)
-    }
-    
-    func childElement(Named name: String, Class: GPXElement.Type, xmlElement: UnsafeMutablePointer<TBXMLElement>?, required: Bool) -> GPXElement? {
-        let firstElement: GPXElement?
-        let element: UnsafeMutablePointer<TBXMLElement>? = TBXML.childElementNamed(name, parentElement: xmlElement)
-        
-        firstElement = Class.init(XMLElement: element!, parent: self)
-        
-        if element != nil {
-            
-            let secondElement: UnsafeMutablePointer<TBXMLElement>? = TBXML.nextSiblingNamed(name, searchFrom: element)
-            if secondElement != nil {
-                let description = String(format: "%@ element has more than two %@ elements.", self.tagName(), Class.init().tagName())
-                
-                NotificationCenter.default.post(name: NSNotification.Name(rawValue: kGPXInvalidGPXFormatNotification), object: self, userInfo: [kGPXDescriptionKey : description])
-            }
-        }
-        
-        if required {
-            if firstElement == nil {
-                let description = String(format: "%@ element require %@ element.", self.tagName(), Class.init().tagName())
-                
-                NotificationCenter.default.post(name: NSNotification.Name(rawValue: kGPXInvalidGPXFormatNotification), object: self, userInfo: [kGPXDescriptionKey : description])
-            }
-        }
-        
-        return firstElement
-    }
-    
-    func childElement(ofClass Class: GPXElement.Type, xmlElement: UnsafeMutablePointer<TBXMLElement>?, eachBlock: @escaping (_ element: GPXElement?) -> Void) {
-        var element: UnsafeMutablePointer<TBXMLElement>? = TBXML.childElementNamed(Class.init().tagName(), parentElement: xmlElement)
-        
-        while element != nil {
-            eachBlock(Class.init(XMLElement: element!, parent: self))
-            element = TBXML.nextSiblingNamed(Class.init().tagName(), searchFrom: element)
-        }
-    }
-    
+
     // MARK:- GPX
    
     open func gpx() -> String {

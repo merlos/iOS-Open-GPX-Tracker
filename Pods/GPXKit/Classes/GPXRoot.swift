@@ -26,34 +26,6 @@ open class GPXRoot: GPXElement {
         
     }
     
-    public required init(XMLElement element: UnsafeMutablePointer<TBXMLElement>?, parent: GPXElement?) {
-        super.init(XMLElement: element, parent: parent)
-        
-        version = value(ofAttribute: "version", xmlElement: element, required: true) ?? ""
-        creator = value(ofAttribute: "creator", xmlElement: element, required: true) ?? ""
-        
-        metadata = childElement(ofClass: GPXMetadata.self, xmlElement: element) as? GPXMetadata
-        
-        self.childElement(ofClass: GPXWaypoint.self, xmlElement: element, eachBlock: { element in
-            if element != nil {
-                self.waypoints.append(element as! GPXWaypoint)
- 
-            } })
-        
-        self.childElement(ofClass: GPXRoute.self, xmlElement: element, eachBlock: { element in
-            if element != nil {
-                self.routes.append(element as! GPXRoute)
-            } })
-        
-        self.childElement(ofClass: GPXTrack.self, xmlElement: element, eachBlock: { element in
-            if element != nil {
-                self.tracks.append(element as! GPXTrack)
-            } })
-        
-        extensions = childElement(ofClass: GPXExtensions.self, xmlElement: element) as? GPXExtensions
-        
-    }
-    
     public init(creator: String) {
         super.init()
         self.creator = creator

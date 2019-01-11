@@ -13,10 +13,6 @@ open class GPXAuthor: GPXPerson {
         super.init()
     }
     
-    public required init(XMLElement element: UnsafeMutablePointer<TBXMLElement>?, parent: GPXElement?) {
-        super.init(XMLElement: element, parent: parent)
-    }
-    
     // MARK: Tag
     override func tagName() -> String! {
         return "author"

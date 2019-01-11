@@ -25,31 +25,6 @@ open class GPXTrack: GPXElement {
         super.init()
     }
     
-    public required init(XMLElement element: UnsafeMutablePointer<TBXMLElement>?, parent: GPXElement?) {
-        super.init(XMLElement: element, parent: parent)
-        
-        name = text(forSingleChildElement: "name", xmlElement: element)
-        comment = text(forSingleChildElement: "cmt", xmlElement: element)
-        desc = text(forSingleChildElement: "desc", xmlElement: element)
-        source = text(forSingleChildElement: "src", xmlElement: element)
-        
-        self.childElement(ofClass: GPXLink.self, xmlElement: element, eachBlock: { element in
-            if element != nil {
-                self.links.append(element! as! GPXLink)
-            } })
-        
-        numberValue = text(forSingleChildElement: "number", xmlElement: element)
-        type = text(forSingleChildElement: "type", xmlElement: element)
-        extensions = childElement(ofClass: GPXExtensions.self, xmlElement: element) as? GPXExtensions
-        
-        self.childElement(ofClass: GPXTrackSegment.self, xmlElement: element, eachBlock: { element in
-            if element != nil {
-                self.tracksegments.append(element! as! GPXTrackSegment)
-            } })
-        
-        self.number = GPXType().nonNegativeInt(numberValue)
-    }
-    
     // MARK:- Public Methods
     
     open func newLink(withHref href: String) -> GPXLink {

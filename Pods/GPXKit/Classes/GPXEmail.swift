@@ -18,17 +18,7 @@ open class GPXEmail: GPXElement {
         self.emailID = String()
         self.domain = String()
         super.init()
-    }
-    
-    public required init(XMLElement element: UnsafeMutablePointer<TBXMLElement>?, parent: GPXElement?) {
-        self.emailID = String()
-        self.domain = String()
-        
-        super.init(XMLElement: element, parent: parent)
-        
-        self.emailID = value(ofAttribute: "id", xmlElement: element, required: true)
-        self.domain = value(ofAttribute: "domain", xmlElement: element, required: true)
-    }
+    } 
    
     func emailWith(ID emailID: String, domain: String) -> GPXEmail {
         let email = GPXEmail()

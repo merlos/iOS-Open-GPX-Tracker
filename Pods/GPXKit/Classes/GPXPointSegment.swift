@@ -17,15 +17,6 @@ open class GPXPointSegment: GPXElement {
         super.init()
     }
     
-    public required init(XMLElement element: UnsafeMutablePointer<TBXMLElement>?, parent: GPXElement?) {
-        super.init(XMLElement: element, parent: parent)
-        
-        self.childElement(ofClass: GPXPoint.self, xmlElement: element, eachBlock: { element in
-            if element != nil {
-                self.points.add(element!)
-            } })
-    }
-    
     // MARK:- Public Methods
     
     func newPoint(with latitude: CGFloat, longitude: CGFloat) -> GPXPoint {

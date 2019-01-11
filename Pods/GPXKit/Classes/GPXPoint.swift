@@ -25,21 +25,6 @@ open class GPXPoint: GPXElement {
         super.init()
     }
     
-    public required init(XMLElement element: UnsafeMutablePointer<TBXMLElement>?, parent: GPXElement?) {
-        super.init(XMLElement: element, parent: parent)
-        
-        elevationValue = text(forSingleChildElement: "ele", xmlElement: element)
-        timeValue = text(forSingleChildElement: "time", xmlElement: element)
-        latitudeValue = text(forSingleChildElement: "lat", xmlElement: element, required: true)
-        longitudeValue = text(forSingleChildElement: "lon", xmlElement: element, required: true)
-        
-        elevation = GPXType().decimal(elevationValue)
-        //time = GPXType().dateTime(value: timeValue!)
-        latitude = GPXType().latitude(latitudeValue)
-        longitude = GPXType().longitude(longitudeValue)
-
-    }
-    
     func point(with latitude: CGFloat, longitude: CGFloat) -> GPXPoint {
         let point = GPXPoint()
         

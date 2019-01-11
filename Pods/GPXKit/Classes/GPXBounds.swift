@@ -24,20 +24,6 @@ open class GPXBounds: GPXElement {
     public required init() {
         super.init()
     }
-
-    public required init(XMLElement element: UnsafeMutablePointer<TBXMLElement>?, parent: GPXElement?) {
-        super.init(XMLElement: element, parent: parent)
-        
-        minLatitudeValue = value(ofAttribute: "minlat", xmlElement: element, required: true)
-        maxLatitudeValue = value(ofAttribute: "minlon", xmlElement: element, required: true)
-        minLongitudeValue = value(ofAttribute: "maxlat", xmlElement: element, required: true)
-        maxLatitudeValue = value(ofAttribute: "maxlon", xmlElement: element, required: true)
-        
-        minLatitude = GPXType().latitude(minLatitudeValue)
-        minLongitude = GPXType().longitude(minLongitudeValue)
-        maxLatitude = GPXType().latitude(maxLatitudeValue)
-        maxLongitude = GPXType().longitude(maxLatitudeValue)
-    }
     
     func boundsWith(_ minLatitude: CGFloat, maxLatitude: CGFloat, minLongitude: CGFloat, maxLongitude: CGFloat) -> GPXBounds {
         
