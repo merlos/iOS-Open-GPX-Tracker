@@ -12,8 +12,8 @@
 
 ## Progress Checklist
 - [x] Successfully outputs string that can be packaged into a GPX file *
-- [ ] Parses GPX files
-- [ ] Migrate to native XMLParser
+- [x] Parses GPX files
+- [x] Migrate to native XMLParser
 - [ ] Documentation
 - [ ] Code optimisation
 - [ ] New features

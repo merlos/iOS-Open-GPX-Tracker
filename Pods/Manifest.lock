@@ -1,12 +1,12 @@
 PODS:
   - Cache (5.2.0)
   - CryptoSwift (0.13.1)
-  - GPXKit (0.1.8)
+  - GPXKit (0.2.2)
 
 DEPENDENCIES:
   - Cache (from `https://github.com/hyperoslo/Cache`)
   - CryptoSwift (from `https://github.com/krzyzanowskim/CryptoSwift`)
-  - GPXKit (from `https://github.com/VincentNeo/GPXKit.git`)
+  - GPXKit (from `https://github.com/VincentNeo/GPXKit.git`, branch `NativeXML`)
 
 EXTERNAL SOURCES:
   Cache:
@@ -14,6 +14,7 @@ EXTERNAL SOURCES:
   CryptoSwift:
     :git: https://github.com/krzyzanowskim/CryptoSwift
   GPXKit:
+    :branch: NativeXML
     :git: https://github.com/VincentNeo/GPXKit.git
 
 CHECKOUT OPTIONS:
@@ -24,7 +25,7 @@ CHECKOUT OPTIONS:
     :commit: 288692d159d1babc245a031dc59be759efd531bc
     :git: https://github.com/krzyzanowskim/CryptoSwift
   GPXKit:
-    :commit: 73749128a89a037fa8ed0684d093a92bff2127a6
+    :commit: 422faf4b5286c79a7bb0de1d98f7d951e855e16f
     :git: https://github.com/VincentNeo/GPXKit.git
 
 SPEC CHECKSUMS:
