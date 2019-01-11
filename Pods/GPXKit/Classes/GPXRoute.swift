@@ -13,17 +13,15 @@ open class GPXRoute: GPXElement {
     var comment = String()
     var desc = String()
     var source = String()
-    var links = NSMutableArray()
+    var links = [GPXLink]()
     var type = String()
     var extensions: GPXExtensions?
-    var routepoints = NSMutableArray()
+    var routepoints = [GPXRoutePoint]()
     var numberValue = String()
     
     // MARK:- Instance
     
     public required init() {
-        //links = NSMutableArray()
-        //routepoints = NSMutableArray()
         super.init()
     }
     
@@ -38,7 +36,7 @@ open class GPXRoute: GPXElement {
         
         self.childElement(ofClass: GPXLink.self, xmlElement: element, eachBlock: { element in
             if element != nil {
-                self.links.add(element!)
+                self.links.append(element! as! GPXLink)
             } })
         
         numberValue = text(forSingleChildElement: "number", xmlElement: element)
@@ -49,7 +47,7 @@ open class GPXRoute: GPXElement {
         
         self.childElement(ofClass: GPXRoutePoint.self, xmlElement: element, eachBlock: { element in
             if element != nil {
-                self.routepoints.add(element!)
+                self.routepoints.append(element! as! GPXRoutePoint)
             } })
         
     }
@@ -71,10 +69,10 @@ open class GPXRoute: GPXElement {
     
     func add(link: GPXLink?) {
         if link != nil {
-            let index = links.index(of: link!)
-            if index == NSNotFound {
+            let contains = links.contains(link!)
+            if contains == false {
                 link?.parent = self
-                links.add(link!)
+                links.append(link!)
             }
         }
     }
@@ -85,12 +83,15 @@ open class GPXRoute: GPXElement {
         }
     }
     
-    func remove(Link link: GPXLink) {
-        let index = links.index(of: link)
+    func remove(link: GPXLink) {
+        let contains = links.contains(link)
         
-        if index != NSNotFound {
+        if contains == true {
             link.parent = nil
-            links.remove(link)
+            
+            if let index = links.firstIndex(of: link) {
+                links.remove(at: index)
+            }
         }
     }
     
@@ -103,11 +104,11 @@ open class GPXRoute: GPXElement {
     
     func add(routepoint: GPXRoutePoint?) {
         if routepoint != nil {
-            let index: Int = routepoints.index(of: routepoint!)
+            let contains = routepoints.contains(routepoint!)
             
-            if index == NSNotFound {
+            if contains == false {
                 routepoint?.parent = nil
-                routepoints.remove(routepoint!)
+                routepoints.append(routepoint!)
             }
         }
     }
@@ -118,12 +119,13 @@ open class GPXRoute: GPXElement {
         }
     }
     
-    func remove(routepoint: GPXRoute) {
-        let index = routepoints.index(of: routepoint)
-        
-        if index != NSNotFound {
+    func remove(routepoint: GPXRoutePoint) {
+        let contains = routepoints.contains(routepoint)
+        if contains == true {
             routepoint.parent = nil
-            routepoints.remove(routepoint)
+            if let index = routepoints.firstIndex(of: routepoint) {
+                routepoints.remove(at: index)
+            }
         }
         
     }
@@ -144,7 +146,7 @@ open class GPXRoute: GPXElement {
         self.addProperty(forValue: desc as NSString, gpx: gpx, tagName: "desc", indentationLevel: indentationLevel)
         self.addProperty(forValue: source as NSString, gpx: gpx, tagName: "src", indentationLevel: indentationLevel)
         
-        for case let link as GPXLink in self.links {
+        for link in links {
            link.gpx(gpx, indentationLevel: indentationLevel)
         }
         
@@ -155,7 +157,7 @@ open class GPXRoute: GPXElement {
             self.extensions?.gpx(gpx, indentationLevel: indentationLevel)
         }
         
-        for case let routepoint as GPXRoutePoint in self.routepoints {
+        for routepoint in routepoints {
             routepoint.gpx(gpx, indentationLevel: indentationLevel)
         }
         

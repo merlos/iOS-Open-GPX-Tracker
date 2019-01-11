@@ -8,17 +8,25 @@
 [![Version](https://img.shields.io/cocoapods/v/GPXKit.svg?style=flat)](https://cocoapods.org/pods/GPXKit)
 -->
 
-## *** WORK IN PROGRESS ***
-Current status: Tons of debugging required.
+### WORK IN PROGRESS!
+
+## Progress Checklist
+- [x] Successfully outputs string that can be packaged into a GPX file *
+- [ ] Parses GPX files
+- [ ] Migrate to native XMLParser
+- [ ] Documentation
+- [ ] Code optimisation
+- [ ] New features
+
+*extra extensions tag
 
 ## Aim
 This project aims to update/port iOS-GPX-Framework to Swift language, due to its original code being seemingly abandoned.
 Once the project reaches stability (if it ever will), I will focus on attempting to optimise the code and/or to add new features.
-
+<!---
 ## Example
-
 To run the example project, clone the repo, and run `pod install` from the Example directory first.
-
+-->
 ## Contributing
 Contributions to this project will be more than welcomed. Feel free to add a pull request or open an issue.
 

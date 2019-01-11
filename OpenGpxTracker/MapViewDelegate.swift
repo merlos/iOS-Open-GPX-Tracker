@@ -90,7 +90,7 @@ class MapViewDelegate: NSObject, MKMapViewDelegate, UIAlertViewDelegate {
             
             if newState == MKAnnotationView.DragState.ending {
                 if let point = view.annotation as? GPXWaypoint {
-                    print("Annotation name: \(String(describing: point.title)) lat:\(point.latitude) lon \(point.longitude)")
+                    print("Annotation name: \(String(describing: point.title)) lat:\(point.latitude!) lon \(point.longitude!)")
                 }
             }
     }

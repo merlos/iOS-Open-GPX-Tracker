@@ -206,7 +206,7 @@ class GPXMapView: MKMapView {
         //add the distance to previous tracked point
         if self.currentSegment.trackpoints.count >= 2 { //at elast there are two points in the segment
             let prevPt = self.currentSegment.trackpoints[self.currentSegment.trackpoints.count-2] //get previous point
-            let prevPtLoc = CLLocation(latitude: Double((prevPt as! GPXTrackPoint).latitude!), longitude: Double((prevPt as! GPXTrackPoint).longitude!))
+            let prevPtLoc = CLLocation(latitude: Double(prevPt.latitude!), longitude: Double(prevPt.longitude!))
             //now get the distance
             let distance = prevPtLoc.distance(from: location)
             self.currentTrackDistance += distance
@@ -301,34 +301,27 @@ class GPXMapView: MKMapView {
         self.clearMap()
         
         //add waypoints
-        if let waypoints = gpx.waypoints as? [GPXWaypoint] {
-            self.waypoints = waypoints
-        }
+        self.waypoints = gpx.waypoints
+        
         for pt in self.waypoints {
             self.addWaypoint(pt)
         }
 
         //add track segments
-        if let tracks = gpx.tracks as? [GPXTrack] {
-            self.tracks = tracks
-        }
+        self.tracks = gpx.tracks
+        
         
         for oneTrack in self.tracks {
             totalTrackedDistance += oneTrack.length
             for segment in oneTrack.tracksegments {
-				if let segment = segment as? GPXTrackSegment {
 					let overlay = segment.overlay
 					self.addOverlay(overlay)
 
-					if let segmentTrackpoints = segment.trackpoints as? [GPXTrackPoint] {
+					let segmentTrackpoints = segment.trackpoints
 						//add point to map extent
 						for waypoint in segmentTrackpoints {
-							self.extent.extendAreaToIncludeLocation(waypoint.coordinate)
+                            self.extent.extendAreaToIncludeLocation(waypoint.coordinate)
 						}
-					}
-				} else {
-					assert(false, "\(String(describing: type(of: segment)))")
-				}
             }
         }
     }

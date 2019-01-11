@@ -8,13 +8,13 @@
 import UIKit
 
 open class GPXMetadata: GPXElement {
-    var timeValue: String
+    
     var name: String?
     var desc: String?
     var author: GPXAuthor?
     var copyright: GPXCopyright?
     var link: GPXLink?
-    var date: Date?
+    var time = Date()
     var keyword: String?
     var bounds: GPXBounds?
     var extensions: GPXExtensions?
@@ -24,14 +24,12 @@ open class GPXMetadata: GPXElement {
     
     required public init() {
         author = GPXAuthor()
-        timeValue = String()
-        
+
         super.init()
     }
     
     public required init(XMLElement element: UnsafeMutablePointer<TBXMLElement>?, parent: GPXElement?) {
         author = GPXAuthor()
-        timeValue = String()
         
         super.init(XMLElement: element, parent: parent)
         
@@ -40,7 +38,6 @@ open class GPXMetadata: GPXElement {
         author = childElement(ofClass: GPXAuthor.self, xmlElement: element) as? GPXAuthor
         copyright = childElement(ofClass: GPXCopyright.self, xmlElement: element) as? GPXCopyright
         link = childElement(ofClass: GPXLink.self, xmlElement: element) as? GPXLink
-        timeValue = text(forSingleChildElement: "time", xmlElement: element)
         keyword = text(forSingleChildElement: "keyword", xmlElement: element)
         bounds = childElement(ofClass: GPXBounds.self, xmlElement: element) as? GPXBounds
         extensions = childElement(ofClass: GPXExtensions.self, xmlElement: element) as? GPXExtensions
@@ -48,14 +45,7 @@ open class GPXMetadata: GPXElement {
     }
     
     // MARK:- Public Methods
-    
-    var time: Date? {
-        return GPXType().dateTime(value: timeValue)
-    }
-    
-    func set(time: Date) {
-        timeValue = GPXType().value(forDateTime: time)
-    }
+
     
     // MARK:- Tag
     
@@ -68,8 +58,8 @@ open class GPXMetadata: GPXElement {
     override func addChildTag(toGPX gpx: NSMutableString, indentationLevel: Int) {
         super.addChildTag(toGPX: gpx, indentationLevel: indentationLevel)
         
-        addProperty(forValue: name as NSString?, gpx: gpx, tagName: "name", indentationLevel: indentationLevel)
-        addProperty(forValue: desc as NSString?, gpx: gpx, tagName: "desc", indentationLevel: indentationLevel)
+        self.addProperty(forValue: name as NSString?, gpx: gpx, tagName: "name", indentationLevel: indentationLevel)
+        self.addProperty(forValue: desc as NSString?, gpx: gpx, tagName: "desc", indentationLevel: indentationLevel)
         
         if author != nil {
             self.author!.gpx(gpx, indentationLevel: indentationLevel)
@@ -83,8 +73,8 @@ open class GPXMetadata: GPXElement {
             self.link?.gpx(gpx, indentationLevel: indentationLevel)
         }
         
-        addProperty(forValue: timeValue as NSString, gpx: gpx, tagName: "time", indentationLevel: indentationLevel, defaultValue: "0")
-        addProperty(forValue: keyword as NSString?, gpx: gpx, tagName: "keyword", indentationLevel: indentationLevel)
+        self.addProperty(forValue: GPXType().value(forDateTime: time) as NSString, gpx: gpx, tagName: "time", indentationLevel: indentationLevel, defaultValue: "0")
+        self.addProperty(forValue: keyword as NSString?, gpx: gpx, tagName: "keyword", indentationLevel: indentationLevel)
         
         if bounds != nil {
             self.bounds?.gpx(gpx, indentationLevel: indentationLevel)

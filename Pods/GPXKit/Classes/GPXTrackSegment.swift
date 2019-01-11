@@ -9,7 +9,7 @@ import UIKit
 
 open class GPXTrackSegment: GPXElement {
     
-    public let trackpoints = NSMutableArray()
+    public var trackpoints = [GPXTrackPoint]()
     public var extensions: GPXExtensions?
     
     
@@ -22,11 +22,11 @@ open class GPXTrackSegment: GPXElement {
     public required init(XMLElement element: UnsafeMutablePointer<TBXMLElement>?, parent: GPXElement?) {
         super.init(XMLElement: element, parent: parent)
         
-        extensions = childElement(ofClass: GPXExtensions.self, xmlElement: element) as! GPXExtensions?
+        extensions = childElement(ofClass: GPXExtensions.self, xmlElement: element) as? GPXExtensions
         
         self.childElement(ofClass: GPXTrackPoint.self, xmlElement: element, eachBlock: { element in
             if element != nil {
-                self.trackpoints.add(element!)
+                self.trackpoints.append(element! as! GPXTrackPoint)
             } })
     }
     
@@ -41,11 +41,10 @@ open class GPXTrackSegment: GPXElement {
     
     open func add(trackpoint: GPXTrackPoint?) {
         if trackpoint != nil {
-            let index = trackpoints.index(of: trackpoint!)
-            
-            if index == NSNotFound {
+            let contains = trackpoints.contains(trackpoint!)
+            if contains == false {
                 trackpoint?.parent = self
-                trackpoints.add(trackpoint!)
+                trackpoints.append(trackpoint!)
             }
         }
     }
@@ -57,11 +56,12 @@ open class GPXTrackSegment: GPXElement {
     }
     
     open func remove(trackpoint: GPXTrackPoint) {
-        let index = trackpoints.index(of: trackpoint)
-        
-        if index != NSNotFound {
+        let contains = trackpoints.contains(trackpoint)
+        if contains == true {
             trackpoint.parent = nil
-            trackpoints.remove(trackpoint)
+            if let index = trackpoints.firstIndex(of: trackpoint) {
+                trackpoints.remove(at: index)
+            }
         }
     }
     
@@ -80,7 +80,7 @@ open class GPXTrackSegment: GPXElement {
             self.extensions?.gpx(gpx, indentationLevel: indentationLevel)
         }
         
-        for case let trackpoint as GPXTrackPoint in self.trackpoints {
+        for trackpoint in trackpoints {
             trackpoint.gpx(gpx, indentationLevel: indentationLevel)
         }
         

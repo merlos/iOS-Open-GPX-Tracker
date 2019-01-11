@@ -16,7 +16,7 @@ extension GPXTrack {
     public var length: CLLocationDistance {
         get {
             var trackLength: CLLocationDistance = 0.0
-            for segment in (self.tracksegments as? [GPXTrackSegment])! {
+            for segment in tracksegments {
                 trackLength += segment.length()
             }
             return trackLength

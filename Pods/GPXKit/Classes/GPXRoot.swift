@@ -9,7 +9,6 @@ import UIKit
 
 open class GPXRoot: GPXElement {
 
-    //var schema = String()
     public var version: String? = "1.1"
     public var creator: String?
     public var metadata: GPXMetadata?
@@ -51,7 +50,7 @@ open class GPXRoot: GPXElement {
                 self.tracks.append(element as! GPXTrack)
             } })
         
-        extensions = childElement(ofClass: GPXExtensions.self, xmlElement: element) as! GPXExtensions?
+        extensions = childElement(ofClass: GPXExtensions.self, xmlElement: element) as? GPXExtensions
         
     }
     
@@ -62,8 +61,16 @@ open class GPXRoot: GPXElement {
     
     // MARK:- Public Methods
     
-    public var schema: String? {
+    var schema: String {
         return "http://www.topografix.com/GPX/1/1"
+    }
+    
+    var schemaLocation: String {
+        return "http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd"
+    }
+    
+    var xsi: String {
+        return "http://www.w3.org/2001/XMLSchema-instance"
     }
     
     public func newWaypointWith(latitude: CGFloat, longitude: CGFloat) -> GPXWaypoint {
@@ -178,9 +185,9 @@ open class GPXRoot: GPXElement {
         
         let attribute: NSMutableString = ""
         
-        if self.schema != nil {
-            attribute.appendFormat(" xmlns=\"%@\"", self.schema!)
-        }
+        attribute.appendFormat(" xmlns:xsi=\"%@\"", self.xsi)
+        attribute.appendFormat(" xmlns=\"%@\"", self.schema)
+        attribute.appendFormat(" xsi:schemaLocation=\"%@\"", self.schemaLocation)
         
         if self.version != nil {
             attribute.appendFormat(" version=\"%@\"", self.version!)
@@ -218,6 +225,7 @@ open class GPXRoot: GPXElement {
         if self.extensions != nil {
             self.extensions?.gpx(gpx, indentationLevel: indentationLevel)
         }
+ 
     }
 }
 

@@ -24,7 +24,7 @@ CHECKOUT OPTIONS:
     :commit: 288692d159d1babc245a031dc59be759efd531bc
     :git: https://github.com/krzyzanowskim/CryptoSwift
   GPXKit:
-    :commit: 7283a8bb30298f8c90f1e425e4c1c84a8ef06ff5
+    :commit: 73749128a89a037fa8ed0684d093a92bff2127a6
     :git: https://github.com/VincentNeo/GPXKit.git
 
 SPEC CHECKSUMS:

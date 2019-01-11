@@ -9,8 +9,8 @@ import UIKit
 
 open class GPXTrack: GPXElement {
     
-    public var links = NSMutableArray()
-    public var tracksegments = NSMutableArray()
+    public var links = [GPXLink]()
+    public var tracksegments = [GPXTrackSegment]()
     public var numberValue = String()
     public var name = String()
     public var comment = String()
@@ -35,7 +35,7 @@ open class GPXTrack: GPXElement {
         
         self.childElement(ofClass: GPXLink.self, xmlElement: element, eachBlock: { element in
             if element != nil {
-                self.links.add(element!)
+                self.links.append(element! as! GPXLink)
             } })
         
         numberValue = text(forSingleChildElement: "number", xmlElement: element)
@@ -44,23 +44,13 @@ open class GPXTrack: GPXElement {
         
         self.childElement(ofClass: GPXTrackSegment.self, xmlElement: element, eachBlock: { element in
             if element != nil {
-                self.tracksegments.add(element!)
+                self.tracksegments.append(element! as! GPXTrackSegment)
             } })
         
         self.number = GPXType().nonNegativeInt(numberValue)
     }
     
     // MARK:- Public Methods
-    
-    /*
-    var number: Int {
-        return GPXType().nonNegativeInt(numberValue)
-    }
-    */
-    
-    open func set(number: Int) {
-        numberValue = GPXType().value(forNonNegativeInt: number)
-    }
     
     open func newLink(withHref href: String) -> GPXLink {
         let link: GPXLink = GPXLink().link(with: href)
@@ -69,10 +59,10 @@ open class GPXTrack: GPXElement {
     
     open func add(link: GPXLink?) {
         if link != nil {
-            let index = links.index(of: link!)
-            if index == NSNotFound {
+            let contains = links.contains(link!)
+            if contains == false {
                 link?.parent = self
-                links.add(link!)
+                links.append(link!)
             }
         }
     }
@@ -84,11 +74,13 @@ open class GPXTrack: GPXElement {
     }
     
     open func remove(Link link: GPXLink) {
-        let index = links.index(of: link)
+        let contains = links.contains(link)
         
-        if index != NSNotFound {
+        if contains == true {
             link.parent = nil
-            links.remove(link)
+            if let index = links.firstIndex(of: link) {
+                links.remove(at: index)
+            }
         }
     }
     
@@ -100,10 +92,10 @@ open class GPXTrack: GPXElement {
     
     open func add(trackSegment: GPXTrackSegment?) {
         if trackSegment != nil {
-            let index = tracksegments.index(of: trackSegment!)
-            if index == NSNotFound {
+            let contains = tracksegments.contains(trackSegment!)
+            if contains == false {
                 trackSegment?.parent = self
-                tracksegments.add(trackSegment!)
+                tracksegments.append(trackSegment!)
             }
         }
     }
@@ -115,10 +107,13 @@ open class GPXTrack: GPXElement {
     }
     
     open func remove(trackSegment: GPXTrackSegment) {
-        let index = tracksegments.index(of: trackSegment)
-        if index != NSNotFound {
+        let contains = tracksegments.contains(trackSegment)
+        
+        if contains == true {
             trackSegment.parent = nil
-            tracksegments.remove(trackSegment)
+            if let index = tracksegments.firstIndex(of: trackSegment) {
+                tracksegments.remove(at: index)
+            }
         }
     }
     
@@ -129,7 +124,7 @@ open class GPXTrack: GPXElement {
             _ = self.newTrackSegment()
         }
         
-        tracksegment = tracksegments.lastObject as! GPXTrackSegment
+        tracksegment = tracksegments.last!
         
         return tracksegment.newTrackpointWith(latitude: latitude, longitude: longitude)
     }
@@ -150,7 +145,7 @@ open class GPXTrack: GPXElement {
         self.addProperty(forValue: desc as NSString, gpx: gpx, tagName: "desc", indentationLevel: indentationLevel)
         self.addProperty(forValue: source as NSString, gpx: gpx, tagName: "src", indentationLevel: indentationLevel)
         
-        for case let link as GPXLink in self.links {
+        for link in links {
             link.gpx(gpx, indentationLevel: indentationLevel)
         }
         
@@ -161,8 +156,8 @@ open class GPXTrack: GPXElement {
             self.extensions?.gpx(gpx, indentationLevel: indentationLevel)
         }
         
-        for case let tracksegent as GPXTrackSegment in self.tracksegments {
-            tracksegent.gpx(gpx, indentationLevel: indentationLevel)
+        for tracksegment in tracksegments {
+            tracksegment.gpx(gpx, indentationLevel: indentationLevel)
         }
         
     }
