@@ -9,11 +9,6 @@ import UIKit
 
 open class GPXPoint: GPXElement {
 
-    var elevationValue: String?
-    var timeValue: String?
-    var latitudeValue: String?
-    var longitudeValue: String?
-    
     var elevation: CGFloat? = CGFloat()
     var time: Date = Date()
     var latitude: CGFloat? = CGFloat()
@@ -25,31 +20,9 @@ open class GPXPoint: GPXElement {
         super.init()
     }
     
-    func point(with latitude: CGFloat, longitude: CGFloat) -> GPXPoint {
-        let point = GPXPoint()
-        
-        point.latitude = latitude
-        point.longitude = longitude
-        
-        return point
-    }
-    
-    // MARK:- Public Methods
-    
-    func set(elevation: CGFloat) {
-        elevationValue = GPXType().value(forDecimal: elevation)
-    }
-    
-    func set(time: Date) {
-        timeValue = GPXType().value(forDateTime: time)
-    }
-    
-    func set(latitude: CGFloat) {
-        latitudeValue = GPXType().value(forLatitude: latitude)
-    }
-    
-    func set(longitude: CGFloat) {
-        longitudeValue = GPXType().value(forLongitude: longitude)
+    public init(latitude: CGFloat, longitude: CGFloat) {
+        self.latitude = latitude
+        self.longitude = longitude
     }
     
     // MARK:- Tag

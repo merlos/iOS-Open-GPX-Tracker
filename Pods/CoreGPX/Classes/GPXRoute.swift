@@ -18,6 +18,7 @@ open class GPXRoute: GPXElement {
     var extensions: GPXExtensions?
     var routepoints = [GPXRoutePoint]()
     var numberValue = String()
+    var number = Int()
     
     // MARK:- Instance
     
@@ -26,14 +27,6 @@ open class GPXRoute: GPXElement {
     }
     
     // MARK: Public Methods
-    
-    var number: Int {
-        return GPXType().nonNegativeInt(numberValue)
-    }
-    
-    func set(number: Int) {
-        numberValue = GPXType().value(forNonNegativeInt: number)
-    }
     
     func newLink(withHref href: String) -> GPXLink {
         let link: GPXLink = GPXLink().link(with: href)
@@ -123,7 +116,7 @@ open class GPXRoute: GPXElement {
            link.gpx(gpx, indentationLevel: indentationLevel)
         }
         
-        self.addProperty(forValue: numberValue as NSString, gpx: gpx, tagName: "number", indentationLevel: indentationLevel)
+        self.addProperty(forValue: GPXType().value(forNonNegativeInt: number) as NSString, gpx: gpx, tagName: "number", indentationLevel: indentationLevel)
         self.addProperty(forValue: type as NSString, gpx: gpx, tagName: "type", indentationLevel: indentationLevel)
         
         if self.extensions != nil {

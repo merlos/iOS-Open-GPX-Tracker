@@ -9,7 +9,7 @@ import UIKit
 
 open class GPXPointSegment: GPXElement {
     
-    var points = NSMutableArray()
+    var points = [GPXPoint]()
     
     // MARK:- Instance
     
@@ -19,35 +19,38 @@ open class GPXPointSegment: GPXElement {
     
     // MARK:- Public Methods
     
-    func newPoint(with latitude: CGFloat, longitude: CGFloat) -> GPXPoint {
-        let point: GPXPoint = GPXPoint().point(with: latitude, longitude: longitude)
+    public func newPoint(with latitude: CGFloat, longitude: CGFloat) -> GPXPoint {
+
+        let point = GPXPoint(latitude: latitude, longitude: longitude)
         
         self.add(point: point)
         
         return point
     }
     
-    func add(point: GPXPoint?) {
+    public func add(point: GPXPoint?) {
         if point != nil {
-            let index = points.index(of: point!)
-            if index == NSNotFound {
+            let contains = points.contains(point!)
+            if contains == false {
                 point?.parent = self
-                points.add(point!)
+                points.append(point!)
             }
         }
     }
     
-    func add(points: [GPXPoint]) {
+    public func add(points: [GPXPoint]) {
         for point in points {
             add(point: point)
         }
     }
     
-    func remove(point: GPXPoint?) {
-        let index = points.index(of: point!)
-        if index != NSNotFound {
-            point?.parent = nil
-            points.remove(point!)
+    public func remove(point: GPXPoint) {
+        let contains = points.contains(point)
+        if contains == true {
+            point.parent = nil
+            if let index = points.firstIndex(of: point) {
+                points.remove(at: index)
+            }
         }
     }
     
@@ -62,7 +65,7 @@ open class GPXPointSegment: GPXElement {
     override func addChildTag(toGPX gpx: NSMutableString, indentationLevel: Int) {
         super.addChildTag(toGPX: gpx, indentationLevel: indentationLevel)
         
-        for case let point as GPXPoint in self.points {
+        for point in points {
             point.gpx(gpx, indentationLevel: indentationLevel)
         }
         

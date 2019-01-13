@@ -15,13 +15,8 @@ open class GPXTrackPoint: GPXWaypoint {
     
     // MARK:- Instance
     
-    func trackpointWith(latitude: CGFloat, longitude: CGFloat) -> GPXTrackPoint {
-        let trackpoint = GPXTrackPoint()
-        
-        trackpoint.latitude = latitude
-        trackpoint.longitude = longitude
-        
-        return trackpoint
+    public override init(latitude: CGFloat, longitude: CGFloat) {
+        super.init()
     }
     
     // MARK:- Tag

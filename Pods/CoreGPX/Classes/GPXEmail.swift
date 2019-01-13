@@ -18,13 +18,11 @@ open class GPXEmail: GPXElement {
         self.emailID = String()
         self.domain = String()
         super.init()
-    } 
-   
-    func emailWith(ID emailID: String, domain: String) -> GPXEmail {
-        let email = GPXEmail()
-        email.emailID = emailID
-        email.domain = domain
-        return email
+    }
+    
+    public init(emailID: String, domain: String) {
+        self.emailID = emailID
+        self.domain = domain
     }
     
     // MARK:- Tag

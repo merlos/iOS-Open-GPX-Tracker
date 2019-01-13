@@ -1,9 +1,9 @@
 ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES
-FRAMEWORK_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/Cache" "${PODS_CONFIGURATION_BUILD_DIR}/CryptoSwift" "${PODS_CONFIGURATION_BUILD_DIR}/GPXKit"
+FRAMEWORK_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/Cache" "${PODS_CONFIGURATION_BUILD_DIR}/CoreGPX" "${PODS_CONFIGURATION_BUILD_DIR}/CryptoSwift"
 GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
 LD_RUNPATH_SEARCH_PATHS = $(inherited) '@executable_path/Frameworks' '@loader_path/Frameworks'
-OTHER_CFLAGS = $(inherited) -iquote "${PODS_CONFIGURATION_BUILD_DIR}/Cache/Cache.framework/Headers" -iquote "${PODS_CONFIGURATION_BUILD_DIR}/CryptoSwift/CryptoSwift.framework/Headers" -iquote "${PODS_CONFIGURATION_BUILD_DIR}/GPXKit/GPXKit.framework/Headers"
-OTHER_LDFLAGS = $(inherited) -framework "Cache" -framework "CryptoSwift" -framework "GPXKit"
+OTHER_CFLAGS = $(inherited) -iquote "${PODS_CONFIGURATION_BUILD_DIR}/Cache/Cache.framework/Headers" -iquote "${PODS_CONFIGURATION_BUILD_DIR}/CoreGPX/CoreGPX.framework/Headers" -iquote "${PODS_CONFIGURATION_BUILD_DIR}/CryptoSwift/CryptoSwift.framework/Headers"
+OTHER_LDFLAGS = $(inherited) -framework "Cache" -framework "CoreGPX" -framework "CryptoSwift"
 OTHER_SWIFT_FLAGS = $(inherited) "-D" "COCOAPODS"
 PODS_BUILD_DIR = ${BUILD_DIR}
 PODS_CONFIGURATION_BUILD_DIR = ${PODS_BUILD_DIR}/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)

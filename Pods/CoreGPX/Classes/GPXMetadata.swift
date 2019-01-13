@@ -28,8 +28,13 @@ open class GPXMetadata: GPXElement {
         super.init()
     }
     
-    // MARK:- Public Methods
-
+    // MARK:- Internal Methods
+    
+    func set(date: String) {
+        if date.isEmpty == false {
+            self.time = GPXType().dateTime(value: date) ?? Date()
+        }
+    }
     
     // MARK:- Tag
     

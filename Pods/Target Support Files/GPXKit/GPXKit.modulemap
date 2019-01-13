@@ -1,6 +1,0 @@
-framework module GPXKit {
-  umbrella header "GPXKit-umbrella.h"
-
-  export *
-  module * { export * }
-}

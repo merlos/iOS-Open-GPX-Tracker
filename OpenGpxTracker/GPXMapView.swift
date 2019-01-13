@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 import MapKit
-import GPXKit
+import CoreGPX
 
 
 /// GPX creator identifier. Used on generated files identify this app created them.

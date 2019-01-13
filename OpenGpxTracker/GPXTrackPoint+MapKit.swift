@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 import MapKit
-import GPXKit
+import CoreGPX
 
 
 extension GPXTrackPoint {

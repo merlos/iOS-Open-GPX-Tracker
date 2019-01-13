@@ -1,0 +1,6 @@
+framework module CoreGPX {
+  umbrella header "CoreGPX-umbrella.h"
+
+  export *
+  module * { export * }
+}

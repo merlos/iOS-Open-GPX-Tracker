@@ -10,9 +10,9 @@ import UIKit
 open class GPXCopyright: GPXElement {
     var yearValue = String()
     
-    //var year:NSDate?
-    var license:String?
-    var author:String?
+    var year: Date?
+    var license: String?
+    var author: String?
     
     // MARK:- Instance
     
@@ -20,21 +20,9 @@ open class GPXCopyright: GPXElement {
         super.init()
     }
     
-    func copyright(with author: String) -> GPXCopyright {
-        let copyright = GPXCopyright()
-        copyright.author = author
-        
-        return copyright
-    }
-    
-    // MARK:- Public Methods
-    
-    var year: Date? {
-        return GPXType().dateTime(value: yearValue)
-    }
-    
-    func set(year: Date) {
-        yearValue = GPXType().value(forDateTime: year)
+    public init(author: String) {
+        super.init()
+        self.author = author
     }
     
     // MARK: Tag
@@ -57,7 +45,7 @@ open class GPXCopyright: GPXElement {
     
     override func addChildTag(toGPX gpx: NSMutableString, indentationLevel: Int) {
         super.addChildTag(toGPX: gpx, indentationLevel: indentationLevel)
-        self.addProperty(forValue: yearValue as NSString, gpx: gpx, tagName: "year", indentationLevel: indentationLevel)
+        self.addProperty(forValue: GPXType().value(forDateTime: year!) as NSString, gpx: gpx, tagName: "year", indentationLevel: indentationLevel)
         self.addProperty(forValue: license as NSString?, gpx: gpx, tagName: "license", indentationLevel: indentationLevel)
     }
     

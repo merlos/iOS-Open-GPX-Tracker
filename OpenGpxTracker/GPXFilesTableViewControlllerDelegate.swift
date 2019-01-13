@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import GPXKit
+import CoreGPX
 
 ///
 /// Delegate protocol for the view controller that displays the list of files (GPXFilesTableViewController).

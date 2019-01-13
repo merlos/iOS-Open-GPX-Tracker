@@ -8,23 +8,10 @@
 import UIKit
 
 open class GPXWaypoint: GPXElement {
-    var elevationValue = String()
-    var timeValue = String()
-    var magneticVariationValue = String()
-    var geoidHeightValue = String()
-    public var links = [GPXLink]()
-    var fixValue = String()
-    var satellitesValue = String()
-    var horizontalDilutionValue = String()
-    var verticalDilutionValue = String()
-    var positionDilutionValue = String()
-    var ageOfDGPSDataValue = String()
-    var DGPSidValue = String()
-    var latitudeValue:String?
-    var longitudeValue:String?
     
+    public var links = [GPXLink]()
     public var elevation = CGFloat()
-    public var time = Date()
+    public var time: Date
     public var magneticVariation = CGFloat()
     public var geoidHeight = CGFloat()
     public var name: String?
@@ -50,6 +37,7 @@ open class GPXWaypoint: GPXElement {
     }
      
     public init(latitude: CGFloat, longitude: CGFloat) {
+        self.time = Date()
         super.init()
         self.latitude = latitude
         self.longitude = longitude
@@ -86,6 +74,14 @@ open class GPXWaypoint: GPXElement {
             if let index = links.firstIndex(of: link) {
                 links.remove(at: index)
             }
+        }
+    }
+    
+    // MARK:- Internal Methods
+    
+    func set(date: String) {
+        if date.isEmpty == false {
+            self.time = GPXType().dateTime(value: date) ?? Date()
         }
     }
 

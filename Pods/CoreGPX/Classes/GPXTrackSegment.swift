@@ -22,7 +22,8 @@ open class GPXTrackSegment: GPXElement {
     // MARK:- Public Methods
     
     open func newTrackpointWith(latitude: CGFloat, longitude: CGFloat) -> GPXTrackPoint {
-        let trackpoint = GPXTrackPoint().trackpointWith(latitude: latitude, longitude: longitude)
+        let trackpoint = GPXTrackPoint(latitude: latitude, longitude: longitude)
+        
         self.add(trackpoint: trackpoint)
         
         return trackpoint
