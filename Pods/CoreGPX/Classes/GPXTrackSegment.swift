@@ -40,9 +40,7 @@ open class GPXTrackSegment: GPXElement {
     }
     
     open func add(trackpoints: [GPXTrackPoint]) {
-        for trackpoint in trackpoints {
-            self.add(trackpoint: trackpoint)
-        }
+        self.trackpoints.append(contentsOf: trackpoints)
     }
     
     open func remove(trackpoint: GPXTrackPoint) {

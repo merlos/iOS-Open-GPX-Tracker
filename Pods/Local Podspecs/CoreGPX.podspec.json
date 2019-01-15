@@ -1,6 +1,6 @@
 {
   "name": "CoreGPX",
-  "version": "0.3.3",
+  "version": "0.3.4",
   "summary": "A library for reading and creation of GPX location log files.",
   "description": "GPXKit is designed to replace the aging, and abandoned project, iOS-GPX-Framework. This pod will be able to help developers parse and create GPX files more easily. More features will be added to the future.",
   "homepage": "https://github.com/vincentneo/CoreGPX",
@@ -13,7 +13,7 @@
   },
   "source": {
     "git": "https://github.com/vincentneo/CoreGPX.git",
-    "tag": "0.3.3"
+    "tag": "0.3.4"
   },
   "social_media_url": "https://twitter.com/ivincentneo",
   "platforms": {

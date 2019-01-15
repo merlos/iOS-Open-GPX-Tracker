@@ -65,9 +65,7 @@ open class GPXRoot: GPXElement {
     }
     
     public func add(waypoints: [GPXWaypoint]) {
-        for waypoint in waypoints {
-            self.add(waypoint: waypoint)
-        }
+        self.waypoints.append(contentsOf: waypoints)
     }
     
     public func remove(waypoint: GPXWaypoint) {
@@ -99,9 +97,7 @@ open class GPXRoot: GPXElement {
     }
     
     public func add(routes: [GPXRoute]) {
-        for route in routes {
-            self.add(route: route)
-        }
+        self.routes.append(contentsOf: routes)
     }
     
     public func remove(route: GPXRoute) {
@@ -131,9 +127,7 @@ open class GPXRoot: GPXElement {
     }
     
     public func add(tracks: [GPXTrack]) {
-        for track in tracks {
-            self.add(track: track)
-        }
+        self.tracks.append(contentsOf: tracks)
     }
     
     public func remove(track: GPXTrack) {

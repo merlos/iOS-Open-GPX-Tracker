@@ -1,6 +1,6 @@
 PODS:
   - Cache (5.2.0)
-  - CoreGPX (0.3.3)
+  - CoreGPX (0.3.4)
   - CryptoSwift (0.13.1)
 
 DEPENDENCIES:
@@ -21,7 +21,7 @@ CHECKOUT OPTIONS:
     :commit: 6adcf9766121bf7026a57cf69f898fbcb6ebb990
     :git: https://github.com/hyperoslo/Cache
   CoreGPX:
-    :commit: a178bcebfcdb217316c4e27cb57b5363c932bce7
+    :commit: 03a2759c8729572e0d8cfcdd5d1de0d93c2f7222
     :git: https://github.com/VincentNeo/CoreGPX.git
   CryptoSwift:
     :commit: 288692d159d1babc245a031dc59be759efd531bc
@@ -29,7 +29,7 @@ CHECKOUT OPTIONS:
 
 SPEC CHECKSUMS:
   Cache: 807c5d86d01a177f06ede9865add3aea269bbfd4
-  CoreGPX: 0428c2a2c2ac78d54800d6c7b19d051796183e43
+  CoreGPX: c15885ee0504e2e66c7d8c7257690fc1b697ef0d
   CryptoSwift: ff68c35a53e03177d31aaa2c1e8b3e010aeed6cb
 
 PODFILE CHECKSUM: dee0c19438f110434ab468202cc6bf18c8bf1b18
