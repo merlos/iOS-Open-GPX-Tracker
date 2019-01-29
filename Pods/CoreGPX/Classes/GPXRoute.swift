@@ -61,7 +61,7 @@ open class GPXRoute: GPXElement {
         }
     }
     
-    func newRoutePointWith(latitude: CGFloat, longitude: CGFloat) -> GPXRoutePoint {
+    func newRoutePointWith(latitude: Double, longitude: Double) -> GPXRoutePoint {
         let routepoint = GPXRoutePoint().routePoint(with: latitude, longitude: longitude)
         self.add(routepoint: routepoint)
         

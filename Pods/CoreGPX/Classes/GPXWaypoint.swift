@@ -10,10 +10,10 @@ import UIKit
 open class GPXWaypoint: GPXElement {
     
     public var links = [GPXLink]()
-    public var elevation = CGFloat()
+    public var elevation: Double?
     public var time: Date?
-    public var magneticVariation: CGFloat?
-    public var geoidHeight: CGFloat?
+    public var magneticVariation: Double?
+    public var geoidHeight: Double?
     public var name: String?
     public var comment: String?
     public var desc: String?
@@ -22,14 +22,14 @@ open class GPXWaypoint: GPXElement {
     public var type: String?
     public var fix: Int?
     public var satellites: Int?
-    public var horizontalDilution: CGFloat?
-    public var verticalDilution: CGFloat?
-    public var positionDilution: CGFloat?
-    public var ageofDGPSData: CGFloat?
+    public var horizontalDilution: Double?
+    public var verticalDilution: Double?
+    public var positionDilution: Double?
+    public var ageofDGPSData: Double?
     public var DGPSid: Int?
     public var extensions: GPXExtensions? = GPXExtensions()
-    public var latitude: CGFloat?
-    public var longitude: CGFloat?
+    public var latitude: Double?
+    public var longitude: Double?
     
     public var latitudeString = String()
     public var longitudeString = String()
@@ -50,7 +50,7 @@ open class GPXWaypoint: GPXElement {
         super.init()
     }
      
-    public init(latitude: CGFloat, longitude: CGFloat) {
+    public init(latitude: Double, longitude: Double) {
         self.time = Date()
         super.init()
         self.latitude = latitude
@@ -81,8 +81,11 @@ open class GPXWaypoint: GPXElement {
     
     // MARK:- Public Methods
    
-    func number(from string: String?) -> CGFloat {
-        return CGFloat(Double(string ?? "") ?? 0)
+    func number(from string: String?) -> Double? {
+        guard let NonNilString = string else {
+            return nil
+        }
+        return Double(NonNilString)
     }
     
     open func newLink(withHref href: String) -> GPXLink {
@@ -142,10 +145,10 @@ open class GPXWaypoint: GPXElement {
     override func addChildTag(toGPX gpx: NSMutableString, indentationLevel: Int) {
         super.addChildTag(toGPX: gpx, indentationLevel: indentationLevel)
         
-        self.addProperty(forNumberValue: elevation, gpx: gpx, tagName: "ele", indentationLevel: indentationLevel)
+        self.addProperty(forDoubleValue: elevation, gpx: gpx, tagName: "ele", indentationLevel: indentationLevel)
         self.addProperty(forValue: GPXType().value(forDateTime: time!) as NSString, gpx: gpx, tagName: "time", indentationLevel: indentationLevel)
-        self.addProperty(forNumberValue: magneticVariation, gpx: gpx, tagName: "magvar", indentationLevel: indentationLevel)
-        self.addProperty(forNumberValue: geoidHeight, gpx: gpx, tagName: "geoidheight", indentationLevel: indentationLevel)
+        self.addProperty(forDoubleValue: magneticVariation, gpx: gpx, tagName: "magvar", indentationLevel: indentationLevel)
+        self.addProperty(forDoubleValue: geoidHeight, gpx: gpx, tagName: "geoidheight", indentationLevel: indentationLevel)
         self.addProperty(forValue: name as NSString?, gpx: gpx, tagName: "name", indentationLevel: indentationLevel)
         self.addProperty(forValue: desc as NSString?, gpx: gpx, tagName: "desc", indentationLevel: indentationLevel)
         self.addProperty(forValue: source as NSString?, gpx: gpx, tagName: "source", indentationLevel: indentationLevel)
@@ -156,13 +159,13 @@ open class GPXWaypoint: GPXElement {
         
         self.addProperty(forValue: symbol as NSString?, gpx: gpx, tagName: "sym", indentationLevel: indentationLevel)
         self.addProperty(forValue: type as NSString?, gpx: gpx, tagName: "type", indentationLevel: indentationLevel)
-        self.addProperty(forNumberValue: CGFloat(fix ?? 0), gpx: gpx, tagName: "source", indentationLevel: indentationLevel)
-        self.addProperty(forNumberValue: CGFloat(satellites ?? 0), gpx: gpx, tagName: "sat", indentationLevel: indentationLevel)
-        self.addProperty(forNumberValue: horizontalDilution, gpx: gpx, tagName: "hdop", indentationLevel: indentationLevel)
-        self.addProperty(forNumberValue: verticalDilution, gpx: gpx, tagName: "vdop", indentationLevel: indentationLevel)
-        self.addProperty(forNumberValue: positionDilution, gpx: gpx, tagName: "pdop", indentationLevel: indentationLevel)
-        self.addProperty(forNumberValue: ageofDGPSData, gpx: gpx, tagName: "ageofdgpsdata", indentationLevel: indentationLevel)
-        self.addProperty(forNumberValue: CGFloat(DGPSid ?? 0), gpx: gpx, tagName: "dgpsid", indentationLevel: indentationLevel)
+        self.addProperty(forDoubleValue: Double(fix ?? 0), gpx: gpx, tagName: "source", indentationLevel: indentationLevel)
+        self.addProperty(forDoubleValue: Double(satellites ?? 0), gpx: gpx, tagName: "sat", indentationLevel: indentationLevel)
+        self.addProperty(forDoubleValue: horizontalDilution, gpx: gpx, tagName: "hdop", indentationLevel: indentationLevel)
+        self.addProperty(forDoubleValue: verticalDilution, gpx: gpx, tagName: "vdop", indentationLevel: indentationLevel)
+        self.addProperty(forDoubleValue: positionDilution, gpx: gpx, tagName: "pdop", indentationLevel: indentationLevel)
+        self.addProperty(forDoubleValue: ageofDGPSData, gpx: gpx, tagName: "ageofdgpsdata", indentationLevel: indentationLevel)
+        self.addProperty(forDoubleValue: Double(DGPSid ?? 0), gpx: gpx, tagName: "dgpsid", indentationLevel: indentationLevel)
         
         if self.extensions != nil {
             self.extensions?.gpx(gpx, indentationLevel: indentationLevel)

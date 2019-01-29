@@ -15,7 +15,7 @@ open class GPXTrackPoint: GPXWaypoint {
     
     // MARK:- Instance
     
-    public override init(latitude: CGFloat, longitude: CGFloat) {
+    public override init(latitude: Double, longitude: Double) {
         super.init()
     }
     

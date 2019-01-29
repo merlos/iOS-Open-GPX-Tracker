@@ -15,7 +15,7 @@ open class GPXRoutePoint: GPXWaypoint {
     
     // MARK:- Instance
     
-    func routePoint(with latitude: CGFloat, longitude: CGFloat) -> GPXRoutePoint {
+    func routePoint(with latitude: Double, longitude: Double) -> GPXRoutePoint {
         let routePoint = GPXRoutePoint()
         routePoint.latitude = latitude
         routePoint.longitude = longitude

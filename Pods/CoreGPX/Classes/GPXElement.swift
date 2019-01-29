@@ -68,6 +68,12 @@ open class GPXElement: NSObject {
         }
     }
     
+    func addProperty(forDoubleValue value: Double?, gpx: NSMutableString, tagName: NSString, indentationLevel: Int) {
+        if value != nil && value != 0 {
+            addProperty(forValue: NSString(format: "%f", value!), gpx: gpx, tagName: tagName, indentationLevel: indentationLevel, defaultValue: nil, attribute: nil)
+        }
+    }
+    
     func addProperty(forValue value: NSString?, gpx: NSMutableString, tagName: NSString, indentationLevel: Int, attribute: String?) {
         addProperty(forValue: value, gpx: gpx, tagName: tagName, indentationLevel: indentationLevel, defaultValue: nil, attribute: attribute)
     }

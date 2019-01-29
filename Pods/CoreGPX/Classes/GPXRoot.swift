@@ -45,7 +45,7 @@ open class GPXRoot: GPXElement {
         return "http://www.w3.org/2001/XMLSchema-instance"
     }
     
-    public func newWaypointWith(latitude: CGFloat, longitude: CGFloat) -> GPXWaypoint {
+    public func newWaypointWith(latitude: Double, longitude: Double) -> GPXWaypoint {
         //let waypoint = GPXWaypoint().waypoint(With: latitude, longitude: longitude)
         let waypoint = GPXWaypoint.init(latitude: latitude, longitude: longitude)
         

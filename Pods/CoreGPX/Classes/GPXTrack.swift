@@ -92,7 +92,7 @@ open class GPXTrack: GPXElement {
         }
     }
     
-    open func newTrackPointWith(latitude: CGFloat, longitude: CGFloat) -> GPXTrackPoint {
+    open func newTrackPointWith(latitude: Double, longitude: Double) -> GPXTrackPoint {
         var tracksegment: GPXTrackSegment
         
         if tracksegments.count == 0 {

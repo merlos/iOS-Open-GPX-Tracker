@@ -16,10 +16,10 @@ extension GPXTrackPoint {
 
     convenience init(location: CLLocation) {
         self.init()
-        self.latitude = CGFloat(location.coordinate.latitude)
-        self.longitude = CGFloat(location.coordinate.longitude)
+        self.latitude = location.coordinate.latitude
+        self.longitude = location.coordinate.longitude
         self.time = Date()
-        self.elevation = CGFloat(location.altitude)
+        self.elevation = location.altitude
     }
     
     

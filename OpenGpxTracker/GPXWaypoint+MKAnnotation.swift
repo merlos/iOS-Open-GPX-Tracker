@@ -14,7 +14,7 @@ extension GPXWaypoint : MKAnnotation {
     
     convenience init (coordinate: CLLocationCoordinate2D) {
        
-        self.init(latitude: CGFloat(coordinate.latitude), longitude: CGFloat(coordinate.longitude))
+        self.init(latitude: coordinate.latitude, longitude: coordinate.longitude)
         //set default title and subtitle
         
         // Default title now
@@ -54,8 +54,8 @@ extension GPXWaypoint : MKAnnotation {
     
     public var coordinate: CLLocationCoordinate2D {
         set {
-            self.latitude = CGFloat(newValue.latitude)
-            self.longitude = CGFloat(newValue.longitude)
+            self.latitude = newValue.latitude
+            self.longitude = newValue.longitude
         }
         get {
             return CLLocationCoordinate2D(latitude: CLLocationDegrees(self.latitude!), longitude: CLLocationDegrees(self.longitude!))

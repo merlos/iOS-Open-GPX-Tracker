@@ -5,14 +5,14 @@ PODS:
 
 DEPENDENCIES:
   - Cache (from `https://github.com/hyperoslo/Cache`)
-  - CoreGPX (from `https://github.com/VincentNeo/CoreGPX.git`, branch `SpeedOptimisation`)
+  - CoreGPX (from `https://github.com/VincentNeo/CoreGPX.git`, branch `SpeedOptimisation-Double`)
   - CryptoSwift (from `https://github.com/krzyzanowskim/CryptoSwift`)
 
 EXTERNAL SOURCES:
   Cache:
     :git: https://github.com/hyperoslo/Cache
   CoreGPX:
-    :branch: SpeedOptimisation
+    :branch: SpeedOptimisation-Double
     :git: https://github.com/VincentNeo/CoreGPX.git
   CryptoSwift:
     :git: https://github.com/krzyzanowskim/CryptoSwift
@@ -22,7 +22,7 @@ CHECKOUT OPTIONS:
     :commit: 6adcf9766121bf7026a57cf69f898fbcb6ebb990
     :git: https://github.com/hyperoslo/Cache
   CoreGPX:
-    :commit: 4224eb888ae03b74e33879d991bf18ad7d2d706a
+    :commit: 6acb14703bafd2420a4f6d7a5abd980afe44f2a1
     :git: https://github.com/VincentNeo/CoreGPX.git
   CryptoSwift:
     :commit: 288692d159d1babc245a031dc59be759efd531bc
@@ -33,6 +33,6 @@ SPEC CHECKSUMS:
   CoreGPX: 77eefd27daed8b73cc98b0c531cd8d9941c688d6
   CryptoSwift: ff68c35a53e03177d31aaa2c1e8b3e010aeed6cb
 
-PODFILE CHECKSUM: a6c639558a63a3e0d7110f84451dc33983444229
+PODFILE CHECKSUM: 4d9dc4ce6e8f13ecf57fbfb3df0fc1acded12f0c
 
 COCOAPODS: 1.5.3
