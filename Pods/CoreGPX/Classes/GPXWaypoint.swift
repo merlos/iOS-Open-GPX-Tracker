@@ -27,7 +27,7 @@ open class GPXWaypoint: GPXElement {
     public var positionDilution: Double?
     public var ageofDGPSData: Double?
     public var DGPSid: Int?
-    public var extensions: GPXExtensions? = GPXExtensions()
+    public var extensions: GPXExtensions?
     public var latitude: Double?
     public var longitude: Double?
     
@@ -71,12 +71,12 @@ open class GPXWaypoint: GPXElement {
         self.source = dictionary["src"]
         self.symbol = dictionary["sym"]
         self.type = dictionary["type"]
-        self.fix = Int(dictionary["fix"] ?? "")
-        self.satellites = Int(dictionary["sat"] ?? "")
+        self.fix = integer(from: dictionary["fix"])
+        self.satellites = integer(from: dictionary["sat"])
         self.horizontalDilution = number(from: dictionary["hdop"])
         self.verticalDilution = number(from: dictionary["vdop"])
         self.positionDilution = number(from: dictionary["pdop"])
-        self.DGPSid = Int(dictionary["dgpsid"] ?? "")
+        self.DGPSid = integer(from: dictionary["dgpsid"])
     }
     
     // MARK:- Public Methods
@@ -86,6 +86,13 @@ open class GPXWaypoint: GPXElement {
             return nil
         }
         return Double(NonNilString)
+    }
+    
+    func integer(from string: String?) -> Int? {
+        guard let NonNilString = string else {
+            return nil
+        }
+        return Int(NonNilString)
     }
     
     open func newLink(withHref href: String) -> GPXLink {
@@ -159,13 +166,13 @@ open class GPXWaypoint: GPXElement {
         
         self.addProperty(forValue: symbol, gpx: gpx, tagName: "sym", indentationLevel: indentationLevel)
         self.addProperty(forValue: type, gpx: gpx, tagName: "type", indentationLevel: indentationLevel)
-        self.addProperty(forDoubleValue: Double(fix ?? 0), gpx: gpx, tagName: "source", indentationLevel: indentationLevel)
-        self.addProperty(forDoubleValue: Double(satellites ?? 0), gpx: gpx, tagName: "sat", indentationLevel: indentationLevel)
+        self.addProperty(forIntegerValue: fix, gpx: gpx, tagName: "source", indentationLevel: indentationLevel)
+        self.addProperty(forIntegerValue: satellites, gpx: gpx, tagName: "sat", indentationLevel: indentationLevel)
         self.addProperty(forDoubleValue: horizontalDilution, gpx: gpx, tagName: "hdop", indentationLevel: indentationLevel)
         self.addProperty(forDoubleValue: verticalDilution, gpx: gpx, tagName: "vdop", indentationLevel: indentationLevel)
         self.addProperty(forDoubleValue: positionDilution, gpx: gpx, tagName: "pdop", indentationLevel: indentationLevel)
         self.addProperty(forDoubleValue: ageofDGPSData, gpx: gpx, tagName: "ageofdgpsdata", indentationLevel: indentationLevel)
-        self.addProperty(forDoubleValue: Double(DGPSid ?? 0), gpx: gpx, tagName: "dgpsid", indentationLevel: indentationLevel)
+        self.addProperty(forIntegerValue: DGPSid, gpx: gpx, tagName: "dgpsid", indentationLevel: indentationLevel)
         
         if self.extensions != nil {
             self.extensions?.gpx(gpx, indentationLevel: indentationLevel)

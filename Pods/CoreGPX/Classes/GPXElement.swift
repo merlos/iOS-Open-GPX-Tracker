@@ -95,7 +95,7 @@ open class GPXElement: NSObject {
         
         let match: Range? = value?.range(of: "[^a-zA-Z0-9.,+-/*!='\"()\\[\\]{}!$%@?_;: #\t\r\n]", options: .regularExpression, range: nil, locale: nil)
         
-        if match == nil {
+        if match != nil {
             outputCDMA = true
         }
         

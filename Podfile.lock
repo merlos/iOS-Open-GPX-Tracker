@@ -22,7 +22,7 @@ CHECKOUT OPTIONS:
     :commit: 6adcf9766121bf7026a57cf69f898fbcb6ebb990
     :git: https://github.com/hyperoslo/Cache
   CoreGPX:
-    :commit: c6156e8f4927293ab2b4eaa902c185ba3252973e
+    :commit: 7f4253712ff2a9bbb6491ee5b3b84e8398ccca6a
     :git: https://github.com/VincentNeo/CoreGPX.git
   CryptoSwift:
     :commit: 288692d159d1babc245a031dc59be759efd531bc
