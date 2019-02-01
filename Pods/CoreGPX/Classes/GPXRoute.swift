@@ -61,8 +61,10 @@ open class GPXRoute: GPXElement {
         }
     }
     
+
     func newRoutePointWith(latitude: Double, longitude: Double) -> GPXRoutePoint {
-        let routepoint = GPXRoutePoint().routePoint(with: latitude, longitude: longitude)
+        let routepoint = GPXRoutePoint(latitude: latitude, longitude: longitude)
+
         self.add(routepoint: routepoint)
         
         return routepoint
@@ -107,17 +109,17 @@ open class GPXRoute: GPXElement {
     override func addChildTag(toGPX gpx: NSMutableString, indentationLevel: Int) {
         super.addChildTag(toGPX: gpx, indentationLevel: indentationLevel)
         
-        self.addProperty(forValue: name as NSString, gpx: gpx, tagName: "name", indentationLevel: indentationLevel)
-        self.addProperty(forValue: comment as NSString, gpx: gpx, tagName: "comment", indentationLevel: indentationLevel)
-        self.addProperty(forValue: desc as NSString, gpx: gpx, tagName: "desc", indentationLevel: indentationLevel)
-        self.addProperty(forValue: source as NSString, gpx: gpx, tagName: "src", indentationLevel: indentationLevel)
+        self.addProperty(forValue: name, gpx: gpx, tagName: "name", indentationLevel: indentationLevel)
+        self.addProperty(forValue: comment, gpx: gpx, tagName: "comment", indentationLevel: indentationLevel)
+        self.addProperty(forValue: desc, gpx: gpx, tagName: "desc", indentationLevel: indentationLevel)
+        self.addProperty(forValue: source, gpx: gpx, tagName: "src", indentationLevel: indentationLevel)
         
         for link in links {
            link.gpx(gpx, indentationLevel: indentationLevel)
         }
         
-        self.addProperty(forValue: GPXType().value(forNonNegativeInt: number) as NSString, gpx: gpx, tagName: "number", indentationLevel: indentationLevel)
-        self.addProperty(forValue: type as NSString, gpx: gpx, tagName: "type", indentationLevel: indentationLevel)
+        self.addProperty(forValue: GPXType().value(forNonNegativeInt: number), gpx: gpx, tagName: "number", indentationLevel: indentationLevel)
+        self.addProperty(forValue: type, gpx: gpx, tagName: "type", indentationLevel: indentationLevel)
         
         if self.extensions != nil {
             self.extensions?.gpx(gpx, indentationLevel: indentationLevel)

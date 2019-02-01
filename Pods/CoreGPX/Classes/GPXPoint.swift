@@ -4,15 +4,16 @@
 //
 //  Created by Vincent on 23/11/18.
 //
+//  WARNING: Looks suspiciously broken
 
 import UIKit
 
 open class GPXPoint: GPXElement {
 
-    var elevation: CGFloat? = CGFloat()
+    var elevation: Double? = Double()
     var time: Date = Date()
-    var latitude: CGFloat? = CGFloat()
-    var longitude: CGFloat? = CGFloat()
+    var latitude: Double? = Double()
+    var longitude: Double? = Double()
     
     // MARK:- Instance
     
@@ -20,7 +21,7 @@ open class GPXPoint: GPXElement {
         super.init()
     }
     
-    public init(latitude: CGFloat, longitude: CGFloat) {
+    public init(latitude: Double, longitude: Double) {
         self.latitude = latitude
         self.longitude = longitude
     }
@@ -48,8 +49,8 @@ open class GPXPoint: GPXElement {
     override func addChildTag(toGPX gpx: NSMutableString, indentationLevel: Int) {
         super.addChildTag(toGPX: gpx, indentationLevel: indentationLevel)
         
-        self.addProperty(forNumberValue: elevation, gpx: gpx, tagName: "ele", indentationLevel: indentationLevel)
-        self.addProperty(forValue: GPXType().value(forDateTime: time) as NSString?, gpx: gpx, tagName: "time", indentationLevel: indentationLevel)
+        self.addProperty(forDoubleValue: elevation, gpx: gpx, tagName: "ele", indentationLevel: indentationLevel)
+        self.addProperty(forValue: GPXType().value(forDateTime: time), gpx: gpx, tagName: "time", indentationLevel: indentationLevel)
     }
     
 }

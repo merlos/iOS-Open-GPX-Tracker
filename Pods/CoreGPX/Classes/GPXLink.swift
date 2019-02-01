@@ -69,8 +69,8 @@ open class GPXLink: GPXElement {
     override func addChildTag(toGPX gpx: NSMutableString, indentationLevel: Int) {
         super.addChildTag(toGPX: gpx, indentationLevel: indentationLevel)
         
-        self.addProperty(forValue: text as NSString?, gpx: gpx, tagName: "text", indentationLevel: indentationLevel)
-        self.addProperty(forValue: mimetype as NSString?, gpx: gpx, tagName: "type", indentationLevel: indentationLevel)
+        self.addProperty(forValue: text, gpx: gpx, tagName: "text", indentationLevel: indentationLevel)
+        self.addProperty(forValue: mimetype, gpx: gpx, tagName: "type", indentationLevel: indentationLevel)
     }
 
 }

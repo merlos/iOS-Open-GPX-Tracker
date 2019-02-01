@@ -36,7 +36,7 @@ open class GPXPerson: GPXElement {
     override func addChildTag(toGPX gpx: NSMutableString, indentationLevel: Int) {
         super.addChildTag(toGPX: gpx, indentationLevel: indentationLevel)
         
-        self.addProperty(forValue: name as NSString, gpx: gpx, tagName: "name", indentationLevel: indentationLevel)
+        self.addProperty(forValue: name, gpx: gpx, tagName: "name", indentationLevel: indentationLevel)
         
         if email != nil {
             self.email?.gpx(gpx, indentationLevel: indentationLevel)

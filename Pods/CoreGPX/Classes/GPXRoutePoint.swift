@@ -15,12 +15,11 @@ open class GPXRoutePoint: GPXWaypoint {
     
     // MARK:- Instance
     
-    func routePoint(with latitude: Double, longitude: Double) -> GPXRoutePoint {
-        let routePoint = GPXRoutePoint()
-        routePoint.latitude = latitude
-        routePoint.longitude = longitude
-        
-        return routePoint
+    public override init(latitude: Double, longitude: Double) {
+        super.init()
+        self.latitude = latitude
+        self.longitude = longitude
+
     }
     
     public override init(dictionary: [String : String]) {

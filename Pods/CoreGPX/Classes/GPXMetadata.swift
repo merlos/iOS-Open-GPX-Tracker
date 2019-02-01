@@ -47,8 +47,8 @@ open class GPXMetadata: GPXElement {
     override func addChildTag(toGPX gpx: NSMutableString, indentationLevel: Int) {
         super.addChildTag(toGPX: gpx, indentationLevel: indentationLevel)
         
-        self.addProperty(forValue: name as NSString?, gpx: gpx, tagName: "name", indentationLevel: indentationLevel)
-        self.addProperty(forValue: desc as NSString?, gpx: gpx, tagName: "desc", indentationLevel: indentationLevel)
+        self.addProperty(forValue: name, gpx: gpx, tagName: "name", indentationLevel: indentationLevel)
+        self.addProperty(forValue: desc, gpx: gpx, tagName: "desc", indentationLevel: indentationLevel)
         
         if author != nil {
             self.author!.gpx(gpx, indentationLevel: indentationLevel)
@@ -62,8 +62,8 @@ open class GPXMetadata: GPXElement {
             self.link?.gpx(gpx, indentationLevel: indentationLevel)
         }
         
-        self.addProperty(forValue: GPXType().value(forDateTime: time) as NSString, gpx: gpx, tagName: "time", indentationLevel: indentationLevel, defaultValue: "0")
-        self.addProperty(forValue: keyword as NSString?, gpx: gpx, tagName: "keyword", indentationLevel: indentationLevel)
+        self.addProperty(forValue: GPXType().value(forDateTime: time), gpx: gpx, tagName: "time", indentationLevel: indentationLevel, defaultValue: "0")
+        self.addProperty(forValue: keyword, gpx: gpx, tagName: "keyword", indentationLevel: indentationLevel)
         
         if bounds != nil {
             self.bounds?.gpx(gpx, indentationLevel: indentationLevel)

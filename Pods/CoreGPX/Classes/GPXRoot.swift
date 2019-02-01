@@ -55,12 +55,8 @@ open class GPXRoot: GPXElement {
     }
     
     public func add(waypoint: GPXWaypoint?) {
-        if waypoint != nil {
-            let contains = waypoints.contains(waypoint!)
-            if contains == false {
-                waypoint?.parent = self
-                waypoints.append(waypoint!)
-            }
+        if let validWaypoint = waypoint {
+           self.waypoints.append(validWaypoint)
         }
     }
     
@@ -73,7 +69,7 @@ open class GPXRoot: GPXElement {
         if contains == true {
             waypoint.parent = nil
             if let index = waypoints.firstIndex(of: waypoint) {
-                waypoints.remove(at: index)
+                self.waypoints.remove(at: index)
             }
         }
     }
@@ -87,12 +83,8 @@ open class GPXRoot: GPXElement {
     }
     
     public func add(route: GPXRoute?) {
-        if route != nil {
-            let contains = routes.contains(route!)
-            if contains == false {
-                route?.parent = self
-                routes.append(route!)
-            }
+        if let validRoute = route {
+           self.routes.append(validRoute)
         }
     }
     
@@ -105,7 +97,7 @@ open class GPXRoot: GPXElement {
         if contains == true {
             route.parent = nil
             if let index = routes.firstIndex(of: route) {
-                waypoints.remove(at: index)
+                self.waypoints.remove(at: index)
             }
         }
     }
@@ -117,12 +109,8 @@ open class GPXRoot: GPXElement {
     }
     
     public func add(track: GPXTrack?) {
-        if track != nil {
-            let contains = tracks.contains(track!)
-            if contains == false {
-                track?.parent = self
-                tracks.append(track!)
-            }
+        if let validTrack = track {
+            self.tracks.append(validTrack)
         }
     }
     
@@ -135,7 +123,7 @@ open class GPXRoot: GPXElement {
         if contains == true {
             track.parent = nil
             if let index = tracks.firstIndex(of: track) {
-                waypoints.remove(at: index)
+               self.waypoints.remove(at: index)
             }
         }
     }

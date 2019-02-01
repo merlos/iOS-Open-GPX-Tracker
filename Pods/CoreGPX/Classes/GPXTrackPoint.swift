@@ -17,6 +17,8 @@ open class GPXTrackPoint: GPXWaypoint {
     
     public override init(latitude: Double, longitude: Double) {
         super.init()
+        self.latitude = latitude
+        self.longitude = longitude
     }
     
     public override init(dictionary: [String : String]) {
@@ -69,5 +71,5 @@ open class GPXTrackPoint: GPXWaypoint {
     override func tagName() -> String! {
         return "trkpt"
     }
-
+    
 }

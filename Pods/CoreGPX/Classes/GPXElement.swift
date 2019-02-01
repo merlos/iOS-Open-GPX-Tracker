@@ -58,31 +58,31 @@ open class GPXElement: NSObject {
         gpx.append(String(format: "%@</%@>\r\n", indent(forIndentationLevel: indentationLevel), self.tagName()))
     }
     
-    func addProperty(forValue value: NSString?, gpx: NSMutableString, tagName: NSString, indentationLevel: Int) {
+    func addProperty(forValue value: String?, gpx: NSMutableString, tagName: String, indentationLevel: Int) {
         addProperty(forValue: value, gpx: gpx, tagName: tagName, indentationLevel: indentationLevel, defaultValue: nil, attribute: nil)
     }
     
-    func addProperty(forNumberValue value: CGFloat?, gpx: NSMutableString, tagName: NSString, indentationLevel: Int) {
-        if value != nil && value != 0 {
-        addProperty(forValue: NSString(format: "%f", value!), gpx: gpx, tagName: tagName, indentationLevel: indentationLevel, defaultValue: nil, attribute: nil)
+    func addProperty(forIntegerValue value: Int?, gpx: NSMutableString, tagName: String, indentationLevel: Int) {
+        if let validValue = value {
+        addProperty(forValue: String(validValue), gpx: gpx, tagName: tagName, indentationLevel: indentationLevel, defaultValue: nil, attribute: nil)
         }
     }
     
-    func addProperty(forDoubleValue value: Double?, gpx: NSMutableString, tagName: NSString, indentationLevel: Int) {
-        if value != nil && value != 0 {
-            addProperty(forValue: NSString(format: "%f", value!), gpx: gpx, tagName: tagName, indentationLevel: indentationLevel, defaultValue: nil, attribute: nil)
+    func addProperty(forDoubleValue value: Double?, gpx: NSMutableString, tagName: String, indentationLevel: Int) {
+        if let validValue = value {
+            addProperty(forValue: String(validValue), gpx: gpx, tagName: tagName, indentationLevel: indentationLevel, defaultValue: nil, attribute: nil)
         }
     }
-    
-    func addProperty(forValue value: NSString?, gpx: NSMutableString, tagName: NSString, indentationLevel: Int, attribute: String?) {
+
+    func addProperty(forValue value: String?, gpx: NSMutableString, tagName: String, indentationLevel: Int, attribute: String?) {
         addProperty(forValue: value, gpx: gpx, tagName: tagName, indentationLevel: indentationLevel, defaultValue: nil, attribute: attribute)
     }
     
-    func addProperty(forValue value: NSString?, gpx: NSMutableString, tagName: NSString, indentationLevel: Int, defaultValue: NSString?) {
+    func addProperty(forValue value: String?, gpx: NSMutableString, tagName: String, indentationLevel: Int, defaultValue: String?) {
         addProperty(forValue: value, gpx: gpx, tagName: tagName, indentationLevel: indentationLevel, defaultValue: defaultValue, attribute: nil)
     }
     
-    func addProperty(forValue value: NSString?, gpx: NSMutableString, tagName: NSString, indentationLevel: Int, defaultValue: NSString?, attribute: String?) {
+    func addProperty(forValue value: String?, gpx: NSMutableString, tagName: String, indentationLevel: Int, defaultValue: String?, attribute: String?) {
         if value == nil || value == "" {
             return
         }
@@ -93,9 +93,9 @@ open class GPXElement: NSObject {
         
         var outputCDMA: Bool = false
         
-        let match: NSRange = (value?.range(of: "[^a-zA-Z0-9.,+-/*!='\"()\\[\\]{}!$%@?_;: #\t\r\n]", options: .regularExpression))!
+        let match: Range? = value?.range(of: "[^a-zA-Z0-9.,+-/*!='\"()\\[\\]{}!$%@?_;: #\t\r\n]", options: .regularExpression, range: nil, locale: nil)
         
-        if match.location != NSNotFound {
+        if match == nil {
             outputCDMA = true
         }
         

@@ -146,19 +146,19 @@ open class GPXWaypoint: GPXElement {
         super.addChildTag(toGPX: gpx, indentationLevel: indentationLevel)
         
         self.addProperty(forDoubleValue: elevation, gpx: gpx, tagName: "ele", indentationLevel: indentationLevel)
-        self.addProperty(forValue: GPXType().value(forDateTime: time!) as NSString, gpx: gpx, tagName: "time", indentationLevel: indentationLevel)
+        self.addProperty(forValue: GPXType().value(forDateTime: time!), gpx: gpx, tagName: "time", indentationLevel: indentationLevel)
         self.addProperty(forDoubleValue: magneticVariation, gpx: gpx, tagName: "magvar", indentationLevel: indentationLevel)
         self.addProperty(forDoubleValue: geoidHeight, gpx: gpx, tagName: "geoidheight", indentationLevel: indentationLevel)
-        self.addProperty(forValue: name as NSString?, gpx: gpx, tagName: "name", indentationLevel: indentationLevel)
-        self.addProperty(forValue: desc as NSString?, gpx: gpx, tagName: "desc", indentationLevel: indentationLevel)
-        self.addProperty(forValue: source as NSString?, gpx: gpx, tagName: "source", indentationLevel: indentationLevel)
+        self.addProperty(forValue: name, gpx: gpx, tagName: "name", indentationLevel: indentationLevel)
+        self.addProperty(forValue: desc, gpx: gpx, tagName: "desc", indentationLevel: indentationLevel)
+        self.addProperty(forValue: source, gpx: gpx, tagName: "source", indentationLevel: indentationLevel)
         
         for link in links {
             link.gpx(gpx, indentationLevel: indentationLevel)
         }
         
-        self.addProperty(forValue: symbol as NSString?, gpx: gpx, tagName: "sym", indentationLevel: indentationLevel)
-        self.addProperty(forValue: type as NSString?, gpx: gpx, tagName: "type", indentationLevel: indentationLevel)
+        self.addProperty(forValue: symbol, gpx: gpx, tagName: "sym", indentationLevel: indentationLevel)
+        self.addProperty(forValue: type, gpx: gpx, tagName: "type", indentationLevel: indentationLevel)
         self.addProperty(forDoubleValue: Double(fix ?? 0), gpx: gpx, tagName: "source", indentationLevel: indentationLevel)
         self.addProperty(forDoubleValue: Double(satellites ?? 0), gpx: gpx, tagName: "sat", indentationLevel: indentationLevel)
         self.addProperty(forDoubleValue: horizontalDilution, gpx: gpx, tagName: "hdop", indentationLevel: indentationLevel)
