@@ -5,14 +5,14 @@
 //  Created by Vincent on 22/11/18.
 //
 
-import UIKit
+import Foundation
 
 open class GPXBounds: GPXElement {
 
-    var minLatitude: CGFloat? = CGFloat()
-    var maxLatitude: CGFloat? = CGFloat()
-    var minLongitude: CGFloat? = CGFloat()
-    var maxLongitude: CGFloat? = CGFloat()
+    var minLatitude: Double? = Double()
+    var maxLatitude: Double? = Double()
+    var minLongitude: Double? = Double()
+    var maxLongitude: Double? = Double()
     
     // MARK:- Instance
     
@@ -20,7 +20,7 @@ open class GPXBounds: GPXElement {
         super.init()
     }
     
-    public init(minLatitude: CGFloat, maxLatitude: CGFloat, minLongitude: CGFloat, maxLongitude: CGFloat) {
+    public init(minLatitude: Double, maxLatitude: Double, minLongitude: Double, maxLongitude: Double) {
         super.init()
         self.minLatitude = minLatitude
         self.maxLatitude = maxLatitude

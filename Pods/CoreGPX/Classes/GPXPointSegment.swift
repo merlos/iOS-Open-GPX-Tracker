@@ -5,7 +5,7 @@
 //  Created by Vincent on 23/11/18.
 //
 
-import UIKit
+import Foundation
 
 open class GPXPointSegment: GPXElement {
     
@@ -29,19 +29,14 @@ open class GPXPointSegment: GPXElement {
     }
     
     public func add(point: GPXPoint?) {
-        if point != nil {
-            let contains = points.contains(point!)
-            if contains == false {
-                point?.parent = self
-                points.append(point!)
-            }
+        if let validPoint = point {
+            point?.parent = self
+            points.append(validPoint)
         }
     }
     
     public func add(points: [GPXPoint]) {
-        for point in points {
-            add(point: point)
-        }
+        self.points.append(contentsOf: points)
     }
     
     public func remove(point: GPXPoint) {

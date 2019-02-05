@@ -5,7 +5,7 @@
 //  Created by Vincent on 18/11/18.
 //
 
-import UIKit
+import Foundation
 
 /// An email address. Broken into two parts (id and domain) to help prevent email harvesting.
 open class GPXEmail: GPXElement {

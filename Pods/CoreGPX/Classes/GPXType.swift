@@ -7,10 +7,11 @@
 
 //  Should be UPDATED!
 
-import UIKit
+import Foundation
 
 open class GPXType: NSObject {
     
+    /*
     open func latitude(_ value: String?) -> CGFloat {
         
         let f = CGFloat(Float(value ?? "") ?? 0.0)
@@ -22,6 +23,7 @@ open class GPXType: NSObject {
         }
         
     }
+    */
     
     func value(forLatitude latitude: Double) -> String {
         if -90.0 <= latitude && latitude <= 90.0 {
@@ -32,6 +34,7 @@ open class GPXType: NSObject {
         }
     }
     
+    /*
     open func longitude(_ value: String?) -> CGFloat {
         
         let f = CGFloat(Float(value ?? "") ?? 0.0)
@@ -43,6 +46,7 @@ open class GPXType: NSObject {
         }
         
     }
+ */
     
     func value(forLongitude longitude: Double) -> String {
         if -180.0 <= longitude && longitude <= 180.0 {
@@ -53,6 +57,7 @@ open class GPXType: NSObject {
         }
     }
     
+    /*
     func degrees(_ value: String?) -> CGFloat {
         
         let f = CGFloat(Float(value ?? "") ?? 0.0)
@@ -72,6 +77,7 @@ open class GPXType: NSObject {
             return "0"
         }
     }
+    */
     
     func fix(value: String) -> GPXFix {
         
@@ -122,6 +128,7 @@ open class GPXType: NSObject {
         }
     }
     
+    /*
     func decimal(_ value: String?) -> CGFloat {
         return CGFloat(Float(value ?? "") ?? 0.0)
     }
@@ -129,7 +136,7 @@ open class GPXType: NSObject {
     func value(forDecimal decimal: CGFloat) -> String {
         return String(format: "%f", decimal)
     }
-    
+    */
     
     func dateTime(value: String) -> Date? {
       //  var date: Date
@@ -179,15 +186,18 @@ open class GPXType: NSObject {
         
     }
     
-    
-    func value(forDateTime date: Date) -> String {
+    func value(forDateTime date: Date?) -> String? {
         let formatter = DateFormatter()
         formatter.timeZone = TimeZone(secondsFromGMT: 0)
         
         // dateTime（YYYY-MM-DDThh:mm:ssZ）
         formatter.dateFormat = "yyyy'-'MM'-'dd'T'HH':'mm':'ss'Z'"
         
-        return formatter.string(from: date)
+        guard let validDate = date else {
+            return nil
+        }
+        
+        return formatter.string(from: validDate)
     }
     
     func nonNegativeInt(_ string: String) -> Int {

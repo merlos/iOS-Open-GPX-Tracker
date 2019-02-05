@@ -5,7 +5,7 @@
 //  Created by Vincent on 5/11/18.
 //
 
-import UIKit
+import Foundation
 
 open class GPXElement: NSObject {
     

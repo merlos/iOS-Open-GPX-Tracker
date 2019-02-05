@@ -5,7 +5,7 @@
 //  Created by Vincent on 9/12/18.
 //
 
-import UIKit
+import Foundation
 
 open class GPXTrack: GPXElement {
     
@@ -33,19 +33,14 @@ open class GPXTrack: GPXElement {
     }
     
     open func add(link: GPXLink?) {
-        if link != nil {
-            let contains = links.contains(link!)
-            if contains == false {
-                link?.parent = self
-                links.append(link!)
-            }
+        if let validLink = link {
+            validLink.parent = self
+            links.append(validLink)
         }
     }
     
     open func add(links: [GPXLink]) {
-        for link in links {
-            add(link: link)
-        }
+        self.links.append(contentsOf: links)
     }
     
     open func remove(Link link: GPXLink) {
@@ -66,19 +61,14 @@ open class GPXTrack: GPXElement {
     }
     
     open func add(trackSegment: GPXTrackSegment?) {
-        if trackSegment != nil {
-            let contains = tracksegments.contains(trackSegment!)
-            if contains == false {
-                trackSegment?.parent = self
-                tracksegments.append(trackSegment!)
-            }
+        if let validTrackSegment = trackSegment {
+            validTrackSegment.parent = self
+            tracksegments.append(validTrackSegment)
         }
     }
     
     open func add(trackSegments: [GPXTrackSegment]) {
-        for tracksegment in trackSegments {
-            self.add(trackSegment: tracksegment)
-        }
+        self.tracksegments.append(contentsOf: trackSegments)
     }
     
     open func remove(trackSegment: GPXTrackSegment) {

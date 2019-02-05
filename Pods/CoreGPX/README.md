@@ -10,10 +10,13 @@
 
 ## What works
 - [x] Successfully outputs string that can be packaged into a GPX file
-- [x] Parses GPX files
-- [x] Migrate to native XMLParser
+- [x] Parses GPX files using native XMLParser
 
 ## TO DO Checklist
+- [ ] Support for macOS & watchOS
+- [ ] Support for extensions in GPX (parse + creation)
+- [ ] Extension to metadata to support collection of more info in GPX file
+- [ ] Add tests
 - [ ] Documentation
 - [ ] Code optimisation
 - [ ] New features

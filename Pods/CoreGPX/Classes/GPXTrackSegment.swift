@@ -5,7 +5,7 @@
 //  Created by Vincent on 9/12/18.
 //
 
-import UIKit
+import Foundation
 
 open class GPXTrackSegment: GPXElement {
     

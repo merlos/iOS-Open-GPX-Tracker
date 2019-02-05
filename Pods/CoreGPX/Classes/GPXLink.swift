@@ -5,7 +5,7 @@
 //  Created by Vincent on 18/11/18.
 //
 
-import UIKit
+import Foundation
 
 /// A link to an external resource (Web page, digital photo, video clip, etc) with additional information.
 open class GPXLink: GPXElement {

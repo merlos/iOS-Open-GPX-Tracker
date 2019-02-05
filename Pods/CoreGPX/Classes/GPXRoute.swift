@@ -5,7 +5,7 @@
 //  Created by Vincent on 8/12/18.
 //  WORK IN PROGRESS
 
-import UIKit
+import Foundation
 
 open class GPXRoute: GPXElement {
     
@@ -34,19 +34,14 @@ open class GPXRoute: GPXElement {
     }
     
     func add(link: GPXLink?) {
-        if link != nil {
-            let contains = links.contains(link!)
-            if contains == false {
-                link?.parent = self
-                links.append(link!)
-            }
+        if let validLink = link {
+            link?.parent = self
+            links.append(validLink)
         }
     }
     
     func add(links: [GPXLink]) {
-        for link in links {
-            add(link: link)
-        }
+        self.links.append(contentsOf: links)
     }
     
     func remove(link: GPXLink) {
@@ -71,20 +66,13 @@ open class GPXRoute: GPXElement {
     }
     
     func add(routepoint: GPXRoutePoint?) {
-        if routepoint != nil {
-            let contains = routepoints.contains(routepoint!)
-            
-            if contains == false {
-                routepoint?.parent = nil
-                routepoints.append(routepoint!)
-            }
+        if let validPoint = routepoint {
+            routepoints.append(validPoint)
         }
     }
     
     func add(routepoints: [GPXRoutePoint]) {
-        for routepoint in routepoints {
-            add(routepoint: routepoint)
-        }
+        self.routepoints.append(contentsOf: routepoints)
     }
     
     func remove(routepoint: GPXRoutePoint) {

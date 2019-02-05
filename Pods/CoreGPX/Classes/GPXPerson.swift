@@ -5,7 +5,7 @@
 //  Created by Vincent on 18/11/18.
 //
 
-import UIKit
+import Foundation
 
 open class GPXPerson: GPXElement {
     var name: String

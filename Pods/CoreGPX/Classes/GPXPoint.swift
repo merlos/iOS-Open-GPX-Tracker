@@ -6,7 +6,7 @@
 //
 //  WARNING: Looks suspiciously broken
 
-import UIKit
+import Foundation
 
 open class GPXPoint: GPXElement {
 
