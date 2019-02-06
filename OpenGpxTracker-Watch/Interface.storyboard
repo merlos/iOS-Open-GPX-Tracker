@@ -16,7 +16,7 @@
                     <items>
                         <group width="1" height="151" alignment="left" layout="vertical" id="qTw-Ao-z8n" userLabel="Main Button Group">
                             <items>
-                                <group width="1" height="0.33000000000000002" alignment="left" id="Mna-9L-cW3" userLabel="Group 1">
+                                <group width="1" height="0.33000000000000002" alignment="left" id="Mna-9L-cW3" userLabel="Top Group">
                                     <items>
                                         <group width="0.65000000000000002" height="1" alignment="left" layout="vertical" id="yo4-Oa-aCj" userLabel="Small Info">
                                             <items>
@@ -31,20 +31,32 @@
                                         <button width="0.34999999999999998" height="1" alignment="right" title="📍" id="juk-oB-3vV">
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <fontDescription key="font" type="system" pointSize="30"/>
+                                            <connections>
+                                                <action selector="addPinAtMyLocation" destination="AgC-eL-Hgc" id="j5Q-5h-FZp"/>
+                                            </connections>
                                         </button>
                                     </items>
                                 </group>
                                 <button width="1" height="0.29999999999999999" alignment="left" verticalAlignment="center" title="Start" id="exN-t4-It8">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <color key="backgroundColor" red="0.48513797563195243" green="0.79364292512690349" blue="0.37195783073278693" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <connections>
+                                        <action selector="trackerButtonTapped" destination="AgC-eL-Hgc" id="CDu-TD-c5P"/>
+                                    </connections>
                                 </button>
-                                <group width="1" height="0.33000000000000002" alignment="left" verticalAlignment="bottom" id="vBs-Bv-q32" userLabel="Data Group">
+                                <group width="1" height="0.33000000000000002" alignment="left" verticalAlignment="bottom" id="vBs-Bv-q32" userLabel="Handling Group">
                                     <items>
                                         <button width="0.5" height="0.80000000000000004" alignment="left" title="Save" id="Yfa-t6-5Sk">
                                             <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <connections>
+                                                <action selector="saveButtonTapped" destination="AgC-eL-Hgc" id="tFe-Pm-Du3"/>
+                                            </connections>
                                         </button>
                                         <button width="0.5" height="0.80000000000000004" alignment="right" title="Reset" id="g9l-MU-PFV">
                                             <color key="backgroundColor" red="0.8909026015" green="0.1078473939" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <connections>
+                                                <action selector="resetButtonTapped" destination="AgC-eL-Hgc" id="6Sj-6U-Jzd"/>
+                                            </connections>
                                         </button>
                                     </items>
                                 </group>
@@ -64,17 +76,15 @@
                             </items>
                         </group>
                     </items>
-                    <menu key="menu" id="WRL-BE-iVG">
-                        <items>
-                            <menuItem title="Menu Item" id="bYj-Z2-uwA"/>
-                        </items>
-                    </menu>
                     <connections>
-                        <outlet property="followUserButton" destination="3QZ-4r-aMl" id="8qO-iM-6qF"/>
-                        <outlet property="newPinButton" destination="juk-oB-3vV" id="DlS-nv-gso"/>
-                        <outlet property="resetButton" destination="g9l-MU-PFV" id="b0f-T0-n4K"/>
-                        <outlet property="saveButton" destination="Yfa-t6-5Sk" id="wSw-vL-lxz"/>
-                        <outlet property="trackerButton" destination="exN-t4-It8" id="8DR-Io-4Vr"/>
+                        <outlet property="followUserButton" destination="3QZ-4r-aMl" id="vKK-HS-CyC"/>
+                        <outlet property="newPinButton" destination="juk-oB-3vV" id="rz4-pG-LHx"/>
+                        <outlet property="resetButton" destination="g9l-MU-PFV" id="Gx7-5m-Amd"/>
+                        <outlet property="saveButton" destination="Yfa-t6-5Sk" id="qwm-ev-821"/>
+                        <outlet property="trackerButton" destination="exN-t4-It8" id="pZy-QD-KGQ"/>
+                        <outlet property="trackerDistanceLabel" destination="jLD-vq-fZz" id="Tdh-hG-Mbe"/>
+                        <outlet property="trackerMap" destination="0Wh-nz-fdr" id="zqN-Sx-uqQ"/>
+                        <outlet property="trackerTimer" destination="x77-sn-69Q" id="FQm-xb-ypU"/>
                     </connections>
                 </controller>
             </objects>

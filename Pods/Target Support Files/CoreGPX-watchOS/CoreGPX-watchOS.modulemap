@@ -1,5 +1,5 @@
 framework module CoreGPX {
-  umbrella header "CoreGPX-umbrella.h"
+  umbrella header "CoreGPX-watchOS-umbrella.h"
 
   export *
   module * { export * }
