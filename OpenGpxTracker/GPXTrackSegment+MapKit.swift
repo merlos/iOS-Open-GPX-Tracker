@@ -14,8 +14,8 @@ import CoreGPX
 //
 //This extension adds some methods to work with mapkit
 //
+#if os(iOS)
 extension GPXTrackSegment {
-  
     // Returns a mapkit polyline with the points of the segment.
     // This polyline can be directly plotted on the map as an overlay
     public var overlay: MKPolyline {
@@ -26,8 +26,11 @@ extension GPXTrackSegment {
             
         }
     }
-    
-    
+}
+#endif
+
+extension GPXTrackSegment {
+  
     //Helper method to create the polyline. Returns the array of coordinates of the points
     //that belong to this segment
     func trackPointsToCoordinates() -> [CLLocationCoordinate2D] {

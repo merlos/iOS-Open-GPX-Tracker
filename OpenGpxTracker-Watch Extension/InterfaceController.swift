@@ -74,7 +74,7 @@ class InterfaceController: WKInterfaceController {
     // not updated for Watch (WKInterfaceMap only)
     
     /// Map View delegate
-    let mapViewDelegate = MapViewDelegate()
+    //let mapViewDelegate = MapViewDelegate()
     // not updated for Watch
     
     //Status Vars
@@ -177,9 +177,12 @@ class InterfaceController: WKInterfaceController {
     override func willActivate() {
         // This method is called when watch view controller is about to be visible to user
         super.willActivate()
-        stopWatch.delegate = self
-        locationManager.delegate = self
+        
+        //stopWatch.delegate = self
+        //locationManager.delegate = self
+        
         locationManager.startUpdatingLocation()
+        
         //locationManager.startUpdatingHeading()
         // WatchKit does not have heading
         
@@ -341,10 +344,11 @@ class InterfaceController: WKInterfaceController {
     /// Trogles between following or not following the user, that is, automatically centering the map
     //  in current user´s position.
     ///
+    /*
     @objc func followButtonTroggler() {
         self.followUser = !self.followUser
     }
-    
+    */
     
     
     ///
@@ -373,11 +377,11 @@ class InterfaceController: WKInterfaceController {
     /// When location services are disabled is for all applications, not only this one.
     ///
     func displayLocationServicesDisabledAlert() {
-        let alert = WKALER
-        let alert = UIAlertView(title: "Location services disabled", message: "Go to settings and enable location.", delegate: self, cancelButtonTitle: "Settings")
-        alert.addButton(withTitle: "Cancel")
-        alert.tag = kLocationServicesDisabledAlertViewTag
-        alert.show()
+        let button = WKAlertAction(title: "Cancel", style: .cancel) {
+            print("LocationServicesDisabledAlert: cancel pressed")
+        }
+        
+        presentAlert(withTitle: "Location services disabled", message: "Go to settings and enable location", preferredStyle: .alert, actions: [button])
     }
     
     
@@ -389,10 +393,11 @@ class InterfaceController: WKInterfaceController {
         if isDisplayingLocationServicesDenied {
             return // display it only once.
         }
-        let alert = UIAlertView(title: "Access to location denied", message: "On Location settings, allow always access to location for GPX Tracker ", delegate: self, cancelButtonTitle: "Settings")
-        alert.addButton(withTitle: "Cancel")
-        alert.tag = kLocationServicesDeniedAlertViewTag
-        alert.show()
+        let button = WKAlertAction(title: "Cancel", style: .cancel) {
+            print("LocationServicesDeniedAlert: cancel pressed")
+        }
+        
+        presentAlert(withTitle: "Access to location denied", message: "On Location settings, allow always access to location for GPX Tracker", preferredStyle: .alert, actions: [button])
     }
 
 }

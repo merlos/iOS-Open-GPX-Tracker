@@ -44,9 +44,7 @@
 		89F8749B1BBB7362004EF41A /* GPXTrack+length.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89F8749A1BBB7362004EF41A /* GPXTrack+length.swift */; };
 		89F8749F1BBCB97F004EF41A /* GPXRoot+length.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89F8749E1BBCB97F004EF41A /* GPXRoot+length.swift */; };
 		89F874A11BBCC74C004EF41A /* UIDistanceLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89F874A01BBCC74C004EF41A /* UIDistanceLabel.swift */; };
-		BF64602B220AC87800957FF6 /* MapViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC4908A21C4A332E009484AE /* MapViewDelegate.swift */; };
-		BF64602C220AC87B00957FF6 /* TrackRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8991CA3E1D3F01D10092E1DE /* TrackRecorder.swift */; };
-		BF64602E220AC99A00957FF6 /* GPXMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 899D677E19D2366100C88A0A /* GPXMapView.swift */; };
+		BF64602F220AE9CF00957FF6 /* GPXTrackSegment+MapKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 899D676B19CD9E9E00C88A0A /* GPXTrackSegment+MapKit.swift */; };
 		BF692F5D2209AAFB00F8A0F1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BF692F5C2209AAFB00F8A0F1 /* Assets.xcassets */; };
 		BF692F642209AAFB00F8A0F1 /* OpenGpxTracker-Watch Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = BF692F632209AAFB00F8A0F1 /* OpenGpxTracker-Watch Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		BF692F692209AAFB00F8A0F1 /* InterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF692F682209AAFB00F8A0F1 /* InterfaceController.swift */; };
@@ -56,7 +54,6 @@
 		BF692F732209AAFC00F8A0F1 /* OpenGpxTracker-Watch.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = BF692F572209AAF900F8A0F1 /* OpenGpxTracker-Watch.app */; };
 		BF692F7D2209AB8000F8A0F1 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BF692F7C2209AB8000F8A0F1 /* Interface.storyboard */; };
 		BF692F7E2209B36900F8A0F1 /* GPXWaypoint+MKAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893BEC8519C7E62200C77354 /* GPXWaypoint+MKAnnotation.swift */; };
-		BF692F7F2209B7FC00F8A0F1 /* GPXTrackSegment+MapKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 899D676B19CD9E9E00C88A0A /* GPXTrackSegment+MapKit.swift */; };
 		BF692F802209B80300F8A0F1 /* GPXTrackPoint+MapKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 899D676D19CD9FAF00C88A0A /* GPXTrackPoint+MapKit.swift */; };
 		BF692F812209B80700F8A0F1 /* GPXFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 899D676F19CE024600C88A0A /* GPXFileManager.swift */; };
 		BF692F822209B80A00F8A0F1 /* StopWatchDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 899D677C19D22E1B00C88A0A /* StopWatchDelegate.swift */; };
@@ -67,7 +64,6 @@
 		BF692F872209B81A00F8A0F1 /* Int+asFilesize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89EA86642157C444002E03A7 /* Int+asFilesize.swift */; };
 		BF692F882209B81E00F8A0F1 /* GPXFileInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89EA86622157B42C002E03A7 /* GPXFileInfo.swift */; };
 		BF692F892209B82500F8A0F1 /* StopWatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 899D677119CE8B3600C88A0A /* StopWatch.swift */; };
-		BF692F8D2209CB5700F8A0F1 /* UIDistanceLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89F874A01BBCC74C004EF41A /* UIDistanceLabel.swift */; };
 		C51CE1F4B71B7051FF9F4D44 /* Pods_OpenGpxTracker_Watch_Extension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93BD71BED3CF101C2B01ABDA /* Pods_OpenGpxTracker_Watch_Extension.framework */; };
 		C894B839E0B8DC37DE05DDCC /* Pods_OpenGpxTracker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 95D28CBDF2535138FA16F38F /* Pods_OpenGpxTracker.framework */; };
 		DC4908A11C4A136F009484AE /* TrackerButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC4908A01C4A136F009484AE /* TrackerButton.swift */; };
@@ -722,12 +718,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				BF692F862209B81700F8A0F1 /* Date+timeAgo.swift in Sources */,
-				BF692F8D2209CB5700F8A0F1 /* UIDistanceLabel.swift in Sources */,
-				BF64602B220AC87800957FF6 /* MapViewDelegate.swift in Sources */,
-				BF64602C220AC87B00957FF6 /* TrackRecorder.swift in Sources */,
+				BF64602F220AE9CF00957FF6 /* GPXTrackSegment+MapKit.swift in Sources */,
 				BF692F6B2209AAFB00F8A0F1 /* ExtensionDelegate.swift in Sources */,
 				BF692F852209B81400F8A0F1 /* GPXRoot+length.swift in Sources */,
-				BF692F7F2209B7FC00F8A0F1 /* GPXTrackSegment+MapKit.swift in Sources */,
 				BF692F822209B80A00F8A0F1 /* StopWatchDelegate.swift in Sources */,
 				BF692F812209B80700F8A0F1 /* GPXFileManager.swift in Sources */,
 				BF692F7E2209B36900F8A0F1 /* GPXWaypoint+MKAnnotation.swift in Sources */,
@@ -738,7 +731,6 @@
 				BF692F872209B81A00F8A0F1 /* Int+asFilesize.swift in Sources */,
 				BF692F892209B82500F8A0F1 /* StopWatch.swift in Sources */,
 				BF692F6D2209AAFB00F8A0F1 /* ComplicationController.swift in Sources */,
-				BF64602E220AC99A00957FF6 /* GPXMapView.swift in Sources */,
 				BF692F882209B81E00F8A0F1 /* GPXFileInfo.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
