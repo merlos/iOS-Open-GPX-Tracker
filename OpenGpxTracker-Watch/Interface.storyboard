@@ -65,8 +65,16 @@
                             <variation key="device=watch42mm" height="174"/>
                             <variation key="device=watch44mm" height="193"/>
                         </group>
-                        <button width="1" alignment="left" title="Current Location" id="3QZ-4r-aMl"/>
-                        <map height="100" alignment="left" id="0Wh-nz-fdr"/>
+                        <group width="1" height="151" alignment="left" layout="vertical" id="qC3-2k-9N7">
+                            <items>
+                                <separator alignment="left" id="zTO-xB-syW"/>
+                                <button width="1" height="0.20000000000000001" alignment="left" title="Current Location" id="3QZ-4r-aMl"/>
+                                <map height="0.80000000000000004" alignment="left" id="0Wh-nz-fdr"/>
+                            </items>
+                            <variation key="device=watch40mm" height="169"/>
+                            <variation key="device=watch42mm" height="174"/>
+                            <variation key="device=watch44mm" height="193"/>
+                        </group>
                         <separator alignment="left" id="K62-AJ-yCD"/>
                         <group width="1" height="127" alignment="left" id="It9-gT-zLU">
                             <items>
@@ -88,7 +96,7 @@
                     </connections>
                 </controller>
             </objects>
-            <point key="canvasLocation" x="5" y="87.5"/>
+            <point key="canvasLocation" x="5" y="87"/>
         </scene>
         <!--Static Notification Interface Controller-->
         <scene sceneID="AEw-b0-oYE">

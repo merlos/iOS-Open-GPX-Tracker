@@ -8,6 +8,8 @@
 
 import WatchKit
 import Foundation
+import MapKit
+import CoreLocation
 import CoreGPX
 
 //Button colors
@@ -150,6 +152,7 @@ class InterfaceController: WKInterfaceController {
                 resetButton.setBackgroundColor(kRedButtonBackgroundColor)
                 // start clock
                 self.stopWatch.start()
+                self.trackerTimer.start()
                 
             case .paused:
                 print("switched to paused mode")
@@ -161,6 +164,7 @@ class InterfaceController: WKInterfaceController {
                 resetButton.setBackgroundColor(kRedButtonBackgroundColor)
                 //pause clock
                 self.stopWatch.stop()
+                self.trackerTimer.stop()
                 // start new track segment
                 //self.map.startNewTrackSegment()
             }
