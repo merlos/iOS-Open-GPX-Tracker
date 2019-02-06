@@ -72,13 +72,13 @@ class InterfaceController: WKInterfaceController {
     }()
     
     /// Map View
-    //var map: GPXMapView
-    // not updated for Watch (WKInterfaceMap only)
+    @IBOutlet var map: GPXMapView!
+    
     
     /// Map View delegate
     //let mapViewDelegate = MapViewDelegate()
     // not updated for Watch
-    
+
     //Status Vars
     var stopWatch = StopWatch()
     var lastGpxFilename: String = ""
@@ -224,6 +224,8 @@ class InterfaceController: WKInterfaceController {
         
     }
     @IBAction func addPinAtMyLocation() {
+        print("Adding Pin at my location")
+        //let waypoint = GPXWaypoint(coordinate: map.userl)
     }
     @IBAction func saveButtonTapped() {
         print("save Button tapped")
@@ -404,5 +406,92 @@ class InterfaceController: WKInterfaceController {
         presentAlert(withTitle: "Access to location denied", message: "On Location settings, allow always access to location for GPX Tracker", preferredStyle: .alert, actions: [button])
     }
 
+}
+
+// MARK: CLLocationManagerDelegate
+
+
+extension InterfaceController: CLLocationManagerDelegate {
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print("didFailWithError \(error)")
+        //coordsLabel.text = kNotGettingLocationText
+        //signalAccuracyLabel.text = kUnknownAccuracyText
+        //signalImageView.image = signalImage0
+        let locationError = error as? CLError
+        switch locationError?.code {
+        case CLError.locationUnknown:
+            print("Location Unknown")
+        case CLError.denied:
+            print("Access to location services denied. Display message")
+            checkLocationServicesStatus()
+        case CLError.headingFailure:
+            print("Heading failure")
+        default:
+            print("Default error")
+        }
+        
+    }
+    
+    ///
+    /// Updates location accuracy and map information when user is in a new position
+    ///
+    ///
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        //updates signal image accuracy
+        let newLocation = locations.first!
+        //print("isUserLocationVisible: \(map.isUserLocationVisible) showUserLocation: \(map.showsUserLocation)")
+        //print("didUpdateLocation: received \(newLocation.coordinate) hAcc: \(newLocation.horizontalAccuracy) vAcc: \(newLocation.verticalAccuracy) floor: \(newLocation.floor?.description ?? "''") map.userTrackingMode: \(map.userTrackingMode.rawValue)")
+        /*
+        let hAcc = newLocation.horizontalAccuracy
+        signalAccuracyLabel.text = "±\(hAcc)m"
+        if hAcc < kSignalAccuracy6 {
+            self.signalImageView.image = signalImage6
+        } else if hAcc < kSignalAccuracy5 {
+            self.signalImageView.image = signalImage5
+        } else if hAcc < kSignalAccuracy4 {
+            self.signalImageView.image = signalImage4
+        } else if hAcc < kSignalAccuracy3 {
+            self.signalImageView.image = signalImage3
+        } else if hAcc < kSignalAccuracy2 {
+            self.signalImageView.image = signalImage2
+        } else if hAcc < kSignalAccuracy1 {
+            self.signalImageView.image = signalImage1
+        } else{
+            self.signalImageView.image = signalImage0
+        }
+        */
+        /*
+        //Update coordsLabel
+        let latFormat = String(format: "%.6f", newLocation.coordinate.latitude)
+        let lonFormat = String(format: "%.6f", newLocation.coordinate.longitude)
+        let altFormat = String(format: "%.2f", newLocation.altitude)
+        coordsLabel.text = "(\(latFormat),\(lonFormat)) · altitude: \(altFormat)m"
+        
+        
+        //Update speed (provided in m/s, but displayed in km/h)
+        var speedFormat: String
+        if newLocation.speed < 0 {
+            speedFormat = kUnknownSpeedText
+        } else {
+            speedFormat = String(format: "%.2f", (newLocation.speed * 3.6))
+        }
+        speedLabel.text = "\(speedFormat) km/h"
+        */
+        
+        //Update Map center and track overlay if user is being followed
+        /*
+        if followUser {
+            map.setCenter(newLocation.coordinate, animated: true)
+        }
+ */
+        if gpxTrackingStatus == .tracking {
+            print("didUpdateLocation: adding point to track (\(newLocation.coordinate.latitude),\(newLocation.coordinate.longitude))")
+            map.addPointToCurrentTrackSegmentAtLocation(newLocation)
+            //totalTrackedDistanceLabel.distance = map.totalTrackedDistance
+            //currentSegmentDistanceLabel.distance = map.currentSegmentDistance
+        }
+    }
+    
 }
 
