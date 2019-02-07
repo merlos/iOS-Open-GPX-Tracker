@@ -11,7 +11,7 @@ import MapKit
 import CoreGPX
 
 /// GPX creator identifier. Used on generated files identify this app created them.
-let kGPXCreatorString = "Open GPX Tracker for iOS"
+let kGPXCreatorString = "Open GPX Tracker for watchOS"
 
 
 class GPXMapView {

@@ -67,8 +67,11 @@
                         </group>
                         <group width="1" height="151" alignment="left" layout="vertical" id="qC3-2k-9N7">
                             <items>
-                                <separator alignment="left" id="zTO-xB-syW"/>
-                                <button width="1" height="0.20000000000000001" alignment="left" title="Current Location" id="3QZ-4r-aMl"/>
+                                <button width="1" height="0.20000000000000001" alignment="left" title="Files" id="3QZ-4r-aMl">
+                                    <connections>
+                                        <segue destination="77f-od-duZ" kind="push" id="sJU-Es-f2K"/>
+                                    </connections>
+                                </button>
                                 <map height="0.80000000000000004" alignment="left" id="0Wh-nz-fdr"/>
                             </items>
                             <variation key="device=watch40mm" height="169"/>
@@ -85,7 +88,6 @@
                         </group>
                     </items>
                     <connections>
-                        <outlet property="followUserButton" destination="3QZ-4r-aMl" id="vKK-HS-CyC"/>
                         <outlet property="newPinButton" destination="juk-oB-3vV" id="rz4-pG-LHx"/>
                         <outlet property="resetButton" destination="g9l-MU-PFV" id="Gx7-5m-Amd"/>
                         <outlet property="saveButton" destination="Yfa-t6-5Sk" id="qwm-ev-821"/>
@@ -97,6 +99,23 @@
                 </controller>
             </objects>
             <point key="canvasLocation" x="5" y="87"/>
+        </scene>
+        <!--Interface Controller-->
+        <scene sceneID="yaQ-0v-lly">
+            <objects>
+                <controller id="77f-od-duZ">
+                    <items>
+                        <table alignment="left" id="Ueu-eD-023">
+                            <items>
+                                <tableRow id="cGI-3H-K2G">
+                                    <group key="rootItem" width="1" alignment="left" id="ahD-rE-FA3"/>
+                                </tableRow>
+                            </items>
+                        </table>
+                    </items>
+                </controller>
+            </objects>
+            <point key="canvasLocation" x="256" y="87"/>
         </scene>
         <!--Static Notification Interface Controller-->
         <scene sceneID="AEw-b0-oYE">
