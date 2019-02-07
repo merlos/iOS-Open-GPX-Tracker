@@ -20,9 +20,9 @@
                                     <items>
                                         <group width="0.65000000000000002" height="1" alignment="left" layout="vertical" id="yo4-Oa-aCj" userLabel="Small Info">
                                             <items>
-                                                <timer height="0.5" alignment="center" id="x77-sn-69Q">
-                                                    <fontDescription key="font" style="UICTFontTextStyleHeadline"/>
-                                                </timer>
+                                                <label height="0.5" alignment="center" text="00:00" id="xum-IR-If6">
+                                                    <fontDescription key="font" style="UICTFontTextStyleTitle2"/>
+                                                </label>
                                                 <label height="0.5" alignment="center" text="0km" id="jLD-vq-fZz">
                                                     <fontDescription key="font" style="UICTFontTextStyleCaption1"/>
                                                 </label>
@@ -90,9 +90,9 @@
                         <outlet property="resetButton" destination="g9l-MU-PFV" id="Gx7-5m-Amd"/>
                         <outlet property="saveButton" destination="Yfa-t6-5Sk" id="qwm-ev-821"/>
                         <outlet property="staticMap" destination="0Wh-nz-fdr" id="iZZ-re-KAM"/>
+                        <outlet property="timeLabel" destination="xum-IR-If6" id="bWq-z8-ANc"/>
                         <outlet property="trackerButton" destination="exN-t4-It8" id="pZy-QD-KGQ"/>
                         <outlet property="trackerDistanceLabel" destination="jLD-vq-fZz" id="Tdh-hG-Mbe"/>
-                        <outlet property="trackerTimer" destination="x77-sn-69Q" id="FQm-xb-ypU"/>
                     </connections>
                 </controller>
             </objects>

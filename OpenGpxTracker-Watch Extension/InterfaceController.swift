@@ -57,6 +57,7 @@ class InterfaceController: WKInterfaceController {
     @IBOutlet var saveButton: WKInterfaceButton!
     @IBOutlet var resetButton: WKInterfaceButton!
     @IBOutlet var followUserButton: WKInterfaceButton!
+    @IBOutlet var timeLabel: WKInterfaceLabel!
     
     //MapView
     let locationManager: CLLocationManager = {
@@ -123,8 +124,7 @@ class InterfaceController: WKInterfaceController {
                 resetButton.setBackgroundColor(kDisabledRedButtonBackgroundColor)
                 //reset clock
                 stopWatch.reset()
-                trackerTimer.setDate(Date())
-                //timeLabel.text = stopWatch.elapsedTimeString -> not yet
+                timeLabel.setText(stopWatch.elapsedTimeString)
                 
                 //map.clearMap() //clear map
                 lastGpxFilename = "" //clear last filename, so when saving it appears an empty field
@@ -152,7 +152,6 @@ class InterfaceController: WKInterfaceController {
                 resetButton.setBackgroundColor(kRedButtonBackgroundColor)
                 // start clock
                 self.stopWatch.start()
-                self.trackerTimer.start()
                 
             case .paused:
                 print("switched to paused mode")
@@ -164,12 +163,14 @@ class InterfaceController: WKInterfaceController {
                 resetButton.setBackgroundColor(kRedButtonBackgroundColor)
                 //pause clock
                 self.stopWatch.stop()
-                self.trackerTimer.stop()
                 // start new track segment
                 //self.map.startNewTrackSegment()
             }
         }
     }
+    
+    /// Editing Waypoint Temporal Reference
+    var lastLocation: CLLocation? //Last point of current segment.
     
     
     override func awake(withContext context: Any?) {
@@ -182,7 +183,7 @@ class InterfaceController: WKInterfaceController {
         // This method is called when watch view controller is about to be visible to user
         super.willActivate()
         
-        //stopWatch.delegate = self
+        stopWatch.delegate = self
         //locationManager.delegate = self
         
         locationManager.delegate = self
@@ -245,8 +246,6 @@ class InterfaceController: WKInterfaceController {
         if (gpxTrackingStatus == .notStarted) && !self.hasWaypoints {
             return
         }
-        let loc = CLLocation(latitude: 10, longitude: 20)
-        map.addPointToCurrentTrackSegmentAtLocation(loc)
         let filename = defaultFilename()
         let gpxString = self.map.exportToGPXString()
         GPXFileManager.save(filename, gpxContents: gpxString)
@@ -254,7 +253,7 @@ class InterfaceController: WKInterfaceController {
         print(gpxString)
         
         let action = WKAlertAction(title: "Done", style: .default) {}
-        presentAlert(withTitle: "GPX file saved", message: "Current track session has been saved as \(filename).", preferredStyle: .alert, actions: [action])
+        presentAlert(withTitle: "GPX file saved", message: "Current session saved as \(filename).gpx ", preferredStyle: .alert, actions: [action])
         
         /*
         let alert = UIAlertView(title: "Save as", message: "Enter GPX session name", delegate: self, cancelButtonTitle: "Cancel")
@@ -427,6 +426,20 @@ class InterfaceController: WKInterfaceController {
         presentAlert(withTitle: "Access to location denied", message: "On Location settings, allow always access to location for GPX Tracker", preferredStyle: .alert, actions: [button])
     }
 
+}
+
+// MARK: StopWatchDelegate
+
+///
+/// Updates the `timeLabel` with the `stopWatch` elapsedTime.
+/// In the main ViewController there is a label that holds the elapsed time, that is, the time that
+/// user has been tracking his position.
+///
+///
+extension InterfaceController: StopWatchDelegate {
+    func stopWatch(_ stropWatch: StopWatch, didUpdateElapsedTimeString elapsedTimeString: String) {
+        timeLabel.setText(elapsedTimeString)
+    }
 }
 
 // MARK: CLLocationManagerDelegate
