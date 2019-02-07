@@ -515,6 +515,11 @@
 					BF692F622209AAFB00F8A0F1 = {
 						CreatedOnToolsVersion = 10.1;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Maps.iOS = {
+								enabled = 0;
+							};
+						};
 					};
 				};
 			};

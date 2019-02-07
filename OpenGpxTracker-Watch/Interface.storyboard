@@ -69,7 +69,7 @@
                             <items>
                                 <separator alignment="left" id="zTO-xB-syW"/>
                                 <button width="1" height="0.20000000000000001" alignment="left" title="Current Location" id="3QZ-4r-aMl"/>
-                                <map height="0.80000000000000004" alignment="left" id="0Wh-nz-fdr" customClass="GPXMapView" customModule="OpenGpxTracker_Watch_Extension"/>
+                                <map height="0.80000000000000004" alignment="left" id="0Wh-nz-fdr"/>
                             </items>
                             <variation key="device=watch40mm" height="169"/>
                             <variation key="device=watch42mm" height="174"/>
@@ -86,10 +86,10 @@
                     </items>
                     <connections>
                         <outlet property="followUserButton" destination="3QZ-4r-aMl" id="vKK-HS-CyC"/>
-                        <outlet property="map" destination="0Wh-nz-fdr" id="CR8-ob-niP"/>
                         <outlet property="newPinButton" destination="juk-oB-3vV" id="rz4-pG-LHx"/>
                         <outlet property="resetButton" destination="g9l-MU-PFV" id="Gx7-5m-Amd"/>
                         <outlet property="saveButton" destination="Yfa-t6-5Sk" id="qwm-ev-821"/>
+                        <outlet property="staticMap" destination="0Wh-nz-fdr" id="iZZ-re-KAM"/>
                         <outlet property="trackerButton" destination="exN-t4-It8" id="pZy-QD-KGQ"/>
                         <outlet property="trackerDistanceLabel" destination="jLD-vq-fZz" id="Tdh-hG-Mbe"/>
                         <outlet property="trackerTimer" destination="x77-sn-69Q" id="FQm-xb-ypU"/>

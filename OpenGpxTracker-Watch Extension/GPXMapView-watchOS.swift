@@ -14,7 +14,7 @@ import CoreGPX
 let kGPXCreatorString = "Open GPX Tracker for iOS"
 
 
-class GPXMapView: WKInterfaceMap {
+class GPXMapView {
     
     /// List of waypoints currently displayed on the map.
     var waypoints: [GPXWaypoint] = []

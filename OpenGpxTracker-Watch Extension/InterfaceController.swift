@@ -7,7 +7,6 @@
 //
 
 import WatchKit
-import Foundation
 import MapKit
 import CoreLocation
 import CoreGPX
@@ -58,7 +57,6 @@ class InterfaceController: WKInterfaceController {
     @IBOutlet var saveButton: WKInterfaceButton!
     @IBOutlet var resetButton: WKInterfaceButton!
     @IBOutlet var followUserButton: WKInterfaceButton!
-    @IBOutlet var trackerMap: WKInterfaceMap!
     
     //MapView
     let locationManager: CLLocationManager = {
@@ -72,7 +70,8 @@ class InterfaceController: WKInterfaceController {
     }()
     
     /// Map View
-    @IBOutlet var map: GPXMapView!
+    @IBOutlet var staticMap: WKInterfaceMap!
+    let map = GPXMapView()
     
     
     /// Map View delegate
@@ -124,6 +123,7 @@ class InterfaceController: WKInterfaceController {
                 resetButton.setBackgroundColor(kDisabledRedButtonBackgroundColor)
                 //reset clock
                 stopWatch.reset()
+                trackerTimer.setDate(Date())
                 //timeLabel.text = stopWatch.elapsedTimeString -> not yet
                 
                 //map.clearMap() //clear map
@@ -185,7 +185,14 @@ class InterfaceController: WKInterfaceController {
         //stopWatch.delegate = self
         //locationManager.delegate = self
         
+        locationManager.delegate = self
         locationManager.startUpdatingLocation()
+        
+        // set default zoom
+        let center = locationManager.location?.coordinate ?? CLLocationCoordinate2D(latitude: 8.90, longitude: -79.50)
+        let span = MKCoordinateSpan(latitudeDelta: 0.005, longitudeDelta: 0.005)
+        let region = MKCoordinateRegion(center: center, span: span)
+        staticMap.setRegion(region)
         
         //locationManager.startUpdatingHeading()
         // WatchKit does not have heading
@@ -225,7 +232,12 @@ class InterfaceController: WKInterfaceController {
     }
     @IBAction func addPinAtMyLocation() {
         print("Adding Pin at my location")
-        //let waypoint = GPXWaypoint(coordinate: map.userl)
+        if let currentCoordinates = locationManager.location?.coordinate {
+            let waypoint = GPXWaypoint(coordinate: currentCoordinates)
+            map.addWaypoint(waypoint)
+            self.hasWaypoints = true
+        }
+        
     }
     @IBAction func saveButtonTapped() {
         print("save Button tapped")
@@ -233,6 +245,16 @@ class InterfaceController: WKInterfaceController {
         if (gpxTrackingStatus == .notStarted) && !self.hasWaypoints {
             return
         }
+        let loc = CLLocation(latitude: 10, longitude: 20)
+        map.addPointToCurrentTrackSegmentAtLocation(loc)
+        let filename = defaultFilename()
+        let gpxString = self.map.exportToGPXString()
+        GPXFileManager.save(filename, gpxContents: gpxString)
+        self.lastGpxFilename = filename
+        print(gpxString)
+        
+        let action = WKAlertAction(title: "Done", style: .default) {}
+        presentAlert(withTitle: "GPX file saved", message: "Current track session has been saved as \(filename).", preferredStyle: .alert, actions: [action])
         
         /*
         let alert = UIAlertView(title: "Save as", message: "Enter GPX session name", delegate: self, cancelButtonTitle: "Cancel")
@@ -276,8 +298,8 @@ class InterfaceController: WKInterfaceController {
     func addNotificationObservers() {
         let notificationCenter = NotificationCenter.default
         /*
-        notificationCenter.addObserver(self, selector: #selector(InterfaceController.wasSentToBackground),
-                                       name: "didEnterBackgroundNotification", object: nil)
+        notificationCenter.addObserver(self, selector: #selector(InterfaceController.didEnterBackground),
+                                       name: WKApplicationState.background, object: nil)
         
         notificationCenter.addObserver(self, selector: #selector(applicationDidBecomeActive), name: UIApplication.didBecomeActiveNotification, object: nil)
         
@@ -317,7 +339,6 @@ class InterfaceController: WKInterfaceController {
         }
         checkLocationServicesStatus()
         locationManager.startUpdatingLocation()
-        //locationManager.startUpdatingHeading()
     }
     
     ///
