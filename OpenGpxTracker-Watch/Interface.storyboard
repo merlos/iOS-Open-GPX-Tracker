@@ -100,10 +100,10 @@
             </objects>
             <point key="canvasLocation" x="5" y="87"/>
         </scene>
-        <!--Interface Controller-->
+        <!--File Table Interface Controller-->
         <scene sceneID="yaQ-0v-lly">
             <objects>
-                <controller id="77f-od-duZ">
+                <controller id="77f-od-duZ" customClass="GPXFileTableInterfaceController" customModule="OpenGpxTracker_Watch_Extension">
                     <items>
                         <table alignment="left" id="Ueu-eD-023">
                             <items>
@@ -113,6 +113,9 @@
                             </items>
                         </table>
                     </items>
+                    <connections>
+                        <outlet property="fileTable" destination="Ueu-eD-023" id="fBH-uF-QRr"/>
+                    </connections>
                 </controller>
             </objects>
             <point key="canvasLocation" x="256" y="87"/>
