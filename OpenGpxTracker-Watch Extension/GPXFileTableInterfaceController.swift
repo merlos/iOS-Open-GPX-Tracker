@@ -54,13 +54,17 @@ class GPXFileTableInterfaceController: WKInterfaceController {
    
     func loadTableData() {
         fileTable.setNumberOfRows(fileList.count, withRowType: "GPXFile")
-        
-        for index in 0..<fileTable.numberOfRows {
-            guard let cell = fileTable.rowController(at: index) as? GPXFileTableRowController else { continue }
-            let gpxFileInfo = fileList.object(at: index) as! GPXFileInfo
-            cell.fileLabel.setText(gpxFileInfo.fileName)
+        if gpxFilesFound {
+            for index in 0..<fileTable.numberOfRows {
+                guard let cell = fileTable.rowController(at: index) as? GPXFileTableRowController else { continue }
+                let gpxFileInfo = fileList.object(at: index) as! GPXFileInfo
+                cell.fileLabel.setText(gpxFileInfo.fileName)
+            }
         }
-        
+        else {
+            guard let cell = fileTable.rowController(at: 0) as? GPXFileTableRowController else { return }
+            cell.fileLabel.setText(kNoFiles)
+        }
     }
     
     override func table(_ table: WKInterfaceTable, didSelectRowAt rowIndex: Int) {
