@@ -107,8 +107,17 @@
                     <items>
                         <table alignment="left" id="Ueu-eD-023">
                             <items>
-                                <tableRow id="cGI-3H-K2G">
-                                    <group key="rootItem" width="1" alignment="left" id="ahD-rE-FA3"/>
+                                <tableRow identifier="GPXFile" id="cGI-3H-K2G" customClass="GPXFileTableRowController" customModule="OpenGpxTracker_Watch_Extension">
+                                    <group key="rootItem" width="1" height="40" alignment="left" id="ahD-rE-FA3">
+                                        <items>
+                                            <label width="1" height="1" alignment="left" text="File Name" id="Nkq-Do-muS">
+                                                <fontDescription key="font" style="UICTFontTextStyleHeadline"/>
+                                            </label>
+                                        </items>
+                                    </group>
+                                    <connections>
+                                        <outlet property="fileLabel" destination="Nkq-Do-muS" id="ZWf-55-Mr2"/>
+                                    </connections>
                                 </tableRow>
                             </items>
                         </table>
