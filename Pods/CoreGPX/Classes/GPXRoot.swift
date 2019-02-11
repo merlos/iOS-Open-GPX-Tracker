@@ -130,31 +130,29 @@ open class GPXRoot: GPXElement {
     
     // MARK:- Tag
     
-    override func tagName() -> String! {
+    override func tagName() -> String {
         return "gpx"
     }
     
     // MARK:- GPX
     override func addOpenTag(toGPX gpx: NSMutableString, indentationLevel: Int) {
-        
-        let attribute: NSMutableString = ""
+        let attribute = NSMutableString()
         
         attribute.appendFormat(" xmlns:xsi=\"%@\"", self.xsi)
         attribute.appendFormat(" xmlns=\"%@\"", self.schema)
         attribute.appendFormat(" xsi:schemaLocation=\"%@\"", self.schemaLocation)
         
-        if self.version != nil {
-            attribute.appendFormat(" version=\"%@\"", self.version!)
+        if let version = self.version {
+            attribute.appendFormat(" version=\"%@\"", version)
         }
         
-        if self.creator != nil {
-            attribute.appendFormat(" creator=\"%@\"", self.creator!)
+        if let creator = self.creator {
+            attribute.appendFormat(" creator=\"%@\"", creator)
         }
         
         gpx.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n")
         
         gpx.appendFormat("%@<%@%@>\r\n", self.indent(forIndentationLevel: indentationLevel), self.tagName(), attribute)
-        
     }
     
     override func addChildTag(toGPX gpx: NSMutableString, indentationLevel: Int) {
@@ -179,7 +177,5 @@ open class GPXRoot: GPXElement {
         if self.extensions != nil {
             self.extensions?.gpx(gpx, indentationLevel: indentationLevel)
         }
- 
     }
 }
-

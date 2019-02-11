@@ -11,14 +11,13 @@ open class GPXParser: NSObject, XMLParserDelegate {
     
     var parser: XMLParser
     
-    // MARK:- Init
+    // MARK:- Initializers
     
     public init(withData data: Data) {
-        
         self.parser = XMLParser(data: data)
         super.init()
-        parser.delegate = self
-        parser.parse()
+        self.parser.delegate = self
+        self.parser.parse()
     }
     
     public init(withPath path: String) {
@@ -28,8 +27,8 @@ open class GPXParser: NSObject, XMLParserDelegate {
         do {
             let data = try Data(contentsOf: url)
             self.parser = XMLParser(data: data)
-            parser.delegate = self
-            parser.parse()
+            self.parser.delegate = self
+            self.parser.parse()
         }
         catch {
             print(error)
@@ -42,8 +41,8 @@ open class GPXParser: NSObject, XMLParserDelegate {
         do {
             let data = try Data(contentsOf: url)
             self.parser = XMLParser(data: data)
-            parser.delegate = self
-            parser.parse()
+            self.parser.delegate = self
+            self.parser.parse()
         }
         catch {
             print(error)
@@ -54,41 +53,45 @@ open class GPXParser: NSObject, XMLParserDelegate {
     
     var element = String()
     
-    // Elements
-    var waypoint = GPXWaypoint()
-    var route = GPXRoute()
-    var routepoint = GPXRoutePoint()
-    var track = GPXTrack()
-    var tracksegment = GPXTrackSegment()
-    var trackpoint = GPXTrackPoint()
-    
     // Arrays of elements
     var waypoints = [GPXWaypoint]()
+    
     var routes = [GPXRoute]()
     var routepoints = [GPXRoutePoint]()
-    
-    // Dictionary of element
-    var waypointDict = [String:String]()
-    var trackpointDict = [String:String]()
-    var routepointDict = [String:String]()
     
     var tracks = [GPXTrack]()
     var tracksegements = [GPXTrackSegment]()
     var trackpoints = [GPXTrackPoint]()
     
-    var metadata: GPXMetadata? = GPXMetadata()
-    var extensions: GPXExtensions? = GPXExtensions()
+    // Dictionary of element
+
+    var waypointDict = [String : String]()
+    var trackpointDict = [String : String]()
+    var routepointDict = [String : String]()
+    var metadataDict = [String : String]()
+    var extensionsDict = [String : String]()
     
-    var isWaypoint: Bool = false
-    var isMetadata: Bool = false
-    var isRoute: Bool = false
-    var isRoutePoint: Bool = false
-    var isTrack: Bool = false
-    var isTrackSegment: Bool = false
-    var isTrackPoint: Bool = false
-    var isExtension: Bool = false
+    var linkDict = [String:String]()
+    
+
+    var metadata: GPXMetadata?
+    var extensions: GPXExtensions?
+    
+    // GPX v1.1 XML Schema tag types
+    var isWaypoint = false
+    var isMetadata = false
+    var isRoute = false
+    var isRoutePoint = false
+    var isTrack = false
+    var isTrackSegment = false
+    var isTrackPoint = false
+    var isExtensions = false
+  
+    var isLink = false
+    var elementHasLink = false
 
     public func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String] = [:]) {
+        
         element = elementName
         
         switch elementName {
@@ -113,86 +116,118 @@ open class GPXParser: NSObject, XMLParserDelegate {
         case "metadata":
             isMetadata = true
         case "extensions":
-            isExtension = true
-        default: ()
+
+            isExtensions = true
+        case "link":
+            isLink = true
+            linkDict["href"] = attributeDict["href"]
+        default:
+            break
         }
 
     }
     
     public func parser(_ parser: XMLParser, foundCharacters string: String) {
-        
         let foundString = string.trimmingCharacters(in: .whitespacesAndNewlines)
         if foundString.isEmpty == false {
-            if element != "trkpt" || element != "wpt" || element != "rtept" {
+            if element != "trkpt" || element != "wpt" || element != "rtept" || element != "metadata" || element != "extensions" {
+
                 if isWaypoint {
-                    waypointDict[element] = foundString
+                    if isLink {
+                        linkDict[element] = foundString
+                    }
+                    else {
+                        waypointDict[element] = foundString
+                    }
                 }
                 if isTrackPoint {
-                    trackpointDict[element] = foundString
+                    if isLink {
+                        linkDict[element] = foundString
+                    }
+                    else {
+                        trackpointDict[element] = foundString
+                    }
                 }
                 if isRoutePoint {
-                    routepointDict[element] = foundString
+                    if isLink {
+                        linkDict[element] = foundString
+                    }
+                    else {
+                        routepointDict[element] = foundString
+                    }
                 }
-            }
-        }
-        
-        if isMetadata {
-            if foundString.isEmpty != false {
-                switch element {
-                case "name":
-                    self.metadata!.name = foundString
-                case "desc":
-                    self.metadata!.desc = foundString
-                case "time":
-                    self.metadata!.set(date: foundString)
-                case "keyword":
-                    self.metadata!.keyword = foundString
-                // author, copyright, link, bounds, extensions not implemented.
-                default: ()
+                if isMetadata {
+                    if isLink {
+                        linkDict[element] = foundString
+                    }
+                    else {
+                        metadataDict[element] = foundString
+                    }
                 }
+                if isExtensions {
+                    extensionsDict[element] = foundString
+                 }
             }
+            
         }
     }
     
     public func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
         switch elementName {
-            
         case "metadata":
+            self.metadata = GPXMetadata(dictionary: metadataDict)
+            if elementHasLink {
+                self.metadata?.link = GPXLink(dictionary: linkDict)
+                linkDict.removeAll()
+                elementHasLink = false
+            }
+          
+            // clear values
             isMetadata = false
+            metadataDict.removeAll()
             
         case "trkpt":
             let tempTrackPoint = GPXTrackPoint(dictionary: trackpointDict)
-            
+            if elementHasLink {
+                tempTrackPoint.link = GPXLink(dictionary: linkDict)
+                linkDict.removeAll()
+                elementHasLink = false
+            }
             self.trackpoints.append(tempTrackPoint)
- 
+            
             // clear values
             isTrackPoint = false
             trackpointDict.removeAll()
             
         case "wpt":
             let tempWaypoint = GPXWaypoint(dictionary: waypointDict)
-           
+            if elementHasLink {
+                tempWaypoint.link = GPXLink(dictionary: linkDict)
+                linkDict.removeAll()
+                elementHasLink = false
+            }
             self.waypoints.append(tempWaypoint)
+            
             // clear values
             isWaypoint = false
             waypointDict.removeAll()
             
         case "rte":
-            
-            let tempTrack = GPXRoute()
-            
-            tempTrack.add(routepoints: self.routepoints)
-            
-            self.routes.append(route)
+            let tempRoute = GPXRoute()
+            tempRoute.add(routepoints: self.routepoints)
+            self.routes.append(tempRoute)
             
             // clear values
             isRoute = false
             self.routepoints.removeAll()
             
         case "rtept":
-            
             let tempRoutePoint = GPXRoutePoint(dictionary: routepointDict)
-            
+            if elementHasLink {
+                tempRoutePoint.link = GPXLink(dictionary: linkDict)
+                linkDict.removeAll()
+                elementHasLink = false
+            }
             self.routepoints.append(tempRoutePoint)
             
             // clear values
@@ -200,11 +235,8 @@ open class GPXParser: NSObject, XMLParserDelegate {
             routepointDict.removeAll()
             
         case "trk":
-            
             let tempTrack = GPXTrack()
-            
             tempTrack.add(trackSegments: self.tracksegements)
-            
             self.tracks.append(tempTrack)
             
             //clear values
@@ -212,12 +244,8 @@ open class GPXParser: NSObject, XMLParserDelegate {
             self.tracksegements.removeAll()
             
         case "trkseg":
-            
-            
             let tempTrackSegment = GPXTrackSegment()
-            
             tempTrackSegment.add(trackpoints: self.trackpoints)
-            
             self.tracksegements.append(tempTrackSegment)
             
             // clear values
@@ -225,9 +253,19 @@ open class GPXParser: NSObject, XMLParserDelegate {
             self.trackpoints.removeAll()
 
         case "extensions":
-            isExtension = false
+            self.extensions = GPXExtensions()
+          
+            // clear values
+            isExtensions = false
             
-        default: ()
+        case "link":
+            elementHasLink = true
+            
+            //clear values
+            isLink = false
+            
+        default:
+            break
         }
     }
     
@@ -235,12 +273,11 @@ open class GPXParser: NSObject, XMLParserDelegate {
     
     open func parsedData() -> GPXRoot {
         let root = GPXRoot()
-        root.metadata = metadata // partially implemented
-        root.extensions = extensions // not implemented
+        root.metadata = metadata
+        root.extensions = extensions // nothing to implement yet
         root.add(waypoints: waypoints)
         root.add(routes: routes)
         root.add(tracks: tracks)
         return root
     }
-
 }

@@ -8,10 +8,10 @@
 import Foundation
 
 open class GPXPerson: GPXElement {
+    
     var name: String
     var email: GPXEmail?
     var link: GPXLink?
-    
     
     // MARK:- Instance
     
@@ -25,9 +25,9 @@ open class GPXPerson: GPXElement {
     // MARK:- Public Methods
     
     
-    
     // MARK:- Tag
-    override func tagName() -> String! {
+    
+    override func tagName() -> String {
         return "person"
     }
     

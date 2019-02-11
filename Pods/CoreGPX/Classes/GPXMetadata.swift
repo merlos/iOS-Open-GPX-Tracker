@@ -9,36 +9,35 @@ import Foundation
 
 open class GPXMetadata: GPXElement {
     
-    var name: String?
-    var desc: String?
-    var author: GPXAuthor?
-    var copyright: GPXCopyright?
-    var link: GPXLink?
-    var time = Date()
-    var keyword: String?
-    var bounds: GPXBounds?
-    var extensions: GPXExtensions?
+    public var name: String?
+    public var desc: String?
+    public var author: GPXAuthor?
+    public var copyright: GPXCopyright?
+    public var link: GPXLink?
+    public var time: Date?
+    public var keyword: String?
+    public var bounds: GPXBounds?
+    public var extensions: GPXExtensions?
     
     
     // MARK:- Instance
     
     required public init() {
-        author = GPXAuthor()
-
+        self.time = Date()
         super.init()
     }
     
-    // MARK:- Internal Methods
-    
-    func set(date: String) {
-        if date.isEmpty == false {
-            self.time = GPXType().dateTime(value: date) ?? Date()
-        }
+    init(dictionary: [String:String]) {
+        self.time = ISO8601DateParser.parse(dictionary["time"])
+        super.init()
+        self.name = dictionary["name"]
+        self.desc = dictionary["desc"]
+        self.keyword = dictionary["keyword"]
     }
     
     // MARK:- Tag
     
-    override func tagName() -> String! {
+    override func tagName() -> String {
         return "metadata"
     }
     
@@ -72,7 +71,5 @@ open class GPXMetadata: GPXElement {
         if extensions != nil {
             self.extensions?.gpx(gpx, indentationLevel: indentationLevel)
         }
-        
     }
-    
 }

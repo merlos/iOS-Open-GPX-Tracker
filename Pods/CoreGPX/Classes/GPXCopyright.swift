@@ -8,7 +8,6 @@
 import Foundation
 
 open class GPXCopyright: GPXElement {
-    var yearValue = String()
     
     var year: Date?
     var license: String?
@@ -27,17 +26,17 @@ open class GPXCopyright: GPXElement {
     
     // MARK: Tag
     
-    override func tagName() -> String! {
+    override func tagName() -> String {
         return "copyright"
     }
     
     // MARK: GPX
     
     override func addOpenTag(toGPX gpx: NSMutableString, indentationLevel: Int) {
-        let attribute: NSMutableString = ""
+        let attribute = NSMutableString()
         
-        if author != nil {
-            attribute.appendFormat(" author=\"%@\"", author!)
+        if let author = author {
+            attribute.appendFormat(" author=\"%@\"", author)
         }
         
         gpx.appendFormat("%@<%@%@>\r\n", tagName())
@@ -48,5 +47,4 @@ open class GPXCopyright: GPXElement {
         self.addProperty(forValue: GPXType().value(forDateTime: year), gpx: gpx, tagName: "year", indentationLevel: indentationLevel)
         self.addProperty(forValue: license, gpx: gpx, tagName: "license", indentationLevel: indentationLevel)
     }
-    
 }

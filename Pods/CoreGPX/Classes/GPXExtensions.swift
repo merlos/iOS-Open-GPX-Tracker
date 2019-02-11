@@ -15,15 +15,12 @@ open class GPXExtensions: GPXElement {
     }
     
     // MARK:- Tag
-    override func tagName() -> String! {
+    override func tagName() -> String {
         return "extensions"
     }
-
     
     // MARK:- GPX
     override func addChildTag(toGPX gpx: NSMutableString, indentationLevel: Int) {
         super.addChildTag(toGPX: gpx, indentationLevel: indentationLevel)
     }
- 
 }
-

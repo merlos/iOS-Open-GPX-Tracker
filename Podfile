@@ -1,7 +1,7 @@
 use_frameworks!
 
 def shared_pods
-    pod 'CoreGPX', :git => 'https://github.com/VincentNeo/CoreGPX.git', :branch => 'NewPlatforms'
+    pod 'CoreGPX', :git => 'https://github.com/VincentNeo/CoreGPX.git'
     pod 'CryptoSwift', git: 'https://github.com/krzyzanowskim/CryptoSwift'
 end
 

@@ -88,7 +88,7 @@ open class GPXRoute: GPXElement {
     
     // MARK:- Tag
     
-    override func tagName() -> String! {
+    override func tagName() -> String {
         return "rte"
     }
     
@@ -116,7 +116,5 @@ open class GPXRoute: GPXElement {
         for routepoint in routepoints {
             routepoint.gpx(gpx, indentationLevel: indentationLevel)
         }
-        
     }
-    
 }

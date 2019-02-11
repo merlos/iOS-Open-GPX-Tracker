@@ -9,6 +9,7 @@ import Foundation
 
 /// An email address. Broken into two parts (id and domain) to help prevent email harvesting.
 open class GPXEmail: GPXElement {
+    
     var emailID: String?
     var domain: String?
     
@@ -26,21 +27,20 @@ open class GPXEmail: GPXElement {
     }
     
     // MARK:- Tag
-    override func tagName() -> String! {
+    override func tagName() -> String {
         return "email"
     }
     
     // MARK:- GPX
     override func addOpenTag(toGPX gpx: NSMutableString, indentationLevel: Int) {
-        let attribute: NSMutableString = ""
+        let attribute = NSMutableString()
         
-        if emailID != nil {
-            attribute.appendFormat(" id=\"%@\"", emailID!)
+        if let emailID = emailID {
+            attribute.appendFormat(" id=\"%@\"", emailID)
         }
-        if domain != nil {
-            attribute.appendFormat(" domain=\"%@\"", domain!)
+        if let domain = domain {
+            attribute.appendFormat(" domain=\"%@\"", domain)
         }
         gpx.appendFormat("%@<%@%@>\r\n", indent(forIndentationLevel: indentationLevel), self.tagName(), attribute)
     }
- 
 }

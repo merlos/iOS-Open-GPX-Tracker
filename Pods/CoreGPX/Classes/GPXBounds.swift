@@ -30,29 +30,28 @@ open class GPXBounds: GPXElement {
     
     // MARK:- Tag
     
-    override func tagName() -> String! {
+    override func tagName() -> String {
         return "bounds"
     }
     
     // MARK:- GPX
     
     override func addOpenTag(toGPX gpx: NSMutableString, indentationLevel: Int) {
-        let attribute: NSMutableString = ""
+        let attribute = NSMutableString()
         
-        if minLatitude != nil {
-        attribute.appendFormat(" minlat=\"%f\"", minLatitude!)
+        if let minLatitude = minLatitude {
+            attribute.appendFormat(" minlat=\"%f\"", minLatitude)
         }
-        if minLongitude != nil {
-        attribute.appendFormat(" minlon=\"%f\"", minLongitude!)
+        if let minLongitude = minLongitude {
+            attribute.appendFormat(" minlon=\"%f\"", minLongitude)
         }
-        if maxLatitude != nil {
-        attribute.appendFormat(" maxlat=\"%f\"", maxLatitude!)
+        if let maxLatitude = maxLatitude {
+            attribute.appendFormat(" maxlat=\"%f\"", maxLatitude)
         }
-        if maxLongitude != nil {
-        attribute.appendFormat(" maxlon=\"%f\"", maxLongitude!)
+        if let maxLongitude = maxLongitude {
+            attribute.appendFormat(" maxlon=\"%f\"", maxLongitude)
         }
         
         gpx.appendFormat("%@<%@%@>\r\n", indent(forIndentationLevel: indentationLevel))
     }
-    
 }

@@ -9,7 +9,7 @@ import Foundation
 
 open class GPXWaypoint: GPXElement {
     
-    public var links = [GPXLink]()
+    public var link: GPXLink?
     public var elevation: Double?
     public var time: Date?
     public var magneticVariation: Double?
@@ -31,20 +31,6 @@ open class GPXWaypoint: GPXElement {
     public var latitude: Double?
     public var longitude: Double?
     
-    public var latitudeString = String()
-    public var longitudeString = String()
-    public var elevationString = String()
-    public var timeString = String()
-    public var magneticVariationString = String()
-    public var geoidHeightString = String()
-    public var fixString = String()
-    public var satellitesString = String()
-    public var hdopString = String()
-    public var vdopString = String()
-    public var pdopString = String()
-    public var ageofDGPSDataString = String()
-    public var DGPSidString = String()
-    
     public required init() {
         self.time = Date()
         super.init()
@@ -57,7 +43,7 @@ open class GPXWaypoint: GPXElement {
         self.longitude = longitude
     }
     
-    public init(dictionary: [String:String]) {
+    init(dictionary: [String:String]) {
         self.time = ISO8601DateParser.parse(dictionary ["time"])
         super.init()
         self.elevation = number(from: dictionary["ele"])
@@ -77,6 +63,7 @@ open class GPXWaypoint: GPXElement {
         self.verticalDilution = number(from: dictionary["vdop"])
         self.positionDilution = number(from: dictionary["pdop"])
         self.DGPSid = integer(from: dictionary["dgpsid"])
+        self.ageofDGPSData = number(from: dictionary["ageofdgpsdata"])
     }
     
     // MARK:- Public Methods
@@ -96,16 +83,16 @@ open class GPXWaypoint: GPXElement {
     }
     
     open func newLink(withHref href: String) -> GPXLink {
-        let link: GPXLink = GPXLink().link(with: href)
+        let link = GPXLink().link(with: href)
         return link
     }
-    
+    /*
     open func add(link: GPXLink?) {
-        if link != nil {
-            let contains = links.contains(link!)
+        if let link = link {
+            let contains = links.contains(link)
             if contains == false {
-                link?.parent = self
-                links.append(link!)
+                link.parent = self
+                links.append(link)
             }
         }
     }
@@ -126,17 +113,17 @@ open class GPXWaypoint: GPXElement {
             }
         }
     }
-
+*/
     // MARK:- Tag
     
-    override func tagName() -> String! {
+    override func tagName() -> String {
         return "wpt"
     }
     
     // MARK:- GPX
     
     override func addOpenTag(toGPX gpx: NSMutableString, indentationLevel: Int) {
-        let attribute: NSMutableString = ""
+        let attribute = NSMutableString()
         
         if latitude != nil {
             attribute.appendFormat(" lat=\"%f\"", latitude!)
@@ -160,10 +147,10 @@ open class GPXWaypoint: GPXElement {
         self.addProperty(forValue: desc, gpx: gpx, tagName: "desc", indentationLevel: indentationLevel)
         self.addProperty(forValue: source, gpx: gpx, tagName: "source", indentationLevel: indentationLevel)
         
-        for link in links {
-            link.gpx(gpx, indentationLevel: indentationLevel)
+        if self.link != nil {
+            self.link?.gpx(gpx, indentationLevel: indentationLevel)
         }
-        
+ 
         self.addProperty(forValue: symbol, gpx: gpx, tagName: "sym", indentationLevel: indentationLevel)
         self.addProperty(forValue: type, gpx: gpx, tagName: "type", indentationLevel: indentationLevel)
         self.addProperty(forIntegerValue: fix, gpx: gpx, tagName: "source", indentationLevel: indentationLevel)
@@ -177,9 +164,7 @@ open class GPXWaypoint: GPXElement {
         if self.extensions != nil {
             self.extensions?.gpx(gpx, indentationLevel: indentationLevel)
         }
-        
     }
-    
 }
 
 
@@ -203,28 +188,27 @@ class ISO8601DateParser {
         guard let NonNilString = dateString else {
             return nil
         }
-            _ = withVaList([year, month, day, hour, minute,
-                            second], { pointer in
-                                vsscanf(NonNilString, "%d-%d-%dT%d:%d:%dZ", pointer)
-                                
-            })
-            
-            components.year = year.pointee
-            components.minute = minute.pointee
-            components.day = day.pointee
-            components.hour = hour.pointee
-            components.month = month.pointee
-            components.second = second.pointee
-            
-            if let calendar = calendarCache[0] {
-                return calendar.date(from: components)
-            }
-            
-            var calendar = Calendar(identifier: .gregorian)
-            calendar.timeZone = TimeZone(secondsFromGMT: 0)!
-            calendarCache[0] = calendar
+        
+        _ = withVaList([year, month, day, hour, minute,
+                        second], { pointer in
+                            vsscanf(NonNilString, "%d-%d-%dT%d:%d:%dZ", pointer)
+                            
+        })
+        
+        components.year = year.pointee
+        components.minute = minute.pointee
+        components.day = day.pointee
+        components.hour = hour.pointee
+        components.month = month.pointee
+        components.second = second.pointee
+        
+        if let calendar = calendarCache[0] {
             return calendar.date(from: components)
         }
-    
+        
+        var calendar = Calendar(identifier: .gregorian)
+        calendar.timeZone = TimeZone(secondsFromGMT: 0)!
+        calendarCache[0] = calendar
+        return calendar.date(from: components)
+    }
 }
-

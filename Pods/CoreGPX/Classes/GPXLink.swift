@@ -13,13 +13,13 @@ open class GPXLink: GPXElement {
     // MARK:- Accessing Properties
 
     /// Text of hyperlink
-    var text: String?
+    public var text: String?
     
     /// Mime type of content (image/jpeg)
-    var mimetype: String?
+    public var mimetype: String?
     
     /// URL of hyperlink
-    var href: String?
+    public var href: String?
    
     // MARK:- Instance
     
@@ -28,6 +28,12 @@ open class GPXLink: GPXElement {
         self.mimetype = String()
         self.href = String()
         super.init()
+    }
+    
+    init(dictionary: [String:String]) {
+        self.href = dictionary["href"]
+        self.mimetype = dictionary["mimetype"]
+        self.text = dictionary["text"]
     }
     
     /// ---------------------------------
@@ -50,7 +56,7 @@ open class GPXLink: GPXElement {
     
     // MARK:- Tag
     
-    override func tagName() -> String! {
+    override func tagName() -> String {
         return "link"
     }
    
@@ -58,10 +64,10 @@ open class GPXLink: GPXElement {
     // MARK:- GPX
     
     override func addOpenTag(toGPX gpx: NSMutableString, indentationLevel: Int) {
-        let attribute: NSMutableString = ""
+        let attribute = NSMutableString()
         
-        if href != nil {
-            attribute.appendFormat(" href=\"%@\"", href!)
+        if let href = href {
+            attribute.appendFormat(" href=\"%@\"", href)
         }
         gpx.appendFormat("%@<%@%@>\r\n", indent(forIndentationLevel: indentationLevel), self.tagName())
     }
@@ -72,5 +78,4 @@ open class GPXLink: GPXElement {
         self.addProperty(forValue: text, gpx: gpx, tagName: "text", indentationLevel: indentationLevel)
         self.addProperty(forValue: mimetype, gpx: gpx, tagName: "type", indentationLevel: indentationLevel)
     }
-
 }

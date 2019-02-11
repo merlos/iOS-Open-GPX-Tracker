@@ -19,11 +19,8 @@ open class GPXElement: NSObject {
     
     // MARK:- Tag
     
-    func tagName() -> String! {
-        return nil
-    }
-    func implementClasses() -> Array<Any>! {
-        return nil
+    func tagName() -> String {
+        fatalError("Subclass must override tagName()")
     }
     
     // MARK:- Instance
@@ -35,7 +32,7 @@ open class GPXElement: NSObject {
     // MARK:- GPX
    
     open func gpx() -> String {
-        let gpx: NSMutableString = ""
+        let gpx = NSMutableString()
         self.gpx(gpx, indentationLevel: 0)
         return gpx as String
     }
@@ -108,7 +105,7 @@ open class GPXElement: NSObject {
     }
     
     func indent(forIndentationLevel indentationLevel: Int) -> NSMutableString {
-        let result: NSMutableString = ""
+        let result = NSMutableString()
         
         for _ in 0..<indentationLevel {
             result.append("\t")

@@ -51,7 +51,7 @@ open class GPXPointSegment: GPXElement {
     
     // MARK:- Tag
     
-    override func tagName() -> String! {
+    override func tagName() -> String {
         return "ptseg"
     }
     
@@ -63,6 +63,5 @@ open class GPXPointSegment: GPXElement {
         for point in points {
             point.gpx(gpx, indentationLevel: indentationLevel)
         }
-        
     }
 }

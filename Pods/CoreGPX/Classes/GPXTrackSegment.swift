@@ -32,7 +32,6 @@ open class GPXTrackSegment: GPXElement {
     open func add(trackpoint: GPXTrackPoint?) {
         if let validPoint = trackpoint {
             trackpoints.append(validPoint)
-            
         }
     }
     
@@ -41,16 +40,15 @@ open class GPXTrackSegment: GPXElement {
     }
     
     open func remove(trackpoint: GPXTrackPoint) {
-            trackpoint.parent = nil
-            if let index = trackpoints.firstIndex(of: trackpoint) {
-                trackpoints.remove(at: index)
-            }
-        
+        trackpoint.parent = nil
+        if let index = trackpoints.firstIndex(of: trackpoint) {
+            trackpoints.remove(at: index)
+        }
     }
     
     // MARK:- Tag
     
-    override func tagName() -> String! {
+    override func tagName() -> String {
         return "trkseg"
     }
     
@@ -66,6 +64,5 @@ open class GPXTrackSegment: GPXElement {
         for trackpoint in trackpoints {
             trackpoint.gpx(gpx, indentationLevel: indentationLevel)
         }
-        
     }
 }

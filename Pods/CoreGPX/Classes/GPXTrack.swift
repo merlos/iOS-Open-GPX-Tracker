@@ -85,18 +85,18 @@ open class GPXTrack: GPXElement {
     open func newTrackPointWith(latitude: Double, longitude: Double) -> GPXTrackPoint {
         var tracksegment: GPXTrackSegment
         
-        if tracksegments.count == 0 {
-            _ = self.newTrackSegment()
+        if let lastTracksegment = tracksegments.last {
+            tracksegment = lastTracksegment
+        } else {
+            tracksegment = self.newTrackSegment()
         }
-        
-        tracksegment = tracksegments.last!
         
         return tracksegment.newTrackpointWith(latitude: latitude, longitude: longitude)
     }
     
     // MARK:- Tag
     
-    override func tagName() -> String! {
+    override func tagName() -> String {
         return "trk"
     }
     

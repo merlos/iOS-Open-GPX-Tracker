@@ -28,19 +28,19 @@ open class GPXPoint: GPXElement {
     
     // MARK:- Tag
     
-    override func tagName() -> String! {
+    override func tagName() -> String {
         return "pt"
     }
     
     // MARK: GPX
     
     override func addOpenTag(toGPX gpx: NSMutableString, indentationLevel: Int) {
-        let attribute: NSMutableString = ""
-        if latitude != nil {
-            attribute.appendFormat(" lat=\"%f\"", latitude!)
+        let attribute = NSMutableString()
+        if let latitude = latitude {
+            attribute.appendFormat(" lat=\"%f\"", latitude)
         }
-        if longitude != nil {
-            attribute.appendFormat(" lon=\"%f\"", longitude!)
+        if let longitude = longitude {
+            attribute.appendFormat(" lon=\"%f\"", longitude)
         }
         
         gpx.appendFormat("%@<%@%@>\r\n", indent(forIndentationLevel: indentationLevel), self.tagName(), attribute)

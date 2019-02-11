@@ -14,8 +14,8 @@ open class GPXAuthor: GPXPerson {
     }
     
     // MARK: Tag
-    override func tagName() -> String! {
+    
+    override func tagName() -> String {
         return "author"
     }
-
 }
