@@ -57,7 +57,8 @@ class InterfaceController: WKInterfaceController {
     @IBOutlet var followUserButton: WKInterfaceButton!
     @IBOutlet var timeLabel: WKInterfaceLabel!
     @IBOutlet var totalTrackedDistanceLabel: WKInterfaceLabel!
-    
+    @IBOutlet var signalImageView: WKInterfaceImage!
+    @IBOutlet var signalAccuracyLabel: WKInterfaceLabel!
     
     //MapView
     let locationManager: CLLocationManager = {
@@ -94,6 +95,15 @@ class InterfaceController: WKInterfaceController {
             }
         }
     }
+    
+    // Signal accuracy images
+    let signalImage0 = UIImage(named: "signal0")
+    let signalImage1 = UIImage(named: "signal1")
+    let signalImage2 = UIImage(named: "signal2")
+    let signalImage3 = UIImage(named: "signal3")
+    let signalImage4 = UIImage(named: "signal4")
+    let signalImage5 = UIImage(named: "signal5")
+    let signalImage6 = UIImage(named: "signal6")
     
     /// Defines the different statuses regarding tracking current user location.
     enum GpxTrackingStatus {
@@ -477,25 +487,26 @@ extension InterfaceController: CLLocationManagerDelegate {
         let newLocation = locations.first!
         //print("isUserLocationVisible: \(map.isUserLocationVisible) showUserLocation: \(map.showsUserLocation)")
         //print("didUpdateLocation: received \(newLocation.coordinate) hAcc: \(newLocation.horizontalAccuracy) vAcc: \(newLocation.verticalAccuracy) floor: \(newLocation.floor?.description ?? "''") map.userTrackingMode: \(map.userTrackingMode.rawValue)")
-        /*
+        
         let hAcc = newLocation.horizontalAccuracy
-        signalAccuracyLabel.text = "±\(hAcc)m"
+
+        signalAccuracyLabel.setText("±\(hAcc)m")
         if hAcc < kSignalAccuracy6 {
-            self.signalImageView.image = signalImage6
+            self.signalImageView.setImage(signalImage6)
         } else if hAcc < kSignalAccuracy5 {
-            self.signalImageView.image = signalImage5
+            self.signalImageView.setImage(signalImage5)
         } else if hAcc < kSignalAccuracy4 {
-            self.signalImageView.image = signalImage4
+            self.signalImageView.setImage(signalImage4)
         } else if hAcc < kSignalAccuracy3 {
-            self.signalImageView.image = signalImage3
+            self.signalImageView.setImage(signalImage3)
         } else if hAcc < kSignalAccuracy2 {
-            self.signalImageView.image = signalImage2
+            self.signalImageView.setImage(signalImage2)
         } else if hAcc < kSignalAccuracy1 {
-            self.signalImageView.image = signalImage1
+            self.signalImageView.setImage(signalImage1)
         } else{
-            self.signalImageView.image = signalImage0
+            self.signalImageView.setImage(signalImage0)
         }
-        */
+        
         /*
         //Update coordsLabel
         let latFormat = String(format: "%.6f", newLocation.coordinate.latitude)

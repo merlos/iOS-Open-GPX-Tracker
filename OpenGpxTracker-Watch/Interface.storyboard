@@ -84,12 +84,20 @@
                                 <label alignment="left" text="Longitude" id="wh4-cP-QA2">
                                     <fontDescription key="font" style="UICTFontTextStyleFootnote"/>
                                 </label>
-                                <label alignment="right" text="Altitude" id="fLq-xh-Kj9">
+                                <label alignment="left" text="Altitude" id="fLq-xh-Kj9">
                                     <fontDescription key="font" style="UICTFontTextStyleFootnote"/>
                                 </label>
-                                <label alignment="center" verticalAlignment="center" text="Speed" id="9yb-Lf-Jav">
+                                <label alignment="left" text="Speed" id="9yb-Lf-Jav">
                                     <fontDescription key="font" style="UICTFontTextStyleFootnote"/>
                                 </label>
+                                <group width="1" alignment="left" id="EN6-a8-HHf">
+                                    <items>
+                                        <imageView width="0.34999999999999998" alignment="left" id="MRY-DF-JuJ"/>
+                                        <label alignment="left" verticalAlignment="center" text="signal" id="036-aK-7ie">
+                                            <fontDescription key="font" style="UICTFontTextStyleSubhead"/>
+                                        </label>
+                                    </items>
+                                </group>
                             </items>
                         </group>
                     </items>
@@ -97,6 +105,8 @@
                         <outlet property="newPinButton" destination="juk-oB-3vV" id="rz4-pG-LHx"/>
                         <outlet property="resetButton" destination="g9l-MU-PFV" id="Gx7-5m-Amd"/>
                         <outlet property="saveButton" destination="Yfa-t6-5Sk" id="qwm-ev-821"/>
+                        <outlet property="signalAccuracyLabel" destination="036-aK-7ie" id="puW-q3-aaS"/>
+                        <outlet property="signalImageView" destination="MRY-DF-JuJ" id="eV2-dI-BQ9"/>
                         <outlet property="timeLabel" destination="xum-IR-If6" id="bWq-z8-ANc"/>
                         <outlet property="totalTrackedDistanceLabel" destination="jLD-vq-fZz" id="DHA-Fg-fPY"/>
                         <outlet property="trackerButton" destination="exN-t4-It8" id="pZy-QD-KGQ"/>
