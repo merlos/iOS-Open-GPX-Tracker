@@ -50,14 +50,14 @@ let kSignalAccuracy1 = 201.0
 
 class InterfaceController: WKInterfaceController {
 
-    @IBOutlet var trackerTimer: WKInterfaceTimer!
-    @IBOutlet var trackerDistanceLabel: WKInterfaceLabel!
     @IBOutlet var newPinButton: WKInterfaceButton!
     @IBOutlet var trackerButton: WKInterfaceButton!
     @IBOutlet var saveButton: WKInterfaceButton!
     @IBOutlet var resetButton: WKInterfaceButton!
     @IBOutlet var followUserButton: WKInterfaceButton!
     @IBOutlet var timeLabel: WKInterfaceLabel!
+    @IBOutlet var totalTrackedDistanceLabel: WKInterfaceLabel!
+    
     
     //MapView
     let locationManager: CLLocationManager = {
@@ -71,9 +71,8 @@ class InterfaceController: WKInterfaceController {
     }()
     
     /// Map View
-    @IBOutlet var staticMap: WKInterfaceMap!
     let map = GPXMapView()
-    
+    let distanceFormatter = WKDistanceText()
     
     /// Map View delegate
     //let mapViewDelegate = MapViewDelegate()
@@ -126,10 +125,11 @@ class InterfaceController: WKInterfaceController {
                 stopWatch.reset()
                 timeLabel.setText(stopWatch.elapsedTimeString)
                 
-                //map.clearMap() //clear map
+                map.clearMap() //clear map
                 lastGpxFilename = "" //clear last filename, so when saving it appears an empty field
                 
-                //totalTrackedDistanceLabel.distance = (map.totalTrackedDistance)
+                distanceFormatter.distance = map.totalTrackedDistance
+                totalTrackedDistanceLabel.setText(distanceFormatter.formattedText)
                 //currentSegmentDistanceLabel.distance = (map.currentSegmentDistance)
                 
                 /*
@@ -189,13 +189,13 @@ class InterfaceController: WKInterfaceController {
         
         locationManager.delegate = self
         locationManager.startUpdatingLocation()
-        
+        /*
         // set default zoom
         let center = locationManager.location?.coordinate ?? CLLocationCoordinate2D(latitude: 8.90, longitude: -79.50)
         let span = MKCoordinateSpan(latitudeDelta: 0.005, longitudeDelta: 0.005)
         let region = MKCoordinateRegion(center: center, span: span)
         staticMap.setRegion(region)
-        
+        */
         //locationManager.startUpdatingHeading()
         // WatchKit does not have heading
         
@@ -523,7 +523,10 @@ extension InterfaceController: CLLocationManagerDelegate {
         if gpxTrackingStatus == .tracking {
             print("didUpdateLocation: adding point to track (\(newLocation.coordinate.latitude),\(newLocation.coordinate.longitude))")
             map.addPointToCurrentTrackSegmentAtLocation(newLocation)
+            
             //totalTrackedDistanceLabel.distance = map.totalTrackedDistance
+            distanceFormatter.distance = map.totalTrackedDistance
+            totalTrackedDistanceLabel.setText(distanceFormatter.formattedText)
             //currentSegmentDistanceLabel.distance = map.currentSegmentDistance
         }
     }

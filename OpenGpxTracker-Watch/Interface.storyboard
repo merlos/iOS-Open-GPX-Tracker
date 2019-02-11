@@ -23,7 +23,7 @@
                                                 <label height="0.5" alignment="center" text="00:00" id="xum-IR-If6">
                                                     <fontDescription key="font" style="UICTFontTextStyleTitle2"/>
                                                 </label>
-                                                <label height="0.5" alignment="center" text="0km" id="jLD-vq-fZz">
+                                                <label height="0.5" alignment="center" text="0m" id="jLD-vq-fZz">
                                                     <fontDescription key="font" style="UICTFontTextStyleCaption1"/>
                                                 </label>
                                             </items>
@@ -37,7 +37,7 @@
                                         </button>
                                     </items>
                                 </group>
-                                <button width="1" height="0.29999999999999999" alignment="left" verticalAlignment="center" title="Start" id="exN-t4-It8">
+                                <button width="1" height="0.29999999999999999" alignment="left" verticalAlignment="center" title="Start Tracking" id="exN-t4-It8">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <color key="backgroundColor" red="0.48513797563195243" green="0.79364292512690349" blue="0.37195783073278693" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <connections>
@@ -65,24 +65,30 @@
                             <variation key="device=watch42mm" height="174"/>
                             <variation key="device=watch44mm" height="193"/>
                         </group>
-                        <group width="1" height="151" alignment="left" layout="vertical" id="qC3-2k-9N7">
+                        <button width="1" height="35" alignment="left" title="Files" id="3QZ-4r-aMl">
+                            <connections>
+                                <segue destination="77f-od-duZ" kind="push" id="sJU-Es-f2K"/>
+                            </connections>
+                        </button>
+                        <separator alignment="left" alpha="0.84999999999999998" id="2vG-BF-QWf">
+                            <color key="color" red="1" green="0.94381925870000005" blue="0.0020686525409999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </separator>
+                        <group width="1" alignment="left" layout="vertical" id="qC3-2k-9N7">
                             <items>
-                                <button width="1" height="0.20000000000000001" alignment="left" title="Files" id="3QZ-4r-aMl">
-                                    <connections>
-                                        <segue destination="77f-od-duZ" kind="push" id="sJU-Es-f2K"/>
-                                    </connections>
-                                </button>
-                                <map height="0.80000000000000004" alignment="left" id="0Wh-nz-fdr"/>
-                            </items>
-                            <variation key="device=watch40mm" height="169"/>
-                            <variation key="device=watch42mm" height="174"/>
-                            <variation key="device=watch44mm" height="193"/>
-                        </group>
-                        <separator alignment="left" id="K62-AJ-yCD"/>
-                        <group width="1" height="127" alignment="left" id="It9-gT-zLU">
-                            <items>
-                                <label alignment="left" text="Information" id="hgQ-LB-Bbs">
+                                <label alignment="left" text="Information" id="C99-SC-jQR">
                                     <fontDescription key="font" style="UICTFontTextStyleTitle3"/>
+                                </label>
+                                <label alignment="left" text="Latitude" id="oCc-3I-GbC">
+                                    <fontDescription key="font" style="UICTFontTextStyleFootnote"/>
+                                </label>
+                                <label alignment="left" text="Longitude" id="wh4-cP-QA2">
+                                    <fontDescription key="font" style="UICTFontTextStyleFootnote"/>
+                                </label>
+                                <label alignment="right" text="Altitude" id="fLq-xh-Kj9">
+                                    <fontDescription key="font" style="UICTFontTextStyleFootnote"/>
+                                </label>
+                                <label alignment="center" verticalAlignment="center" text="Speed" id="9yb-Lf-Jav">
+                                    <fontDescription key="font" style="UICTFontTextStyleFootnote"/>
                                 </label>
                             </items>
                         </group>
@@ -91,14 +97,13 @@
                         <outlet property="newPinButton" destination="juk-oB-3vV" id="rz4-pG-LHx"/>
                         <outlet property="resetButton" destination="g9l-MU-PFV" id="Gx7-5m-Amd"/>
                         <outlet property="saveButton" destination="Yfa-t6-5Sk" id="qwm-ev-821"/>
-                        <outlet property="staticMap" destination="0Wh-nz-fdr" id="iZZ-re-KAM"/>
                         <outlet property="timeLabel" destination="xum-IR-If6" id="bWq-z8-ANc"/>
+                        <outlet property="totalTrackedDistanceLabel" destination="jLD-vq-fZz" id="DHA-Fg-fPY"/>
                         <outlet property="trackerButton" destination="exN-t4-It8" id="pZy-QD-KGQ"/>
-                        <outlet property="trackerDistanceLabel" destination="jLD-vq-fZz" id="Tdh-hG-Mbe"/>
                     </connections>
                 </controller>
             </objects>
-            <point key="canvasLocation" x="5" y="87"/>
+            <point key="canvasLocation" x="5" y="98.5"/>
         </scene>
         <!--File Table Interface Controller-->
         <scene sceneID="yaQ-0v-lly">
@@ -111,7 +116,13 @@
                                     <group key="rootItem" width="1" height="40" alignment="left" id="ahD-rE-FA3">
                                         <items>
                                             <label width="1" height="1" alignment="left" text="File Name" id="Nkq-Do-muS">
-                                                <fontDescription key="font" style="UICTFontTextStyleHeadline"/>
+                                                <fontDescription key="font" type="system" weight="medium" pointSize="15"/>
+                                                <variation key="device=watch38mm">
+                                                    <fontDescription key="font" type="system" weight="medium" pointSize="12"/>
+                                                </variation>
+                                                <variation key="device=watch40mm">
+                                                    <fontDescription key="font" type="system" weight="medium" pointSize="12"/>
+                                                </variation>
                                             </label>
                                         </items>
                                     </group>
