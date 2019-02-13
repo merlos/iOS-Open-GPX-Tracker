@@ -10,8 +10,8 @@ import Foundation
 /// An email address. Broken into two parts (id and domain) to help prevent email harvesting.
 open class GPXEmail: GPXElement {
     
-    var emailID: String?
-    var domain: String?
+    public var emailID: String?
+    public var domain: String?
     
     // MARK:- Instance
     
@@ -24,6 +24,11 @@ open class GPXEmail: GPXElement {
     public init(emailID: String, domain: String) {
         self.emailID = emailID
         self.domain = domain
+    }
+    
+    init(dictionary: [String : String]) {
+        self.emailID = dictionary["id"]
+        self.domain = dictionary["domain"]
     }
     
     // MARK:- Tag

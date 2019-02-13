@@ -9,9 +9,9 @@ import Foundation
 
 open class GPXPerson: GPXElement {
     
-    var name: String
-    var email: GPXEmail?
-    var link: GPXLink?
+    public var name: String?
+    public var email: GPXEmail?
+    public var link: GPXLink?
     
     // MARK:- Instance
     
@@ -19,6 +19,11 @@ open class GPXPerson: GPXElement {
         name = String()
         email = GPXEmail()
         link = GPXLink()
+        super.init()
+    }
+    
+    init(dictionary: [String : String]) {
+        name = dictionary["name"]
         super.init()
     }
     

@@ -45,6 +45,7 @@
 		89F8749F1BBCB97F004EF41A /* GPXRoot+length.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89F8749E1BBCB97F004EF41A /* GPXRoot+length.swift */; };
 		89F874A11BBCC74C004EF41A /* UIDistanceLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89F874A01BBCC74C004EF41A /* UIDistanceLabel.swift */; };
 		BF36B6CF220C6F1A00077B46 /* GPXFileTableInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF36B6CE220C6F1A00077B46 /* GPXFileTableInterfaceController.swift */; };
+		BF620C082213E2EA006FA633 /* WatchConnectivityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF620C072213E2EA006FA633 /* WatchConnectivityManager.swift */; };
 		BF625D3522118DF30040C3D2 /* WKDistanceText.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF625D3422118DF30040C3D2 /* WKDistanceText.swift */; };
 		BF6428B8220EC1A90015447E /* GPXFileTableRowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF6428B7220EC1A90015447E /* GPXFileTableRowController.swift */; };
 		BF64602F220AE9CF00957FF6 /* GPXTrackSegment+MapKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 899D676B19CD9E9E00C88A0A /* GPXTrackSegment+MapKit.swift */; };
@@ -175,6 +176,7 @@
 		95D28CBDF2535138FA16F38F /* Pods_OpenGpxTracker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OpenGpxTracker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A591D96EF2E41D00AD6BB3A /* Pods-OpenGpxTracker-Watch Extension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenGpxTracker-Watch Extension.debug.xcconfig"; path = "Pods/Target Support Files/Pods-OpenGpxTracker-Watch Extension/Pods-OpenGpxTracker-Watch Extension.debug.xcconfig"; sourceTree = "<group>"; };
 		BF36B6CE220C6F1A00077B46 /* GPXFileTableInterfaceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPXFileTableInterfaceController.swift; sourceTree = "<group>"; };
+		BF620C072213E2EA006FA633 /* WatchConnectivityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchConnectivityManager.swift; sourceTree = "<group>"; };
 		BF625D3422118DF30040C3D2 /* WKDistanceText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WKDistanceText.swift; sourceTree = "<group>"; };
 		BF6428B7220EC1A90015447E /* GPXFileTableRowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPXFileTableRowController.swift; sourceTree = "<group>"; };
 		BF646031220B0C6400957FF6 /* GPXMapView-watchOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GPXMapView-watchOS.swift"; sourceTree = "<group>"; };
@@ -249,6 +251,7 @@
 				89EA86602157A08E002E03A7 /* Date+timeAgo.swift */,
 				89EA86642157C444002E03A7 /* Int+asFilesize.swift */,
 				89EA86622157B42C002E03A7 /* GPXFileInfo.swift */,
+				BF620C072213E2EA006FA633 /* WatchConnectivityManager.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -635,7 +638,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-OpenGpxTracker/Pods-OpenGpxTracker-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-OpenGpxTracker/Pods-OpenGpxTracker-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Cache/Cache.framework",
 				"${BUILT_PRODUCTS_DIR}/CoreGPX-iOS/CoreGPX.framework",
 				"${BUILT_PRODUCTS_DIR}/CryptoSwift-iOS/CryptoSwift.framework",
@@ -648,7 +651,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-OpenGpxTracker/Pods-OpenGpxTracker-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-OpenGpxTracker/Pods-OpenGpxTracker-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		DC6FB8E11C49DF2C00B378D4 /* SwiftLint */ = {
@@ -671,7 +674,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-OpenGpxTracker-Watch Extension/Pods-OpenGpxTracker-Watch Extension-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-OpenGpxTracker-Watch Extension/Pods-OpenGpxTracker-Watch Extension-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/CoreGPX-watchOS/CoreGPX.framework",
 				"${BUILT_PRODUCTS_DIR}/CryptoSwift-watchOS/CryptoSwift.framework",
 			);
@@ -682,7 +685,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-OpenGpxTracker-Watch Extension/Pods-OpenGpxTracker-Watch Extension-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-OpenGpxTracker-Watch Extension/Pods-OpenGpxTracker-Watch Extension-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -702,6 +705,7 @@
 				89EA86652157C444002E03A7 /* Int+asFilesize.swift in Sources */,
 				8913CD8E1BDB2477009EC729 /* PreferencesTableViewControllerDelegate.swift in Sources */,
 				899D676E19CD9FAF00C88A0A /* GPXTrackPoint+MapKit.swift in Sources */,
+				BF620C082213E2EA006FA633 /* WatchConnectivityManager.swift in Sources */,
 				89F8749B1BBB7362004EF41A /* GPXTrack+length.swift in Sources */,
 				8991CA3F1D3F01D10092E1DE /* TrackRecorder.swift in Sources */,
 				899D678219D351DA00C88A0A /* AboutViewController.swift in Sources */,

@@ -220,7 +220,10 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
             return
         }
         print("Load gpx File: \(gpxFileInfo.fileName)")
-        let gpx = GPXParser(withURL: gpxFileInfo.fileURL).parsedData()
+        guard let gpx = GPXParser(withURL: gpxFileInfo.fileURL)?.parsedData() else {
+            print("GPXFileTableViewController:: actionLoadFileAtIndex(\(rowIndex)): failed to parse GPX file")
+            return
+        }
         self.delegate?.didLoadGPXFileWithName(gpxFileInfo.fileName, gpxRoot: gpx)
         self.dismiss(animated: true, completion: nil)
         

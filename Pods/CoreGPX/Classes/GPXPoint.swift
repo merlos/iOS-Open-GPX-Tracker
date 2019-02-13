@@ -10,10 +10,10 @@ import Foundation
 
 open class GPXPoint: GPXElement {
 
-    var elevation: Double? = Double()
-    var time: Date = Date()
-    var latitude: Double? = Double()
-    var longitude: Double? = Double()
+    public var elevation: Double?
+    public var time: Date?
+    public var latitude: Double?
+    public var longitude: Double?
     
     // MARK:- Instance
     
@@ -22,8 +22,24 @@ open class GPXPoint: GPXElement {
     }
     
     public init(latitude: Double, longitude: Double) {
+        super.init()
         self.latitude = latitude
         self.longitude = longitude
+    }
+    
+    init(dictionary: [String : String]) {
+        super.init()
+        self.latitude = number(from: dictionary["lat"])
+        self.longitude = number(from: dictionary["lon"])
+        self.elevation = number(from: dictionary["ele"])
+        self.time = ISO8601DateParser.parse(dictionary["time"])
+    }
+    
+    func number(from string: String?) -> Double? {
+        guard let NonNilString = string else {
+            return nil
+        }
+        return Double(NonNilString)
     }
     
     // MARK:- Tag

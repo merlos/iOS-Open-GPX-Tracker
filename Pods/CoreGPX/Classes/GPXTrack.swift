@@ -9,15 +9,14 @@ import Foundation
 
 open class GPXTrack: GPXElement {
     
-    public var links = [GPXLink]()
+    public var link: GPXLink?
     public var tracksegments = [GPXTrackSegment]()
-    public var numberValue = String()
-    public var name = String()
-    public var comment = String()
-    public var desc = String()
-    public var source = String()
-    public var number = Int()
-    public var type = String()
+    public var name: String?
+    public var comment: String?
+    public var desc: String?
+    public var source: String?
+    public var number: Int?
+    public var type: String?
     public var extensions: GPXExtensions?
 
     
@@ -25,13 +24,30 @@ open class GPXTrack: GPXElement {
         super.init()
     }
     
+    init(dictionary: [String : String]) {
+        super.init()
+        self.number = integer(from: dictionary["number"])
+        self.name = dictionary["name"]
+        self.comment = dictionary["cmt"]
+        self.desc = dictionary["desc"]
+        self.source = dictionary["src"]
+        self.type = dictionary["type"]
+    }
+    
+    private func integer(from string: String?) -> Int? {
+        guard let NonNilString = string else {
+            return nil
+        }
+        return Int(NonNilString)
+    }
+    
     // MARK:- Public Methods
     
     open func newLink(withHref href: String) -> GPXLink {
-        let link: GPXLink = GPXLink().link(with: href)
+        let link = GPXLink(withHref: href)
         return link
     }
-    
+    /*
     open func add(link: GPXLink?) {
         if let validLink = link {
             validLink.parent = self
@@ -53,7 +69,7 @@ open class GPXTrack: GPXElement {
             }
         }
     }
-    
+    */
     open func newTrackSegment() -> GPXTrackSegment {
         let tracksegment = GPXTrackSegment()
         self.add(trackSegment: tracksegment)
@@ -110,12 +126,12 @@ open class GPXTrack: GPXElement {
         self.addProperty(forValue: desc, gpx: gpx, tagName: "desc", indentationLevel: indentationLevel)
         self.addProperty(forValue: source, gpx: gpx, tagName: "src", indentationLevel: indentationLevel)
         
-        for link in links {
+        if let link = link {
             link.gpx(gpx, indentationLevel: indentationLevel)
         }
         
-        self.addProperty(forValue: numberValue, gpx: gpx, tagName: "number", indentationLevel: indentationLevel)
-        self.addProperty(forValue: type, gpx: gpx, tagName: "number", indentationLevel: indentationLevel)
+        self.addProperty(forIntegerValue: number, gpx: gpx, tagName: "number", indentationLevel: indentationLevel)
+        self.addProperty(forValue: type, gpx: gpx, tagName: "type", indentationLevel: indentationLevel)
         
         if extensions != nil {
             self.extensions?.gpx(gpx, indentationLevel: indentationLevel)

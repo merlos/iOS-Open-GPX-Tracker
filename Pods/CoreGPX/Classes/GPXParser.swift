@@ -9,7 +9,7 @@ import Foundation
 
 open class GPXParser: NSObject, XMLParserDelegate {
     
-    var parser: XMLParser
+    private var parser: XMLParser
     
     // MARK:- Initializers
     
@@ -19,7 +19,7 @@ open class GPXParser: NSObject, XMLParserDelegate {
         self.parser.delegate = self
         self.parser.parse()
     }
-    
+    /*
     public init(withPath path: String) {
         self.parser = XMLParser()
         super.init()
@@ -34,21 +34,27 @@ open class GPXParser: NSObject, XMLParserDelegate {
             print(error)
         }
     }
+    */
     
-    public init(withURL url: URL) {
-        self.parser = XMLParser()
+    public init?(withURL url: URL) {
+        guard let urlParser = XMLParser(contentsOf: url) else { return nil }
+        self.parser = urlParser
         super.init()
-        do {
-            let data = try Data(contentsOf: url)
-            self.parser = XMLParser(data: data)
-            self.parser.delegate = self
-            self.parser.parse()
-        }
-        catch {
-            print(error)
-        }
+        self.parser.delegate = self
+        self.parser.parse()
     }
     
+    convenience init?(withPath path: String) {
+        guard let url = URL(string: path) else { return nil }
+        self.init(withURL: url)
+    }
+    
+    public init(withStream stream: InputStream) {
+        self.parser = XMLParser(stream: stream)
+        super.init()
+        self.parser.delegate = self
+        self.parser.parse()
+    }
     // MARK:- GPX Parsing
     
     var element = String()
@@ -66,12 +72,20 @@ open class GPXParser: NSObject, XMLParserDelegate {
     // Dictionary of element
 
     var waypointDict = [String : String]()
+    var trackDict = [String : String]()
     var trackpointDict = [String : String]()
+    var routeDict = [String : String]()
     var routepointDict = [String : String]()
-    var metadataDict = [String : String]()
+    
+    var linkDict = [String : String]()
     var extensionsDict = [String : String]()
     
-    var linkDict = [String:String]()
+    // metadata types
+    var metadataDict = [String : String]()
+    var boundsDict = [String : String]()
+    var authorDict = [String : String]()
+    var emailDict = [String : String]()
+    var copyrightDict = [String : String]()
     
 
     var metadata: GPXMetadata?
@@ -89,6 +103,16 @@ open class GPXParser: NSObject, XMLParserDelegate {
   
     var isLink = false
     var elementHasLink = false
+    
+    // for metadata
+    var isBounds = false
+    var elementHasBounds = false
+    var isAuthor = false
+    var elementHasAuthor = false
+    var isEmail = false
+    var elementHasEmail = false
+    var isCopyright = false
+    var elementHasCopyright = false
 
     public func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String] = [:]) {
         
@@ -116,11 +140,25 @@ open class GPXParser: NSObject, XMLParserDelegate {
         case "metadata":
             isMetadata = true
         case "extensions":
-
             isExtensions = true
         case "link":
             isLink = true
             linkDict["href"] = attributeDict["href"]
+        
+        // for metadata
+        case "bounds":
+            isBounds = true
+            boundsDict["minlon"] = attributeDict["minlon"]
+            boundsDict["maxlon"] = attributeDict["maxlon"]
+            boundsDict["minlat"] = attributeDict["minlat"]
+            boundsDict["maxlat"] = attributeDict["maxlat"]
+        case "author":
+            isAuthor = true
+        case "email":
+            isEmail = true
+        case "copyright":
+            isCopyright = true
+            copyrightDict["author"] = attributeDict["author"]
         default:
             break
         }
@@ -140,6 +178,12 @@ open class GPXParser: NSObject, XMLParserDelegate {
                         waypointDict[element] = foundString
                     }
                 }
+                if isTrack {
+                    if isLink {
+                        linkDict[element] = foundString
+                    }
+                    trackDict[element] = foundString
+                }
                 if isTrackPoint {
                     if isLink {
                         linkDict[element] = foundString
@@ -147,6 +191,12 @@ open class GPXParser: NSObject, XMLParserDelegate {
                     else {
                         trackpointDict[element] = foundString
                     }
+                }
+                if isRoute {
+                    if isLink {
+                        linkDict[element] = foundString
+                    }
+                    routeDict[element] = foundString
                 }
                 if isRoutePoint {
                     if isLink {
@@ -157,8 +207,25 @@ open class GPXParser: NSObject, XMLParserDelegate {
                     }
                 }
                 if isMetadata {
-                    if isLink {
+                    if isLink && !isAuthor {
                         linkDict[element] = foundString
+                    }
+                    if isBounds {
+                        // do nothing
+                    }
+                    if isAuthor {
+                        if isLink {
+                            linkDict[element] = foundString
+                        }
+                        else {
+                            if isEmail {
+                                emailDict[element] = foundString
+                            }
+                            authorDict[element] = foundString
+                        }
+                    }
+                    if isCopyright {
+                        copyrightDict[element] = foundString
                     }
                     else {
                         metadataDict[element] = foundString
@@ -176,10 +243,48 @@ open class GPXParser: NSObject, XMLParserDelegate {
         switch elementName {
         case "metadata":
             self.metadata = GPXMetadata(dictionary: metadataDict)
-            if elementHasLink {
+            if elementHasLink && !elementHasAuthor {
                 self.metadata?.link = GPXLink(dictionary: linkDict)
+                
+                // clear values
                 linkDict.removeAll()
                 elementHasLink = false
+            }
+            if elementHasBounds {
+                self.metadata?.bounds = GPXBounds(dictionary: boundsDict)
+                
+                // clear values
+                boundsDict.removeAll()
+                elementHasBounds = false
+            }
+            if elementHasAuthor {
+                let author = GPXAuthor(dictionary: authorDict)
+                if elementHasLink {
+                    author.link = GPXLink(dictionary: linkDict)
+                    
+                    // clear values
+                    linkDict.removeAll()
+                    elementHasLink = false
+                }
+                if elementHasEmail {
+                    author.email = GPXEmail(dictionary: emailDict)
+                    
+                    // clear values
+                    emailDict.removeAll()
+                    elementHasEmail = false
+                }
+                self.metadata?.author = author
+                
+                // clear values
+                authorDict.removeAll()
+                elementHasAuthor = false
+            }
+            if elementHasCopyright {
+                self.metadata?.copyright = GPXCopyright(dictionary: copyrightDict)
+                
+                // clear values
+                copyrightDict.removeAll()
+                elementHasCopyright = false
             }
           
             // clear values
@@ -213,8 +318,13 @@ open class GPXParser: NSObject, XMLParserDelegate {
             waypointDict.removeAll()
             
         case "rte":
-            let tempRoute = GPXRoute()
+            let tempRoute = GPXRoute(dictionary: routeDict)
             tempRoute.add(routepoints: self.routepoints)
+            if elementHasLink {
+                tempRoute.link = GPXLink(dictionary: linkDict)
+                linkDict.removeAll()
+                elementHasLink = false
+            }
             self.routes.append(tempRoute)
             
             // clear values
@@ -232,15 +342,21 @@ open class GPXParser: NSObject, XMLParserDelegate {
             
             // clear values
             isRoutePoint = false
-            routepointDict.removeAll()
+            self.routepointDict.removeAll()
             
         case "trk":
-            let tempTrack = GPXTrack()
+            let tempTrack = GPXTrack(dictionary: trackDict)
             tempTrack.add(trackSegments: self.tracksegements)
+            if elementHasLink {
+                tempTrack.link = GPXLink(dictionary: linkDict)
+                linkDict.removeAll()
+                elementHasLink = false
+            }
             self.tracks.append(tempTrack)
             
             //clear values
             isTrack = false
+            self.trackDict.removeAll()
             self.tracksegements.removeAll()
             
         case "trkseg":
@@ -261,9 +377,32 @@ open class GPXParser: NSObject, XMLParserDelegate {
         case "link":
             elementHasLink = true
             
-            //clear values
+            // clear values
             isLink = false
             
+        case "bounds":
+            elementHasBounds = true
+            
+            // clear values
+            isBounds = false
+            
+        case "author":
+            elementHasAuthor = true
+            
+            // clear values
+            isAuthor = false
+            
+        case "email":
+            elementHasEmail = true
+            
+            // clear values
+            isEmail = false
+            
+        case "copyright":
+            elementHasCopyright = true
+            
+            // clear values
+            isCopyright = false
         default:
             break
         }

@@ -22,7 +22,7 @@ open class GPXRoot: GPXElement {
     public required init() {
         super.init()
         
-        creator = "OSS Project"
+        creator = "Powered by Open Source CoreGPX Project"
         
     }
     

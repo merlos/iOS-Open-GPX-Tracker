@@ -9,7 +9,7 @@ import Foundation
 
 open class GPXPointSegment: GPXElement {
     
-    var points = [GPXPoint]()
+    public var points = [GPXPoint]()
     
     // MARK:- Instance
     

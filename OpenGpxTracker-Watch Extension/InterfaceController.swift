@@ -59,6 +59,11 @@ class InterfaceController: WKInterfaceController {
     @IBOutlet var totalTrackedDistanceLabel: WKInterfaceLabel!
     @IBOutlet var signalImageView: WKInterfaceImage!
     @IBOutlet var signalAccuracyLabel: WKInterfaceLabel!
+    @IBOutlet var latitudeLabel: WKInterfaceLabel!
+    @IBOutlet var longitudeLabel: WKInterfaceLabel!
+    @IBOutlet var elevationLabel: WKInterfaceLabel!
+    @IBOutlet var speedLabel: WKInterfaceLabel!
+    
     
     //MapView
     let locationManager: CLLocationManager = {
@@ -486,7 +491,7 @@ extension InterfaceController: CLLocationManagerDelegate {
         //updates signal image accuracy
         let newLocation = locations.first!
         //print("isUserLocationVisible: \(map.isUserLocationVisible) showUserLocation: \(map.showsUserLocation)")
-        //print("didUpdateLocation: received \(newLocation.coordinate) hAcc: \(newLocation.horizontalAccuracy) vAcc: \(newLocation.verticalAccuracy) floor: \(newLocation.floor?.description ?? "''") map.userTrackingMode: \(map.userTrackingMode.rawValue)")
+        print("didUpdateLocation: received \(newLocation.coordinate) hAcc: \(newLocation.horizontalAccuracy) vAcc: \(newLocation.verticalAccuracy) floor: \(newLocation.floor?.description ?? "''")")
         
         let hAcc = newLocation.horizontalAccuracy
 
@@ -507,12 +512,17 @@ extension InterfaceController: CLLocationManagerDelegate {
             self.signalImageView.setImage(signalImage0)
         }
         
-        /*
-        //Update coordsLabel
+        // Update coordsLabels
         let latFormat = String(format: "%.6f", newLocation.coordinate.latitude)
         let lonFormat = String(format: "%.6f", newLocation.coordinate.longitude)
         let altFormat = String(format: "%.2f", newLocation.altitude)
-        coordsLabel.text = "(\(latFormat),\(lonFormat)) · altitude: \(altFormat)m"
+        
+        latitudeLabel.setText(latFormat)
+        longitudeLabel.setText(lonFormat)
+        elevationLabel.setText("\(altFormat) m")
+
+        
+    
         
         
         //Update speed (provided in m/s, but displayed in km/h)
@@ -522,8 +532,8 @@ extension InterfaceController: CLLocationManagerDelegate {
         } else {
             speedFormat = String(format: "%.2f", (newLocation.speed * 3.6))
         }
-        speedLabel.text = "\(speedFormat) km/h"
-        */
+        speedLabel.setText("\(speedFormat) km/h")
+        
         
         //Update Map center and track overlay if user is being followed
         /*

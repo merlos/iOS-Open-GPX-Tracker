@@ -30,26 +30,25 @@ open class GPXLink: GPXElement {
         super.init()
     }
     
-    init(dictionary: [String:String]) {
-        self.href = dictionary["href"]
-        self.mimetype = dictionary["mimetype"]
-        self.text = dictionary["text"]
-    }
-    
     /// ---------------------------------
     /// @name Create Link
     /// ---------------------------------
     
     /** Creates and returns a new link element.
      @param href URL of hyperlink
-     @return A newly created link element.
-     */
-    func link(with href: String) -> GPXLink {
-        let link = GPXLink()
-        link.href = href
-        
-        return link
+     @return A newly created link element.*/
+    public init(withHref href: String) {
+        self.href = href
+        self.mimetype = String()
+        self.text = String()
     }
+    
+    init(dictionary: [String : String]) {
+        self.href = dictionary["href"]
+        self.mimetype = dictionary["mimetype"]
+        self.text = dictionary["text"]
+    }
+    
     
     // MARK:- Public Methods
     

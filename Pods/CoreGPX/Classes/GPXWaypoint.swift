@@ -83,37 +83,10 @@ open class GPXWaypoint: GPXElement {
     }
     
     open func newLink(withHref href: String) -> GPXLink {
-        let link = GPXLink().link(with: href)
+        let link = GPXLink(withHref: href)
         return link
     }
-    /*
-    open func add(link: GPXLink?) {
-        if let link = link {
-            let contains = links.contains(link)
-            if contains == false {
-                link.parent = self
-                links.append(link)
-            }
-        }
-    }
     
-    open func add(links: [GPXLink]) {
-        for link in links {
-            add(link: link)
-        }
-    }
-    
-    open func remove(Link link: GPXLink) {
-        let contains = links.contains(link)
-        
-        if contains == true {
-            link.parent = nil
-            if let index = links.firstIndex(of: link) {
-                links.remove(at: index)
-            }
-        }
-    }
-*/
     // MARK:- Tag
     
     override func tagName() -> String {
