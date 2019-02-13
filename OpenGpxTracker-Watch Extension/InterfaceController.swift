@@ -218,13 +218,15 @@ class InterfaceController: WKInterfaceController {
         
         
         trackerButton.setBackgroundColor(kGreenButtonBackgroundColor)
-        
         newPinButton.setBackgroundColor(kWhiteBackgroundColor)
-        
         saveButton.setBackgroundColor(kDisabledRedButtonBackgroundColor)
-        
         resetButton.setBackgroundColor(kDisabledRedButtonBackgroundColor)
         
+        latitudeLabel.setText(kNotGettingLocationText)
+        longitudeLabel.setText(kNotGettingLocationText)
+        signalAccuracyLabel.setText(kUnknownAccuracyText)
+        elevationLabel.setText("0.00 m")
+        speedLabel.setText("0.00 km/h")
         
     }
     
@@ -465,7 +467,8 @@ extension InterfaceController: CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print("didFailWithError \(error)")
-        //coordsLabel.text = kNotGettingLocationText
+        latitudeLabel.setText(kNotGettingLocationText)
+        longitudeLabel.setText(kNotGettingLocationText)
         //signalAccuracyLabel.text = kUnknownAccuracyText
         //signalImageView.image = signalImage0
         let locationError = error as? CLError

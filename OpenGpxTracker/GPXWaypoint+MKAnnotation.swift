@@ -58,7 +58,7 @@ extension GPXWaypoint : MKAnnotation {
             self.longitude = newValue.longitude
         }
         get {
-            return CLLocationCoordinate2D(latitude: CLLocationDegrees(self.latitude!), longitude: CLLocationDegrees(self.longitude!))
+            return CLLocationCoordinate2D(latitude: self.latitude!, longitude: CLLocationDegrees(self.longitude!))
         }
     }    
 }

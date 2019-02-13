@@ -9,6 +9,7 @@ import UIKit
 import CoreLocation
 import MapKit
 import CoreGPX
+import WatchConnectivity
 
 //Button colors
 let kPurpleButtonBackgroundColor: UIColor =  UIColor(red: 146.0/255.0, green: 166.0/255.0, blue: 218.0/255.0, alpha: 0.90)
@@ -112,6 +113,9 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
             }
         }
     }
+    
+    ///
+    private let session : WCSession? = WCSession.isSupported() ? WCSession.default : nil
    
     /// Defines the different statuses regarding tracking current user location.
     enum GpxTrackingStatus {
@@ -296,6 +300,9 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
                 print("UNDETERMINED")
             }
         }
+        
+        session?.delegate = self
+        session?.activate()
         
         // Map autorotate configuration
         map.autoresizesSubviews = true
@@ -1111,3 +1118,36 @@ extension ViewController: CLLocationManagerDelegate {
         
     }
 }
+
+extension ViewController: WCSessionDelegate {
+    
+    func sessionDidBecomeInactive(_ session: WCSession) {
+        print("GPXFilesTableViewController:: WCSession has become inactive")
+    }
+    
+    func sessionDidDeactivate(_ session: WCSession) {
+        print("GPXFilesTableViewController:: WCSession has deactivated")
+    }
+    
+    func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
+        switch activationState {
+        case .activated:
+            print("GPXFilesTableViewController:: activationDidCompleteWithActivationState: session activated")
+        case .inactive:
+            print("GPXFilesTableViewController:: activationDidCompleteWithActivationState: session inactive")
+        case .notActivated:
+            print("GPXFilesTableViewController:: activationDidCompleteWithActivationState: session not activated, error:\(String(describing: error))")
+            
+        default: break
+        }
+    }
+    
+    func session(_ session: WCSession, didReceive file: WCSessionFile) {
+        DispatchQueue.global().sync {
+            GPXFileManager.moveFrom(file.fileURL, fileName: file.metadata!["fileName"] as! String?)
+            print("ViewController:: Received file from WatchConnectivity Session")
+            print("receivedFile: \(file.fileURL) <?>")
+        }
+    }
+}
+

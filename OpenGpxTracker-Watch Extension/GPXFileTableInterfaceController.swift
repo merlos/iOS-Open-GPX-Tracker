@@ -7,6 +7,7 @@
 //
 
 import WatchKit
+import WatchConnectivity
 
 /// Text displayed when there are no GPX files in the folder.
 let kNoFiles = "No gpx files"
@@ -24,6 +25,8 @@ class GPXFileTableInterfaceController: WKInterfaceController {
     /// Temporary variable to manage
     var selectedRowIndex = -1
     
+    private let session : WCSession? = WCSession.isSupported() ? WCSession.default : nil
+    
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)
         
@@ -34,6 +37,7 @@ class GPXFileTableInterfaceController: WKInterfaceController {
         // This method is called when watch view controller is about to be visible to user
         super.willActivate()
         self.setTitle("Your files")
+        session?.delegate = self
         
         // get gpx files
         let list: [GPXFileInfo] = GPXFileManager.fileList
@@ -44,6 +48,11 @@ class GPXFileTableInterfaceController: WKInterfaceController {
         }
         
         loadTableData()
+    }
+    
+    override func didAppear() {
+        session?.delegate = self
+        session?.activate()
     }
     
     /// Closes this view controller.
@@ -69,7 +78,7 @@ class GPXFileTableInterfaceController: WKInterfaceController {
     
     override func table(_ table: WKInterfaceTable, didSelectRowAt rowIndex: Int) {
         let shareOption = WKAlertAction(title: "Send to iOS app", style: .default) {
-            
+            self.actionTransferFileAtIndex(rowIndex)
         }
         let cancelOption = WKAlertAction(title: "Cancel", style: .cancel) {
             self.actionSheetCancel()
@@ -87,6 +96,18 @@ class GPXFileTableInterfaceController: WKInterfaceController {
     //
     // MARK: Action Sheet - Actions
     //
+    
+    
+    /// Attempts to transfer file to iOS app
+    func actionTransferFileAtIndex(_ rowIndex: Int) {
+        session?.activate()
+        guard let fileURL: URL = (fileList.object(at: rowIndex) as? GPXFileInfo)?.fileURL else {
+            print("GPXFileTableViewController:: actionTransferFileAtIndex: failed to get fileURL")
+            return
+        }
+        let gpxFileInfo = fileList.object(at: rowIndex) as! GPXFileInfo
+        session?.transferFile(fileURL, metadata: ["fileName" : "/\(gpxFileInfo.fileName).gpx"])
+    }
     
     // Cancel button is tapped.
     //
@@ -115,4 +136,30 @@ class GPXFileTableInterfaceController: WKInterfaceController {
         super.didDeactivate()
     }
 
+}
+
+
+/// Handles all the file transfer to iOS app processes
+extension GPXFileTableInterfaceController: WCSessionDelegate {
+    func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
+        switch activationState {
+        case .activated:
+            print("GPXFileTableInterfaceController:: activationDidCompleteWithActivationState: session activated")
+        case .inactive:
+             print("GPXFileTableInterfaceController:: activationDidCompleteWithActivationState: session inactive")
+        case .notActivated:
+            print("GPXFileTableInterfaceController:: activationDidCompleteWithActivationState: session not activated, error:\(String(describing: error))")
+
+        default: break
+        }
+    }
+    func session(_ session: WCSession, didFinish fileTransfer: WCSessionFileTransfer, error: Error?) {
+        let doneAction = WKAlertAction(title: "Done", style: .default) { }
+        guard let error = error else {
+            presentAlert(withTitle: "File Transfer", message: "GPX file successfully sent to iOS app", preferredStyle: .alert, actions: [doneAction])
+            return
+        }
+        presentAlert(withTitle: "File Transfer", message: "GPX file was unsuccessfully sent to iOS app, error: \(error) ", preferredStyle: .alert, actions: [doneAction])
+    }
+    
 }

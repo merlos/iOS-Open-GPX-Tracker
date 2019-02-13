@@ -82,7 +82,8 @@ class GPXMapView {
         //add the distance to previous tracked point
         if self.currentSegment.trackpoints.count >= 2 { //at elast there are two points in the segment
             let prevPt = self.currentSegment.trackpoints[self.currentSegment.trackpoints.count-2] //get previous point
-            let prevPtLoc = CLLocation(latitude: Double(prevPt.latitude!), longitude: Double(prevPt.longitude!))
+            guard let latitude = prevPt.latitude, let longitude = prevPt.longitude else { return }
+            let prevPtLoc = CLLocation(latitude: latitude, longitude: longitude)
             //now get the distance
             let distance = prevPtLoc.distance(from: location)
             self.currentTrackDistance += distance

@@ -131,6 +131,20 @@ class GPXFileManager: NSObject {
         GPXFileManager.saveToURL(fileURL, gpxContents: gpxContents)
     }
     
+    class func moveFrom(_ fileURL: URL, fileName: String?) {
+        guard let fileName = fileName else {
+            print("GPXFileManager:: save failed, error: file name is nil")
+            return
+        }
+        do {
+            let url = GPXFilesFolderURL.path + fileName
+            try FileManager().moveItem(atPath: fileURL.path, toPath: url)
+        }
+        catch {
+            print("GPXFileManager:: save failed, error: \(error)")
+        }
+    }
+    
     //Removes a file on the specified URL
     class func removeFileFromURL(_ fileURL: URL) {
         print("Removing file at path: \(fileURL)")

@@ -9,6 +9,7 @@ import Foundation
 import UIKit
 import CoreGPX
 import MessageUI
+import WatchConnectivity
 
 /// Text displayed when there are no GPX files in the folder.
 let kNoFiles = "No gpx files"
