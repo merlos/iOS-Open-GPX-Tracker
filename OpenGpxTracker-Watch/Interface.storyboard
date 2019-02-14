@@ -72,11 +72,15 @@
                         </button>
                         <group width="1" alignment="left" layout="vertical" id="qC3-2k-9N7">
                             <items>
-                                <group alignment="center" id="EN6-a8-HHf" userLabel="Signal Group">
+                                <group width="1" alignment="center" id="EN6-a8-HHf" userLabel="Signal Group">
                                     <items>
-                                        <imageView width="50" height="30" alignment="left" id="MRY-DF-JuJ"/>
-                                        <label alignment="right" verticalAlignment="bottom" text="signal" textAlignment="right" id="036-aK-7ie">
-                                            <fontDescription key="font" type="system" weight="thin" pointSize="12"/>
+                                        <group width="0.5" alignment="left" id="gQb-gE-E0c">
+                                            <items>
+                                                <imageView alignment="right" id="MRY-DF-JuJ"/>
+                                            </items>
+                                        </group>
+                                        <label alignment="left" verticalAlignment="bottom" text="signal" id="036-aK-7ie">
+                                            <fontDescription key="font" style="UICTFontTextStyleFootnote"/>
                                         </label>
                                     </items>
                                 </group>
@@ -94,7 +98,7 @@
                                         </label>
                                         <label alignment="left" text="latValue" id="oCc-3I-GbC">
                                             <color key="textColor" red="0.95294117647058818" green="0.5607843137254902" blue="0.66274509803921566" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            <fontDescription key="font" type="system" pointSize="12"/>
+                                            <fontDescription key="font" type="system" weight="semibold" pointSize="12"/>
                                         </label>
                                     </items>
                                 </group>
@@ -106,7 +110,7 @@
                                         </label>
                                         <label alignment="left" text="lonValue" id="wh4-cP-QA2">
                                             <color key="textColor" red="0.98039215686274506" green="0.97254901960784312" blue="0.51764705882352935" alpha="1" colorSpace="calibratedRGB"/>
-                                            <fontDescription key="font" type="system" pointSize="12"/>
+                                            <fontDescription key="font" type="system" weight="semibold" pointSize="12"/>
                                         </label>
                                     </items>
                                 </group>
@@ -118,7 +122,7 @@
                                         </label>
                                         <label alignment="left" text="altValue" id="fLq-xh-Kj9">
                                             <color key="textColor" red="0.59607843137254901" green="1" blue="0.59607843137254901" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            <fontDescription key="font" type="system" pointSize="12"/>
+                                            <fontDescription key="font" type="system" weight="semibold" pointSize="12"/>
                                         </label>
                                     </items>
                                 </group>
@@ -130,7 +134,7 @@
                                         </label>
                                         <label alignment="left" text="speedValue" id="9yb-Lf-Jav">
                                             <color key="textColor" red="0.68627450980392157" green="0.93333333333333335" blue="0.93333333333333335" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            <fontDescription key="font" type="system" pointSize="12"/>
+                                            <fontDescription key="font" type="system" weight="semibold" pointSize="12"/>
                                         </label>
                                     </items>
                                 </group>

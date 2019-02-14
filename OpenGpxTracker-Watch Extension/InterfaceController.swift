@@ -469,6 +469,10 @@ extension InterfaceController: CLLocationManagerDelegate {
         print("didFailWithError \(error)")
         latitudeLabel.setText(kNotGettingLocationText)
         longitudeLabel.setText(kNotGettingLocationText)
+        signalAccuracyLabel.setText(kUnknownAccuracyText)
+        elevationLabel.setText("0.00 m")
+        signalImageView.setImage(signalImage0)
+        speedLabel.setText("0.00 km/h")
         //signalAccuracyLabel.text = kUnknownAccuracyText
         //signalImageView.image = signalImage0
         let locationError = error as? CLError
