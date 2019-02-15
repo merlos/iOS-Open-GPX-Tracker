@@ -54,7 +54,6 @@ class InterfaceController: WKInterfaceController {
     @IBOutlet var trackerButton: WKInterfaceButton!
     @IBOutlet var saveButton: WKInterfaceButton!
     @IBOutlet var resetButton: WKInterfaceButton!
-    @IBOutlet var followUserButton: WKInterfaceButton!
     @IBOutlet var timeLabel: WKInterfaceLabel!
     @IBOutlet var totalTrackedDistanceLabel: WKInterfaceLabel!
     @IBOutlet var signalImageView: WKInterfaceImage!
@@ -65,7 +64,7 @@ class InterfaceController: WKInterfaceController {
     @IBOutlet var speedLabel: WKInterfaceLabel!
     
     
-    //MapView
+    // Location Manager
     let locationManager: CLLocationManager = {
         let manager = CLLocationManager()
         manager.requestAlwaysAuthorization()
@@ -77,12 +76,8 @@ class InterfaceController: WKInterfaceController {
     }()
     
     /// Map View
-    let map = GPXMapView()
+    let map = GPXMapView() // not even a map view. Considering renaming
     let distanceFormatter = DistanceFormatter()
-    
-    /// Map View delegate
-    //let mapViewDelegate = MapViewDelegate()
-    // not updated for Watch
 
     //Status Vars
     var stopWatch = StopWatch()
@@ -145,6 +140,7 @@ class InterfaceController: WKInterfaceController {
                 
                 distanceFormatter.distance = map.totalTrackedDistance
                 totalTrackedDistanceLabel.setText(distanceFormatter.formattedText)
+                
                 //currentSegmentDistanceLabel.distance = (map.currentSegmentDistance)
                 
                 /*
@@ -179,7 +175,7 @@ class InterfaceController: WKInterfaceController {
                 //pause clock
                 self.stopWatch.stop()
                 // start new track segment
-                //self.map.startNewTrackSegment()
+                self.map.startNewTrackSegment()
             }
         }
     }
@@ -213,22 +209,9 @@ class InterfaceController: WKInterfaceController {
         self.setTitle("GPX Tracker")
         
         stopWatch.delegate = self
-        //locationManager.delegate = self
         
         locationManager.delegate = self
         locationManager.startUpdatingLocation()
-        /*
-        // set default zoom
-        let center = locationManager.location?.coordinate ?? CLLocationCoordinate2D(latitude: 8.90, longitude: -79.50)
-        let span = MKCoordinateSpan(latitudeDelta: 0.005, longitudeDelta: 0.005)
-        let region = MKCoordinateRegion(center: center, span: span)
-        staticMap.setRegion(region)
-        */
-        //locationManager.startUpdatingHeading()
-        // WatchKit does not have heading
-        
-        addNotificationObservers()
-        
         
     }
     
@@ -301,38 +284,6 @@ class InterfaceController: WKInterfaceController {
     override func didDeactivate() {
         // This method is called when watch view controller is no longer visible
         super.didDeactivate()
-        removeNotificationObservers()
-    }
-    
-    ///
-    /// Asks the system to notify the app on some events
-    ///
-    /// Current implementation requests the system to notify the app:
-    ///
-    ///  1. whenever it enters background
-    ///  2. whenever it becomes active
-    ///  3. whenever it will terminate
-    ///
-    
-    func addNotificationObservers() {
-        let notificationCenter = NotificationCenter.default
-        /*
-        notificationCenter.addObserver(self, selector: #selector(InterfaceController.didEnterBackground),
-                                       name: WKApplicationState.background, object: nil)
-        
-        notificationCenter.addObserver(self, selector: #selector(applicationDidBecomeActive), name: UIApplication.didBecomeActiveNotification, object: nil)
-        
-        
-        notificationCenter.addObserver(self, selector: #selector(applicationWillTerminate), name: UIApplication.willTerminateNotification, object: nil)
- */
-    }
-    
-    
-    ///
-    /// Removes the notification observers
-    ///
-    func removeNotificationObservers() {
-        NotificationCenter.default.removeObserver(self)
     }
     
     /// returns a string with the format of current date dd-MMM-yyyy-HHmm' (20-Jun-2018-1133)
@@ -499,7 +450,6 @@ extension InterfaceController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         //updates signal image accuracy
         let newLocation = locations.first!
-        //print("isUserLocationVisible: \(map.isUserLocationVisible) showUserLocation: \(map.showsUserLocation)")
         print("didUpdateLocation: received \(newLocation.coordinate) hAcc: \(newLocation.horizontalAccuracy) vAcc: \(newLocation.verticalAccuracy) floor: \(newLocation.floor?.description ?? "''")")
         
         let hAcc = newLocation.horizontalAccuracy
@@ -529,10 +479,6 @@ extension InterfaceController: CLLocationManagerDelegate {
         latitudeLabel.setText(latFormat)
         longitudeLabel.setText(lonFormat)
         elevationLabel.setText("\(altFormat) m")
-
-        
-    
-        
         
         //Update speed (provided in m/s, but displayed in km/h)
         var speedFormat: String
@@ -543,18 +489,10 @@ extension InterfaceController: CLLocationManagerDelegate {
         }
         speedLabel.setText("\(speedFormat) km/h")
         
-        
-        //Update Map center and track overlay if user is being followed
-        /*
-        if followUser {
-            map.setCenter(newLocation.coordinate, animated: true)
-        }
- */
         if gpxTrackingStatus == .tracking {
             print("didUpdateLocation: adding point to track (\(newLocation.coordinate.latitude),\(newLocation.coordinate.longitude))")
             map.addPointToCurrentTrackSegmentAtLocation(newLocation)
             
-            //totalTrackedDistanceLabel.distance = map.totalTrackedDistance
             distanceFormatter.distance = map.totalTrackedDistance
             totalTrackedDistanceLabel.setText(distanceFormatter.formattedText)
             //currentSegmentDistanceLabel.distance = map.currentSegmentDistance
