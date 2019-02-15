@@ -258,18 +258,6 @@ class InterfaceController: WKInterfaceController {
         let action = WKAlertAction(title: "Done", style: .default) {}
         presentAlert(withTitle: "GPX file saved", message: "Current session saved as \(filename).gpx ", preferredStyle: .alert, actions: [action])
         
-        /*
-        let alert = UIAlertView(title: "Save as", message: "Enter GPX session name", delegate: self, cancelButtonTitle: "Cancel")
-        
-        alert.addButton(withTitle: "Save")
-        alert.alertViewStyle = .plainTextInput
-        alert.tag = kSaveSessionAlertViewTag
-        alert.textField(at: 0)?.clearButtonMode = .always
-        alert.textField(at: 0)?.text = lastGpxFilename.isEmpty ? defaultFilename() : lastGpxFilename
-        alert.show()
-        //alert.textFieldAtIndex(0)?.selectAll(self)
- */
-        
     }
     
     ///

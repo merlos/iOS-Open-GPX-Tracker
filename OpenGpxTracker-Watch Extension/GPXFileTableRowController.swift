@@ -8,6 +8,7 @@
 
 import WatchKit
 
+/// Basically a TableViewCell, but for Watch
 class GPXFileTableRowController: NSObject {
 
     @IBOutlet var fileLabel: WKInterfaceLabel!

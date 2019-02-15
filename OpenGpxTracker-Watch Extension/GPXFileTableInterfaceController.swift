@@ -138,9 +138,13 @@ class GPXFileTableInterfaceController: WKInterfaceController {
 
 }
 
-
+///
+/// MARK:- WCSessionDelegate
+///
 /// Handles all the file transfer to iOS app processes
+///
 extension GPXFileTableInterfaceController: WCSessionDelegate {
+    
     func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
         switch activationState {
         case .activated:
@@ -153,12 +157,17 @@ extension GPXFileTableInterfaceController: WCSessionDelegate {
         default: break
         }
     }
+    
     func session(_ session: WCSession, didFinish fileTransfer: WCSessionFileTransfer, error: Error?) {
         let doneAction = WKAlertAction(title: "Done", style: .default) { }
         guard let error = error else {
+            
+            // presenting alert to user if file is successfully transferred
             presentAlert(withTitle: "File Transfer", message: "GPX file successfully sent to iOS app", preferredStyle: .alert, actions: [doneAction])
             return
         }
+        
+        // presenting alert if file transfer failed, including error message
         presentAlert(withTitle: "File Transfer", message: "GPX file was unsuccessfully sent to iOS app, error: \(error) ", preferredStyle: .alert, actions: [doneAction])
     }
     
