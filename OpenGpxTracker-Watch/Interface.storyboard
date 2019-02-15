@@ -85,7 +85,7 @@
                                     </items>
                                 </group>
                                 <separator alignment="left" id="9cm-9H-uj8">
-                                    <color key="color" red="1" green="0.94381925870000005" blue="0.0020686525409999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="color" red="1" green="0.92156862745098034" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </separator>
                                 <label alignment="left" text="Miscellaneous" id="C99-SC-jQR">
                                     <fontDescription key="font" type="system" weight="medium" pointSize="15"/>
@@ -167,7 +167,7 @@
                         <table alignment="left" id="Ueu-eD-023">
                             <items>
                                 <tableRow identifier="GPXFile" id="cGI-3H-K2G" customClass="GPXFileTableRowController" customModule="OpenGpxTracker_Watch_Extension">
-                                    <group key="rootItem" width="1" height="40" alignment="left" id="ahD-rE-FA3">
+                                    <group key="rootItem" width="1" height="45" alignment="left" id="ahD-rE-FA3">
                                         <items>
                                             <label width="1" height="1" alignment="left" text="File Name" id="Nkq-Do-muS">
                                                 <fontDescription key="font" type="system" weight="medium" pointSize="15"/>
@@ -226,4 +226,5 @@
             <point key="canvasLocation" x="468" y="345"/>
         </scene>
     </scenes>
+    <color key="tintColor" red="1" green="0.92156862745098034" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
 </document>

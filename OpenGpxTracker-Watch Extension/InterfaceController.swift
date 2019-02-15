@@ -191,6 +191,19 @@ class InterfaceController: WKInterfaceController {
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)
         
+        if gpxTrackingStatus == .notStarted {
+            trackerButton.setBackgroundColor(kGreenButtonBackgroundColor)
+            newPinButton.setBackgroundColor(kWhiteBackgroundColor)
+            saveButton.setBackgroundColor(kDisabledRedButtonBackgroundColor)
+            resetButton.setBackgroundColor(kDisabledBlueButtonBackgroundColor)
+            
+            latitudeLabel.setText(kNotGettingLocationText)
+            longitudeLabel.setText(kNotGettingLocationText)
+            signalAccuracyLabel.setText(kUnknownAccuracyText)
+            elevationLabel.setText("0.00 m")
+            speedLabel.setText("0.00 km/h")
+        }
+        
         // Configure interface objects here.
     }
     
@@ -216,17 +229,6 @@ class InterfaceController: WKInterfaceController {
         
         addNotificationObservers()
         
-        
-        trackerButton.setBackgroundColor(kGreenButtonBackgroundColor)
-        newPinButton.setBackgroundColor(kWhiteBackgroundColor)
-        saveButton.setBackgroundColor(kDisabledRedButtonBackgroundColor)
-        resetButton.setBackgroundColor(kDisabledRedButtonBackgroundColor)
-        
-        latitudeLabel.setText(kNotGettingLocationText)
-        longitudeLabel.setText(kNotGettingLocationText)
-        signalAccuracyLabel.setText(kUnknownAccuracyText)
-        elevationLabel.setText("0.00 m")
-        speedLabel.setText("0.00 km/h")
         
     }
     
