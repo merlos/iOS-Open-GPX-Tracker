@@ -114,8 +114,6 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         }
     }
     
-    ///
-    private let session : WCSession? = WCSession.isSupported() ? WCSession.default : nil
    
     /// Defines the different statuses regarding tracking current user location.
     enum GpxTrackingStatus {
@@ -301,8 +299,19 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
             }
         }
         
-        session?.delegate = self
-        session?.activate()
+        // Watch communication session activation (available >iOS 9)
+        if #available(iOS 9.0, *) {
+            if WCSession.isSupported() {
+                print("ViewController:: WCSession is supported")
+                let session = WCSession.default
+                session.delegate = self
+                session.activate()
+                print("ViewController:: WCSession activated")
+            }
+            else {
+                print("ViewController:: WCSession is not supported")
+            }
+        }
         
         // Map autorotate configuration
         map.autoresizesSubviews = true
@@ -1119,8 +1128,21 @@ extension ViewController: CLLocationManagerDelegate {
     }
 }
 
+
+// MARK: WCSessionDelegate
+
+///
+/// Handles file transfers from Apple Watch companion app
+/// Should be non intrusive to UI, handling all in the background.
+
+/// File received are automatically moved to default location which stores all GPX files
+///
+/// Only available > iOS 9
+///
+@available(iOS 9.0, *)
 extension ViewController: WCSessionDelegate {
     
+    // called when `WCSession` goes inactive
     func sessionDidBecomeInactive(_ session: WCSession) {
         print("GPXFilesTableViewController:: WCSession has become inactive")
     }
@@ -1129,6 +1151,7 @@ extension ViewController: WCSessionDelegate {
         print("GPXFilesTableViewController:: WCSession has deactivated")
     }
     
+    @available(iOS 9.3, *)
     func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
         switch activationState {
         case .activated:
@@ -1146,7 +1169,6 @@ extension ViewController: WCSessionDelegate {
         DispatchQueue.global().sync {
             GPXFileManager.moveFrom(file.fileURL, fileName: file.metadata!["fileName"] as! String?)
             print("ViewController:: Received file from WatchConnectivity Session")
-            print("receivedFile: \(file.fileURL) <?>")
         }
     }
 }

@@ -131,15 +131,28 @@ class GPXFileManager: NSObject {
         GPXFileManager.saveToURL(fileURL, gpxContents: gpxContents)
     }
     
+    ///
+    /// Moves temporary files received from Apple Watch app to default directory
+    ///
+    /// - Parameters:
+    ///     - fileURL: URL of temporary file that should be moved/saved.
+    ///     - fileName: name of temporary file, including the file extension (`.gpx`)
+    ///
     class func moveFrom(_ fileURL: URL, fileName: String?) {
+        
+        // check if file name is valid
         guard let fileName = fileName else {
             print("GPXFileManager:: save failed, error: file name is nil")
             return
         }
+        
+        // attempt to move file
         do {
             let url = GPXFilesFolderURL.path + fileName
             try FileManager().moveItem(atPath: fileURL.path, toPath: url)
         }
+            
+        // file move failure
         catch {
             print("GPXFileManager:: save failed, error: \(error)")
         }

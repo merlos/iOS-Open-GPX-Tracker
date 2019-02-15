@@ -46,6 +46,7 @@
 		89F874A11BBCC74C004EF41A /* UIDistanceLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89F874A01BBCC74C004EF41A /* UIDistanceLabel.swift */; };
 		BF36B6CF220C6F1A00077B46 /* GPXFileTableInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF36B6CE220C6F1A00077B46 /* GPXFileTableInterfaceController.swift */; };
 		BF625D3522118DF30040C3D2 /* WKDistanceText.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF625D3422118DF30040C3D2 /* WKDistanceText.swift */; };
+		BF637D132216C5FA0003EC04 /* WatchConnectivity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF637D122216C5FA0003EC04 /* WatchConnectivity.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		BF6428B8220EC1A90015447E /* GPXFileTableRowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF6428B7220EC1A90015447E /* GPXFileTableRowController.swift */; };
 		BF64602F220AE9CF00957FF6 /* GPXTrackSegment+MapKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 899D676B19CD9E9E00C88A0A /* GPXTrackSegment+MapKit.swift */; };
 		BF646032220B0C6400957FF6 /* GPXMapView-watchOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF646031220B0C6400957FF6 /* GPXMapView-watchOS.swift */; };
@@ -176,6 +177,7 @@
 		9A591D96EF2E41D00AD6BB3A /* Pods-OpenGpxTracker-Watch Extension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenGpxTracker-Watch Extension.debug.xcconfig"; path = "Pods/Target Support Files/Pods-OpenGpxTracker-Watch Extension/Pods-OpenGpxTracker-Watch Extension.debug.xcconfig"; sourceTree = "<group>"; };
 		BF36B6CE220C6F1A00077B46 /* GPXFileTableInterfaceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPXFileTableInterfaceController.swift; sourceTree = "<group>"; };
 		BF625D3422118DF30040C3D2 /* WKDistanceText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WKDistanceText.swift; sourceTree = "<group>"; };
+		BF637D122216C5FA0003EC04 /* WatchConnectivity.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WatchConnectivity.framework; path = System/Library/Frameworks/WatchConnectivity.framework; sourceTree = SDKROOT; };
 		BF6428B7220EC1A90015447E /* GPXFileTableRowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPXFileTableRowController.swift; sourceTree = "<group>"; };
 		BF646031220B0C6400957FF6 /* GPXMapView-watchOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GPXMapView-watchOS.swift"; sourceTree = "<group>"; };
 		BF692F572209AAF900F8A0F1 /* OpenGpxTracker-Watch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "OpenGpxTracker-Watch.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -198,6 +200,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BF637D132216C5FA0003EC04 /* WatchConnectivity.framework in Frameworks */,
 				89D2F8F91DD7FA7800A52D64 /* Cache.framework in Frameworks */,
 				89D2F8FB1DD7FAF600A52D64 /* CryptoSwift.framework in Frameworks */,
 				899D678419D3528D00C88A0A /* WebKit.framework in Frameworks */,
@@ -321,6 +324,7 @@
 		898EED0119C4A16600B4B207 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				BF637D122216C5FA0003EC04 /* WatchConnectivity.framework */,
 				89D2F8FE1DD7FAFF00A52D64 /* TBXML.framework */,
 				89D2F8FC1DD7FAFA00A52D64 /* iOS_GPX_Framework.framework */,
 				89D2F8FA1DD7FAF600A52D64 /* CryptoSwift.framework */,
@@ -910,7 +914,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEVELOPMENT_TEAM = 3X69W4AQD6;
 				INFOPLIST_FILE = OpenGpxTracker/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = GPXKit.vincent.merlos.OpenGpxTracker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -931,7 +935,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEVELOPMENT_TEAM = 3X69W4AQD6;
 				INFOPLIST_FILE = OpenGpxTracker/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = GPXKit.vincent.merlos.OpenGpxTracker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
