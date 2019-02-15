@@ -45,7 +45,7 @@
 		89F8749F1BBCB97F004EF41A /* GPXRoot+length.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89F8749E1BBCB97F004EF41A /* GPXRoot+length.swift */; };
 		89F874A11BBCC74C004EF41A /* UIDistanceLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89F874A01BBCC74C004EF41A /* UIDistanceLabel.swift */; };
 		BF36B6CF220C6F1A00077B46 /* GPXFileTableInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF36B6CE220C6F1A00077B46 /* GPXFileTableInterfaceController.swift */; };
-		BF625D3522118DF30040C3D2 /* WKDistanceText.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF625D3422118DF30040C3D2 /* WKDistanceText.swift */; };
+		BF625D3522118DF30040C3D2 /* DistanceFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF625D3422118DF30040C3D2 /* DistanceFormatter.swift */; };
 		BF637D132216C5FA0003EC04 /* WatchConnectivity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF637D122216C5FA0003EC04 /* WatchConnectivity.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		BF6428B8220EC1A90015447E /* GPXFileTableRowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF6428B7220EC1A90015447E /* GPXFileTableRowController.swift */; };
 		BF64602F220AE9CF00957FF6 /* GPXTrackSegment+MapKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 899D676B19CD9E9E00C88A0A /* GPXTrackSegment+MapKit.swift */; };
@@ -176,7 +176,7 @@
 		95D28CBDF2535138FA16F38F /* Pods_OpenGpxTracker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OpenGpxTracker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A591D96EF2E41D00AD6BB3A /* Pods-OpenGpxTracker-Watch Extension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenGpxTracker-Watch Extension.debug.xcconfig"; path = "Pods/Target Support Files/Pods-OpenGpxTracker-Watch Extension/Pods-OpenGpxTracker-Watch Extension.debug.xcconfig"; sourceTree = "<group>"; };
 		BF36B6CE220C6F1A00077B46 /* GPXFileTableInterfaceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPXFileTableInterfaceController.swift; sourceTree = "<group>"; };
-		BF625D3422118DF30040C3D2 /* WKDistanceText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WKDistanceText.swift; sourceTree = "<group>"; };
+		BF625D3422118DF30040C3D2 /* DistanceFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DistanceFormatter.swift; sourceTree = "<group>"; };
 		BF637D122216C5FA0003EC04 /* WatchConnectivity.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WatchConnectivity.framework; path = System/Library/Frameworks/WatchConnectivity.framework; sourceTree = SDKROOT; };
 		BF6428B7220EC1A90015447E /* GPXFileTableRowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPXFileTableRowController.swift; sourceTree = "<group>"; };
 		BF646031220B0C6400957FF6 /* GPXMapView-watchOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GPXMapView-watchOS.swift"; sourceTree = "<group>"; };
@@ -401,7 +401,7 @@
 		BF692F672209AAFB00F8A0F1 /* OpenGpxTracker-Watch Extension */ = {
 			isa = PBXGroup;
 			children = (
-				BF625D3422118DF30040C3D2 /* WKDistanceText.swift */,
+				BF625D3422118DF30040C3D2 /* DistanceFormatter.swift */,
 				BF36B6CE220C6F1A00077B46 /* GPXFileTableInterfaceController.swift */,
 				BF6428B7220EC1A90015447E /* GPXFileTableRowController.swift */,
 				BF646031220B0C6400957FF6 /* GPXMapView-watchOS.swift */,
@@ -757,7 +757,7 @@
 				BF692F6D2209AAFB00F8A0F1 /* ComplicationController.swift in Sources */,
 				BF692F882209B81E00F8A0F1 /* GPXFileInfo.swift in Sources */,
 				BF36B6CF220C6F1A00077B46 /* GPXFileTableInterfaceController.swift in Sources */,
-				BF625D3522118DF30040C3D2 /* WKDistanceText.swift in Sources */,
+				BF625D3522118DF30040C3D2 /* DistanceFormatter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

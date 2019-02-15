@@ -78,7 +78,7 @@ class InterfaceController: WKInterfaceController {
     
     /// Map View
     let map = GPXMapView()
-    let distanceFormatter = WKDistanceText()
+    let distanceFormatter = DistanceFormatter()
     
     /// Map View delegate
     //let mapViewDelegate = MapViewDelegate()

@@ -10,15 +10,17 @@ import WatchKit
 import MapKit
 
 ///
-/// A label to display distances.
+/// A formatter to format distances from numbers.
 ///
-/// The text is displated in meters if is less than 1km (for instance "980m") and in km with two decimals if
+/// The text will be returned in meters if is less than 1km (for instance "980m") and in km with two decimals if
 /// it is larger than 1km (for instance "1.20km")
 ///
 /// To update the text displayed use the distance variable.
 ///
+/// To get formatted text, simply read from `formattedText` variable
+///
 
-class WKDistanceText {
+class DistanceFormatter {
     /// Distance in meters
     open var distance: CLLocationDistance {
         get {
