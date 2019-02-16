@@ -198,6 +198,7 @@ class InterfaceController: WKInterfaceController {
             signalAccuracyLabel.setText(kUnknownAccuracyText)
             elevationLabel.setText("0.00 m")
             speedLabel.setText("0.00 km/h")
+            signalImageView.setImage(signalImage0)
         }
         
         // Configure interface objects here.
