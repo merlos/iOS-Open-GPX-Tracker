@@ -12,6 +12,7 @@
 		893BEC8619C7E62200C77354 /* GPXWaypoint+MKAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893BEC8519C7E62200C77354 /* GPXWaypoint+MKAnnotation.swift */; };
 		8945A90E1DC7AD040029AF93 /* CachedTileOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8945A90D1DC7AD040029AF93 /* CachedTileOverlay.swift */; };
 		895F04B41A7143CE004BEE8A /* GPXExtentCoordinates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895F04B31A7143CE004BEE8A /* GPXExtentCoordinates.swift */; };
+		89686CC52218793A0050D1E3 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BF692F7C2209AB8000F8A0F1 /* Interface.storyboard */; };
 		898EECDB19C49B5800B4B207 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 898EECDA19C49B5800B4B207 /* AppDelegate.swift */; };
 		898EECDE19C49B5800B4B207 /* OpenGpxTracker.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 898EECDC19C49B5800B4B207 /* OpenGpxTracker.xcdatamodeld */; };
 		898EECE019C49B5800B4B207 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 898EECDF19C49B5800B4B207 /* ViewController.swift */; };
@@ -57,7 +58,6 @@
 		BF692F6D2209AAFB00F8A0F1 /* ComplicationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF692F6C2209AAFB00F8A0F1 /* ComplicationController.swift */; };
 		BF692F6F2209AAFC00F8A0F1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BF692F6E2209AAFC00F8A0F1 /* Assets.xcassets */; };
 		BF692F732209AAFC00F8A0F1 /* OpenGpxTracker-Watch.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = BF692F572209AAF900F8A0F1 /* OpenGpxTracker-Watch.app */; };
-		BF692F7D2209AB8000F8A0F1 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BF692F7C2209AB8000F8A0F1 /* Interface.storyboard */; };
 		BF692F7E2209B36900F8A0F1 /* GPXWaypoint+MKAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893BEC8519C7E62200C77354 /* GPXWaypoint+MKAnnotation.swift */; };
 		BF692F802209B80300F8A0F1 /* GPXTrackPoint+MapKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 899D676D19CD9FAF00C88A0A /* GPXTrackPoint+MapKit.swift */; };
 		BF692F812209B80700F8A0F1 /* GPXFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 899D676F19CE024600C88A0A /* GPXFileManager.swift */; };
@@ -507,7 +507,7 @@
 				TargetAttributes = {
 					898EECD419C49B5800B4B207 = {
 						CreatedOnToolsVersion = 6.0;
-						DevelopmentTeam = 3X69W4AQD6;
+						DevelopmentTeam = SU64RGPDF2;
 						LastSwiftMigration = 1000;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
@@ -522,12 +522,12 @@
 					};
 					BF692F562209AAF900F8A0F1 = {
 						CreatedOnToolsVersion = 10.1;
-						DevelopmentTeam = 3X69W4AQD6;
+						DevelopmentTeam = SU64RGPDF2;
 						ProvisioningStyle = Automatic;
 					};
 					BF692F622209AAFB00F8A0F1 = {
 						CreatedOnToolsVersion = 10.1;
-						DevelopmentTeam = 3X69W4AQD6;
+						DevelopmentTeam = SU64RGPDF2;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.Maps.iOS = {
@@ -581,7 +581,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BF692F7D2209AB8000F8A0F1 /* Interface.storyboard in Resources */,
+				89686CC52218793A0050D1E3 /* Interface.storyboard in Resources */,
 				BF692F5D2209AAFB00F8A0F1 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -912,11 +912,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				DEVELOPMENT_TEAM = 3X69W4AQD6;
+				DEVELOPMENT_TEAM = SU64RGPDF2;
 				INFOPLIST_FILE = OpenGpxTracker/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = GPXKit.vincent.merlos.OpenGpxTracker;
+				PRODUCT_BUNDLE_IDENTIFIER = org.merlos.OpenGpxTracker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = OpenGpxTracker/ObjectiveCBridgingHeader.h;
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
@@ -933,11 +933,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				DEVELOPMENT_TEAM = 3X69W4AQD6;
+				DEVELOPMENT_TEAM = SU64RGPDF2;
 				INFOPLIST_FILE = OpenGpxTracker/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = GPXKit.vincent.merlos.OpenGpxTracker;
+				PRODUCT_BUNDLE_IDENTIFIER = org.merlos.OpenGpxTracker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = OpenGpxTracker/ObjectiveCBridgingHeader.h;
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
@@ -1002,13 +1002,13 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = 3X69W4AQD6;
+				DEVELOPMENT_TEAM = SU64RGPDF2;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				IBSC_MODULE = OpenGpxTracker_Watch_Extension;
 				INFOPLIST_FILE = "OpenGpxTracker-Watch/Info.plist";
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = GPXKit.vincent.merlos.OpenGpxTracker.watchkitapp;
+				PRODUCT_BUNDLE_IDENTIFIER = org.merlos.OpenGpxTracker.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -1034,12 +1034,12 @@
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = 3X69W4AQD6;
+				DEVELOPMENT_TEAM = SU64RGPDF2;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				IBSC_MODULE = OpenGpxTracker_Watch_Extension;
 				INFOPLIST_FILE = "OpenGpxTracker-Watch/Info.plist";
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = GPXKit.vincent.merlos.OpenGpxTracker.watchkitapp;
+				PRODUCT_BUNDLE_IDENTIFIER = org.merlos.OpenGpxTracker.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -1062,13 +1062,13 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_STYLE = Automatic;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = 3X69W4AQD6;
+				DEVELOPMENT_TEAM = SU64RGPDF2;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = "OpenGpxTracker-Watch Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = GPXKit.vincent.merlos.OpenGpxTracker.watchkitapp.watchkitextension;
+				PRODUCT_BUNDLE_IDENTIFIER = org.merlos.OpenGpxTracker.watchkitapp.extension;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -1093,12 +1093,12 @@
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = 3X69W4AQD6;
+				DEVELOPMENT_TEAM = SU64RGPDF2;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = "OpenGpxTracker-Watch Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = GPXKit.vincent.merlos.OpenGpxTracker.watchkitapp.watchkitextension;
+				PRODUCT_BUNDLE_IDENTIFIER = org.merlos.OpenGpxTracker.watchkitapp.extension;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
