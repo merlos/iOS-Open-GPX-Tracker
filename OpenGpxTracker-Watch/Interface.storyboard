@@ -144,7 +144,7 @@
                         </group>
                     </items>
                     <connections>
-                        <outlet property="elevationLabel" destination="fLq-xh-Kj9" id="ty2-OP-Uge"/>
+                        <outlet property="altitudeLabel" destination="fLq-xh-Kj9" id="nFp-Dr-pQS"/>
                         <outlet property="latitudeLabel" destination="oCc-3I-GbC" id="PeW-ZD-D88"/>
                         <outlet property="longitudeLabel" destination="wh4-cP-QA2" id="Afq-Cp-K3h"/>
                         <outlet property="newPinButton" destination="juk-oB-3vV" id="rz4-pG-LHx"/>

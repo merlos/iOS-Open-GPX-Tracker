@@ -61,7 +61,7 @@ class InterfaceController: WKInterfaceController {
     @IBOutlet var signalAccuracyLabel: WKInterfaceLabel!
     @IBOutlet var latitudeLabel: WKInterfaceLabel!
     @IBOutlet var longitudeLabel: WKInterfaceLabel!
-    @IBOutlet var elevationLabel: WKInterfaceLabel!
+    @IBOutlet var altitudeLabel: WKInterfaceLabel!
     @IBOutlet var speedLabel: WKInterfaceLabel!
     
     
@@ -197,7 +197,7 @@ class InterfaceController: WKInterfaceController {
             latitudeLabel.setText(kNotGettingLocationText)
             longitudeLabel.setText(kNotGettingLocationText)
             signalAccuracyLabel.setText(kUnknownAccuracyText)
-            elevationLabel.setText(kUnknownAltitudeText)
+            altitudeLabel.setText(kUnknownAltitudeText)
             speedLabel.setText(kUnknownSpeedText)
             signalImageView.setImage(signalImage0)
         }
@@ -413,7 +413,7 @@ extension InterfaceController: CLLocationManagerDelegate {
         latitudeLabel.setText(kNotGettingLocationText)
         longitudeLabel.setText(kNotGettingLocationText)
         signalAccuracyLabel.setText(kUnknownAccuracyText)
-        elevationLabel.setText(kUnknownAltitudeText)
+        altitudeLabel.setText(kUnknownAltitudeText)
         signalImageView.setImage(signalImage0)
         speedLabel.setText(kUnknownSpeedText)
         //signalAccuracyLabel.text = kUnknownAccuracyText
@@ -468,7 +468,7 @@ extension InterfaceController: CLLocationManagerDelegate {
         
         latitudeLabel.setText(latFormat)
         longitudeLabel.setText(lonFormat)
-        elevationLabel.setText("\(altFormat) m")
+        altitudeLabel.setText("\(altFormat) m")
         
         //Update speed (provided in m/s, but displayed in km/h)
         var speedFormat: String
