@@ -1,4 +1,4 @@
-Open GPX Tracker for iOS (with offline maps!)
+Open GPX Tracker for iOS + WatchOS
 ===============================================
 
 [![Available on the app store](https://merlos.github.io/iOS-Open-GPX-Tracker/images/download-app-store.svg)](https://itunes.apple.com/app/open-gpx-tracker/id984503772)
@@ -9,7 +9,7 @@ This app has no annoying time restrictions, no ads and no in-app-purchases. Crea
 
 If you are goint to track without Internet... don't worry! Just browse the area where you'll be tracking and it will be cached.
 
-Requires iOS 8.0 or above. Open GPX tracker is an open source app.
+Requires iOS 9.0 or above. Open GPX tracker is an open source app.
 
 ![GPS Tracker logs](https://merlos.github.io/iOS-Open-GPX-Tracker/images/open-gpx-tracker-4-screenshots.png)
 
@@ -30,21 +30,28 @@ You can use Open GPX tracker for:
  - Edit waypoint name
  - Drag & Drop waypoint pin
  - Remove waypoint
- - Send by email saved session (track + waypoints)
  - Load on map a saved session and continue tracking
  - Displays current location and altitude
  - Displays tracked time
- - Displays user heading (device orientation) __new!__
- - Displays location accuracy (in meters) __new!__
+ - Displays user heading (device orientation) 
+ - Displays location accuracy (in meters) 
  - Displays tracked distance (total and current segment)
- - GPX files can be imported from any other app using the share option __new!__
- - Share GPX files with other apps __new!__
+ - GPX files can be imported from any other app using the share option
+ - Share GPX files with other apps
  - File sharing through iTunes
  - Settings
     - Offline cache On/Off
     - Clear cache
     - Select the map server.
 
+## Apple Watch Features _soon available on the App Store!_ (v1.6.0 )
+- Create GPX Files on your Apple Watch
+- Pause/Resume tracking
+- Save into GPX File
+- Add waypoint to user location
+- Send file to your paired device iPhone/iPad
+- Display GPS Signal strength
+- View current location information (speed, latitude, longitude, altitude)
 
 # Install
 
@@ -106,7 +113,7 @@ Please note that this source code was released under the GPL license.  So any ch
 ----
 
 This app uses:
- - [iOS GPX Framework](https://github.com/merlos/ios-gpx-framework) created by Watanabe Toshinori and podified by  [@Pierre-Loup](https://github.com/Pierre-Loup/)
+- [CoreGPX Framework](https://github.com/vincentneo/CoreGPX), a SWIFT library for using GPX files. Created by [@vincentneo](http://github.com/vincentneo)
 
 
 Entry on the [Open Street Maps Wiki](https://wiki.openstreetmap.org/wiki/OpenGpxTracker)
