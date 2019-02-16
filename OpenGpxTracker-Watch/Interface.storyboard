@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="14460.31" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
-    <device id="watch38" orientation="portrait">
+    <device id="watch44" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -14,7 +14,7 @@
             <objects>
                 <controller id="AgC-eL-Hgc" customClass="InterfaceController" customModule="OpenGpxTracker_Watch" customModuleProvider="target">
                     <items>
-                        <group width="1" height="151" alignment="left" layout="vertical" id="qTw-Ao-z8n" userLabel="Main Button Group">
+                        <group width="1" height="151" alignment="left" layout="vertical" id="qTw-Ao-z8n" userLabel="Main Page">
                             <items>
                                 <group width="1" height="0.33000000000000002" alignment="left" id="Mna-9L-cW3" userLabel="Top Group">
                                     <items>
@@ -46,13 +46,13 @@
                                 </button>
                                 <group width="1" height="0.33000000000000002" alignment="left" verticalAlignment="bottom" id="vBs-Bv-q32" userLabel="Handling Group">
                                     <items>
-                                        <button width="0.5" height="0.80000000000000004" alignment="left" title="Save" id="Yfa-t6-5Sk">
+                                        <button width="0.5" widthAdjustment="-3" height="0.80000000000000004" alignment="left" title="Save" id="Yfa-t6-5Sk">
                                             <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <connections>
                                                 <action selector="saveButtonTapped" destination="AgC-eL-Hgc" id="tFe-Pm-Du3"/>
                                             </connections>
                                         </button>
-                                        <button width="0.5" height="0.80000000000000004" alignment="right" title="Reset" id="g9l-MU-PFV">
+                                        <button width="0.5" widthAdjustment="-3" height="0.80000000000000004" alignment="right" title="Reset" id="g9l-MU-PFV">
                                             <color key="backgroundColor" red="0.8909026015" green="0.1078473939" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <connections>
                                                 <action selector="resetButtonTapped" destination="AgC-eL-Hgc" id="6Sj-6U-Jzd"/>
@@ -61,16 +61,11 @@
                                     </items>
                                 </group>
                             </items>
-                            <variation key="device=watch40mm" height="169"/>
+                            <variation key="device=watch40mm" height="162"/>
                             <variation key="device=watch42mm" height="174"/>
-                            <variation key="device=watch44mm" height="193"/>
+                            <variation key="device=watch44mm" height="190"/>
                         </group>
-                        <button width="1" height="35" alignment="left" title="Files" id="3QZ-4r-aMl">
-                            <connections>
-                                <segue destination="77f-od-duZ" kind="push" id="sJU-Es-f2K"/>
-                            </connections>
-                        </button>
-                        <group width="1" alignment="left" layout="vertical" id="qC3-2k-9N7">
+                        <group width="1" alignment="left" layout="vertical" id="qC3-2k-9N7" userLabel="Second Page">
                             <items>
                                 <group width="1" alignment="center" id="EN6-a8-HHf" userLabel="Signal Group">
                                     <items>
@@ -79,65 +74,72 @@
                                                 <imageView alignment="right" id="MRY-DF-JuJ"/>
                                             </items>
                                         </group>
-                                        <label alignment="left" verticalAlignment="bottom" text="signal" id="036-aK-7ie">
+                                        <label height="0.33000000000000002" alignment="left" verticalAlignment="center" text="signal" id="036-aK-7ie">
                                             <fontDescription key="font" style="UICTFontTextStyleFootnote"/>
                                         </label>
                                     </items>
                                 </group>
-                                <separator alignment="left" id="9cm-9H-uj8">
-                                    <color key="color" red="1" green="0.92156862745098034" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </separator>
-                                <label alignment="left" text="Miscellaneous" id="C99-SC-jQR">
-                                    <fontDescription key="font" type="system" weight="medium" pointSize="15"/>
-                                </label>
-                                <group width="1" alignment="left" layout="vertical" id="oHR-i2-lOc">
+                                <group width="1" alignment="left" id="8m4-Vl-flC" userLabel="Coords Group">
                                     <items>
-                                        <label alignment="left" alpha="0.69999999999999996" text="LATITUDE" id="XCU-7M-myh">
-                                            <color key="textColor" red="0.95294117647058818" green="0.5607843137254902" blue="0.66274509803921566" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            <fontDescription key="font" type="system" weight="medium" pointSize="10"/>
-                                        </label>
-                                        <label alignment="left" text="latValue" id="oCc-3I-GbC">
-                                            <color key="textColor" red="0.95294117647058818" green="0.5607843137254902" blue="0.66274509803921566" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            <fontDescription key="font" type="system" weight="semibold" pointSize="12"/>
-                                        </label>
+                                        <group width="0.5" alignment="left" layout="vertical" id="oHR-i2-lOc" userLabel="Latitude Group">
+                                            <items>
+                                                <label alignment="left" alpha="0.69999999999999996" text="LATITUDE" id="XCU-7M-myh">
+                                                    <color key="textColor" red="0.95294117647058818" green="0.5607843137254902" blue="0.66274509803921566" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <fontDescription key="font" type="system" weight="medium" pointSize="10"/>
+                                                </label>
+                                                <label alignment="left" text="latValue" id="oCc-3I-GbC">
+                                                    <color key="textColor" red="0.95294117647058818" green="0.5607843137254902" blue="0.66274509803921566" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <fontDescription key="font" type="system" weight="semibold" pointSize="12"/>
+                                                </label>
+                                            </items>
+                                        </group>
+                                        <group width="0.5" alignment="left" layout="vertical" id="7CF-s0-N89" userLabel="Longitude Group">
+                                            <items>
+                                                <label alignment="left" alpha="0.69999999999999996" text="LONGITUDE" id="oWE-ge-dGJ">
+                                                    <color key="textColor" red="0.98039215686274506" green="0.97254901960784312" blue="0.51764705882352935" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <fontDescription key="font" type="system" weight="medium" pointSize="10"/>
+                                                </label>
+                                                <label alignment="left" text="lonValue" id="wh4-cP-QA2">
+                                                    <color key="textColor" red="0.98039215686274506" green="0.97254901960784312" blue="0.51764705882352935" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <fontDescription key="font" type="system" weight="semibold" pointSize="12"/>
+                                                </label>
+                                            </items>
+                                        </group>
                                     </items>
                                 </group>
-                                <group width="1" alignment="left" layout="vertical" id="7CF-s0-N89">
+                                <group width="1" alignment="left" id="j5f-yI-Rcd" userLabel="Other info">
                                     <items>
-                                        <label alignment="left" alpha="0.69999999999999996" text="LONGITUDE" id="oWE-ge-dGJ">
-                                            <color key="textColor" red="0.98039215686274506" green="0.97254901960784312" blue="0.51764705882352935" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            <fontDescription key="font" type="system" weight="medium" pointSize="10"/>
-                                        </label>
-                                        <label alignment="left" text="lonValue" id="wh4-cP-QA2">
-                                            <color key="textColor" red="0.98039215686274506" green="0.97254901960784312" blue="0.51764705882352935" alpha="1" colorSpace="calibratedRGB"/>
-                                            <fontDescription key="font" type="system" weight="semibold" pointSize="12"/>
-                                        </label>
+                                        <group width="0.5" alignment="left" layout="vertical" id="m6P-Pe-Yuc" userLabel="Altitude Group">
+                                            <items>
+                                                <label alignment="left" alpha="0.69999999999999996" text="ALTITUDE" id="sOz-Cs-O7T">
+                                                    <color key="textColor" red="0.59607843137254901" green="1" blue="0.59607843137254901" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <fontDescription key="font" type="system" weight="medium" pointSize="10"/>
+                                                </label>
+                                                <label alignment="left" text="altValue" id="fLq-xh-Kj9">
+                                                    <color key="textColor" red="0.59607843137254901" green="1" blue="0.59607843137254901" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <fontDescription key="font" type="system" weight="semibold" pointSize="12"/>
+                                                </label>
+                                            </items>
+                                        </group>
+                                        <group width="0.5" alignment="left" layout="vertical" id="qEX-iH-OeS" userLabel="Speed Group">
+                                            <items>
+                                                <label alignment="left" alpha="0.69999999999999996" text="SPEED" id="HGe-sg-FuE">
+                                                    <color key="textColor" red="0.68627450980392157" green="0.93333333333333335" blue="0.93333333333333335" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <fontDescription key="font" type="system" weight="medium" pointSize="10"/>
+                                                </label>
+                                                <label alignment="left" text="speedValue" id="9yb-Lf-Jav">
+                                                    <color key="textColor" red="0.68627450980392157" green="0.93333333333333335" blue="0.93333333333333335" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <fontDescription key="font" type="system" weight="semibold" pointSize="12"/>
+                                                </label>
+                                            </items>
+                                        </group>
                                     </items>
                                 </group>
-                                <group width="1" alignment="left" layout="vertical" id="m6P-Pe-Yuc">
-                                    <items>
-                                        <label alignment="left" alpha="0.69999999999999996" text="ALTITUDE" id="sOz-Cs-O7T">
-                                            <color key="textColor" red="0.59607843137254901" green="1" blue="0.59607843137254901" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            <fontDescription key="font" type="system" weight="medium" pointSize="10"/>
-                                        </label>
-                                        <label alignment="left" text="altValue" id="fLq-xh-Kj9">
-                                            <color key="textColor" red="0.59607843137254901" green="1" blue="0.59607843137254901" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            <fontDescription key="font" type="system" weight="semibold" pointSize="12"/>
-                                        </label>
-                                    </items>
-                                </group>
-                                <group width="1" alignment="left" layout="vertical" id="qEX-iH-OeS">
-                                    <items>
-                                        <label alignment="left" alpha="0.69999999999999996" text="SPEED" id="HGe-sg-FuE">
-                                            <color key="textColor" red="0.68627450980392157" green="0.93333333333333335" blue="0.93333333333333335" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            <fontDescription key="font" type="system" weight="medium" pointSize="10"/>
-                                        </label>
-                                        <label alignment="left" text="speedValue" id="9yb-Lf-Jav">
-                                            <color key="textColor" red="0.68627450980392157" green="0.93333333333333335" blue="0.93333333333333335" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            <fontDescription key="font" type="system" weight="semibold" pointSize="12"/>
-                                        </label>
-                                    </items>
-                                </group>
+                                <button width="1" alignment="left" title="View files" id="3QZ-4r-aMl" userLabel="GPX Files">
+                                    <connections>
+                                        <segue destination="77f-od-duZ" kind="push" id="sJU-Es-f2K"/>
+                                    </connections>
+                                </button>
                             </items>
                         </group>
                     </items>
@@ -157,7 +159,7 @@
                     </connections>
                 </controller>
             </objects>
-            <point key="canvasLocation" x="5" y="98"/>
+            <point key="canvasLocation" x="5" y="97"/>
         </scene>
         <!--File Table Interface Controller-->
         <scene sceneID="yaQ-0v-lly">
