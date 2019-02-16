@@ -24,9 +24,10 @@ let kWhiteBackgroundColor: UIColor = UIColor(red: 254.0/255.0, green: 254.0/255.
 let kDeleteWaypointAccesoryButtonTag = 666
 let kEditWaypointAccesoryButtonTag = 333
 
-let kNotGettingLocationText = "Not getting location"
+let kNotGettingLocationText = "·.······"
 let kUnknownAccuracyText = "±···m"
 let kUnknownSpeedText = "·.··"
+let kUnknownAltitudeText = "···"
 
 let kEditWaypointAlertViewTag = 33
 let kSaveSessionAlertViewTag = 88
@@ -196,8 +197,8 @@ class InterfaceController: WKInterfaceController {
             latitudeLabel.setText(kNotGettingLocationText)
             longitudeLabel.setText(kNotGettingLocationText)
             signalAccuracyLabel.setText(kUnknownAccuracyText)
-            elevationLabel.setText("0.00 m")
-            speedLabel.setText("0.00 km/h")
+            elevationLabel.setText(kUnknownAltitudeText)
+            speedLabel.setText(kUnknownSpeedText)
             signalImageView.setImage(signalImage0)
         }
         
@@ -412,9 +413,9 @@ extension InterfaceController: CLLocationManagerDelegate {
         latitudeLabel.setText(kNotGettingLocationText)
         longitudeLabel.setText(kNotGettingLocationText)
         signalAccuracyLabel.setText(kUnknownAccuracyText)
-        elevationLabel.setText("0.00 m")
+        elevationLabel.setText(kUnknownAltitudeText)
         signalImageView.setImage(signalImage0)
-        speedLabel.setText("0.00 km/h")
+        speedLabel.setText(kUnknownSpeedText)
         //signalAccuracyLabel.text = kUnknownAccuracyText
         //signalImageView.image = signalImage0
         let locationError = error as? CLError
