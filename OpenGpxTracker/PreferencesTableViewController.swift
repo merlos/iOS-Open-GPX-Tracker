@@ -29,13 +29,14 @@ let kDefaultsKeyTileServerInt: String = "TileServerInt"
 let kDefaultsKeyUseCache: String = "UseCache"
 
 
-//
-// There are two preferences available:
-//  * use or not cache
-//  * select the map source (tile server)
-//
-// Preferences are kept on UserDefaults with the keys kDefaultKeyTileServerInt (Int)  and kDefaultUseCache (Bool)
-//
+///
+/// There are two preferences available:
+///  * use or not cache
+///  * select the map source (tile server)
+///
+/// Preferences are kept on UserDefaults with the keys `kDefaultKeyTileServerInt` (Int)
+/// and `kDefaultUseCache`` (Bool)
+///
 class PreferencesTableViewController: UITableViewController, UINavigationBarDelegate {
     
     var selectedTileServerInt = -1
@@ -43,7 +44,10 @@ class PreferencesTableViewController: UITableViewController, UINavigationBarDele
     let defaults = UserDefaults.standard
     weak var delegate: PreferencesTableViewControllerDelegate?
     
-    
+    /// Does the following:
+    /// 1. Defines the areas for navBar and the Table view
+    /// 2. Sets the title
+    /// 3. Loads the Preferences from defaults (us
     override func viewDidLoad() {
         super.viewDidLoad()
         let navBarFrame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: 64)
@@ -63,29 +67,34 @@ class PreferencesTableViewController: UITableViewController, UINavigationBarDele
         }
     }
     
+    /// Close this controller.
     @objc func closePreferencesTableViewController() {
         print("closePreferencesTableViewController()")
         self.dismiss(animated: true, completion: { () -> Void in
         })
     }
     
+    /// Loads data
     override func viewDidAppear(_ animated: Bool) {
         self.tableView.reloadData()
     }
     
+    /// Does nothing for now.
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
-    //#pragma mark - Table view data source
+    // MARK - Table view data source
     
+    /// Returns 2 (one section is for "Cache" and the second one is for  "Map Source"
     override func numberOfSections(in tableView: UITableView?) -> Int {
         // Return the number of sections.
         return 2
     }
     
-    // Customize the section headings for each section
+    /// Returns the title of the existing sections.
+    /// Uses `kCacheSection` and `kMapSourceSection` for deciding which section
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch(section) {
         case kCacheSection: return "Cache"
@@ -94,9 +103,9 @@ class PreferencesTableViewController: UITableViewController, UINavigationBarDele
         }
     }
     
+    /// For section `kCacheSection` resturns 2 and for `kMapSourceSection` returns the number of
+    /// tile servers defined in `GPXTileServer`
     override func tableView(_ tableView: UITableView?, numberOfRowsInSection section: Int) -> Int {
-        
-        // Return the number of rows in the section.
         switch(section) {
         case kCacheSection: return 2
         case kMapSourceSection: return GPXTileServer.count
@@ -104,10 +113,17 @@ class PreferencesTableViewController: UITableViewController, UINavigationBarDele
         }
     }
     
-    
+    /// For `kCacheSection`:
+    /// 1. If `indexPath.row` is equal to `kUserOfflineCacheCell`, returns a cell with a checkmark
+    /// 2. If `indexPath.row` is equal to `kClearCacheCell`, returns a cell with a red text
+    /// `kClearCacheCell`
+    ///
+    /// If the section is kMapSourceSection, it returns a chekmark cell with the name of
+    /// the tile server in the  `indexPath.row` index in `GPXTileServer`. The cell is marked
+    /// if `selectedTileServerInt` is the same as `indexPath.row``.
+    ///
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var cell = UITableViewCell(style: .value1, reuseIdentifier: "MapCell")
-        
         if indexPath.section == kCacheSection {
             switch (indexPath.row) {
             case kUseOfflineCacheCell:
@@ -137,13 +153,16 @@ class PreferencesTableViewController: UITableViewController, UINavigationBarDele
         return cell
     }
     
+    /// Performs the following actions depending on the section and row selected:
+    /// 1. A cell in kCacheSection is selected:
+    ///     1. kUseOfflineCacheCell: Activates or desactivates the use of cache
+    ///        (`kDefaultUseCache` in defaults)
+    /// 2. A cell in kMapSourceSection is selected: Updates the default key (`kDefaultsKeyTileServerInt`)
+    ///
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    
-        
-        //section 0 (Cache)
-        if indexPath.section == 0 {  // 0 -> sets and unsets cache
+        if indexPath.section == kCacheSection {  // 0 -> sets and unsets cache
             switch indexPath.row {
-            case kCacheSection:
+            case kUseOfflineCacheCell:
                 print("toggle cache")
                 let newUseCache = !self.currentUseCache //toggle value
                 defaults.set(newUseCache, forKey: kDefaultsKeyUseCache)
@@ -152,7 +171,7 @@ class PreferencesTableViewController: UITableViewController, UINavigationBarDele
                 tableView.cellForRow(at: indexPath)?.accessoryType = newUseCache ? .checkmark : .none
                 //notify the map
                 self.delegate?.didUpdateUseCache(newUseCache)
-            case 1:
+            case kClearCacheCell:
                 print("clear cache")
                 // usage example of cache https://github.com/hyperoslo/Cache/blob/master/Playgrounds/Storage.playground/Contents.swift
                 // 1 -> clears cache
@@ -175,7 +194,6 @@ class PreferencesTableViewController: UITableViewController, UINavigationBarDele
                 } catch {
                     print(error)
                 }
-                
             default:
                 fatalError("didSelectRowAt: Unknown cell")
             }
@@ -198,7 +216,5 @@ class PreferencesTableViewController: UITableViewController, UINavigationBarDele
         }
         //unselect row
         tableView.deselectRow(at: indexPath, animated: true)
-        
-     
     }
 }
