@@ -77,20 +77,22 @@ class GPXFileTableInterfaceController: WKInterfaceController {
     }
     
     override func table(_ table: WKInterfaceTable, didSelectRowAt rowIndex: Int) {
-        let shareOption = WKAlertAction(title: "Send to iOS app", style: .default) {
-            self.actionTransferFileAtIndex(rowIndex)
+        if gpxFilesFound {
+            let shareOption = WKAlertAction(title: "Send to iOS app", style: .default) {
+                self.actionTransferFileAtIndex(rowIndex)
+            }
+            let cancelOption = WKAlertAction(title: "Cancel", style: .cancel) {
+                self.actionSheetCancel()
+            }
+            let deleteOption = WKAlertAction(title: "Delete", style: .destructive) {
+                self.actionDeleteFileAtIndex(rowIndex)
+                self.loadTableData()
+            }
+            
+            let options = [shareOption, cancelOption, deleteOption]
+            
+            presentAlert(withTitle: "GPX file selected", message: "What would you like to do?", preferredStyle: .actionSheet, actions: options)
         }
-        let cancelOption = WKAlertAction(title: "Cancel", style: .cancel) {
-            self.actionSheetCancel()
-        }
-        let deleteOption = WKAlertAction(title: "Delete", style: .destructive) {
-            self.actionDeleteFileAtIndex(rowIndex)
-            self.loadTableData()
-        }
-        
-        let options = [shareOption, cancelOption, deleteOption]
-        
-        presentAlert(withTitle: "GPX file selected", message: "What would you like to do?", preferredStyle: .actionSheet, actions: options)
     }
     
     //
