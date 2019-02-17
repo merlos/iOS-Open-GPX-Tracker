@@ -24,7 +24,7 @@ let kWhiteBackgroundColor: UIColor = UIColor(red: 254.0/255.0, green: 254.0/255.
 let kDeleteWaypointAccesoryButtonTag = 666
 let kEditWaypointAccesoryButtonTag = 333
 
-let kNotGettingLocationText = "·.······"
+let kNotGettingLocationText = "Not getting location"
 let kUnknownAccuracyText = "±···m"
 let kUnknownSpeedText = "·.··"
 let kUnknownAltitudeText = "···"
@@ -66,8 +66,7 @@ class InterfaceController: WKInterfaceController {
     @IBOutlet var totalTrackedDistanceLabel: WKInterfaceLabel!
     @IBOutlet var signalImageView: WKInterfaceImage!
     @IBOutlet var signalAccuracyLabel: WKInterfaceLabel!
-    @IBOutlet var latitudeLabel: WKInterfaceLabel!
-    @IBOutlet var longitudeLabel: WKInterfaceLabel!
+    @IBOutlet var coordinatesLabel: WKInterfaceLabel!
     @IBOutlet var altitudeLabel: WKInterfaceLabel!
     @IBOutlet var speedLabel: WKInterfaceLabel!
     
@@ -203,8 +202,7 @@ class InterfaceController: WKInterfaceController {
             saveButton.setBackgroundColor(kDisabledRedButtonBackgroundColor)
             resetButton.setBackgroundColor(kDisabledBlueButtonBackgroundColor)
             
-            latitudeLabel.setText(kNotGettingLocationText)
-            longitudeLabel.setText(kNotGettingLocationText)
+            coordinatesLabel.setText(kNotGettingLocationText)
             signalAccuracyLabel.setText(kUnknownAccuracyText)
             altitudeLabel.setText(kUnknownAltitudeText)
             speedLabel.setText(kUnknownSpeedText)
@@ -419,8 +417,7 @@ extension InterfaceController: CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print("didFailWithError \(error)")
-        latitudeLabel.setText(kNotGettingLocationText)
-        longitudeLabel.setText(kNotGettingLocationText)
+        coordinatesLabel.setText(kNotGettingLocationText)
         signalAccuracyLabel.setText(kUnknownAccuracyText)
         altitudeLabel.setText(kUnknownAltitudeText)
         signalImageView.setImage(signalImage0)
@@ -475,8 +472,7 @@ extension InterfaceController: CLLocationManagerDelegate {
         let lonFormat = String(format: "%.6f", newLocation.coordinate.longitude)
         let altFormat = String(format: "%.2f", newLocation.altitude)
         
-        latitudeLabel.setText(latFormat)
-        longitudeLabel.setText(lonFormat)
+        coordinatesLabel.setText("\(latFormat),\(lonFormat)")
         altitudeLabel.setText("\(altFormat) m")
         
         //Update speed (provided in m/s, but displayed in km/h)

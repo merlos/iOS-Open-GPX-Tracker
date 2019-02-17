@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="14460.31" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
-    <device id="watch44" orientation="portrait">
+    <device id="watch38" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -81,25 +81,13 @@
                                 </group>
                                 <group width="1" alignment="left" id="8m4-Vl-flC" userLabel="Coords Group">
                                     <items>
-                                        <group width="0.5" alignment="left" layout="vertical" id="oHR-i2-lOc" userLabel="Latitude Group">
+                                        <group width="1" alignment="left" layout="vertical" id="7CF-s0-N89" userLabel="Longitude Group">
                                             <items>
-                                                <label alignment="left" alpha="0.69999999999999996" text="LATITUDE" id="XCU-7M-myh">
-                                                    <color key="textColor" red="0.95294117647058818" green="0.5607843137254902" blue="0.66274509803921566" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <fontDescription key="font" type="system" weight="medium" pointSize="10"/>
-                                                </label>
-                                                <label alignment="left" text="latValue" id="oCc-3I-GbC">
-                                                    <color key="textColor" red="0.95294117647058818" green="0.5607843137254902" blue="0.66274509803921566" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <fontDescription key="font" type="system" weight="semibold" pointSize="12"/>
-                                                </label>
-                                            </items>
-                                        </group>
-                                        <group width="0.5" alignment="left" layout="vertical" id="7CF-s0-N89" userLabel="Longitude Group">
-                                            <items>
-                                                <label alignment="left" alpha="0.69999999999999996" text="LONGITUDE" id="oWE-ge-dGJ">
+                                                <label alignment="left" alpha="0.69999999999999996" text="COORDINATES" id="oWE-ge-dGJ">
                                                     <color key="textColor" red="0.98039215686274506" green="0.97254901960784312" blue="0.51764705882352935" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <fontDescription key="font" type="system" weight="medium" pointSize="10"/>
                                                 </label>
-                                                <label alignment="left" text="lonValue" id="wh4-cP-QA2">
+                                                <label alignment="left" text="coordinatesLabel" minimumScaleFactor="0.80000000000000004" id="wh4-cP-QA2">
                                                     <color key="textColor" red="0.98039215686274506" green="0.97254901960784312" blue="0.51764705882352935" alpha="1" colorSpace="calibratedRGB"/>
                                                     <fontDescription key="font" type="system" weight="semibold" pointSize="12"/>
                                                 </label>
@@ -109,7 +97,7 @@
                                 </group>
                                 <group width="1" alignment="left" id="j5f-yI-Rcd" userLabel="Other info">
                                     <items>
-                                        <group width="0.5" alignment="left" layout="vertical" id="m6P-Pe-Yuc" userLabel="Altitude Group">
+                                        <group width="0.40000000000000002" alignment="left" layout="vertical" id="m6P-Pe-Yuc" userLabel="Altitude Group">
                                             <items>
                                                 <label alignment="left" alpha="0.69999999999999996" text="ALTITUDE" id="sOz-Cs-O7T">
                                                     <color key="textColor" red="0.59607843137254901" green="1" blue="0.59607843137254901" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -121,13 +109,13 @@
                                                 </label>
                                             </items>
                                         </group>
-                                        <group width="0.5" alignment="left" layout="vertical" id="qEX-iH-OeS" userLabel="Speed Group">
+                                        <group width="0.59999999999999998" alignment="left" layout="vertical" id="qEX-iH-OeS" userLabel="Speed Group">
                                             <items>
                                                 <label alignment="left" alpha="0.69999999999999996" text="SPEED" id="HGe-sg-FuE">
                                                     <color key="textColor" red="0.68627450980392157" green="0.93333333333333335" blue="0.93333333333333335" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <fontDescription key="font" type="system" weight="medium" pointSize="10"/>
                                                 </label>
-                                                <label alignment="left" text="speedValue" id="9yb-Lf-Jav">
+                                                <label alignment="left" text="speedValue" minimumScaleFactor="0.90000000000000002" id="9yb-Lf-Jav">
                                                     <color key="textColor" red="0.68627450980392157" green="0.93333333333333335" blue="0.93333333333333335" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <fontDescription key="font" type="system" weight="semibold" pointSize="12"/>
                                                 </label>
@@ -145,8 +133,7 @@
                     </items>
                     <connections>
                         <outlet property="altitudeLabel" destination="fLq-xh-Kj9" id="nFp-Dr-pQS"/>
-                        <outlet property="latitudeLabel" destination="oCc-3I-GbC" id="PeW-ZD-D88"/>
-                        <outlet property="longitudeLabel" destination="wh4-cP-QA2" id="Afq-Cp-K3h"/>
+                        <outlet property="coordinatesLabel" destination="wh4-cP-QA2" id="r1M-Sr-y2y"/>
                         <outlet property="newPinButton" destination="juk-oB-3vV" id="rz4-pG-LHx"/>
                         <outlet property="resetButton" destination="g9l-MU-PFV" id="Gx7-5m-Amd"/>
                         <outlet property="saveButton" destination="Yfa-t6-5Sk" id="qwm-ev-821"/>
