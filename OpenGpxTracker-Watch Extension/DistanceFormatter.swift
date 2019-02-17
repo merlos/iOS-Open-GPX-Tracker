@@ -37,5 +37,7 @@ class DistanceFormatter {
             }
         }
     }
+    
+    /// Formatted string with meters or kilometers based on distance
     open var formattedText = String()
 }

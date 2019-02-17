@@ -12,8 +12,21 @@ import WatchConnectivity
 /// Text displayed when there are no GPX files in the folder.
 let kNoFiles = "No gpx files"
 
+///
+/// WKInterfaceTable that displays the list of files that have been saved in previous sessions.
+///
+/// This interface controller allows users to manage their GPX Files.
+///
+/// Currently the following actions with a file are supported
+///
+/// 1. Send file to iOS App
+/// 3. Delete the file
+///
+/// It also displays a back button to return to the main controls view.
+///
 class GPXFileTableInterfaceController: WKInterfaceController {
     
+    /// Main table that displays list of files
     @IBOutlet var fileTable: WKInterfaceTable!
     
     /// List of strings with the filenames.
@@ -25,6 +38,7 @@ class GPXFileTableInterfaceController: WKInterfaceController {
     /// Temporary variable to manage
     var selectedRowIndex = -1
     
+    /// Watch communication session
     private let session : WCSession? = WCSession.isSupported() ? WCSession.default : nil
     
     override func awake(withContext context: Any?) {
@@ -60,7 +74,7 @@ class GPXFileTableInterfaceController: WKInterfaceController {
         print("closeGPXFIlesTableViewController()")
     }
     
-   
+    /// Loads data on the table
     func loadTableData() {
         fileTable.setNumberOfRows(fileList.count, withRowType: "GPXFile")
         if gpxFilesFound {
@@ -76,19 +90,29 @@ class GPXFileTableInterfaceController: WKInterfaceController {
         }
     }
     
+    /// Invokes when one of the cells of the table is clicked.
     override func table(_ table: WKInterfaceTable, didSelectRowAt rowIndex: Int) {
+        
+        /// checks if there is any files in directory
         if gpxFilesFound {
+            
+            /// Option lets user send selected file to iOS app
             let shareOption = WKAlertAction(title: "Send to iOS app", style: .default) {
                 self.actionTransferFileAtIndex(rowIndex)
             }
+            
+            /// Option for users to cancel
             let cancelOption = WKAlertAction(title: "Cancel", style: .cancel) {
                 self.actionSheetCancel()
             }
+            
+            /// Option to delete selected file
             let deleteOption = WKAlertAction(title: "Delete", style: .destructive) {
                 self.actionDeleteFileAtIndex(rowIndex)
                 self.loadTableData()
             }
             
+            /// Array of all available options
             let options = [shareOption, cancelOption, deleteOption]
             
             presentAlert(withTitle: "GPX file selected", message: "What would you like to do?", preferredStyle: .actionSheet, actions: options)

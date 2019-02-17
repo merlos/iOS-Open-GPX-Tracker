@@ -49,6 +49,13 @@ let kSignalAccuracy3 = 51.0
 let kSignalAccuracy2 = 101.0
 let kSignalAccuracy1 = 201.0
 
+
+///
+/// Main View Controller of the Watch Application. It is loaded when the application is launched
+///
+/// Displays a set the buttons to control the tracking, along with additional infomation.
+///
+///
 class InterfaceController: WKInterfaceController {
 
     @IBOutlet var newPinButton: WKInterfaceButton!
@@ -65,7 +72,7 @@ class InterfaceController: WKInterfaceController {
     @IBOutlet var speedLabel: WKInterfaceLabel!
     
     
-    // Location Manager
+    /// Location Manager
     let locationManager: CLLocationManager = {
         let manager = CLLocationManager()
         manager.requestAlwaysAuthorization()
@@ -76,8 +83,10 @@ class InterfaceController: WKInterfaceController {
         return manager
     }()
     
-    /// Map View
+    /// Underlying class that handles background stuff
     let map = GPXMapView() // not even a map view. Considering renaming
+    
+    /// Formats distance accordingly
     let distanceFormatter = DistanceFormatter()
 
     //Status Vars
@@ -86,7 +95,7 @@ class InterfaceController: WKInterfaceController {
     var wasSentToBackground: Bool = false //Was the app sent to background
     var isDisplayingLocationServicesDenied: Bool = false
     
-    /// Has the map any waypoint?
+    /// Does the 'file' have any waypoint?
     var hasWaypoints: Bool = false {
         /// Whenever it is updated, if it has waypoints it sets the save and reset button
         didSet {
@@ -236,6 +245,12 @@ class InterfaceController: WKInterfaceController {
         }
         
     }
+    
+    ///
+    /// Add Pin (waypoint) Button was tapped.
+    ///
+    /// It adds a new waypoint with the current coordinates while tracking is underway.
+    ///
     @IBAction func addPinAtMyLocation() {
         if let currentCoordinates = locationManager.location?.coordinate {
             let waypoint = GPXWaypoint(coordinate: currentCoordinates)
@@ -245,6 +260,12 @@ class InterfaceController: WKInterfaceController {
         }
         
     }
+    
+    ///
+    /// Save Button was tapped.
+    ///
+    /// Saves current track and waypoints as a GPX file, with a default filename of date and time.
+    ///
     @IBAction func saveButtonTapped() {
         print("save Button tapped")
         // ignore the save button if there is nothing to save.
@@ -257,7 +278,9 @@ class InterfaceController: WKInterfaceController {
         self.lastGpxFilename = filename
         print(gpxString)
         
+        /// Just a 'done' button, without
         let action = WKAlertAction(title: "Done", style: .default) {}
+        
         presentAlert(withTitle: "GPX file saved", message: "Current session saved as \(filename).gpx ", preferredStyle: .alert, actions: [action])
         
     }
@@ -278,7 +301,6 @@ class InterfaceController: WKInterfaceController {
     
     /// returns a string with the format of current date dd-MMM-yyyy-HHmm' (20-Jun-2018-1133)
     ///
-    
     func defaultFilename() -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd-MMM-yyyy-HHmm"
@@ -324,19 +346,6 @@ class InterfaceController: WKInterfaceController {
         print("viewController:: applicationWillTerminate")
         GPXFileManager.removeTemporaryFiles()
     }
-    
-    ///
-    /// Triggered when follow Button is taped.
-    //
-    /// Trogles between following or not following the user, that is, automatically centering the map
-    //  in current user´s position.
-    ///
-    /*
-    @objc func followButtonTroggler() {
-        self.followUser = !self.followUser
-    }
-    */
-    
     
     ///
     /// Checks the location services status
