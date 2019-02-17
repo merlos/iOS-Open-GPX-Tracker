@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>GPXMapView Class Reference</title>
+    <title>GPXFileTableInterfaceController Class Reference</title>
     <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
     <meta charset='utf-8'>
@@ -10,8 +10,8 @@
     
   </head>
   <body>
-    <a name="//apple_ref/swift/Class/GPXMapView" class="dashAnchor"></a>
-    <a title="GPXMapView Class Reference"></a>
+    <a name="//apple_ref/swift/Class/GPXFileTableInterfaceController" class="dashAnchor"></a>
+    <a title="GPXFileTableInterfaceController Class Reference"></a>
     <header>
       <div class="content-wrapper">
         <p><a href="../index.html"> Docs</a> (47% documented)</p>
@@ -21,7 +21,7 @@
       <p id="breadcrumbs">
         <a href="../index.html"> Reference</a>
         <img id="carat" src="../img/carat.png" />
-        GPXMapView Class Reference
+        GPXFileTableInterfaceController Class Reference
       </p>
     </div>
     <div class="content-wrapper">
@@ -207,10 +207,10 @@
       <article class="main-content">
         <section>
           <section class="section">
-            <h1>GPXMapView</h1>
+            <h1>GPXFileTableInterfaceController</h1>
               <div class="declaration">
                 <div class="language">
-                  <pre class="highlight swift"><code><span class="kd">class</span> <span class="kt">GPXMapView</span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">class</span> <span class="kt">GPXFileTableInterfaceController</span> <span class="p">:</span> <span class="kt">WKInterfaceController</span></code></pre>
 
                 </div>
               </div>
@@ -223,9 +223,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/"></a>
-                    <a name="//apple_ref/swift/Property/waypoints" class="dashAnchor"></a>
-                    <a class="token" href="#/">waypoints</a>
+                    <a name="/c:@M@OpenGpxTracker_Watch_Extension@objc(cs)GPXFileTableInterfaceController(py)fileTable"></a>
+                    <a name="//apple_ref/swift/Property/fileTable" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@OpenGpxTracker_Watch_Extension@objc(cs)GPXFileTableInterfaceController(py)fileTable">fileTable</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -233,14 +233,15 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>List of waypoints currently displayed on the map.</p>
+                        <p>Undocumented</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">waypoints</span><span class="p">:</span> <span class="p">[</span><span class="kt">GPXWaypoint</span><span class="p">]</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">@IBOutlet</span>
+<span class="k">var</span> <span class="nv">fileTable</span><span class="p">:</span> <span class="kt">WKInterfaceTable</span><span class="o">!</span></code></pre>
 
                         </div>
                       </div>
@@ -250,9 +251,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/"></a>
-                    <a name="//apple_ref/swift/Property/tracks" class="dashAnchor"></a>
-                    <a class="token" href="#/">tracks</a>
+                    <a name="/s:30OpenGpxTracker_Watch_Extension31GPXFileTableInterfaceControllerC8fileListSo14NSMutableArrayCvp"></a>
+                    <a name="//apple_ref/swift/Property/fileList" class="dashAnchor"></a>
+                    <a class="token" href="#/s:30OpenGpxTracker_Watch_Extension31GPXFileTableInterfaceControllerC8fileListSo14NSMutableArrayCvp">fileList</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -260,14 +261,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>List of tracks currently displayed on the map.</p>
+                        <p>List of strings with the filenames.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">tracks</span><span class="p">:</span> <span class="p">[</span><span class="kt">GPXTrack</span><span class="p">]</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">fileList</span><span class="p">:</span> <span class="kt">NSMutableArray</span></code></pre>
 
                         </div>
                       </div>
@@ -277,9 +278,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/"></a>
-                    <a name="//apple_ref/swift/Property/trackSegments" class="dashAnchor"></a>
-                    <a class="token" href="#/">trackSegments</a>
+                    <a name="/s:30OpenGpxTracker_Watch_Extension31GPXFileTableInterfaceControllerC13gpxFilesFoundSbvp"></a>
+                    <a name="//apple_ref/swift/Property/gpxFilesFound" class="dashAnchor"></a>
+                    <a class="token" href="#/s:30OpenGpxTracker_Watch_Extension31GPXFileTableInterfaceControllerC13gpxFilesFoundSbvp">gpxFilesFound</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -287,14 +288,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Current track segments</p>
+                        <p>Is there any GPX file in the directory?</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">trackSegments</span><span class="p">:</span> <span class="p">[</span><span class="kt">GPXTrackSegment</span><span class="p">]</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">gpxFilesFound</span><span class="p">:</span> <span class="kt">Bool</span></code></pre>
 
                         </div>
                       </div>
@@ -304,9 +305,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/"></a>
-                    <a name="//apple_ref/swift/Property/currentSegment" class="dashAnchor"></a>
-                    <a class="token" href="#/">currentSegment</a>
+                    <a name="/s:30OpenGpxTracker_Watch_Extension31GPXFileTableInterfaceControllerC16selectedRowIndexSivp"></a>
+                    <a name="//apple_ref/swift/Property/selectedRowIndex" class="dashAnchor"></a>
+                    <a class="token" href="#/s:30OpenGpxTracker_Watch_Extension31GPXFileTableInterfaceControllerC16selectedRowIndexSivp">selectedRowIndex</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -314,14 +315,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Segment in which device locations are added.</p>
+                        <p>Temporary variable to manage</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">currentSegment</span><span class="p">:</span> <span class="kt">GPXTrackSegment</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">selectedRowIndex</span><span class="p">:</span> <span class="kt">Int</span></code></pre>
 
                         </div>
                       </div>
@@ -331,9 +332,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:30OpenGpxTracker_Watch_Extension10GPXMapViewC6extentAA20GPXExtentCoordinatesCvp"></a>
-                    <a name="//apple_ref/swift/Property/extent" class="dashAnchor"></a>
-                    <a class="token" href="#/s:30OpenGpxTracker_Watch_Extension10GPXMapViewC6extentAA20GPXExtentCoordinatesCvp">extent</a>
+                    <a name="/s:30OpenGpxTracker_Watch_Extension31GPXFileTableInterfaceControllerC7session33_0EF0581624EB4ECDE21601E78588DC77LLSo9WCSessionCSgvp"></a>
+                    <a name="//apple_ref/swift/Property/session" class="dashAnchor"></a>
+                    <a class="token" href="#/s:30OpenGpxTracker_Watch_Extension31GPXFileTableInterfaceControllerC7session33_0EF0581624EB4ECDE21601E78588DC77LLSo9WCSessionCSgvp">session</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -341,13 +342,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        
+                        <p>Undocumented</p>
+
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">extent</span><span class="p">:</span> <span class="kt"><a href="../Classes/GPXExtentCoordinates.html">GPXExtentCoordinates</a></span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">private</span> <span class="k">let</span> <span class="nv">session</span><span class="p">:</span> <span class="kt">WCSession</span><span class="p">?</span></code></pre>
 
                         </div>
                       </div>
@@ -357,9 +359,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:30OpenGpxTracker_Watch_Extension10GPXMapViewC20totalTrackedDistanceSdvp"></a>
-                    <a name="//apple_ref/swift/Property/totalTrackedDistance" class="dashAnchor"></a>
-                    <a class="token" href="#/s:30OpenGpxTracker_Watch_Extension10GPXMapViewC20totalTrackedDistanceSdvp">totalTrackedDistance</a>
+                    <a name="/c:@M@OpenGpxTracker_Watch_Extension@objc(cs)GPXFileTableInterfaceController(im)awakeWithContext:"></a>
+                    <a name="//apple_ref/swift/Method/awake(withContext:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@OpenGpxTracker_Watch_Extension@objc(cs)GPXFileTableInterfaceController(im)awakeWithContext:">awake(withContext:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -367,14 +369,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Total tracked distance in meters</p>
+                        <p>Undocumented</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">totalTrackedDistance</span><span class="p">:</span> <span class="kt">Double</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">override</span> <span class="kd">func</span> <span class="nf">awake</span><span class="p">(</span><span class="n">withContext</span> <span class="nv">context</span><span class="p">:</span> <span class="kt">Any</span><span class="p">?)</span></code></pre>
 
                         </div>
                       </div>
@@ -384,9 +386,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:30OpenGpxTracker_Watch_Extension10GPXMapViewC20currentTrackDistanceSdvp"></a>
-                    <a name="//apple_ref/swift/Property/currentTrackDistance" class="dashAnchor"></a>
-                    <a class="token" href="#/s:30OpenGpxTracker_Watch_Extension10GPXMapViewC20currentTrackDistanceSdvp">currentTrackDistance</a>
+                    <a name="/c:@M@OpenGpxTracker_Watch_Extension@objc(cs)GPXFileTableInterfaceController(im)willActivate"></a>
+                    <a name="//apple_ref/swift/Method/willActivate()" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@OpenGpxTracker_Watch_Extension@objc(cs)GPXFileTableInterfaceController(im)willActivate">willActivate()</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -394,14 +396,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Distance in meters of current track (track in which new user positions are being added)</p>
+                        <p>Undocumented</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">currentTrackDistance</span><span class="p">:</span> <span class="kt">Double</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">override</span> <span class="kd">func</span> <span class="nf">willActivate</span><span class="p">()</span></code></pre>
 
                         </div>
                       </div>
@@ -411,9 +413,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:30OpenGpxTracker_Watch_Extension10GPXMapViewC22currentSegmentDistanceSdvp"></a>
-                    <a name="//apple_ref/swift/Property/currentSegmentDistance" class="dashAnchor"></a>
-                    <a class="token" href="#/s:30OpenGpxTracker_Watch_Extension10GPXMapViewC22currentSegmentDistanceSdvp">currentSegmentDistance</a>
+                    <a name="/c:@M@OpenGpxTracker_Watch_Extension@objc(cs)GPXFileTableInterfaceController(im)didAppear"></a>
+                    <a name="//apple_ref/swift/Method/didAppear()" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@OpenGpxTracker_Watch_Extension@objc(cs)GPXFileTableInterfaceController(im)didAppear">didAppear()</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -421,14 +423,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Current segment distance in meters</p>
+                        <p>Undocumented</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">currentSegmentDistance</span><span class="p">:</span> <span class="kt">Double</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">override</span> <span class="kd">func</span> <span class="nf">didAppear</span><span class="p">()</span></code></pre>
 
                         </div>
                       </div>
@@ -438,9 +440,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/"></a>
-                    <a name="//apple_ref/swift/Method/addWaypoint(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/">addWaypoint(_:)</a>
+                    <a name="/c:@M@OpenGpxTracker_Watch_Extension@objc(cs)GPXFileTableInterfaceController(im)closeGPXFilesTableViewController"></a>
+                    <a name="//apple_ref/swift/Method/closeGPXFilesTableViewController()" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@OpenGpxTracker_Watch_Extension@objc(cs)GPXFileTableInterfaceController(im)closeGPXFilesTableViewController">closeGPXFilesTableViewController()</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -448,14 +450,15 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Adds a waypoint to the map.</p>
+                        <p>Closes this view controller.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">addWaypoint</span><span class="p">(</span><span class="n">_</span> <span class="nv">waypoint</span><span class="p">:</span> <span class="kt">GPXWaypoint</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="o">&lt;&lt;</span><span class="n">error</span> <span class="n">type</span><span class="o">&gt;&gt;</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">@objc</span>
+<span class="kd">func</span> <span class="nf">closeGPXFilesTableViewController</span><span class="p">()</span></code></pre>
 
                         </div>
                       </div>
@@ -465,9 +468,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/"></a>
-                    <a name="//apple_ref/swift/Method/removeWaypoint(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/">removeWaypoint(_:)</a>
+                    <a name="/s:30OpenGpxTracker_Watch_Extension31GPXFileTableInterfaceControllerC04loadG4DatayyF"></a>
+                    <a name="//apple_ref/swift/Method/loadTableData()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:30OpenGpxTracker_Watch_Extension31GPXFileTableInterfaceControllerC04loadG4DatayyF">loadTableData()</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -475,14 +478,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Removes a Waypoint from the map</p>
+                        <p>Undocumented</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">removeWaypoint</span><span class="p">(</span><span class="n">_</span> <span class="nv">waypoint</span><span class="p">:</span> <span class="kt">GPXWaypoint</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="o">&lt;&lt;</span><span class="n">error</span> <span class="n">type</span><span class="o">&gt;&gt;</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">loadTableData</span><span class="p">()</span></code></pre>
 
                         </div>
                       </div>
@@ -492,9 +495,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:30OpenGpxTracker_Watch_Extension10GPXMapViewC39addPointToCurrentTrackSegmentAtLocationyySo10CLLocationCF"></a>
-                    <a name="//apple_ref/swift/Method/addPointToCurrentTrackSegmentAtLocation(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:30OpenGpxTracker_Watch_Extension10GPXMapViewC39addPointToCurrentTrackSegmentAtLocationyySo10CLLocationCF">addPointToCurrentTrackSegmentAtLocation(_:)</a>
+                    <a name="/c:@M@OpenGpxTracker_Watch_Extension@objc(cs)GPXFileTableInterfaceController(im)table:didSelectRowAtIndex:"></a>
+                    <a name="//apple_ref/swift/Method/table(_:didSelectRowAt:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@OpenGpxTracker_Watch_Extension@objc(cs)GPXFileTableInterfaceController(im)table:didSelectRowAtIndex:">table(_:didSelectRowAt:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -502,45 +505,37 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Adds a new point to current segment.</p>
+                        <p>Undocumented</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">addPointToCurrentTrackSegmentAtLocation</span><span class="p">(</span><span class="n">_</span> <span class="nv">location</span><span class="p">:</span> <span class="kt">CLLocation</span><span class="p">)</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">override</span> <span class="kd">func</span> <span class="nf">table</span><span class="p">(</span><span class="n">_</span> <span class="nv">table</span><span class="p">:</span> <span class="kt">WKInterfaceTable</span><span class="p">,</span> <span class="n">didSelectRowAt</span> <span class="nv">rowIndex</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span></code></pre>
 
                         </div>
-                      </div>
-                      <div>
-                        <h4>Parameters</h4>
-                        <table class="graybox">
-                          <tbody>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>location</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>Typically a location provided by CLLocation</p>
-                                </div>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
                       </div>
                     </section>
                   </div>
                 </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Action%20Sheet%20-%20Actions"></a>
+                <a name="//apple_ref/swift/Section/Action Sheet - Actions" class="dashAnchor"></a>
+                <a href="#/Action%20Sheet%20-%20Actions">
+                  <h3 class="section-name">Action Sheet - Actions</h3>
+                </a>
+              </div>
+              <ul>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:30OpenGpxTracker_Watch_Extension10GPXMapViewC20startNewTrackSegmentyyF"></a>
-                    <a name="//apple_ref/swift/Method/startNewTrackSegment()" class="dashAnchor"></a>
-                    <a class="token" href="#/s:30OpenGpxTracker_Watch_Extension10GPXMapViewC20startNewTrackSegmentyyF">startNewTrackSegment()</a>
+                    <a name="/s:30OpenGpxTracker_Watch_Extension31GPXFileTableInterfaceControllerC25actionTransferFileAtIndexyySiF"></a>
+                    <a name="//apple_ref/swift/Method/actionTransferFileAtIndex(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:30OpenGpxTracker_Watch_Extension31GPXFileTableInterfaceControllerC25actionTransferFileAtIndexyySiF">actionTransferFileAtIndex(_:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -548,14 +543,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Appends currentSegment to trackSegments and initializes currentSegment to a new one.</p>
+                        <p>Attempts to transfer file to iOS app</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">startNewTrackSegment</span><span class="p">()</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">actionTransferFileAtIndex</span><span class="p">(</span><span class="n">_</span> <span class="nv">rowIndex</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -565,9 +560,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:30OpenGpxTracker_Watch_Extension10GPXMapViewC8clearMapyyF"></a>
-                    <a name="//apple_ref/swift/Method/clearMap()" class="dashAnchor"></a>
-                    <a class="token" href="#/s:30OpenGpxTracker_Watch_Extension10GPXMapViewC8clearMapyyF">clearMap()</a>
+                    <a name="/s:30OpenGpxTracker_Watch_Extension31GPXFileTableInterfaceControllerC17actionSheetCancelyyF"></a>
+                    <a name="//apple_ref/swift/Method/actionSheetCancel()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:30OpenGpxTracker_Watch_Extension31GPXFileTableInterfaceControllerC17actionSheetCancelyyF">actionSheetCancel()</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -575,14 +570,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Clears map.</p>
+                        <p>Undocumented</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">clearMap</span><span class="p">()</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">internal</span> <span class="kd">func</span> <span class="nf">actionSheetCancel</span><span class="p">()</span></code></pre>
 
                         </div>
                       </div>
@@ -592,9 +587,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:30OpenGpxTracker_Watch_Extension10GPXMapViewC17exportToGPXStringSSyF"></a>
-                    <a name="//apple_ref/swift/Method/exportToGPXString()" class="dashAnchor"></a>
-                    <a class="token" href="#/s:30OpenGpxTracker_Watch_Extension10GPXMapViewC17exportToGPXStringSSyF">exportToGPXString()</a>
+                    <a name="/s:30OpenGpxTracker_Watch_Extension31GPXFileTableInterfaceControllerC23actionDeleteFileAtIndexyySiF"></a>
+                    <a name="//apple_ref/swift/Method/actionDeleteFileAtIndex(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:30OpenGpxTracker_Watch_Extension31GPXFileTableInterfaceControllerC23actionDeleteFileAtIndexyySiF">actionDeleteFileAtIndex(_:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -602,14 +597,99 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Converts current map into a GPX String</p>
+                        <p>Deletes from the disk storage the file of <code><a href="../Classes/GPXFileTableInterfaceController.html#/s:30OpenGpxTracker_Watch_Extension31GPXFileTableInterfaceControllerC8fileListSo14NSMutableArrayCvp">fileList</a></code> at <code>rowIndex</code></p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">exportToGPXString</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">String</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">internal</span> <span class="kd">func</span> <span class="nf">actionDeleteFileAtIndex</span><span class="p">(</span><span class="n">_</span> <span class="nv">rowIndex</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@OpenGpxTracker_Watch_Extension@objc(cs)GPXFileTableInterfaceController(im)didDeactivate"></a>
+                    <a name="//apple_ref/swift/Method/didDeactivate()" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@OpenGpxTracker_Watch_Extension@objc(cs)GPXFileTableInterfaceController(im)didDeactivate">didDeactivate()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">override</span> <span class="kd">func</span> <span class="nf">didDeactivate</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@CM@OpenGpxTracker_Watch_Extension@objc(cs)GPXFileTableInterfaceController(im)session:activationDidCompleteWithState:error:"></a>
+                    <a name="//apple_ref/swift/Method/session(_:activationDidCompleteWith:error:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@CM@OpenGpxTracker_Watch_Extension@objc(cs)GPXFileTableInterfaceController(im)session:activationDidCompleteWithState:error:">session(_:activationDidCompleteWith:error:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">session</span><span class="p">(</span><span class="n">_</span> <span class="nv">session</span><span class="p">:</span> <span class="kt">WCSession</span><span class="p">,</span> <span class="n">activationDidCompleteWith</span> <span class="nv">activationState</span><span class="p">:</span> <span class="kt">WCSessionActivationState</span><span class="p">,</span> <span class="nv">error</span><span class="p">:</span> <span class="kt">Error</span><span class="p">?)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@CM@OpenGpxTracker_Watch_Extension@objc(cs)GPXFileTableInterfaceController(im)session:didFinishFileTransfer:error:"></a>
+                    <a name="//apple_ref/swift/Method/session(_:didFinish:error:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@CM@OpenGpxTracker_Watch_Extension@objc(cs)GPXFileTableInterfaceController(im)session:didFinishFileTransfer:error:">session(_:didFinish:error:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">session</span><span class="p">(</span><span class="n">_</span> <span class="nv">session</span><span class="p">:</span> <span class="kt">WCSession</span><span class="p">,</span> <span class="n">didFinish</span> <span class="nv">fileTransfer</span><span class="p">:</span> <span class="kt">WCSessionFileTransfer</span><span class="p">,</span> <span class="nv">error</span><span class="p">:</span> <span class="kt">Error</span><span class="p">?)</span></code></pre>
 
                         </div>
                       </div>

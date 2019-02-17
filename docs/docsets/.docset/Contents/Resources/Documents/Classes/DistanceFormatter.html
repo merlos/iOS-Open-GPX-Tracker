@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Int Extension Reference</title>
+    <title>DistanceFormatter Class Reference</title>
     <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
     <meta charset='utf-8'>
@@ -10,8 +10,8 @@
     
   </head>
   <body>
-    <a name="//apple_ref/swift/Extension/Int" class="dashAnchor"></a>
-    <a title="Int Extension Reference"></a>
+    <a name="//apple_ref/swift/Class/DistanceFormatter" class="dashAnchor"></a>
+    <a title="DistanceFormatter Class Reference"></a>
     <header>
       <div class="content-wrapper">
         <p><a href="../index.html"> Docs</a> (47% documented)</p>
@@ -21,7 +21,7 @@
       <p id="breadcrumbs">
         <a href="../index.html"> Reference</a>
         <img id="carat" src="../img/carat.png" />
-        Int Extension Reference
+        DistanceFormatter Class Reference
       </p>
     </div>
     <div class="content-wrapper">
@@ -207,14 +207,22 @@
       <article class="main-content">
         <section>
           <section class="section">
-            <h1>Int</h1>
+            <h1>DistanceFormatter</h1>
               <div class="declaration">
                 <div class="language">
-                  <pre class="highlight swift"><code><span class="kd">struct</span> <span class="kt">Int</span> <span class="p">:</span> <span class="kt">FixedWidthInteger</span><span class="p">,</span> <span class="kt">SignedInteger</span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">class</span> <span class="kt">DistanceFormatter</span></code></pre>
 
                 </div>
               </div>
-            
+            <p>A formatter to format distances from numbers.</p>
+
+<p>The text will be returned in meters if is less than 1km (for instance <q>980m</q>) and in km with two decimals if
+it is larger than 1km (for instance <q>1.20km</q>)</p>
+
+<p>To update the text displayed use the distance variable.</p>
+
+<p>To get formatted text, simply read from <code>formattedText</code> variable</p>
+
           </section>
           <section class="section task-group-section">
             <div class="task-group">
@@ -222,9 +230,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:Si30OpenGpxTracker_Watch_ExtensionE10asFileSizeSSyF"></a>
-                    <a name="//apple_ref/swift/Method/asFileSize()" class="dashAnchor"></a>
-                    <a class="token" href="#/s:Si30OpenGpxTracker_Watch_ExtensionE10asFileSizeSSyF">asFileSize()</a>
+                    <a name="/s:30OpenGpxTracker_Watch_Extension17DistanceFormatterC8distanceSdvp"></a>
+                    <a name="//apple_ref/swift/Property/distance" class="dashAnchor"></a>
+                    <a class="token" href="#/s:30OpenGpxTracker_Watch_Extension17DistanceFormatterC8distanceSdvp">distance</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -232,14 +240,41 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Returns the integer as file size humanized (for instance: 1024 -&gt; <q>1 KB</q> )</p>
+                        <p>Distance in meters</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">asFileSize</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">String</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="k">var</span> <span class="nv">distance</span><span class="p">:</span> <span class="kt">CLLocationDistance</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:30OpenGpxTracker_Watch_Extension17DistanceFormatterC13formattedTextSSvp"></a>
+                    <a name="//apple_ref/swift/Property/formattedText" class="dashAnchor"></a>
+                    <a class="token" href="#/s:30OpenGpxTracker_Watch_Extension17DistanceFormatterC13formattedTextSSvp">formattedText</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="k">var</span> <span class="nv">formattedText</span><span class="p">:</span> <span class="kt">String</span></code></pre>
 
                         </div>
                       </div>

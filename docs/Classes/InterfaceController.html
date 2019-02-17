@@ -1,0 +1,1565 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>InterfaceController Class Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+  </head>
+  <body>
+    <a name="//apple_ref/swift/Class/InterfaceController" class="dashAnchor"></a>
+    <a title="InterfaceController Class Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="../index.html"> Docs</a> (47% documented)</p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="../index.html"> Reference</a>
+        <img id="carat" src="../img/carat.png" />
+        InterfaceController Class Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Classes/ComplicationController.html">ComplicationController</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/DistanceFormatter.html">DistanceFormatter</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ExtensionDelegate.html">ExtensionDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/GPXExtentCoordinates.html">GPXExtentCoordinates</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/GPXFileInfo.html">GPXFileInfo</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/GPXFileManager.html">GPXFileManager</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/GPXFileTableInterfaceController.html">GPXFileTableInterfaceController</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/GPXFileTableRowController.html">GPXFileTableRowController</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/GPXMapView.html">GPXMapView</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/InterfaceController.html">InterfaceController</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/InterfaceController/GpxTrackingStatus.html">– GpxTrackingStatus</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/StopWatch.html">StopWatch</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Global Variables.html">Global Variables</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Global Variables.html#/s:30OpenGpxTracker_Watch_Extension26kBlueButtonBackgroundColorSo7UIColorCvp">kBlueButtonBackgroundColor</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Global Variables.html#/s:30OpenGpxTracker_Watch_Extension16kButtonLargeSize12CoreGraphics7CGFloatVvp">kButtonLargeSize</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Global Variables.html#/s:30OpenGpxTracker_Watch_Extension17kButtonSeparation12CoreGraphics7CGFloatVvp">kButtonSeparation</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Global Variables.html#/s:30OpenGpxTracker_Watch_Extension16kButtonSmallSize12CoreGraphics7CGFloatVvp">kButtonSmallSize</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Global Variables.html#/s:30OpenGpxTracker_Watch_Extension32kDeleteWaypointAccesoryButtonTagSivp">kDeleteWaypointAccesoryButtonTag</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Global Variables.html#/s:30OpenGpxTracker_Watch_Extension34kDisabledBlueButtonBackgroundColorSo7UIColorCvp">kDisabledBlueButtonBackgroundColor</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Global Variables.html#/s:30OpenGpxTracker_Watch_Extension33kDisabledRedButtonBackgroundColorSo7UIColorCvp">kDisabledRedButtonBackgroundColor</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Global Variables.html#/s:30OpenGpxTracker_Watch_Extension30kEditWaypointAccesoryButtonTagSivp">kEditWaypointAccesoryButtonTag</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Global Variables.html#/s:30OpenGpxTracker_Watch_Extension25kEditWaypointAlertViewTagSivp">kEditWaypointAlertViewTag</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Global Variables.html#/s:30OpenGpxTracker_Watch_Extension8kFileExtSSvp">kFileExt</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Global Variables.html#/s:30OpenGpxTracker_Watch_Extension17kGPXCreatorStringSSvp">kGPXCreatorString</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Global Variables.html#/s:30OpenGpxTracker_Watch_Extension27kGreenButtonBackgroundColorSo7UIColorCvp">kGreenButtonBackgroundColor</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Global Variables.html#/s:30OpenGpxTracker_Watch_Extension35kLocationServicesDeniedAlertViewTagSivp">kLocationServicesDeniedAlertViewTag</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Global Variables.html#/s:30OpenGpxTracker_Watch_Extension37kLocationServicesDisabledAlertViewTagSivp">kLocationServicesDisabledAlertViewTag</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Global Variables.html#/s:30OpenGpxTracker_Watch_Extension8kNoFilesSSvp">kNoFiles</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Global Variables.html#/s:30OpenGpxTracker_Watch_Extension23kNotGettingLocationTextSSvp">kNotGettingLocationText</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Global Variables.html#/s:30OpenGpxTracker_Watch_Extension28kPurpleButtonBackgroundColorSo7UIColorCvp">kPurpleButtonBackgroundColor</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Global Variables.html#/s:30OpenGpxTracker_Watch_Extension25kRedButtonBackgroundColorSo7UIColorCvp">kRedButtonBackgroundColor</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Global Variables.html#/s:30OpenGpxTracker_Watch_Extension24kSaveSessionAlertViewTagSivp">kSaveSessionAlertViewTag</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Global Variables.html#/s:30OpenGpxTracker_Watch_Extension16kSignalAccuracy1Sdvp">kSignalAccuracy1</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Global Variables.html#/s:30OpenGpxTracker_Watch_Extension16kSignalAccuracy2Sdvp">kSignalAccuracy2</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Global Variables.html#/s:30OpenGpxTracker_Watch_Extension16kSignalAccuracy3Sdvp">kSignalAccuracy3</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Global Variables.html#/s:30OpenGpxTracker_Watch_Extension16kSignalAccuracy4Sdvp">kSignalAccuracy4</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Global Variables.html#/s:30OpenGpxTracker_Watch_Extension16kSignalAccuracy5Sdvp">kSignalAccuracy5</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Global Variables.html#/s:30OpenGpxTracker_Watch_Extension16kSignalAccuracy6Sdvp">kSignalAccuracy6</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Global Variables.html#/s:30OpenGpxTracker_Watch_Extension20kUnknownAccuracyTextSSvp">kUnknownAccuracyText</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Global Variables.html#/s:30OpenGpxTracker_Watch_Extension20kUnknownAltitudeTextSSvp">kUnknownAltitudeText</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Global Variables.html#/s:30OpenGpxTracker_Watch_Extension17kUnknownSpeedTextSSvp">kUnknownSpeedText</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Global Variables.html#/s:30OpenGpxTracker_Watch_Extension21kWhiteBackgroundColorSo7UIColorCvp">kWhiteBackgroundColor</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Enums.html">Enumerations</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Enums/StopWatchStatus.html">StopWatchStatus</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Extensions/Date.html">Date</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/GPXRoot.html">GPXRoot</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/GPXTrack.html">GPXTrack</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/GPXTrackPoint.html">GPXTrackPoint</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/GPXTrackSegment.html">GPXTrackSegment</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/GPXWaypoint.html">GPXWaypoint</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/Int.html">Int</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Protocols/StopWatchDelegate.html">StopWatchDelegate</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>InterfaceController</h1>
+              <div class="declaration">
+                <div class="language">
+                  <pre class="highlight swift"><code><span class="kd">class</span> <span class="kt">InterfaceController</span> <span class="p">:</span> <span class="kt">WKInterfaceController</span></code></pre>
+
+                </div>
+              </div>
+            <p>Undocumented</p>
+
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@OpenGpxTracker_Watch_Extension@objc(cs)InterfaceController(py)newPinButton"></a>
+                    <a name="//apple_ref/swift/Property/newPinButton" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@OpenGpxTracker_Watch_Extension@objc(cs)InterfaceController(py)newPinButton">newPinButton</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@IBOutlet</span>
+<span class="k">var</span> <span class="nv">newPinButton</span><span class="p">:</span> <span class="kt">WKInterfaceButton</span><span class="o">!</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@OpenGpxTracker_Watch_Extension@objc(cs)InterfaceController(py)trackerButton"></a>
+                    <a name="//apple_ref/swift/Property/trackerButton" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@OpenGpxTracker_Watch_Extension@objc(cs)InterfaceController(py)trackerButton">trackerButton</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@IBOutlet</span>
+<span class="k">var</span> <span class="nv">trackerButton</span><span class="p">:</span> <span class="kt">WKInterfaceButton</span><span class="o">!</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@OpenGpxTracker_Watch_Extension@objc(cs)InterfaceController(py)saveButton"></a>
+                    <a name="//apple_ref/swift/Property/saveButton" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@OpenGpxTracker_Watch_Extension@objc(cs)InterfaceController(py)saveButton">saveButton</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@IBOutlet</span>
+<span class="k">var</span> <span class="nv">saveButton</span><span class="p">:</span> <span class="kt">WKInterfaceButton</span><span class="o">!</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@OpenGpxTracker_Watch_Extension@objc(cs)InterfaceController(py)resetButton"></a>
+                    <a name="//apple_ref/swift/Property/resetButton" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@OpenGpxTracker_Watch_Extension@objc(cs)InterfaceController(py)resetButton">resetButton</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@IBOutlet</span>
+<span class="k">var</span> <span class="nv">resetButton</span><span class="p">:</span> <span class="kt">WKInterfaceButton</span><span class="o">!</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@OpenGpxTracker_Watch_Extension@objc(cs)InterfaceController(py)timeLabel"></a>
+                    <a name="//apple_ref/swift/Property/timeLabel" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@OpenGpxTracker_Watch_Extension@objc(cs)InterfaceController(py)timeLabel">timeLabel</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@IBOutlet</span>
+<span class="k">var</span> <span class="nv">timeLabel</span><span class="p">:</span> <span class="kt">WKInterfaceLabel</span><span class="o">!</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@OpenGpxTracker_Watch_Extension@objc(cs)InterfaceController(py)totalTrackedDistanceLabel"></a>
+                    <a name="//apple_ref/swift/Property/totalTrackedDistanceLabel" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@OpenGpxTracker_Watch_Extension@objc(cs)InterfaceController(py)totalTrackedDistanceLabel">totalTrackedDistanceLabel</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@IBOutlet</span>
+<span class="k">var</span> <span class="nv">totalTrackedDistanceLabel</span><span class="p">:</span> <span class="kt">WKInterfaceLabel</span><span class="o">!</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@OpenGpxTracker_Watch_Extension@objc(cs)InterfaceController(py)signalImageView"></a>
+                    <a name="//apple_ref/swift/Property/signalImageView" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@OpenGpxTracker_Watch_Extension@objc(cs)InterfaceController(py)signalImageView">signalImageView</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@IBOutlet</span>
+<span class="k">var</span> <span class="nv">signalImageView</span><span class="p">:</span> <span class="kt">WKInterfaceImage</span><span class="o">!</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@OpenGpxTracker_Watch_Extension@objc(cs)InterfaceController(py)signalAccuracyLabel"></a>
+                    <a name="//apple_ref/swift/Property/signalAccuracyLabel" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@OpenGpxTracker_Watch_Extension@objc(cs)InterfaceController(py)signalAccuracyLabel">signalAccuracyLabel</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@IBOutlet</span>
+<span class="k">var</span> <span class="nv">signalAccuracyLabel</span><span class="p">:</span> <span class="kt">WKInterfaceLabel</span><span class="o">!</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@OpenGpxTracker_Watch_Extension@objc(cs)InterfaceController(py)latitudeLabel"></a>
+                    <a name="//apple_ref/swift/Property/latitudeLabel" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@OpenGpxTracker_Watch_Extension@objc(cs)InterfaceController(py)latitudeLabel">latitudeLabel</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@IBOutlet</span>
+<span class="k">var</span> <span class="nv">latitudeLabel</span><span class="p">:</span> <span class="kt">WKInterfaceLabel</span><span class="o">!</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@OpenGpxTracker_Watch_Extension@objc(cs)InterfaceController(py)longitudeLabel"></a>
+                    <a name="//apple_ref/swift/Property/longitudeLabel" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@OpenGpxTracker_Watch_Extension@objc(cs)InterfaceController(py)longitudeLabel">longitudeLabel</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@IBOutlet</span>
+<span class="k">var</span> <span class="nv">longitudeLabel</span><span class="p">:</span> <span class="kt">WKInterfaceLabel</span><span class="o">!</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@OpenGpxTracker_Watch_Extension@objc(cs)InterfaceController(py)altitudeLabel"></a>
+                    <a name="//apple_ref/swift/Property/altitudeLabel" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@OpenGpxTracker_Watch_Extension@objc(cs)InterfaceController(py)altitudeLabel">altitudeLabel</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@IBOutlet</span>
+<span class="k">var</span> <span class="nv">altitudeLabel</span><span class="p">:</span> <span class="kt">WKInterfaceLabel</span><span class="o">!</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@OpenGpxTracker_Watch_Extension@objc(cs)InterfaceController(py)speedLabel"></a>
+                    <a name="//apple_ref/swift/Property/speedLabel" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@OpenGpxTracker_Watch_Extension@objc(cs)InterfaceController(py)speedLabel">speedLabel</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@IBOutlet</span>
+<span class="k">var</span> <span class="nv">speedLabel</span><span class="p">:</span> <span class="kt">WKInterfaceLabel</span><span class="o">!</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:30OpenGpxTracker_Watch_Extension19InterfaceControllerC15locationManagerSo010CLLocationI0Cvp"></a>
+                    <a name="//apple_ref/swift/Property/locationManager" class="dashAnchor"></a>
+                    <a class="token" href="#/s:30OpenGpxTracker_Watch_Extension19InterfaceControllerC15locationManagerSo010CLLocationI0Cvp">locationManager</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">let</span> <span class="nv">locationManager</span><span class="p">:</span> <span class="kt">CLLocationManager</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:30OpenGpxTracker_Watch_Extension19InterfaceControllerC3mapAA10GPXMapViewCvp"></a>
+                    <a name="//apple_ref/swift/Property/map" class="dashAnchor"></a>
+                    <a class="token" href="#/s:30OpenGpxTracker_Watch_Extension19InterfaceControllerC3mapAA10GPXMapViewCvp">map</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Map View</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">let</span> <span class="nv">map</span><span class="p">:</span> <span class="kt"><a href="../Classes/GPXMapView.html">GPXMapView</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:30OpenGpxTracker_Watch_Extension19InterfaceControllerC17distanceFormatterAA08DistanceI0Cvp"></a>
+                    <a name="//apple_ref/swift/Property/distanceFormatter" class="dashAnchor"></a>
+                    <a class="token" href="#/s:30OpenGpxTracker_Watch_Extension19InterfaceControllerC17distanceFormatterAA08DistanceI0Cvp">distanceFormatter</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">let</span> <span class="nv">distanceFormatter</span><span class="p">:</span> <span class="kt"><a href="../Classes/DistanceFormatter.html">DistanceFormatter</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:30OpenGpxTracker_Watch_Extension19InterfaceControllerC04stopD0AA04StopD0Cvp"></a>
+                    <a name="//apple_ref/swift/Property/stopWatch" class="dashAnchor"></a>
+                    <a class="token" href="#/s:30OpenGpxTracker_Watch_Extension19InterfaceControllerC04stopD0AA04StopD0Cvp">stopWatch</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">stopWatch</span><span class="p">:</span> <span class="kt"><a href="../Classes/StopWatch.html">StopWatch</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:30OpenGpxTracker_Watch_Extension19InterfaceControllerC04lastB8FilenameSSvp"></a>
+                    <a name="//apple_ref/swift/Property/lastGpxFilename" class="dashAnchor"></a>
+                    <a class="token" href="#/s:30OpenGpxTracker_Watch_Extension19InterfaceControllerC04lastB8FilenameSSvp">lastGpxFilename</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">lastGpxFilename</span><span class="p">:</span> <span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:30OpenGpxTracker_Watch_Extension19InterfaceControllerC19wasSentToBackgroundSbvp"></a>
+                    <a name="//apple_ref/swift/Property/wasSentToBackground" class="dashAnchor"></a>
+                    <a class="token" href="#/s:30OpenGpxTracker_Watch_Extension19InterfaceControllerC19wasSentToBackgroundSbvp">wasSentToBackground</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">wasSentToBackground</span><span class="p">:</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:30OpenGpxTracker_Watch_Extension19InterfaceControllerC34isDisplayingLocationServicesDeniedSbvp"></a>
+                    <a name="//apple_ref/swift/Property/isDisplayingLocationServicesDenied" class="dashAnchor"></a>
+                    <a class="token" href="#/s:30OpenGpxTracker_Watch_Extension19InterfaceControllerC34isDisplayingLocationServicesDeniedSbvp">isDisplayingLocationServicesDenied</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">isDisplayingLocationServicesDenied</span><span class="p">:</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:30OpenGpxTracker_Watch_Extension19InterfaceControllerC12hasWaypointsSbvp"></a>
+                    <a name="//apple_ref/swift/Property/hasWaypoints" class="dashAnchor"></a>
+                    <a class="token" href="#/s:30OpenGpxTracker_Watch_Extension19InterfaceControllerC12hasWaypointsSbvp">hasWaypoints</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Has the map any waypoint?</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">hasWaypoints</span><span class="p">:</span> <span class="kt">Bool</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:30OpenGpxTracker_Watch_Extension19InterfaceControllerC12signalImage0So7UIImageCSgvp"></a>
+                    <a name="//apple_ref/swift/Property/signalImage0" class="dashAnchor"></a>
+                    <a class="token" href="#/s:30OpenGpxTracker_Watch_Extension19InterfaceControllerC12signalImage0So7UIImageCSgvp">signalImage0</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">let</span> <span class="nv">signalImage0</span><span class="p">:</span> <span class="kt">UIImage</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:30OpenGpxTracker_Watch_Extension19InterfaceControllerC12signalImage1So7UIImageCSgvp"></a>
+                    <a name="//apple_ref/swift/Property/signalImage1" class="dashAnchor"></a>
+                    <a class="token" href="#/s:30OpenGpxTracker_Watch_Extension19InterfaceControllerC12signalImage1So7UIImageCSgvp">signalImage1</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">let</span> <span class="nv">signalImage1</span><span class="p">:</span> <span class="kt">UIImage</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:30OpenGpxTracker_Watch_Extension19InterfaceControllerC12signalImage2So7UIImageCSgvp"></a>
+                    <a name="//apple_ref/swift/Property/signalImage2" class="dashAnchor"></a>
+                    <a class="token" href="#/s:30OpenGpxTracker_Watch_Extension19InterfaceControllerC12signalImage2So7UIImageCSgvp">signalImage2</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">let</span> <span class="nv">signalImage2</span><span class="p">:</span> <span class="kt">UIImage</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:30OpenGpxTracker_Watch_Extension19InterfaceControllerC12signalImage3So7UIImageCSgvp"></a>
+                    <a name="//apple_ref/swift/Property/signalImage3" class="dashAnchor"></a>
+                    <a class="token" href="#/s:30OpenGpxTracker_Watch_Extension19InterfaceControllerC12signalImage3So7UIImageCSgvp">signalImage3</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">let</span> <span class="nv">signalImage3</span><span class="p">:</span> <span class="kt">UIImage</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:30OpenGpxTracker_Watch_Extension19InterfaceControllerC12signalImage4So7UIImageCSgvp"></a>
+                    <a name="//apple_ref/swift/Property/signalImage4" class="dashAnchor"></a>
+                    <a class="token" href="#/s:30OpenGpxTracker_Watch_Extension19InterfaceControllerC12signalImage4So7UIImageCSgvp">signalImage4</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">let</span> <span class="nv">signalImage4</span><span class="p">:</span> <span class="kt">UIImage</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:30OpenGpxTracker_Watch_Extension19InterfaceControllerC12signalImage5So7UIImageCSgvp"></a>
+                    <a name="//apple_ref/swift/Property/signalImage5" class="dashAnchor"></a>
+                    <a class="token" href="#/s:30OpenGpxTracker_Watch_Extension19InterfaceControllerC12signalImage5So7UIImageCSgvp">signalImage5</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">let</span> <span class="nv">signalImage5</span><span class="p">:</span> <span class="kt">UIImage</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:30OpenGpxTracker_Watch_Extension19InterfaceControllerC12signalImage6So7UIImageCSgvp"></a>
+                    <a name="//apple_ref/swift/Property/signalImage6" class="dashAnchor"></a>
+                    <a class="token" href="#/s:30OpenGpxTracker_Watch_Extension19InterfaceControllerC12signalImage6So7UIImageCSgvp">signalImage6</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">let</span> <span class="nv">signalImage6</span><span class="p">:</span> <span class="kt">UIImage</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:30OpenGpxTracker_Watch_Extension19InterfaceControllerC0B14TrackingStatusO"></a>
+                    <a name="//apple_ref/swift/Enum/GpxTrackingStatus" class="dashAnchor"></a>
+                    <a class="token" href="#/s:30OpenGpxTracker_Watch_Extension19InterfaceControllerC0B14TrackingStatusO">GpxTrackingStatus</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Defines the different statuses regarding tracking current user location.</p>
+
+                        <a href="../Classes/InterfaceController/GpxTrackingStatus.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">enum</span> <span class="kt">GpxTrackingStatus</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:30OpenGpxTracker_Watch_Extension19InterfaceControllerC17gpxTrackingStatusAC0biJ0Ovp"></a>
+                    <a name="//apple_ref/swift/Property/gpxTrackingStatus" class="dashAnchor"></a>
+                    <a class="token" href="#/s:30OpenGpxTracker_Watch_Extension19InterfaceControllerC17gpxTrackingStatusAC0biJ0Ovp">gpxTrackingStatus</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Tells what is the current status of the Map Instance.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">gpxTrackingStatus</span><span class="p">:</span> <span class="kt">InterfaceController</span><span class="o">.</span><span class="kt"><a href="../Classes/InterfaceController/GpxTrackingStatus.html">GpxTrackingStatus</a></span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:30OpenGpxTracker_Watch_Extension19InterfaceControllerC12lastLocationSo10CLLocationCSgvp"></a>
+                    <a name="//apple_ref/swift/Property/lastLocation" class="dashAnchor"></a>
+                    <a class="token" href="#/s:30OpenGpxTracker_Watch_Extension19InterfaceControllerC12lastLocationSo10CLLocationCSgvp">lastLocation</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Editing Waypoint Temporal Reference</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">lastLocation</span><span class="p">:</span> <span class="kt">CLLocation</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@OpenGpxTracker_Watch_Extension@objc(cs)InterfaceController(im)awakeWithContext:"></a>
+                    <a name="//apple_ref/swift/Method/awake(withContext:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@OpenGpxTracker_Watch_Extension@objc(cs)InterfaceController(im)awakeWithContext:">awake(withContext:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">override</span> <span class="kd">func</span> <span class="nf">awake</span><span class="p">(</span><span class="n">withContext</span> <span class="nv">context</span><span class="p">:</span> <span class="kt">Any</span><span class="p">?)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@OpenGpxTracker_Watch_Extension@objc(cs)InterfaceController(im)willActivate"></a>
+                    <a name="//apple_ref/swift/Method/willActivate()" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@OpenGpxTracker_Watch_Extension@objc(cs)InterfaceController(im)willActivate">willActivate()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">override</span> <span class="kd">func</span> <span class="nf">willActivate</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@OpenGpxTracker_Watch_Extension@objc(cs)InterfaceController(im)trackerButtonTapped"></a>
+                    <a name="//apple_ref/swift/Method/trackerButtonTapped()" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@OpenGpxTracker_Watch_Extension@objc(cs)InterfaceController(im)trackerButtonTapped">trackerButtonTapped()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Main Start/Pause Button was tapped.</p>
+
+<p>It sets the status to tracking or paused.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@IBAction</span>
+<span class="kd">func</span> <span class="nf">trackerButtonTapped</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@OpenGpxTracker_Watch_Extension@objc(cs)InterfaceController(im)addPinAtMyLocation"></a>
+                    <a name="//apple_ref/swift/Method/addPinAtMyLocation()" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@OpenGpxTracker_Watch_Extension@objc(cs)InterfaceController(im)addPinAtMyLocation">addPinAtMyLocation()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@IBAction</span>
+<span class="kd">func</span> <span class="nf">addPinAtMyLocation</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@OpenGpxTracker_Watch_Extension@objc(cs)InterfaceController(im)saveButtonTapped"></a>
+                    <a name="//apple_ref/swift/Method/saveButtonTapped()" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@OpenGpxTracker_Watch_Extension@objc(cs)InterfaceController(im)saveButtonTapped">saveButtonTapped()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@IBAction</span>
+<span class="kd">func</span> <span class="nf">saveButtonTapped</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@OpenGpxTracker_Watch_Extension@objc(cs)InterfaceController(im)resetButtonTapped"></a>
+                    <a name="//apple_ref/swift/Method/resetButtonTapped()" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@OpenGpxTracker_Watch_Extension@objc(cs)InterfaceController(im)resetButtonTapped">resetButtonTapped()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Triggered when reset button was tapped.</p>
+
+<p>It sets map to status .notStarted which clears the map.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@IBAction</span>
+<span class="kd">func</span> <span class="nf">resetButtonTapped</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@OpenGpxTracker_Watch_Extension@objc(cs)InterfaceController(im)didDeactivate"></a>
+                    <a name="//apple_ref/swift/Method/didDeactivate()" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@OpenGpxTracker_Watch_Extension@objc(cs)InterfaceController(im)didDeactivate">didDeactivate()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">override</span> <span class="kd">func</span> <span class="nf">didDeactivate</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:30OpenGpxTracker_Watch_Extension19InterfaceControllerC15defaultFilenameSSyF"></a>
+                    <a name="//apple_ref/swift/Method/defaultFilename()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:30OpenGpxTracker_Watch_Extension19InterfaceControllerC15defaultFilenameSSyF">defaultFilename()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>returns a string with the format of current date dd-MMM-yyyy-HHmm&rsquo; (20-Jun-2018-1133)</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">defaultFilename</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@OpenGpxTracker_Watch_Extension@objc(cs)InterfaceController(im)applicationDidBecomeActive"></a>
+                    <a name="//apple_ref/swift/Method/applicationDidBecomeActive()" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@OpenGpxTracker_Watch_Extension@objc(cs)InterfaceController(im)applicationDidBecomeActive">applicationDidBecomeActive()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Called when the application Becomes active (background -&gt; foreground) this function verifies if
+it has permissions to get the location.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@objc</span>
+<span class="kd">func</span> <span class="nf">applicationDidBecomeActive</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@OpenGpxTracker_Watch_Extension@objc(cs)InterfaceController(im)didEnterBackground"></a>
+                    <a name="//apple_ref/swift/Method/didEnterBackground()" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@OpenGpxTracker_Watch_Extension@objc(cs)InterfaceController(im)didEnterBackground">didEnterBackground()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Actions to do in case the app entered in background</p>
+
+<p>In current implementation if the app is not tracking it requests the OS to stop
+sharing the location to save battery.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@objc</span>
+<span class="kd">func</span> <span class="nf">didEnterBackground</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@OpenGpxTracker_Watch_Extension@objc(cs)InterfaceController(im)applicationWillTerminate"></a>
+                    <a name="//apple_ref/swift/Method/applicationWillTerminate()" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@OpenGpxTracker_Watch_Extension@objc(cs)InterfaceController(im)applicationWillTerminate">applicationWillTerminate()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Actions to do when the app will terminate</p>
+
+<p>In current implementation it removes all the temporary files that may have been created</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@objc</span>
+<span class="kd">func</span> <span class="nf">applicationWillTerminate</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:30OpenGpxTracker_Watch_Extension19InterfaceControllerC27checkLocationServicesStatusyyF"></a>
+                    <a name="//apple_ref/swift/Method/checkLocationServicesStatus()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:30OpenGpxTracker_Watch_Extension19InterfaceControllerC27checkLocationServicesStatusyyF">checkLocationServicesStatus()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Checks the location services status</p>
+<li>Are location services enabled (access to location device wide)? If not =&gt; displays an alert</li>
+<li><p>Are location services allowed to this app? If not =&gt; displays an alert</p></li>
+<div class="aside aside-seealso">
+    <p class="aside-title">Seealso</p>
+    <p>displayLocationServicesDisabledAlert, displayLocationServicesDeniedAlert</p>
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">checkLocationServicesStatus</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:30OpenGpxTracker_Watch_Extension19InterfaceControllerC36displayLocationServicesDisabledAlertyyF"></a>
+                    <a name="//apple_ref/swift/Method/displayLocationServicesDisabledAlert()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:30OpenGpxTracker_Watch_Extension19InterfaceControllerC36displayLocationServicesDisabledAlertyyF">displayLocationServicesDisabledAlert()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Displays an alert that informs the user that location services are disabled.</p>
+
+<p>When location services are disabled is for all applications, not only this one.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">displayLocationServicesDisabledAlert</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:30OpenGpxTracker_Watch_Extension19InterfaceControllerC34displayLocationServicesDeniedAlertyyF"></a>
+                    <a name="//apple_ref/swift/Method/displayLocationServicesDeniedAlert()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:30OpenGpxTracker_Watch_Extension19InterfaceControllerC34displayLocationServicesDeniedAlertyyF">displayLocationServicesDeniedAlert()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Displays an alert that informs the user that access to location was denied for this app (other apps may have access).
+It also dispays a button allows the user to go to settings to activate the location.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">displayLocationServicesDeniedAlert</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/StopWatchDelegate"></a>
+                <a name="//apple_ref/swift/Section/StopWatchDelegate" class="dashAnchor"></a>
+                <a href="#/StopWatchDelegate">
+                  <h3 class="section-name">StopWatchDelegate</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:30OpenGpxTracker_Watch_Extension04StopD8DelegateP04stopD0_26didUpdateElapsedTimeStringyAA0fD0C_SStF"></a>
+                    <a name="//apple_ref/swift/Method/stopWatch(_:didUpdateElapsedTimeString:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:30OpenGpxTracker_Watch_Extension04StopD8DelegateP04stopD0_26didUpdateElapsedTimeStringyAA0fD0C_SStF">stopWatch(_:didUpdateElapsedTimeString:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">stopWatch</span><span class="p">(</span><span class="n">_</span> <span class="nv">stropWatch</span><span class="p">:</span> <span class="kt"><a href="../Classes/StopWatch.html">StopWatch</a></span><span class="p">,</span> <span class="n">didUpdateElapsedTimeString</span> <span class="nv">elapsedTimeString</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/CLLocationManagerDelegate"></a>
+                <a name="//apple_ref/swift/Section/CLLocationManagerDelegate" class="dashAnchor"></a>
+                <a href="#/CLLocationManagerDelegate">
+                  <h3 class="section-name">CLLocationManagerDelegate</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@CM@OpenGpxTracker_Watch_Extension@objc(cs)InterfaceController(im)locationManager:didFailWithError:"></a>
+                    <a name="//apple_ref/swift/Method/locationManager(_:didFailWithError:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@CM@OpenGpxTracker_Watch_Extension@objc(cs)InterfaceController(im)locationManager:didFailWithError:">locationManager(_:didFailWithError:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">locationManager</span><span class="p">(</span><span class="n">_</span> <span class="nv">manager</span><span class="p">:</span> <span class="kt">CLLocationManager</span><span class="p">,</span> <span class="n">didFailWithError</span> <span class="nv">error</span><span class="p">:</span> <span class="kt">Error</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@CM@OpenGpxTracker_Watch_Extension@objc(cs)InterfaceController(im)locationManager:didUpdateLocations:"></a>
+                    <a name="//apple_ref/swift/Method/locationManager(_:didUpdateLocations:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@CM@OpenGpxTracker_Watch_Extension@objc(cs)InterfaceController(im)locationManager:didUpdateLocations:">locationManager(_:didUpdateLocations:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Updates location accuracy and map information when user is in a new position</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">locationManager</span><span class="p">(</span><span class="n">_</span> <span class="nv">manager</span><span class="p">:</span> <span class="kt">CLLocationManager</span><span class="p">,</span> <span class="n">didUpdateLocations</span> <span class="nv">locations</span><span class="p">:</span> <span class="p">[</span><span class="kt">CLLocation</span><span class="p">])</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; 2019 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2019-02-16)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>

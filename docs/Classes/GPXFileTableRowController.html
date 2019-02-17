@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Int Extension Reference</title>
+    <title>GPXFileTableRowController Class Reference</title>
     <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
     <meta charset='utf-8'>
@@ -10,8 +10,8 @@
     
   </head>
   <body>
-    <a name="//apple_ref/swift/Extension/Int" class="dashAnchor"></a>
-    <a title="Int Extension Reference"></a>
+    <a name="//apple_ref/swift/Class/GPXFileTableRowController" class="dashAnchor"></a>
+    <a title="GPXFileTableRowController Class Reference"></a>
     <header>
       <div class="content-wrapper">
         <p><a href="../index.html"> Docs</a> (47% documented)</p>
@@ -21,7 +21,7 @@
       <p id="breadcrumbs">
         <a href="../index.html"> Reference</a>
         <img id="carat" src="../img/carat.png" />
-        Int Extension Reference
+        GPXFileTableRowController Class Reference
       </p>
     </div>
     <div class="content-wrapper">
@@ -207,14 +207,15 @@
       <article class="main-content">
         <section>
           <section class="section">
-            <h1>Int</h1>
+            <h1>GPXFileTableRowController</h1>
               <div class="declaration">
                 <div class="language">
-                  <pre class="highlight swift"><code><span class="kd">struct</span> <span class="kt">Int</span> <span class="p">:</span> <span class="kt">FixedWidthInteger</span><span class="p">,</span> <span class="kt">SignedInteger</span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">class</span> <span class="kt">GPXFileTableRowController</span> <span class="p">:</span> <span class="kt">NSObject</span></code></pre>
 
                 </div>
               </div>
-            
+            <p>Basically a TableViewCell, but for Watch</p>
+
           </section>
           <section class="section task-group-section">
             <div class="task-group">
@@ -222,9 +223,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:Si30OpenGpxTracker_Watch_ExtensionE10asFileSizeSSyF"></a>
-                    <a name="//apple_ref/swift/Method/asFileSize()" class="dashAnchor"></a>
-                    <a class="token" href="#/s:Si30OpenGpxTracker_Watch_ExtensionE10asFileSizeSSyF">asFileSize()</a>
+                    <a name="/c:@M@OpenGpxTracker_Watch_Extension@objc(cs)GPXFileTableRowController(py)fileLabel"></a>
+                    <a name="//apple_ref/swift/Property/fileLabel" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@OpenGpxTracker_Watch_Extension@objc(cs)GPXFileTableRowController(py)fileLabel">fileLabel</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -232,14 +233,15 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Returns the integer as file size humanized (for instance: 1024 -&gt; <q>1 KB</q> )</p>
+                        <p>Undocumented</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">asFileSize</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">String</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">@IBOutlet</span>
+<span class="k">var</span> <span class="nv">fileLabel</span><span class="p">:</span> <span class="kt">WKInterfaceLabel</span><span class="o">!</span></code></pre>
 
                         </div>
                       </div>
