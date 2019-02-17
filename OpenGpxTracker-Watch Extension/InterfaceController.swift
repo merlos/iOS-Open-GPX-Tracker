@@ -237,10 +237,10 @@ class InterfaceController: WKInterfaceController {
         
     }
     @IBAction func addPinAtMyLocation() {
-        print("Adding Pin at my location")
         if let currentCoordinates = locationManager.location?.coordinate {
             let waypoint = GPXWaypoint(coordinate: currentCoordinates)
             map.addWaypoint(waypoint)
+            print("Adding waypoint at \(currentCoordinates)")
             self.hasWaypoints = true
         }
         
