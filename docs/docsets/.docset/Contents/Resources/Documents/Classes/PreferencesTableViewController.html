@@ -14,7 +14,7 @@
     <a title="PreferencesTableViewController Class Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html"> Docs</a> (55% documented)</p>
+        <p><a href="../index.html"> Docs</a> (58% documented)</p>
       </div>
     </header>
     <div class="content-wrapper">
@@ -83,12 +83,6 @@
           <li class="nav-group-name">
             <a href="../Global Variables.html">Global Variables</a>
             <ul class="nav-group-tasks">
-              <li class="nav-group-task">
-                <a href="../Global Variables.html#/s:14OpenGpxTracker4iOS7Sbvp">iOS7</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Global Variables.html#/s:14OpenGpxTracker4iOS8Sbvp">iOS8</a>
-              </li>
               <li class="nav-group-task">
                 <a href="../Global Variables.html#/s:14OpenGpxTracker26kBlueButtonBackgroundColorSo7UIColorCvp">kBlueButtonBackgroundColor</a>
               </li>
@@ -259,7 +253,15 @@
 
                 </div>
               </div>
-            <p>Undocumented</p>
+            <p>There are two preferences available:</p>
+
+<ul>
+<li>use or not cache</li>
+<li>select the map source (tile server)</li>
+</ul>
+
+<p>Preferences are kept on UserDefaults with the keys <code>kDefaultKeyTileServerInt</code> (Int)
+and <code>kDefaultUseCache</code>` (Bool)</p>
 
           </section>
           <section class="section task-group-section">
@@ -268,9 +270,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/c:@M@OpenGpxTracker@objc(cs)PreferencesTableViewController(py)selectedTileServerInt"></a>
+                    <a name="/s:14OpenGpxTracker30PreferencesTableViewControllerC21selectedTileServerIntSivp"></a>
                     <a name="//apple_ref/swift/Property/selectedTileServerInt" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@OpenGpxTracker@objc(cs)PreferencesTableViewController(py)selectedTileServerInt">selectedTileServerInt</a>
+                    <a class="token" href="#/s:14OpenGpxTracker30PreferencesTableViewControllerC21selectedTileServerIntSivp">selectedTileServerInt</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -295,9 +297,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/c:@M@OpenGpxTracker@objc(cs)PreferencesTableViewController(py)currentUseCache"></a>
+                    <a name="/s:14OpenGpxTracker30PreferencesTableViewControllerC15currentUseCacheSbvp"></a>
                     <a name="//apple_ref/swift/Property/currentUseCache" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@OpenGpxTracker@objc(cs)PreferencesTableViewController(py)currentUseCache">currentUseCache</a>
+                    <a class="token" href="#/s:14OpenGpxTracker30PreferencesTableViewControllerC15currentUseCacheSbvp">currentUseCache</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -322,9 +324,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/c:@M@OpenGpxTracker@objc(cs)PreferencesTableViewController(py)defaults"></a>
+                    <a name="/s:14OpenGpxTracker30PreferencesTableViewControllerC8defaultsSo14NSUserDefaultsCvp"></a>
                     <a name="//apple_ref/swift/Property/defaults" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@OpenGpxTracker@objc(cs)PreferencesTableViewController(py)defaults">defaults</a>
+                    <a class="token" href="#/s:14OpenGpxTracker30PreferencesTableViewControllerC8defaultsSo14NSUserDefaultsCvp">defaults</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -386,7 +388,13 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Does the following:</p>
+
+<ol>
+<li>Defines the areas for navBar and the Table view</li>
+<li>Sets the title</li>
+<li>Loads the Preferences from defaults (us</li>
+</ol>
 
                       </div>
                       <div class="declaration">
@@ -413,14 +421,15 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Close this controller.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">closePreferencesTableViewController</span><span class="p">()</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">@objc</span>
+<span class="kd">func</span> <span class="nf">closePreferencesTableViewController</span><span class="p">()</span></code></pre>
 
                         </div>
                       </div>
@@ -440,7 +449,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Loads data</p>
 
                       </div>
                       <div class="declaration">
@@ -467,7 +476,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Does nothing for now.</p>
 
                       </div>
                       <div class="declaration">
@@ -494,7 +503,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Returns 2 (one section is for <q>Cache</q> and the second one is for  <q>Map Source</q></p>
 
                       </div>
                       <div class="declaration">
@@ -521,7 +530,8 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Returns the title of the existing sections.
+Uses <code><a href="../Global Variables.html#/s:14OpenGpxTracker13kCacheSectionSivp">kCacheSection</a></code> and <code><a href="../Global Variables.html#/s:14OpenGpxTracker17kMapSourceSectionSivp">kMapSourceSection</a></code> for deciding which section</p>
 
                       </div>
                       <div class="declaration">
@@ -548,7 +558,8 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>For section <code><a href="../Global Variables.html#/s:14OpenGpxTracker13kCacheSectionSivp">kCacheSection</a></code> resturns 2 and for <code><a href="../Global Variables.html#/s:14OpenGpxTracker17kMapSourceSectionSivp">kMapSourceSection</a></code> returns the number of
+tile servers defined in <code><a href="../Enums/GPXTileServer.html">GPXTileServer</a></code></p>
 
                       </div>
                       <div class="declaration">
@@ -575,7 +586,17 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>For <code><a href="../Global Variables.html#/s:14OpenGpxTracker13kCacheSectionSivp">kCacheSection</a></code>:</p>
+
+<ol>
+<li>If <code>indexPath.row</code> is equal to <code>kUserOfflineCacheCell</code>, returns a cell with a checkmark</li>
+<li>If <code>indexPath.row</code> is equal to <code><a href="../Global Variables.html#/s:14OpenGpxTracker15kClearCacheCellSivp">kClearCacheCell</a></code>, returns a cell with a red text
+<code><a href="../Global Variables.html#/s:14OpenGpxTracker15kClearCacheCellSivp">kClearCacheCell</a></code></li>
+</ol>
+
+<p>If the section is kMapSourceSection, it returns a chekmark cell with the name of
+the tile server in the  <code>indexPath.row</code> index in <code><a href="../Enums/GPXTileServer.html">GPXTileServer</a></code>. The cell is marked
+if <code><a href="../Classes/PreferencesTableViewController.html#/s:14OpenGpxTracker30PreferencesTableViewControllerC21selectedTileServerIntSivp">selectedTileServerInt</a></code> is the same as <code>indexPath.row</code>`.</p>
 
                       </div>
                       <div class="declaration">
@@ -602,7 +623,17 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Performs the following actions depending on the section and row selected:</p>
+
+<ol>
+<li>A cell in kCacheSection is selected:
+
+<ol>
+<li>kUseOfflineCacheCell: Activates or desactivates the use of cache
+(<code>kDefaultUseCache</code> in defaults)</li>
+</ol></li>
+<li>A cell in kMapSourceSection is selected: Updates the default key (<code><a href="../Global Variables.html#/s:14OpenGpxTracker25kDefaultsKeyTileServerIntSSvp">kDefaultsKeyTileServerInt</a></code>)</li>
+</ol>
 
                       </div>
                       <div class="declaration">
@@ -621,8 +652,8 @@
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2018 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2018-09-23)</p>
-          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+          <p>&copy; 2019 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2019-02-17)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>
     </div>
