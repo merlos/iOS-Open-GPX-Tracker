@@ -103,8 +103,7 @@ class GPXMapView: MKMapView {
                 self.tileServerOverlay = CachedTileOverlay(urlTemplate: newValue.templateUrl)
                 (self.tileServerOverlay as! CachedTileOverlay).useCache = self.useCache
                 tileServerOverlay.canReplaceMapContent = true
-                self.addOverlay(tileServerOverlay, level: .aboveLabels)
-            
+                self.insertOverlay(tileServerOverlay, at: 0, level: .aboveLabels)
             }
         }
     }
