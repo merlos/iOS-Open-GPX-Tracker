@@ -44,7 +44,7 @@ You can use Open GPX tracker for:
     - Clear cache
     - Select the map server.
 
-## Apple Watch Features _soon available on the App Store!_ (v1.6.0 )
+## Apple Watch Features (since v1.6.0 )
 - Create GPX Files on your Apple Watch
 - Pause/Resume tracking
 - Save into GPX File
