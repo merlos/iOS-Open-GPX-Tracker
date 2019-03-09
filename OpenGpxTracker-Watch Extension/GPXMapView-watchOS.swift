@@ -138,7 +138,7 @@ class GPXMapView {
         //add existing tracks
         gpx.add(tracks: self.tracks)
         //add current track
-        gpx.add(tracks: [track])
+        gpx.add(track: track)
         return gpx.gpx()
     }
     
