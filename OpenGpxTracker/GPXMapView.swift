@@ -216,13 +216,16 @@ class GPXMapView: MKMapView {
     }
     
     ///
-    /// Appends currentSegment to trackSegments and initializes currentSegment to a new one.
+    /// If current segmet has points, it appends currentSegment to trackSegments and
+    /// initializes currentSegment to a new one.
     ///
     func startNewTrackSegment() {
-        self.trackSegments.append(self.currentSegment)
-        self.currentSegment = GPXTrackSegment()
-        self.currentSegmentOverlay = MKPolyline()
-        self.currentSegmentDistance = 0.00
+        if self.currentSegment.trackpoints.count > 0 {
+            self.trackSegments.append(self.currentSegment)
+            self.currentSegment = GPXTrackSegment()
+            self.currentSegmentOverlay = MKPolyline()
+            self.currentSegmentDistance = 0.00
+        }
     }
     
     ///
