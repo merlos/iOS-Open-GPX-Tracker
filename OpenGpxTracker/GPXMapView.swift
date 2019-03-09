@@ -271,8 +271,10 @@ class GPXMapView: MKMapView {
         if self.currentSegment.trackpoints.count > 0 {
             track.add(trackSegment: self.currentSegment)
         }
-        self.tracks.append(track)
+        //add existing tracks
         gpx.add(tracks: self.tracks)
+        //add current track
+        gpx.add(tracks: [track])
         return gpx.gpx()
     }
    
