@@ -99,11 +99,9 @@ class GPXMapView {
         if self.currentSegment.trackpoints.count > 0 {
             self.trackSegments.append(self.currentSegment)
             self.currentSegment = GPXTrackSegment()
-            self.currentSegmentOverlay = MKPolyline()
             self.currentSegmentDistance = 0.00
         }
     }
-    
     
     ///
     /// Clears map.
@@ -143,5 +141,5 @@ class GPXMapView {
         gpx.add(tracks: [track])
         return gpx.gpx()
     }
-
+    
 }
