@@ -316,17 +316,6 @@ class InterfaceController: WKInterfaceController {
         return dateFormatter.string(from: Date())
     }
     
-   
- 
-    
-    ///
-    /// Actions to do when the app will terminate
-    ///
-    /// In current implementation it removes all the temporary files that may have been created
-    @objc func applicationWillTerminate() {
-        print("viewController:: applicationWillTerminate")
-        GPXFileManager.removeTemporaryFiles()
-    }
     
     ///
     /// Checks the location services status
