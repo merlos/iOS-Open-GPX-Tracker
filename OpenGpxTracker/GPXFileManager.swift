@@ -148,7 +148,7 @@ class GPXFileManager: NSObject {
         
         // attempt to move file
         do {
-            let url = GPXFilesFolderURL.path + fileName
+            let url = GPXFilesFolderURL.path + "/" + fileName
             try FileManager().moveItem(atPath: fileURL.path, toPath: url)
         }
             
