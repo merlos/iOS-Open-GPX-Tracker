@@ -1166,10 +1166,23 @@ extension ViewController: WCSessionDelegate {
     }
     
     func session(_ session: WCSession, didReceive file: WCSessionFile) {
+        let fileName = file.metadata!["fileName"] as! String?
+        
+        // alert to display to notify user that file has been received.
+        let controller = UIAlertController(title: "File Received from Apple Watch", message: "Received file: \"\(fileName!)\"", preferredStyle: .alert)
+        let action = UIAlertAction(title: "Done", style: .default) {
+            (action) in
+            print("ViewController:: Presented file received message from WatchConnectivity Session")
+        }
+        
+        controller.addAction(action)
+        
         DispatchQueue.global().sync {
-            GPXFileManager.moveFrom(file.fileURL, fileName: file.metadata!["fileName"] as! String?)
+            GPXFileManager.moveFrom(file.fileURL, fileName: fileName)
             print("ViewController:: Received file from WatchConnectivity Session")
         }
+        
+        self.present(controller, animated: true, completion: nil)
     }
 }
 

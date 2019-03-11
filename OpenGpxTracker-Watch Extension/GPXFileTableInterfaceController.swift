@@ -132,7 +132,7 @@ class GPXFileTableInterfaceController: WKInterfaceController {
             return
         }
         let gpxFileInfo = fileList.object(at: rowIndex) as! GPXFileInfo
-        session?.transferFile(fileURL, metadata: ["fileName" : "/\(gpxFileInfo.fileName).gpx"])
+        session?.transferFile(fileURL, metadata: ["fileName" : "\(gpxFileInfo.fileName).gpx"])
     }
     
     // Cancel button is tapped.
