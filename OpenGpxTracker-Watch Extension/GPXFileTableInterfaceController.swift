@@ -8,6 +8,7 @@
 
 import WatchKit
 import WatchConnectivity
+import SpriteKit
 
 /// Text displayed when there are no GPX files in the folder.
 let kNoFiles = "No gpx files"
@@ -28,6 +29,10 @@ class GPXFileTableInterfaceController: WKInterfaceController {
     
     /// Main table that displays list of files
     @IBOutlet var fileTable: WKInterfaceTable!
+    @IBOutlet var progressGroup: WKInterfaceGroup!
+    @IBOutlet var spinningProgressWheel: WKInterfaceSKScene!
+    @IBOutlet var progressTitle: WKInterfaceLabel!
+    @IBOutlet var progressFileName: WKInterfaceLabel!
     
     /// List of strings with the filenames.
     var fileList: NSMutableArray = [kNoFiles]
@@ -45,6 +50,24 @@ class GPXFileTableInterfaceController: WKInterfaceController {
         super.awake(withContext: context)
         
         // Configure interface objects here.
+    }
+    
+    func hideProgressControls() {
+        //self.progressGroup.setAlpha(0)
+        //self.progressGroup.setHeight(0)
+        self.progressTitle.setHidden(true)
+        self.spinningProgressWheel.setHidden(true)
+        self.spinningProgressWheel.isPaused = true
+        self.progressFileName.setHidden(true)
+    }
+    
+    func showProgressControls() {//_ status: String, fileName: String) {
+        //self.progressGroup.setAlpha(1)
+        //self.progressGroup.setHeight(30)
+        self.spinningProgressWheel.setHidden(false)
+        self.spinningProgressWheel.isPaused = false
+        self.progressTitle.setHidden(false)
+        self.progressFileName.setHidden(false)
     }
 
     override func willActivate() {
@@ -88,6 +111,7 @@ class GPXFileTableInterfaceController: WKInterfaceController {
             guard let cell = fileTable.rowController(at: 0) as? GPXFileTableRowController else { return }
             cell.fileLabel.setText(kNoFiles)
         }
+        showProgressControls()
     }
     
     /// Invokes when one of the cells of the table is clicked.
@@ -98,6 +122,7 @@ class GPXFileTableInterfaceController: WKInterfaceController {
             
             /// Option lets user send selected file to iOS app
             let shareOption = WKAlertAction(title: "Send to iOS app", style: .default) {
+                self.hideProgressControls()
                 self.actionTransferFileAtIndex(rowIndex)
             }
             
@@ -132,7 +157,9 @@ class GPXFileTableInterfaceController: WKInterfaceController {
             return
         }
         let gpxFileInfo = fileList.object(at: rowIndex) as! GPXFileInfo
-        session?.transferFile(fileURL, metadata: ["fileName" : "\(gpxFileInfo.fileName).gpx"])
+        DispatchQueue.global().async {
+            self.session?.transferFile(fileURL, metadata: ["fileName" : "\(gpxFileInfo.fileName).gpx"])
+        }
     }
     
     // Cancel button is tapped.
@@ -189,7 +216,7 @@ extension GPXFileTableInterfaceController: WCSessionDelegate {
         guard let error = error else {
             
             // presenting alert to user if file is successfully transferred
-            presentAlert(withTitle: "File Transfer", message: "GPX file successfully sent to iOS app", preferredStyle: .alert, actions: [doneAction])
+            //presentAlert(withTitle: "File Transfer", message: "GPX file successfully sent to iOS app", preferredStyle: .alert, actions: [doneAction])
             return
         }
         

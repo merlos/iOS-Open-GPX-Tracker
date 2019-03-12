@@ -153,6 +153,21 @@
             <objects>
                 <controller id="77f-od-duZ" customClass="GPXFileTableInterfaceController" customModule="OpenGpxTracker_Watch_Extension">
                     <items>
+                        <group width="1" alignment="left" id="uQq-74-Od7" userLabel="Progress Group">
+                            <items>
+                                <spriteKitScene width="30" height="30" alignment="left" verticalAlignment="center" scene="GPXFileTableSpinningWheel.sks" id="gm6-ME-eL6"/>
+                                <group width="1" alignment="left" layout="vertical" id="Dpa-xn-LT3" userLabel="Labels Group">
+                                    <items>
+                                        <label alignment="left" text="Sending" id="AyV-DL-c4U">
+                                            <fontDescription key="font" type="system" weight="light" pointSize="10"/>
+                                        </label>
+                                        <label alignment="left" text="File Name" id="19n-8m-sC5">
+                                            <fontDescription key="font" type="boldSystem" pointSize="11"/>
+                                        </label>
+                                    </items>
+                                </group>
+                            </items>
+                        </group>
                         <table alignment="left" id="Ueu-eD-023">
                             <items>
                                 <tableRow identifier="GPXFile" id="cGI-3H-K2G" customClass="GPXFileTableRowController" customModule="OpenGpxTracker_Watch_Extension">
@@ -170,7 +185,7 @@
                                         </items>
                                     </group>
                                     <connections>
-                                        <outlet property="fileLabel" destination="Nkq-Do-muS" id="ZWf-55-Mr2"/>
+                                        <outlet property="fileLabel" destination="Nkq-Do-muS" id="ejY-OF-2LG"/>
                                     </connections>
                                 </tableRow>
                             </items>
@@ -178,10 +193,14 @@
                     </items>
                     <connections>
                         <outlet property="fileTable" destination="Ueu-eD-023" id="fBH-uF-QRr"/>
+                        <outlet property="progressFileName" destination="19n-8m-sC5" id="4eo-O7-1lE"/>
+                        <outlet property="progressGroup" destination="uQq-74-Od7" id="GW2-fe-7dh"/>
+                        <outlet property="progressTitle" destination="AyV-DL-c4U" id="4yQ-C2-fK2"/>
+                        <outlet property="spinningProgressWheel" destination="gm6-ME-eL6" id="0xh-av-OnI"/>
                     </connections>
                 </controller>
             </objects>
-            <point key="canvasLocation" x="256" y="87"/>
+            <point key="canvasLocation" x="256" y="104"/>
         </scene>
         <!--Static Notification Interface Controller-->
         <scene sceneID="AEw-b0-oYE">
