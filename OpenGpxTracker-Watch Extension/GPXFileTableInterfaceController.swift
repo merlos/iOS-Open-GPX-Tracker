@@ -111,7 +111,7 @@ class GPXFileTableInterfaceController: WKInterfaceController {
             guard let cell = fileTable.rowController(at: 0) as? GPXFileTableRowController else { return }
             cell.fileLabel.setText(kNoFiles)
         }
-        showProgressControls()
+        self.hideProgressControls()
     }
     
     /// Invokes when one of the cells of the table is clicked.
@@ -122,7 +122,7 @@ class GPXFileTableInterfaceController: WKInterfaceController {
             
             /// Option lets user send selected file to iOS app
             let shareOption = WKAlertAction(title: "Send to iOS app", style: .default) {
-                self.hideProgressControls()
+                self.showProgressControls()
                 self.actionTransferFileAtIndex(rowIndex)
             }
             
