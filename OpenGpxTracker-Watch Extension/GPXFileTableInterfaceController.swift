@@ -63,7 +63,6 @@ class GPXFileTableInterfaceController: WKInterfaceController {
     }
     
     func showProgressControls() {//_ status: String, fileName: String) {
-        //self.progressGroup.setAlpha(1)
         self.progressGroup.setHidden(false)
         progressImageView.setImageNamed("Progress-")
         progressImageView.startAnimatingWithImages(in: NSMakeRange(0, 12), duration: 1, repeatCount: 0)
@@ -167,7 +166,6 @@ class GPXFileTableInterfaceController: WKInterfaceController {
     
     /// Attempts to transfer file to iOS app
     func actionTransferFileAtIndex(_ rowIndex: Int) {
-        self.showProgressControls()
         session?.activate()
         guard let fileURL: URL = (fileList.object(at: rowIndex) as? GPXFileInfo)?.fileURL else {
             print("GPXFileTableViewController:: actionTransferFileAtIndex: failed to get fileURL")
