@@ -33,6 +33,7 @@ class GPXFileTableInterfaceController: WKInterfaceController {
     @IBOutlet var spinningProgressWheel: WKInterfaceSKScene!
     @IBOutlet var progressTitle: WKInterfaceLabel!
     @IBOutlet var progressFileName: WKInterfaceLabel!
+    @IBOutlet var progressImageView: WKInterfaceImage!
     
     /// List of strings with the filenames.
     var fileList: NSMutableArray = [kNoFiles]
@@ -42,6 +43,8 @@ class GPXFileTableInterfaceController: WKInterfaceController {
     
     /// Temporary variable to manage
     var selectedRowIndex = -1
+    
+    var willSendFile = false
     
     /// Watch communication session
     private let session : WCSession? = WCSession.isSupported() ? WCSession.default : nil
@@ -54,20 +57,21 @@ class GPXFileTableInterfaceController: WKInterfaceController {
     
     func hideProgressControls() {
         //self.progressGroup.setAlpha(0)
-        //self.progressGroup.setHeight(0)
-        self.progressTitle.setHidden(true)
+        self.progressGroup.setHidden(true)
+        self.progressImageView.stopAnimating()
         self.spinningProgressWheel.setHidden(true)
-        self.spinningProgressWheel.isPaused = true
-        self.progressFileName.setHidden(true)
     }
     
     func showProgressControls() {//_ status: String, fileName: String) {
         //self.progressGroup.setAlpha(1)
-        //self.progressGroup.setHeight(30)
-        self.spinningProgressWheel.setHidden(false)
-        self.spinningProgressWheel.isPaused = false
-        self.progressTitle.setHidden(false)
-        self.progressFileName.setHidden(false)
+        self.progressGroup.setHidden(false)
+        progressImageView.setImageNamed("Progress-")
+        progressImageView.startAnimatingWithImages(in: NSMakeRange(0, 12), duration: 1, repeatCount: 0)
+        //loadTableData()
+        //self.spinningProgressWheel.setHidden(false)
+        //self.spinningProgressWheel.isPaused = false
+        //self.progressTitle.setHidden(false)
+        //self.progressFileName.setHidden(false)
     }
 
     override func willActivate() {
@@ -75,6 +79,13 @@ class GPXFileTableInterfaceController: WKInterfaceController {
         super.willActivate()
         self.setTitle("Your files")
         session?.delegate = self
+        
+        if willSendFile == true {
+            self.showProgressControls()
+        }
+        else {
+            self.hideProgressControls()
+        }
         
         // get gpx files
         let list: [GPXFileInfo] = GPXFileManager.fileList
@@ -86,7 +97,9 @@ class GPXFileTableInterfaceController: WKInterfaceController {
         
         loadTableData()
     }
-    
+    override func willDisappear() {
+        willSendFile = false
+    }
     override func didAppear() {
         session?.delegate = self
         session?.activate()
@@ -99,6 +112,7 @@ class GPXFileTableInterfaceController: WKInterfaceController {
     
     /// Loads data on the table
     func loadTableData() {
+        //fileTable.setNumberOfRows(0, withRowType: "GPXFile")
         fileTable.setNumberOfRows(fileList.count, withRowType: "GPXFile")
         if gpxFilesFound {
             for index in 0..<fileTable.numberOfRows {
@@ -111,7 +125,7 @@ class GPXFileTableInterfaceController: WKInterfaceController {
             guard let cell = fileTable.rowController(at: 0) as? GPXFileTableRowController else { return }
             cell.fileLabel.setText(kNoFiles)
         }
-        self.hideProgressControls()
+        //self.hideProgressControls()
     }
     
     /// Invokes when one of the cells of the table is clicked.
@@ -122,17 +136,19 @@ class GPXFileTableInterfaceController: WKInterfaceController {
             
             /// Option lets user send selected file to iOS app
             let shareOption = WKAlertAction(title: "Send to iOS app", style: .default) {
-                self.showProgressControls()
+                self.willSendFile = true
                 self.actionTransferFileAtIndex(rowIndex)
             }
             
             /// Option for users to cancel
             let cancelOption = WKAlertAction(title: "Cancel", style: .cancel) {
+                self.willSendFile = false
                 self.actionSheetCancel()
             }
             
             /// Option to delete selected file
             let deleteOption = WKAlertAction(title: "Delete", style: .destructive) {
+                self.willSendFile = false
                 self.actionDeleteFileAtIndex(rowIndex)
                 self.loadTableData()
             }
@@ -151,6 +167,7 @@ class GPXFileTableInterfaceController: WKInterfaceController {
     
     /// Attempts to transfer file to iOS app
     func actionTransferFileAtIndex(_ rowIndex: Int) {
+        self.showProgressControls()
         session?.activate()
         guard let fileURL: URL = (fileList.object(at: rowIndex) as? GPXFileInfo)?.fileURL else {
             print("GPXFileTableViewController:: actionTransferFileAtIndex: failed to get fileURL")
