@@ -153,10 +153,9 @@
             <objects>
                 <controller id="77f-od-duZ" customClass="GPXFileTableInterfaceController" customModule="OpenGpxTracker_Watch_Extension">
                     <items>
-                        <group width="1" height="30" alignment="left" id="uQq-74-Od7" userLabel="Progress Group">
+                        <group width="1" alignment="left" id="uQq-74-Od7" userLabel="Progress Group">
                             <items>
                                 <imageView width="30" height="30" alignment="left" id="sCh-xS-mUi"/>
-                                <spriteKitScene width="30" height="30" alignment="left" verticalAlignment="center" scene="GPXFileTableSpinningWheel.sks" id="gm6-ME-eL6"/>
                                 <group width="1" alignment="left" layout="vertical" id="Dpa-xn-LT3" userLabel="Labels Group">
                                     <items>
                                         <label alignment="left" text="Sending" id="AyV-DL-c4U">
@@ -198,7 +197,6 @@
                         <outlet property="progressGroup" destination="uQq-74-Od7" id="GW2-fe-7dh"/>
                         <outlet property="progressImageView" destination="sCh-xS-mUi" id="F9b-qU-7qM"/>
                         <outlet property="progressTitle" destination="AyV-DL-c4U" id="4yQ-C2-fK2"/>
-                        <outlet property="spinningProgressWheel" destination="gm6-ME-eL6" id="0xh-av-OnI"/>
                     </connections>
                 </controller>
             </objects>

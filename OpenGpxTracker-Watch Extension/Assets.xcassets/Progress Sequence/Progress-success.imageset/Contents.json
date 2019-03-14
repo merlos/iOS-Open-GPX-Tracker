@@ -2,11 +2,11 @@
   "images" : [
     {
       "idiom" : "universal",
+      "filename" : "Progress-success.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "GPXProgress-dots.png",
       "scale" : "2x"
     },
     {

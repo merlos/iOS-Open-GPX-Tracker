@@ -8,7 +8,6 @@
 
 import WatchKit
 import WatchConnectivity
-import SpriteKit
 
 /// Text displayed when there are no GPX files in the folder.
 let kNoFiles = "No gpx files"
@@ -30,7 +29,6 @@ class GPXFileTableInterfaceController: WKInterfaceController {
     /// Main table that displays list of files
     @IBOutlet var fileTable: WKInterfaceTable!
     @IBOutlet var progressGroup: WKInterfaceGroup!
-    @IBOutlet var spinningProgressWheel: WKInterfaceSKScene!
     @IBOutlet var progressTitle: WKInterfaceLabel!
     @IBOutlet var progressFileName: WKInterfaceLabel!
     @IBOutlet var progressImageView: WKInterfaceImage!
@@ -55,22 +53,56 @@ class GPXFileTableInterfaceController: WKInterfaceController {
         // Configure interface objects here.
     }
     
+    // MARK:- Progress Indicator
+    
+    enum sendingStatus {
+        case Sending, Success, Failure
+    }
+    
     func hideProgressControls() {
         //self.progressGroup.setAlpha(0)
         self.progressGroup.setHidden(true)
         self.progressImageView.stopAnimating()
-        self.spinningProgressWheel.setHidden(true)
     }
     
-    func showProgressControls() {//_ status: String, fileName: String) {
+    func hideProgressControlsWithAnimation() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                self.animate(withDuration: 1, animations: {
+                    self.progressGroup.setHeight(0)
+                })
+        }
+    }
+    
+    func showProgressControls() {
+        self.progressGroup.setHeight(30)
         self.progressGroup.setHidden(false)
         progressImageView.setImageNamed("Progress-")
         progressImageView.startAnimatingWithImages(in: NSMakeRange(0, 12), duration: 1, repeatCount: 0)
-        //loadTableData()
-        //self.spinningProgressWheel.setHidden(false)
-        //self.spinningProgressWheel.isPaused = false
-        //self.progressTitle.setHidden(false)
-        //self.progressFileName.setHidden(false)
+    }
+    
+    func updateProgressControlsText(status: sendingStatus, fileName: String?) {
+        switch status {
+        case .Sending:
+            progressTitle.setText("Sending:")
+            guard let fileName = fileName else { return }
+            let fileTransfersCount = session?.outstandingFileTransfers.count ?? 0
+            if  fileTransfersCount > 1 {
+                progressFileName.setText("\(fileTransfersCount) files")
+            }
+            else {
+                progressFileName.setText(fileName)
+            }
+        case .Success:
+            progressImageView.stopAnimating()
+            progressImageView.setImage(UIImage(named: "Progress-success"))
+            progressTitle.setText("Sucessfully sent:")
+            hideProgressControlsWithAnimation()
+        case .Failure:
+            progressImageView.stopAnimating()
+            progressImageView.setImage(UIImage(named: "Progress-failure"))
+            progressTitle.setText("Failed to send:")
+            hideProgressControlsWithAnimation()
+        }
     }
 
     override func willActivate() {
@@ -111,7 +143,6 @@ class GPXFileTableInterfaceController: WKInterfaceController {
     
     /// Loads data on the table
     func loadTableData() {
-        //fileTable.setNumberOfRows(0, withRowType: "GPXFile")
         fileTable.setNumberOfRows(fileList.count, withRowType: "GPXFile")
         if gpxFilesFound {
             for index in 0..<fileTable.numberOfRows {
@@ -124,7 +155,6 @@ class GPXFileTableInterfaceController: WKInterfaceController {
             guard let cell = fileTable.rowController(at: 0) as? GPXFileTableRowController else { return }
             cell.fileLabel.setText(kNoFiles)
         }
-        //self.hideProgressControls()
     }
     
     /// Invokes when one of the cells of the table is clicked.
@@ -169,9 +199,11 @@ class GPXFileTableInterfaceController: WKInterfaceController {
         session?.activate()
         guard let fileURL: URL = (fileList.object(at: rowIndex) as? GPXFileInfo)?.fileURL else {
             print("GPXFileTableViewController:: actionTransferFileAtIndex: failed to get fileURL")
+            self.hideProgressControls()
             return
         }
         let gpxFileInfo = fileList.object(at: rowIndex) as! GPXFileInfo
+        self.updateProgressControlsText(status: .Sending, fileName: gpxFileInfo.fileName)
         DispatchQueue.global().async {
             self.session?.transferFile(fileURL, metadata: ["fileName" : "\(gpxFileInfo.fileName).gpx"])
         }
@@ -232,10 +264,14 @@ extension GPXFileTableInterfaceController: WCSessionDelegate {
             
             // presenting alert to user if file is successfully transferred
             //presentAlert(withTitle: "File Transfer", message: "GPX file successfully sent to iOS app", preferredStyle: .alert, actions: [doneAction])
+            if session.outstandingFileTransfers.count == 1 {
+                self.updateProgressControlsText(status: .Success, fileName: nil)
+            }
             return
         }
         
         // presenting alert if file transfer failed, including error message
+        self.updateProgressControlsText(status: .Failure, fileName: nil)
         presentAlert(withTitle: "File Transfer", message: "GPX file was unsuccessfully sent to iOS app, error: \(error) ", preferredStyle: .alert, actions: [doneAction])
     }
     
