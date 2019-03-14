@@ -278,8 +278,8 @@ extension GPXFileTableInterfaceController: WCSessionDelegate {
         let doneAction = WKAlertAction(title: "Done", style: .default) { }
         guard let error = error else {
             
-            // presenting alert to user if file is successfully transferred
-            //presentAlert(withTitle: "File Transfer", message: "GPX file successfully sent to iOS app", preferredStyle: .alert, actions: [doneAction])
+            // presenting success indicator to user if file is successfully transferred
+            // will only present once all files are sent (if multiple in queue)
             if session.outstandingFileTransfers.count == 1 {
                 self.updateProgressIndicators(status: .success, fileName: nil)
             }
@@ -287,7 +287,9 @@ extension GPXFileTableInterfaceController: WCSessionDelegate {
         }
         
         // presenting alert if file transfer failed, including error message
-        self.updateProgressIndicators(status: .failure, fileName: nil)
+        //self.updateProgressIndicators(status: .failure, fileName: nil)
+        // ^ alert seems more useful as full error message can be shown.
+        self.hideProgressIndicators()
         presentAlert(withTitle: "File Transfer", message: "GPX file was unsuccessfully sent to iOS app, error: \(error) ", preferredStyle: .alert, actions: [doneAction])
     }
     
