@@ -56,9 +56,14 @@ class GPXFileTableInterfaceController: WKInterfaceController {
     
     // MARK: Progress Indicators
     
-    /// sending states
+    /// States of sending files
     enum sendingStatus {
-        case sending, success, failure
+        /// represents current state as sending
+        case sending
+        /// represents current state as successful
+        case success
+        /// represents current state as failure
+        case failure
     }
     
     /// Hides progress indicator's group, such that group will not appear when not needed.
@@ -66,6 +71,7 @@ class GPXFileTableInterfaceController: WKInterfaceController {
         self.progressGroup.setHidden(true)
         self.progressImageView.stopAnimating()
         self.progressFileName.setText("")
+        self.progressTitle.setText("")
     }
     
     /// Animate hiding of progress indicator's group, when needed.
@@ -75,6 +81,7 @@ class GPXFileTableInterfaceController: WKInterfaceController {
                     self.progressGroup.setHeight(0)
                 })
         }
+        // imageview do not have to be set with stop animating, as image indicator should already have been set as successful or failure image, which is static.
     }
     
     /// Displays progress indicators.
@@ -95,10 +102,12 @@ class GPXFileTableInterfaceController: WKInterfaceController {
         case .sending:
             progressTitle.setText("Sending:")
             guard let fileName = fileName else { return }
+            
+            /// count of pending files, does not seem to include the current one
             let fileTransfersCount = session?.outstandingFileTransfers.count ?? 0
-            // if there are more than 1 files pending for sending, filename display will not be the name of file.
-            if  fileTransfersCount > 1 {
-                progressFileName.setText("\(fileTransfersCount) files")
+            // if there are files pending for sending, filename will not be displayed with the name of file.
+            if fileTransfersCount >= 1 {
+                progressFileName.setText("\(fileTransfersCount + 1) files")
             }
             else {
                 progressFileName.setText(fileName)
@@ -286,11 +295,13 @@ extension GPXFileTableInterfaceController: WCSessionDelegate {
             return
         }
         
-        // presenting alert if file transfer failed, including error message
-        //self.updateProgressIndicators(status: .failure, fileName: nil)
-        // ^ alert seems more useful as full error message can be shown.
-        self.hideProgressIndicators()
-        presentAlert(withTitle: "File Transfer", message: "GPX file was unsuccessfully sent to iOS app, error: \(error) ", preferredStyle: .alert, actions: [doneAction])
+        // presents indicator first, if file transfer failed, without error message
+        self.updateProgressIndicators(status: .failure, fileName: nil)
+        
+        // presents alert after 1.5s, with error message
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+            self.presentAlert(withTitle: "Error Occurred", message: "GPX file was unsuccessfully sent to iOS app, due to \(error) ", preferredStyle: .alert, actions: [doneAction])
+        }
     }
     
 }
