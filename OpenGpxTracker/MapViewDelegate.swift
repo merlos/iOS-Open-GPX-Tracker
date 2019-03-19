@@ -67,17 +67,24 @@ class MapViewDelegate: NSObject, MKMapViewDelegate, UIAlertViewDelegate {
             map.removeWaypoint(waypoint)
         case kEditWaypointAccesoryButtonTag:
             print("[calloutAccesoryControlTapped: EDIT] editing waypoint with name \(waypoint.name ?? "''")")
-            let alert = UIAlertView(title: "Edit Waypoint",
-                message: "Hint: To change the waypoint location drag and drop the pin",
-                delegate: self, cancelButtonTitle: "Cancel")
-            alert.addButton(withTitle: "Save")
-            alert.tag = kEditWaypointAlertViewTag
-            alert.alertViewStyle = .plainTextInput
-            alert.textField(at: 0)?.text = waypoint.title
-            alert.show()
-            self.waypointBeingEdited = waypoint
-            alert.textField(at: 0)?.selectAll(self) //display text selected <-- TODO Not working WTF!
             
+            let alertController = UIAlertController(title: "Edit Waypoint", message: "Hint: To change the waypoint location drag and drop the pin", preferredStyle: .alert)
+            alertController.addTextField { (textField) in
+                textField.text = waypoint.title
+                textField.selectAll(self) //display text selected <-- TODO Not working WTF! (<-- Does it work as expected now?)
+            }
+            let saveAction = UIAlertAction(title: "Save", style: .default) { (action) in
+                print("Edit waypoint alert view")
+                self.waypointBeingEdited.title = alertController.textFields?[0].text
+            }
+            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (action) in }
+            
+            alertController.addAction(saveAction)
+            alertController.addAction(cancelAction)
+            
+            UIApplication.shared.keyWindow?.rootViewController?.present(alertController, animated: true)
+            
+            self.waypointBeingEdited = waypoint
         default:
             print("[calloutAccesoryControlTapped ERROR] unknown control")
         }
@@ -147,17 +154,4 @@ class MapViewDelegate: NSObject, MKMapViewDelegate, UIAlertViewDelegate {
     func addHeadingView(toAnnotationView annotationView: MKAnnotationView) {
            }
     
-    
-    func alertView(_ alertView: UIAlertView, clickedButtonAt buttonIndex: Int) {
-        
-        switch alertView.tag {
-        case kEditWaypointAlertViewTag:
-            print("Edit waypoint alert view")
-            self.waypointBeingEdited.title = alertView.textField(at: 0)?.text
-            
-        default:
-            print("[ERROR] it seems that the AlertView is not handled properly." )
-            
-        }
-    }
 }
