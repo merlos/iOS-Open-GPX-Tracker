@@ -234,6 +234,7 @@ class GPXFileTableInterfaceController: WKInterfaceController {
             return
         }
         let gpxFileInfo = fileList.object(at: rowIndex) as! GPXFileInfo
+        self.scroll(to: progressGroup, at: .top, animated: true) // scrolls to top when indicator is shown.
         self.updateProgressIndicators(status: .sending, fileName: gpxFileInfo.fileName)
         DispatchQueue.global().async {
             self.session?.transferFile(fileURL, metadata: ["fileName" : "\(gpxFileInfo.fileName).gpx"])
