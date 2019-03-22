@@ -45,6 +45,9 @@ class GPXFileTableInterfaceController: WKInterfaceController {
     /// true if a gpx file will be sent.
     var willSendFile = false
     
+    /// To ensure hide animation properly timed.
+    var time = DispatchTime.now()
+    
     /// Watch communication session
     private let session : WCSession? = WCSession.isSupported() ? WCSession.default : nil
     
@@ -76,7 +79,7 @@ class GPXFileTableInterfaceController: WKInterfaceController {
     
     /// Animate hiding of progress indicator's group, when needed.
     func hideProgressIndicatorsWithAnimation() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+        DispatchQueue.main.asyncAfter(deadline: time + 3) {
                 self.animate(withDuration: 1, animations: {
                     self.progressGroup.setHeight(0)
                 })
@@ -184,6 +187,9 @@ class GPXFileTableInterfaceController: WKInterfaceController {
     
     /// Invokes when one of the cells of the table is clicked.
     override func table(_ table: WKInterfaceTable, didSelectRowAt rowIndex: Int) {
+        
+        // required, if not, hide group animation will be faster than expected when display the next time.
+        self.time = .now()
         
         /// checks if there is any files in directory
         if gpxFilesFound {
