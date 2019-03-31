@@ -68,10 +68,10 @@ class MapViewDelegate: NSObject, MKMapViewDelegate, UIAlertViewDelegate {
         case kEditWaypointAccesoryButtonTag:
             print("[calloutAccesoryControlTapped: EDIT] editing waypoint with name \(waypoint.name ?? "''")")
             
-            let alertController = UIAlertController(title: "Edit Waypoint", message: "Hint: To change the waypoint location drag and drop the pin", preferredStyle: .alert)
+            let alertController = UIAlertController(title: "Edit waypoint name", message: "Hint: To change the waypoint location drag and drop the pin", preferredStyle: .alert)
             alertController.addTextField { (textField) in
                 textField.text = waypoint.title
-                textField.selectAll(self) //display text selected <-- TODO Not working WTF! (<-- Does it work as expected now?)
+                textField.clearButtonMode = .always
             }
             let saveAction = UIAlertAction(title: "Save", style: .default) { (action) in
                 print("Edit waypoint alert view")
