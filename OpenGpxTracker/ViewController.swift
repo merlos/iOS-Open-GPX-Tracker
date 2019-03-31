@@ -28,11 +28,6 @@ let kNotGettingLocationText = "Not getting location"
 let kUnknownAccuracyText = "±···m"
 let kUnknownSpeedText = "·.··"
 
-let kEditWaypointAlertViewTag = 33
-let kSaveSessionAlertViewTag = 88
-let kLocationServicesDeniedAlertViewTag = 69
-let kLocationServicesDisabledAlertViewTag = 70
-
 /// Size for small buttons
 let  kButtonSmallSize: CGFloat = 48.0
 /// Size for large buttons
@@ -837,15 +832,29 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
             return
         }
         
-        let alert = UIAlertView(title: "Save as", message: "Enter GPX session name", delegate: self, cancelButtonTitle: "Cancel")
+        // save alert configuration and presentation
+        let alertController = UIAlertController(title: "Save as", message: "Enter GPX session name", preferredStyle: .alert)
         
-        alert.addButton(withTitle: "Save")
-        alert.alertViewStyle = .plainTextInput
-        alert.tag = kSaveSessionAlertViewTag
-        alert.textField(at: 0)?.clearButtonMode = .always
-        alert.textField(at: 0)?.text = lastGpxFilename.isEmpty ? defaultFilename() : lastGpxFilename
-        alert.show()
-        //alert.textFieldAtIndex(0)?.selectAll(self)
+        alertController.addTextField(configurationHandler: { (textField) in
+            textField.clearButtonMode = .always
+            textField.text = self.lastGpxFilename.isEmpty ? self.defaultFilename() : self.lastGpxFilename
+        })
+        
+        let saveAction = UIAlertAction(title: "Save", style: .default) { (action) in
+            let filename = (alertController.textFields?[0].text!.utf16.count == 0) ? self.defaultFilename() : alertController.textFields?[0].text
+            print("Save File \(String(describing: filename))")
+            //export to a file
+            let gpxString = self.map.exportToGPXString()
+            GPXFileManager.save(filename!, gpxContents: gpxString)
+            self.lastGpxFilename = filename!
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (action) in }
+        
+        alertController.addAction(saveAction)
+        alertController.addAction(cancelAction)
+        
+        present(alertController, animated: true)
+        
     }
     
     ///
@@ -882,10 +891,20 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
     /// When location services are disabled is for all applications, not only this one.
     ///
     func displayLocationServicesDisabledAlert() {
-        let alert = UIAlertView(title: "Location services disabled", message: "Go to settings and enable location.", delegate: self, cancelButtonTitle: "Settings")
-        alert.addButton(withTitle: "Cancel")
-        alert.tag = kLocationServicesDisabledAlertViewTag
-        alert.show()
+        
+        let alertController = UIAlertController(title: "Location services disabled", message: "Go to settings and enable location.", preferredStyle: .alert)
+        let settingsAction = UIAlertAction(title: "Settings", style: .default) { (action) in
+            if let url = URL(string: UIApplication.openSettingsURLString) {
+                UIApplication.shared.openURL(url)
+            }
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (action) in }
+        
+        alertController.addAction(settingsAction)
+        alertController.addAction(cancelAction)
+        
+        present(alertController, animated: true)
+
     }
 
     
@@ -897,73 +916,21 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         if isDisplayingLocationServicesDenied {
             return // display it only once.
         }
-        let alert = UIAlertView(title: "Access to location denied", message: "On Location settings, allow always access to location for GPX Tracker ", delegate: self, cancelButtonTitle: "Settings")
-        alert.addButton(withTitle: "Cancel")
-        alert.tag = kLocationServicesDeniedAlertViewTag
-        alert.show()
-    }
-
-}
-
-// MARK: UIAlertViewDelegate
-
-///
-/// AlertView delegate to manage the selected option when user clicks the Save button in the main View Controller.
-///
-///
-/// The alertview displays two text field with the name of the file to be saved and two buttons (0) Cancel and (1) Save.
-
-extension ViewController: UIAlertViewDelegate {
-    func alertView(_ alertView: UIAlertView, clickedButtonAt buttonIndex: Int) {
-        
-        switch alertView.tag {
-        case kSaveSessionAlertViewTag:
-            print("alertViewDelegate for Save Session")
-            switch buttonIndex {
-            case 0: //cancel
-                print("Save canceled")
-                
-            case 1: //Save
-                let filename = (alertView.textField(at: 0)?.text!.utf16.count == 0) ? defaultFilename() : alertView.textField(at: 0)?.text
-                print("Save File \(String(describing: filename))")
-                //export to a file
-                let gpxString = self.map.exportToGPXString()
-                GPXFileManager.save(filename!, gpxContents: gpxString)
-                self.lastGpxFilename = filename!
-                
-            default:
-                print("[ERROR] it seems there are more than two buttons on the alertview.")
-                
+        let alertController = UIAlertController(title: "Access to location denied", message: "On Location settings, allow always access to location for GPX Tracker ", preferredStyle: .alert)
+        let settingsAction = UIAlertAction(title: "Settings", style: .default) { (action) in
+            if let url = URL(string: UIApplication.openSettingsURLString) {
+                UIApplication.shared.openURL(url)
             }
-        case kLocationServicesDeniedAlertViewTag:
-            isDisplayingLocationServicesDenied = false
-            switch buttonIndex {
-                case 0:
-                    print("Settings button")
-                    if let url = NSURL(string: UIApplication.openSettingsURLString) as URL? {
-                        UIApplication.shared.openURL(url)
-                    }
-                case 1:
-                    print("Cancel button")
-                default:
-                    print("[ERROR] it seems there are more than two buttons on the alertview.")
-            }
-        case kLocationServicesDisabledAlertViewTag:
-            switch buttonIndex {
-            case 0:
-                print("Settings button")
-                if let url = NSURL(string: UIApplication.openSettingsURLString) as URL? {
-                    UIApplication.shared.openURL(url)
-                }
-            case 1:
-                print("Cancel button")
-            default:
-                print("[ERROR] it seems there are more than two buttons on the alertview.")
-            }
-        default:
-            print("[ERROR] it seems that the AlertView is not handled properly." )
         }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (action) in }
+        
+        alertController.addAction(settingsAction)
+        alertController.addAction(cancelAction)
+        
+        present(alertController, animated: true)
+        isDisplayingLocationServicesDenied = false
     }
+
 }
 
 // MARK: StopWatchDelegate
@@ -1166,10 +1133,23 @@ extension ViewController: WCSessionDelegate {
     }
     
     func session(_ session: WCSession, didReceive file: WCSessionFile) {
+        let fileName = file.metadata!["fileName"] as! String?
+        
+        // alert to display to notify user that file has been received.
+        let controller = UIAlertController(title: "File Received from Apple Watch", message: "Received file: \"\(fileName!)\"", preferredStyle: .alert)
+        let action = UIAlertAction(title: "Done", style: .default) {
+            (action) in
+            print("ViewController:: Presented file received message from WatchConnectivity Session")
+        }
+        
+        controller.addAction(action)
+        
         DispatchQueue.global().sync {
-            GPXFileManager.moveFrom(file.fileURL, fileName: file.metadata!["fileName"] as! String?)
+            GPXFileManager.moveFrom(file.fileURL, fileName: fileName)
             print("ViewController:: Received file from WatchConnectivity Session")
         }
+        
+        self.present(controller, animated: true, completion: nil)
     }
 }
 

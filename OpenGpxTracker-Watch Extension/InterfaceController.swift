@@ -29,11 +29,6 @@ let kUnknownAccuracyText = "±···m"
 let kUnknownSpeedText = "·.··"
 let kUnknownAltitudeText = "···"
 
-let kEditWaypointAlertViewTag = 33
-let kSaveSessionAlertViewTag = 88
-let kLocationServicesDeniedAlertViewTag = 69
-let kLocationServicesDisabledAlertViewTag = 70
-
 /// Size for small buttons
 let kButtonSmallSize: CGFloat = 48.0
 /// Size for large buttons
@@ -194,6 +189,7 @@ class InterfaceController: WKInterfaceController {
     
     
     override func awake(withContext context: Any?) {
+        print("InterfaceController:: awake")
         super.awake(withContext: context)
         
         if gpxTrackingStatus == .notStarted {
@@ -208,21 +204,34 @@ class InterfaceController: WKInterfaceController {
             speedLabel.setText(kUnknownSpeedText)
             signalImageView.setImage(signalImage0)
         }
-        
-        // Configure interface objects here.
     }
+    
     
     override func willActivate() {
         // This method is called when watch view controller is about to be visible to user
+         print("InterfaceController:: willActivate")
         super.willActivate()
         self.setTitle("GPX Tracker")
         
         stopWatch.delegate = self
         
         locationManager.delegate = self
+        checkLocationServicesStatus()
         locationManager.startUpdatingLocation()
         
     }
+    
+    override func didDeactivate() {
+        // This method is called when watch view controller is no longer visible
+        super.didDeactivate()
+        print("InterfaceController:: didDeactivate called")
+        
+        if gpxTrackingStatus != .tracking {
+            print("InterfaceController:: didDeactivate will stopUpdatingLocation")
+            locationManager.stopUpdatingLocation()
+        }
+    }
+    
     
     
     ///
@@ -292,11 +301,7 @@ class InterfaceController: WKInterfaceController {
         self.gpxTrackingStatus = .notStarted
     }
     
-    override func didDeactivate() {
-        // This method is called when watch view controller is no longer visible
-        super.didDeactivate()
-    }
-    
+   
     /// returns a string with the format of current date dd-MMM-yyyy-HHmm' (20-Jun-2018-1133)
     ///
     func defaultFilename() -> String {
@@ -306,44 +311,6 @@ class InterfaceController: WKInterfaceController {
         return dateFormatter.string(from: Date())
     }
     
-    ///
-    /// Called when the application Becomes active (background -> foreground) this function verifies if
-    /// it has permissions to get the location.
-    ///
-    @objc func applicationDidBecomeActive() {
-        print("InterfaceController:: applicationDidBecomeActive wasSentToBackground: \(wasSentToBackground) locationServices: \(CLLocationManager.locationServicesEnabled())")
-        
-        //If the app was never sent to background do nothing
-        if !wasSentToBackground {
-            return
-        }
-        checkLocationServicesStatus()
-        locationManager.startUpdatingLocation()
-    }
-    
-    ///
-    /// Actions to do in case the app entered in background
-    ///
-    /// In current implementation if the app is not tracking it requests the OS to stop
-    /// sharing the location to save battery.
-    ///
-    ///
-    @objc func didEnterBackground() {
-        wasSentToBackground = true // flag the application was sent to background
-        print("InterfaceController:: didEnterBackground")
-        if gpxTrackingStatus != .tracking {
-            locationManager.stopUpdatingLocation()
-        }
-    }
-    
-    ///
-    /// Actions to do when the app will terminate
-    ///
-    /// In current implementation it removes all the temporary files that may have been created
-    @objc func applicationWillTerminate() {
-        print("viewController:: applicationWillTerminate")
-        GPXFileManager.removeTemporaryFiles()
-    }
     
     ///
     /// Checks the location services status
