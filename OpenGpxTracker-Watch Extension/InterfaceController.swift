@@ -29,11 +29,6 @@ let kUnknownAccuracyText = "±···m"
 let kUnknownSpeedText = "·.··"
 let kUnknownAltitudeText = "···"
 
-let kEditWaypointAlertViewTag = 33
-let kSaveSessionAlertViewTag = 88
-let kLocationServicesDeniedAlertViewTag = 69
-let kLocationServicesDisabledAlertViewTag = 70
-
 /// Size for small buttons
 let kButtonSmallSize: CGFloat = 48.0
 /// Size for large buttons
