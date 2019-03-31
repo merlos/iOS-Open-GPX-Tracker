@@ -28,6 +28,10 @@ class GPXFileTableInterfaceController: WKInterfaceController {
     
     /// Main table that displays list of files
     @IBOutlet var fileTable: WKInterfaceTable!
+    @IBOutlet var progressGroup: WKInterfaceGroup!
+    @IBOutlet var progressTitle: WKInterfaceLabel!
+    @IBOutlet var progressFileName: WKInterfaceLabel!
+    @IBOutlet var progressImageView: WKInterfaceImage!
     
     /// List of strings with the filenames.
     var fileList: NSMutableArray = [kNoFiles]
@@ -38,6 +42,12 @@ class GPXFileTableInterfaceController: WKInterfaceController {
     /// Temporary variable to manage
     var selectedRowIndex = -1
     
+    /// true if a gpx file will be sent.
+    var willSendFile = false
+    
+    /// To ensure hide animation properly timed.
+    var time = DispatchTime.now()
+    
     /// Watch communication session
     private let session : WCSession? = WCSession.isSupported() ? WCSession.default : nil
     
@@ -46,12 +56,92 @@ class GPXFileTableInterfaceController: WKInterfaceController {
         
         // Configure interface objects here.
     }
+    
+    // MARK: Progress Indicators
+    
+    /// States of sending files
+    enum sendingStatus {
+        /// represents current state as sending
+        case sending
+        /// represents current state as successful
+        case success
+        /// represents current state as failure
+        case failure
+    }
+    
+    /// Hides progress indicator's group, such that group will not appear when not needed.
+    func hideProgressIndicators() {
+        self.progressGroup.setHidden(true)
+        self.progressImageView.stopAnimating()
+        self.progressFileName.setText("")
+        self.progressTitle.setText("")
+    }
+    
+    /// Animate hiding of progress indicator's group, when needed.
+    func hideProgressIndicatorsWithAnimation() {
+        DispatchQueue.main.asyncAfter(deadline: time + 3) {
+                self.animate(withDuration: 1, animations: {
+                    self.progressGroup.setHeight(0)
+                })
+        }
+        // imageview do not have to be set with stop animating, as image indicator should already have been set as successful or failure image, which is static.
+    }
+    
+    /// Displays progress indicators.
+    ///
+    /// Details like status and filename should be updated accordingly using `updateProgressIndicators(status:fileName:)`
+    func showProgressIndicators() {
+        self.progressGroup.setHeight(30)
+        self.progressGroup.setHidden(false)
+        progressImageView.setImageNamed("Progress-")
+        progressImageView.startAnimatingWithImages(in: NSMakeRange(0, 12), duration: 1, repeatCount: 0)
+    }
+    
+    /// Updates progress indicators according to status when sending.
+    ///
+    /// If status is success or failure, method will hide and animate progress indicators when done
+    func updateProgressIndicators(status: sendingStatus, fileName: String?) {
+        switch status {
+        case .sending:
+            progressTitle.setText("Sending:")
+            guard let fileName = fileName else { return }
+            
+            /// count of pending files, does not seem to include the current one
+            let fileTransfersCount = session?.outstandingFileTransfers.count ?? 0
+            // if there are files pending for sending, filename will not be displayed with the name of file.
+            if fileTransfersCount >= 1 {
+                progressFileName.setText("\(fileTransfersCount + 1) files")
+            }
+            else {
+                progressFileName.setText(fileName)
+            }
+            
+        case .success:
+            progressImageView.stopAnimating()
+            progressImageView.setImage(UIImage(named: "Progress-success"))
+            progressTitle.setText("Sucessfully sent:")
+            hideProgressIndicatorsWithAnimation()
+            
+        case .failure:
+            progressImageView.stopAnimating()
+            progressImageView.setImage(UIImage(named: "Progress-failure"))
+            progressTitle.setText("Failed to send:")
+            hideProgressIndicatorsWithAnimation()
+        }
+    }
 
     override func willActivate() {
         // This method is called when watch view controller is about to be visible to user
         super.willActivate()
         self.setTitle("Your files")
         session?.delegate = self
+        
+        if willSendFile == true {
+            self.showProgressIndicators()
+        }
+        else {
+            self.hideProgressIndicators()
+        }
         
         // get gpx files
         let list: [GPXFileInfo] = GPXFileManager.fileList
@@ -67,6 +157,11 @@ class GPXFileTableInterfaceController: WKInterfaceController {
     override func didAppear() {
         session?.delegate = self
         session?.activate()
+    }
+    
+    override func willDisappear() {
+        // when current view is hidden, resets willSendFile
+        willSendFile = false
     }
     
     /// Closes this view controller.
@@ -93,21 +188,27 @@ class GPXFileTableInterfaceController: WKInterfaceController {
     /// Invokes when one of the cells of the table is clicked.
     override func table(_ table: WKInterfaceTable, didSelectRowAt rowIndex: Int) {
         
+        // required, if not, hide group animation will be faster than expected when display the next time.
+        self.time = .now()
+        
         /// checks if there is any files in directory
         if gpxFilesFound {
             
             /// Option lets user send selected file to iOS app
             let shareOption = WKAlertAction(title: "Send to iOS app", style: .default) {
+                self.willSendFile = true
                 self.actionTransferFileAtIndex(rowIndex)
             }
             
             /// Option for users to cancel
             let cancelOption = WKAlertAction(title: "Cancel", style: .cancel) {
+                self.willSendFile = false
                 self.actionSheetCancel()
             }
             
             /// Option to delete selected file
             let deleteOption = WKAlertAction(title: "Delete", style: .destructive) {
+                self.willSendFile = false
                 self.actionDeleteFileAtIndex(rowIndex)
                 self.loadTableData()
             }
@@ -129,10 +230,15 @@ class GPXFileTableInterfaceController: WKInterfaceController {
         session?.activate()
         guard let fileURL: URL = (fileList.object(at: rowIndex) as? GPXFileInfo)?.fileURL else {
             print("GPXFileTableViewController:: actionTransferFileAtIndex: failed to get fileURL")
+            self.hideProgressIndicators()
             return
         }
         let gpxFileInfo = fileList.object(at: rowIndex) as! GPXFileInfo
-        session?.transferFile(fileURL, metadata: ["fileName" : "\(gpxFileInfo.fileName).gpx"])
+        self.scroll(to: progressGroup, at: .top, animated: true) // scrolls to top when indicator is shown.
+        self.updateProgressIndicators(status: .sending, fileName: gpxFileInfo.fileName)
+        DispatchQueue.global().async {
+            self.session?.transferFile(fileURL, metadata: ["fileName" : "\(gpxFileInfo.fileName).gpx"])
+        }
     }
     
     // Cancel button is tapped.
@@ -188,13 +294,21 @@ extension GPXFileTableInterfaceController: WCSessionDelegate {
         let doneAction = WKAlertAction(title: "Done", style: .default) { }
         guard let error = error else {
             
-            // presenting alert to user if file is successfully transferred
-            presentAlert(withTitle: "File Transfer", message: "GPX file successfully sent to iOS app", preferredStyle: .alert, actions: [doneAction])
+            // presenting success indicator to user if file is successfully transferred
+            // will only present once all files are sent (if multiple in queue)
+            if session.outstandingFileTransfers.count == 1 {
+                self.updateProgressIndicators(status: .success, fileName: nil)
+            }
             return
         }
         
-        // presenting alert if file transfer failed, including error message
-        presentAlert(withTitle: "File Transfer", message: "GPX file was unsuccessfully sent to iOS app, error: \(error) ", preferredStyle: .alert, actions: [doneAction])
+        // presents indicator first, if file transfer failed, without error message
+        self.updateProgressIndicators(status: .failure, fileName: nil)
+        
+        // presents alert after 1.5s, with error message
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+            self.presentAlert(withTitle: "Error Occurred", message: "GPX file was unsuccessfully sent to iOS app, due to \(error) ", preferredStyle: .alert, actions: [doneAction])
+        }
     }
     
 }
