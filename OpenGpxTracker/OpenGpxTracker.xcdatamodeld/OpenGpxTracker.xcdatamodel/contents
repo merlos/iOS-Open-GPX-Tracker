@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model name="Test1.xcdatamodel" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1" systemVersion="11A491" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
-    <elements/>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14460.32" systemVersion="17G65" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="CurrentSession" representedClassName="CurrentSession" syncable="YES">
+        <attribute name="trackpoint" optional="YES" attributeType="Transformable" customClassName="GPXTrackPoint" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="CurrentSession" positionX="-63" positionY="-18" width="128" height="60"/>
+    </elements>
 </model>

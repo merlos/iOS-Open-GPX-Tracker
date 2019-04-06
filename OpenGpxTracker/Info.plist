@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
-	<string>GPX Tracker</string>
+	<string>VGPX Tracker</string>
 	<key>CFBundleDocumentTypes</key>
 	<array>
 		<dict>

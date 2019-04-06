@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 import MapKit
 import CoreGPX
+import CoreData
 
 
 /// GPX creator identifier. Used on generated files identify this app created them.
@@ -186,7 +187,65 @@ class GPXMapView: MKMapView {
         headingImageView?.transform = CGAffineTransform(rotationAngle: rotation)
     }
     
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+    let mainManagedObjectContext = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
+    /// from https://marcosantadev.com/coredata_crud_concurrency_swift_1/
+    func currentSession(add trackPoint: GPXTrackPoint) {
+        let persistentStoreCoordinator = appDelegate.persistentStoreCoordinator
+        
+        mainManagedObjectContext.persistentStoreCoordinator = persistentStoreCoordinator
+        
+        let childManagedObjectContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
+        // Creates the link between child and parent
+        childManagedObjectContext.parent = mainManagedObjectContext
+        
+        childManagedObjectContext.perform {
+            let session = NSEntityDescription.insertNewObject(forEntityName: "CurrentSession", into: childManagedObjectContext) as! CurrentSession
+            session.trackpoint = trackPoint
+            do {
+                 try childManagedObjectContext.save()
+                self.mainManagedObjectContext.performAndWait {
+                    do {
+                        // Saves the data from the child to the main context to be stored properly
+                        try self.mainManagedObjectContext.save()
+                    } catch {
+                        fatalError("Failure to save context: \(error)")
+                    }
+                }
+            }
+            catch {
+                fatalError("Failure to save context: \(error)")
+            }
+        }
+    }
     
+    func retrieveSession() {
+        let privateManagedObjectContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
+        privateManagedObjectContext.parent = mainManagedObjectContext
+        // Creates a fetch request to get all the dogs saved
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "trackpoint")
+        
+        // Creates `asynchronousFetchRequest` with the fetch request and the completion closure
+        let asynchronousFetchRequest = NSAsynchronousFetchRequest(fetchRequest: fetchRequest) { asynchronousFetchResult in
+            
+            // Retrieves an array of dogs from the fetch result `finalResult`
+            guard let result = asynchronousFetchResult.finalResult as? [GPXTrackPoint] else { return }
+            
+            // Dispatches to use the data in the main queue
+            DispatchQueue.main.async {
+                for aresult in result {
+                    print(aresult.latitude)
+                }
+            }
+        }
+        
+        do {
+            // Executes `asynchronousFetchRequest`
+            try privateManagedObjectContext.execute(asynchronousFetchRequest)
+        } catch let error {
+            print("NSAsynchronousFetchRequest error: \(error)")
+        }
+    }
     ///
     /// Adds a new point to current segment.
     /// - Parameters:
@@ -194,6 +253,7 @@ class GPXMapView: MKMapView {
     ///
     func addPointToCurrentTrackSegmentAtLocation(_ location: CLLocation) {
         let pt = GPXTrackPoint(location: location)
+        self.currentSession(add: pt)
         self.currentSegment.add(trackpoint: pt)
         //redrawCurrent track segment overlay
         //First remove last overlay, then re-add the overlay updated with the new point

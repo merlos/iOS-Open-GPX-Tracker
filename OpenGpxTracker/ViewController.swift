@@ -268,7 +268,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
     override func viewDidLoad() {
         super.viewDidLoad()
         stopWatch.delegate = self
-        
+        //map.retrieveSession()
         //Because of the edges, iPhone X* is slightly different on the layout.
         //So, Is the current device an iPhone X?
         var isIPhoneX = false
