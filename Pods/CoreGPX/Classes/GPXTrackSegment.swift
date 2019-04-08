@@ -7,6 +7,11 @@
 
 import Foundation
 
+/**
+ A track segment that holds data on all track points in the particular segment.
+
+ Does not hold additional information by default.
+ */
 open class GPXTrackSegment: GPXElement {
     
     public var trackpoints = [GPXTrackPoint]()
@@ -29,16 +34,19 @@ open class GPXTrackSegment: GPXElement {
         return trackpoint
     }
     
+    /// Adds a single track point to this track segment.
     open func add(trackpoint: GPXTrackPoint?) {
         if let validPoint = trackpoint {
             trackpoints.append(validPoint)
         }
     }
     
+    /// Adds an array of track points to this track segment.
     open func add(trackpoints: [GPXTrackPoint]) {
         self.trackpoints.append(contentsOf: trackpoints)
     }
     
+    /// Removes a track point from this track segment.
     open func remove(trackpoint: GPXTrackPoint) {
         trackpoint.parent = nil
         if let index = trackpoints.firstIndex(of: trackpoint) {

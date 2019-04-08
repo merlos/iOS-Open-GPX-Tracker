@@ -7,28 +7,37 @@
 
 import Foundation
 
+/// A value type that is designated to hold information regarding the person or organisation who has created the GPX file.
 open class GPXPerson: GPXElement {
     
+    /// Name of person who has created the GPX file.
     public var name: String?
+    /// The email address of the person who has created the GPX file.
     public var email: GPXEmail?
+    
+    /// An external website that holds information on the person who has created the GPX file. Additional information may be supported as well.
     public var link: GPXLink?
     
     // MARK:- Instance
     
     public required init() {
-        name = String()
-        email = GPXEmail()
-        link = GPXLink()
         super.init()
     }
     
+    /// For internal use only
+    ///
+    /// Initializes through a dictionary, with each key being an attribute name.
+    ///
+    /// - Remark:
+    /// This initializer is designed only for use when parsing GPX files, and shouldn't be used in other ways.
+    ///
+    /// - Parameters:
+    ///     - dictionary: a dictionary with a key of an attribute, followed by the value which is set as the GPX file is parsed.
+    ///
     init(dictionary: [String : String]) {
         name = dictionary["name"]
         super.init()
     }
-    
-    // MARK:- Public Methods
-    
     
     // MARK:- Tag
     

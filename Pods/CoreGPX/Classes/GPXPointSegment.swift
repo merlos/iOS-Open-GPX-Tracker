@@ -7,6 +7,11 @@
 
 import Foundation
 
+/**
+ * This class (`ptsegType`) is added to conform with the GPX v1.1 schema.
+ 
+ `ptsegType` of GPX schema. Not supported in GPXRoot, nor GPXParser's parsing.
+ */
 open class GPXPointSegment: GPXElement {
     
     public var points = [GPXPoint]()

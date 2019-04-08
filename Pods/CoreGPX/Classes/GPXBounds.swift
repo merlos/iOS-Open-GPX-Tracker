@@ -7,11 +7,20 @@
 
 import Foundation
 
+/**
+ A value type that represents bounds based off GPX v1.1 schema's `boundsType`.
+ 
+ This is meant for having two pairs of longitude and latitude, signifying the maximum and minimum, defining the extent / boundaries of a particular element.
+ */
 open class GPXBounds: GPXElement {
 
+    /// Minimum latitude of boundaries to a element.
     public var minLatitude: Double?
+    /// Maximum latitude of boundaries to a element.
     public var maxLatitude: Double?
+    /// Minimum longitude of boundaries to a element.
     public var minLongitude: Double?
+    /// Maximum longitude of boundaries to a element.
     public var maxLongitude: Double?
     
     // MARK:- Instance
@@ -20,6 +29,13 @@ open class GPXBounds: GPXElement {
         super.init()
     }
     
+    /// Initializes with all values
+    ///
+    /// - Parameters:
+    ///     - minLatitude: Minimum latitude
+    ///     - maxLatitude: Maximum latitude
+    ///     - minLongitude: Minimum longitude
+    ///     - maxLongitude: Maximum longitude
     public init(minLatitude: Double, maxLatitude: Double, minLongitude: Double, maxLongitude: Double) {
         super.init()
         self.minLatitude = minLatitude
@@ -28,19 +44,22 @@ open class GPXBounds: GPXElement {
         self.maxLongitude = maxLongitude
     }
     
+    /// For internal use only
+    ///
+    /// Initializes through a dictionary, with each key being an attribute name.
+    ///
+    /// - Remark:
+    /// This initializer is designed only for use when parsing GPX files, and shouldn't be used in other ways.
+    ///
+    /// - Parameters:
+    ///     - dictionary: a dictionary with a key of an attribute, followed by the value which is set as the GPX file is parsed.
+    ///
     init(dictionary: [String : String]) {
         super.init()
-        self.minLatitude = number(from: dictionary["minlat"])
-        self.maxLatitude = number(from: dictionary["maxlat"])
-        self.minLongitude = number(from: dictionary["minlon"])
-        self.maxLongitude = number(from: dictionary["maxlon"])
-    }
-    
-    func number(from string: String?) -> Double? {
-        guard let NonNilString = string else {
-            return nil
-        }
-        return Double(NonNilString)
+        self.minLatitude = Convert.toDouble(from: dictionary["minlat"])
+        self.maxLatitude = Convert.toDouble(from: dictionary["maxlat"])
+        self.minLongitude = Convert.toDouble(from: dictionary["minlon"])
+        self.maxLongitude = Convert.toDouble(from: dictionary["maxlon"])
     }
     
     // MARK:- Tag

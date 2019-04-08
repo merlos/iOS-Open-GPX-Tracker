@@ -7,9 +7,14 @@
 
 import Foundation
 
-open class GPXExtensions: GPXElement {
+/**
+ For adding an extension tag.
+ 
+ If extended, tags should be inbetween the open and close tags of **\<extensions>**
+ */
+open class GPXExtensions: GPXElement, Codable {
     
-    // MARK:- Instance
+    // MARK:- Initializer
     public required init() {
         super.init()
     }

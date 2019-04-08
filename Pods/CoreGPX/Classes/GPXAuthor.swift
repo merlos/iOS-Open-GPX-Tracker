@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// Author type, holds information of the creator of the GPX file. A subclass of `GPXPerson`.
 open class GPXAuthor: GPXPerson {
     
     public required init() {

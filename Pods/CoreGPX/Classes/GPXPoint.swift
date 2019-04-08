@@ -4,10 +4,14 @@
 //
 //  Created by Vincent on 23/11/18.
 //
-//  WARNING: Looks suspiciously broken
 
 import Foundation
 
+/**
+ * This class (`ptType`) is added to conform with the GPX v1.1 schema.
+ 
+ `ptType` of GPX schema. Not supported in GPXRoot, nor GPXParser's parsing.
+ */
 open class GPXPoint: GPXElement {
 
     public var elevation: Double?
@@ -29,17 +33,10 @@ open class GPXPoint: GPXElement {
     
     init(dictionary: [String : String]) {
         super.init()
-        self.latitude = number(from: dictionary["lat"])
-        self.longitude = number(from: dictionary["lon"])
-        self.elevation = number(from: dictionary["ele"])
+        self.latitude = Convert.toDouble(from: dictionary["lat"])
+        self.longitude = Convert.toDouble(from: dictionary["lon"])
+        self.elevation = Convert.toDouble(from: dictionary["ele"])
         self.time = ISO8601DateParser.parse(dictionary["time"])
-    }
-    
-    func number(from string: String?) -> Double? {
-        guard let NonNilString = string else {
-            return nil
-        }
-        return Double(NonNilString)
     }
     
     // MARK:- Tag
@@ -66,7 +63,7 @@ open class GPXPoint: GPXElement {
         super.addChildTag(toGPX: gpx, indentationLevel: indentationLevel)
         
         self.addProperty(forDoubleValue: elevation, gpx: gpx, tagName: "ele", indentationLevel: indentationLevel)
-        self.addProperty(forValue: GPXType().value(forDateTime: time), gpx: gpx, tagName: "time", indentationLevel: indentationLevel)
+        self.addProperty(forValue: Convert.toString(from: time), gpx: gpx, tagName: "time", indentationLevel: indentationLevel)
     }
     
 }

@@ -18,5 +18,9 @@ extension CurrentSession {
     }
 
     @NSManaged public var trackpoint: GPXTrackPoint?
+    //@NSManaged public var time: Date?
+    //@NSManaged public var elevation: NSNumber?
+    //@NSManaged public var latitude: NSNumber?
+    //@NSManaged public var longitude: NSNumber?
 
 }

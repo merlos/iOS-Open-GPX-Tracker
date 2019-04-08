@@ -1,8 +1,8 @@
 use_frameworks!
 
 def shared_pods
-    pod 'CoreGPX', git: 'https://github.com/VincentNeo/CoreGPX.git'
-    pod 'CryptoSwift', git: 'https://github.com/krzyzanowskim/CryptoSwift'
+   pod 'CoreGPX', git: 'https://github.com/VincentNeo/CoreGPX.git', branch: 'CodableSupport'
+   pod 'CryptoSwift', git: 'https://github.com/krzyzanowskim/CryptoSwift', branch: '0.14.0'
 end
 
 target 'OpenGpxTracker' do

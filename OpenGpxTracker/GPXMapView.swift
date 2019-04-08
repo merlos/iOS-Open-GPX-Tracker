@@ -188,26 +188,26 @@ class GPXMapView: MKMapView {
     }
     
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
-    let mainManagedObjectContext = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
+    //let mainManagedObjectContext = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
+    
     /// from https://marcosantadev.com/coredata_crud_concurrency_swift_1/
     func currentSession(add trackPoint: GPXTrackPoint) {
-        let persistentStoreCoordinator = appDelegate.persistentStoreCoordinator
+        //let persistentStoreCoordinator = appDelegate.persistentStoreCoordinator
         
-        mainManagedObjectContext.persistentStoreCoordinator = persistentStoreCoordinator
-        
+
         let childManagedObjectContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
         // Creates the link between child and parent
-        childManagedObjectContext.parent = mainManagedObjectContext
+        childManagedObjectContext.parent = appDelegate.managedObjectContext
         
         childManagedObjectContext.perform {
             let session = NSEntityDescription.insertNewObject(forEntityName: "CurrentSession", into: childManagedObjectContext) as! CurrentSession
             session.trackpoint = trackPoint
             do {
-                 try childManagedObjectContext.save()
-                self.mainManagedObjectContext.performAndWait {
+                try childManagedObjectContext.save()
+                self.appDelegate.managedObjectContext.performAndWait {
                     do {
                         // Saves the data from the child to the main context to be stored properly
-                        try self.mainManagedObjectContext.save()
+                        try self.appDelegate.managedObjectContext.save()
                     } catch {
                         fatalError("Failure to save context: \(error)")
                     }
@@ -221,20 +221,19 @@ class GPXMapView: MKMapView {
     
     func retrieveSession() {
         let privateManagedObjectContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
-        privateManagedObjectContext.parent = mainManagedObjectContext
+        privateManagedObjectContext.parent = appDelegate.managedObjectContext
         // Creates a fetch request to get all the dogs saved
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "trackpoint")
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "CurrentSession")
         
         // Creates `asynchronousFetchRequest` with the fetch request and the completion closure
         let asynchronousFetchRequest = NSAsynchronousFetchRequest(fetchRequest: fetchRequest) { asynchronousFetchResult in
             
             // Retrieves an array of dogs from the fetch result `finalResult`
-            guard let result = asynchronousFetchResult.finalResult as? [GPXTrackPoint] else { return }
-            
+            guard let results = asynchronousFetchResult.finalResult as? [CurrentSession] else { return }
             // Dispatches to use the data in the main queue
             DispatchQueue.main.async {
-                for aresult in result {
-                    print(aresult.latitude)
+                for result in results {
+                    print(result.trackpoint?.latitude)
                 }
             }
         }
