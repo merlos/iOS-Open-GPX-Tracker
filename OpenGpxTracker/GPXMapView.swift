@@ -201,7 +201,8 @@ class GPXMapView: MKMapView {
         
         childManagedObjectContext.perform {
             let session = NSEntityDescription.insertNewObject(forEntityName: "CurrentSession", into: childManagedObjectContext) as! CurrentSession
-            session.trackpoint = trackPoint
+            //session.trackpoint = trackPoint
+            session.setValue(trackPoint, forKey: "trackpoint")
             do {
                 try childManagedObjectContext.save()
                 self.appDelegate.managedObjectContext.performAndWait {
@@ -232,8 +233,17 @@ class GPXMapView: MKMapView {
             guard let results = asynchronousFetchResult.finalResult as? [CurrentSession] else { return }
             // Dispatches to use the data in the main queue
             DispatchQueue.main.async {
+                var sessions = [CurrentSession]()
                 for result in results {
-                    print(result.trackpoint?.latitude)
+                    let objectID = result.objectID
+                    
+                    guard let safeObject = self.appDelegate.managedObjectContext.object(with: objectID) as? CurrentSession else { continue }
+                    
+                    sessions.append(safeObject)
+                }
+                
+                for session in sessions {
+                    print(session.trackpoint)
                 }
             }
         }
