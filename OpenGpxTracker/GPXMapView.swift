@@ -188,7 +188,6 @@ class GPXMapView: MKMapView {
     }
     
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
-    //let mainManagedObjectContext = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
     
     /// from https://marcosantadev.com/coredata_crud_concurrency_swift_1/
     
