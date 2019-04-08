@@ -191,34 +191,6 @@ class GPXMapView: MKMapView {
     //let mainManagedObjectContext = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
     
     /// from https://marcosantadev.com/coredata_crud_concurrency_swift_1/
-    func currentSession(add trackPoint: GPXTrackPoint) {
-        //let persistentStoreCoordinator = appDelegate.persistentStoreCoordinator
-        
-
-        let childManagedObjectContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
-        // Creates the link between child and parent
-        childManagedObjectContext.parent = appDelegate.managedObjectContext
-        
-        childManagedObjectContext.perform {
-            let session = NSEntityDescription.insertNewObject(forEntityName: "CurrentSession", into: childManagedObjectContext) as! CurrentSession
-            //session.trackpoint = trackPoint
-            session.setValue(trackPoint, forKey: "trackpoint")
-            do {
-                try childManagedObjectContext.save()
-                self.appDelegate.managedObjectContext.performAndWait {
-                    do {
-                        // Saves the data from the child to the main context to be stored properly
-                        try self.appDelegate.managedObjectContext.save()
-                    } catch {
-                        fatalError("Failure to save context: \(error)")
-                    }
-                }
-            }
-            catch {
-                fatalError("Failure to save context: \(error)")
-            }
-        }
-    }
     
     func add(toCoreData trackpoint: GPXTrackPoint) {
         let childManagedObjectContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
@@ -286,7 +258,7 @@ class GPXMapView: MKMapView {
                         trackpoints.append(pt)
                     }
                 }
-                self.currentSegment.add(trackpoints: trackpoints)
+                self.crashFileRecovery(include: trackpoints)
             }
         }
         
@@ -297,41 +269,69 @@ class GPXMapView: MKMapView {
             print("NSAsynchronousFetchRequest error: \(error)")
         }
     }
-    func retrieveSession() {
+    
+    func deleteAllFromCoreData() {
         let privateManagedObjectContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
         privateManagedObjectContext.parent = appDelegate.managedObjectContext
-        // Creates a fetch request to get all the dogs saved
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "CurrentSession")
-        
-        // Creates `asynchronousFetchRequest` with the fetch request and the completion closure
-        let asynchronousFetchRequest = NSAsynchronousFetchRequest(fetchRequest: fetchRequest) { asynchronousFetchResult in
-            
-            // Retrieves an array of dogs from the fetch result `finalResult`
-            guard let results = asynchronousFetchResult.finalResult as? [CurrentSession] else { return }
-            // Dispatches to use the data in the main queue
-            DispatchQueue.main.async {
-                var sessions = [CurrentSession]()
-                for result in results {
-                    let objectID = result.objectID
-                    
-                    guard let safeObject = self.appDelegate.managedObjectContext.object(with: objectID) as? CurrentSession else { continue }
-                    
-                    sessions.append(safeObject)
+        // Creates a fetch request
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Point")
+        if #available(iOS 9.0, *) {
+            privateManagedObjectContext.perform {
+                do {
+                    let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
+                    try privateManagedObjectContext.execute(deleteRequest)
+                    try privateManagedObjectContext.save()
+                    self.appDelegate.managedObjectContext.performAndWait {
+                        do {
+                            // Saves the changes from the child to the main context to be applied properly
+                            try self.appDelegate.managedObjectContext.save()
+                        } catch {
+                            print("Failure to save context: \(error)")
+                        }
+                    }
+                }
+                catch {
+                    print("failed to delete all: error: \(error)")
                 }
                 
-                for session in sessions {
-                    print(session.trackpoint)
+            }
+
+        }
+        else { // for pre iOS 9 (less efficient, load in mem before removal)
+            let asynchronousFetchRequest = NSAsynchronousFetchRequest(fetchRequest: fetchRequest) { asynchronousFetchResult in
+                
+                // Retrieves an array of dogs from the fetch result `finalResult`
+                guard let results = asynchronousFetchResult.finalResult as? [Point] else { return }
+                
+                for result in results {
+                    privateManagedObjectContext.delete(result)
                 }
             }
-        }
-        
-        do {
-            // Executes `asynchronousFetchRequest`
-            try privateManagedObjectContext.execute(asynchronousFetchRequest)
-        } catch let error {
-            print("NSAsynchronousFetchRequest error: \(error)")
+            do {
+                // Executes `asynchronousFetchRequest`
+                try privateManagedObjectContext.execute(asynchronousFetchRequest)
+            } catch let error {
+                print("NSAsynchronousFetchRequest error: \(error)")
+            }
+            // Fallback on earlier versions
         }
     }
+    
+    func crashFileRecovery(include trackpoints: [GPXTrackPoint]) {
+        let root = GPXRoot()
+        let track = GPXTrack()
+        let trackseg = GPXTrackSegment()
+        
+        trackseg.add(trackpoints: trackpoints)
+        track.add(trackSegment: trackseg)
+        root.add(track: track)
+        
+        let gpxString = root.gpx()
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd-MMM-yyyy-HHmm"
+        GPXFileManager.save("recovery-\(dateFormatter.string(from: Date()))", gpxContents: gpxString)
+    }
+    
     ///
     /// Adds a new point to current segment.
     /// - Parameters:
@@ -392,6 +392,7 @@ class GPXMapView: MKMapView {
         self.removeOverlays(self.overlays)
         self.removeAnnotations(self.annotations)
         self.extent = GPXExtentCoordinates()
+        self.deleteAllFromCoreData()
         
         self.totalTrackedDistance = 0.00
         self.currentTrackDistance = 0.00
