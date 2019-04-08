@@ -69,8 +69,6 @@
 		BF692F872209B81A00F8A0F1 /* Int+asFilesize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89EA86642157C444002E03A7 /* Int+asFilesize.swift */; };
 		BF692F882209B81E00F8A0F1 /* GPXFileInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89EA86622157B42C002E03A7 /* GPXFileInfo.swift */; };
 		BF692F892209B82500F8A0F1 /* StopWatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 899D677119CE8B3600C88A0A /* StopWatch.swift */; };
-		BFD252B12258A48E009B5FD7 /* CurrentSession+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFD252AF2258A48E009B5FD7 /* CurrentSession+CoreDataClass.swift */; };
-		BFD252B22258A48E009B5FD7 /* CurrentSession+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFD252B02258A48E009B5FD7 /* CurrentSession+CoreDataProperties.swift */; };
 		C51CE1F4B71B7051FF9F4D44 /* Pods_OpenGpxTracker_Watch_Extension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93BD71BED3CF101C2B01ABDA /* Pods_OpenGpxTracker_Watch_Extension.framework */; };
 		C894B839E0B8DC37DE05DDCC /* Pods_OpenGpxTracker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 95D28CBDF2535138FA16F38F /* Pods_OpenGpxTracker.framework */; };
 		DC4908A11C4A136F009484AE /* TrackerButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC4908A01C4A136F009484AE /* TrackerButton.swift */; };
@@ -192,8 +190,6 @@
 		BF692F6E2209AAFC00F8A0F1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BF692F702209AAFC00F8A0F1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BF692F7C2209AB8000F8A0F1 /* Interface.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Interface.storyboard; sourceTree = "<group>"; };
-		BFD252AF2258A48E009B5FD7 /* CurrentSession+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CurrentSession+CoreDataClass.swift"; sourceTree = "<group>"; };
-		BFD252B02258A48E009B5FD7 /* CurrentSession+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CurrentSession+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		DC4908A01C4A136F009484AE /* TrackerButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackerButton.swift; sourceTree = "<group>"; };
 		DC4908A21C4A332E009484AE /* MapViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewDelegate.swift; sourceTree = "<group>"; };
 		F8AD19460733F6AD5C43BE2D /* Pods-OpenGpxTracker.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenGpxTracker.release.xcconfig"; path = "Pods/Target Support Files/Pods-OpenGpxTracker/Pods-OpenGpxTracker.release.xcconfig"; sourceTree = "<group>"; };
@@ -243,7 +239,6 @@
 		8948550619CB954100AB366A /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				BFD252B32258AE91009B5FD7 /* Core Data */,
 				8945A90D1DC7AD040029AF93 /* CachedTileOverlay.swift */,
 				899D677119CE8B3600C88A0A /* StopWatch.swift */,
 				893BEC8519C7E62200C77354 /* GPXWaypoint+MKAnnotation.swift */,
@@ -417,15 +412,6 @@
 				BF692F702209AAFC00F8A0F1 /* Info.plist */,
 			);
 			path = "OpenGpxTracker-Watch Extension";
-			sourceTree = "<group>";
-		};
-		BFD252B32258AE91009B5FD7 /* Core Data */ = {
-			isa = PBXGroup;
-			children = (
-				BFD252AF2258A48E009B5FD7 /* CurrentSession+CoreDataClass.swift */,
-				BFD252B02258A48E009B5FD7 /* CurrentSession+CoreDataProperties.swift */,
-			);
-			name = "Core Data";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -718,7 +704,6 @@
 				899D677019CE024600C88A0A /* GPXFileManager.swift in Sources */,
 				898EECDE19C49B5800B4B207 /* OpenGpxTracker.xcdatamodeld in Sources */,
 				89EA86652157C444002E03A7 /* Int+asFilesize.swift in Sources */,
-				BFD252B12258A48E009B5FD7 /* CurrentSession+CoreDataClass.swift in Sources */,
 				8913CD8E1BDB2477009EC729 /* PreferencesTableViewControllerDelegate.swift in Sources */,
 				899D676E19CD9FAF00C88A0A /* GPXTrackPoint+MapKit.swift in Sources */,
 				89F8749B1BBB7362004EF41A /* GPXTrack+length.swift in Sources */,
@@ -726,7 +711,6 @@
 				899D678219D351DA00C88A0A /* AboutViewController.swift in Sources */,
 				89EA86612157A08E002E03A7 /* Date+timeAgo.swift in Sources */,
 				89F874A11BBCC74C004EF41A /* UIDistanceLabel.swift in Sources */,
-				BFD252B22258A48E009B5FD7 /* CurrentSession+CoreDataProperties.swift in Sources */,
 				895F04B41A7143CE004BEE8A /* GPXExtentCoordinates.swift in Sources */,
 				899D677B19D10F7C00C88A0A /* GPXFilesTableViewControlllerDelegate.swift in Sources */,
 				8913CD8C1BDB0A9A009EC729 /* PreferencesTableViewController.swift in Sources */,
