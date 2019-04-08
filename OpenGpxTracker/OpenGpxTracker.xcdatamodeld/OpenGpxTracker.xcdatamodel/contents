@@ -3,7 +3,15 @@
     <entity name="CurrentSession" representedClassName="CurrentSession" syncable="YES">
         <attribute name="trackpoint" optional="YES" attributeType="Transformable" customClassName="GPXTrackPoint" syncable="YES"/>
     </entity>
+    <entity name="Point" representedClassName="Point" syncable="YES" codeGenerationType="class">
+        <attribute name="elevation" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="latitude" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="longitude" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="time" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="type" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
     <elements>
         <element name="CurrentSession" positionX="-63" positionY="-18" width="128" height="60"/>
+        <element name="Point" positionX="-63" positionY="-9" width="128" height="120"/>
     </elements>
 </model>

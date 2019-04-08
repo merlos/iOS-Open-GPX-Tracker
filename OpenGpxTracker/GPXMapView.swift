@@ -220,6 +220,83 @@ class GPXMapView: MKMapView {
         }
     }
     
+    func add(toCoreData trackpoint: GPXTrackPoint) {
+        let childManagedObjectContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
+        // Creates the link between child and parent
+        childManagedObjectContext.parent = appDelegate.managedObjectContext
+        
+        childManagedObjectContext.perform {
+            let pt = NSEntityDescription.insertNewObject(forEntityName: "Point", into: childManagedObjectContext) as! Point
+            
+            guard let elevation = trackpoint.elevation,
+                let latitude = trackpoint.latitude,
+                let longitude = trackpoint.longitude else { return }
+            
+            pt.type = "trackpoint"
+            pt.elevation = elevation
+            pt.latitude = latitude
+            pt.longitude = longitude
+            pt.time = trackpoint.time
+            
+            do {
+                try childManagedObjectContext.save()
+                self.appDelegate.managedObjectContext.performAndWait {
+                    do {
+                        // Saves the data from the child to the main context to be stored properly
+                        try self.appDelegate.managedObjectContext.save()
+                    } catch {
+                        fatalError("Failure to save context: \(error)")
+                    }
+                }
+            }
+            catch {
+                fatalError("Failure to save context: \(error)")
+            }
+        }
+    }
+    
+    func retrieveFromCoreData() {
+        let privateManagedObjectContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
+        privateManagedObjectContext.parent = appDelegate.managedObjectContext
+        // Creates a fetch request
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Point")
+        
+        // Creates `asynchronousFetchRequest` with the fetch request and the completion closure
+        let asynchronousFetchRequest = NSAsynchronousFetchRequest(fetchRequest: fetchRequest) { asynchronousFetchResult in
+            
+            // Retrieves an array of dogs from the fetch result `finalResult`
+            guard let results = asynchronousFetchResult.finalResult as? [Point] else { return }
+            // Dispatches to use the data in the main queue
+            DispatchQueue.main.async {
+                var points = [Point]()
+                var trackpoints = [GPXTrackPoint]()
+                for result in results {
+                    let objectID = result.objectID
+                    
+                    guard let safeObject = self.appDelegate.managedObjectContext.object(with: objectID) as? Point else { continue }
+                    
+                    points.append(safeObject)
+                }
+                
+                for point in points {
+                    if point.type == "trackpoint" {
+                        let pt = GPXTrackPoint(latitude: point.latitude, longitude: point.longitude)
+                        pt.time = point.time
+                        pt.elevation = point.elevation
+                        trackpoints.append(pt)
+                    }
+                }
+                self.currentSegment.add(trackpoints: trackpoints)
+            }
+        }
+        
+        do {
+            // Executes `asynchronousFetchRequest`
+            try privateManagedObjectContext.execute(asynchronousFetchRequest)
+        } catch let error {
+            print("NSAsynchronousFetchRequest error: \(error)")
+        }
+    }
     func retrieveSession() {
         let privateManagedObjectContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
         privateManagedObjectContext.parent = appDelegate.managedObjectContext
@@ -262,7 +339,7 @@ class GPXMapView: MKMapView {
     ///
     func addPointToCurrentTrackSegmentAtLocation(_ location: CLLocation) {
         let pt = GPXTrackPoint(location: location)
-        self.currentSession(add: pt)
+        self.add(toCoreData: pt)
         self.currentSegment.add(trackpoint: pt)
         //redrawCurrent track segment overlay
         //First remove last overlay, then re-add the overlay updated with the new point
