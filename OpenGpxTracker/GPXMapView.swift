@@ -318,7 +318,7 @@ class GPXMapView: MKMapView {
     
     func crashFileRecovery(include trackpoints: [GPXTrackPoint]) {
         if trackpoints.count > 0 {
-            let root = GPXRoot()
+            let root = GPXRoot(creator: kGPXCreatorString)
             let track = GPXTrack()
             let trackseg = GPXTrackSegment()
             
@@ -329,7 +329,14 @@ class GPXMapView: MKMapView {
             let gpxString = root.gpx()
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "dd-MMM-yyyy-HHmm"
-            GPXFileManager.save("recovery-\(dateFormatter.string(from: Date()))", gpxContents: gpxString)
+            
+            /// File name's date will be as of recovery.
+            let recoveredFileName = "recovery-\(dateFormatter.string(from: Date()))"
+            
+            GPXFileManager.save(recoveredFileName, gpxContents: gpxString)
+            
+            // once file recovery is completed, Core Data trackpoints are deleted.
+            deleteAllFromCoreData()
         }
         else {
             // recovery file will not be if no trackpoints
