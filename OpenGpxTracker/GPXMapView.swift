@@ -317,18 +317,23 @@ class GPXMapView: MKMapView {
     }
     
     func crashFileRecovery(include trackpoints: [GPXTrackPoint]) {
-        let root = GPXRoot()
-        let track = GPXTrack()
-        let trackseg = GPXTrackSegment()
-        
-        trackseg.add(trackpoints: trackpoints)
-        track.add(trackSegment: trackseg)
-        root.add(track: track)
-        
-        let gpxString = root.gpx()
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd-MMM-yyyy-HHmm"
-        GPXFileManager.save("recovery-\(dateFormatter.string(from: Date()))", gpxContents: gpxString)
+        if trackpoints.count > 0 {
+            let root = GPXRoot()
+            let track = GPXTrack()
+            let trackseg = GPXTrackSegment()
+            
+            trackseg.add(trackpoints: trackpoints)
+            track.add(trackSegment: trackseg)
+            root.add(track: track)
+            
+            let gpxString = root.gpx()
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "dd-MMM-yyyy-HHmm"
+            GPXFileManager.save("recovery-\(dateFormatter.string(from: Date()))", gpxContents: gpxString)
+        }
+        else {
+            // recovery file will not be if no trackpoints
+        }
     }
     
     ///
