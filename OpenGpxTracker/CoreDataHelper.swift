@@ -9,8 +9,14 @@ import UIKit
 import CoreData
 import CoreGPX
 
-class CoreDataHelper {
+class CoreDataHelper: NSObject {
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
+    
+    var trackpoints = [GPXTrackPoint]()
+    var waypoints = [GPXWaypoint]()
+    
+    var trackpointsFetchComplete = false
+    var waypointsFetchComplete = false
     
     /// from https://marcosantadev.com/coredata_crud_concurrency_swift_1/
     
@@ -20,13 +26,12 @@ class CoreDataHelper {
         childManagedObjectContext.parent = appDelegate.managedObjectContext
         
         childManagedObjectContext.perform {
-            let pt = NSEntityDescription.insertNewObject(forEntityName: "Point", into: childManagedObjectContext) as! Point
+            let pt = NSEntityDescription.insertNewObject(forEntityName: "CDTrackpoint", into: childManagedObjectContext) as! CDTrackpoint
             
             guard let elevation = trackpoint.elevation,
                 let latitude = trackpoint.latitude,
                 let longitude = trackpoint.longitude else { return }
             
-            pt.type = "trackpoint"
             pt.elevation = elevation
             pt.latitude = latitude
             pt.longitude = longitude
@@ -49,51 +54,112 @@ class CoreDataHelper {
         }
     }
     
+    func add(toCoreData waypoint: GPXWaypoint) {
+        let waypointChildManagedObjectContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
+        // Creates the link between child and parent
+        waypointChildManagedObjectContext.parent = appDelegate.managedObjectContext
+        
+        waypointChildManagedObjectContext.perform {
+            let pt = NSEntityDescription.insertNewObject(forEntityName: "CDWaypoint", into: waypointChildManagedObjectContext) as! CDWaypoint
+            
+            guard let elevation = waypoint.elevation,
+                let latitude = waypoint.latitude,
+                let longitude = waypoint.longitude else { return }
+            
+            pt.elevation = elevation
+            pt.latitude = latitude
+            pt.longitude = longitude
+            pt.time = waypoint.time
+            
+            print("\(elevation) + \(latitude) + \(longitude)")
+            
+            do {
+                try waypointChildManagedObjectContext.save()
+                self.appDelegate.managedObjectContext.performAndWait {
+                    do {
+                        // Saves the data from the child to the main context to be stored properly
+                        try self.appDelegate.managedObjectContext.save()
+                    } catch {
+                        fatalError("Failure to save context: \(error)")
+                    }
+                }
+            }
+            catch {
+                fatalError("Failure to save context: \(error)")
+            }
+        }
+    }
+    
     func retrieveFromCoreData() {
         let privateManagedObjectContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
         privateManagedObjectContext.parent = appDelegate.managedObjectContext
         // Creates a fetch request
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Point")
+        let trkptFetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "CDTrackpoint")
+        let wptFetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "CDWaypoint")
         
         // Creates `asynchronousFetchRequest` with the fetch request and the completion closure
-        let asynchronousFetchRequest = NSAsynchronousFetchRequest(fetchRequest: fetchRequest) { asynchronousFetchResult in
+        let asynchronousTrackPointFetchRequest = NSAsynchronousFetchRequest(fetchRequest: trkptFetchRequest) { asynchronousFetchResult in
+            
+            print("fetching trackpoints from Core Data")
             
             // Retrieves an array of dogs from the fetch result `finalResult`
-            guard let results = asynchronousFetchResult.finalResult as? [Point] else { return }
+            guard let trackPointResults = asynchronousFetchResult.finalResult as? [CDTrackpoint] else { return }
             // Dispatches to use the data in the main queue
             DispatchQueue.main.async {
-                var points = [Point]()
-                var trackpoints = [GPXTrackPoint]()
-                var waypoints = [GPXWaypoint]()
-                for result in results {
+                for result in trackPointResults {
                     let objectID = result.objectID
                     
-                    guard let safeObject = self.appDelegate.managedObjectContext.object(with: objectID) as? Point else { continue }
+                    // thread safe
+                    guard let safePoint = self.appDelegate.managedObjectContext.object(with: objectID) as? CDTrackpoint else { continue }
                     
-                    points.append(safeObject)
+                    let pt = GPXTrackPoint(latitude: safePoint.latitude, longitude: safePoint.longitude)
+                    pt.time = safePoint.time
+                    pt.elevation = safePoint.elevation
+                    print(safePoint.latitude)
+                    self.trackpoints.append(pt)
+                    
                 }
-                
-                for point in points {
-                    if point.type == "trackpoint" {
-                        let pt = GPXTrackPoint(latitude: point.latitude, longitude: point.longitude)
-                        pt.time = point.time
-                        pt.elevation = point.elevation
-                        trackpoints.append(pt)
-                    }
-                    if point.type == "waypoint" {
-                        let pt = GPXWaypoint(latitude: point.latitude, longitude: point.longitude)
-                        pt.time = point.time
-                        pt.elevation = point.elevation
-                        waypoints.append(pt)
-                    }
-                }
-                self.crashFileRecovery(include: trackpoints, waypoints: waypoints)
             }
         }
         
+        let asynchronousWaypointFetchRequest = NSAsynchronousFetchRequest(fetchRequest: wptFetchRequest) { asynchronousFetchResult in
+            
+            print("fetching waypoints from Core Data")
+            
+            // Retrieves an array of dogs from the fetch result `finalResult`
+            guard let waypointResults = asynchronousFetchResult.finalResult as? [CDWaypoint] else { return }
+            // Dispatches to use the data in the main queue
+            DispatchQueue.main.async {
+                for result in waypointResults {
+                    let objectID = result.objectID
+                    
+                    // thread safe
+                    guard let safePoint = self.appDelegate.managedObjectContext.object(with: objectID) as? CDWaypoint else { continue }
+                    
+                    let pt = GPXWaypoint(latitude: safePoint.latitude, longitude: safePoint.longitude)
+                    pt.time = safePoint.time
+                    pt.elevation = safePoint.elevation
+                    print(safePoint.latitude)
+                    self.waypoints.append(pt)
+                }
+                self.crashFileRecovery()
+            }
+        }
+        
+        print("rec-waypoint count: \(self.waypoints.count)")
+        print("rec-trackpoint count: \(self.trackpoints.count)")
+        
+        
         do {
             // Executes `asynchronousFetchRequest`
-            try privateManagedObjectContext.execute(asynchronousFetchRequest)
+            try privateManagedObjectContext.execute(asynchronousTrackPointFetchRequest)
+            try privateManagedObjectContext.execute(asynchronousWaypointFetchRequest)
+            
+            //addObserver(self, forKeyPath: #keyPath(privateManagedObjectCo), options: , context: )
+            
+            print("DO rec-waypoint count: \(self.waypoints.count)")
+            print("DO rec-trackpoint count: \(self.trackpoints.count)")
+            print("async fetches complete.")
         } catch let error {
             print("NSAsynchronousFetchRequest error: \(error)")
         }
@@ -146,30 +212,43 @@ class CoreDataHelper {
         }
     }
     
-    func crashFileRecovery(include trackpoints: [GPXTrackPoint], waypoints: [GPXWaypoint]) {
-        if trackpoints.count > 0 || waypoints.count > 0 {
-            let root = GPXRoot(creator: kGPXCreatorString)
-            let track = GPXTrack()
-            let trackseg = GPXTrackSegment()
-            
-            trackseg.add(trackpoints: trackpoints)
-            track.add(trackSegment: trackseg)
-            root.add(track: track)
-            
-            let gpxString = root.gpx()
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "dd-MMM-yyyy-HHmm"
-            
-            /// File name's date will be as of recovery.
-            let recoveredFileName = "recovery-\(dateFormatter.string(from: Date()))"
-            
-            GPXFileManager.save(recoveredFileName, gpxContents: gpxString)
-            
-            // once file recovery is completed, Core Data trackpoints are deleted.
-            deleteAllFromCoreData()
+    func clearArrays() {
+        self.trackpoints = []
+        self.waypoints = []
+    }
+    
+    func crashFileRecovery() {
+        DispatchQueue.global().async {
+            if self.trackpoints.count > 0 || self.waypoints.count > 0 {
+                let root = GPXRoot(creator: kGPXCreatorString)
+                let track = GPXTrack()
+                let trackseg = GPXTrackSegment()
+                
+                trackseg.add(trackpoints: self.trackpoints)
+                track.add(trackSegment: trackseg)
+                root.add(track: track)
+                root.add(waypoints: self.waypoints)
+                
+                let gpxString = root.gpx()
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateFormat = "dd-MMM-yyyy-HHmm"
+                
+                /// File name's date will be as of recovery.
+                let recoveredFileName = "recovery-\(dateFormatter.string(from: Date()))"
+                
+                GPXFileManager.save(recoveredFileName, gpxContents: gpxString)
+                print("File \(recoveredFileName) was recovered from last crashed session")
+                
+                // once file recovery is completed, Core Data stored items are deleted.
+                self.deleteAllFromCoreData()
+                
+                // once file recovery is completed, arrays are cleared.
+                self.clearArrays()
+            }
+            else {
+                // recovery file will not be if no trackpoints
+            }
         }
-        else {
-            // recovery file will not be if no trackpoints
-        }
+       
     }
 }
