@@ -160,7 +160,6 @@ class GPXMapView: MKMapView {
     ///
     func addWaypoint(_ waypoint: GPXWaypoint) {
         self.waypoints.append(waypoint)
-        self.add(toCoreData: waypoint)
         self.addAnnotation(waypoint)
         self.extent.extendAreaToIncludeLocation(waypoint.coordinate)
     }
@@ -198,7 +197,7 @@ class GPXMapView: MKMapView {
     }
     
     func add(toCoreData waypoint: GPXWaypoint) {
-        coreDataHelper.add(toCoreData: waypoint)
+        //coreDataHelper.add(toCoreData: )
     }
     
     func retrieveFromCoreData() {
