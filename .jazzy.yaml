@@ -1,10 +1,21 @@
 #
 # Open GPX Tracker - Jazzy config file
 #
-#  Jazzy is a tool for generating SWIFT documentation files
-#  more info in: https://github.com/realm/jazzy
+#  Jazzy is a tool for generating SWIFT documentation in HTML.
+#  More info in: https://github.com/realm/jazzy
 #
+#  Install jazzy
 #
+#   $ gem install jazzy
+#
+#  Run jazzy
+#
+#  $ cd <root folder of Open GPX Tracker>
+#  $ jazzy
+#
+#  Note the output is ../gh-pages/docs
+#
+# ----------------------------------------
 # xcodebuild command line to get list of targets
 #
 #    xcodebuild  -list
@@ -34,7 +45,14 @@
 #
 #
 #
+
 output: ../gh-pages/docs
+
+author_url: https://github.com/merlos/iOS-Open-GPX-Tracker
+github_url: https://github.com/merlos/iOS-Open-GPX-Tracker
+theme: apple
+min_acl: private
+
 xcodebuild_arguments:
   - clean
   - build
@@ -50,7 +68,3 @@ xcodebuild_arguments:
   #- "CODE_SIGN_IDENTITY="
   #- "CODE_SIGNING_REQUIRED=NO"
   #- "CODE_SIGNING_ALLOWED=NO"
-author_url: https://github.com/merlos/iOS-Open-GPX-Tracker
-github_url: https://github.com/merlos/iOS-Open-GPX-Tracker
-theme: apple
-min_acl: private
