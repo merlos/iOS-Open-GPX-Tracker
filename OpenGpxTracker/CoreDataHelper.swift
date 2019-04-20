@@ -14,8 +14,10 @@ import CoreGPX
 /// Implementation learnt / inspired
 /// from 4 part series:
 /// https://marcosantadev.com/coredata_crud_concurrency_swift_1/
+///
 class CoreDataHelper {
     
+    // tags to keep track of object's sequence
     var waypointTag: Int64 = 0
     var trackpointTag: Int64 = 0
     
@@ -55,12 +57,12 @@ class CoreDataHelper {
                         // Saves the data from the child to the main context to be stored properly
                         try self.appDelegate.managedObjectContext.save()
                     } catch {
-                        fatalError("Failure to save context: \(error)")
+                        print("Failure to save parent context when adding trackpoint: \(error)")
                     }
                 }
             }
             catch {
-                fatalError("Failure to save context: \(error)")
+                print("Failure to save child context when adding trackpoint: \(error)")
             }
         }
     }
@@ -93,12 +95,12 @@ class CoreDataHelper {
                         // Saves the data from the child to the main context to be stored properly
                         try self.appDelegate.managedObjectContext.save()
                     } catch {
-                        fatalError("Failure to save context: \(error)")
+                        print("Failure to save parent context when adding waypoint: \(error)")
                     }
                 }
             }
             catch {
-                fatalError("Failure to save context: \(error)")
+                print("Failure to save parent context when adding waypoint: \(error)")
             }
         }
     }
@@ -111,7 +113,7 @@ class CoreDataHelper {
         
         let asynchronousWaypointFetchRequest = NSAsynchronousFetchRequest(fetchRequest: wptFetchRequest) { asynchronousFetchResult in
             
-            print("Core Data Helper: fetching recoverable waypoints from Core Data")
+            print("Core Data Helper: updating waypoint in Core Data")
             
             // Retrieves an array of points from Core Data
             guard let waypointResults = asynchronousFetchResult.finalResult as? [CDWaypoint] else { return }
@@ -135,12 +137,12 @@ class CoreDataHelper {
                             // Saves the changes from the child to the main context to be applied properly
                             try self.appDelegate.managedObjectContext.save()
                         } catch {
-                            print("Failure to save context: \(error)")
+                            print("Failure to update and save waypoint to parent context: \(error)")
                         }
                     }
                 }
                 catch {
-                    print("Failure to save context at child context: \(error)")
+                    print("Failure to update and save waypoint to context at child context: \(error)")
                 }
             }
             
@@ -148,8 +150,8 @@ class CoreDataHelper {
         
         do {
             try privateManagedObjectContext.execute(asynchronousWaypointFetchRequest)
-        } catch let error {
-            print("NSAsynchronousFetchRequest error: \(error)")
+        } catch {
+            print("NSAsynchronousFetchRequest (for finding updatable waypoint) error: \(error)")
         }
     }
     
@@ -230,7 +232,7 @@ class CoreDataHelper {
             try privateManagedObjectContext.execute(asynchronousTrackPointFetchRequest)
             try privateManagedObjectContext.execute(asynchronousWaypointFetchRequest)
         } catch let error {
-            print("NSAsynchronousFetchRequest error: \(error)")
+            print("NSAsynchronousFetchRequest (fetch request for recovery) error: \(error)")
         }
     }
     
@@ -271,7 +273,7 @@ class CoreDataHelper {
         do {
             try privateManagedObjectContext.execute(asynchronousWaypointFetchRequest)
         } catch let error {
-            print("NSAsynchronousFetchRequest error: \(error)")
+            print("NSAsynchronousFetchRequest (for finding deletable waypoint) error: \(error)")
         }
         
     }
@@ -307,12 +309,12 @@ class CoreDataHelper {
                             // Saves the changes from the child to the main context to be applied properly
                             try self.appDelegate.managedObjectContext.save()
                         } catch {
-                            print("Failure to save context: \(error)")
+                            print("Failure to save context after delete: \(error)")
                         }
                     }
                 }
                 catch {
-                    print("failed to delete all: error: \(error)")
+                    print("Failed to delete all from core data, error: \(error)")
                 }
                 
             }
@@ -349,12 +351,12 @@ class CoreDataHelper {
                         // Saves the changes from the child to the main context to be applied properly
                         try self.appDelegate.managedObjectContext.save()
                     } catch {
-                        print("Failure to save context: \(error)")
+                        print("Failure to save context after delete: \(error)")
                     }
                 }
                 
             } catch let error {
-                print("NSAsynchronousFetchRequest error: \(error)")
+                print("NSAsynchronousFetchRequest (for batch delete <iOS 9) error: \(error)")
             }
             // Fallback on earlier versions
         }
@@ -407,7 +409,7 @@ class CoreDataHelper {
                 
                 // Save the recovered file.
                 GPXFileManager.save(recoveredFileName, gpxContents: gpxString)
-                print("File \(recoveredFileName) was recovered from last crashed session")
+                print("File \(recoveredFileName) was recovered from previous session, prior to unexpected crash/exit")
                 
                 // once file recovery is completed, Core Data stored items are deleted.
                 self.deleteAllFromCoreData()
@@ -416,7 +418,7 @@ class CoreDataHelper {
                 self.clearArrays()
             }
             else {
-                // no recovery file will be generated if nothing is recovered.
+                // no recovery file will be generated if nothing is recovered (or did not crash).
             }
         }
        
