@@ -178,6 +178,7 @@ class GPXMapView: MKMapView {
         }
         self.removeAnnotation(waypoint)
         waypoints.remove(at: index!)
+        self.delete(fromCoreDataAt: index!)
         //TODO: update map extent?
         
     }
@@ -199,6 +200,10 @@ class GPXMapView: MKMapView {
     
     func add(toCoreData waypoint: GPXWaypoint) {
         coreDataHelper.add(toCoreData: waypoint)
+    }
+    
+    func delete(fromCoreDataAt index: Int) {
+        coreDataHelper.delete(fromCoreDataAt: index)
     }
     
     func retrieveFromCoreData() {

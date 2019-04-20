@@ -101,6 +101,45 @@ class CoreDataHelper {
         }
     }
     
+    func delete(fromCoreDataAt index: Int) {
+        let privateManagedObjectContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
+        privateManagedObjectContext.parent = appDelegate.managedObjectContext
+        // Creates a fetch request
+        let wptFetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "CDWaypoint")
+        
+        let asynchronousWaypointFetchRequest = NSAsynchronousFetchRequest(fetchRequest: wptFetchRequest) { asynchronousFetchResult in
+            
+            print("Core Data Helper: fetching recoverable waypoints from Core Data")
+            
+            // Retrieves an array of points from Core Data
+            guard let waypointResults = asynchronousFetchResult.finalResult as? [CDWaypoint] else { return }
+
+            privateManagedObjectContext.delete(waypointResults[index])
+            
+            do {
+                try privateManagedObjectContext.save()
+                self.appDelegate.managedObjectContext.performAndWait {
+                    do {
+                        // Saves the changes from the child to the main context to be applied properly
+                        try self.appDelegate.managedObjectContext.save()
+                    } catch {
+                        print("Failure to save context: \(error)")
+                    }
+                }
+            }
+            catch {
+                print("Failure to save context at child context: \(error)")
+            }
+        }
+        
+        do {
+            try privateManagedObjectContext.execute(asynchronousWaypointFetchRequest)
+        } catch let error {
+            print("NSAsynchronousFetchRequest error: \(error)")
+        }
+        
+    }
+    
     func retrieveFromCoreData() {
         let privateManagedObjectContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
         privateManagedObjectContext.parent = appDelegate.managedObjectContext
@@ -247,6 +286,15 @@ class CoreDataHelper {
                 // Executes all delete requests
                 try privateManagedObjectContext.execute(trackpointAsynchronousFetchRequest)
                 try privateManagedObjectContext.execute(waypointAsynchronousFetchRequest)
+                try privateManagedObjectContext.save()
+                self.appDelegate.managedObjectContext.performAndWait {
+                    do {
+                        // Saves the changes from the child to the main context to be applied properly
+                        try self.appDelegate.managedObjectContext.save()
+                    } catch {
+                        print("Failure to save context: \(error)")
+                    }
+                }
                 
             } catch let error {
                 print("NSAsynchronousFetchRequest error: \(error)")
