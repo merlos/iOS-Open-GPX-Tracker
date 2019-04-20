@@ -16,6 +16,9 @@ import CoreGPX
 /// https://marcosantadev.com/coredata_crud_concurrency_swift_1/
 class CoreDataHelper {
     
+    var waypointTag: Int64 = 0
+    var trackpointTag: Int64 = 0
+    
     // app delegate.
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     
@@ -39,6 +42,9 @@ class CoreDataHelper {
             pt.latitude = latitude
             pt.longitude = longitude
             pt.time = trackpoint.time
+            pt.tag = self.trackpointTag
+            
+            self.trackpointTag += 1
             
             do {
                 try childManagedObjectContext.save()
@@ -74,7 +80,9 @@ class CoreDataHelper {
             pt.latitude = latitude
             pt.longitude = longitude
             pt.time = waypoint.time
+            pt.tag = self.waypointTag
             
+            self.waypointTag += 1
             
             do {
                 try waypointChildManagedObjectContext.save()
@@ -99,6 +107,11 @@ class CoreDataHelper {
         // Creates a fetch request
         let trkptFetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "CDTrackpoint")
         let wptFetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "CDWaypoint")
+        
+        // Ensure that fetched data is ordered 
+        let sort = NSSortDescriptor(key: "tag", ascending: true)
+        trkptFetchRequest.sortDescriptors = [sort]
+        wptFetchRequest.sortDescriptors = [sort]
         
         // Creates `asynchronousFetchRequest` with the fetch request and the completion closure
         let asynchronousTrackPointFetchRequest = NSAsynchronousFetchRequest(fetchRequest: trkptFetchRequest) { asynchronousFetchResult in
@@ -167,6 +180,8 @@ class CoreDataHelper {
         }
     }
     
+    
+    /// Delete all entities in Core Data
     func deleteAllFromCoreData() {
         
         let privateManagedObjectContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
@@ -188,6 +203,8 @@ class CoreDataHelper {
                     try privateManagedObjectContext.execute(trackpointDeleteRequest)
                     try privateManagedObjectContext.execute(waypointDeleteRequest)
                     
+                    self.resetTags()
+                    
                     try privateManagedObjectContext.save()
                     self.appDelegate.managedObjectContext.performAndWait {
                         do {
@@ -205,10 +222,9 @@ class CoreDataHelper {
             }
             
         }
-        else { // for pre iOS 9 (less efficient, load in mem before removal)
+        else { // for pre iOS 9 (less efficient, load in memory before removal)
             let trackpointAsynchronousFetchRequest = NSAsynchronousFetchRequest(fetchRequest: trackpointFetchRequest) { asynchronousFetchResult in
                 
-                // Retrieves an array of dogs from the fetch result `finalResult`
                 guard let results = asynchronousFetchResult.finalResult as? [CDTrackpoint] else { return }
                 
                 for result in results {
@@ -218,8 +234,9 @@ class CoreDataHelper {
             
             let waypointAsynchronousFetchRequest = NSAsynchronousFetchRequest(fetchRequest: waypointFetchRequest) { asynchronousFetchResult in
                 
-                // Retrieves an array of dogs from the fetch result `finalResult`
                 guard let results = asynchronousFetchResult.finalResult as? [CDWaypoint] else { return }
+                
+                self.resetTags()
                 
                 for result in results {
                     privateManagedObjectContext.delete(result)
@@ -238,13 +255,28 @@ class CoreDataHelper {
         }
     }
     
+    /// Resets trackpoints and waypoints tag
+    ///
+    /// the tag is to ensure that when retrieving the entities, the order remains.
+    /// This is important to ensure that the resulting recovery file has the correct order.
+    func resetTags() {
+        self.trackpointTag = 0
+        self.waypointTag = 0
+    }
+    
+    /// Clear all arrays after recovery.
     func clearArrays() {
         self.trackpoints = []
         self.waypoints = []
     }
     
+    /// Handles actual file recovery.
+    ///
+    /// Adds all the 'recovered' content retrieved earlier to a recovered file.
+    /// Deletes and clears core data stuff after file is successfully saved.
     func crashFileRecovery() {
         DispatchQueue.global().async {
+            // checks if trackpoint and waypoint
             if self.trackpoints.count > 0 || self.waypoints.count > 0 {
                 let root = GPXRoot(creator: kGPXCreatorString)
                 let track = GPXTrack()
@@ -275,7 +307,7 @@ class CoreDataHelper {
                 self.clearArrays()
             }
             else {
-                // recovery file will not be if no trackpoints
+                // no recovery file will be generated if nothing is recovered.
             }
         }
        
