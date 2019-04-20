@@ -68,6 +68,8 @@ class MapViewDelegate: NSObject, MKMapViewDelegate, UIAlertViewDelegate {
         case kEditWaypointAccesoryButtonTag:
             print("[calloutAccesoryControlTapped: EDIT] editing waypoint with name \(waypoint.name ?? "''")")
             
+            let indexofEditedWaypoint = map.waypoints.firstIndex(of: waypoint)
+            
             let alertController = UIAlertController(title: "Edit waypoint name", message: "Hint: To change the waypoint location drag and drop the pin", preferredStyle: .alert)
             alertController.addTextField { (textField) in
                 textField.text = waypoint.title
@@ -76,6 +78,7 @@ class MapViewDelegate: NSObject, MKMapViewDelegate, UIAlertViewDelegate {
             let saveAction = UIAlertAction(title: "Save", style: .default) { (action) in
                 print("Edit waypoint alert view")
                 self.waypointBeingEdited.title = alertController.textFields?[0].text
+                map.update(toCoreData: self.waypointBeingEdited, at: indexofEditedWaypoint!)
             }
             let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (action) in }
             
@@ -85,6 +88,7 @@ class MapViewDelegate: NSObject, MKMapViewDelegate, UIAlertViewDelegate {
             UIApplication.shared.keyWindow?.rootViewController?.present(alertController, animated: true)
             
             self.waypointBeingEdited = waypoint
+            
         default:
             print("[calloutAccesoryControlTapped ERROR] unknown control")
         }

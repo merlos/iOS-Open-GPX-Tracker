@@ -26,6 +26,8 @@ class CoreDataHelper {
     var trackpoints = [GPXTrackPoint]()
     var waypoints = [GPXWaypoint]()
     
+    // MARK:- Add to Core Data
+    
     func add(toCoreData trackpoint: GPXTrackPoint) {
         let childManagedObjectContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
         // Creates the link between child and parent
@@ -101,7 +103,7 @@ class CoreDataHelper {
         }
     }
     
-    func delete(fromCoreDataAt index: Int) {
+    func update(toCoreData updatedWaypoint: GPXWaypoint, from index: Int) {
         let privateManagedObjectContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
         privateManagedObjectContext.parent = appDelegate.managedObjectContext
         // Creates a fetch request
@@ -113,23 +115,35 @@ class CoreDataHelper {
             
             // Retrieves an array of points from Core Data
             guard let waypointResults = asynchronousFetchResult.finalResult as? [CDWaypoint] else { return }
-
-            privateManagedObjectContext.delete(waypointResults[index])
             
-            do {
-                try privateManagedObjectContext.save()
-                self.appDelegate.managedObjectContext.performAndWait {
-                    do {
-                        // Saves the changes from the child to the main context to be applied properly
-                        try self.appDelegate.managedObjectContext.save()
-                    } catch {
-                        print("Failure to save context: \(error)")
+            privateManagedObjectContext.perform {
+                let objectID = waypointResults[index].objectID
+                guard let pt = self.appDelegate.managedObjectContext.object(with: objectID) as? CDWaypoint else { return }
+                
+                guard let latitude = updatedWaypoint.latitude   else { return }
+                guard let longitude = updatedWaypoint.longitude else { return }
+                
+                pt.name = updatedWaypoint.name
+                pt.desc = updatedWaypoint.desc
+                pt.latitude = latitude
+                pt.longitude = longitude
+                
+                do {
+                    try privateManagedObjectContext.save()
+                    self.appDelegate.managedObjectContext.performAndWait {
+                        do {
+                            // Saves the changes from the child to the main context to be applied properly
+                            try self.appDelegate.managedObjectContext.save()
+                        } catch {
+                            print("Failure to save context: \(error)")
+                        }
                     }
                 }
+                catch {
+                    print("Failure to save context at child context: \(error)")
+                }
             }
-            catch {
-                print("Failure to save context at child context: \(error)")
-            }
+            
         }
         
         do {
@@ -137,9 +151,10 @@ class CoreDataHelper {
         } catch let error {
             print("NSAsynchronousFetchRequest error: \(error)")
         }
-        
     }
     
+    // MARK:- Retrieval From Core Data
+
     func retrieveFromCoreData() {
         let privateManagedObjectContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
         privateManagedObjectContext.parent = appDelegate.managedObjectContext
@@ -217,6 +232,48 @@ class CoreDataHelper {
         } catch let error {
             print("NSAsynchronousFetchRequest error: \(error)")
         }
+    }
+    
+    // MARK:- Delete from Core Data
+    
+    /// Delete Waypoint from index
+    func deleteWaypoint(fromCoreDataAt index: Int) {
+        let privateManagedObjectContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
+        privateManagedObjectContext.parent = appDelegate.managedObjectContext
+        // Creates a fetch request
+        let wptFetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "CDWaypoint")
+        
+        let asynchronousWaypointFetchRequest = NSAsynchronousFetchRequest(fetchRequest: wptFetchRequest) { asynchronousFetchResult in
+            
+            print("Core Data Helper: delete waypoint from Core Data at index: \(index)")
+            
+            // Retrieves an array of points from Core Data
+            guard let waypointResults = asynchronousFetchResult.finalResult as? [CDWaypoint] else { return }
+            
+            privateManagedObjectContext.delete(waypointResults[index])
+            
+            do {
+                try privateManagedObjectContext.save()
+                self.appDelegate.managedObjectContext.performAndWait {
+                    do {
+                        // Saves the changes from the child to the main context to be applied properly
+                        try self.appDelegate.managedObjectContext.save()
+                    } catch {
+                        print("Failure to save context: \(error)")
+                    }
+                }
+            }
+            catch {
+                print("Failure to save context at child context: \(error)")
+            }
+        }
+        
+        do {
+            try privateManagedObjectContext.execute(asynchronousWaypointFetchRequest)
+        } catch let error {
+            print("NSAsynchronousFetchRequest error: \(error)")
+        }
+        
     }
     
     
@@ -303,6 +360,8 @@ class CoreDataHelper {
         }
     }
     
+    // MARK:- Reset
+    
     /// Resets trackpoints and waypoints tag
     ///
     /// the tag is to ensure that when retrieving the entities, the order remains.
@@ -317,6 +376,8 @@ class CoreDataHelper {
         self.trackpoints = []
         self.waypoints = []
     }
+    
+    // MARK:- Packaging to file for recovery
     
     /// Handles actual file recovery.
     ///
