@@ -52,8 +52,8 @@ class GPXMapView: MKMapView {
     /// The line being displayed on the map that corresponds to the current segment.
     var currentSegmentOverlay: MKPolyline
     
-    ///
-    var extent: GPXExtentCoordinates = GPXExtentCoordinates() //extent of the GPX points and tracks
+    // Extent of the GPX points and tracks
+    var extent: GPXExtentCoordinates = GPXExtentCoordinates()
     
     /// Total tracked distance in meters
     var totalTrackedDistance = 0.00

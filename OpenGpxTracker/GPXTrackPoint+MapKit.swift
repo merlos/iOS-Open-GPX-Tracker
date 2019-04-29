@@ -11,9 +11,10 @@ import UIKit
 import MapKit
 import CoreGPX
 
-
+/// Extends the GPXTrackpoint to be able to be initialized with a `CLLocation` object.
 extension GPXTrackPoint {
 
+    /// Initializes a trackpoint with the CLLocation data
     convenience init(location: CLLocation) {
         self.init()
         self.latitude = location.coordinate.latitude

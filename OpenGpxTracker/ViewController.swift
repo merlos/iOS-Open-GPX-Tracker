@@ -11,36 +11,63 @@ import MapKit
 import CoreGPX
 import WatchConnectivity
 
-//Button colors
+
+/// Purple color for button background
 let kPurpleButtonBackgroundColor: UIColor =  UIColor(red: 146.0/255.0, green: 166.0/255.0, blue: 218.0/255.0, alpha: 0.90)
+
+/// Green color for button background
 let kGreenButtonBackgroundColor: UIColor = UIColor(red: 142.0/255.0, green: 224.0/255.0, blue: 102.0/255.0, alpha: 0.90)
+
+/// Red color for button background
 let kRedButtonBackgroundColor: UIColor =  UIColor(red: 244.0/255.0, green: 94.0/255.0, blue: 94.0/255.0, alpha: 0.90)
+
+/// Blue color for button background
 let kBlueButtonBackgroundColor: UIColor = UIColor(red: 74.0/255.0, green: 144.0/255.0, blue: 226.0/255.0, alpha: 0.90)
+
+/// Blue color for disabled button background
 let kDisabledBlueButtonBackgroundColor: UIColor = UIColor(red: 74.0/255.0, green: 144.0/255.0, blue: 226.0/255.0, alpha: 0.10)
+
+/// Red color for disabled button background
 let kDisabledRedButtonBackgroundColor: UIColor =  UIColor(red: 244.0/255.0, green: 94.0/255.0, blue: 94.0/255.0, alpha: 0.10)
+
+/// White color for button background
 let kWhiteBackgroundColor: UIColor = UIColor(red: 254.0/255.0, green: 254.0/255.0, blue: 254.0/255.0, alpha: 0.90)
 
-//Accesory View buttons tags
+/// Delete Waypoint Button tag. Used in a waypoint bubble
 let kDeleteWaypointAccesoryButtonTag = 666
+
+/// Edit Waypoint Button tag. Used in a waypoint bubble.
 let kEditWaypointAccesoryButtonTag = 333
 
+/// Text to display when the system is not providing coordinates.
 let kNotGettingLocationText = "Not getting location"
+
+/// Text to display unknown accuracy
 let kUnknownAccuracyText = "±···m"
+
+/// Text to display unknown speed.
 let kUnknownSpeedText = "·.··"
 
 /// Size for small buttons
 let  kButtonSmallSize: CGFloat = 48.0
+
 /// Size for large buttons
 let kButtonLargeSize: CGFloat = 96.0
+
 /// Separation between buttons
 let kButtonSeparation: CGFloat = 6.0
 
 /// Upper limits threshold (in meters) on signal accuracy.
 let kSignalAccuracy6 = 6.0
+/// Upper limits threshold (in meters) on signal accuracy.
 let kSignalAccuracy5 = 11.0
+/// Upper limits threshold (in meters) on signal accuracy.
 let kSignalAccuracy4 = 31.0
+/// Upper limits threshold (in meters) on signal accuracy.
 let kSignalAccuracy3 = 51.0
+/// Upper limits threshold (in meters) on signal accuracy.
 let kSignalAccuracy2 = 101.0
+/// Upper limits threshold (in meters) on signal accuracy.
 let kSignalAccuracy1 = 201.0
 
 ///
@@ -68,10 +95,11 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         }
     }
     
+    // TBD
     var followUserBeforePinchGesture = true
     
     
-    //MapView
+    /// location manager instance configuration
     let locationManager: CLLocationManager = {
         let manager = CLLocationManager()
         manager.requestAlwaysAuthorization()
@@ -92,10 +120,16 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
     /// Map View delegate 
     let mapViewDelegate = MapViewDelegate()
     
-    //Status Vars
+    // Stop watch instance to control elapsed time
     var stopWatch = StopWatch()
+    
+    // Name of the last file that was saved (no extension)
     var lastGpxFilename: String = ""
+    
+    /// Status variable that indicates if the app was sent to background.
     var wasSentToBackground: Bool = false //Was the app sent to background
+    
+    // Status variable that indicates if the location service auth was denied.
     var isDisplayingLocationServicesDenied: Bool = false
     
     /// Has the map any waypoint?
@@ -188,39 +222,78 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
     
     
     //UI
-    //labels
+    /// Label with the title of the app
     var appTitleLabel: UILabel
-    //var appTitleBackgroundView: UIView
+
+    /// Image with the GPS signal
     var signalImageView: UIImageView
+    
+    /// Current GPS signal accuracy text (based on kSignalAccuracyX constants)
     var signalAccuracyLabel: UILabel
+    
+    /// Label that displays current latitude and longitude (lat,long)
     var coordsLabel: UILabel
+    
+    /// Displays current elapsed time (00:00
     var timeLabel: UILabel
+    
+    /// Label that displays last known speed (in km/h)
     var speedLabel: UILabel
+    
+    /// Distance of the total segments tracked
+    ///
+    /// Displayed in m or km based on the
     var totalTrackedDistanceLabel: UIDistanceLabel
+    
+    /// Distance of the current segment being tracked (since last time the Tracker button was pressed)
+    ///
+    /// Displayed in m or km based on the
     var currentSegmentDistanceLabel: UIDistanceLabel
  
-    
-    // Buttons
+    /// Follow user button (bottom bar)
     var followUserButton: UIButton
+    
+    /// New pin button (bottom bar)
     var newPinButton: UIButton
+    
+    /// View GPX Files button
     var folderButton: UIButton
+    
+    /// View app about button
     var aboutButton: UIButton
+    
+    /// View preferences button
     var preferencesButton: UIButton
+    
+    /// Share current gpx file button
     var shareButton: UIButton
+    
+    /// Reset map button (bottom bar)
     var resetButton: UIButton
+    
+    /// Start/Pause tracker button (bottom bar)
     var trackerButton: UIButton
+    
+    /// Save current track into a GPX file
     var saveButton: UIButton
     
     // Signal accuracy images
+    // GPS signal image. Level 0
     let signalImage0 = UIImage(named: "signal0")
+    // GPS signal image. Level 1
     let signalImage1 = UIImage(named: "signal1")
+    // GPS signal image. Level 2
     let signalImage2 = UIImage(named: "signal2")
+    // GPS signal image. Level 3
     let signalImage3 = UIImage(named: "signal3")
+    // GPS signal image. Level 4
     let signalImage4 = UIImage(named: "signal4")
+    // GPS signal image. Level 5
     let signalImage5 = UIImage(named: "signal5")
+    // GPS signal image. Level 6
     let signalImage6 = UIImage(named: "signal6")
  
-    // Initializer. Just initializes the class vars/const
+    /// Initializer. Just initializes the class vars/const
     required init(coder aDecoder: NSCoder) {
         self.map = GPXMapView(coder: aDecoder)!
         
@@ -632,7 +705,6 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
     
     /// returns a string with the format of current date dd-MMM-yyyy-HHmm' (20-Jun-2018-1133)
     ///
-    
     func defaultFilename() -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd-MMM-yyyy-HHmm"
@@ -700,6 +772,9 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         self.present(navController, animated: true) { () -> Void in }
     }
     
+    ///
+    /// Opens Preferences table view controller
+    ///
     @objc func openPreferencesTableViewController() {
         print("openPreferencesTableViewController")
         let vc = PreferencesTableViewController(style: .grouped)
@@ -758,7 +833,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         }
     }
     
-    // Zoom gesture controls that follow user to
+    /// Does nothing in current implementation.
     func pinchGesture(_ gesture: UIPinchGestureRecognizer) {
         print("pinchGesture")
      /*   if gesture.state == UIGestureRecognizerState.Began {

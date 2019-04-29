@@ -35,7 +35,7 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
     /// Is there any GPX file in the directory?
     var gpxFilesFound = false;
     
-    /// Temporary variable to manage
+    /// Temporary variable to manage.
     var selectedRowIndex = -1
     
     ///
@@ -78,12 +78,12 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
         })
     }
     
-    
+   /// Reloads data whenver the table appears.
     override func viewDidAppear(_ animated: Bool) {
         self.tableView.reloadData()
     }
     
-    
+    /// Disposes resources in case of a mermory warning.
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -92,6 +92,7 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
     
     // MARK: Table view data source
     
+    /// returns the number of sections. Always returns 1.
     override func numberOfSections(in tableView: UITableView?) -> Int {
         // Return the number of sections.
         return 1
@@ -121,7 +122,7 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
     }
     
     
-    /// Displays the name of the cell
+    /// Displays the name of the cell.
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         //let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as UITableViewCell
         if gpxFilesFound {
@@ -142,7 +143,7 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
     }
     
     
-    /// Displays an action sheet with the actions for that file (Send it by email, Load in map and Delete)
+    /// Displays an action sheet with the actions for that file (Send it by email, Load in map and Delete).
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
         let sheet = UIAlertController(title: nil, message: "Select option", preferredStyle: .actionSheet)
@@ -181,6 +182,7 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
         return gpxFilesFound
     }
     
+    /// Returs the name of the file in the `rowIndex` passed as parameter.
     internal func fileListObjectTitle(_ rowIndex: Int) -> String {
         return (fileList.object(at: rowIndex) as! GPXFileInfo).fileName
     }
@@ -191,13 +193,13 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
     
     // Cancel button is taped.
     //
-    // Does nothing, it only displays a log message
+    // Does nothing, it only displays a log message.
     internal func actionSheetCancel(_ actionSheet: UIAlertController) {
         print("ActionSheet cancel")
     }
     
     
-    /// Deletes from the disk storage the file of `fileList` at `rowIndex`
+    /// Deletes from the disk storage the file of `fileList` at `rowIndex`.
     internal func actionDeleteFileAtIndex(_ rowIndex: Int) {
 
         guard let fileURL: URL = (fileList.object(at: rowIndex) as? GPXFileInfo)?.fileURL else {
@@ -231,7 +233,7 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
     }
     
     
-    /// Shares file at `rowIndex`
+    /// Shares file at `rowIndex`.
     internal func actionShareFileAtIndex(_ rowIndex: Int, tableView: UITableView, indexPath: IndexPath) {
         guard let gpxFileInfo: GPXFileInfo = (fileList.object(at: rowIndex) as? GPXFileInfo) else {
             print("Unable to get filename at row \(rowIndex), cannot respond to \(type(of: self))didSelectRowAt")

@@ -12,33 +12,33 @@ import Foundation
 ///
 /// It gets info like filename, modified date, filesize
 ///
-///
 class GPXFileInfo: NSObject {
     
     /// file URL
     var fileURL: URL = URL(fileURLWithPath: "")
     
-    /// last time the file was modified
+    /// Last time the file was modified
     var modifiedDate: Date {
         get {
             return try! fileURL.resourceValues(forKeys: [.contentModificationDateKey]).contentModificationDate ?? Date.distantPast
         }
     }
     
-    //
+    // modified date has a time ago string (for instance: 3 days ago)
     var modifiedDatetimeAgo: String {
         get {
             return modifiedDate.timeAgo(numericDates: true)
         }
     }
-    /// file size in bytes
+    
+    /// File size in bytes
     var fileSize: Int {
         get {
             return try! fileURL.resourceValues(forKeys: [.fileSizeKey]).fileSize ?? 0
         }
     }
     
-    ///
+    /// File size as string in a more readable format (example: 10 KB)
     var fileSizeHumanised: String {
         get {
             return fileSize.asFileSize()
