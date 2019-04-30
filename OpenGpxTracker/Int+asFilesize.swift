@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// Extension to display humanized filesizes
 extension Int {
     
     /// Returns the integer as file size humanized (for instance: 1024 -> "1 KB" )

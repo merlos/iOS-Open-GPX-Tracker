@@ -50,8 +50,8 @@ extension GPXWaypoint : MKAnnotation {
         }
     }
     
-    // Subtitle displayed on the annotation bubble
-    // Description of the GPXWaypoint.
+    /// Subtitle displayed on the annotation bubble
+    /// Description of the GPXWaypoint.
     public var subtitle: String? {
         set {
             self.desc = newValue

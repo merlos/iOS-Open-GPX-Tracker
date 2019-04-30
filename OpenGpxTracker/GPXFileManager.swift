@@ -158,7 +158,7 @@ class GPXFileManager: NSObject {
         }
     }
     
-    //Removes a file on the specified URL
+    /// Removes a file on the specified URL
     class func removeFileFromURL(_ fileURL: URL) {
         print("Removing file at path: \(fileURL)")
         let defaultManager = FileManager.default

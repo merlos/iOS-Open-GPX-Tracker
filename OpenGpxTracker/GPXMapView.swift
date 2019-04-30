@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import MapKit
+import CoreLocation
 import CoreGPX
 
 
@@ -29,12 +30,12 @@ let kGPXCreatorString = "Open GPX Tracker for iOS"
 /// 2. A **segment** is set of points. A segment is linked to a MKPolyline overlay in the map.
 
 /// Each time the user touches "Start Tracking" => a segment is created (currentSegment)
-// Each time the users touches "Pause Tracking" => the segment is added to trackSegments
-// When the user saves the file => trackSegments are consolidated in a single track that is
-// added to the file.
-// If the user opens the file in a session for the second, then tracks some segments and saves
-// the file again, the resulting gpx file will have two tracks.
-//
+/// Each time the users touches "Pause Tracking" => the segment is added to trackSegments
+/// When the user saves the file => trackSegments are consolidated in a single track that is
+/// added to the file.
+/// If the user opens the file in a session for the second, then tracks some segments and saves
+/// the file again, the resulting gpx file will have two tracks.
+///
 class GPXMapView: MKMapView {
     
     /// List of waypoints currently displayed on the map.
@@ -52,7 +53,7 @@ class GPXMapView: MKMapView {
     /// The line being displayed on the map that corresponds to the current segment.
     var currentSegmentOverlay: MKPolyline
     
-    // Extent of the GPX points and tracks
+    /// Extent of the GPX points and tracks
     var extent: GPXExtentCoordinates = GPXExtentCoordinates()
     
     /// Total tracked distance in meters
@@ -301,32 +302,25 @@ class GPXMapView: MKMapView {
     ///     - gpx: The result of loading a gpx file with iOS-GPX-Framework.
     ///
     func importFromGPXRoot(_ gpx: GPXRoot) {
-        
         //clear current map
         self.clearMap()
-        
         //add waypoints
         self.waypoints = gpx.waypoints
-        
         for pt in self.waypoints {
             self.addWaypoint(pt)
         }
-
         //add track segments
         self.tracks = gpx.tracks
-        
-        
         for oneTrack in self.tracks {
             totalTrackedDistance += oneTrack.length
             for segment in oneTrack.tracksegments {
-					let overlay = segment.overlay
-					self.addOverlay(overlay)
-
-					let segmentTrackpoints = segment.trackpoints
-						//add point to map extent
-						for waypoint in segmentTrackpoints {
-                            self.extent.extendAreaToIncludeLocation(waypoint.coordinate)
-						}
+                let overlay = segment.overlay
+                self.addOverlay(overlay)
+                let segmentTrackpoints = segment.trackpoints
+                //add point to map extent
+                for waypoint in segmentTrackpoints {
+                    self.extent.extendAreaToIncludeLocation(waypoint.coordinate)
+                }
             }
         }
     }

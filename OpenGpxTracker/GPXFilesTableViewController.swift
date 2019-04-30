@@ -191,9 +191,9 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
     // MARK: Action Sheet - Actions
     //
     
-    // Cancel button is taped.
-    //
-    // Does nothing, it only displays a log message.
+    /// Cancel button is taped.
+    ///
+    /// Does nothing, it only displays a log message.
     internal func actionSheetCancel(_ actionSheet: UIAlertController) {
         print("ActionSheet cancel")
     }

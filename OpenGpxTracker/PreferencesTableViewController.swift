@@ -39,9 +39,16 @@ let kDefaultsKeyUseCache: String = "UseCache"
 ///
 class PreferencesTableViewController: UITableViewController, UINavigationBarDelegate {
     
+    /// Tile server selected
     var selectedTileServerInt = -1
+    
+    /// Current use of cache
     var currentUseCache: Bool = true
+    
+    /// UserDefaults.standard shortcut
     let defaults = UserDefaults.standard
+    
+    /// Delegate for this table view controller.
     weak var delegate: PreferencesTableViewControllerDelegate?
     
     /// Does the following:

@@ -24,7 +24,7 @@ class GPXFileInfo: NSObject {
         }
     }
     
-    // modified date has a time ago string (for instance: 3 days ago)
+    /// modified date has a time ago string (for instance: 3 days ago)
     var modifiedDatetimeAgo: String {
         get {
             return modifiedDate.timeAgo(numericDates: true)

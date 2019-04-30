@@ -95,7 +95,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         }
     }
     
-    // TBD
+    /// TBD (not currently used)
     var followUserBeforePinchGesture = true
     
     
@@ -120,16 +120,16 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
     /// Map View delegate 
     let mapViewDelegate = MapViewDelegate()
     
-    // Stop watch instance to control elapsed time
+    /// Stop watch instance to control elapsed time
     var stopWatch = StopWatch()
     
-    // Name of the last file that was saved (no extension)
+    /// Name of the last file that was saved (without extension)
     var lastGpxFilename: String = ""
     
     /// Status variable that indicates if the app was sent to background.
-    var wasSentToBackground: Bool = false //Was the app sent to background
+    var wasSentToBackground: Bool = false
     
-    // Status variable that indicates if the location service auth was denied.
+    /// Status variable that indicates if the location service auth was denied.
     var isDisplayingLocationServicesDenied: Bool = false
     
     /// Has the map any waypoint?
@@ -278,19 +278,19 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
     var saveButton: UIButton
     
     // Signal accuracy images
-    // GPS signal image. Level 0
+    /// GPS signal image. Level 0 (no signal)
     let signalImage0 = UIImage(named: "signal0")
-    // GPS signal image. Level 1
+    /// GPS signal image. Level 1
     let signalImage1 = UIImage(named: "signal1")
-    // GPS signal image. Level 2
+    /// GPS signal image. Level 2
     let signalImage2 = UIImage(named: "signal2")
-    // GPS signal image. Level 3
+    /// GPS signal image. Level 3
     let signalImage3 = UIImage(named: "signal3")
-    // GPS signal image. Level 4
+    /// GPS signal image. Level 4
     let signalImage4 = UIImage(named: "signal4")
-    // GPS signal image. Level 5
+    /// GPS signal image. Level 5
     let signalImage5 = UIImage(named: "signal5")
-    // GPS signal image. Level 6
+    /// GPS signal image. Level 6
     let signalImage6 = UIImage(named: "signal6")
  
     /// Initializer. Just initializes the class vars/const
@@ -1050,7 +1050,8 @@ extension ViewController: PreferencesTableViewControllerDelegate {
 
 // MARK: location manager Delegate
 
-
+/// Extends `ViewController`` to support `GPXFilesTableViewControllerDelegate` function
+/// that loads into the map a the file selected by the user.
 extension ViewController: GPXFilesTableViewControllerDelegate {
     ///
     /// Loads the selected GPX File into the map.
@@ -1079,9 +1080,17 @@ extension ViewController: GPXFilesTableViewControllerDelegate {
 
 // MARK: CLLocationManagerDelegate
 
-
+// Extends view controller to support Location Manager delegate protocol
 extension ViewController: CLLocationManagerDelegate {
 
+    /// Location manager calls this func to inform there was an error.
+    ///
+    /// It performs the following actions:
+    ///  - Sets coordsLabel with `kNotGettingLocationText`, signal accuracy to
+    ///    kUnknownAccuracyText and signalImageView to signalImage0.
+    ///  - If the error code is `CLError.denied` it calls `checkLocationServicesStatus`
+    
+    ///
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print("didFailWithError \(error)")
         coordsLabel.text = kNotGettingLocationText
@@ -1184,15 +1193,17 @@ extension ViewController: CLLocationManagerDelegate {
 @available(iOS 9.0, *)
 extension ViewController: WCSessionDelegate {
     
-    // called when `WCSession` goes inactive
+    /// called when `WCSession` goes inactive. Does nothing but display a debug message.
     func sessionDidBecomeInactive(_ session: WCSession) {
         print("GPXFilesTableViewController:: WCSession has become inactive")
     }
     
+    /// called when `WCSession` goes inactive. Does nothing but display a debug message
     func sessionDidDeactivate(_ session: WCSession) {
         print("GPXFilesTableViewController:: WCSession has deactivated")
     }
     
+    /// called when activation did complete. Does nothing but display a debug message.
     @available(iOS 9.3, *)
     func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
         switch activationState {
@@ -1207,6 +1218,8 @@ extension ViewController: WCSessionDelegate {
         }
     }
     
+    /// Called when a file is received from Apple Watch.
+    /// Displays a popup informing about the reception of the file.
     func session(_ session: WCSession, didReceive file: WCSessionFile) {
         let fileName = file.metadata!["fileName"] as! String?
         

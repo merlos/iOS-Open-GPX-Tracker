@@ -16,7 +16,7 @@ class GPXExtentCoordinates: NSObject {
     /// Top left coordinate point.
     var topLeftCoordinate = CLLocationCoordinate2D(latitude: 0.00, longitude: 0.00)
     
-    // Bottom Right coordinate point.
+    /// Bottom Right coordinate point.
     var bottomRightCoordinate = CLLocationCoordinate2D(latitude: 0.00, longitude: 0.00)
     
     /// Sets the area to einclude the location point

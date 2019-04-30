@@ -10,18 +10,20 @@ import UIKit
 import CoreData
 
 
-
+///
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
+    
+    /// Main window
     var window: UIWindow?
 
-
+    /// Default placeholder function
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         return true
     }
 
+    /// Default placeholder function
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. 
         // This can occur for certain types of temporary interruptions 
@@ -31,6 +33,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Games should use this method to pause the game.
     }
 
+    /// Default placeholder function
     func applicationDidEnterBackground(_ application: UIApplication) {
         // Use this method to release shared resources, save user data, invalidate timers, 
         // and store enough application state information to restore your application to its current state in case it is terminated later.
@@ -38,22 +41,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // applicationWillTerminate: when the user quits.
     }
 
+    /// Default placeholder function
     func applicationWillEnterForeground(_ application: UIApplication) {
         // Called as part of the transition from the background to the inactive state; 
         // here you can undo many of the changes made on entering the background.
     }
 
+    /// Default placeholder function
     func applicationDidBecomeActive(_ application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. 
         // If the application was previously in the background, optionally refresh the user interface.
     }
 
+    /// Default placeholder function
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
         // Saves changes in the application's managed object context before the application terminates.
         //self.saveContext()
     }
-
+    
+    /// Default pandle load GPX file
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
         print("load gpx File: \(url.absoluteString)")
         let fileManager = FileManager.default
@@ -69,6 +76,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     // MARK: - Core Data stack
 
+    /// Default placeholder function
     lazy var applicationDocumentsDirectory: URL = {
         // The directory the application uses to store the Core Data store file. 
         // This code uses a directory named "uk.co.plymouthsoftware.core_data" in the application's documents Application Support directory.
@@ -76,6 +84,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return urls[urls.count-1]
         }()
     
+    /// Default placeholder function
     lazy var managedObjectModel: NSManagedObjectModel = {
         // The managed object model for the application. This property is not optional. 
         // It is a fatal error for the application not to be able to find and load its model.
@@ -83,6 +92,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return NSManagedObjectModel(contentsOf: modelURL)!
         }()
     
+    /// Default placeholder function
     lazy var persistentStoreCoordinator: NSPersistentStoreCoordinator = {
         // The persistent store coordinator for the application. This implementation creates and 
         // return a coordinator, having added the store for the application to it. 
@@ -111,6 +121,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return coordinator
         }()
     
+    /// Default placeholder function
     lazy var managedObjectContext: NSManagedObjectContext = {
         // Returns the managed object context for the application 
         // (which is already bound to the persistent store coordinator for the application.) 
@@ -123,6 +134,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     // MARK: - Core Data Saving support
     
+    /// Default placeholder function
     func saveContext () {
         if managedObjectContext.hasChanges {
             do {
