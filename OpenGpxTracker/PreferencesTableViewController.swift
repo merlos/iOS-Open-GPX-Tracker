@@ -92,7 +92,7 @@ class PreferencesTableViewController: UITableViewController, UINavigationBarDele
         // Dispose of any resources that can be recreated.
     }
     
-    // MARK - Table view data source
+    // MARK: - Table view data source
     
     /// Returns 2 (one section is for "Cache" and the second one is for  "Map Source"
     override func numberOfSections(in tableView: UITableView?) -> Int {
@@ -127,7 +127,7 @@ class PreferencesTableViewController: UITableViewController, UINavigationBarDele
     ///
     /// If the section is kMapSourceSection, it returns a chekmark cell with the name of
     /// the tile server in the  `indexPath.row` index in `GPXTileServer`. The cell is marked
-    /// if `selectedTileServerInt` is the same as `indexPath.row``.
+    /// if `selectedTileServerInt` is the same as `indexPath.row`.
     ///
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var cell = UITableViewCell(style: .value1, reuseIdentifier: "MapCell")

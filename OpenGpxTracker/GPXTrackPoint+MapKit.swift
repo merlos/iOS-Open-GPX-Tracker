@@ -11,7 +11,7 @@ import UIKit
 import MapKit
 import CoreGPX
 
-/// Extends the GPXTrackpoint to be able to be initialized with a `CLLocation` object.
+/// Extends the GPXTrackPoint to be able to be initialized with a `CLLocation` object.
 extension GPXTrackPoint {
 
     /// Initializes a trackpoint with the CLLocation data

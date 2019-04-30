@@ -182,7 +182,7 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
         return gpxFilesFound
     }
     
-    /// Returs the name of the file in the `rowIndex` passed as parameter.
+    /// Returns the name of the file in the `rowIndex` passed as parameter.
     internal func fileListObjectTitle(_ rowIndex: Int) -> String {
         return (fileList.object(at: rowIndex) as! GPXFileInfo).fileName
     }
@@ -191,7 +191,7 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
     // MARK: Action Sheet - Actions
     //
     
-    /// Cancel button is taped.
+    /// Cancel button is tapped.
     ///
     /// Does nothing, it only displays a log message.
     internal func actionSheetCancel(_ actionSheet: UIAlertController) {

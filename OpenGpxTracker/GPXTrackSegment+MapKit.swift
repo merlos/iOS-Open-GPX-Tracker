@@ -12,12 +12,12 @@ import MapKit
 import CoreGPX
 
 ///
-/// This extension adds some methods to work with mapkit
+/// This extension adds some methods to work with MapKit
 ///
 #if os(iOS)
 extension GPXTrackSegment {
     
-    /// Returns a Mapkit polyline with the points of the segment.
+    /// Returns a MapKit polyline with the points of the segment.
     /// This polyline can be directly plotted on the map as an overlay
     public var overlay: MKPolyline {
         get {

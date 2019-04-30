@@ -234,7 +234,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
     /// Label that displays current latitude and longitude (lat,long)
     var coordsLabel: UILabel
     
-    /// Displays current elapsed time (00:00
+    /// Displays current elapsed time (00:00)
     var timeLabel: UILabel
     
     /// Label that displays last known speed (in km/h)
