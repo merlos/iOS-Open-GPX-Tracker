@@ -171,6 +171,10 @@ open class GPXRoot: GPXElement {
         }
     }
     
+    public func remove(WaypointAtIndex index: Int) {
+        self.waypoints.remove(at: index)
+    }
+    
     /// Initializes a new `route` which is also added to `GPXRoot` automatically
     ///
     /// A route is initialized, then added into the array of routes in this `GPXRoot`.

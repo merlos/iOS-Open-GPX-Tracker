@@ -14,7 +14,13 @@ import Foundation
     - type of content
     - text of web link (probably a description kind of thing)
  */
-open class GPXLink: GPXElement {
+open class GPXLink: GPXElement, Codable {
+    
+    enum CodingKeys: String, CodingKey {
+        case text
+        case mimetype = "type"
+        case href
+    }
     
     // MARK:- Properties
 

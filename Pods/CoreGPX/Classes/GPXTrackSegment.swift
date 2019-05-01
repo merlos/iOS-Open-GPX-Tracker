@@ -12,7 +12,12 @@ import Foundation
 
  Does not hold additional information by default.
  */
-open class GPXTrackSegment: GPXElement {
+open class GPXTrackSegment: GPXElement, Codable {
+    
+    enum CodingKeys: String, CodingKey {
+        case trackpoints = "trkpt"
+        case extensions
+    }
     
     public var trackpoints = [GPXTrackPoint]()
     public var extensions: GPXExtensions?

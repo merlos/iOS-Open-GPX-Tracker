@@ -12,7 +12,7 @@ import Foundation
  
  If extended, tags should be inbetween the open and close tags of **\<extensions>**
  */
-open class GPXExtensions: GPXElement {
+open class GPXExtensions: GPXElement, Codable {
     
     // MARK:- Initializer
     public required init() {

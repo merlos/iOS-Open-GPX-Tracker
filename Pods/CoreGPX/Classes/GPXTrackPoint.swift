@@ -50,6 +50,11 @@ open class GPXTrackPoint: GPXWaypoint {
         self.ageofDGPSData = Convert.toDouble(from: dictionary["ageofdgpsdata"])
     }
     
+    required public init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
+    }
+
+    
     // MARK:- Tag
     
     override func tagName() -> String {

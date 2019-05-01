@@ -14,7 +14,19 @@ import Foundation
  
  Tracks are meant to show the start and finish of a journey, through the track segments that it holds.
  */
-open class GPXTrack: GPXElement {
+open class GPXTrack: GPXElement, Codable {
+    
+    enum CodingKeys: String, CodingKey {
+        case link
+        case tracksegments = "trkseg"
+        case name
+        case comment = "cmt"
+        case desc
+        case source = "src"
+        case number
+        case type
+        case extensions
+    }
     
     /// Holds a web link to external resources regarding the current track.
     public var link: GPXLink?

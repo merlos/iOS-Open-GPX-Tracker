@@ -48,6 +48,15 @@ class CoreDataHelper {
             pt.time = trackpoint.time
             pt.trackpointId = self.trackpointId
             
+            // Serialization of trackpoint
+            do {
+                let serialized = try JSONEncoder().encode(trackpoint)
+                pt.serialized = serialized
+            }
+            catch {
+                print("Core Data Helper: serialization error when adding trackpoint: \(error)")
+            }
+            
             self.trackpointId += 1
             
             do {
@@ -75,7 +84,6 @@ class CoreDataHelper {
         waypointChildManagedObjectContext.perform {
             let pt = NSEntityDescription.insertNewObject(forEntityName: "CDWaypoint", into: waypointChildManagedObjectContext) as! CDWaypoint
             
-            
             guard let latitude = waypoint.latitude   else { return }
             guard let longitude = waypoint.longitude else { return }
             
@@ -85,6 +93,15 @@ class CoreDataHelper {
             pt.longitude = longitude
             pt.time = waypoint.time
             pt.waypointId = self.waypointId
+            
+            // Serialization of trackpoint
+            do {
+                let serialized = try JSONEncoder().encode(waypoint)
+                pt.serialized = serialized
+            }
+            catch {
+                print("Core Data Helper: serialization error when adding waypoint: \(error)")
+            }
             
             self.waypointId += 1
             
