@@ -18,8 +18,8 @@ import CoreGPX
 class CoreDataHelper {
     
     // tags to keep track of object's sequence
-    var waypointTag: Int64 = 0
-    var trackpointTag: Int64 = 0
+    var waypointId: Int64 = 0
+    var trackpointId: Int64 = 0
     
     // app delegate.
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
@@ -46,9 +46,9 @@ class CoreDataHelper {
             pt.latitude = latitude
             pt.longitude = longitude
             pt.time = trackpoint.time
-            pt.tag = self.trackpointTag
+            pt.trackpointId = self.trackpointId
             
-            self.trackpointTag += 1
+            self.trackpointId += 1
             
             do {
                 try childManagedObjectContext.save()
@@ -84,9 +84,9 @@ class CoreDataHelper {
             pt.latitude = latitude
             pt.longitude = longitude
             pt.time = waypoint.time
-            pt.tag = self.waypointTag
+            pt.waypointId = self.waypointId
             
-            self.waypointTag += 1
+            self.waypointId += 1
             
             do {
                 try waypointChildManagedObjectContext.save()
@@ -165,9 +165,10 @@ class CoreDataHelper {
         let wptFetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "CDWaypoint")
         
         // Ensure that fetched data is ordered 
-        let sort = NSSortDescriptor(key: "tag", ascending: true)
-        trkptFetchRequest.sortDescriptors = [sort]
-        wptFetchRequest.sortDescriptors = [sort]
+        let sortTrkpt = NSSortDescriptor(key: "trackpointId", ascending: true)
+        let sortWpt = NSSortDescriptor(key: "waypointId", ascending: true)
+        trkptFetchRequest.sortDescriptors = [sortTrkpt]
+        wptFetchRequest.sortDescriptors = [sortWpt]
         
         // Creates `asynchronousFetchRequest` with the fetch request and the completion closure
         let asynchronousTrackPointFetchRequest = NSAsynchronousFetchRequest(fetchRequest: trkptFetchRequest) { asynchronousFetchResult in
@@ -301,7 +302,7 @@ class CoreDataHelper {
                     try privateManagedObjectContext.execute(trackpointDeleteRequest)
                     try privateManagedObjectContext.execute(waypointDeleteRequest)
                     
-                    self.resetTags()
+                    self.resetIds()
                     
                     try privateManagedObjectContext.save()
                     self.appDelegate.managedObjectContext.performAndWait {
@@ -334,7 +335,7 @@ class CoreDataHelper {
                 
                 guard let results = asynchronousFetchResult.finalResult as? [CDWaypoint] else { return }
                 
-                self.resetTags()
+                self.resetIds()
                 
                 for result in results {
                     privateManagedObjectContext.delete(result)
@@ -362,15 +363,15 @@ class CoreDataHelper {
         }
     }
     
-    // MARK:- Reset
+    // MARK:- Reset & Clear
     
-    /// Resets trackpoints and waypoints tag
+    /// Resets trackpoints and waypoints Id
     ///
-    /// the tag is to ensure that when retrieving the entities, the order remains.
+    /// the Id is to ensure that when retrieving the entities, the order remains.
     /// This is important to ensure that the resulting recovery file has the correct order.
-    func resetTags() {
-        self.trackpointTag = 0
-        self.waypointTag = 0
+    func resetIds() {
+        self.trackpointId = 0
+        self.waypointId = 0
     }
     
     /// Clear all arrays after recovery.
