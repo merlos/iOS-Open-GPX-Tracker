@@ -7,6 +7,7 @@
         <attribute name="serialized" optional="YES" attributeType="Binary" syncable="YES"/>
         <attribute name="time" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="trackpointId" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="trackSegmentId" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
     </entity>
     <entity name="CDWaypoint" representedClassName="CDWaypoint" syncable="YES" codeGenerationType="class">
         <attribute name="desc" optional="YES" attributeType="String" syncable="YES"/>
@@ -19,7 +20,7 @@
         <attribute name="waypointId" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
     </entity>
     <elements>
-        <element name="CDTrackpoint" positionX="-63" positionY="27" width="128" height="135"/>
+        <element name="CDTrackpoint" positionX="-63" positionY="27" width="128" height="150"/>
         <element name="CDWaypoint" positionX="-54" positionY="36" width="128" height="165"/>
     </elements>
 </model>
