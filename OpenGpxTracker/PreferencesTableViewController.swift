@@ -54,7 +54,7 @@ class PreferencesTableViewController: UITableViewController, UINavigationBarDele
     /// Does the following:
     /// 1. Defines the areas for navBar and the Table view
     /// 2. Sets the title
-    /// 3. Loads the Preferences from defaults (us
+    /// 3. Loads the Preferences from defaults
     override func viewDidLoad() {
         super.viewDidLoad()
         let navBarFrame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: 64)

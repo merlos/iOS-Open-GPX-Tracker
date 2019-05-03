@@ -241,13 +241,9 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
     var speedLabel: UILabel
     
     /// Distance of the total segments tracked
-    ///
-    /// Displayed in m or km based on the
     var totalTrackedDistanceLabel: UIDistanceLabel
     
     /// Distance of the current segment being tracked (since last time the Tracker button was pressed)
-    ///
-    /// Displayed in m or km based on the
     var currentSegmentDistanceLabel: UIDistanceLabel
  
     /// Follow user button (bottom bar)
