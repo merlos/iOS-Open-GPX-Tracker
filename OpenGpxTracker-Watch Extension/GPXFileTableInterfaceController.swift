@@ -270,8 +270,9 @@ class GPXFileTableInterfaceController: WKInterfaceController {
 
 }
 
-///
-/// MARK:- WCSessionDelegate
+
+// MARK:- WCSessionDelegate
+
 ///
 /// Handles all the file transfer to iOS app processes
 ///

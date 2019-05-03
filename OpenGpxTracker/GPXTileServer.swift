@@ -37,6 +37,7 @@ enum GPXTileServer: Int {
         //case .AnotherMap: return "My Map"
         }
     }
+    
     /// URL template of current tile server (it is of the form http://{s}.map.tile.server/{z}/{x}/{y}.png
     var templateUrl: String {
         switch self {
@@ -47,6 +48,6 @@ enum GPXTileServer: Int {
         //case .AnotherMap: return "http://another.map.tile.server/{z}/{x}/{y}.png"
         }
     }
-    // Number of tile servers defined
+    /// Returns the number of tile servers currently defined
     static var count: Int { return GPXTileServer.cartoDB.rawValue + 1}
 }

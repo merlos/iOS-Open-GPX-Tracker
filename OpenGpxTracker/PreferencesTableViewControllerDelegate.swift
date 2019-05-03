@@ -13,8 +13,10 @@ import Foundation
 ///
 protocol PreferencesTableViewControllerDelegate: class {
     
+    /// User updated tile server
     func didUpdateTileServer(_ newGpxTileServer: Int)
     
+    /// User updated the usage of the caché
     func didUpdateUseCache(_ newUseCache: Bool)
     
 }

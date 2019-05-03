@@ -44,6 +44,7 @@ class StopWatch: NSObject {
     /// Delegate that receives the time updates every `timeInterval`
     weak var delegate: StopWatchDelegate?
     
+    /// Initializes the stopWatch with elapsed time 0.00 and `stopped` stop watch status.
     override init() {
         self.tmpElapsedTime = 0.0 //seconds
         self.status = StopWatchStatus.stopped
@@ -58,7 +59,7 @@ class StopWatch: NSObject {
         timer = Timer.scheduledTimer(timeInterval: timeInterval, target: self, selector: #selector(StopWatch.updateElapsedTime), userInfo: nil, repeats: true)
     }
     
-    // Stops counting time
+    /// Stops counting time
     func stop() {
         print("StopWatch: stopped")
         self.status = .stopped
