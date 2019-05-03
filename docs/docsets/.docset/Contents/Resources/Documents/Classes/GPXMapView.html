@@ -14,7 +14,8 @@
     <a title="GPXMapView Class Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html"> Docs</a> (58% documented)</p>
+        <p><a href="../index.html"> Docs</a> (100% documented)</p>
+        <p class="header-right"><a href="https://github.com/merlos/iOS-Open-GPX-Tracker"><img src="../img/gh.png"/>View on GitHub</a></p>
       </div>
     </header>
     <div class="content-wrapper">
@@ -62,9 +63,6 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Classes/StopWatch.html">StopWatch</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Classes/TrackRecorder.html">TrackRecorder</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Classes/TrackerButton.html">TrackerButton</a>
@@ -120,9 +118,6 @@
                 <a href="../Global Variables.html#/s:14OpenGpxTracker30kEditWaypointAccesoryButtonTagSivp">kEditWaypointAccesoryButtonTag</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Global Variables.html#/s:14OpenGpxTracker25kEditWaypointAlertViewTagSivp">kEditWaypointAlertViewTag</a>
-              </li>
-              <li class="nav-group-task">
                 <a href="../Global Variables.html#/s:14OpenGpxTracker8kFileExtSSvp">kFileExt</a>
               </li>
               <li class="nav-group-task">
@@ -130,12 +125,6 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Global Variables.html#/s:14OpenGpxTracker27kGreenButtonBackgroundColorSo7UIColorCvp">kGreenButtonBackgroundColor</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Global Variables.html#/s:14OpenGpxTracker35kLocationServicesDeniedAlertViewTagSivp">kLocationServicesDeniedAlertViewTag</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Global Variables.html#/s:14OpenGpxTracker37kLocationServicesDisabledAlertViewTagSivp">kLocationServicesDisabledAlertViewTag</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Global Variables.html#/s:14OpenGpxTracker17kMapSourceSectionSivp">kMapSourceSection</a>
@@ -151,9 +140,6 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Global Variables.html#/s:14OpenGpxTracker25kRedButtonBackgroundColorSo7UIColorCvp">kRedButtonBackgroundColor</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Global Variables.html#/s:14OpenGpxTracker24kSaveSessionAlertViewTagSivp">kSaveSessionAlertViewTag</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Global Variables.html#/s:14OpenGpxTracker16kSignalAccuracy1Sdvp">kSignalAccuracy1</a>
@@ -236,9 +222,6 @@
               <li class="nav-group-task">
                 <a href="../Protocols/StopWatchDelegate.html">StopWatchDelegate</a>
               </li>
-              <li class="nav-group-task">
-                <a href="../Protocols/TrackRecorderDelegate.html">TrackRecorderDelegate</a>
-              </li>
             </ul>
           </li>
         </ul>
@@ -253,7 +236,24 @@
 
                 </div>
               </div>
-            <p>Undocumented</p>
+            <p>A MapView that Tracks user position</p>
+
+<ul>
+<li>it is able to convert GPX file into map</li>
+<li>it is able to return a GPX file from map</li>
+</ul>
+<h3 id='some-definitions' class='heading'>Some definitions</h3>
+
+<ol>
+<li>A <strong>track</strong> is a set of segments.</li>
+<li>A <strong>segment</strong> is set of points. A segment is linked to a MKPolyline overlay in the map.
+Each time the user touches <q>Start Tracking</q> =&gt; a segment is created (currentSegment)
+Each time the users touches <q>Pause Tracking</q> =&gt; the segment is added to trackSegments
+When the user saves the file =&gt; trackSegments are consolidated in a single track that is
+added to the file.
+If the user opens the file in a session for the second, then tracks some segments and saves
+the file again, the resulting gpx file will have two tracks.</li>
+</ol>
 
           </section>
           <section class="section task-group-section">
@@ -407,7 +407,8 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        
+                        <p>Extent of the GPX points and tracks</p>
+
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
@@ -886,7 +887,8 @@ initialized on MapViewDelegate</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Appends currentSegment to trackSegments and initializes currentSegment to a new one.</p>
+                        <p>If current segmet has points, it appends currentSegment to trackSegments and
+initializes currentSegment to a new one.</p>
 
                       </div>
                       <div class="declaration">
@@ -1059,8 +1061,8 @@ initialized on MapViewDelegate</p>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2019 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2019-02-17)</p>
-          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+          <p>&copy; 2019 <a class="link" href="https://github.com/merlos/iOS-Open-GPX-Tracker" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2019-05-03)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.6</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>
     </div>
