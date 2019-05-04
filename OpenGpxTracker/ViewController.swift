@@ -363,20 +363,6 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
             }
         }
         
-        // Watch communication session activation (available >iOS 9)
-        if #available(iOS 9.0, *) {
-            if WCSession.isSupported() {
-                print("ViewController:: WCSession is supported")
-                let session = WCSession.default
-                session.delegate = self
-                session.activate()
-                print("ViewController:: WCSession activated")
-            }
-            else {
-                print("ViewController:: WCSession is not supported")
-            }
-        }
-        
         // Map autorotate configuration
         map.autoresizesSubviews = true
         map.autoresizingMask = [.flexibleHeight, .flexibleWidth]
@@ -690,6 +676,9 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         
         
         notificationCenter.addObserver(self, selector: #selector(applicationWillTerminate), name: UIApplication.willTerminateNotification, object: nil)
+        
+        notificationCenter.addObserver(self, selector: #selector(presentReceivedFile(_:)), name: .didReceiveFileFromAppleWatch, object: nil)
+
     }
 
     ///
@@ -697,6 +686,23 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
     ///
     func removeNotificationObservers() {
         NotificationCenter.default.removeObserver(self)
+    }
+    
+    var fileNameFromAppleWatch = String()
+    
+    @objc func presentReceivedFile(_ notification: Notification) {
+        
+        guard let fileName = notification.userInfo?["fileName"] as? String? else { return }
+        
+        // alert to display to notify user that file has been received.
+        let controller = UIAlertController(title: "File Received from Apple Watch", message: "Received file: \"\(fileName ?? "")\"", preferredStyle: .alert)
+        let action = UIAlertAction(title: "Done", style: .default) {
+            (action) in
+            print("ViewController:: Presented file received message from WatchConnectivity Session")
+        }
+        
+        controller.addAction(action)
+        self.present(controller, animated: true, completion: nil)
     }
     
     /// returns a string with the format of current date dd-MMM-yyyy-HHmm' (20-Jun-2018-1133)
@@ -1175,65 +1181,4 @@ extension ViewController: CLLocationManagerDelegate {
     }
 }
 
-
-// MARK: WCSessionDelegate
-
-///
-/// Handles file transfers from Apple Watch companion app
-/// Should be non intrusive to UI, handling all in the background.
-
-/// File received are automatically moved to default location which stores all GPX files
-///
-/// Only available > iOS 9
-///
-@available(iOS 9.0, *)
-extension ViewController: WCSessionDelegate {
-    
-    /// called when `WCSession` goes inactive. Does nothing but display a debug message.
-    func sessionDidBecomeInactive(_ session: WCSession) {
-        print("GPXFilesTableViewController:: WCSession has become inactive")
-    }
-    
-    /// called when `WCSession` goes inactive. Does nothing but display a debug message
-    func sessionDidDeactivate(_ session: WCSession) {
-        print("GPXFilesTableViewController:: WCSession has deactivated")
-    }
-    
-    /// called when activation did complete. Does nothing but display a debug message.
-    @available(iOS 9.3, *)
-    func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
-        switch activationState {
-        case .activated:
-            print("GPXFilesTableViewController:: activationDidCompleteWithActivationState: session activated")
-        case .inactive:
-            print("GPXFilesTableViewController:: activationDidCompleteWithActivationState: session inactive")
-        case .notActivated:
-            print("GPXFilesTableViewController:: activationDidCompleteWithActivationState: session not activated, error:\(String(describing: error))")
-            
-        default: break
-        }
-    }
-    
-    /// Called when a file is received from Apple Watch.
-    /// Displays a popup informing about the reception of the file.
-    func session(_ session: WCSession, didReceive file: WCSessionFile) {
-        let fileName = file.metadata!["fileName"] as! String?
-        
-        // alert to display to notify user that file has been received.
-        let controller = UIAlertController(title: "File Received from Apple Watch", message: "Received file: \"\(fileName!)\"", preferredStyle: .alert)
-        let action = UIAlertAction(title: "Done", style: .default) {
-            (action) in
-            print("ViewController:: Presented file received message from WatchConnectivity Session")
-        }
-        
-        controller.addAction(action)
-        
-        DispatchQueue.global().sync {
-            GPXFileManager.moveFrom(file.fileURL, fileName: fileName)
-            print("ViewController:: Received file from WatchConnectivity Session")
-        }
-        
-        self.present(controller, animated: true, completion: nil)
-    }
-}
 

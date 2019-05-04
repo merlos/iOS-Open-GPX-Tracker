@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreData
+import WatchConnectivity
 
 
 ///
@@ -49,6 +50,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     /// Default placeholder function
     func applicationDidBecomeActive(_ application: UIApplication) {
+        if #available(iOS 9.0, *) {
+            if WCSession.isSupported() {
+                print("ViewController:: WCSession is supported")
+                let session = WCSession.default
+                session.delegate = self
+                session.activate()
+                print("ViewController:: WCSession activated")
+            }
+            else {
+                print("ViewController:: WCSession is not supported")
+            }
+        }
         // Restart any tasks that were paused (or not yet started) while the application was inactive. 
         // If the application was previously in the background, optionally refresh the user interface.
     }
@@ -154,7 +167,59 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 }
 
+// MARK: WCSessionDelegate
+
+///
+/// Handles file transfers from Apple Watch companion app
+/// Should be non intrusive to UI, handling all in the background.
+
+/// File received are automatically moved to default location which stores all GPX files
+///
+/// Only available > iOS 9
+///
+@available(iOS 9.0, *)
+extension AppDelegate: WCSessionDelegate {
+    
+    /// called when `WCSession` goes inactive. Does nothing but display a debug message.
+    func sessionDidBecomeInactive(_ session: WCSession) {
+        print("GPXFilesTableViewController:: WCSession has become inactive")
+    }
+    
+    /// called when `WCSession` goes inactive. Does nothing but display a debug message
+    func sessionDidDeactivate(_ session: WCSession) {
+        print("GPXFilesTableViewController:: WCSession has deactivated")
+    }
+    
+    /// called when activation did complete. Does nothing but display a debug message.
+    @available(iOS 9.3, *)
+    func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
+        switch activationState {
+        case .activated:
+            print("GPXFilesTableViewController:: activationDidCompleteWithActivationState: session activated")
+        case .inactive:
+            print("GPXFilesTableViewController:: activationDidCompleteWithActivationState: session inactive")
+        case .notActivated:
+            print("GPXFilesTableViewController:: activationDidCompleteWithActivationState: session not activated, error:\(String(describing: error))")
+            
+        default: break
+        }
+    }
+    
+    /// Called when a file is received from Apple Watch.
+    /// Displays a popup informing about the reception of the file.
+    func session(_ session: WCSession, didReceive file: WCSessionFile) {
+        let fileName = file.metadata!["fileName"] as! String?
+        
+        DispatchQueue.global().sync {
+            GPXFileManager.moveFrom(file.fileURL, fileName: fileName)
+            print("ViewController:: Received file from WatchConnectivity Session")
+        }
+        NotificationCenter.default.post(name: .didReceiveFileFromAppleWatch, object: nil, userInfo: ["fileName": fileName])
+    }
+}
+
 extension Notification.Name {
     /// Use when a file is received from external source.
     static let didReceiveFileFromURL = Notification.Name("didReceiveFileFromURL")
+    static let didReceiveFileFromAppleWatch = Notification.Name("didReceiveFileFromAppleWatch")
 }
