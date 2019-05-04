@@ -23,11 +23,13 @@ let kUseOfflineCacheCell = 0
 let kClearCacheCell = 1
 
 
-/// String Key on Defaults for the Tile Server integer
+/// Key on Defaults for the Tile Server integer.
 let kDefaultsKeyTileServerInt: String = "TileServerInt"
-/// String Key on Defaults for the use cache setting
+/// Key on Defaults for the use cache setting.
 let kDefaultsKeyUseCache: String = "UseCache"
 
+/// Key on Defaults for the use of imperial units.
+let kDefaultsKeyUsesImperial: String = "UsesImperial"
 
 ///
 /// There are two preferences available:
