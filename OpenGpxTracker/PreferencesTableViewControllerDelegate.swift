@@ -19,4 +19,7 @@ protocol PreferencesTableViewControllerDelegate: class {
     /// User updated the usage of the caché
     func didUpdateUseCache(_ newUseCache: Bool)
     
+    /// User update the usage of imperial units
+    func didUpdateUseImperial(_ newUseImperial: Bool)
+    
 }

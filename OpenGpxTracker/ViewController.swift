@@ -430,7 +430,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         
         // use imperial
         //use imperial units?
-        if let usesImperialDefaults = defaults.object(forKey: kDefaultsKeyUsesImperial) as? Bool {
+        if let usesImperialDefaults = defaults.object(forKey: kDefaultsKeyUseImperial) as? Bool {
             print("** Preferences: setting usesImperial: \(usesImperialDefaults)")
             usesImperial = usesImperialDefaults
         } else {
@@ -1056,7 +1056,15 @@ extension ViewController: PreferencesTableViewControllerDelegate {
         print("** Preferences:: didUpdateUseCache: \(newUseCache)")
         self.map.useCache = newUseCache
     }
-}
+    
+    // User changed the setting of use imperial units.
+    func didUpdateUseImperial(_ newUseImperial: Bool) {
+        print("** Preferences:: didUpdateUseImperial: \(newUseImperial)")
+        usesImperial = newUseImperial
+        totalTrackedDistanceLabel.useImperial = usesImperial
+        currentSegmentDistanceLabel.useImperial = usesImperial
+        print(currentSegmentDistanceLabel.distance)
+    }}
 
 // MARK: location manager Delegate
 

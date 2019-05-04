@@ -21,16 +21,30 @@ import MapKit
 ///
 open class DistanceLabel: UILabel {
     
-    // Use imperial distance. False by default.
-    open var useImperial: Bool = false
+    /// Keeps the actual distane
+    private var _distance = 0.0
     
-    /// Distance in meters.
-    open var distance: CLLocationDistance {
+    private var _useImperial = false
+    
+    // Use imperial distance. False by default.
+    open var useImperial: Bool {
         get {
-            return 0
+            return _useImperial
         }
         set {
-            self.text = newValue.toDistance(useImperial: useImperial)
+            _useImperial = newValue
+            distance = _distance //updates text displayed to reflect the new units
+        }
+    }
+    
+    /// Distance in meters
+    open var distance: CLLocationDistance {
+        get {
+            return _distance
+        }
+        set {
+            _distance = newValue
+            text = newValue.toDistance(useImperial: useImperial)
         }
     }
 }
