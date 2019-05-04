@@ -52,14 +52,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationDidBecomeActive(_ application: UIApplication) {
         if #available(iOS 9.0, *) {
             if WCSession.isSupported() {
-                print("ViewController:: WCSession is supported")
+                print("AppDelegate:: WCSession is supported")
                 let session = WCSession.default
                 session.delegate = self
                 session.activate()
-                print("ViewController:: WCSession activated")
+                print("AppDelegate:: WCSession activated")
             }
             else {
-                print("ViewController:: WCSession is not supported")
+                print("AppDelegate:: WCSession is not supported")
             }
         }
         // Restart any tasks that were paused (or not yet started) while the application was inactive. 
@@ -182,12 +182,12 @@ extension AppDelegate: WCSessionDelegate {
     
     /// called when `WCSession` goes inactive. Does nothing but display a debug message.
     func sessionDidBecomeInactive(_ session: WCSession) {
-        print("GPXFilesTableViewController:: WCSession has become inactive")
+        print("AppDelegate:: WCSession has become inactive")
     }
     
     /// called when `WCSession` goes inactive. Does nothing but display a debug message
     func sessionDidDeactivate(_ session: WCSession) {
-        print("GPXFilesTableViewController:: WCSession has deactivated")
+        print("AppDelegate:: WCSession has deactivated")
     }
     
     /// called when activation did complete. Does nothing but display a debug message.
@@ -195,11 +195,11 @@ extension AppDelegate: WCSessionDelegate {
     func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
         switch activationState {
         case .activated:
-            print("GPXFilesTableViewController:: activationDidCompleteWithActivationState: session activated")
+            print("AppDelegate:: activationDidCompleteWithActivationState: WCSession activated")
         case .inactive:
-            print("GPXFilesTableViewController:: activationDidCompleteWithActivationState: session inactive")
+            print("AppDelegate:: activationDidCompleteWithActivationState: WCSession inactive")
         case .notActivated:
-            print("GPXFilesTableViewController:: activationDidCompleteWithActivationState: session not activated, error:\(String(describing: error))")
+            print("AppDelegate:: activationDidCompleteWithActivationState: WCSession not activated, error:\(String(describing: error))")
             
         default: break
         }
@@ -214,12 +214,18 @@ extension AppDelegate: WCSessionDelegate {
             GPXFileManager.moveFrom(file.fileURL, fileName: fileName)
             print("ViewController:: Received file from WatchConnectivity Session")
         }
-        NotificationCenter.default.post(name: .didReceiveFileFromAppleWatch, object: nil, userInfo: ["fileName": fileName])
+        
+        // posts notification that file is received from apple watch
+        NotificationCenter.default.post(name: .didReceiveFileFromAppleWatch, object: nil, userInfo: ["fileName": fileName ?? ""])
     }
 }
 
+/// Notifications for file receival from external source.
 extension Notification.Name {
+    
     /// Use when a file is received from external source.
     static let didReceiveFileFromURL = Notification.Name("didReceiveFileFromURL")
+    
+    /// Use when a file is received from Apple Watch.
     static let didReceiveFileFromAppleWatch = Notification.Name("didReceiveFileFromAppleWatch")
 }

@@ -9,7 +9,6 @@ import UIKit
 import CoreLocation
 import MapKit
 import CoreGPX
-import WatchConnectivity
 
 
 /// Purple color for button background
@@ -665,6 +664,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
     ///  1. whenever it enters background
     ///  2. whenever it becomes active
     ///  3. whenever it will terminate
+    ///  4. whenever it receives a file from Apple Watch
     ///
     func addNotificationObservers() {
         let notificationCenter = NotificationCenter.default
@@ -688,8 +688,9 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         NotificationCenter.default.removeObserver(self)
     }
     
-    var fileNameFromAppleWatch = String()
-    
+    ///
+    /// Presents alert when file received from Apple Watch
+    ///
     @objc func presentReceivedFile(_ notification: Notification) {
         
         guard let fileName = notification.userInfo?["fileName"] as? String? else { return }
