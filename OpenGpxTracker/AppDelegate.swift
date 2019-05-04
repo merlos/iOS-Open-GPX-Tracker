@@ -71,6 +71,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             print("Ooops! Something went wrong: \(error)")
         }
         
+        NotificationCenter.default.post(name: .didReceiveFileFromURL, object: nil)
         return true
     }
     
@@ -149,4 +150,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
     }
+}
+
+extension Notification.Name {
+    static let didReceiveFileFromURL = Notification.Name("didReceiveFileFromURL")
 }

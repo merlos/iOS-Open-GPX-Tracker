@@ -56,6 +56,8 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
         
         self.title = "Your GPX Files"
         
+        addNotificationObservers()
+        
         // Button to return to the map
         let shareItem = UIBarButtonItem(title: "Done", style: UIBarButtonItem.Style.plain, target: self, action: #selector(GPXFilesTableViewController.closeGPXFilesTableViewController))
         
@@ -70,6 +72,9 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
         }
     }
     
+    deinit {
+        removeNotificationObservers()
+    }
     
     /// Closes this view controller.
     @objc func closeGPXFilesTableViewController() {
@@ -255,4 +260,39 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
         }
         self.present(activityViewController, animated: true, completion: nil)
     }
+    
+}
+
+extension GPXFilesTableViewController {
+    ///
+    /// Asks the system to notify the app on some events
+    ///
+    /// Current implementation requests the system to notify the app:
+    ///
+    ///  When a file is received from an external source, (i.e AirDrop)
+    ///
+    func addNotificationObservers() {
+        let notificationCenter = NotificationCenter.default
+        
+        notificationCenter.addObserver(self, selector: #selector(reloadTableData),
+                                       name: .didReceiveFileFromURL, object: nil)
+    }
+    
+    ///
+    /// Removes the notification observers
+    ///
+    func removeNotificationObservers() {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    @objc func reloadTableData() {
+        let list: [GPXFileInfo] = GPXFileManager.fileList
+        if self.fileList.count < list.count && list.count != 0 {
+            self.fileList.removeAllObjects()
+            self.fileList.addObjects(from: list)
+            self.gpxFilesFound = true
+            self.tableView.reloadData()
+        }
+    }
+    
 }
