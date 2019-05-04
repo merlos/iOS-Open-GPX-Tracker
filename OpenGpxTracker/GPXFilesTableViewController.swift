@@ -56,6 +56,7 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
         
         self.title = "Your GPX Files"
         
+        // add notification observer for reloading table when file is added.
         addNotificationObservers()
         
         // Button to return to the map
@@ -72,6 +73,7 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
         }
     }
     
+    /// Removes notfication observers
     deinit {
         removeNotificationObservers()
     }
@@ -263,7 +265,11 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
     
 }
 
+///
+/// Handles reloading of table view when file is added while user is still in current view.
+///
 extension GPXFilesTableViewController {
+    
     ///
     /// Asks the system to notify the app on some events
     ///
@@ -285,6 +291,11 @@ extension GPXFilesTableViewController {
         NotificationCenter.default.removeObserver(self)
     }
     
+    ///
+    /// Reload Table View data
+    ///
+    /// For reloading table when a new file is added while user is in `GPXFileTableViewController`
+    ///
     @objc func reloadTableData() {
         let list: [GPXFileInfo] = GPXFileManager.fileList
         if self.fileList.count < list.count && list.count != 0 {

@@ -71,7 +71,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             print("Ooops! Something went wrong: \(error)")
         }
         
+        // post a notification when a file is received through this method.
         NotificationCenter.default.post(name: .didReceiveFileFromURL, object: nil)
+        
         return true
     }
     
@@ -153,5 +155,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 }
 
 extension Notification.Name {
+    /// Use when a file is received from external source.
     static let didReceiveFileFromURL = Notification.Name("didReceiveFileFromURL")
 }
