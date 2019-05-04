@@ -20,19 +20,34 @@ let kDefaultsKeyUseImperial: String = "UseImperial"
 
 
 /// A class to handle app preferences in one single place.
+/// When the app starts for the first time the following preferences are set:
+///
+/// * useCache = true
+/// * useImperial = whatever is set by current locale (NSLocale.usesMetricUnits) or false
+/// * tileServer = .apple
 ///
 class Preferences: NSObject {
 
-    //shared preferences
+    /// Shared preferences singleton.
+    /// Usage:
+    ///      var preferences: Preferences = Preferences.shared
+    ///      print (preferences.useCache)
+    ///
     static let shared = Preferences()
     
+    /// In memory value of the preference.
     private var _useImperial: Bool = false
+    
+    /// In memory value of the preference.
     private var _useCache: Bool = true
+    
+    /// In memory value of the preference.
     private var _tileServer: GPXTileServer = .apple
     
     /// UserDefaults.standard shortcut
     private let defaults = UserDefaults.standard
     
+    /// Loads preferences from UserDefaults.
     private override init() {
         //loads preferences into private vars
      
@@ -61,6 +76,8 @@ class Preferences: NSObject {
         }
     }
     
+    /// If true, user prefers to display imperial units (miles, feets). Otherwise metric units
+    /// are displayed.
     var useImperial: Bool {
         get {
             return _useImperial
@@ -71,6 +88,7 @@ class Preferences: NSObject {
         }
     }
     
+    /// Gets and sets if user wants to use offline cache.
     var useCache: Bool {
         get {
             return _useCache
@@ -82,7 +100,7 @@ class Preferences: NSObject {
         }
     }
     
-    
+    /// Gets and sets user preference of the map tile server.
     var tileServer: GPXTileServer {
         get {
             return _tileServer
@@ -94,6 +112,7 @@ class Preferences: NSObject {
         }
     }
     
+    /// Get and sets user preference of the map tile server as Int.
     var tileServerInt: Int {
         get {
             return _tileServer.rawValue
@@ -101,8 +120,6 @@ class Preferences: NSObject {
         set {
             _tileServer = GPXTileServer(rawValue: newValue)!
              defaults.set(newValue, forKey: kDefaultsKeyTileServerInt)
-           
-            
         }
     }
 }
