@@ -41,6 +41,7 @@
 		89EA86632157B42C002E03A7 /* GPXFileInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89EA86622157B42C002E03A7 /* GPXFileInfo.swift */; };
 		89EA86652157C444002E03A7 /* Int+asFilesize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89EA86642157C444002E03A7 /* Int+asFilesize.swift */; };
 		89F6E0F5227D091900CE3E3F /* Double+Measures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89F6E0F4227D091900CE3E3F /* Double+Measures.swift */; };
+		89F6E0F7227E107C00CE3E3F /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89F6E0F6227E107C00CE3E3F /* Preferences.swift */; };
 		89F8749B1BBB7362004EF41A /* GPXTrack+length.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89F8749A1BBB7362004EF41A /* GPXTrack+length.swift */; };
 		89F8749F1BBCB97F004EF41A /* GPXRoot+length.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89F8749E1BBCB97F004EF41A /* GPXRoot+length.swift */; };
 		89F874A11BBCC74C004EF41A /* DistanceLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89F874A01BBCC74C004EF41A /* DistanceLabel.swift */; };
@@ -167,6 +168,7 @@
 		89EA86622157B42C002E03A7 /* GPXFileInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPXFileInfo.swift; sourceTree = "<group>"; };
 		89EA86642157C444002E03A7 /* Int+asFilesize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+asFilesize.swift"; sourceTree = "<group>"; };
 		89F6E0F4227D091900CE3E3F /* Double+Measures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+Measures.swift"; sourceTree = "<group>"; };
+		89F6E0F6227E107C00CE3E3F /* Preferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
 		89F8749A1BBB7362004EF41A /* GPXTrack+length.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "GPXTrack+length.swift"; sourceTree = "<group>"; };
 		89F8749E1BBCB97F004EF41A /* GPXRoot+length.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "GPXRoot+length.swift"; sourceTree = "<group>"; };
 		89F874A01BBCC74C004EF41A /* DistanceLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DistanceLabel.swift; sourceTree = "<group>"; };
@@ -251,6 +253,7 @@
 				89EA86642157C444002E03A7 /* Int+asFilesize.swift */,
 				89F6E0F4227D091900CE3E3F /* Double+Measures.swift */,
 				89EA86622157B42C002E03A7 /* GPXFileInfo.swift */,
+				89F6E0F6227E107C00CE3E3F /* Preferences.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -716,6 +719,7 @@
 				89EA86632157B42C002E03A7 /* GPXFileInfo.swift in Sources */,
 				899D676C19CD9E9E00C88A0A /* GPXTrackSegment+MapKit.swift in Sources */,
 				899D677219CE8B3600C88A0A /* StopWatch.swift in Sources */,
+				89F6E0F7227E107C00CE3E3F /* Preferences.swift in Sources */,
 				893BEC8619C7E62200C77354 /* GPXWaypoint+MKAnnotation.swift in Sources */,
 				DC4908A31C4A332E009484AE /* MapViewDelegate.swift in Sources */,
 				898EED3619C6402900B4B207 /* GPXFilesTableViewController.swift in Sources */,

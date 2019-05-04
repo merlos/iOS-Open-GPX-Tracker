@@ -247,7 +247,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
     var currentSegmentDistanceLabel: DistanceLabel
  
     /// Used to display in imperial (foot, miles, mph) or metric system (m, km, km/h)
-    var usesImperial = false
+    var useImperial = false
     
     /// Follow user button (bottom bar)
     var followUserButton: UIButton
@@ -412,33 +412,11 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         //let pinchGesture = UIPinchGestureRecognizer(target: self, action: "pinchGesture")
         //map.addGestureRecognizer(pinchGesture)
         
-        //Preferences load
-        let defaults = UserDefaults.standard
-        if var tileServerInt = defaults.object(forKey: kDefaultsKeyTileServerInt) as? Int {
-            // In version 1.5 one tileServer was removed, so some users may have selected a tileServer that no longer exists.
-            tileServerInt = (tileServerInt >= GPXTileServer.count ? GPXTileServer.apple.rawValue : tileServerInt)
-            print("** Preferences : setting saved tileServer \(tileServerInt)")
-            map.tileServer = GPXTileServer(rawValue: tileServerInt)!
-        } else {
-            print("** Preferences: using default tileServer: Apple")
-            map.tileServer = .apple
-        }
-        if let useCacheBool = defaults.object(forKey: kDefaultsKeyUseCache) as? Bool {
-            print("** Preferences: setting saved useCache: \(useCacheBool)")
-            map.useCache = useCacheBool
-        }
+        //Preferences
+        map.tileServer = Preferences.shared.tileServer
+        map.useCache = Preferences.shared.useCache
+        useImperial = Preferences.shared.useImperial
         
-        // use imperial
-        //use imperial units?
-        if let usesImperialDefaults = defaults.object(forKey: kDefaultsKeyUseImperial) as? Bool {
-            print("** Preferences: setting usesImperial: \(usesImperialDefaults)")
-            usesImperial = usesImperialDefaults
-        } else {
-            let locale = NSLocale.current
-            // Use Native StackView
-            usesImperial = !locale.usesMetricSystem
-            print("** Preferences: no defaults for usesImperial: \(locale.languageCode ?? "unknown") imperial: \(usesImperial) usesMetric:\(locale.usesMetricSystem)")
-        }
         
         //
         // Config user interface
@@ -502,7 +480,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         speedLabel.frame = CGRect(x: self.map.frame.width - 160,  y: 20 + 36 + iPhoneXdiff, width: 150, height: 20)
         speedLabel.textAlignment = .right
         speedLabel.font = font18
-        speedLabel.text = 0.00.toSpeed(useImperial: usesImperial)
+        speedLabel.text = 0.00.toSpeed(useImperial: useImperial)
         speedLabel.autoresizingMask = [.flexibleWidth, .flexibleLeftMargin, .flexibleRightMargin]
         //timeLabel.backgroundColor = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.5)
         map.addSubview(speedLabel)
@@ -511,7 +489,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         totalTrackedDistanceLabel.frame = CGRect(x: self.map.frame.width - 160, y: 60 + 20 + iPhoneXdiff, width: 150, height: 40)
         totalTrackedDistanceLabel.textAlignment = .right
         totalTrackedDistanceLabel.font = font36
-        totalTrackedDistanceLabel.text = 0.00.toDistance(useImperial: usesImperial)
+        totalTrackedDistanceLabel.text = 0.00.toDistance(useImperial: useImperial)
         totalTrackedDistanceLabel.autoresizingMask = [.flexibleWidth, .flexibleLeftMargin, .flexibleRightMargin]
         //timeLabel.backgroundColor = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.5)
         map.addSubview(totalTrackedDistanceLabel)
@@ -519,7 +497,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         currentSegmentDistanceLabel.frame = CGRect(x: self.map.frame.width - 160, y: 80 + 36 + iPhoneXdiff, width: 150, height: 20)
         currentSegmentDistanceLabel.textAlignment = .right
         currentSegmentDistanceLabel.font = font18
-        currentSegmentDistanceLabel.text =  0.00.toDistance(useImperial: usesImperial)
+        currentSegmentDistanceLabel.text =  0.00.toDistance(useImperial: useImperial)
         currentSegmentDistanceLabel.autoresizingMask = [.flexibleWidth, .flexibleLeftMargin, .flexibleRightMargin]
         //timeLabel.backgroundColor = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.5)
         map.addSubview(currentSegmentDistanceLabel)
@@ -1044,7 +1022,7 @@ extension ViewController: PreferencesTableViewControllerDelegate {
     /// `PreferencesTableViewController` informs the main `ViewController` through this delegate.
     ///
     func didUpdateTileServer(_ newGpxTileServer: Int) {
-        print("** Preferences:: didUpdateTileServer: \(newGpxTileServer)")
+        print("PreferencesTableViewControllerDelegate:: didUpdateTileServer: \(newGpxTileServer)")
         self.map.tileServer = GPXTileServer(rawValue: newGpxTileServer)!
     }
     
@@ -1053,16 +1031,16 @@ extension ViewController: PreferencesTableViewControllerDelegate {
     /// informs the map to behave accordingly.
     ///
     func didUpdateUseCache(_ newUseCache: Bool) {
-        print("** Preferences:: didUpdateUseCache: \(newUseCache)")
+        print("PreferencesTableViewControllerDelegate:: didUpdateUseCache: \(newUseCache)")
         self.map.useCache = newUseCache
     }
     
     // User changed the setting of use imperial units.
     func didUpdateUseImperial(_ newUseImperial: Bool) {
-        print("** Preferences:: didUpdateUseImperial: \(newUseImperial)")
-        usesImperial = newUseImperial
-        totalTrackedDistanceLabel.useImperial = usesImperial
-        currentSegmentDistanceLabel.useImperial = usesImperial
+        print("PreferencesTableViewControllerDelegate:: didUpdateUseImperial: \(newUseImperial)")
+        useImperial = newUseImperial
+        totalTrackedDistanceLabel.useImperial = useImperial
+        currentSegmentDistanceLabel.useImperial = useImperial
         print(currentSegmentDistanceLabel.distance)
     }}
 
@@ -1141,7 +1119,7 @@ extension ViewController: CLLocationManagerDelegate {
         
         // Update horizontal accuracy
         let hAcc = newLocation.horizontalAccuracy
-        let hAccStr = usesImperial ? hAcc.toFeet() as String : hAcc.toMeters()
+        let hAccStr = useImperial ? hAcc.toFeet() as String : hAcc.toMeters()
         signalAccuracyLabel.text = "±\(hAccStr)"
         if hAcc < kSignalAccuracy6 {
             self.signalImageView.image = signalImage6
@@ -1162,11 +1140,11 @@ extension ViewController: CLLocationManagerDelegate {
         //Update coordsLabel
         let latFormat = String(format: "%.6f", newLocation.coordinate.latitude)
         let lonFormat = String(format: "%.6f", newLocation.coordinate.longitude)
-        let altFormat = usesImperial ? newLocation.altitude.toFeet() as String : newLocation.altitude.toMeters()
+        let altFormat = useImperial ? newLocation.altitude.toFeet() as String : newLocation.altitude.toMeters()
         coordsLabel.text = "(\(latFormat),\(lonFormat)) · altitude: \(altFormat)"
         
         //Update speed
-        speedLabel.text = (newLocation.speed < 0) ? kUnknownSpeedText : newLocation.speed.toSpeed(useImperial: usesImperial)
+        speedLabel.text = (newLocation.speed < 0) ? kUnknownSpeedText : newLocation.speed.toSpeed(useImperial: useImperial)
         
         //Update Map center and track overlay if user is being followed
         if followUser {

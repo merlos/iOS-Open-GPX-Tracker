@@ -28,15 +28,6 @@ let kUseOfflineCacheCell = 0
 /// Cell Id for Clear cache in CacheSection of PreferencesTableViewController
 let kClearCacheCell = 1
 
-
-/// Key on Defaults for the Tile Server integer.
-let kDefaultsKeyTileServerInt: String = "TileServerInt"
-/// Key on Defaults for the use cache setting.
-let kDefaultsKeyUseCache: String = "UseCache"
-
-/// Key on Defaults for the use of imperial units.
-let kDefaultsKeyUseImperial: String = "UseImperial"
-
 ///
 /// There are two preferences available:
 ///  * use or not cache
@@ -47,20 +38,11 @@ let kDefaultsKeyUseImperial: String = "UseImperial"
 ///
 class PreferencesTableViewController: UITableViewController, UINavigationBarDelegate {
     
-    /// Tile server selected
-    var selectedTileServerInt = -1
-    
-    /// Current use of cache
-    var currentUseCache: Bool = true
-    
-    /// Current use of imperial units
-    var currentUseImperial: Bool = false
-    
-    /// UserDefaults.standard shortcut
-    let defaults = UserDefaults.standard
-    
     /// Delegate for this table view controller.
     weak var delegate: PreferencesTableViewControllerDelegate?
+    
+    /// Global Preferences
+    var preferences : Preferences = Preferences.shared
     
     /// Does the following:
     /// 1. Defines the areas for navBar and the Table view
@@ -76,26 +58,6 @@ class PreferencesTableViewController: UITableViewController, UINavigationBarDele
         self.title = "Preferences"
         let shareItem = UIBarButtonItem(title: "Done", style: UIBarButtonItem.Style.plain, target: self, action: #selector(PreferencesTableViewController.closePreferencesTableViewController))
         self.navigationItem.rightBarButtonItems = [shareItem]
-        
-        //Load preferences from defaults
-        if let useImperialDefaults = defaults.object(forKey: kDefaultsKeyUseImperial) as? Bool {
-            print("** PreferencesTableViewController: loaded preference from defaults usesImperial: \(useImperialDefaults)")
-            currentUseImperial = useImperialDefaults
-        } else {
-            let locale = NSLocale.current
-            currentUseImperial = !locale.usesMetricSystem
-            print("** Preferences: no defaults for useImperial: \(locale.languageCode ?? "unknown") currentUseImperial: \(currentUseImperial) usesMetric:\(locale.usesMetricSystem)")
-        }
-
-        // use cache
-        if let useCacheFromDefaults = defaults.object(forKey: kDefaultsKeyUseCache) as? Bool {
-            print("PreferencesTableViewController:: loaded preference from defaults useCache= \(useCacheFromDefaults)");
-            self.currentUseCache = useCacheFromDefaults
-        }
-        
-        //Selected tile Server
-        selectedTileServerInt = defaults.integer(forKey: kDefaultsKeyTileServerInt)
-
     }
     
     /// Close this controller.
@@ -165,7 +127,7 @@ class PreferencesTableViewController: UITableViewController, UINavigationBarDele
              case kUseImperialUnitsCell:
                 cell = UITableViewCell(style: .value1, reuseIdentifier: "CacheCell")
                 cell.textLabel?.text = "Use imperial units?"
-                if currentUseImperial {
+                if preferences.useImperial {
                     cell.accessoryType = .checkmark
                 }
              default: fatalError("Unknown section")
@@ -178,7 +140,7 @@ class PreferencesTableViewController: UITableViewController, UINavigationBarDele
             case kUseOfflineCacheCell:
                 cell = UITableViewCell(style: .value1, reuseIdentifier: "CacheCell")
                 cell.textLabel?.text = "Offline cache"
-                if currentUseCache {
+                if preferences.useCache {
                     cell.accessoryType = .checkmark
                 }
             case kClearCacheCell:
@@ -195,7 +157,7 @@ class PreferencesTableViewController: UITableViewController, UINavigationBarDele
             //cell.accessoryView = [[ UIImageView alloc ] initWithImage:[UIImage imageNamed:@"Something" ]];
             let tileServer = GPXTileServer(rawValue: indexPath.row)
             cell.textLabel?.text = tileServer!.name
-            if indexPath.row == self.selectedTileServerInt {
+            if indexPath.row == preferences.tileServerInt {
                 cell.accessoryType = .checkmark
             }
             
@@ -214,11 +176,10 @@ class PreferencesTableViewController: UITableViewController, UINavigationBarDele
         if indexPath.section == kUnitsSection {
             switch indexPath.row {
             case kUseImperialUnitsCell:
-                let newUseImperial = !currentUseImperial
+                let newUseImperial = !preferences.useImperial
+                preferences.useImperial = newUseImperial
                 print("PreferencesTableViewController: toggle imperial units to \(newUseImperial)")
-                defaults.set(newUseImperial, forKey: kDefaultsKeyUseImperial)
-                self.currentUseImperial = newUseImperial
-                //update cell
+                //update cell UI
                 tableView.cellForRow(at: indexPath)?.accessoryType = newUseImperial ? .checkmark : .none
                 //notify the map
                 self.delegate?.didUpdateUseImperial(newUseImperial)
@@ -230,9 +191,8 @@ class PreferencesTableViewController: UITableViewController, UINavigationBarDele
             switch indexPath.row {
             case kUseOfflineCacheCell:
                 print("toggle cache")
-                let newUseCache = !self.currentUseCache //toggle value
-                defaults.set(newUseCache, forKey: kDefaultsKeyUseCache)
-                self.currentUseCache = newUseCache
+                let newUseCache = !preferences.useCache //toggle value
+                preferences.useCache = newUseCache
                 //update cell
                 tableView.cellForRow(at: indexPath)?.accessoryType = newUseCache ? .checkmark : .none
                 //notify the map
@@ -266,20 +226,17 @@ class PreferencesTableViewController: UITableViewController, UINavigationBarDele
         }
         if indexPath.section == kMapSourceSection { // section 1 (sets tileServerInt in defaults
             print("PreferenccesTableView Map Tile Server section Row at index:  \(indexPath.row)")
+            
             //remove checkmark from selected tile server
-            let selectedTileServerIndexPath = IndexPath(row: self.selectedTileServerInt, section: indexPath.section)
+            let selectedTileServerIndexPath = IndexPath(row: preferences.tileServerInt, section: indexPath.section)
             tableView.cellForRow(at: selectedTileServerIndexPath)?.accessoryType = .none
             
             //add checkmark to new tile server
             tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
-            self.selectedTileServerInt = indexPath.row
-            
-            //save preference
-            defaults.set(indexPath.row, forKey: kDefaultsKeyTileServerInt)
+            preferences.tileServerInt = indexPath.row
             
             //update map
             self.delegate?.didUpdateTileServer((indexPath as NSIndexPath).row)
-            //self.dismiss(animated: true, completion: nil)
         }
         
         //unselect row
