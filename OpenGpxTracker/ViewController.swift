@@ -1041,7 +1041,10 @@ extension ViewController: PreferencesTableViewControllerDelegate {
         useImperial = newUseImperial
         totalTrackedDistanceLabel.useImperial = useImperial
         currentSegmentDistanceLabel.useImperial = useImperial
-        print(currentSegmentDistanceLabel.distance)
+        //Because we dont know if last speed was unknown we set it as unknown.
+        // In regular circunstances it will go to the new units relatively fast.
+        speedLabel.text = kUnknownSpeedText
+        signalAccuracyLabel.text = kUnknownAccuracyText
     }}
 
 // MARK: location manager Delegate
