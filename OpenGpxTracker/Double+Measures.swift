@@ -125,4 +125,19 @@ extension Double {
     func toSpeed(useImperial: Bool = false) -> String {
         return useImperial ? toMilesPerHour() : toKilometersPerHour() as String
     }
+    
+    /// Asuming current value is an altitud in meters,
+    /// it returns the altitude in m ("100m")
+    /// or in feet (304ft) if `useImperial` is set to `true`.
+    func toAltitude(useImperial: Bool = false) -> String {
+        return useImperial ? toFeet() : toMeters() as String
+    }
+    
+    /// Asuming current value is an altitud in meters,
+    /// it returns the altitude in m ("±100m")
+    /// or in feet (±304ft) if `useImperial` is set to `true`.
+    func toAccuracy(useImperial: Bool = false) -> String {
+        return "±\(useImperial ? toFeet() as String : toMeters() as String)"
+    }
+
 }
