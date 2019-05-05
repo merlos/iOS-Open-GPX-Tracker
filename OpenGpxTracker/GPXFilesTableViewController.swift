@@ -298,12 +298,15 @@ extension GPXFilesTableViewController {
     /// For reloading table when a new file is added while user is in `GPXFileTableViewController`
     ///
     @objc func reloadTableData() {
+        print("TableViewController: reloadTableData")
         let list: [GPXFileInfo] = GPXFileManager.fileList
         if self.fileList.count < list.count && list.count != 0 {
             self.fileList.removeAllObjects()
             self.fileList.addObjects(from: list)
             self.gpxFilesFound = true
-            self.tableView.reloadData()
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
         }
     }
     
