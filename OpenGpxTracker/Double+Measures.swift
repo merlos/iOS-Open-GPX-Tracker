@@ -16,12 +16,23 @@ let kMetersPerKilometer = 1000.0
 /// Number of meters in 1 feet (ft)
 let kMetersPerFeet = 0.3048
 
+/// Number of kilometers per hour in 1 meter per second
+/// To convert m/s -> km/h
+let kKilometersPerHourInOneMeterPerSecond = 3.6
+
+/// Number of miles per hour in 1 meter per second
+/// To convert m/s -> mph
+let kMilesPerHourInOneMeterPerSecond = 2.237
+
+
+/// Number of miles per hour in 1 meter per second
+///
 /// Extension to convert meters to other units
 ///
 /// It was created to support conversion of units also in iOS9
 ///
 /// (UnitConverterLinear)[https://developer.apple.com/documentation/foundation/unitlength#overview]
-/// is available only in ios10 or above.
+/// is available only in iOS 10 or above.
 ///
 /// It always asumes the value in meters (lengths) or meters per second (speeds)
 extension Double {
@@ -49,7 +60,7 @@ extension Double {
     ///      d.toMilesString() => "1.00mi"
     ///
     func toMiles() -> String {
-        return String(format: "%.2fmi", self.toMiles() as Double)
+        return String(format: "%.2fmi", toMiles() as Double)
     }
     
     /// Assuming current value is in meters, it returns the equivalent in kilometers
@@ -61,7 +72,7 @@ extension Double {
     /// kilometers with two decimals and km
     /// Example: Current value is 1210.0, it returns "1.21km"
     func toKilometers() -> String {
-        return String(format: "%.2fmi", self.toKilometers() as Double)
+        return String(format: "%.2fmi", toKilometers() as Double)
     }
     
     /// Returns current value as a string without decimals and with m.
@@ -76,26 +87,26 @@ extension Double {
     /// * if useImperial == true => converted in miles ("1.24mi")
     func toDistance(useImperial: Bool = false) -> String {
         if useImperial {
-            return self.toMiles() as String
+            return toMiles() as String
         } else {
-            return self > kMetersPerKilometer ? self.toKilometers() as String : self.toMeters() as String
+            return self > kMetersPerKilometer ? toKilometers() as String : toMeters() as String
         }
     }
     
     /// Assuming current value is a speed in meters per second (m/s),
     /// it returns the speed in miles per hour (mph)
     func toMilesPerHour() -> Double {
-        return self * 2.237
+        return self * kMilesPerHourInOneMeterPerSecond
     }
     
     func toMilesPerHour() -> String {
-        return String(format: "%.2fmph", self)
+        return String(format: "%.2fmph", toMilesPerHour() as Double)
     }
     
     /// Assuming current value is a speed in meters per second (m/s),
     /// it returns the speed in kilometers per hour (km/h)
     func toKilometersPerHour() -> Double {
-        return self * 3.6
+        return self * kKilometersPerHourInOneMeterPerSecond
     }
     
     /// Assuming current value is a speed in meters per second (m/s),
