@@ -1119,7 +1119,7 @@ extension ViewController: CLLocationManagerDelegate {
         
         // Update horizontal accuracy
         let hAcc = newLocation.horizontalAccuracy
-        signalAccuracyLabel.text =  hAcc.toAccuracy()
+        signalAccuracyLabel.text =  hAcc.toAccuracy(useImperial: useImperial)
         if hAcc < kSignalAccuracy6 {
             self.signalImageView.image = signalImage6
         } else if hAcc < kSignalAccuracy5 {
@@ -1139,7 +1139,7 @@ extension ViewController: CLLocationManagerDelegate {
         //Update coordsLabel
         let latFormat = String(format: "%.6f", newLocation.coordinate.latitude)
         let lonFormat = String(format: "%.6f", newLocation.coordinate.longitude)
-        coordsLabel.text = "(\(latFormat),\(lonFormat)) · altitude: \(newLocation.altitude.toAltitude())"
+        coordsLabel.text = "(\(latFormat),\(lonFormat)) · altitude: \(newLocation.altitude.toAltitude(useImperial: useImperial))"
         
         //Update speed
         speedLabel.text = (newLocation.speed < 0) ? kUnknownSpeedText : newLocation.speed.toSpeed(useImperial: useImperial)
