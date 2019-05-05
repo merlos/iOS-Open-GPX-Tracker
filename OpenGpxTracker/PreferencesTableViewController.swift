@@ -19,7 +19,7 @@ let kCacheSection = 1
 /// Map Source Section Id in PreferencesTableViewController
 let kMapSourceSection = 2
 
-// Cell Id of the Use Imperial units in UnitsSection
+/// Cell Id of the Use Imperial units in UnitsSection
 let kUseImperialUnitsCell = 0
 
 /// Cell Id for Use offline cache in CacheSection of PreferencesTableViewController

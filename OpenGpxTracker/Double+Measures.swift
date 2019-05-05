@@ -42,12 +42,12 @@ extension Double {
         return self/kMetersPerFeet
     }
     
-    // Assuming current value is in meters, it returns
+    /// Assuming current value is in meters, it returns
     func toFeet() -> String {
         return String(format: "%.0fft", self.toFeet() as Double)
     }
     
-    //Assuming current value is in meters, it returns the equivalent in miles
+    /// Assuming current value is in meters, it returns the equivalent in miles
     func toMiles() -> Double {
         return self/kMetersPerMile
     }
@@ -99,6 +99,9 @@ extension Double {
         return self * kMilesPerHourInOneMeterPerSecond
     }
     
+    /// Assuming current value is a speed in meters per second (m/s),
+    /// it returns the speed in miles per hour (mph) with two decimals as
+    /// string ("120.34mph")
     func toMilesPerHour() -> String {
         return String(format: "%.2fmph", toMilesPerHour() as Double)
     }
@@ -111,7 +114,7 @@ extension Double {
     
     /// Assuming current value is a speed in meters per second (m/s),
     /// it returns the speed in kilometers per hour with two decimals as
-    /// string  (120.34km/h)
+    /// string  ("120.34km/h")
     func toKilometersPerHour() -> String {
         return String(format: "%.2fkm/h", toKilometersPerHour() as Double)
     }

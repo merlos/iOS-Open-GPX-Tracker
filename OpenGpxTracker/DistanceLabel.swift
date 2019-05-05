@@ -1,5 +1,5 @@
 //
-//  UIDistanceLabel.swift
+//  DistanceLabel.swift
 //  OpenGpxTracker
 //
 //  Created by merlos on 01/10/15.
@@ -21,12 +21,14 @@ import MapKit
 ///
 open class DistanceLabel: UILabel {
     
-    /// Keeps the actual distane
+    /// Internal variable that keeps the actual distance
     private var _distance = 0.0
     
+    ///Internal variable to keep the use of imperial units
     private var _useImperial = false
     
-    // Use imperial distance. False by default.
+    /// Use imperial units (miles)? False by default.
+    /// If true, displays meters and kilometers
     open var useImperial: Bool {
         get {
             return _useImperial
