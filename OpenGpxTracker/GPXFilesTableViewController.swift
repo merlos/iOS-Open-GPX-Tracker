@@ -56,6 +56,9 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
         
         self.title = "Your GPX Files"
         
+        // add notification observer for reloading table when file is added.
+        addNotificationObservers()
+        
         // Button to return to the map
         let shareItem = UIBarButtonItem(title: "Done", style: UIBarButtonItem.Style.plain, target: self, action: #selector(GPXFilesTableViewController.closeGPXFilesTableViewController))
         
@@ -70,6 +73,10 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
         }
     }
     
+    /// Removes notfication observers
+    deinit {
+        removeNotificationObservers()
+    }
     
     /// Closes this view controller.
     @objc func closeGPXFilesTableViewController() {
@@ -255,4 +262,52 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
         }
         self.present(activityViewController, animated: true, completion: nil)
     }
+    
+}
+
+///
+/// Handles reloading of table view when file is added while user is still in current view.
+///
+extension GPXFilesTableViewController {
+    
+    ///
+    /// Asks the system to notify the app on some events
+    ///
+    /// Current implementation requests the system to notify the app:
+    ///
+    ///  When a file is received from an external source, (i.e AirDrop)
+    ///
+    func addNotificationObservers() {
+        let notificationCenter = NotificationCenter.default
+        
+        notificationCenter.addObserver(self, selector: #selector(reloadTableData),
+                                       name: .didReceiveFileFromURL, object: nil)
+        notificationCenter.addObserver(self, selector: #selector(reloadTableData), name: .didReceiveFileFromAppleWatch, object: nil)
+    }
+    
+    ///
+    /// Removes the notification observers
+    ///
+    func removeNotificationObservers() {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    ///
+    /// Reload Table View data
+    ///
+    /// For reloading table when a new file is added while user is in `GPXFileTableViewController`
+    ///
+    @objc func reloadTableData() {
+        print("TableViewController: reloadTableData")
+        let list: [GPXFileInfo] = GPXFileManager.fileList
+        if self.fileList.count < list.count && list.count != 0 {
+            self.fileList.removeAllObjects()
+            self.fileList.addObjects(from: list)
+            self.gpxFilesFound = true
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+        }
+    }
+    
 }

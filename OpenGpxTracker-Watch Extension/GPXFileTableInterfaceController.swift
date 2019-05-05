@@ -43,7 +43,11 @@ class GPXFileTableInterfaceController: WKInterfaceController {
     var selectedRowIndex = -1
     
     /// true if a gpx file will be sent.
-    var willSendFile = false
+    var willSendFile: Bool {
+        get {
+            return session?.outstandingFileTransfers.count != 0
+        }
+    }
     
     /// To ensure hide animation properly timed.
     var time = DispatchTime.now()
@@ -133,6 +137,8 @@ class GPXFileTableInterfaceController: WKInterfaceController {
     override func willActivate() {
         // This method is called when watch view controller is about to be visible to user
         super.willActivate()
+        print("GPXFileTableInterfaceController:: willActivate willSendFile: \(willSendFile)")
+        
         self.setTitle("Your files")
         session?.delegate = self
         
@@ -160,8 +166,6 @@ class GPXFileTableInterfaceController: WKInterfaceController {
     }
     
     override func willDisappear() {
-        // when current view is hidden, resets willSendFile
-        willSendFile = false
     }
     
     /// Closes this view controller.
@@ -196,19 +200,16 @@ class GPXFileTableInterfaceController: WKInterfaceController {
             
             /// Option lets user send selected file to iOS app
             let shareOption = WKAlertAction(title: "Send to iOS app", style: .default) {
-                self.willSendFile = true
                 self.actionTransferFileAtIndex(rowIndex)
             }
             
             /// Option for users to cancel
             let cancelOption = WKAlertAction(title: "Cancel", style: .cancel) {
-                self.willSendFile = false
                 self.actionSheetCancel()
             }
             
             /// Option to delete selected file
             let deleteOption = WKAlertAction(title: "Delete", style: .destructive) {
-                self.willSendFile = false
                 self.actionDeleteFileAtIndex(rowIndex)
                 self.loadTableData()
             }
@@ -287,14 +288,16 @@ extension GPXFileTableInterfaceController: WCSessionDelegate {
         case .notActivated:
             print("GPXFileTableInterfaceController:: activationDidCompleteWithActivationState: session not activated, error:\(String(describing: error))")
 
-        default: break
+        default:
+            print("GPXFileTableInterfaceController:: activationDidCompleteWithActivationState: default, error:\(String(describing: error))")
+            break
         }
     }
     
     func session(_ session: WCSession, didFinish fileTransfer: WCSessionFileTransfer, error: Error?) {
         let doneAction = WKAlertAction(title: "Done", style: .default) { }
         guard let error = error else {
-            
+            print("WCSession: didFinish fileTransfer: \(fileTransfer.file.fileURL.absoluteString)")
             // presenting success indicator to user if file is successfully transferred
             // will only present once all files are sent (if multiple in queue)
             if session.outstandingFileTransfers.count == 1 {
