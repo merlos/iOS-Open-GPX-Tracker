@@ -74,7 +74,7 @@ extension Double {
     /// kilometers with two decimals and km
     /// Example: Current value is 1210.0, it returns "1.21km"
     func toKilometers() -> String {
-        return String(format: "%.2fmi", toKilometers() as Double)
+        return String(format: "%.2fkm", toKilometers() as Double)
     }
     
     /// Returns current value as a string without decimals and with m.
