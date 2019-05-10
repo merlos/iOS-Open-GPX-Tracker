@@ -25,7 +25,7 @@ let kDeleteWaypointAccesoryButtonTag = 666
 let kEditWaypointAccesoryButtonTag = 333
 
 let kNotGettingLocationText = "Not getting location"
-let kUnknownAccuracyText = "±···m"
+let kUnknownAccuracyText = "±···"
 let kUnknownSpeedText = "·.··"
 let kUnknownAltitudeText = "···"
 
@@ -77,12 +77,12 @@ class InterfaceController: WKInterfaceController {
         return manager
     }()
     
+    /// Preferences loader
+    let preferences = Preferences.shared
+    
     /// Underlying class that handles background stuff
     let map = GPXMapView() // not even a map view. Considering renaming
     
-    /// Formats distance accordingly
-    let distanceFormatter = DistanceFormatter()
-
     //Status Vars
     var stopWatch = StopWatch()
     var lastGpxFilename: String = ""
@@ -142,8 +142,7 @@ class InterfaceController: WKInterfaceController {
                 map.clearMap() //clear map
                 lastGpxFilename = "" //clear last filename, so when saving it appears an empty field
                 
-                distanceFormatter.distance = map.totalTrackedDistance
-                totalTrackedDistanceLabel.setText(distanceFormatter.formattedText)
+                totalTrackedDistanceLabel.setText(map.totalTrackedDistance.toDistance(useImperial: preferences.useImperial))
                 
                 //currentSegmentDistanceLabel.distance = (map.currentSegmentDistance)
                 
@@ -191,6 +190,9 @@ class InterfaceController: WKInterfaceController {
     override func awake(withContext context: Any?) {
         print("InterfaceController:: awake")
         super.awake(withContext: context)
+        
+        
+        totalTrackedDistanceLabel.setText( 0.00.toDistance(useImperial: preferences.useImperial))
         
         if gpxTrackingStatus == .notStarted {
             trackerButton.setBackgroundColor(kGreenButtonBackgroundColor)
@@ -417,7 +419,7 @@ extension InterfaceController: CLLocationManagerDelegate {
         
         let hAcc = newLocation.horizontalAccuracy
 
-        signalAccuracyLabel.setText("±\(hAcc)m")
+        signalAccuracyLabel.setText(hAcc.toAccuracy(useImperial: preferences.useImperial))
         if hAcc < kSignalAccuracy6 {
             self.signalImageView.setImage(signalImage6)
         } else if hAcc < kSignalAccuracy5 {
@@ -437,26 +439,17 @@ extension InterfaceController: CLLocationManagerDelegate {
         // Update coordsLabels
         let latFormat = String(format: "%.6f", newLocation.coordinate.latitude)
         let lonFormat = String(format: "%.6f", newLocation.coordinate.longitude)
-        let altFormat = String(format: "%.2f", newLocation.altitude)
         
         coordinatesLabel.setText("\(latFormat),\(lonFormat)")
-        altitudeLabel.setText("\(altFormat) m")
+        altitudeLabel.setText(newLocation.altitude.toAltitude(useImperial: preferences.useImperial))
         
         //Update speed (provided in m/s, but displayed in km/h)
-        var speedFormat: String
-        if newLocation.speed < 0 {
-            speedFormat = kUnknownSpeedText
-        } else {
-            speedFormat = String(format: "%.2f", (newLocation.speed * 3.6))
-        }
-        speedLabel.setText("\(speedFormat) km/h")
+        speedLabel.setText(newLocation.speed.toSpeed(useImperial: preferences.useImperial))
         
         if gpxTrackingStatus == .tracking {
             print("didUpdateLocation: adding point to track (\(newLocation.coordinate.latitude),\(newLocation.coordinate.longitude))")
             map.addPointToCurrentTrackSegmentAtLocation(newLocation)
-            
-            distanceFormatter.distance = map.totalTrackedDistance
-            totalTrackedDistanceLabel.setText(distanceFormatter.formattedText)
+            totalTrackedDistanceLabel.setText(map.totalTrackedDistance.toDistance(useImperial: preferences.useImperial))
             //currentSegmentDistanceLabel.distance = map.currentSegmentDistance
         }
     }

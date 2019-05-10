@@ -42,13 +42,13 @@ let kEditWaypointAccesoryButtonTag = 333
 let kNotGettingLocationText = "Not getting location"
 
 /// Text to display unknown accuracy
-let kUnknownAccuracyText = "±···m"
+let kUnknownAccuracyText = "±···"
 
 /// Text to display unknown speed.
 let kUnknownSpeedText = "·.··"
 
 /// Size for small buttons
-let  kButtonSmallSize: CGFloat = 48.0
+let kButtonSmallSize: CGFloat = 48.0
 
 /// Size for large buttons
 let kButtonLargeSize: CGFloat = 96.0
@@ -240,11 +240,14 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
     var speedLabel: UILabel
     
     /// Distance of the total segments tracked
-    var totalTrackedDistanceLabel: UIDistanceLabel
+    var totalTrackedDistanceLabel: DistanceLabel
     
     /// Distance of the current segment being tracked (since last time the Tracker button was pressed)
-    var currentSegmentDistanceLabel: UIDistanceLabel
+    var currentSegmentDistanceLabel: DistanceLabel
  
+    /// Used to display in imperial (foot, miles, mph) or metric system (m, km, km/h)
+    var useImperial = false
+    
     /// Follow user button (bottom bar)
     var followUserButton: UIButton
     
@@ -299,8 +302,8 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         
         self.timeLabel = UILabel(coder: aDecoder)!
         self.speedLabel = UILabel(coder: aDecoder)!
-        self.totalTrackedDistanceLabel = UIDistanceLabel(coder: aDecoder)!
-        self.currentSegmentDistanceLabel = UIDistanceLabel(coder: aDecoder)!
+        self.totalTrackedDistanceLabel = DistanceLabel(coder: aDecoder)!
+        self.currentSegmentDistanceLabel = DistanceLabel(coder: aDecoder)!
         
         self.followUserButton = UIButton(coder: aDecoder)!
         self.newPinButton = UIButton(coder: aDecoder)!
@@ -314,7 +317,6 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         self.saveButton = UIButton(coder: aDecoder)!
         
         super.init(coder: aDecoder)!
-        followUser = true
     }
     
     ///
@@ -395,21 +397,11 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         //let pinchGesture = UIPinchGestureRecognizer(target: self, action: "pinchGesture")
         //map.addGestureRecognizer(pinchGesture)
         
-        //Preferences load
-        let defaults = UserDefaults.standard
-        if var tileServerInt = defaults.object(forKey: kDefaultsKeyTileServerInt) as? Int {
-            // In version 1.5 one tileServer was removed, so some users may have selected a tileServer that no longer exists.
-            tileServerInt = (tileServerInt >= GPXTileServer.count ? GPXTileServer.apple.rawValue : tileServerInt)
-            print("** Preferences : setting saved tileServer \(tileServerInt)")
-            map.tileServer = GPXTileServer(rawValue: tileServerInt)!
-        } else {
-            print("** Preferences: using default tileServer: Apple")
-            map.tileServer = .apple
-        }
-        if let useCacheBool = defaults.object(forKey: kDefaultsKeyUseCache) as? Bool {
-            print("** Preferences: setting saved useCache: \(useCacheBool)")
-            map.useCache = useCacheBool
-        }
+        //Preferences
+        map.tileServer = Preferences.shared.tileServer
+        map.useCache = Preferences.shared.useCache
+        useImperial = Preferences.shared.useImperial
+        
         
         //
         // Config user interface
@@ -473,7 +465,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         speedLabel.frame = CGRect(x: self.map.frame.width - 160,  y: 20 + 36 + iPhoneXdiff, width: 150, height: 20)
         speedLabel.textAlignment = .right
         speedLabel.font = font18
-        speedLabel.text = "0.00 km/h"
+        speedLabel.text = 0.00.toSpeed(useImperial: useImperial)
         speedLabel.autoresizingMask = [.flexibleWidth, .flexibleLeftMargin, .flexibleRightMargin]
         //timeLabel.backgroundColor = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.5)
         map.addSubview(speedLabel)
@@ -482,7 +474,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         totalTrackedDistanceLabel.frame = CGRect(x: self.map.frame.width - 160, y: 60 + 20 + iPhoneXdiff, width: 150, height: 40)
         totalTrackedDistanceLabel.textAlignment = .right
         totalTrackedDistanceLabel.font = font36
-        totalTrackedDistanceLabel.text = "0m"
+        totalTrackedDistanceLabel.text = 0.00.toDistance(useImperial: useImperial)
         totalTrackedDistanceLabel.autoresizingMask = [.flexibleWidth, .flexibleLeftMargin, .flexibleRightMargin]
         //timeLabel.backgroundColor = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.5)
         map.addSubview(totalTrackedDistanceLabel)
@@ -490,7 +482,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         currentSegmentDistanceLabel.frame = CGRect(x: self.map.frame.width - 160, y: 80 + 36 + iPhoneXdiff, width: 150, height: 20)
         currentSegmentDistanceLabel.textAlignment = .right
         currentSegmentDistanceLabel.font = font18
-        currentSegmentDistanceLabel.text = "0m"
+        currentSegmentDistanceLabel.text =  0.00.toDistance(useImperial: useImperial)
         currentSegmentDistanceLabel.autoresizingMask = [.flexibleWidth, .flexibleLeftMargin, .flexibleRightMargin]
         //timeLabel.backgroundColor = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.5)
         map.addSubview(currentSegmentDistanceLabel)
@@ -1037,7 +1029,7 @@ extension ViewController: PreferencesTableViewControllerDelegate {
     /// `PreferencesTableViewController` informs the main `ViewController` through this delegate.
     ///
     func didUpdateTileServer(_ newGpxTileServer: Int) {
-        print("** Preferences:: didUpdateTileServer: \(newGpxTileServer)")
+        print("PreferencesTableViewControllerDelegate:: didUpdateTileServer: \(newGpxTileServer)")
         self.map.tileServer = GPXTileServer(rawValue: newGpxTileServer)!
     }
     
@@ -1046,10 +1038,21 @@ extension ViewController: PreferencesTableViewControllerDelegate {
     /// informs the map to behave accordingly.
     ///
     func didUpdateUseCache(_ newUseCache: Bool) {
-        print("** Preferences:: didUpdateUseCache: \(newUseCache)")
+        print("PreferencesTableViewControllerDelegate:: didUpdateUseCache: \(newUseCache)")
         self.map.useCache = newUseCache
     }
-}
+    
+    // User changed the setting of use imperial units.
+    func didUpdateUseImperial(_ newUseImperial: Bool) {
+        print("PreferencesTableViewControllerDelegate:: didUpdateUseImperial: \(newUseImperial)")
+        useImperial = newUseImperial
+        totalTrackedDistanceLabel.useImperial = useImperial
+        currentSegmentDistanceLabel.useImperial = useImperial
+        //Because we dont know if last speed was unknown we set it as unknown.
+        // In regular circunstances it will go to the new units relatively fast.
+        speedLabel.text = kUnknownSpeedText
+        signalAccuracyLabel.text = kUnknownAccuracyText
+    }}
 
 // MARK: location manager Delegate
 
@@ -1123,8 +1126,10 @@ extension ViewController: CLLocationManagerDelegate {
         let newLocation = locations.first!
         print("isUserLocationVisible: \(map.isUserLocationVisible) showUserLocation: \(map.showsUserLocation)")
         print("didUpdateLocation: received \(newLocation.coordinate) hAcc: \(newLocation.horizontalAccuracy) vAcc: \(newLocation.verticalAccuracy) floor: \(newLocation.floor?.description ?? "''") map.userTrackingMode: \(map.userTrackingMode.rawValue)")
+        
+        // Update horizontal accuracy
         let hAcc = newLocation.horizontalAccuracy
-        signalAccuracyLabel.text = "±\(hAcc)m"
+        signalAccuracyLabel.text =  hAcc.toAccuracy(useImperial: useImperial)
         if hAcc < kSignalAccuracy6 {
             self.signalImageView.image = signalImage6
         } else if hAcc < kSignalAccuracy5 {
@@ -1144,18 +1149,10 @@ extension ViewController: CLLocationManagerDelegate {
         //Update coordsLabel
         let latFormat = String(format: "%.6f", newLocation.coordinate.latitude)
         let lonFormat = String(format: "%.6f", newLocation.coordinate.longitude)
-        let altFormat = String(format: "%.2f", newLocation.altitude)
-        coordsLabel.text = "(\(latFormat),\(lonFormat)) · altitude: \(altFormat)m"
+        coordsLabel.text = "(\(latFormat),\(lonFormat)) · altitude: \(newLocation.altitude.toAltitude(useImperial: useImperial))"
         
-        
-        //Update speed (provided in m/s, but displayed in km/h)
-        var speedFormat: String
-        if newLocation.speed < 0 {
-            speedFormat = kUnknownSpeedText
-        } else {
-            speedFormat = String(format: "%.2f", (newLocation.speed * 3.6))
-        }
-        speedLabel.text = "\(speedFormat) km/h"
+        //Update speed
+        speedLabel.text = (newLocation.speed < 0) ? kUnknownSpeedText : newLocation.speed.toSpeed(useImperial: useImperial)
         
         //Update Map center and track overlay if user is being followed
         if followUser {
