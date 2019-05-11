@@ -6,18 +6,17 @@
 //
 
 import UIKit
-//import WebKit //<-- To support ios7 UIWebview will be used
-
+import WebKit
 
 ///
 /// Controller to display the About page.
 ///
-/// Internally it is a UIWebView that displays the resource file about.html.
+/// Internally it is a WKWebView that displays the resource file about.html.
 ///
-class AboutViewController: UIViewController, UIWebViewDelegate {
+class AboutViewController: UIViewController {
     
     /// Embedded web browser
-    var webView: UIWebView?
+    var webView: WKWebView?
     
     /// Initializer. Only calls super
     required init?(coder aDecoder: NSCoder) {
@@ -46,8 +45,10 @@ class AboutViewController: UIViewController, UIWebViewDelegate {
         self.navigationItem.rightBarButtonItems = [shareItem]
   
         //Add the Webview
-        self.webView = UIWebView(frame: self.view.frame)
-        self.webView?.delegate = self
+        self.webView = WKWebView(frame: self.view.frame, configuration: WKWebViewConfiguration())
+        
+        self.webView?.navigationDelegate = self
+        
         let path = Bundle.main.path(forResource: "about", ofType: "html")
         let text = try? String(contentsOfFile: path!, encoding: String.Encoding.utf8)
         
@@ -55,22 +56,30 @@ class AboutViewController: UIViewController, UIWebViewDelegate {
         self.view.addSubview(webView!)
     }
     
-    /// Opens Safari when user clicks a link in the About page.
-    func webView(_ webView: UIWebView, shouldStartLoadWith request: URLRequest, navigationType: UIWebView.NavigationType) -> Bool {
-        print("shouldStartLoadWithRequest")
-        
-        if navigationType == UIWebView.NavigationType.linkClicked {
-            UIApplication.shared.openURL(request.url!)
-            return false
-        }
-        return true
-    }
-    
     /// Closes this view controller. Triggered by pressing the "Done" button in navigation bar.
     @objc func closeViewController() {
         self.dismiss(animated: true, completion: { () -> Void in
             
         })
+    }
+    
+}
+
+/// Handles all navigation related stuff for the web view
+extension AboutViewController: WKNavigationDelegate {
+    
+    /// Opens Safari when user clicks a link in the About page.
+    func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+        print("AboutViewController: decidePolicyForNavigationAction")
+        
+        if navigationAction.navigationType == .linkActivated {
+            UIApplication.shared.openURL(navigationAction.request.url!)
+            print("AboutViewController: external link sent to Safari")
+            
+            decisionHandler(.cancel)
+            return
+        }
+        decisionHandler(.allow)
     }
     
 }
