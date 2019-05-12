@@ -35,7 +35,7 @@ class CachedTileOverlay : MKTileOverlay {
         let rand = arc4random_uniform(UInt32(subdomains.count))
         let randIndex = subdomains.index(subdomains.startIndex, offsetBy: String.IndexDistance(rand));
         urlString = urlString?.replacingOccurrences(of: "{s}", with:String(subdomains[randIndex]))
-        print("CachedTileOverlay:: url() urlString: \(urlString)")
+        print("CachedTileOverlay:: url() urlString: \(urlString ?? "nil")")
         return URL(string: urlString!)!
     }
 
