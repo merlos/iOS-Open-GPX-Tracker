@@ -416,19 +416,22 @@ class CoreDataHelper {
                 root.add(track: track)
                 root.add(waypoints: self.waypoints)
                 
-                let gpxString = root.gpx()
-                
                 DispatchQueue.main.sync {
                     // save alert configuration and presentation
                     let alertController = UIAlertController(title: "Continue last session?", message: "What would you like to do with the recovered content from last session?", preferredStyle: .actionSheet)
                     
-                    let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (action) in }
+                    let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (action) in
+                        self.clearAll()
+                    }
                     
                     let continueAction = UIAlertAction(title: "Continue Session", style: .default) { (action) in
-                        
+                        NotificationCenter.default.post(name: .loadRecoveredFile, object: nil, userInfo: ["recoveredRoot" : root])
+                        self.clearAll()
                     }
-                    let saveAction = UIAlertAction(title: "Save and start new", style: .default) { (action) in
-                        self.saveFile(from: gpxString)
+                    
+                    let saveAction = UIAlertAction(title: "Save and Start New", style: .default) { (action) in
+                        self.saveFile(from: root)
+                        self.clearAll()
                     }
                     
                     alertController.addAction(cancelAction)
@@ -437,12 +440,6 @@ class CoreDataHelper {
                     
                     self.showAlert(alertController)
                 }
-                
-                // once file recovery is completed, Core Data stored items are deleted.
-                self.deleteAllFromCoreData()
-                
-                // once file recovery is completed, arrays are cleared.
-                self.clearArrays()
             }
             else {
                 // no recovery file will be generated if nothing is recovered (or did not crash).
@@ -462,16 +459,33 @@ class CoreDataHelper {
         window.rootViewController?.present(alertController, animated: true, completion: nil)
     }
     
-    func saveFile(from gpxString: String) {
+    func saveFile(from gpx: GPXRoot) {
         // date format same as usual.
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd-MMM-yyyy-HHmm"
+        var dateString = String()
         
-        // File name's date will be as of recovery time, not of crash time.
-        let recoveredFileName = "recovery-\(dateFormatter.string(from: Date()))"
+        if let lastTrkptDate = gpx.tracks.last?.tracksegments.last?.trackpoints.last?.time {
+            dateString = dateFormatter.string(from: lastTrkptDate)
+        }
+        else {
+            // File name's date will be as of recovery time, not of crash time.
+            dateString = dateFormatter.string(from: Date())
+        }
+        
+        let recoveredFileName = "recovery-\(dateString))"
+        let gpxString = gpx.gpx()
         
         // Save the recovered file.
         GPXFileManager.save(recoveredFileName, gpxContents: gpxString)
         print("File \(recoveredFileName) was recovered from previous session, prior to unexpected crash/exit")
+    }
+    
+    func clearAll() {
+        // once file recovery is completed, Core Data stored items are deleted.
+        self.deleteAllFromCoreData()
+        
+        // once file recovery is completed, arrays are cleared.
+        self.clearArrays()
     }
 }

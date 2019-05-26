@@ -25,6 +25,6 @@ protocol GPXFilesTableViewControllerDelegate: class {
     ///  - Seealso:
     ///     - [iOS-GPX-Framework](https://github.com/merlos/iOS-GPX-Framework)
     ///
-    func didLoadGPXFileWithName(_ gpxFilename: String, gpxRoot: GPXRoot)
+    func didLoadGPXFileWithName(_ gpxFilename: String?, gpxRoot: GPXRoot)
     
 }
