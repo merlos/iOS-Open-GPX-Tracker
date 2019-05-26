@@ -418,7 +418,25 @@ class CoreDataHelper {
                 
                 let gpxString = root.gpx()
                 
-                self.saveFile(from: gpxString)
+                DispatchQueue.main.sync {
+                    // save alert configuration and presentation
+                    let alertController = UIAlertController(title: "Continue last session?", message: "What would you like to do with the recovered content from last session?", preferredStyle: .actionSheet)
+                    
+                    let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (action) in }
+                    
+                    let continueAction = UIAlertAction(title: "Continue Session", style: .default) { (action) in
+                        
+                    }
+                    let saveAction = UIAlertAction(title: "Save and start new", style: .default) { (action) in
+                        self.saveFile(from: gpxString)
+                    }
+                    
+                    alertController.addAction(cancelAction)
+                    alertController.addAction(continueAction)
+                    alertController.addAction(saveAction)
+                    
+                    self.showAlert(alertController)
+                }
                 
                 // once file recovery is completed, Core Data stored items are deleted.
                 self.deleteAllFromCoreData()
@@ -431,6 +449,17 @@ class CoreDataHelper {
             }
         }
        
+    }
+    
+    func showAlert(_ alertController: UIAlertController) {
+        let window = UIWindow(frame: UIScreen.main.bounds)
+        window.rootViewController = UIViewController()
+        
+        guard let windowLevel = UIApplication.shared.windows.last?.windowLevel else { return }
+        
+        window.windowLevel = windowLevel + 1
+        window.makeKeyAndVisible()
+        window.rootViewController?.present(alertController, animated: true, completion: nil)
     }
     
     func saveFile(from gpxString: String) {
