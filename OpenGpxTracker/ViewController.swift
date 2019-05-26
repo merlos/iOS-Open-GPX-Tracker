@@ -648,7 +648,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         guard let root = notification.userInfo?["recoveredRoot"] as? GPXRoot else {
             return
         }
-        didLoadGPXFileWithName(nil, gpxRoot: root)
+        didLoadGPXFileWithName("", gpxRoot: root)
     }
     
     ///
@@ -996,11 +996,10 @@ extension ViewController: GPXFilesTableViewControllerDelegate {
     ///
     /// Resets whatever estatus was before.
     ///
-    func didLoadGPXFileWithName(_ gpxFilename: String?, gpxRoot: GPXRoot) {
+    func didLoadGPXFileWithName(_ gpxFilename: String, gpxRoot: GPXRoot) {
         //emulate a reset button tap
         self.resetButtonTapped()
         //println("Loaded GPX file", gpx.gpx())
-        guard let gpxFilename = gpxFilename else { return }
         lastGpxFilename = gpxFilename
         //force reset timer just in case reset does not do it
         self.stopWatch.reset()
