@@ -418,16 +418,7 @@ class CoreDataHelper {
                 
                 let gpxString = root.gpx()
                 
-                // date format same as usual.
-                let dateFormatter = DateFormatter()
-                dateFormatter.dateFormat = "dd-MMM-yyyy-HHmm"
-                
-                // File name's date will be as of recovery time, not of crash time.
-                let recoveredFileName = "recovery-\(dateFormatter.string(from: Date()))"
-                
-                // Save the recovered file.
-                GPXFileManager.save(recoveredFileName, gpxContents: gpxString)
-                print("File \(recoveredFileName) was recovered from previous session, prior to unexpected crash/exit")
+                self.saveFile(from: gpxString)
                 
                 // once file recovery is completed, Core Data stored items are deleted.
                 self.deleteAllFromCoreData()
@@ -440,5 +431,18 @@ class CoreDataHelper {
             }
         }
        
+    }
+    
+    func saveFile(from gpxString: String) {
+        // date format same as usual.
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd-MMM-yyyy-HHmm"
+        
+        // File name's date will be as of recovery time, not of crash time.
+        let recoveredFileName = "recovery-\(dateFormatter.string(from: Date()))"
+        
+        // Save the recovered file.
+        GPXFileManager.save(recoveredFileName, gpxContents: gpxString)
+        print("File \(recoveredFileName) was recovered from previous session, prior to unexpected crash/exit")
     }
 }
