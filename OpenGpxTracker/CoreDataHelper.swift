@@ -174,11 +174,8 @@ class CoreDataHelper {
     
     // MARK:- Retrieval From Core Data
 
-    func retrieveFromCoreData() -> Bool {
+    func retrieveFromCoreData() {
         let privateManagedObjectContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
-        
-        var isEmpty = false
-        
         privateManagedObjectContext.parent = appDelegate.managedObjectContext
         // Creates a fetch request
         let trkptFetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "CDTrackpoint")
@@ -198,24 +195,19 @@ class CoreDataHelper {
             guard let trackPointResults = asynchronousFetchResult.finalResult as? [CDTrackpoint] else { return }
             // Dispatches to use the data in the main queue
             DispatchQueue.main.async {
-                if trackPointResults.count == 0 {
-                    isEmpty = true
-                }
-                else {
-                    for result in trackPointResults {
-                        let objectID = result.objectID
-                        
-                        // thread safe
-                        guard let safePoint = self.appDelegate.managedObjectContext.object(with: objectID) as? CDTrackpoint else { continue }
-                        
-                        let pt = GPXTrackPoint(latitude: safePoint.latitude, longitude: safePoint.longitude)
-                        
-                        pt.time = safePoint.time
-                        pt.elevation = safePoint.elevation
-                        
-                        self.trackpoints.append(pt)
-                        
-                    }
+                for result in trackPointResults {
+                    let objectID = result.objectID
+                    
+                    // thread safe
+                    guard let safePoint = self.appDelegate.managedObjectContext.object(with: objectID) as? CDTrackpoint else { continue }
+                    
+                    let pt = GPXTrackPoint(latitude: safePoint.latitude, longitude: safePoint.longitude)
+                    
+                    pt.time = safePoint.time
+                    pt.elevation = safePoint.elevation
+
+                    self.trackpoints.append(pt)
+                    
                 }
             }
         }
@@ -229,24 +221,19 @@ class CoreDataHelper {
             
             // Dispatches to use the data in the main queue
             DispatchQueue.main.async {
-                if waypointResults.count == 0 {
-                    isEmpty = true
-                }
-                else {
-                    for result in waypointResults {
-                        let objectID = result.objectID
-                        
-                        // thread safe
-                        guard let safePoint = self.appDelegate.managedObjectContext.object(with: objectID) as? CDWaypoint else { continue }
-                        
-                        let pt = GPXWaypoint(latitude: safePoint.latitude, longitude: safePoint.longitude)
-                        
-                        pt.time = safePoint.time
-                        pt.desc = safePoint.desc
-                        pt.name = safePoint.name
-                        
-                        self.waypoints.append(pt)
-                    }
+                for result in waypointResults {
+                    let objectID = result.objectID
+                    
+                    // thread safe
+                    guard let safePoint = self.appDelegate.managedObjectContext.object(with: objectID) as? CDWaypoint else { continue }
+                    
+                    let pt = GPXWaypoint(latitude: safePoint.latitude, longitude: safePoint.longitude)
+                    
+                    pt.time = safePoint.time
+                    pt.desc = safePoint.desc
+                    pt.name = safePoint.name
+                    
+                    self.waypoints.append(pt)
                 }
                 
                 // trackpoint request first, followed by waypoint request
@@ -265,7 +252,6 @@ class CoreDataHelper {
         } catch let error {
             print("NSAsynchronousFetchRequest (fetch request for recovery) error: \(error)")
         }
-        return isEmpty
     }
     
     // MARK:- Delete from Core Data

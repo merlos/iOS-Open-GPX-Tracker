@@ -211,9 +211,7 @@ class GPXMapView: MKMapView {
     }
     
     func retrieveFromCoreData() {
-        if coreDataHelper.retrieveFromCoreData() == true {
-            
-        }
+        coreDataHelper.retrieveFromCoreData()
     }
     
     func deleteAllFromCoreData() {
