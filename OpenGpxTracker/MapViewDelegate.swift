@@ -78,7 +78,7 @@ class MapViewDelegate: NSObject, MKMapViewDelegate, UIAlertViewDelegate {
             let saveAction = UIAlertAction(title: "Save", style: .default) { (action) in
                 print("Edit waypoint alert view")
                 self.waypointBeingEdited.title = alertController.textFields?[0].text
-                map.update(toCoreData: self.waypointBeingEdited, at: indexofEditedWaypoint!)
+                map.coreDataHelper.update(toCoreData: self.waypointBeingEdited, from: indexofEditedWaypoint!)
             }
             let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (action) in }
             

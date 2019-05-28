@@ -269,7 +269,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         super.viewDidLoad()
         stopWatch.delegate = self
         
-        map.retrieveFromCoreData()
+        map.coreDataHelper.retrieveFromCoreData()
         
         //Because of the edges, iPhone X* is slightly different on the layout.
         //So, Is the current device an iPhone X?
@@ -690,7 +690,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         print("viewController:: applicationWillTerminate")
         GPXFileManager.removeTemporaryFiles()
         if gpxTrackingStatus == .notStarted {
-            map.deleteAllFromCoreData()
+            map.coreDataHelper.deleteAllFromCoreData()
         }
     }
     

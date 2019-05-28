@@ -16,6 +16,7 @@ import Foundation
  */
 open class GPXLink: GPXElement, Codable {
     
+    /// For Codable use
     enum CodingKeys: String, CodingKey {
         case text
         case mimetype = "type"
@@ -83,7 +84,7 @@ open class GPXLink: GPXElement, Codable {
     ///
     init(dictionary: [String : String]) {
         self.href = dictionary["href"]
-        self.mimetype = dictionary["mimetype"]
+        self.mimetype = dictionary["type"]
         self.text = dictionary["text"]
     }
     

@@ -21,6 +21,7 @@ open class GPXWaypoint: GPXElement, Codable {
     
     // MARK: Codable Implementation
     
+    /// For Codable use
     enum CodingKeys: String, CodingKey {
         case time
         case elevation = "ele"
@@ -44,6 +45,7 @@ open class GPXWaypoint: GPXElement, Codable {
         case link
         case extensions
     }
+    
     
     
     // MARK:- Attributes of a waypoint
@@ -172,6 +174,9 @@ open class GPXWaypoint: GPXElement, Codable {
     /// - Should conform to WGS 84 datum.
     ///
     public var longitude: Double?
+    
+    
+    
     
     // MARK:- Initializers
     

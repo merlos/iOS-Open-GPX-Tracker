@@ -21,16 +21,19 @@ class CoreDataHelper {
     var waypointId: Int64 = 0
     var trackpointId: Int64 = 0
     
+    var tracksegmentId = Int64()
+    
     // app delegate.
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     
     // arrays for handling retrieval of data when needed.
-    var trackpoints = [GPXTrackPoint]()
+    var tracksegments = [GPXTrackSegment]()
+    var currentSegment = GPXTrackSegment()
     var waypoints = [GPXWaypoint]()
     
     // MARK:- Add to Core Data
     
-    func add(toCoreData trackpoint: GPXTrackPoint) {
+    func add(toCoreData trackpoint: GPXTrackPoint, withTrackSegmentID Id: Int) {
         let childManagedObjectContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
         // Creates the link between child and parent
         childManagedObjectContext.parent = appDelegate.managedObjectContext
@@ -47,6 +50,7 @@ class CoreDataHelper {
             pt.longitude = longitude
             pt.time = trackpoint.time
             pt.trackpointId = self.trackpointId
+            pt.trackSegmentId = Int64(Id)
             
             // Serialization of trackpoint
             do {
@@ -195,20 +199,32 @@ class CoreDataHelper {
             guard let trackPointResults = asynchronousFetchResult.finalResult as? [CDTrackpoint] else { return }
             // Dispatches to use the data in the main queue
             DispatchQueue.main.async {
+                self.tracksegmentId = trackPointResults.first?.trackSegmentId ?? 0
+                
                 for result in trackPointResults {
                     let objectID = result.objectID
                     
                     // thread safe
                     guard let safePoint = self.appDelegate.managedObjectContext.object(with: objectID) as? CDTrackpoint else { continue }
                     
+                    if self.tracksegmentId != safePoint.trackSegmentId {
+                        if self.currentSegment.trackpoints.count > 0 {
+                            self.tracksegments.append(self.currentSegment)
+                            self.currentSegment = GPXTrackSegment()
+                        }
+                        
+                        self.tracksegmentId = safePoint.trackSegmentId
+                    }
+                    
                     let pt = GPXTrackPoint(latitude: safePoint.latitude, longitude: safePoint.longitude)
                     
                     pt.time = safePoint.time
                     pt.elevation = safePoint.elevation
-
-                    self.trackpoints.append(pt)
+                    
+                    self.currentSegment.trackpoints.append(pt)
                     
                 }
+                self.tracksegments.append(self.currentSegment)
             }
         }
         
@@ -380,65 +396,50 @@ class CoreDataHelper {
         }
     }
     
-    // MARK:- Reset & Clear
+    // MARK:- Handles recovered data
     
-    /// Resets trackpoints and waypoints Id
+    /// Prompts user on what to do with recovered data
     ///
-    /// the Id is to ensure that when retrieving the entities, the order remains.
-    /// This is important to ensure that the resulting recovery file has the correct order.
-    func resetIds() {
-        self.trackpointId = 0
-        self.waypointId = 0
-    }
-    
-    /// Clear all arrays after recovery.
-    func clearArrays() {
-        self.trackpoints = []
-        self.waypoints = []
-    }
-    
-    // MARK:- Packaging to file for recovery
-    
-    /// Handles actual file recovery.
-    ///
-    /// Adds all the 'recovered' content retrieved earlier to a recovered file.
-    /// Deletes and clears core data stuff after file is successfully saved.
+    /// Adds all the 'recovered' content retrieved earlier to newly initialized `GPXRoot`.
+    /// Deletes and clears core data stuff after user decision is made.
     func crashFileRecovery() {
         DispatchQueue.global().async {
-            // checks if trackpoint and waypoint
-            if self.trackpoints.count > 0 || self.waypoints.count > 0 {
+            // checks if trackpoint and waypoint are available
+            if self.currentSegment.trackpoints.count > 0 || self.waypoints.count > 0 {
+                
+                // generates a GPXRoot from recovered data
                 let root = GPXRoot(creator: kGPXCreatorString)
                 let track = GPXTrack()
-                let trackseg = GPXTrackSegment()
                 
-                trackseg.add(trackpoints: self.trackpoints)
-                track.add(trackSegment: trackseg)
+                track.tracksegments = self.tracksegments
                 root.add(track: track)
                 root.add(waypoints: self.waypoints)
                 
+                // asks user on what to do with recovered data
                 DispatchQueue.main.sync {
-                    // save alert configuration and presentation
+                    // main action sheet setup
                     let alertController = UIAlertController(title: "Continue last session?", message: "What would you like to do with the recovered content from last session?", preferredStyle: .actionSheet)
                     
+                    // option to cancel
                     let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (action) in
                         self.clearAll()
                     }
-                    
+                    // option to continue previous session, which will load it, but not save
                     let continueAction = UIAlertAction(title: "Continue Session", style: .default) { (action) in
                         NotificationCenter.default.post(name: .loadRecoveredFile, object: nil, userInfo: ["recoveredRoot" : root])
                         self.clearAll()
                     }
                     
+                    // option to save silently as file, session remains new
                     let saveAction = UIAlertAction(title: "Save and Start New", style: .default) { (action) in
                         self.saveFile(from: root)
-                        self.clearAll()
                     }
                     
                     alertController.addAction(cancelAction)
                     alertController.addAction(continueAction)
                     alertController.addAction(saveAction)
                     
-                    self.showAlert(alertController)
+                    self.showActionSheet(alertController)
                 }
             }
             else {
@@ -448,7 +449,8 @@ class CoreDataHelper {
        
     }
     
-    func showAlert(_ alertController: UIAlertController) {
+    /// shows the action sheet that prompts user on what to do with recovered data.
+    func showActionSheet(_ alertController: UIAlertController) {
         let window = UIWindow(frame: UIScreen.main.bounds)
         window.rootViewController = UIViewController()
         
@@ -459,6 +461,7 @@ class CoreDataHelper {
         window.rootViewController?.present(alertController, animated: true, completion: nil)
     }
     
+    /// saves recovered data to a gpx file.
     func saveFile(from gpx: GPXRoot) {
         // date format same as usual.
         let dateFormatter = DateFormatter()
@@ -479,13 +482,39 @@ class CoreDataHelper {
         // Save the recovered file.
         GPXFileManager.save(recoveredFileName, gpxContents: gpxString)
         print("File \(recoveredFileName) was recovered from previous session, prior to unexpected crash/exit")
+        
+        // clear aft save.
+        self.clearAll()
     }
     
+    // MARK:- Reset & Clear
+    
+    /// Resets trackpoints and waypoints Id
+    ///
+    /// the Id is to ensure that when retrieving the entities, the order remains.
+    /// This is important to ensure that the resulting recovery file has the correct order.
+    func resetIds() {
+        self.trackpointId = 0
+        self.waypointId = 0
+        self.tracksegmentId = Int64()
+    }
+    
+    /// Clear all arrays after recovery.
+    func clearArrays() {
+        self.tracksegments = []
+        self.waypoints = []
+    }
+    
+    /// clears all
     func clearAll() {
         // once file recovery is completed, Core Data stored items are deleted.
         self.deleteAllFromCoreData()
         
         // once file recovery is completed, arrays are cleared.
         self.clearArrays()
+        
+        // current segment should be 'reset' as well
+        self.currentSegment = GPXTrackSegment()
     }
+    
 }

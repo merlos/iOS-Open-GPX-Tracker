@@ -50,6 +50,9 @@ open class GPXTrackPoint: GPXWaypoint {
         self.ageofDGPSData = Convert.toDouble(from: dictionary["ageofdgpsdata"])
     }
     
+    /// For initializing with a `Decoder`
+    ///
+    /// Declared here for use of Codable functionalities.
     required public init(from decoder: Decoder) throws {
         try super.init(from: decoder)
     }

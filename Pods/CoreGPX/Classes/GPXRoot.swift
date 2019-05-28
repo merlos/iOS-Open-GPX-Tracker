@@ -136,7 +136,7 @@ open class GPXRoot: GPXElement {
         return waypoint
     }
     
-    /// Add a pre-initalized and configured waypoint to `GPXRoot`
+    /// Add a pre-initialized and configured waypoint to `GPXRoot`
     ///
     /// - Parameters:
     ///     - waypoint: The waypoint that you wish to include in `GPXRoot`
@@ -147,7 +147,7 @@ open class GPXRoot: GPXElement {
         }
     }
     
-    /// Add an array of pre-initalized and configured waypoints to `GPXRoot`
+    /// Add an array of pre-initialized and configured waypoints to `GPXRoot`
     ///
     /// - Parameters:
     ///     - waypoints: Array of waypoints that you wish to include in `GPXRoot`
@@ -193,7 +193,7 @@ open class GPXRoot: GPXElement {
         return route
     }
     
-    /// Add a pre-initalized and configured route to `GPXRoot`
+    /// Add a pre-initialized and configured route to `GPXRoot`
     ///
     /// - Parameters:
     ///     - route: The route that you wish to include in `GPXRoot`
@@ -204,7 +204,7 @@ open class GPXRoot: GPXElement {
         }
     }
     
-    /// Add an array of pre-initalized and configured routes to `GPXRoot`
+    /// Add an array of pre-initialized and configured routes to `GPXRoot`
     ///
     /// - Parameters:
     ///     - routes: The array of routes that you wish to include in `GPXRoot`
@@ -244,7 +244,7 @@ open class GPXRoot: GPXElement {
         return track
     }
     
-    /// Add a pre-initalized and configured track to `GPXRoot`
+    /// Add a pre-initialized and configured track to `GPXRoot`
     ///
     /// - Parameters:
     ///     - track: The track that you wish to include in `GPXRoot`
@@ -255,7 +255,7 @@ open class GPXRoot: GPXElement {
         }
     }
     
-    /// Add an array of pre-initalized and configured tracks to `GPXRoot`
+    /// Add an array of pre-initialized and configured tracks to `GPXRoot`
     ///
     /// - Parameters:
     ///     - tracks: The array of tracks that you wish to include in `GPXRoot`

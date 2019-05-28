@@ -14,6 +14,7 @@ import Foundation
  */
 open class GPXTrackSegment: GPXElement, Codable {
     
+    /// For Codable use
     enum CodingKeys: String, CodingKey {
         case trackpoints = "trkpt"
         case extensions

@@ -160,7 +160,7 @@ class GPXMapView: MKMapView {
     ///
     func addWaypoint(_ waypoint: GPXWaypoint) {
         self.waypoints.append(waypoint)
-        self.add(toCoreData: waypoint)
+        self.coreDataHelper.add(toCoreData: waypoint)
         self.addAnnotation(waypoint)
         self.extent.extendAreaToIncludeLocation(waypoint.coordinate)
     }
@@ -178,7 +178,7 @@ class GPXMapView: MKMapView {
         }
         self.removeAnnotation(waypoint)
         waypoints.remove(at: index!)
-        self.deleteWaypoint(fromCoreDataAt: index!)
+        self.coreDataHelper.deleteWaypoint(fromCoreDataAt: index!)
         //TODO: update map extent?
         
     }
@@ -192,32 +192,6 @@ class GPXMapView: MKMapView {
         headingImageView?.transform = CGAffineTransform(rotationAngle: rotation)
     }
     
-    // MARK:- Core Data Components
-    
-    func add(toCoreData trackpoint: GPXTrackPoint) {
-        coreDataHelper.add(toCoreData: trackpoint)
-    }
-    
-    func add(toCoreData waypoint: GPXWaypoint) {
-        coreDataHelper.add(toCoreData: waypoint)
-    }
-    
-    func update(toCoreData waypoint: GPXWaypoint, at index: Int) {
-        coreDataHelper.update(toCoreData: waypoint, from: index)
-    }
-    
-    func deleteWaypoint(fromCoreDataAt index: Int) {
-        coreDataHelper.deleteWaypoint(fromCoreDataAt: index)
-    }
-    
-    func retrieveFromCoreData() {
-        coreDataHelper.retrieveFromCoreData()
-    }
-    
-    func deleteAllFromCoreData() {
-        coreDataHelper.deleteAllFromCoreData()
-    }
-    
     ///
     /// Adds a new point to current segment.
     /// - Parameters:
@@ -225,7 +199,7 @@ class GPXMapView: MKMapView {
     ///
     func addPointToCurrentTrackSegmentAtLocation(_ location: CLLocation) {
         let pt = GPXTrackPoint(location: location)
-        self.add(toCoreData: pt)
+        self.coreDataHelper.add(toCoreData: pt, withTrackSegmentID: trackSegments.count)
         self.currentSegment.add(trackpoint: pt)
         //redrawCurrent track segment overlay
         //First remove last overlay, then re-add the overlay updated with the new point
@@ -278,7 +252,7 @@ class GPXMapView: MKMapView {
         self.removeOverlays(self.overlays)
         self.removeAnnotations(self.annotations)
         self.extent = GPXExtentCoordinates()
-        self.deleteAllFromCoreData()
+        self.coreDataHelper.clearAll()
         
         self.totalTrackedDistance = 0.00
         self.currentTrackDistance = 0.00
