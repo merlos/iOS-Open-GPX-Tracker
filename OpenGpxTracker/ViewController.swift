@@ -1001,7 +1001,6 @@ extension ViewController: GPXFilesTableViewControllerDelegate {
         self.resetButtonTapped()
         //println("Loaded GPX file", gpx.gpx())
         lastGpxFilename = gpxFilename
-        UserDefaults.standard.set(lastGpxFilename, forKey: "lastGpxFilename")
         //force reset timer just in case reset does not do it
         self.stopWatch.reset()
         //load data

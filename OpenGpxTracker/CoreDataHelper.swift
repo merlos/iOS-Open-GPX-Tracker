@@ -17,10 +17,15 @@ import CoreGPX
 ///
 class CoreDataHelper {
     
-    // tags to keep track of object's sequence
+    // MARK:- IDs
+    
+    // ids to keep track of object's sequence
+    /// for waypoints
     var waypointId: Int64 = 0
+    /// for trackpoints
     var trackpointId: Int64 = 0
     
+    /// id to seperate trackpoints in different tracksegements
     var tracksegmentId = Int64()
     
     // app delegate.
@@ -409,18 +414,18 @@ class CoreDataHelper {
                 
                 let root: GPXRoot
                 
-                if let url = UserDefaults.standard.url(forKey: "fileURL") {
-                    let parsedRoot = GPXParser(withURL: url)?.parsedData()
-                    root = parsedRoot ?? GPXRoot()
-                }
-                else {
-                    root = GPXRoot(creator: kGPXCreatorString)
-                }
+                
+                let index = UserDefaults.standard.integer(forKey: "fileRowIndex")
+                let gpx = GPXFileManager.fileList[index]
+                let parsedRoot = GPXParser(withURL: gpx.fileURL)?.parsedData()
+                root = parsedRoot ?? GPXRoot(creator: kGPXCreatorString)
+
                 // generates a GPXRoot from recovered data
                 let track = GPXTrack()
                 
                 track.tracksegments = self.tracksegments
                 root.add(track: track)
+                root.waypoints = [GPXWaypoint]()
                 root.add(waypoints: self.waypoints)
                 
                 // asks user on what to do with recovered data
@@ -523,6 +528,9 @@ class CoreDataHelper {
         
         // current segment should be 'reset' as well
         self.currentSegment = GPXTrackSegment()
+        
+        // clear fileRow value
+        UserDefaults.standard.removeObject(forKey: "fileRowIndex")
     }
     
 }
