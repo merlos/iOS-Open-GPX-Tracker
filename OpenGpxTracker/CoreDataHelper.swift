@@ -407,8 +407,16 @@ class CoreDataHelper {
             // checks if trackpoint and waypoint are available
             if self.currentSegment.trackpoints.count > 0 || self.waypoints.count > 0 {
                 
+                let root: GPXRoot
+                
+                if let url = UserDefaults.standard.url(forKey: "fileURL") {
+                    let parsedRoot = GPXParser(withURL: url)?.parsedData()
+                    root = parsedRoot ?? GPXRoot()
+                }
+                else {
+                    root = GPXRoot(creator: kGPXCreatorString)
+                }
                 // generates a GPXRoot from recovered data
-                let root = GPXRoot(creator: kGPXCreatorString)
                 let track = GPXTrack()
                 
                 track.tracksegments = self.tracksegments
