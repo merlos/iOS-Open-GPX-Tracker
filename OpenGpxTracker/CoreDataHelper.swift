@@ -414,11 +414,15 @@ class CoreDataHelper {
                 
                 let root: GPXRoot
                 
-                
-                let index = UserDefaults.standard.integer(forKey: "fileRowIndex")
-                let gpx = GPXFileManager.fileList[index]
-                let parsedRoot = GPXParser(withURL: gpx.fileURL)?.parsedData()
-                root = parsedRoot ?? GPXRoot(creator: kGPXCreatorString)
+                if let lastFileName = UserDefaults.standard.string(forKey: "gpxFileName") {
+                    let gpx = GPXFileManager.URLForFilename(lastFileName)
+                    let parsedRoot = GPXParser(withURL: gpx)?.parsedData()
+                    
+                    root = parsedRoot ?? GPXRoot(creator: kGPXCreatorString)
+                }
+                else {
+                    root = GPXRoot(creator: kGPXCreatorString)
+                }
 
                 // generates a GPXRoot from recovered data
                 let track = GPXTrack()

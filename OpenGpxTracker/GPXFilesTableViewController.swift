@@ -225,7 +225,8 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
             print("GPXFileTableViewController:: actionLoadFileAtIndex(\(rowIndex)): failed to parse GPX file")
             return
         }
-        UserDefaults.standard.set(rowIndex, forKey: "fileRowIndex")
+        
+        UserDefaults.standard.set(gpxFileInfo.fileName, forKey: "gpxFileName")
         self.delegate?.didLoadGPXFileWithName(gpxFileInfo.fileName, gpxRoot: gpx)
         self.dismiss(animated: true, completion: nil)
         
