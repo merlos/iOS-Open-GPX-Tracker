@@ -415,10 +415,14 @@ class CoreDataHelper {
                 let root: GPXRoot
                 
                 if let lastFileName = UserDefaults.standard.string(forKey: "gpxFileName") {
-                    let gpx = GPXFileManager.URLForFilename(lastFileName)
-                    let parsedRoot = GPXParser(withURL: gpx)?.parsedData()
-                    
-                    root = parsedRoot ?? GPXRoot(creator: kGPXCreatorString)
+                    if lastFileName != "" {
+                        let gpx = GPXFileManager.URLForFilename(lastFileName)
+                        let parsedRoot = GPXParser(withURL: gpx)?.parsedData()
+                        root = parsedRoot ?? GPXRoot(creator: kGPXCreatorString)
+                    }
+                    else {
+                        root = GPXRoot(creator: kGPXCreatorString)
+                    }
                 }
                 else {
                     root = GPXRoot(creator: kGPXCreatorString)
@@ -533,8 +537,8 @@ class CoreDataHelper {
         // current segment should be 'reset' as well
         self.currentSegment = GPXTrackSegment()
         
-        // clear fileRow value
-        UserDefaults.standard.removeObject(forKey: "fileRowIndex")
+        // clear gpxFileName value
+        UserDefaults.standard.removeObject(forKey: "gpxFileName")
     }
     
 }
