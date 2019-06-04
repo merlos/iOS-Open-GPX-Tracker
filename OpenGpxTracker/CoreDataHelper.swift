@@ -413,25 +413,28 @@ class CoreDataHelper {
             if self.currentSegment.trackpoints.count > 0 || self.waypoints.count > 0 {
                 
                 let root: GPXRoot
+                let track: GPXTrack
                 
                 if let lastFileName = UserDefaults.standard.string(forKey: "gpxFileName") {
                     if lastFileName != "" {
                         let gpx = GPXFileManager.URLForFilename(lastFileName)
                         let parsedRoot = GPXParser(withURL: gpx)?.parsedData()
                         root = parsedRoot ?? GPXRoot(creator: kGPXCreatorString)
+                        track = root.tracks.last ?? GPXTrack()
                     }
                     else {
                         root = GPXRoot(creator: kGPXCreatorString)
+                        track = GPXTrack()
                     }
                 }
                 else {
                     root = GPXRoot(creator: kGPXCreatorString)
+                    track = GPXTrack()
                 }
 
                 // generates a GPXRoot from recovered data
-                let track = GPXTrack()
                 
-                track.tracksegments = self.tracksegments
+                track.tracksegments.append(contentsOf: self.tracksegments)
                 root.add(track: track)
                 root.waypoints = [GPXWaypoint]()
                 root.add(waypoints: self.waypoints)
