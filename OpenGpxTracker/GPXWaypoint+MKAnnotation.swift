@@ -41,9 +41,7 @@ extension GPXWaypoint : MKAnnotation {
     
     convenience init (coordinate: CLLocationCoordinate2D, altitude: CLLocationDistance?) {
         self.init(coordinate: coordinate)
-        if altitude != nil {
-            self.elevation = altitude
-        }
+        self.elevation = altitude
     }
     
     /// Title displayed on the annotation bubble.
