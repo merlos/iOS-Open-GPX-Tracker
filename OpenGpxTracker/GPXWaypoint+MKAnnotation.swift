@@ -39,6 +39,11 @@ extension GPXWaypoint : MKAnnotation {
         self.subtitle = subtitleFormat.string(from: now)
     }
     
+    convenience init (coordinate: CLLocationCoordinate2D, altitude: CLLocationDistance?) {
+        self.init(coordinate: coordinate)
+        self.elevation = altitude
+    }
+    
     /// Title displayed on the annotation bubble.
     /// Is the attribute name of the waypoint.
     public var title: String? {
