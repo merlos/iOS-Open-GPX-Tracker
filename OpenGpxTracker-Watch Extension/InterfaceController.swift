@@ -262,7 +262,8 @@ class InterfaceController: WKInterfaceController {
     ///
     @IBAction func addPinAtMyLocation() {
         if let currentCoordinates = locationManager.location?.coordinate {
-            let waypoint = GPXWaypoint(coordinate: currentCoordinates)
+            let altitude = locationManager.location?.altitude
+            let waypoint = GPXWaypoint(coordinate: currentCoordinates, altitude: altitude)
             map.addWaypoint(waypoint)
             print("Adding waypoint at \(currentCoordinates)")
             self.hasWaypoints = true
