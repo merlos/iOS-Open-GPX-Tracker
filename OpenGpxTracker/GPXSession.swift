@@ -1,21 +1,25 @@
 //
-//  GPXMapView-watchOS.swift
-//  OpenGpxTracker-Watch Extension
+//  GPXSession.swift
+//  OpenGpxTracker
 //
-//  Created by Vincent on 6/2/19.
-//  Copyright © 2019 TransitBox. All rights reserved.
+//  Created by Vincent Neo on 13/6/19.
 //
-// REMOVE BEFORE MERGING
-/*
-import WatchKit
-import MapKit
-import CoreGPX
 
+import Foundation
+import CoreGPX
+import CoreLocation
+
+#if os(iOS)
+/// GPX creator identifier. Used on generated files identify this app created them.
+let kGPXCreatorString = "Open GPX Tracker for iOS"
+
+#elseif os(watchOS)
 /// GPX creator identifier. Used on generated files identify this app created them.
 let kGPXCreatorString = "Open GPX Tracker for watchOS"
+typealias GPXMapView = GPXSession
+#endif
 
-
-class GPXMapView {
+class GPXSession {
     
     /// List of waypoints currently displayed on the map.
     var waypoints: [GPXWaypoint] = []
@@ -41,7 +45,7 @@ class GPXMapView {
     /// Current segment distance in meters
     var currentSegmentDistance = 0.00
     
-
+    
     ///
     /// Adds a waypoint to the map.
     ///
@@ -64,10 +68,7 @@ class GPXMapView {
             print("Waypoint not found")
             return
         }
-        //self.removeAnnotation(waypoint)
         waypoints.remove(at: index!)
-        //TODO: update map extent?
-        
     }
     
     ///
@@ -78,8 +79,14 @@ class GPXMapView {
     func addPointToCurrentTrackSegmentAtLocation(_ location: CLLocation) {
         let pt = GPXTrackPoint(location: location)
         self.currentSegment.add(trackpoint: pt)
-        self.extent.extendAreaToIncludeLocation(location.coordinate)
-        
+        //self.extent.extendAreaToIncludeLocation(location.coordinate)
+        if #available(watchOS 2, *) {
+            incrementDistanceAtLocation(location)
+        }
+    }
+    
+    func incrementDistanceAtLocation(_ location: CLLocation) {
+
         //add the distance to previous tracked point
         if self.currentSegment.trackpoints.count >= 2 { //at elast there are two points in the segment
             let prevPt = self.currentSegment.trackpoints[self.currentSegment.trackpoints.count-2] //get previous point
@@ -92,6 +99,7 @@ class GPXMapView {
             self.currentSegmentDistance += distance
         }
     }
+    
     
     ///
     /// Appends currentSegment to trackSegments and initializes currentSegment to a new one.
@@ -144,4 +152,3 @@ class GPXMapView {
     }
     
 }
-*/
