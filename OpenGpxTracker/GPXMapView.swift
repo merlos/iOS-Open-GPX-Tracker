@@ -34,6 +34,7 @@ import CoreGPX
 ///
 class GPXMapView: MKMapView {
     
+    /// Current session of GPX location logging. Handles all background tasks and recording.
     let session = GPXSession()
 
     /// The line being displayed on the map that corresponds to the current segment.
@@ -173,8 +174,6 @@ class GPXMapView: MKMapView {
         currentSegmentOverlay = self.session.currentSegment.overlay
         self.addOverlay(currentSegmentOverlay)
         self.extent.extendAreaToIncludeLocation(location.coordinate)
-        
-        self.session.incrementDistanceAtLocation(location)
     }
     
     ///
@@ -189,7 +188,7 @@ class GPXMapView: MKMapView {
     }
     
     ///
-    /// Finishes current segmet.
+    /// Finishes current segment.
     ///
     func finishCurrentSegment() {
         self.startNewTrackSegment() //basically, we need to append the segment to the list of segments
@@ -243,9 +242,8 @@ class GPXMapView: MKMapView {
         //clear current map
         self.clearMap()
         //add waypoints
-        self.session.waypoints = gpx.waypoints
-        for pt in self.session.waypoints {
-            self.session.addWaypoint(pt)
+        for pt in gpx.waypoints {
+            self.addWaypoint(pt)
         }
         //add track segments
         self.session.tracks = gpx.tracks

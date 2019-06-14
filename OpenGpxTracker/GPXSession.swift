@@ -16,6 +16,8 @@ let kGPXCreatorString = "Open GPX Tracker for iOS"
 #elseif os(watchOS)
 /// GPX creator identifier. Used on generated files identify this app created them.
 let kGPXCreatorString = "Open GPX Tracker for watchOS"
+
+/// Such that current watch app code remains compatible without needing to rename.
 typealias GPXMapView = GPXSession
 #endif
 
@@ -34,7 +36,7 @@ class GPXSession {
     var currentSegment: GPXTrackSegment =  GPXTrackSegment()
     
     ///
-    var extent: GPXExtentCoordinates = GPXExtentCoordinates() //extent of the GPX points and tracks
+    //var extent: GPXExtentCoordinates = GPXExtentCoordinates() //extent of the GPX points and tracks
     
     /// Total tracked distance in meters
     var totalTrackedDistance = 0.00
@@ -54,7 +56,6 @@ class GPXSession {
     func addWaypoint(_ waypoint: GPXWaypoint) {
         self.waypoints.append(waypoint)
         //self.addAnnotation(waypoint)
-        self.extent.extendAreaToIncludeLocation(waypoint.coordinate)
     }
     
     ///
@@ -79,14 +80,7 @@ class GPXSession {
     func addPointToCurrentTrackSegmentAtLocation(_ location: CLLocation) {
         let pt = GPXTrackPoint(location: location)
         self.currentSegment.add(trackpoint: pt)
-        //self.extent.extendAreaToIncludeLocation(location.coordinate)
-        if #available(watchOS 2, *) {
-            incrementDistanceAtLocation(location)
-        }
-    }
-    
-    func incrementDistanceAtLocation(_ location: CLLocation) {
-
+        
         //add the distance to previous tracked point
         if self.currentSegment.trackpoints.count >= 2 { //at elast there are two points in the segment
             let prevPt = self.currentSegment.trackpoints[self.currentSegment.trackpoints.count-2] //get previous point
@@ -99,7 +93,6 @@ class GPXSession {
             self.currentSegmentDistance += distance
         }
     }
-    
     
     ///
     /// Appends currentSegment to trackSegments and initializes currentSegment to a new one.
@@ -120,7 +113,7 @@ class GPXSession {
         self.tracks = []
         self.currentSegment = GPXTrackSegment()
         self.waypoints = []
-        self.extent = GPXExtentCoordinates()
+        //self.extent = GPXExtentCoordinates()
         
         self.totalTrackedDistance = 0.00
         self.currentTrackDistance = 0.00
