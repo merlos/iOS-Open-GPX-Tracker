@@ -198,7 +198,7 @@ class GPXMapView: MKMapView {
     /// Clears map.
     ///
     func clearMap() {
-        self.session.clearMap()
+        self.session.reset()
         self.removeOverlays(self.overlays)
         self.removeAnnotations(self.annotations)
         self.extent = GPXExtentCoordinates()

@@ -139,7 +139,7 @@ class InterfaceController: WKInterfaceController {
                 stopWatch.reset()
                 timeLabel.setText(stopWatch.elapsedTimeString)
                 
-                map.clearMap() //clear map
+                map.reset() //reset gpx logging
                 lastGpxFilename = "" //clear last filename, so when saving it appears an empty field
                 
                 totalTrackedDistanceLabel.setText(map.totalTrackedDistance.toDistance(useImperial: preferences.useImperial))
