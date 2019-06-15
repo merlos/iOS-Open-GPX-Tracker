@@ -415,12 +415,15 @@ class CoreDataHelper {
                 let root: GPXRoot
                 let track: GPXTrack
                 
+                var fileName = ""
+                
                 if let lastFileName = UserDefaults.standard.string(forKey: "gpxFileName") {
                     if lastFileName != "" {
                         let gpx = GPXFileManager.URLForFilename(lastFileName)
                         let parsedRoot = GPXParser(withURL: gpx)?.parsedData()
                         root = parsedRoot ?? GPXRoot(creator: kGPXCreatorString)
                         track = root.tracks.last ?? GPXTrack()
+                        fileName = lastFileName
                     }
                     else {
                         root = GPXRoot(creator: kGPXCreatorString)
@@ -450,7 +453,7 @@ class CoreDataHelper {
                     }
                     // option to continue previous session, which will load it, but not save
                     let continueAction = UIAlertAction(title: "Continue Session", style: .default) { (action) in
-                        NotificationCenter.default.post(name: .loadRecoveredFile, object: nil, userInfo: ["recoveredRoot" : root])
+                        NotificationCenter.default.post(name: .loadRecoveredFile, object: nil, userInfo: ["recoveredRoot" : root, "fileName" : fileName])
                         self.clearAll()
                     }
                     
@@ -500,7 +503,7 @@ class CoreDataHelper {
             dateString = dateFormatter.string(from: Date())
         }
         
-        let recoveredFileName = "recovery-\(dateString))"
+        let recoveredFileName = "recovery-\(dateString)"
         let gpxString = gpx.gpx()
         
         // Save the recovered file.

@@ -648,7 +648,10 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         guard let root = notification.userInfo?["recoveredRoot"] as? GPXRoot else {
             return
         }
-        didLoadGPXFileWithName("", gpxRoot: root)
+        guard let fileName = notification.userInfo?["fileName"] as? String else {
+            return
+        }
+        didLoadGPXFileWithName(fileName, gpxRoot: root)
     }
     
     ///
