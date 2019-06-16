@@ -865,6 +865,8 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
             let gpxString = self.map.exportToGPXString()
             GPXFileManager.save(filename!, gpxContents: gpxString)
             self.lastGpxFilename = filename!
+            self.map.coreDataHelper.deleteLastFileNameFromCoreData()
+            self.map.coreDataHelper.add(toCoreData: filename!)
         }
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (action) in }
         
