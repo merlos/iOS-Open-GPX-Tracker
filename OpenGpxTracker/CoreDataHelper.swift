@@ -74,6 +74,7 @@ class CoreDataHelper {
         childManagedObjectContext.parent = appDelegate.managedObjectContext
         
         childManagedObjectContext.perform {
+            print("Core Data Helper: Add trackpoint with id: \(self.trackpointId)")
             let pt = NSEntityDescription.insertNewObject(forEntityName: "CDTrackpoint", into: childManagedObjectContext) as! CDTrackpoint
             
             guard let elevation = trackpoint.elevation else { return }
@@ -121,6 +122,7 @@ class CoreDataHelper {
         waypointChildManagedObjectContext.parent = appDelegate.managedObjectContext
         
         waypointChildManagedObjectContext.perform {
+            print("Core Data Helper: Add waypoint with id: \(self.waypointId)")
             let pt = NSEntityDescription.insertNewObject(forEntityName: "CDWaypoint", into: waypointChildManagedObjectContext) as! CDWaypoint
             
             guard let latitude = waypoint.latitude   else { return }
@@ -498,26 +500,23 @@ class CoreDataHelper {
             if self.currentSegment.trackpoints.count > 0 || self.waypoints.count > 0 {
                 
                 let root: GPXRoot
-                let track: GPXTrack
+                let track = GPXTrack()
 
                 // will load file if file was resumed before crash
                 if self.lastFileName != "" {
                     let gpx = GPXFileManager.URLForFilename(self.lastFileName)
                     let parsedRoot = GPXParser(withURL: gpx)?.parsedData()
                     root = parsedRoot ?? GPXRoot(creator: kGPXCreatorString)
-                    track = root.tracks.last ?? GPXTrack()
                 }
                 else {
                     root = GPXRoot(creator: kGPXCreatorString)
-                    track = GPXTrack()
                 }
                 // generates a GPXRoot from recovered data
                 
-                track.tracksegments.append(contentsOf: self.tracksegments)
+                track.tracksegments = self.tracksegments
                 root.add(track: track)
                 root.waypoints = [GPXWaypoint]()
                 root.add(waypoints: self.waypoints)
-                self.deleteLastFileNameFromCoreData()
                 // asks user on what to do with recovered data
                 DispatchQueue.main.sync {
                     // main action sheet setup
@@ -526,13 +525,11 @@ class CoreDataHelper {
                     // option to cancel
                     let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (action) in
                         self.clearAll()
-                        self.deleteLastFileNameFromCoreData()
                     }
                     // option to continue previous session, which will load it, but not save
                     let continueAction = UIAlertAction(title: "Continue Session", style: .default) { (action) in
                         NotificationCenter.default.post(name: .loadRecoveredFile, object: nil, userInfo: ["recoveredRoot" : root, "fileName" : self.lastFileName])
                         self.clearAll()
-                        self.deleteLastFileNameFromCoreData()
                     }
                     
                     // option to save silently as file, session remains new

@@ -141,8 +141,8 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
                 timeLabel.text = stopWatch.elapsedTimeString
                 
                 map.clearMap() //clear map
-                map.coreDataHelper.deleteLastFileNameFromCoreData()
                 lastGpxFilename = "" //clear last filename, so when saving it appears an empty field
+                map.coreDataHelper.add(toCoreData: lastGpxFilename)
                 
                 totalTrackedDistanceLabel.distance = (map.totalTrackedDistance)
                 currentSegmentDistanceLabel.distance = (map.currentSegmentDistance)
