@@ -142,7 +142,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
                 
                 map.clearMap() //clear map
                 lastGpxFilename = "" //clear last filename, so when saving it appears an empty field
-                map.coreDataHelper.add(toCoreData: lastGpxFilename)
+                map.coreDataHelper.deleteLastFileNameFromCoreData()
                 
                 totalTrackedDistanceLabel.distance = (map.totalTrackedDistance)
                 currentSegmentDistanceLabel.distance = (map.currentSegmentDistance)

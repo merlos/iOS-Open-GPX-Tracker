@@ -18,8 +18,8 @@ import CoreGPX
 class CoreDataHelper {
     
     // MARK:- IDs
-    
     // ids to keep track of object's sequence
+    
     /// for waypoints
     var waypointId: Int64 = 0
     /// for trackpoints
@@ -28,20 +28,34 @@ class CoreDataHelper {
     /// id to seperate trackpoints in different tracksegements
     var tracksegmentId = Int64()
     
-    // app delegate.
+    // MARK:- Other Declarations
+    
+    /// app delegate.
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     
     // arrays for handling retrieval of data when needed.
+    
+    // recovered tracksegments
     var tracksegments = [GPXTrackSegment]()
+    
+    // recovered current segment
     var currentSegment = GPXTrackSegment()
+    
+    // recovered waypoints, inclusive of waypoints from previous file if file is loaded on recovery.
     var waypoints = [GPXWaypoint]()
+    
+    // last file name of the recovered file, if the recovered file was a continuation.
     var lastFileName = String()
     
     // MARK:- Add to Core Data
     
+    /// Adds the last file name to Core Data
+    ///
+    /// - Parameters:
+    ///     - lastFileName: Last file name of the previously logged GPX file.
+    ///
     func add(toCoreData lastFileName: String) {
-        deleteLastFileNameFromCoreData()
-        
+
         let childManagedObjectContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
         // Creates the link between child and parent
         childManagedObjectContext.parent = appDelegate.managedObjectContext
@@ -68,6 +82,13 @@ class CoreDataHelper {
         }
     }
     
+    /// Adds a trackpoint to Core Data
+    ///
+    /// A track segment ID should also be provided, such that trackpoints would be seperated in their track segments when recovered.
+    /// - Parameters:
+    ///     - trackpoint: the trackpoint meant to be added to Core Data
+    ///     - Id: track segment ID that the trackpoint originally was in.
+    ///
     func add(toCoreData trackpoint: GPXTrackPoint, withTrackSegmentID Id: Int) {
         let childManagedObjectContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
         // Creates the link between child and parent
@@ -116,6 +137,11 @@ class CoreDataHelper {
         }
     }
     
+    /// Adds a waypoint to Core Data
+    ///
+    /// - Parameters:
+    ///     - waypoint: the waypoint meant to be added to Core Data
+    ///
     func add(toCoreData waypoint: GPXWaypoint) {
         let waypointChildManagedObjectContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
         // Creates the link between child and parent
@@ -163,6 +189,13 @@ class CoreDataHelper {
         }
     }
     
+    /// Updates a previously added waypoint to Core Data
+    ///
+    /// The waypoint at the given index will be updated accordingly.
+    /// - Parameters:
+    ///     - updatedWaypoint: the waypoint meant to replace a already added, Core Data waypoint.
+    ///     - index: the waypoint that is meant to be replaced/updated to newer data.
+    ///
     func update(toCoreData updatedWaypoint: GPXWaypoint, from index: Int) {
         let privateManagedObjectContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
         privateManagedObjectContext.parent = appDelegate.managedObjectContext
@@ -215,6 +248,12 @@ class CoreDataHelper {
     
     // MARK:- Retrieval From Core Data
 
+    /// Retrieves everything from Core Data
+    ///
+    /// Currently, it retrieves CDTrackpoint, CDWaypoint and CDRoot, to process from those Core Data types to CoreGPX types such as GPXTrackPoint, GPXWaypoint, etc.
+    ///
+    /// It will also call on crashFileRecovery() method to continue the next procudure.
+    ///
     func retrieveFromCoreData() {
         let privateManagedObjectContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
         privateManagedObjectContext.parent = appDelegate.managedObjectContext
@@ -322,6 +361,7 @@ class CoreDataHelper {
     
     // MARK:- Delete from Core Data
     
+    /// Deletes all CDRoot entity objects from Core Data.
     func deleteLastFileNameFromCoreData() {
         let privateManagedObjectContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
         privateManagedObjectContext.parent = appDelegate.managedObjectContext
@@ -494,6 +534,12 @@ class CoreDataHelper {
     ///
     /// Adds all the 'recovered' content retrieved earlier to newly initialized `GPXRoot`.
     /// Deletes and clears core data stuff after user decision is made.
+    ///
+    /// Currently, there are three user decisions allowed:
+    /// - To continue last session, which loads the recovered data including previous file data (if applicable) on the map.
+    /// - To save recovered data silently in background and start a fresh new session immediately.
+    /// - To delete and ignore recovered data, to start a fresh new session instead.
+    ///
     func crashFileRecovery() {
         DispatchQueue.global().async {
             // checks if trackpoint and waypoint are available
@@ -563,7 +609,7 @@ class CoreDataHelper {
         window.rootViewController?.present(alertController, animated: true, completion: nil)
     }
     
-    /// saves recovered data to a gpx file.
+    /// saves recovered data to a gpx file, silently, without loading on map.
     func saveFile(from gpx: GPXRoot, andIfAvailable lastfileName: String) {
         // date format same as usual.
         let dateFormatter = DateFormatter()
