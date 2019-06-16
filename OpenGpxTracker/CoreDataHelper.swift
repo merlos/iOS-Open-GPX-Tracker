@@ -35,8 +35,38 @@ class CoreDataHelper {
     var tracksegments = [GPXTrackSegment]()
     var currentSegment = GPXTrackSegment()
     var waypoints = [GPXWaypoint]()
+    var lastFileName = String()
     
     // MARK:- Add to Core Data
+    
+    func add(toCoreData lastFileName: String) {
+        deleteLastFileNameFromCoreData()
+        
+        let childManagedObjectContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
+        // Creates the link between child and parent
+        childManagedObjectContext.parent = appDelegate.managedObjectContext
+        
+        childManagedObjectContext.perform {
+            let root = NSEntityDescription.insertNewObject(forEntityName: "CDRoot", into: childManagedObjectContext) as! CDRoot
+            
+            root.lastFileName = lastFileName
+            
+            do {
+                try childManagedObjectContext.save()
+                self.appDelegate.managedObjectContext.performAndWait {
+                    do {
+                        // Saves the data from the child to the main context to be stored properly
+                        try self.appDelegate.managedObjectContext.save()
+                    } catch {
+                        print("Failure to save parent context when adding last file name: \(error)")
+                    }
+                }
+            }
+            catch {
+                print("Failure to save child context when adding last file name: \(error)")
+            }
+        }
+    }
     
     func add(toCoreData trackpoint: GPXTrackPoint, withTrackSegmentID Id: Int) {
         let childManagedObjectContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
@@ -189,12 +219,24 @@ class CoreDataHelper {
         // Creates a fetch request
         let trkptFetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "CDTrackpoint")
         let wptFetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "CDWaypoint")
+        let rootFetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "CDRoot")
         
         // Ensure that fetched data is ordered 
         let sortTrkpt = NSSortDescriptor(key: "trackpointId", ascending: true)
         let sortWpt = NSSortDescriptor(key: "waypointId", ascending: true)
         trkptFetchRequest.sortDescriptors = [sortTrkpt]
         wptFetchRequest.sortDescriptors = [sortWpt]
+        
+        let asyncRootFetchRequest = NSAsynchronousFetchRequest(fetchRequest: rootFetchRequest) { asynchronousFetchResult in
+            guard let rootResults = asynchronousFetchResult.finalResult as? [CDRoot] else {
+                return }
+            
+            DispatchQueue.main.async {
+                guard let objectID = rootResults.last?.objectID else { self.lastFileName = ""; return }
+                guard let safePoint = self.appDelegate.managedObjectContext.object(with: objectID) as? CDRoot else { self.lastFileName = ""; return }
+                self.lastFileName = safePoint.lastFileName ?? ""
+            }
+        }
         
         // Creates `asynchronousFetchRequest` with the fetch request and the completion closure
         let asynchronousTrackPointFetchRequest = NSAsynchronousFetchRequest(fetchRequest: trkptFetchRequest) { asynchronousFetchResult in
@@ -268,6 +310,7 @@ class CoreDataHelper {
             // Executes two requests, one for trackpoint, one for waypoint.
             
             // Note: it appears that the actual object context execution happens after all of this, probably due to its async nature.
+            try privateManagedObjectContext.execute(asyncRootFetchRequest)
             try privateManagedObjectContext.execute(asynchronousTrackPointFetchRequest)
             try privateManagedObjectContext.execute(asynchronousWaypointFetchRequest)
         } catch let error {
@@ -277,8 +320,49 @@ class CoreDataHelper {
     
     // MARK:- Delete from Core Data
     
+    func deleteLastFileNameFromCoreData() {
+        let privateManagedObjectContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
+        privateManagedObjectContext.parent = appDelegate.managedObjectContext
+        // Creates a fetch request
+        let rootFetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "CDRoot")
+        
+        let asynchronousWaypointFetchRequest = NSAsynchronousFetchRequest(fetchRequest: rootFetchRequest) { asynchronousFetchResult in
+            
+            print("Core Data Helper: delete last filename from Core Data.")
+            
+            // Retrieves an array of points from Core Data
+            guard let results = asynchronousFetchResult.finalResult as? [CDRoot] else { return }
+            
+            for result in results {
+                privateManagedObjectContext.delete(result)
+            }
+            
+            do {
+                try privateManagedObjectContext.save()
+                self.appDelegate.managedObjectContext.performAndWait {
+                    do {
+                        // Saves the changes from the child to the main context to be applied properly
+                        try self.appDelegate.managedObjectContext.save()
+                    } catch {
+                        print("Failure to save context: \(error)")
+                    }
+                }
+            }
+            catch {
+                print("Failure to save context at child context: \(error)")
+            }
+        }
+        
+        do {
+            try privateManagedObjectContext.execute(asynchronousWaypointFetchRequest)
+        } catch let error {
+            print("NSAsynchronousFetchRequest (while deleting last file name) error: \(error)")
+        }
+    }
+    
     /// Delete Waypoint from index
     func deleteWaypoint(fromCoreDataAt index: Int) {
+        lastFileName = String()
         let privateManagedObjectContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
         privateManagedObjectContext.parent = appDelegate.managedObjectContext
         // Creates a fetch request
@@ -343,6 +427,7 @@ class CoreDataHelper {
                     self.resetIds()
                     
                     try privateManagedObjectContext.save()
+                    
                     self.appDelegate.managedObjectContext.performAndWait {
                         do {
                             // Saves the changes from the child to the main context to be applied properly
@@ -414,34 +499,25 @@ class CoreDataHelper {
                 
                 let root: GPXRoot
                 let track: GPXTrack
-                
-                var fileName = ""
-                
-                if let lastFileName = UserDefaults.standard.string(forKey: "gpxFileName") {
-                    if lastFileName != "" {
-                        let gpx = GPXFileManager.URLForFilename(lastFileName)
-                        let parsedRoot = GPXParser(withURL: gpx)?.parsedData()
-                        root = parsedRoot ?? GPXRoot(creator: kGPXCreatorString)
-                        track = root.tracks.last ?? GPXTrack()
-                        fileName = lastFileName
-                    }
-                    else {
-                        root = GPXRoot(creator: kGPXCreatorString)
-                        track = GPXTrack()
-                    }
+
+                // will load file if file was resumed before crash
+                if self.lastFileName != "" {
+                    let gpx = GPXFileManager.URLForFilename(self.lastFileName)
+                    let parsedRoot = GPXParser(withURL: gpx)?.parsedData()
+                    root = parsedRoot ?? GPXRoot(creator: kGPXCreatorString)
+                    track = root.tracks.last ?? GPXTrack()
                 }
                 else {
                     root = GPXRoot(creator: kGPXCreatorString)
                     track = GPXTrack()
                 }
-
                 // generates a GPXRoot from recovered data
                 
                 track.tracksegments.append(contentsOf: self.tracksegments)
                 root.add(track: track)
                 root.waypoints = [GPXWaypoint]()
                 root.add(waypoints: self.waypoints)
-                
+                self.deleteLastFileNameFromCoreData()
                 // asks user on what to do with recovered data
                 DispatchQueue.main.sync {
                     // main action sheet setup
@@ -450,16 +526,18 @@ class CoreDataHelper {
                     // option to cancel
                     let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (action) in
                         self.clearAll()
+                        self.deleteLastFileNameFromCoreData()
                     }
                     // option to continue previous session, which will load it, but not save
                     let continueAction = UIAlertAction(title: "Continue Session", style: .default) { (action) in
-                        NotificationCenter.default.post(name: .loadRecoveredFile, object: nil, userInfo: ["recoveredRoot" : root, "fileName" : fileName])
+                        NotificationCenter.default.post(name: .loadRecoveredFile, object: nil, userInfo: ["recoveredRoot" : root, "fileName" : self.lastFileName])
                         self.clearAll()
+                        self.deleteLastFileNameFromCoreData()
                     }
                     
                     // option to save silently as file, session remains new
                     let saveAction = UIAlertAction(title: "Save and Start New", style: .default) { (action) in
-                        self.saveFile(from: root)
+                        self.saveFile(from: root, andIfAvailable: self.lastFileName)
                     }
                     
                     alertController.addAction(cancelAction)
@@ -489,21 +567,24 @@ class CoreDataHelper {
     }
     
     /// saves recovered data to a gpx file.
-    func saveFile(from gpx: GPXRoot) {
+    func saveFile(from gpx: GPXRoot, andIfAvailable lastfileName: String) {
         // date format same as usual.
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd-MMM-yyyy-HHmm"
-        var dateString = String()
+        var fileName = String()
         
-        if let lastTrkptDate = gpx.tracks.last?.tracksegments.last?.trackpoints.last?.time {
-            dateString = dateFormatter.string(from: lastTrkptDate)
+        if lastfileName != "" {
+            fileName = lastfileName
+        }
+        else if let lastTrkptDate = gpx.tracks.last?.tracksegments.last?.trackpoints.last?.time {
+            fileName = dateFormatter.string(from: lastTrkptDate)
         }
         else {
             // File name's date will be as of recovery time, not of crash time.
-            dateString = dateFormatter.string(from: Date())
+            fileName = dateFormatter.string(from: Date())
         }
         
-        let recoveredFileName = "recovery-\(dateString)"
+        let recoveredFileName = "recovery-\(fileName)"
         let gpxString = gpx.gpx()
         
         // Save the recovered file.
@@ -512,6 +593,7 @@ class CoreDataHelper {
         
         // clear aft save.
         self.clearAll()
+        self.deleteLastFileNameFromCoreData()
     }
     
     // MARK:- Reset & Clear
@@ -543,8 +625,6 @@ class CoreDataHelper {
         // current segment should be 'reset' as well
         self.currentSegment = GPXTrackSegment()
         
-        // clear gpxFileName value
-        UserDefaults.standard.removeObject(forKey: "gpxFileName")
     }
     
 }

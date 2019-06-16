@@ -141,6 +141,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
                 timeLabel.text = stopWatch.elapsedTimeString
                 
                 map.clearMap() //clear map
+                map.coreDataHelper.deleteLastFileNameFromCoreData()
                 lastGpxFilename = "" //clear last filename, so when saving it appears an empty field
                 
                 totalTrackedDistanceLabel.distance = (map.totalTrackedDistance)
@@ -1004,6 +1005,8 @@ extension ViewController: GPXFilesTableViewControllerDelegate {
         self.resetButtonTapped()
         //println("Loaded GPX file", gpx.gpx())
         lastGpxFilename = gpxFilename
+        // adds last file name to core data as well
+        self.map.coreDataHelper.add(toCoreData: gpxFilename)
         //force reset timer just in case reset does not do it
         self.stopWatch.reset()
         //load data

@@ -226,7 +226,6 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
             return
         }
         
-        UserDefaults.standard.set(gpxFileInfo.fileName, forKey: "gpxFileName")
         self.delegate?.didLoadGPXFileWithName(gpxFileInfo.fileName, gpxRoot: gpx)
         self.dismiss(animated: true, completion: nil)
         
