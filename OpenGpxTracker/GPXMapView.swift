@@ -341,7 +341,7 @@ class GPXMapView: MKMapView {
         //clear current map
         self.clearMap()
         
-        for pt in self.waypoints {
+        for pt in gpx.waypoints {
             self.addWaypoint(pt)
         }
         
