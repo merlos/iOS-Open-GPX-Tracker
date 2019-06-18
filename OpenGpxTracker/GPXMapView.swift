@@ -252,7 +252,6 @@ class GPXMapView: MKMapView {
         self.removeOverlays(self.overlays)
         self.removeAnnotations(self.annotations)
         self.extent = GPXExtentCoordinates()
-        self.coreDataHelper.clearAll()
         
         self.totalTrackedDistance = 0.00
         self.currentTrackDistance = 0.00
@@ -336,5 +335,54 @@ class GPXMapView: MKMapView {
 						}
             }
         }
+    }
+    
+    func continueFromGPXRoot(_ gpx: GPXRoot) {
+        //clear current map
+        self.clearMap()
+        
+        for pt in self.waypoints {
+            self.addWaypoint(pt)
+        }
+        
+        let lastTrack = gpx.tracks.last ?? GPXTrack()
+        totalTrackedDistance += lastTrack.length
+        
+        //add track segments
+        self.tracks = gpx.tracks
+        
+        // remove last track as that track is packaged by Core Data, but should its tracksegments should be seperated, into self.tracksegments.
+        self.tracks.removeLast()
+        
+        self.trackSegments = lastTrack.tracksegments
+        
+        // for last session's previous tracks, through resuming
+        for oneTrack in self.tracks {
+            totalTrackedDistance += oneTrack.length
+            for segment in oneTrack.tracksegments {
+                let overlay = segment.overlay
+                self.addOverlay(overlay)
+                
+                let segmentTrackpoints = segment.trackpoints
+                //add point to map extent
+                for waypoint in segmentTrackpoints {
+                    self.extent.extendAreaToIncludeLocation(waypoint.coordinate)
+                }
+            }
+        }
+        
+        // for last session track segment
+        for trackSegment in self.trackSegments {
+            
+            let overlay = trackSegment.overlay
+            self.addOverlay(overlay)
+            
+            let segmentTrackpoints = trackSegment.trackpoints
+            //add point to map extent
+            for waypoint in segmentTrackpoints {
+                self.extent.extendAreaToIncludeLocation(waypoint.coordinate)
+            }
+        }
+        
     }
 }

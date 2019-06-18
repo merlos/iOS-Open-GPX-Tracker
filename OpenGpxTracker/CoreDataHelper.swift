@@ -21,9 +21,9 @@ class CoreDataHelper {
     // ids to keep track of object's sequence
     
     /// for waypoints
-    var waypointId: Int64 = 0
+    var waypointId = Int64()
     /// for trackpoints
-    var trackpointId: Int64 = 0
+    var trackpointId = Int64()
     
     /// id to seperate trackpoints in different tracksegements
     var tracksegmentId = Int64()
@@ -312,6 +312,7 @@ class CoreDataHelper {
                     self.currentSegment.trackpoints.append(pt)
                     
                 }
+                self.trackpointId = trackPointResults.last?.trackpointId ?? Int64()
                 self.tracksegments.append(self.currentSegment)
             }
         }
@@ -339,6 +340,8 @@ class CoreDataHelper {
                     
                     self.waypoints.append(pt)
                 }
+                
+                self.waypointId = waypointResults.last?.waypointId ?? Int64()
                 
                 // trackpoint request first, followed by waypoint request
                 // hence, crashFileRecovery method is ran in this.
@@ -466,7 +469,7 @@ class CoreDataHelper {
                     try privateManagedObjectContext.execute(trackpointDeleteRequest)
                     try privateManagedObjectContext.execute(waypointDeleteRequest)
                     
-                    self.resetIds()
+                    //self.resetIds()
                     
                     try privateManagedObjectContext.save()
                     
@@ -500,7 +503,7 @@ class CoreDataHelper {
                 
                 guard let results = asynchronousFetchResult.finalResult as? [CDWaypoint] else { return }
                 
-                self.resetIds()
+                //self.resetIds()
                 
                 for result in results {
                     privateManagedObjectContext.delete(result)
@@ -575,7 +578,7 @@ class CoreDataHelper {
                     // option to continue previous session, which will load it, but not save
                     let continueAction = UIAlertAction(title: "Continue Session", style: .default) { (action) in
                         NotificationCenter.default.post(name: .loadRecoveredFile, object: nil, userInfo: ["recoveredRoot" : root, "fileName" : self.lastFileName])
-                        self.clearAll()
+                        //self.clearAll()
                     }
                     
                     // option to save silently as file, session remains new
@@ -654,15 +657,16 @@ class CoreDataHelper {
     /// the Id is to ensure that when retrieving the entities, the order remains.
     /// This is important to ensure that the resulting recovery file has the correct order.
     func resetIds() {
-        self.trackpointId = 0
-        self.waypointId = 0
+        self.trackpointId = Int64()
+        self.waypointId = Int64()
         self.tracksegmentId = Int64()
     }
     
     /// Clear all arrays after recovery.
-    func clearArrays() {
+    func clearObjects() {
         self.tracksegments = []
         self.waypoints = []
+        self.currentSegment = GPXTrackSegment()
     }
     
     /// clears all
@@ -671,10 +675,12 @@ class CoreDataHelper {
         self.deleteAllFromCoreData()
         
         // once file recovery is completed, arrays are cleared.
-        self.clearArrays()
+        self.clearObjects()
         
         // current segment should be 'reset' as well
         self.currentSegment = GPXTrackSegment()
+        
+        self.resetIds()
         
     }
     

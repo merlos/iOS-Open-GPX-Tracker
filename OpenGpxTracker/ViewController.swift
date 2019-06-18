@@ -142,6 +142,8 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
                 
                 map.clearMap() //clear map
                 lastGpxFilename = "" //clear last filename, so when saving it appears an empty field
+                
+                map.coreDataHelper.clearAll()
                 map.coreDataHelper.deleteLastFileNameFromCoreData()
                 
                 totalTrackedDistanceLabel.distance = (map.totalTrackedDistance)
@@ -652,7 +654,21 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         guard let fileName = notification.userInfo?["fileName"] as? String else {
             return
         }
-        didLoadGPXFileWithName(fileName, gpxRoot: root)
+
+        lastGpxFilename = fileName
+        // adds last file name to core data as well
+        self.map.coreDataHelper.add(toCoreData: fileName)
+        //force reset timer just in case reset does not do it
+        self.stopWatch.reset()
+        //load data
+        self.map.continueFromGPXRoot(root)
+        //stop following user
+        self.followUser = false
+        //center map in GPX data
+        self.map.regionToGPXExtent()
+        self.gpxTrackingStatus = .paused
+        
+        self.totalTrackedDistanceLabel.distance = self.map.totalTrackedDistance
     }
     
     ///
