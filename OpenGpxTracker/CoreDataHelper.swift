@@ -606,6 +606,14 @@ class CoreDataHelper {
         
         window.windowLevel = windowLevel + 1
         window.makeKeyAndVisible()
+        
+        if let popoverController = alertController.popoverPresentationController {
+            guard let view = window.rootViewController?.view else { return }
+            popoverController.sourceView = view
+            popoverController.sourceRect = CGRect(x: view.bounds.midX, y: view.bounds.midY, width: 0, height: 0)
+            popoverController.permittedArrowDirections = []
+        }
+        
         window.rootViewController?.present(alertController, animated: true, completion: nil)
     }
     
