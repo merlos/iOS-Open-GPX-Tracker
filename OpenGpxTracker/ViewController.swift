@@ -176,8 +176,8 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
                 map.clearMap() //clear map
                 lastGpxFilename = "" //clear last filename, so when saving it appears an empty field
                 
-                totalTrackedDistanceLabel.distance = (map.totalTrackedDistance)
-                currentSegmentDistanceLabel.distance = (map.currentSegmentDistance)
+                totalTrackedDistanceLabel.distance = (map.session.totalTrackedDistance)
+                currentSegmentDistanceLabel.distance = (map.session.currentSegmentDistance)
                 
                 /*
                 // XXX Left here for reference
@@ -1080,7 +1080,7 @@ extension ViewController: GPXFilesTableViewControllerDelegate {
         self.map.regionToGPXExtent()
         self.gpxTrackingStatus = .paused
         
-        self.totalTrackedDistanceLabel.distance = self.map.totalTrackedDistance
+        self.totalTrackedDistanceLabel.distance = self.map.session.totalTrackedDistance
         
     }
 }
@@ -1162,8 +1162,8 @@ extension ViewController: CLLocationManagerDelegate {
         if gpxTrackingStatus == .tracking {
             print("didUpdateLocation: adding point to track (\(newLocation.coordinate.latitude),\(newLocation.coordinate.longitude))")
             map.addPointToCurrentTrackSegmentAtLocation(newLocation)
-            totalTrackedDistanceLabel.distance = map.totalTrackedDistance
-            currentSegmentDistanceLabel.distance = map.currentSegmentDistance
+            totalTrackedDistanceLabel.distance = map.session.totalTrackedDistance
+            currentSegmentDistanceLabel.distance = map.session.currentSegmentDistance
         }
     }
     

@@ -1,20 +1,36 @@
 //
-//  GPXMapView-watchOS.swift
-//  OpenGpxTracker-Watch Extension
+//  GPXSession.swift
+//  OpenGpxTracker
 //
-//  Created by Vincent on 6/2/19.
-//  Copyright © 2019 TransitBox. All rights reserved.
+//  Created by Vincent Neo on 13/6/19.
 //
+//  Shared file: this file is also included in the OpenGpxTracker-Watch Extension target.
 
-import WatchKit
-import MapKit
+import Foundation
 import CoreGPX
+import CoreLocation
 
+#if os(iOS)
+/// GPX creator identifier. Used on generated files identify this app created them.
+let kGPXCreatorString = "Open GPX Tracker for iOS"
+
+#elseif os(watchOS)
 /// GPX creator identifier. Used on generated files identify this app created them.
 let kGPXCreatorString = "Open GPX Tracker for watchOS"
 
+/// Such that current watch app code remains compatible without needing to rename.
+typealias GPXMapView = GPXSession
+#endif
 
-class GPXMapView {
+///
+/// Handles the actual logging of waypoints and trackpoints.
+///
+/// Addition of waypoints, trackpoints, and the handling of adding trackpoints to tracksegments and tracks all happens here.
+/// Exporting the data as a GPX string is also done here as well.
+///
+/// Should not be used directly on iOS, as code origins from `GPXMapView`.
+///
+class GPXSession {
     
     /// List of waypoints currently displayed on the map.
     var waypoints: [GPXWaypoint] = []
@@ -28,9 +44,6 @@ class GPXMapView {
     /// Segment in which device locations are added.
     var currentSegment: GPXTrackSegment =  GPXTrackSegment()
     
-    ///
-    var extent: GPXExtentCoordinates = GPXExtentCoordinates() //extent of the GPX points and tracks
-    
     /// Total tracked distance in meters
     var totalTrackedDistance = 0.00
     
@@ -40,7 +53,7 @@ class GPXMapView {
     /// Current segment distance in meters
     var currentSegmentDistance = 0.00
     
-
+    
     ///
     /// Adds a waypoint to the map.
     ///
@@ -48,14 +61,12 @@ class GPXMapView {
     ///
     func addWaypoint(_ waypoint: GPXWaypoint) {
         self.waypoints.append(waypoint)
-        //self.addAnnotation(waypoint)
-        self.extent.extendAreaToIncludeLocation(waypoint.coordinate)
     }
     
     ///
-    /// Removes a Waypoint from the map
+    /// Removes a Waypoint from current session
     ///
-    /// - Parameters: The waypoint to remove from the map.
+    /// - Parameters: The waypoint to remove from the session.
     ///
     func removeWaypoint(_ waypoint: GPXWaypoint) {
         let index = waypoints.index(of: waypoint)
@@ -63,10 +74,7 @@ class GPXMapView {
             print("Waypoint not found")
             return
         }
-        //self.removeAnnotation(waypoint)
         waypoints.remove(at: index!)
-        //TODO: update map extent?
-        
     }
     
     ///
@@ -77,7 +85,6 @@ class GPXMapView {
     func addPointToCurrentTrackSegmentAtLocation(_ location: CLLocation) {
         let pt = GPXTrackPoint(location: location)
         self.currentSegment.add(trackpoint: pt)
-        self.extent.extendAreaToIncludeLocation(location.coordinate)
         
         //add the distance to previous tracked point
         if self.currentSegment.trackpoints.count >= 2 { //at elast there are two points in the segment
@@ -104,14 +111,13 @@ class GPXMapView {
     }
     
     ///
-    /// Clears map.
+    /// Clears all data held in this object.
     ///
-    func clearMap() {
+    func reset() {
         self.trackSegments = []
         self.tracks = []
         self.currentSegment = GPXTrackSegment()
         self.waypoints = []
-        self.extent = GPXExtentCoordinates()
         
         self.totalTrackedDistance = 0.00
         self.currentTrackDistance = 0.00
@@ -121,11 +127,11 @@ class GPXMapView {
     
     ///
     ///
-    /// Converts current map into a GPX String
+    /// Converts current sessionn into a GPX String
     ///
     ///
     func exportToGPXString() -> String {
-        print("Exporting map data into GPX String")
+        print("Exporting session data into GPX String")
         //Create the gpx structure
         let gpx = GPXRoot(creator: kGPXCreatorString)
         gpx.add(waypoints: self.waypoints)
