@@ -150,6 +150,7 @@ class GPXMapView: MKMapView {
         let coords: CLLocationCoordinate2D = self.convert(point, toCoordinateFrom: self)
         let waypoint = GPXWaypoint(coordinate: coords)
         self.addWaypoint(waypoint)
+        self.coreDataHelper.add(toCoreData: waypoint)
         
     }
     
@@ -160,7 +161,7 @@ class GPXMapView: MKMapView {
     ///
     func addWaypoint(_ waypoint: GPXWaypoint) {
         self.waypoints.append(waypoint)
-        self.coreDataHelper.add(toCoreData: waypoint)
+        
         self.addAnnotation(waypoint)
         self.extent.extendAreaToIncludeLocation(waypoint.coordinate)
     }
@@ -316,6 +317,7 @@ class GPXMapView: MKMapView {
         
         for pt in self.waypoints {
             self.addWaypoint(pt)
+            self.coreDataHelper.add(toCoreData: pt)
         }
 
         //add track segments
