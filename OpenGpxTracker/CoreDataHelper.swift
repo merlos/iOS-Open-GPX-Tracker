@@ -189,6 +189,8 @@ class CoreDataHelper {
         }
     }
     
+    // MARK:- Update Core Data
+    
     /// Updates a previously added waypoint to Core Data
     ///
     /// The waypoint at the given index will be updated accordingly.
@@ -365,6 +367,9 @@ class CoreDataHelper {
     // MARK:- Delete from Core Data
     
     /// Deletes all CDRoot entity objects from Core Data.
+    ///
+    /// CDRoot currently only holds the previous filename, thus,
+    /// deleting all entities would ensure that Core Data will no longer hold any filenames.
     func deleteLastFileNameFromCoreData() {
         let privateManagedObjectContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
         privateManagedObjectContext.parent = appDelegate.managedObjectContext
@@ -406,6 +411,10 @@ class CoreDataHelper {
     }
     
     /// Delete Waypoint from index
+    ///
+    /// - Parameters:
+    ///     - index: index of the waypoint that is meant to be deleted.
+    ///
     func deleteWaypoint(fromCoreDataAt index: Int) {
         lastFileName = String()
         let privateManagedObjectContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
@@ -447,13 +456,13 @@ class CoreDataHelper {
     }
     
     
-    /// Delete all entities in Core Data
-    func deleteAllFromCoreData() {
+    /// Delete all trackpoints and waypoints in Core Data.
+    func deleteAllPointsFromCoreData() {
         
         let privateManagedObjectContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
         privateManagedObjectContext.parent = appDelegate.managedObjectContext
         
-        print("Core Data Helper: Batch Delete all from Core Data")
+        print("Core Data Helper: Batch Delete trackpoints and waypoints from Core Data")
         
         // Creates fetch requests for both trackpoint and waypoint
         let trackpointFetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "CDTrackpoint")
@@ -468,8 +477,6 @@ class CoreDataHelper {
                     // execute both delete requests.
                     try privateManagedObjectContext.execute(trackpointDeleteRequest)
                     try privateManagedObjectContext.execute(waypointDeleteRequest)
-                    
-                    //self.resetIds()
                     
                     try privateManagedObjectContext.save()
                     
@@ -527,7 +534,6 @@ class CoreDataHelper {
             } catch let error {
                 print("NSAsynchronousFetchRequest (for batch delete <iOS 9) error: \(error)")
             }
-            // Fallback on earlier versions
         }
     }
     
@@ -578,7 +584,6 @@ class CoreDataHelper {
                     // option to continue previous session, which will load it, but not save
                     let continueAction = UIAlertAction(title: "Continue Session", style: .default) { (action) in
                         NotificationCenter.default.post(name: .loadRecoveredFile, object: nil, userInfo: ["recoveredRoot" : root, "fileName" : self.lastFileName])
-                        //self.clearAll()
                     }
                     
                     // option to save silently as file, session remains new
@@ -662,7 +667,7 @@ class CoreDataHelper {
         self.tracksegmentId = Int64()
     }
     
-    /// Clear all arrays after recovery.
+    /// Clear all arrays and current segment after recovery.
     func clearObjects() {
         self.tracksegments = []
         self.waypoints = []
@@ -672,7 +677,7 @@ class CoreDataHelper {
     /// clears all
     func clearAll() {
         // once file recovery is completed, Core Data stored items are deleted.
-        self.deleteAllFromCoreData()
+        self.deleteAllPointsFromCoreData()
         
         // once file recovery is completed, arrays are cleared.
         self.clearObjects()

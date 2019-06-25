@@ -710,7 +710,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         print("viewController:: applicationWillTerminate")
         GPXFileManager.removeTemporaryFiles()
         if gpxTrackingStatus == .notStarted {
-            map.coreDataHelper.deleteAllFromCoreData()
+            map.coreDataHelper.deleteAllPointsFromCoreData()
         }
     }
     
