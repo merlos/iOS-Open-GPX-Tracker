@@ -346,7 +346,7 @@ class CoreDataHelper {
                 // trackpoint request first, followed by waypoint request
                 // hence, crashFileRecovery method is ran in this.
                 self.crashFileRecovery()
-                print("async fetches complete.")
+                print("Core Data Helper: async fetches complete.")
             }
         }
         
@@ -429,12 +429,12 @@ class CoreDataHelper {
                         // Saves the changes from the child to the main context to be applied properly
                         try self.appDelegate.managedObjectContext.save()
                     } catch {
-                        print("Failure to save context: \(error)")
+                        print("Failure to save context (when deleting waypoint): \(error)")
                     }
                 }
             }
             catch {
-                print("Failure to save context at child context: \(error)")
+                print("Failure to save context at child context (when deleting waypoint): \(error)")
             }
         }
         
@@ -455,7 +455,7 @@ class CoreDataHelper {
         
         print("Core Data Helper: Batch Delete all from Core Data")
         
-        // Creates a fetch request
+        // Creates fetch requests for both trackpoint and waypoint
         let trackpointFetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "CDTrackpoint")
         let waypointFetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "CDWaypoint")
         

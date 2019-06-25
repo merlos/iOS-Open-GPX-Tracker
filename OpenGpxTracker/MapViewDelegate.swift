@@ -98,12 +98,17 @@ class MapViewDelegate: NSObject, MKMapViewDelegate, UIAlertViewDelegate {
     
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView,
         didChange newState: MKAnnotationView.DragState, fromOldState oldState: MKAnnotationView.DragState) {
-            
-            if newState == MKAnnotationView.DragState.ending {
-                if let point = view.annotation as? GPXWaypoint {
-                    print("Annotation name: \(String(describing: point.title)) lat:\(String(describing:point.latitude)) lon \(String(describing:point.longitude))")
+        let gpxMapView = mapView as! GPXMapView
+        
+        if newState == MKAnnotationView.DragState.ending {
+            if let point = view.annotation as? GPXWaypoint {
+                if let index = gpxMapView.waypoints.firstIndex(of: point) {
+                    gpxMapView.coreDataHelper.update(toCoreData: point, from: index)
                 }
+                
+                print("Annotation name: \(String(describing: point.title)) lat:\(String(describing:point.latitude)) lon \(String(describing:point.longitude))")
             }
+        }
     }
     
     
