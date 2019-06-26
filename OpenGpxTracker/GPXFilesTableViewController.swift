@@ -259,21 +259,21 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
     
     /// Displays an alert with a activity indicator view to indicate loading of gpx file to map
     func displayLoadingFileAlert(_ loading: Bool, completion: (() -> Void)? = nil) {
-        if loading {
-            let alertController = UIAlertController(title: "Loading GPX File", message: nil, preferredStyle: .alert)
-            let activityIndicatorView = UIActivityIndicatorView(frame: CGRect(x: 35, y: 30, width: 32, height: 32))
-            activityIndicatorView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-            
+        // setup of controllers and views
+        let alertController = UIAlertController(title: "Loading GPX File...", message: nil, preferredStyle: .alert)
+        let activityIndicatorView = UIActivityIndicatorView(frame: CGRect(x: 35, y: 30, width: 32, height: 32))
+        activityIndicatorView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        activityIndicatorView.style = .whiteLarge
+        activityIndicatorView.color = .black
+        
+        if loading { // will display alert
             activityIndicatorView.startAnimating()
-            activityIndicatorView.style = .whiteLarge
-            activityIndicatorView.color = .black
-            
             alertController.view.addSubview(activityIndicatorView)
             
             self.present(alertController, animated: true, completion: nil)
-            activityIndicatorView.stopAnimating()
         }
-        else {
+        else { // will dismiss alert
+            activityIndicatorView.stopAnimating()
             self.presentingViewController?.dismiss(animated: true, completion: nil)
         }
         
