@@ -271,6 +271,7 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
             alertController.view.addSubview(activityIndicatorView)
             
             self.present(alertController, animated: true, completion: nil)
+            activityIndicatorView.stopAnimating()
         }
         else {
             self.presentingViewController?.dismiss(animated: true, completion: nil)
