@@ -225,18 +225,56 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
     
     /// Loads the GPX file that corresponds to rowIndex in fileList in the map.
     internal func actionLoadFileAtIndex(_ rowIndex: Int) {
-        guard let gpxFileInfo: GPXFileInfo = (fileList.object(at: rowIndex) as? GPXFileInfo) else {
-            print("GPXFileTableViewController:: actionLoadFileAtIndex(\(rowIndex)): failed to get fileURL")
-            return
+        DispatchQueue.global(qos: .utility).async {
+            DispatchQueue.main.sync {
+                self.displayLoadingFileAlert(true)
+            }
+            
+            guard let gpxFileInfo: GPXFileInfo = (self.fileList.object(at: rowIndex) as? GPXFileInfo) else {
+                print("GPXFileTableViewController:: actionLoadFileAtIndex(\(rowIndex)): failed to get fileURL")
+                self.displayLoadingFileAlert(false)
+                return
+            }
+            
+            print("Load gpx File: \(gpxFileInfo.fileName)")
+            guard let gpx = GPXParser(withURL: gpxFileInfo.fileURL)?.parsedData() else {
+                print("GPXFileTableViewController:: actionLoadFileAtIndex(\(rowIndex)): failed to parse GPX file")
+                self.displayLoadingFileAlert(false)
+                return
+            }
+            
+            DispatchQueue.main.sync {
+                self.displayLoadingFileAlert(false) {
+                    self.delegate?.didLoadGPXFileWithName(gpxFileInfo.fileName, gpxRoot: gpx)
+                    self.dismiss(animated: true, completion: nil)
+                }
+            }
         }
-        print("Load gpx File: \(gpxFileInfo.fileName)")
-        guard let gpx = GPXParser(withURL: gpxFileInfo.fileURL)?.parsedData() else {
-            print("GPXFileTableViewController:: actionLoadFileAtIndex(\(rowIndex)): failed to parse GPX file")
-            return
+
+    }
+    
+    /// Displays an alert with a activity indicator view to indicate loading of gpx file to map
+    func displayLoadingFileAlert(_ loading: Bool, completion: (() -> Void)? = nil) {
+        if loading {
+            let alertController = UIAlertController(title: "Loading GPX File", message: nil, preferredStyle: .alert)
+            let activityIndicatorView = UIActivityIndicatorView(frame: CGRect(x: 35, y: 30, width: 32, height: 32))
+            activityIndicatorView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+            
+            activityIndicatorView.startAnimating()
+            activityIndicatorView.style = .whiteLarge
+            activityIndicatorView.color = .black
+            
+            alertController.view.addSubview(activityIndicatorView)
+            
+            self.present(alertController, animated: true, completion: nil)
         }
-        self.delegate?.didLoadGPXFileWithName(gpxFileInfo.fileName, gpxRoot: gpx)
-        self.dismiss(animated: true, completion: nil)
+        else {
+            self.presentingViewController?.dismiss(animated: true, completion: nil)
+        }
         
+        // if completion handler is used
+        guard let completion = completion else { return }
+        completion()
     }
     
     
