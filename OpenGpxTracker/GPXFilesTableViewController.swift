@@ -173,8 +173,12 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
         sheet.addAction(shareOption)
         sheet.addAction(cancelOption)
         sheet.addAction(deleteOption)
+        
+        var cellRect = tableView.rectForRow(at: indexPath)
+        cellRect.origin = CGPoint(x: 0, y: 0) // origin must be at 0 or sheet will display offset due to height of cell
+        
         sheet.popoverPresentationController?.sourceView = tableView.cellForRow(at: indexPath)
-        sheet.popoverPresentationController?.sourceRect = (tableView.cellForRow(at: indexPath)?.frame)!
+        sheet.popoverPresentationController?.sourceRect = cellRect
         
         self.present(sheet, animated: true) {
             print("Loaded actionSheet")
@@ -287,8 +291,15 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
         print("GPXTableViewController: actionShareFileAtIndex")
         
         let activityViewController = UIActivityViewController(activityItems: [gpxFileInfo.fileURL], applicationActivities: nil)
+        
+        var cellRect = tableView.rectForRow(at: indexPath)
+        cellRect.origin = CGPoint(x: 0, y: 0) // origin must be at 0 or sheet will display offset due to height of cell
+        
         activityViewController.popoverPresentationController?.sourceView = tableView.cellForRow(at: indexPath)
-        activityViewController.popoverPresentationController?.sourceRect = (tableView.cellForRow(at: indexPath)?.frame)!
+        activityViewController.popoverPresentationController?.sourceRect = cellRect
+        
+        // NOTE: as the activity view controller can be quite tall at times, the display of it may be offset automatically at times to ensure the activity view popup fits the screen.
+        
         activityViewController.completionWithItemsHandler = {(activityType: UIActivity.ActivityType?, completed: Bool, returnedItems: [Any]?, error: Error?) in
             if !completed {
                 // User canceled
