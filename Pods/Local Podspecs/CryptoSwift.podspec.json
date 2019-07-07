@@ -1,12 +1,12 @@
 {
   "name": "CryptoSwift",
-  "version": "0.14.0",
+  "version": "1.0.0",
   "source": {
     "git": "https://github.com/krzyzanowskim/CryptoSwift.git",
-    "tag": "0.14.0"
+    "tag": "1.0.0"
   },
-  "summary": "Cryptography in Swift. SHA, MD5, CRC, PBKDF, Poly1305, HMAC, CMAC, HDKF, ChaCha20, Rabbit, Blowfish, AES.",
-  "description": "Cryptography functions and helpers for Swift implemented in Swift. SHA-1, SHA-2, SHA-3, MD5, PBKDF1, PBKDF2, CRC, Poly1305, HMAC, ChaCha20, Rabbit, Blowfish, AES",
+  "summary": "Cryptography in Swift. SHA, MD5, CRC, PBKDF, Poly1305, HMAC, CMAC, HDKF, Scrypt, ChaCha20, Rabbit, Blowfish, AES.",
+  "description": "Cryptography functions and helpers for Swift implemented in Swift. SHA-1, SHA-2, SHA-3, MD5, PBKDF1, PBKDF2, Scrypt, CRC, Poly1305, HMAC, ChaCha20, Rabbit, Blowfish, AES",
   "homepage": "https://github.com/krzyzanowskim/CryptoSwift",
   "license": {
     "type": "Attribution",
@@ -17,10 +17,10 @@
   },
   "social_media_url": "https://twitter.com/krzyzanowskim",
   "cocoapods_version": ">= 1.4.0",
-  "swift_version": "4.2",
+  "swift_versions": "5.0",
   "platforms": {
     "ios": "8.0",
-    "osx": "10.9",
+    "osx": "10.10",
     "watchos": "2.0",
     "tvos": "9.0"
   },
@@ -30,7 +30,8 @@
     "SWIFT_OPTIMIZATION_LEVEL": "-O",
     "SWIFT_COMPILATION_MODE": "wholemodule",
     "SWIFT_DISABLE_SAFETY_CHECKS": "YES",
-    "SWIFT_ENFORCE_EXCLUSIVE_ACCESS": "compile-time",
+    "SWIFT_ENFORCE_EXCLUSIVE_ACCESS": "debug-only",
     "GCC_UNROLL_LOOPS": "YES"
-  }
+  },
+  "swift_version": "5.0"
 }

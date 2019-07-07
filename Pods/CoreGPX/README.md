@@ -1,35 +1,71 @@
-# CoreGPX
-Parse, generate GPX files on iOS, watchOS & macOS.
+<p align="center">
+  <img width=65% height=65% src="https://github.com/vincentneo/CoreGPX/raw/master/CoreGPX%20title.png">
+</p>
+<p align="center">
+	<b>
+	Parse and generate GPX files easily on iOS, watchOS & macOS.
+	</b>
+</p>
 
 [![CI Status](https://travis-ci.com/vincentneo/CoreGPX.svg?branch=master)](https://travis-ci.com/vincentneo/CoreGPX)
-[![Swift Version](https://img.shields.io/badge/Swift-4.2-orange.svg)](https://swift.org/blog/swift-4-2-released/)
+[![Swift Version](https://img.shields.io/badge/Swift-5.0-orange.svg)](https://swift.org/blog/swift-5-released/)
+[![GPX Version](https://img.shields.io/badge/gpx-1.1-yellow.svg)](https://www.topografix.com/gpx/1/1/)
 [![License](http://img.shields.io/:license-mit-blue.svg)](http://doge.mit-license.org)
 [![Platform](https://img.shields.io/cocoapods/p/CoreGPX.svg?style=flat)](https://cocoapods.org/pods/CoreGPX)
 [![Version](https://img.shields.io/cocoapods/v/CoreGPX.svg?style=flat)](https://cocoapods.org/pods/CoreGPX)
+[![Carthage compatible](https://img.shields.io/badge/Carthage-✔-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
+[![Swift Package Manager compatible](https://img.shields.io/badge/Swift%20Package%20Manager-✔-brightgreen.svg)](https://github.com/apple/swift-package-manager)
 
-# What is CoreGPX?
-CoreGPX is a port of iOS-GPX-Framework to Swift language. It aims to be more than a port of the abandoned project, so do expect more features to be added in the future, as development is currently under progress.
+## What is CoreGPX?
+CoreGPX is a port of iOS-GPX-Framework to Swift language.
 
-It makes use of `XMLParser` for parsing GPX files, thus making it fully dependent on the native APIs only.
+CoreGPX currently supports all GPX tags listed in GPX v1.1 schema. It can generate and parse GPX v1.1 compliant files on iOS, macOS and watchOS. 
+
+As it makes use of `XMLParser` for parsing GPX files, CoreGPX is fully dependent on the `Foundation` API only.
 
 ## Features
 - [x] Successfully outputs string that can be packaged into a GPX file
 - [x] Parses GPX files using native XMLParser
-- [x] Support for macOS & watchOS
+- [x] Support for iOS, macOS & watchOS
+- [x] **(new)** Supports `Codable` in essential classes
+- [x] **(beta)** Enhanced support for `GPXExtensions` for both parsing and creating. (Currently only for various elements, but not root extensions itself.)
+
+## Documentation
+
+CoreGPX is documented using [jazzy](https://github.com/realm/jazzy).
+
+[![Documentation Status](https://vincentneo.github.io/CoreGPX/badge.svg)](https://vincentneo.github.io/CoreGPX/index.html)
+
+You can read the documentation [here](https://vincentneo.github.io/CoreGPX/index.html), which documents most of the important features that will be used for parsing and creating of GPX files.
+
+## Installation
+
+CoreGPX supports CocoaPods, Carthage, as well as Swift Package Manager, such that you can install it, any way you want.
+
+To install using [CocoaPods](https://cocoapods.org), simply add the following line to your Podfile:
+
+```ruby
+pod 'CoreGPX'
+```
+
+CoreGPX works with [Carthage](https://github.com/Carthage/Carthage) as well, simply add the following line to your Cartfile:
+```Swift
+github "vincentneo/CoreGPX"
+```
 
 ## How to parse?
 Parsing of GPX files is done by initializing `GPXParser`.
 
-There are three ways of initializing `GPXParser`:
-### You can initialize with a `URL`:
+There are five ways of initializing `GPXParser`,  and these are three main ways of initializing:
+#### You can initialize with a `URL`:
 ```Swift
-let gpx = GPXParser(withURL: inputURL).parsedData()
+guard let gpx = GPXParser(withURL: inputURL)?.parsedData() else { return }
 ```
-### With path:
+#### With path:
 ```Swift
-let gpx = GPXParser(withPath: inputPath).parsedData() // String type
+guard let gpx = GPXParser(withPath: inputPath)?.parsedData() else { return } // String type
 ```
-### Or with `Data`:
+#### With `Data`:
 ```Swift
 let gpx = GPXParser(withData: inputData).parsedData()
 ```
@@ -38,7 +74,7 @@ let gpx = GPXParser(withData: inputData).parsedData()
 
 ### Making use of parsed GPX data
 ```Swift
-let gpx = GPXParser(withURL: inputURL).parsedData()
+guard let gpx = GPXParser(withURL: inputURL)?.parsedData() else { return // do things here when failed }
         
 // waypoints, tracks, tracksegements, trackpoints are all stored as Array depends on the amount stored in the GPX file.
 for waypoint in gpx.waypoints {  // for loop example, every waypoint is written
@@ -54,32 +90,32 @@ for waypoint in gpx.waypoints {  // for loop example, every waypoint is written
 
 ## How to create?
 
-You will first start of with `GPXRoot`.
+You will first start off with a `GPXRoot`.
 
-### Initializing `GPXRoot`
+#### Initializing `GPXRoot`
 ```Swift
 let root = GPXRoot(creator: "Your app name here!") // insert your app name here
 ```
 Now, you can start adding things to your `GPXRoot`. This includes your metadata, waypoints, tracks, routes, as well as extensions(if any).
 
-### Adding waypoints to `GPXRoot`
+#### Adding waypoints to `GPXRoot`
 ```Swift
 root.add(waypoints: arrayOfWaypoints) // adds an array of waypoints
 root.add(waypoint: singleWaypoint)    // adds a single waypoint
 ```
-### Adding tracks to `GPXRoot`
+#### Adding tracks to `GPXRoot`
 ```Swift
 root.add(tracks: arrayOfTracks)       // adds an array of tracks
 root.add(track: singleTrack)          // adds a single track
 ```
 
-### Adding routes to `GPXRoot`
+#### Adding routes to `GPXRoot`
 ```Swift
 root.add(routes: arrayOfRoutes)       // adds an array of routes
 root.add(route: singleRoute)          // adds a single route
 ```
 
-### Adding metadata to `GPXRoot`
+#### Adding metadata to `GPXRoot`
 ```Swift
 let metadata = GPXMetadata()
 metadata.name = "Your Name Here"
@@ -106,13 +142,14 @@ let tracksegment = GPXTrackSegment()            // inits a tracksegment
 tracksegment.add(trackpoints: trackpoints)      // adds an array of trackpoints to a track segment
 track.add(trackSegment: tracksegment)           // adds a track segment to a track
 root.add(track: track)                          // adds a track
-        
-self.gpxString = root.gpx()
-print(gpxString)
-// gpxString contents
-/* 
+
+print(root.gpx())				// prints the GPX formatted string
+
+```
+This would be what you get from `root.gpx()` in the above example: 
+```XML
 <?xml version="1.0" encoding="UTF-8"?>
-<gpx xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.topografix.com/GPX/1/1" xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd" version="1.1" creator="example app">
+<gpx xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.topografix.com/GPX/1/1" xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd" version="1.1" creator="Your app name here!">
 	<trk>
 		<trkseg>
 			<trkpt lat="1.352100" lon="103.819800">
@@ -122,34 +159,34 @@ print(gpxString)
 		</trkseg>
 	</trk>
 </gpx>
-*/
 ```
-`.gpx()` of `GPXRoot` outputs a `String` which can then be packaged as a .GPX file.
+- `.gpx()` of `GPXRoot` outputs a `String` which can then be packaged as a .GPX file.
+- `.OutputToFile(saveAt:fileName:)` directly saves GPX contents to a URL specified.
+
+## Dealing with Extensions
+Extensions in GPX files are represented as `GPXExtensions` in CoreGPX. 
+ 
+ ### Accessing GPX Files's extensions
+ Once a GPX file is parsed, you can access the extensions, by using subscript, with the parent tag.
+ - Use `extensions[nil]`  to get extension data without parent tags.
+ - Use `extensions["ParentTag"]` to get extension data with parent tags (in this case, its `"ParentTag"`)
+ 
+ ### Writing GPX extensions
+ - Firstly, initialize GPXRoot using `init(withExtensionAttributes:, schemaLocation:)` to initialize with extension schema information on the main gpx header tag.
+ - Secondly, initialize GPXExtensions whenever needed, to be added to the GPXRoot/or other elements, when needed.
+ - Use `extensions[nil] = ["Key1" : "Value1"]`  to write extension data without parent tags.
+ - Use `extensions["ParentTag"] = ["ChildKey1" : "ChildValue1"]` to write extension data with parent tags (in this case, its `"ParentTag"`)
+ Alternatively, you can use functions like: 
+ - `insert(withParentTag:, withContents:)` to insert data with/without a parent tag.
+ - `remove(contentsOfParentTag:)` to remove data with/without a parent tag.
 
 ## Example
-To run the example project, clone the repo, and try out the Example!
+To know in depth of what `CoreGPX` can bring, do check out the Example app.
+To run the example project, simply clone the repo, and try it out straight away!
 
 ## Contributing
 Contributions to this project will be more than welcomed. Feel free to add a pull request or open an issue.
-
-#### TO DO Checklist
-Any help would be appreciated!
-- [ ] Extension to metadata to support collection of more info in GPX file
-- [ ] Add tests
-- [ ] Documentation
-- [ ] Code optimisation
-- [ ] New features
-
-
-## Installation
-
-CoreGPX will be available through [CocoaPods](https://cocoapods.org). To install
-it, simply add the following line to your Podfile:
-
-```ruby
-pod 'CoreGPX'
-```
+If you require a feature that has yet to be available, do open an issue, describing why and what the feature could bring and how it would help you!
 
 ## License
-
-CoreGPX is available under the MIT license. See the LICENSE file for more info.
+CoreGPX is available under the MIT license. See the LICENSE file for more info. 
