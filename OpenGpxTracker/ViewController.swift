@@ -266,6 +266,9 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
     /// Share current gpx file button
     var shareButton: UIButton
     
+    /// Spinning Activity Indicator for shareButton
+    let shareActivityIndicator: UIActivityIndicatorView
+    
     /// Reset map button (bottom bar)
     var resetButton: UIButton
     
@@ -315,6 +318,8 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         
         self.trackerButton = UIButton(coder: aDecoder)!
         self.saveButton = UIButton(coder: aDecoder)!
+        
+        self.shareActivityIndicator = UIActivityIndicatorView(coder: aDecoder)
         
         super.init(coder: aDecoder)!
     }
@@ -778,24 +783,65 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         self.present(navController, animated: true) { () -> Void in }
     }
     
-    
     /// Opens an Activity View Controller to share the file
     @objc func openShare() {
-        print("share")
-        //Create a temporary file
-        let filename =  lastGpxFilename.isEmpty ? defaultFilename() : lastGpxFilename
-        let gpxString: String = self.map.exportToGPXString()
-        let tmpFile = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent("\(filename).gpx")
-        GPXFileManager.saveToURL(tmpFile, gpxContents: gpxString)
-        //Add it to the list of tmpFiles.
-        //Note: it may add more than once the same file to the list.
+        print("ViewController: Share Button tapped")
         
-        //Call Share activity View controller
-        let activityViewController = UIActivityViewController(activityItems: [tmpFile], applicationActivities: nil)
-        activityViewController.popoverPresentationController?.sourceView = shareButton
-        activityViewController.popoverPresentationController?.sourceRect = shareButton.bounds
-        self.present(activityViewController, animated: true, completion: nil)
+        // async such that process is done in background
+        DispatchQueue.global(qos: .utility).async {
+            // UI code
+            DispatchQueue.main.sync {
+                self.shouldShowShareActivityIndicator(true)
+            }
+            
+            //Create a temporary file
+            let filename =  self.lastGpxFilename.isEmpty ? self.defaultFilename() : self.lastGpxFilename
+            let gpxString: String = self.map.exportToGPXString()
+            let tmpFile = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent("\(filename).gpx")
+            GPXFileManager.saveToURL(tmpFile, gpxContents: gpxString)
+            //Add it to the list of tmpFiles.
+            //Note: it may add more than once the same file to the list.
+            
+            // UI code
+            DispatchQueue.main.sync {
+                //Call Share activity View controller
+                let activityViewController = UIActivityViewController(activityItems: [tmpFile], applicationActivities: nil)
+                activityViewController.popoverPresentationController?.sourceView = self.shareButton
+                activityViewController.popoverPresentationController?.sourceRect = self.shareButton.bounds
+                self.present(activityViewController, animated: true, completion: nil)
+                self.shouldShowShareActivityIndicator(false)
+            }
+            
+        }
+    }
     
+    /// Displays spinning activity indicator for share button when true
+    func shouldShowShareActivityIndicator(_ isTrue: Bool) {
+        // setup
+        shareActivityIndicator.color = .black
+        shareActivityIndicator.frame = CGRect(x: 0, y: 0, width: 32, height: 32)
+        shareActivityIndicator.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
+        
+        if isTrue {
+            // cross dissolve from button to indicator
+            UIView.transition(with: self.shareButton, duration: 0.35, options: [.transitionCrossDissolve], animations: {
+                self.shareButton.addSubview(self.shareActivityIndicator)
+            }, completion: nil)
+            
+            shareActivityIndicator.startAnimating()
+            shareButton.setImage(nil, for: UIControl.State())
+            shareButton.isUserInteractionEnabled = false
+        }
+        else {
+            // cross dissolve from indicator to button
+            UIView.transition(with: self.shareButton, duration: 0.35, options: [.transitionCrossDissolve], animations: {
+                self.shareActivityIndicator.removeFromSuperview()
+            }, completion: nil)
+            
+            shareActivityIndicator.stopAnimating()
+            shareButton.setImage(UIImage(named: "share"), for: UIControl.State())
+            shareButton.isUserInteractionEnabled = true
+        }
     }
     
     ///
