@@ -69,7 +69,7 @@ class GPXSession {
     /// - Parameters: The waypoint to remove from the session.
     ///
     func removeWaypoint(_ waypoint: GPXWaypoint) {
-        let index = waypoints.index(of: waypoint)
+        let index = waypoints.firstIndex(of: waypoint)
         if index == nil {
             print("Waypoint not found")
             return

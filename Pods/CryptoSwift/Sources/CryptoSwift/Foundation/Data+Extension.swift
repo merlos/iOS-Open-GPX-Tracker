@@ -19,7 +19,7 @@ extension Data {
     /// Two octet checksum as defined in RFC-4880. Sum of all octets, mod 65536
     public func checksum() -> UInt16 {
         var s: UInt32 = 0
-        var bytesArray = bytes
+        let bytesArray = bytes
         for i in 0 ..< bytesArray.count {
             s = s + UInt32(bytesArray[i])
         }
@@ -28,61 +28,61 @@ extension Data {
     }
 
     public func md5() -> Data {
-        return Data(bytes: Digest.md5(bytes))
+        return Data( Digest.md5(bytes))
     }
 
     public func sha1() -> Data {
-        return Data(bytes: Digest.sha1(bytes))
+        return Data( Digest.sha1(bytes))
     }
 
     public func sha224() -> Data {
-        return Data(bytes: Digest.sha224(bytes))
+        return Data( Digest.sha224(bytes))
     }
 
     public func sha256() -> Data {
-        return Data(bytes: Digest.sha256(bytes))
+        return Data( Digest.sha256(bytes))
     }
 
     public func sha384() -> Data {
-        return Data(bytes: Digest.sha384(bytes))
+        return Data( Digest.sha384(bytes))
     }
 
     public func sha512() -> Data {
-        return Data(bytes: Digest.sha512(bytes))
+        return Data( Digest.sha512(bytes))
     }
 
     public func sha3(_ variant: SHA3.Variant) -> Data {
-        return Data(bytes: Digest.sha3(bytes, variant: variant))
+        return Data( Digest.sha3(bytes, variant: variant))
     }
 
     public func crc32(seed: UInt32? = nil, reflect: Bool = true) -> Data {
-        return Data(bytes: Checksum.crc32(bytes, seed: seed, reflect: reflect).bytes())
+        return Data( Checksum.crc32(bytes, seed: seed, reflect: reflect).bytes())
     }
 
     public func crc32c(seed: UInt32? = nil, reflect: Bool = true) -> Data {
-        return Data(bytes: Checksum.crc32c(bytes, seed: seed, reflect: reflect).bytes())
+        return Data( Checksum.crc32c(bytes, seed: seed, reflect: reflect).bytes())
     }
 
     public func crc16(seed: UInt16? = nil) -> Data {
-        return Data(bytes: Checksum.crc16(bytes, seed: seed).bytes())
+        return Data( Checksum.crc16(bytes, seed: seed).bytes())
     }
 
     public func encrypt(cipher: Cipher) throws -> Data {
-        return Data(bytes: try cipher.encrypt(bytes.slice))
+        return Data( try cipher.encrypt(bytes.slice))
     }
 
     public func decrypt(cipher: Cipher) throws -> Data {
-        return Data(bytes: try cipher.decrypt(bytes.slice))
+        return Data( try cipher.decrypt(bytes.slice))
     }
 
     public func authenticate(with authenticator: Authenticator) throws -> Data {
-        return Data(bytes: try authenticator.authenticate(bytes))
+        return Data( try authenticator.authenticate(bytes))
     }
 }
 
 extension Data {
     public init(hex: String) {
-        self.init(bytes: Array<UInt8>(hex: hex))
+        self.init(Array<UInt8>(hex: hex))
     }
 
     public var bytes: Array<UInt8> {
