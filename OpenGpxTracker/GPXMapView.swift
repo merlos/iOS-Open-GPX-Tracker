@@ -150,7 +150,7 @@ class GPXMapView: MKMapView {
     /// - Parameters: The waypoint to remove from the map.
     ///
     func removeWaypoint(_ waypoint: GPXWaypoint) {
-    	let index = waypoints.index(of: waypoint)
+    	let index = session.waypoints.index(of: waypoint)
         if index == nil {
             print("Waypoint not found")
             return
@@ -277,25 +277,11 @@ class GPXMapView: MKMapView {
     func continueFromGPXRoot(_ gpx: GPXRoot) {
         //clear current map
         self.clearMap()
-        
-        for pt in gpx.waypoints {
-            self.addWaypoint(pt)
-        }
-        
-        let lastTrack = gpx.tracks.last ?? GPXTrack()
-        totalTrackedDistance += lastTrack.length
-        
-        //add track segments
-        self.tracks = gpx.tracks
-        
-        // remove last track as that track is packaged by Core Data, but should its tracksegments should be seperated, into self.tracksegments.
-        self.tracks.removeLast()
-        
-        self.trackSegments = lastTrack.tracksegments
+        self.session.continueFromGPXRoot(gpx)
         
         // for last session's previous tracks, through resuming
-        for oneTrack in self.tracks {
-            totalTrackedDistance += oneTrack.length
+        for oneTrack in self.session.tracks {
+            session.totalTrackedDistance += oneTrack.length
             for segment in oneTrack.tracksegments {
                 let overlay = segment.overlay
                 self.addOverlay(overlay)
@@ -309,7 +295,7 @@ class GPXMapView: MKMapView {
         }
         
         // for last session track segment
-        for trackSegment in self.trackSegments {
+        for trackSegment in self.session.trackSegments {
             
             let overlay = trackSegment.overlay
             self.addOverlay(overlay)

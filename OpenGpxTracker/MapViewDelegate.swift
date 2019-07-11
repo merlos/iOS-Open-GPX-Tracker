@@ -70,7 +70,7 @@ class MapViewDelegate: NSObject, MKMapViewDelegate, UIAlertViewDelegate {
         case kEditWaypointAccesoryButtonTag:
             print("[calloutAccesoryControlTapped: EDIT] editing waypoint with name \(waypoint.name ?? "''")")
             
-            let indexofEditedWaypoint = map.waypoints.firstIndex(of: waypoint)
+            let indexofEditedWaypoint = map.session.waypoints.firstIndex(of: waypoint)
             
             let alertController = UIAlertController(title: "Edit waypoint name", message: "Hint: To change the waypoint location drag and drop the pin", preferredStyle: .alert)
             alertController.addTextField { (textField) in
@@ -103,9 +103,9 @@ class MapViewDelegate: NSObject, MKMapViewDelegate, UIAlertViewDelegate {
         let gpxMapView = mapView as! GPXMapView
         
         if newState == MKAnnotationView.DragState.ending {
-        	point.elevation = nil // merge master note: add to core data
             if let point = view.annotation as? GPXWaypoint {
-                if let index = gpxMapView.waypoints.firstIndex(of: point) {
+                point.elevation = nil // merge master note: add to core data
+                if let index = gpxMapView.session.waypoints.firstIndex(of: point) {
                     gpxMapView.coreDataHelper.update(toCoreData: point, from: index)
                 }
                 
