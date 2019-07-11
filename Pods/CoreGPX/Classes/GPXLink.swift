@@ -36,9 +36,6 @@ open class GPXLink: GPXElement, Codable {
     
     /// URL of hyperlink
     public var href: String?
-    
-    /// Some common web extensions used for `init(withURL:)`
-    private let commonWebExtensions = ["htm", "html", "asp", "aspx", "php", "cgi", ".htaccess"]
    
     // MARK:- Instance
     

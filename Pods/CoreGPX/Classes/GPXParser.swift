@@ -476,7 +476,6 @@ extension GPXParser: XMLParserDelegate {
         }
     }
 
-
 }
 
 extension GPXParser {
