@@ -534,12 +534,12 @@
 					};
 					BF692F562209AAF900F8A0F1 = {
 						CreatedOnToolsVersion = 10.1;
-						DevelopmentTeam = 3X69W4AQD6;
+						DevelopmentTeam = SU64RGPDF2;
 						ProvisioningStyle = Automatic;
 					};
 					BF692F622209AAFB00F8A0F1 = {
 						CreatedOnToolsVersion = 10.1;
-						DevelopmentTeam = 3X69W4AQD6;
+						DevelopmentTeam = SU64RGPDF2;
 						LastSwiftMigration = 1020;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
@@ -1017,7 +1017,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = 3X69W4AQD6;
+				DEVELOPMENT_TEAM = SU64RGPDF2;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				IBSC_MODULE = OpenGpxTracker_Watch_Extension;
 				INFOPLIST_FILE = "OpenGpxTracker-Watch/Info.plist";
@@ -1049,7 +1049,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = 3X69W4AQD6;
+				DEVELOPMENT_TEAM = SU64RGPDF2;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				IBSC_MODULE = OpenGpxTracker_Watch_Extension;
 				INFOPLIST_FILE = "OpenGpxTracker-Watch/Info.plist";
@@ -1077,7 +1077,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_STYLE = Automatic;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = 3X69W4AQD6;
+				DEVELOPMENT_TEAM = SU64RGPDF2;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = "OpenGpxTracker-Watch Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
@@ -1108,7 +1108,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = 3X69W4AQD6;
+				DEVELOPMENT_TEAM = SU64RGPDF2;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = "OpenGpxTracker-Watch Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
