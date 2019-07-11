@@ -35,7 +35,7 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
     /// Is there any GPX file in the directory?
     var gpxFilesFound = false;
     
-    /// Temporary variable to manage
+    /// Temporary variable to manage.
     var selectedRowIndex = -1
     
     ///
@@ -56,6 +56,9 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
         
         self.title = "Your GPX Files"
         
+        // add notification observer for reloading table when file is added.
+        addNotificationObservers()
+        
         // Button to return to the map
         let shareItem = UIBarButtonItem(title: "Done", style: UIBarButtonItem.Style.plain, target: self, action: #selector(GPXFilesTableViewController.closeGPXFilesTableViewController))
         
@@ -70,6 +73,10 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
         }
     }
     
+    /// Removes notfication observers
+    deinit {
+        removeNotificationObservers()
+    }
     
     /// Closes this view controller.
     @objc func closeGPXFilesTableViewController() {
@@ -78,12 +85,12 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
         })
     }
     
-    
+   /// Reloads data whenver the table appears.
     override func viewDidAppear(_ animated: Bool) {
         self.tableView.reloadData()
     }
     
-    
+    /// Disposes resources in case of a mermory warning.
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -92,6 +99,7 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
     
     // MARK: Table view data source
     
+    /// returns the number of sections. Always returns 1.
     override func numberOfSections(in tableView: UITableView?) -> Int {
         // Return the number of sections.
         return 1
@@ -121,7 +129,7 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
     }
     
     
-    /// Displays the name of the cell
+    /// Displays the name of the cell.
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         //let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as UITableViewCell
         if gpxFilesFound {
@@ -142,7 +150,7 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
     }
     
     
-    /// Displays an action sheet with the actions for that file (Send it by email, Load in map and Delete)
+    /// Displays an action sheet with the actions for that file (Send it by email, Load in map and Delete).
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
         let sheet = UIAlertController(title: nil, message: "Select option", preferredStyle: .actionSheet)
@@ -165,8 +173,12 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
         sheet.addAction(shareOption)
         sheet.addAction(cancelOption)
         sheet.addAction(deleteOption)
+        
+        var cellRect = tableView.rectForRow(at: indexPath)
+        cellRect.origin = CGPoint(x: 0, y: 0) // origin must be at 0 or sheet will display offset due to height of cell
+        
         sheet.popoverPresentationController?.sourceView = tableView.cellForRow(at: indexPath)
-        sheet.popoverPresentationController?.sourceRect = (tableView.cellForRow(at: indexPath)?.frame)!
+        sheet.popoverPresentationController?.sourceRect = cellRect
         
         self.present(sheet, animated: true) {
             print("Loaded actionSheet")
@@ -181,6 +193,7 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
         return gpxFilesFound
     }
     
+    /// Returns the name of the file in the `rowIndex` passed as parameter.
     internal func fileListObjectTitle(_ rowIndex: Int) -> String {
         return (fileList.object(at: rowIndex) as! GPXFileInfo).fileName
     }
@@ -189,15 +202,15 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
     // MARK: Action Sheet - Actions
     //
     
-    // Cancel button is taped.
-    //
-    // Does nothing, it only displays a log message
+    /// Cancel button is tapped.
+    ///
+    /// Does nothing, it only displays a log message.
     internal func actionSheetCancel(_ actionSheet: UIAlertController) {
         print("ActionSheet cancel")
     }
     
     
-    /// Deletes from the disk storage the file of `fileList` at `rowIndex`
+    /// Deletes from the disk storage the file of `fileList` at `rowIndex`.
     internal func actionDeleteFileAtIndex(_ rowIndex: Int) {
 
         guard let fileURL: URL = (fileList.object(at: rowIndex) as? GPXFileInfo)?.fileURL else {
@@ -216,23 +229,61 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
     
     /// Loads the GPX file that corresponds to rowIndex in fileList in the map.
     internal func actionLoadFileAtIndex(_ rowIndex: Int) {
-        guard let gpxFileInfo: GPXFileInfo = (fileList.object(at: rowIndex) as? GPXFileInfo) else {
-            print("GPXFileTableViewController:: actionLoadFileAtIndex(\(rowIndex)): failed to get fileURL")
-            return
+        DispatchQueue.global(qos: .utility).async {
+            DispatchQueue.main.sync {
+                self.displayLoadingFileAlert(true)
+            }
+            
+            guard let gpxFileInfo: GPXFileInfo = (self.fileList.object(at: rowIndex) as? GPXFileInfo) else {
+                print("GPXFileTableViewController:: actionLoadFileAtIndex(\(rowIndex)): failed to get fileURL")
+                self.displayLoadingFileAlert(false)
+                return
+            }
+            
+            print("Load gpx File: \(gpxFileInfo.fileName)")
+            guard let gpx = GPXParser(withURL: gpxFileInfo.fileURL)?.parsedData() else {
+                print("GPXFileTableViewController:: actionLoadFileAtIndex(\(rowIndex)): failed to parse GPX file")
+                self.displayLoadingFileAlert(false)
+                return
+            }
+            
+            DispatchQueue.main.sync {
+                self.displayLoadingFileAlert(false) {
+                    self.delegate?.didLoadGPXFileWithName(gpxFileInfo.fileName, gpxRoot: gpx)
+                    self.dismiss(animated: true, completion: nil)
+                }
+            }
         }
-        print("Load gpx File: \(gpxFileInfo.fileName)")
-        guard let gpx = GPXParser(withURL: gpxFileInfo.fileURL)?.parsedData() else {
-            print("GPXFileTableViewController:: actionLoadFileAtIndex(\(rowIndex)): failed to parse GPX file")
-            return
+
+    }
+    
+    /// Displays an alert with a activity indicator view to indicate loading of gpx file to map
+    func displayLoadingFileAlert(_ loading: Bool, completion: (() -> Void)? = nil) {
+        // setup of controllers and views
+        let alertController = UIAlertController(title: "Loading GPX File...", message: nil, preferredStyle: .alert)
+        let activityIndicatorView = UIActivityIndicatorView(frame: CGRect(x: 35, y: 30, width: 32, height: 32))
+        activityIndicatorView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        activityIndicatorView.style = .whiteLarge
+        activityIndicatorView.color = .black
+        
+        if loading { // will display alert
+            activityIndicatorView.startAnimating()
+            alertController.view.addSubview(activityIndicatorView)
+            
+            self.present(alertController, animated: true, completion: nil)
+        }
+        else { // will dismiss alert
+            activityIndicatorView.stopAnimating()
+            self.presentingViewController?.dismiss(animated: true, completion: nil)
         }
         
-        self.delegate?.didLoadGPXFileWithName(gpxFileInfo.fileName, gpxRoot: gpx)
-        self.dismiss(animated: true, completion: nil)
-        
+        // if completion handler is used
+        guard let completion = completion else { return }
+        completion()
     }
     
     
-    /// Shares file at `rowIndex`
+    /// Shares file at `rowIndex`.
     internal func actionShareFileAtIndex(_ rowIndex: Int, tableView: UITableView, indexPath: IndexPath) {
         guard let gpxFileInfo: GPXFileInfo = (fileList.object(at: rowIndex) as? GPXFileInfo) else {
             print("Unable to get filename at row \(rowIndex), cannot respond to \(type(of: self))didSelectRowAt")
@@ -241,8 +292,15 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
         print("GPXTableViewController: actionShareFileAtIndex")
         
         let activityViewController = UIActivityViewController(activityItems: [gpxFileInfo.fileURL], applicationActivities: nil)
+        
+        var cellRect = tableView.rectForRow(at: indexPath)
+        cellRect.origin = CGPoint(x: 0, y: 0) // origin must be at 0 or sheet will display offset due to height of cell
+        
         activityViewController.popoverPresentationController?.sourceView = tableView.cellForRow(at: indexPath)
-        activityViewController.popoverPresentationController?.sourceRect = (tableView.cellForRow(at: indexPath)?.frame)!
+        activityViewController.popoverPresentationController?.sourceRect = cellRect
+        
+        // NOTE: as the activity view controller can be quite tall at times, the display of it may be offset automatically at times to ensure the activity view popup fits the screen.
+        
         activityViewController.completionWithItemsHandler = {(activityType: UIActivity.ActivityType?, completed: Bool, returnedItems: [Any]?, error: Error?) in
             if !completed {
                 // User canceled
@@ -254,4 +312,52 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
         }
         self.present(activityViewController, animated: true, completion: nil)
     }
+    
+}
+
+///
+/// Handles reloading of table view when file is added while user is still in current view.
+///
+extension GPXFilesTableViewController {
+    
+    ///
+    /// Asks the system to notify the app on some events
+    ///
+    /// Current implementation requests the system to notify the app:
+    ///
+    ///  When a file is received from an external source, (i.e AirDrop)
+    ///
+    func addNotificationObservers() {
+        let notificationCenter = NotificationCenter.default
+        
+        notificationCenter.addObserver(self, selector: #selector(reloadTableData),
+                                       name: .didReceiveFileFromURL, object: nil)
+        notificationCenter.addObserver(self, selector: #selector(reloadTableData), name: .didReceiveFileFromAppleWatch, object: nil)
+    }
+    
+    ///
+    /// Removes the notification observers
+    ///
+    func removeNotificationObservers() {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    ///
+    /// Reload Table View data
+    ///
+    /// For reloading table when a new file is added while user is in `GPXFileTableViewController`
+    ///
+    @objc func reloadTableData() {
+        print("TableViewController: reloadTableData")
+        let list: [GPXFileInfo] = GPXFileManager.fileList
+        if self.fileList.count < list.count && list.count != 0 {
+            self.fileList.removeAllObjects()
+            self.fileList.addObjects(from: list)
+            self.gpxFilesFound = true
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+        }
+    }
+    
 }

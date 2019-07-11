@@ -13,11 +13,12 @@
 import Foundation
 
 extension Date {
+    
     ///
     /// Provides a humanified date. For instance: 1 minute, 1 week ago, 3 months ago
     ///
     /// - Parameters:
-    //      - numericDates: Set it to true to get "1 year ago", "1 month ago" or false if you prefer "Last year", "Last month"
+    ///      - numericDates: Set it to true to get "1 year ago", "1 month ago" or false if you prefer "Last year", "Last month"
     ///
     func timeAgo(numericDates:Bool) -> String {
         let calendar = Calendar.current

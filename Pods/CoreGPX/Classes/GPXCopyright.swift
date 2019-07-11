@@ -40,6 +40,7 @@ open class GPXCopyright: GPXElement {
     
     // MARK:- Instance
     
+    /// Default Initializer.
     public required init() {
         super.init()
     }
@@ -50,6 +51,7 @@ open class GPXCopyright: GPXElement {
     public init(author: String) {
         super.init()
         self.author = author
+        self.year = Date()
     }
     
     /// For internal use only
@@ -64,7 +66,7 @@ open class GPXCopyright: GPXElement {
     ///
     init(dictionary: [String : String]) {
         super.init()
-        self.year = CopyrightYearParser.parse(dictionary["year"])
+        self.year = GPXDateParser.parse(year: dictionary["year"])
         self.license = dictionary["license"]
         self.author = dictionary["author"]
     }
@@ -84,12 +86,12 @@ open class GPXCopyright: GPXElement {
             attribute.appendFormat(" author=\"%@\"", author)
         }
         
-        gpx.appendFormat("%@<%@%@>\r\n", tagName())
+        gpx.appendOpenTag(indentation: indent(forIndentationLevel: indentationLevel), tag: tagName(), attribute: attribute)
     }
     
     override func addChildTag(toGPX gpx: NSMutableString, indentationLevel: Int) {
         super.addChildTag(toGPX: gpx, indentationLevel: indentationLevel)
-        self.addProperty(forValue: Convert.toString(from: year), gpx: gpx, tagName: "year", indentationLevel: indentationLevel)
+        self.addProperty(forValue: Convert.toString(fromYear: year), gpx: gpx, tagName: "year", indentationLevel: indentationLevel)
         self.addProperty(forValue: license, gpx: gpx, tagName: "license", indentationLevel: indentationLevel)
     }
 }

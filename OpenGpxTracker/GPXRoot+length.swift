@@ -12,7 +12,7 @@ import CoreGPX
 /// Extends GPXRoot to support getting the length of all tracks in meters
 extension GPXRoot {
     
-    ///Distance in meters of all the track segments
+    /// Distance in meters of all the track segments
     public var tracksLength: CLLocationDistance {
         get {
             var tLength: CLLocationDistance = 0.0

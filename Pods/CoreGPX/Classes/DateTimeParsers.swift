@@ -10,12 +10,23 @@
 
 import Foundation
 
-// MARK:- Date Parser
-
-class ISO8601DateParser {
+/**
+ Date Parser for use when parsing GPX files, containing elements with date attributions.
+ 
+ It can parse ISO8601 formatted date strings, along with year strings to native `Date` types.
+ 
+ Formerly Named: `ISO8601DateParser` & `CopyrightYearParser`
+ */
+class GPXDateParser {
     
+    // MARK:- Supporting Variables
+    
+    /// Caching Calendar such that it can be used repeatedly without reinitializing it.
     private static var calendarCache = [Int : Calendar]()
+    /// Components of Date stored together
     private static var components = DateComponents()
+    
+    // MARK:- Individual Date Components
     
     private static let year = UnsafeMutablePointer<Int>.allocate(capacity: 1)
     private static let month = UnsafeMutablePointer<Int>.allocate(capacity: 1)
@@ -24,8 +35,11 @@ class ISO8601DateParser {
     private static let minute = UnsafeMutablePointer<Int>.allocate(capacity: 1)
     private static let second = UnsafeMutablePointer<Int>.allocate(capacity: 1)
     
-    static func parse(_ dateString: String?) -> Date? {
-        guard let NonNilString = dateString else {
+    // MARK:- String To Date Parsers
+    
+    /// Parses an ISO8601 formatted date string as native Date type.
+    static func parse(date string: String?) -> Date? {
+        guard let NonNilString = string else {
             return nil
         }
         
@@ -51,20 +65,10 @@ class ISO8601DateParser {
         calendarCache[0] = calendar
         return calendar.date(from: components)
     }
-}
-
-// MARK:- Year Parser
-
-/// Special parser that only parses year for the copyright attribute when `GPXParser` parses.
-class CopyrightYearParser {
     
-    private static var calendarCache = [Int : Calendar]()
-    private static var components = DateComponents()
-    
-    private static let year = UnsafeMutablePointer<Int>.allocate(capacity: 1)
-    
-    static func parse(_ yearString: String?) -> Date? {
-        guard let NonNilString = yearString else {
+    /// Parses a year string as native Date type.
+    static func parse(year string: String?) -> Date? {
+        guard let NonNilString = string else {
             return nil
         }
         
@@ -75,13 +79,13 @@ class CopyrightYearParser {
         
         components.year = year.pointee
         
-        if let calendar = calendarCache[0] {
+        if let calendar = calendarCache[1] {
             return calendar.date(from: components)
         }
         
         var calendar = Calendar(identifier: .gregorian)
         calendar.timeZone = TimeZone(secondsFromGMT: 0)!
-        calendarCache[0] = calendar
+        calendarCache[1] = calendar
         return calendar.date(from: components)
     }
 }

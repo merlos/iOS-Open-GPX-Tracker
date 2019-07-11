@@ -10,11 +10,17 @@ import UIKit
 
 import Cache
 
+/// Units Section Id in PreferencesTableViewController
+let kUnitsSection = 0
+
 /// Cache Section Id in PreferencesTableViewController
-let kCacheSection = 0
+let kCacheSection = 1
 
 /// Map Source Section Id in PreferencesTableViewController
-let kMapSourceSection = 1
+let kMapSourceSection = 2
+
+/// Cell Id of the Use Imperial units in UnitsSection
+let kUseImperialUnitsCell = 0
 
 /// Cell Id for Use offline cache in CacheSection of PreferencesTableViewController
 let kUseOfflineCacheCell = 0
@@ -22,28 +28,26 @@ let kUseOfflineCacheCell = 0
 /// Cell Id for Clear cache in CacheSection of PreferencesTableViewController
 let kClearCacheCell = 1
 
-
-/// String Key on Defaults for the Tile Server integer
-let kDefaultsKeyTileServerInt: String = "TileServerInt"
-/// String Key on Defaults for the use cache setting
-let kDefaultsKeyUseCache: String = "UseCache"
-
-
-//
-// There are two preferences available:
-//  * use or not cache
-//  * select the map source (tile server)
-//
-// Preferences are kept on UserDefaults with the keys kDefaultKeyTileServerInt (Int)  and kDefaultUseCache (Bool)
-//
+///
+/// There are two preferences available:
+///  * use or not cache
+///  * select the map source (tile server)
+///
+/// Preferences are kept on UserDefaults with the keys `kDefaultKeyTileServerInt` (Int)
+/// and `kDefaultUseCache`` (Bool)
+///
 class PreferencesTableViewController: UITableViewController, UINavigationBarDelegate {
     
-    var selectedTileServerInt = -1
-    var currentUseCache: Bool = true
-    let defaults = UserDefaults.standard
+    /// Delegate for this table view controller.
     weak var delegate: PreferencesTableViewControllerDelegate?
     
+    /// Global Preferences
+    var preferences : Preferences = Preferences.shared
     
+    /// Does the following:
+    /// 1. Defines the areas for navBar and the Table view
+    /// 2. Sets the title
+    /// 3. Loads the Preferences from defaults
     override func viewDidLoad() {
         super.viewDidLoad()
         let navBarFrame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: 64)
@@ -54,66 +58,89 @@ class PreferencesTableViewController: UITableViewController, UINavigationBarDele
         self.title = "Preferences"
         let shareItem = UIBarButtonItem(title: "Done", style: UIBarButtonItem.Style.plain, target: self, action: #selector(PreferencesTableViewController.closePreferencesTableViewController))
         self.navigationItem.rightBarButtonItems = [shareItem]
-        
-        //Load preferences from defaults
-        selectedTileServerInt = defaults.integer(forKey: kDefaultsKeyTileServerInt)
-        if let useCacheFromDefaults = defaults.object(forKey: kDefaultsKeyUseCache) as? Bool {
-            print("PreferencesTableViewController:: loaded preference useCache= \(useCacheFromDefaults)");
-            self.currentUseCache = useCacheFromDefaults
-        }
     }
     
+    /// Close this controller.
     @objc func closePreferencesTableViewController() {
         print("closePreferencesTableViewController()")
         self.dismiss(animated: true, completion: { () -> Void in
         })
     }
     
+    /// Loads data
     override func viewDidAppear(_ animated: Bool) {
         self.tableView.reloadData()
     }
     
+    /// Does nothing for now.
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
-    //#pragma mark - Table view data source
+    // MARK: - Table view data source
     
+    /// Returns 3 sections: Units, Cache, Map Source
     override func numberOfSections(in tableView: UITableView?) -> Int {
         // Return the number of sections.
-        return 2
+        return 3
     }
     
-    // Customize the section headings for each section
+    /// Returns the title of the existing sections.
+    /// Uses `kCacheSection`, `kUnitsSection`and `kMapSourceSection` for deciding which
+    /// is the section title
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch(section) {
+        case kUnitsSection: return "Units"
         case kCacheSection: return "Cache"
         case kMapSourceSection: return "Map source"
         default: fatalError("Unknown section")
         }
     }
     
+    /// For section `kCacheSection` returns 2, `kUnitsSection` returns 1,
+    /// and for `kMapSourceSection` returns the number of tile servers defined in `GPXTileServer`
     override func tableView(_ tableView: UITableView?, numberOfRowsInSection section: Int) -> Int {
-        
-        // Return the number of rows in the section.
         switch(section) {
         case kCacheSection: return 2
+        case kUnitsSection: return 1
         case kMapSourceSection: return GPXTileServer.count
         default: fatalError("Unknown section")
         }
     }
     
-    
+    /// For `kCacheSection`:
+    /// 1. If `indexPath.row` is equal to `kUserOfflineCacheCell`, returns a cell with a checkmark
+    /// 2. If `indexPath.row` is equal to `kClearCacheCell`, returns a cell with a red text
+    /// `kClearCacheCell`
+    ///
+    /// If the section is kMapSourceSection, it returns a chekmark cell with the name of
+    /// the tile server in the  `indexPath.row` index in `GPXTileServer`. The cell is marked
+    /// if `selectedTileServerInt` is the same as `indexPath.row`.
+    ///
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var cell = UITableViewCell(style: .value1, reuseIdentifier: "MapCell")
         
+        // Units section
+        if indexPath.section == kUnitsSection {
+             switch (indexPath.row) {
+             case kUseImperialUnitsCell:
+                cell = UITableViewCell(style: .value1, reuseIdentifier: "CacheCell")
+                cell.textLabel?.text = "Use imperial units?"
+                if preferences.useImperial {
+                    cell.accessoryType = .checkmark
+                }
+             default: fatalError("Unknown section")
+            }
+        }
+        
+        // Cache Section
         if indexPath.section == kCacheSection {
             switch (indexPath.row) {
             case kUseOfflineCacheCell:
                 cell = UITableViewCell(style: .value1, reuseIdentifier: "CacheCell")
                 cell.textLabel?.text = "Offline cache"
-                if currentUseCache {
+                if preferences.useCache {
                     cell.accessoryType = .checkmark
                 }
             case kClearCacheCell:
@@ -123,12 +150,14 @@ class PreferencesTableViewController: UITableViewController, UINavigationBarDele
             default: fatalError("Unknown section")
             }
         }
+        
+        // Map Section
         if indexPath.section == kMapSourceSection {
             //cell.accessoryType = UITableViewCellAccessoryType.DetailDisclosureButton
             //cell.accessoryView = [[ UIImageView alloc ] initWithImage:[UIImage imageNamed:@"Something" ]];
             let tileServer = GPXTileServer(rawValue: indexPath.row)
             cell.textLabel?.text = tileServer!.name
-            if indexPath.row == self.selectedTileServerInt {
+            if indexPath.row == preferences.tileServerInt {
                 cell.accessoryType = .checkmark
             }
             
@@ -137,22 +166,38 @@ class PreferencesTableViewController: UITableViewController, UINavigationBarDele
         return cell
     }
     
+    /// Performs the following actions depending on the section and row selected:
+    /// 1. A cell in kCacheSection is selected:
+    ///     1. kUseOfflineCacheCell: Activates or desactivates the use of cache
+    ///        (`kDefaultUseCache` in defaults)
+    /// 2. A cell in kMapSourceSection is selected: Updates the default key (`kDefaultsKeyTileServerInt`)
+    ///
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    
-        
-        //section 0 (Cache)
-        if indexPath.section == 0 {  // 0 -> sets and unsets cache
+        if indexPath.section == kUnitsSection {
             switch indexPath.row {
-            case kCacheSection:
+            case kUseImperialUnitsCell:
+                let newUseImperial = !preferences.useImperial
+                preferences.useImperial = newUseImperial
+                print("PreferencesTableViewController: toggle imperial units to \(newUseImperial)")
+                //update cell UI
+                tableView.cellForRow(at: indexPath)?.accessoryType = newUseImperial ? .checkmark : .none
+                //notify the map
+                self.delegate?.didUpdateUseImperial(newUseImperial)
+            default:
+                fatalError("didSelectRowAt: Unknown cell")
+            }
+        }
+        if indexPath.section == kCacheSection {  // 0 -> sets and unsets cache
+            switch indexPath.row {
+            case kUseOfflineCacheCell:
                 print("toggle cache")
-                let newUseCache = !self.currentUseCache //toggle value
-                defaults.set(newUseCache, forKey: kDefaultsKeyUseCache)
-                self.currentUseCache = newUseCache
+                let newUseCache = !preferences.useCache //toggle value
+                preferences.useCache = newUseCache
                 //update cell
                 tableView.cellForRow(at: indexPath)?.accessoryType = newUseCache ? .checkmark : .none
                 //notify the map
                 self.delegate?.didUpdateUseCache(newUseCache)
-            case 1:
+            case kClearCacheCell:
                 print("clear cache")
                 // usage example of cache https://github.com/hyperoslo/Cache/blob/master/Playgrounds/Storage.playground/Contents.swift
                 // 1 -> clears cache
@@ -175,30 +220,26 @@ class PreferencesTableViewController: UITableViewController, UINavigationBarDele
                 } catch {
                     print(error)
                 }
-                
             default:
                 fatalError("didSelectRowAt: Unknown cell")
             }
-        } else { // section 1 (sets tileServerInt in defaults
+        }
+        if indexPath.section == kMapSourceSection { // section 1 (sets tileServerInt in defaults
             print("PreferenccesTableView Map Tile Server section Row at index:  \(indexPath.row)")
+            
             //remove checkmark from selected tile server
-            let selectedTileServerIndexPath = IndexPath(row: self.selectedTileServerInt, section: indexPath.section)
+            let selectedTileServerIndexPath = IndexPath(row: preferences.tileServerInt, section: indexPath.section)
             tableView.cellForRow(at: selectedTileServerIndexPath)?.accessoryType = .none
             
             //add checkmark to new tile server
             tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
-            self.selectedTileServerInt = indexPath.row
-            
-            //save preference
-            defaults.set(indexPath.row, forKey: kDefaultsKeyTileServerInt)
+            preferences.tileServerInt = indexPath.row
             
             //update map
             self.delegate?.didUpdateTileServer((indexPath as NSIndexPath).row)
-            //self.dismiss(animated: true, completion: nil)
         }
+        
         //unselect row
         tableView.deselectRow(at: indexPath, animated: true)
-        
-     
     }
 }

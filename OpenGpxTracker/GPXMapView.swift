@@ -9,12 +9,9 @@
 import Foundation
 import UIKit
 import MapKit
+import CoreLocation
 import CoreGPX
 import CoreData
-
-
-/// GPX creator identifier. Used on generated files identify this app created them.
-let kGPXCreatorString = "Open GPX Tracker for iOS"
 
 
 ///
@@ -30,40 +27,22 @@ let kGPXCreatorString = "Open GPX Tracker for iOS"
 /// 2. A **segment** is set of points. A segment is linked to a MKPolyline overlay in the map.
 
 /// Each time the user touches "Start Tracking" => a segment is created (currentSegment)
-// Each time the users touches "Pause Tracking" => the segment is added to trackSegments
-// When the user saves the file => trackSegments are consolidated in a single track that is
-// added to the file.
-// If the user opens the file in a session for the second, then tracks some segments and saves
-// the file again, the resulting gpx file will have two tracks.
-//
+/// Each time the users touches "Pause Tracking" => the segment is added to trackSegments
+/// When the user saves the file => trackSegments are consolidated in a single track that is
+/// added to the file.
+/// If the user opens the file in a session for the second, then tracks some seg ments and saves
+/// the file again, the resulting gpx file will have two tracks.
+///
 class GPXMapView: MKMapView {
     
-    /// List of waypoints currently displayed on the map.
-    var waypoints: [GPXWaypoint] = []
-    
-    /// List of tracks currently displayed on the map.
-    var tracks: [GPXTrack] = []
-    
-    /// Current track segments
-    var trackSegments: [GPXTrackSegment] = []
-    
-    /// Segment in which device locations are added.
-    var currentSegment: GPXTrackSegment =  GPXTrackSegment()
-    
+    /// Current session of GPX location logging. Handles all background tasks and recording.
+    let session = GPXSession()
+
     /// The line being displayed on the map that corresponds to the current segment.
     var currentSegmentOverlay: MKPolyline
     
     ///
     var extent: GPXExtentCoordinates = GPXExtentCoordinates() //extent of the GPX points and tracks
-    
-    /// Total tracked distance in meters
-    var totalTrackedDistance = 0.00
-    
-    /// Distance in meters of current track (track in which new user positions are being added)
-    var currentTrackDistance = 0.00
-    
-    /// Current segment distance in meters
-    var currentSegmentDistance = 0.00
 
     ///position of the compass in the map
     ///Example:
@@ -160,8 +139,7 @@ class GPXMapView: MKMapView {
     /// - Parameters: The waypoint to add to the map.
     ///
     func addWaypoint(_ waypoint: GPXWaypoint) {
-        self.waypoints.append(waypoint)
-        
+    	self.session.addWaypoint(waypoint)
         self.addAnnotation(waypoint)
         self.extent.extendAreaToIncludeLocation(waypoint.coordinate)
     }
@@ -172,13 +150,13 @@ class GPXMapView: MKMapView {
     /// - Parameters: The waypoint to remove from the map.
     ///
     func removeWaypoint(_ waypoint: GPXWaypoint) {
-        let index = waypoints.index(of: waypoint)
+    	let index = waypoints.index(of: waypoint)
         if index == nil {
             print("Waypoint not found")
             return
-        }
+        } // merge master note: resolve twice indexing
         self.removeAnnotation(waypoint)
-        waypoints.remove(at: index!)
+        self.session.removeWaypoint(waypoint)
         self.coreDataHelper.deleteWaypoint(fromCoreDataAt: index!)
         //TODO: update map extent?
         
@@ -199,27 +177,15 @@ class GPXMapView: MKMapView {
     ///    - location: Typically a location provided by CLLocation
     ///
     func addPointToCurrentTrackSegmentAtLocation(_ location: CLLocation) {
-        let pt = GPXTrackPoint(location: location)
+    let pt = GPXTrackPoint(location: location)
         self.coreDataHelper.add(toCoreData: pt, withTrackSegmentID: trackSegments.count)
-        self.currentSegment.add(trackpoint: pt)
+        self.session.addPointToCurrentTrackSegmentAtLocation(location)
         //redrawCurrent track segment overlay
         //First remove last overlay, then re-add the overlay updated with the new point
         self.removeOverlay(currentSegmentOverlay)
-        currentSegmentOverlay = currentSegment.overlay
+        currentSegmentOverlay = self.session.currentSegment.overlay
         self.addOverlay(currentSegmentOverlay)
         self.extent.extendAreaToIncludeLocation(location.coordinate)
-        
-        //add the distance to previous tracked point
-        if self.currentSegment.trackpoints.count >= 2 { //at elast there are two points in the segment
-            let prevPt = self.currentSegment.trackpoints[self.currentSegment.trackpoints.count-2] //get previous point
-            guard let latitude = prevPt.latitude, let longitude = prevPt.longitude else { return }
-            let prevPtLoc = CLLocation(latitude: latitude, longitude: longitude)
-            //now get the distance
-            let distance = prevPtLoc.distance(from: location)
-            self.currentTrackDistance += distance
-            self.totalTrackedDistance += distance
-            self.currentSegmentDistance += distance
-        }
     }
     
     ///
@@ -227,16 +193,14 @@ class GPXMapView: MKMapView {
     /// initializes currentSegment to a new one.
     ///
     func startNewTrackSegment() {
-        if self.currentSegment.trackpoints.count > 0 {
-            self.trackSegments.append(self.currentSegment)
-            self.currentSegment = GPXTrackSegment()
+        if self.session.currentSegment.trackpoints.count > 0 {
+            self.session.startNewTrackSegment()
             self.currentSegmentOverlay = MKPolyline()
-            self.currentSegmentDistance = 0.00
         }
     }
     
     ///
-    /// Finishes current segmet.
+    /// Finishes current segment.
     ///
     func finishCurrentSegment() {
         self.startNewTrackSegment() //basically, we need to append the segment to the list of segments
@@ -246,17 +210,10 @@ class GPXMapView: MKMapView {
     /// Clears map.
     ///
     func clearMap() {
-        self.trackSegments = []
-        self.tracks = []
-        self.currentSegment = GPXTrackSegment()
-        self.waypoints = []
+        self.session.reset()
         self.removeOverlays(self.overlays)
         self.removeAnnotations(self.annotations)
         self.extent = GPXExtentCoordinates()
-        
-        self.totalTrackedDistance = 0.00
-        self.currentTrackDistance = 0.00
-        self.currentSegmentDistance = 0.00
         
         //add tile server overlay
         //by removing all overlays, tile server overlay is also removed. We need to add it back
@@ -271,21 +228,7 @@ class GPXMapView: MKMapView {
     ///
     ///
     func exportToGPXString() -> String {
-        print("Exporting map data into GPX String")
-        //Create the gpx structure
-        let gpx = GPXRoot(creator: kGPXCreatorString)
-        gpx.add(waypoints: self.waypoints)
-        let track = GPXTrack()
-        track.add(trackSegments: self.trackSegments)
-        //add current segment if not empty
-        if self.currentSegment.trackpoints.count > 0 {
-            track.add(trackSegment: self.currentSegment)
-        }
-        //add existing tracks
-        gpx.add(tracks: self.tracks)
-        //add current track
-        gpx.add(track: track)
-        return gpx.gpx()
+        return self.session.exportToGPXString()
     }
    
     ///
@@ -308,33 +251,25 @@ class GPXMapView: MKMapView {
     ///     - gpx: The result of loading a gpx file with iOS-GPX-Framework.
     ///
     func importFromGPXRoot(_ gpx: GPXRoot) {
-        
         //clear current map
         self.clearMap()
-        
         //add waypoints
-        self.waypoints = gpx.waypoints
-        
-        for pt in self.waypoints {
+        for pt in gpx.waypoints {
             self.addWaypoint(pt)
             self.coreDataHelper.add(toCoreData: pt)
         }
-
         //add track segments
-        self.tracks = gpx.tracks
-        
-        
-        for oneTrack in self.tracks {
-            totalTrackedDistance += oneTrack.length
+        self.session.tracks = gpx.tracks
+        for oneTrack in self.session.tracks {
+            self.session.totalTrackedDistance += oneTrack.length
             for segment in oneTrack.tracksegments {
-					let overlay = segment.overlay
-					self.addOverlay(overlay)
-
-					let segmentTrackpoints = segment.trackpoints
-						//add point to map extent
-						for waypoint in segmentTrackpoints {
-                            self.extent.extendAreaToIncludeLocation(waypoint.coordinate)
-						}
+                let overlay = segment.overlay
+                self.addOverlay(overlay)
+                let segmentTrackpoints = segment.trackpoints
+                //add point to map extent
+                for waypoint in segmentTrackpoints {
+                    self.extent.extendAreaToIncludeLocation(waypoint.coordinate)
+                }
             }
         }
     }
@@ -388,3 +323,4 @@ class GPXMapView: MKMapView {
         
     }
 }
+

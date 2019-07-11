@@ -7,6 +7,9 @@
 
 import Foundation
 
+/// Some common web extensions used for `init(withURL:)`
+fileprivate let kCommonWebExtensions: Set = ["htm", "html", "asp", "aspx", "jsp", "jspx", "do", "js", "php", "php3", "php4", "cgi", ".htaccess"]
+
 /**
  A value type that can hold a web link to a external resource, or external information about a certain attribute.
  
@@ -61,12 +64,12 @@ open class GPXLink: GPXElement, Codable {
     /// - Parameters:
     ///     - url: input URL, intended as a web link reference.
     public init(withURL url: URL?) {
-        guard let isURL = url?.isFileURL else { return }
-        if isURL {
+        guard let isFileURL = url?.isFileURL else { return }
+        if !isFileURL {
             self.href = url?.absoluteString
             guard let pathExtension = url?.pathExtension else { return }
             // may not work if web extension is not shown. (etc, using .htaccess)
-            if commonWebExtensions.contains(pathExtension) {
+            if kCommonWebExtensions.contains(pathExtension) {
                 self.mimetype = "Website"
             }
         }
@@ -107,7 +110,7 @@ open class GPXLink: GPXElement, Codable {
         if let href = href {
             attribute.appendFormat(" href=\"%@\"", href)
         }
-        gpx.appendFormat("%@<%@%@>\r\n", indent(forIndentationLevel: indentationLevel), self.tagName(), attribute)
+        gpx.appendOpenTag(indentation: indent(forIndentationLevel: indentationLevel), tag: tagName(), attribute: attribute)
     }
     
     override func addChildTag(toGPX gpx: NSMutableString, indentationLevel: Int) {

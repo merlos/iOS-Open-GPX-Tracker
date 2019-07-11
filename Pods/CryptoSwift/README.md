@@ -1,8 +1,9 @@
 [![Platform](https://img.shields.io/badge/Platforms-iOS%20%7C%20Android%20%7CmacOS%20%7C%20watchOS%20%7C%20tvOS%20%7C%20Linux-4E4E4E.svg?colorA=28a745)](#installation)
 
-[![Swift support](https://img.shields.io/badge/Swift-3.1%20%7C%203.2%20%7C%204.0%20%7C%204.1-lightgrey.svg?colorA=28a745&colorB=4E4E4E)](#swift-versions-support)
+[![Swift support](https://img.shields.io/badge/Swift-3.1%20%7C%203.2%20%7C%204.0%20%7C%204.1%20%7C%204.2%20%7C%205.0-lightgrey.svg?colorA=28a745&colorB=4E4E4E)](#swift-versions-support)
 [![CocoaPods Compatible](https://img.shields.io/cocoapods/v/CryptoSwift.svg?style=flat&label=CocoaPods&colorA=28a745&&colorB=4E4E4E)](https://cocoapods.org/pods/CryptoSwift)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-brightgreen.svg?style=flat&colorA=28a745&&colorB=4E4E4E)](https://github.com/Carthage/Carthage)
+[![Accio supported](https://img.shields.io/badge/Accio-supported-brightgreen.svg?style=flat&colorA=28a745&&colorB=4E4E4E)](https://github.com/JamitLabs/Accio)
 [![Swift Package Manager compatible](https://img.shields.io/badge/SPM-compatible-brightgreen.svg?style=flat&colorA=28a745&&colorB=4E4E4E)](https://github.com/apple/swift-package-manager)
 
 [![Twitter](https://img.shields.io/badge/Twitter-@krzyzanowskim-blue.svg?style=flat)](http://twitter.com/krzyzanowskim)
@@ -11,7 +12,7 @@
 
 Crypto related functions and helpers for [Swift](https://swift.org) implemented in Swift. ([#PureSwift](https://twitter.com/hashtag/pureswift))
 
-**Note**: The `master` branch follows the latest currently released **version of Swift**. If you need an version for older version of Swift, you can specify it's version in your Podfile or use the code on the branch for that version. Older branches are unsupported. Check [versions](#swift-versions-support) for details.
+**Note**: The `master` branch follows the latest currently released **version of Swift**. If you need an earlier version for an older version of Swift, you can specify its version in your Podfile or use the code on the branch for that version. Older branches are unsupported. Check [versions](#swift-versions-support) for details.
 
 ---
 
@@ -79,6 +80,7 @@ Good mood
 - [PBKDF1](http://tools.ietf.org/html/rfc2898#section-5.1) (Password-Based Key Derivation Function 1)
 - [PBKDF2](http://tools.ietf.org/html/rfc2898#section-5.2) (Password-Based Key Derivation Function 2)
 - [HKDF](https://tools.ietf.org/html/rfc5869) (HMAC-based Extract-and-Expand Key Derivation Function)
+- [Scrypt](https://tools.ietf.org/html/rfc7914) (The scrypt Password-Based Key Derivation Function)
 
 #### Data padding
   PKCS#5
@@ -133,15 +135,16 @@ In the project, you'll find [single scheme](http://promisekit.org/news/2016/08/M
 - Swift 2.2, 2.3: branch [swift2](https://github.com/krzyzanowskim/CryptoSwift/tree/swift2) version <= 0.5.2
 - Swift 3.1, branch [swift3](https://github.com/krzyzanowskim/CryptoSwift/tree/swift3) version <= 0.6.9
 - Swift 3.2, branch [swift32](https://github.com/krzyzanowskim/CryptoSwift/tree/swift32) version = 0.7.0
-- Swift 4.0, branch [swift4](https://github.com/krzyzanowskim/CryptoSwift/tree/swift4) version >= 0.7.1
-- Swift 4.1, branch [master](https://github.com/krzyzanowskim/CryptoSwift/tree/master) version >= 0.9.0
+- Swift 4.0, branch [swift4](https://github.com/krzyzanowskim/CryptoSwift/tree/swift4) version <= 0.12.0
+- Swift 4.2, branch [swift42](https://github.com/krzyzanowskim/CryptoSwift/tree/swift42) version <= 0.15.0
+- Swift 5.0, branch [master](https://github.com/krzyzanowskim/CryptoSwift/tree/master)
 
 #### CocoaPods
 
 You can use [CocoaPods](http://cocoapods.org/?q=cryptoSwift).
 
 ```ruby
-platform :ios, '8.0'
+platform :ios, '10.0'
 use_frameworks!
 
 target 'MyApp' do
@@ -167,13 +170,33 @@ github "krzyzanowskim/CryptoSwift"
 
 Run `carthage` to build the framework and drag the built CryptoSwift.framework into your Xcode project. Follow [build instructions](https://github.com/Carthage/Carthage#getting-started). [Common issues](https://github.com/krzyzanowskim/CryptoSwift/issues/492#issuecomment-330822874).
 
+#### Accio 
+You can use [Accio](https://github.com/JamitLabs/Accio). 
+Specify in Package.swift:
+
+```swift
+.package(url: "https://github.com/krzyzanowskim/CryptoSwift.git", .upToNextMajor(from: "1.0.0")),
+```
+
+Next, add `CryptoSwift` to your App targets dependencies like so:
+```swift
+.target(
+    name: "App",
+    dependencies: [
+        "CryptoSwift",
+    ]
+),
+```
+
+Then run `accio update`.
+
 #### Swift Package Manager
 
 You can use [Swift Package Manager](https://swift.org/package-manager/) and specify dependency in `Package.swift` by adding this:
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/krzyzanowskim/CryptoSwift.git", .upToNextMinor(from: "0.9.0"))
+    .package(url: "https://github.com/krzyzanowskim/CryptoSwift.git", .upToNextMinor(from: "1.0.0"))
 ]
 ```
 
@@ -181,7 +204,7 @@ or more strict
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/krzyzanowskim/CryptoSwift.git", .exact("0.9.0"))
+    .package(url: "https://github.com/krzyzanowskim/CryptoSwift.git", .exact("1.0.0"))
 ]
 ```
 
@@ -216,12 +239,12 @@ CryptoSwift uses array of bytes aka `Array<UInt8>` as a base type for all operat
 
 ##### Data types conversion
 
-For you convenience **CryptoSwift** provides two functions to easily convert array of bytes to `Data` and another way around:
+For your convenience, **CryptoSwift** provides two functions to easily convert an array of bytes to `Data` or `Data` to an array of bytes:
 
 Data from bytes:
 
 ```swift
-let data = Data(bytes: [0x01, 0x02, 0x03])
+let data = Data( [0x01, 0x02, 0x03])
 ```
 
 `Data` to `Array<UInt8>`
@@ -260,7 +283,7 @@ let digest = Digest.md5(bytes)
 ```
 
 ```swift
-let data = Data(bytes: [0x01, 0x02, 0x03])
+let data = Data( [0x01, 0x02, 0x03])
 
 let hash = data.md5()
 let hash = data.sha1()
@@ -311,7 +334,15 @@ try CMAC(key: key).authenticate(bytes)
 let password: Array<UInt8> = Array("s33krit".utf8)
 let salt: Array<UInt8> = Array("nacllcan".utf8)
 
-let key = try PKCS5.PBKDF2(password: password, salt: salt, iterations: 4096, variant: .sha256).calculate()
+let key = try PKCS5.PBKDF2(password: password, salt: salt, iterations: 4096, keyLength: 32, variant: .sha256).calculate()
+```
+
+```swift
+let password: Array<UInt8> = Array("s33krit".utf8)
+let salt: Array<UInt8> = Array("nacllcan".utf8)
+// Scrypt implementation does not implement work parallelization, so `p` parameter will
+// increase the work time even in multicore systems
+let key = try Scrypt(password: password, salt: salt, dkLen: 64, N: 16384, r: 8, p: 1).calculate()
 ```
 
 ##### HMAC-based Key Derivation Function
@@ -322,6 +353,7 @@ let salt: Array<UInt8> = Array("nacllcan".utf8)
 
 let key = try HKDF(password: password, salt: salt, variant: .sha256).calculate()
 ```
+
 
 ##### Data Padding
     
@@ -354,7 +386,7 @@ let decrypted = try Blowfish(key: key, blockMode: CBC(iv: iv), padding: .pkcs7).
 
 ##### AES
 
-Notice regarding padding: *Manual padding of data is optional, and CryptoSwift is using PKCS7 padding by default. If you need manually disable/enable padding, you can do this by setting parameter for __AES__ class*
+Notice regarding padding: *Manual padding of data is optional, and CryptoSwift is using PKCS7 padding by default. If you need to manually disable/enable padding, you can do this by setting parameter for __AES__ class*
 
 Variant of AES encryption (AES-128, AES-192, AES-256) depends on given key length:
 
@@ -424,7 +456,7 @@ let encrypted: Array<UInt8> = try! AES(key: Array("secret0key000000".utf8), bloc
 Using convenience extensions
     
 ```swift
-let plain = Data(bytes: [0x01, 0x02, 0x03])
+let plain = Data( [0x01, 0x02, 0x03])
 let encrypted = try! plain.encrypt(ChaCha20(key: key, iv: iv))
 let decrypted = try! encrypted.decrypt(ChaCha20(key: key, iv: iv))
 ```
@@ -460,13 +492,13 @@ do {
 }
 ```
 
-**Note**: GCM instance is not intended to be reused. So you can't use the `GCM` from encoding, do decoding.
+**Note**: GCM instance is not intended to be reused. So you can't use the same `GCM` instance from encoding to also perform decoding.
 
 ##### AES-CCM
 
 The result of Counter with Cipher Block Chaining-Message Authentication Code encryption is ciphertext and **authentication tag**, that is later used to decryption.
 
-```
+```swift
 do {
     // The authentication tag is appended to the encrypted message.
 	let tagLength = 8
@@ -496,8 +528,6 @@ You can follow me on Twitter at [@krzyzanowskim](http://twitter.com/krzyzanowski
 # Cryptography Notice
 
 This distribution includes cryptographic software. The country in which you currently reside may have restrictions on the import, possession, use, and/or re-export to another country, of encryption software. BEFORE using any encryption software, please check your country's laws, regulations and policies concerning the import, possession, or use, and re-export of encryption software, to see if this is permitted. See http://www.wassenaar.org/ for more information.
-
-The U.S. Government Department of Commerce, Bureau of Industry and Security (BIS), has classified this software as Export Commodity Control Number (ECCN) 5D002.C.1, which includes information security software using or performing cryptographic functions with asymmetric algorithms. The form and manner of this distribution makes it eligible for export under the License Exception ENC Technology Software Unrestricted (TSU) exception (see the BIS Export Administration Regulations, Section 740.13) for both object code and source code.
 
 ## License
 

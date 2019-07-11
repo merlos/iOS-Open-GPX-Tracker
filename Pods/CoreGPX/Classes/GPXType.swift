@@ -14,6 +14,7 @@ import Foundation
     Conversion of values may not always be done strictly using this class, as some of the methods here might be unoptimised, and may contain code carried over from the legacy code.
  
     - Note: This class is intended to be internally used only.
+    - Might be depreciated soon.
  */
 class GPXType: NSObject {
     
@@ -245,3 +246,4 @@ enum GPXFix: Int {
     /// Military GPS-equivalent
     case Pps
 }
+

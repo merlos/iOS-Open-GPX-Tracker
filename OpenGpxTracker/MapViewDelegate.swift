@@ -1,12 +1,14 @@
 import MapKit
 import CoreGPX
 
+/// Handles all delegate functions of the GPX Mapview
+///
 class MapViewDelegate: NSObject, MKMapViewDelegate, UIAlertViewDelegate {
 
     /// The Waypoint is being edited (if there is any)
     var waypointBeingEdited: GPXWaypoint = GPXWaypoint()
     
-    
+    /// Displays a pin with whose annotation (bubble) will include delete and edit buttons.
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         if annotation.isKind(of: MKUserLocation.self) {
             return nil
@@ -31,7 +33,7 @@ class MapViewDelegate: NSObject, MKMapViewDelegate, UIAlertViewDelegate {
         return annotationView
     }
     
-    
+    /// Displays the line for each segment
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         if overlay.isKind(of: MKTileOverlay.self) {
             return MKTileOverlayRenderer(overlay: overlay)
@@ -46,7 +48,7 @@ class MapViewDelegate: NSObject, MKMapViewDelegate, UIAlertViewDelegate {
         return MKOverlayRenderer()
     }
     
-    
+    /// Handles the actions of delete and edit button
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
         print("calloutAccesoryControlTapped ")
         guard let waypoint = view.annotation as? GPXWaypoint else {
@@ -95,12 +97,13 @@ class MapViewDelegate: NSObject, MKMapViewDelegate, UIAlertViewDelegate {
     }
     
     
-    
+    /// Handles the change of the coordinates when a pin is dropped.
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView,
         didChange newState: MKAnnotationView.DragState, fromOldState oldState: MKAnnotationView.DragState) {
         let gpxMapView = mapView as! GPXMapView
         
         if newState == MKAnnotationView.DragState.ending {
+        	point.elevation = nil // merge master note: add to core data
             if let point = view.annotation as? GPXWaypoint {
                 if let index = gpxMapView.waypoints.firstIndex(of: point) {
                     gpxMapView.coreDataHelper.update(toCoreData: point, from: index)
@@ -112,11 +115,11 @@ class MapViewDelegate: NSObject, MKMapViewDelegate, UIAlertViewDelegate {
     }
     
     
-    
+    /// Adds the pin to the map with an animation (comes from the top of the screen)
     func mapView(_ mapView: MKMapView, didAdd views: [MKAnnotationView]) {
         var i = 0
         let gpxMapView = mapView as! GPXMapView
-        //adds the pins with an annimation
+        //adds the pins with an animation
         for object in views {
             i += 1
             let annotationView = object as MKAnnotationView

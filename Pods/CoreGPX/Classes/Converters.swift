@@ -46,6 +46,7 @@ internal class Convert {
     
     // MARK:- Date & Time Formatting
 
+    /// Immutable date formatter (UTC Time) for consistency within CoreGPX.
     private static let dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
         
@@ -77,6 +78,7 @@ internal class Convert {
         return dateFormatter.string(from: validDate)
     }
     
+    /// Immutable year formatter (UTC Time) for consistency within CoreGPX.
     private static let yearFormatter: DateFormatter = {
         let formatter = DateFormatter()
         

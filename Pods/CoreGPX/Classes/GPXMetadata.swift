@@ -70,12 +70,17 @@ open class GPXMetadata: GPXElement {
     /// - Parameters:
     ///     - dictionary: a dictionary with a key of an attribute, followed by the value which is set as the GPX file is parsed.
     ///
-    init(dictionary: [String : String]) {
-        self.time = ISO8601DateParser.parse(dictionary["time"])
+    init(dictionary: inout [String : String]) {
+        self.time = GPXDateParser.parse(date: dictionary.removeValue(forKey: "time"))
         super.init()
-        self.name = dictionary["name"]
-        self.desc = dictionary["desc"]
-        self.keyword = dictionary["keyword"]
+        dictionary.removeValue(forKey: self.tagName())
+        self.name = dictionary.removeValue(forKey: "name")
+        self.desc = dictionary.removeValue(forKey: "desc")
+        self.keyword = dictionary.removeValue(forKey: "keyword")
+        
+        if dictionary.count > 0 {
+            self.extensions = GPXExtensions(dictionary: dictionary)
+        }
     }
     
     // MARK:- Tag

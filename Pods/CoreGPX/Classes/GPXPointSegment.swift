@@ -14,16 +14,19 @@ import Foundation
  */
 open class GPXPointSegment: GPXElement {
     
+    /// points of segment
     public var points = [GPXPoint]()
     
     // MARK:- Instance
     
+    /// Default initializer.
     public required init() {
         super.init()
     }
     
     // MARK:- Public Methods
     
+    /// Adds a new point to segment, and returns the added point.
     public func newPoint(with latitude: Double, longitude: Double) -> GPXPoint {
 
         let point = GPXPoint(latitude: latitude, longitude: longitude)
@@ -33,6 +36,7 @@ open class GPXPointSegment: GPXElement {
         return point
     }
     
+    /// Appends a point to the point segment
     public func add(point: GPXPoint?) {
         if let validPoint = point {
             point?.parent = self
@@ -40,10 +44,12 @@ open class GPXPointSegment: GPXElement {
         }
     }
     
+    /// Appends an array of points to the point segment
     public func add(points: [GPXPoint]) {
         self.points.append(contentsOf: points)
     }
     
+    /// Remove a single point in the point segment
     public func remove(point: GPXPoint) {
         let contains = points.contains(point)
         if contains == true {

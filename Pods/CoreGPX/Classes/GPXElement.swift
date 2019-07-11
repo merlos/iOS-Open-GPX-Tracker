@@ -7,12 +7,6 @@
 
 import Foundation
 
-// MARK:- Constants
-
-let kGPXInvalidGPXFormatNotification = "kGPXInvalidGPXFormatNotification"
-
-let kGPXDescriptionKey = "kGPXDescriptionKey"
-
 /**
  A root class for all element types
  

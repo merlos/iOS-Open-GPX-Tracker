@@ -78,6 +78,8 @@ open class GPXParser: NSObject {
     
     private var element = String()
     
+    private var root = GPXRoot()
+    
     // MARK:- Main element types or components
     private var waypoints = [GPXWaypoint]()
     
@@ -95,12 +97,12 @@ open class GPXParser: NSObject {
     // MARK:- Dictionary of element for parsing use.
     private var waypointDict = [String : String]()
     private var trackDict = [String : String]()
+    private var tracksegDict = [String : String]()
     private var trackpointDict = [String : String]()
     private var routeDict = [String : String]()
     private var routepointDict = [String : String]()
     
     private var linkDict = [String : String]()
-    private var extensionsDict = [String : String]()
     
     // Metadata types
     private var metadataDict = [String : String]()
@@ -110,7 +112,7 @@ open class GPXParser: NSObject {
     private var copyrightDict = [String : String]()
     
     // for GPX Header
-    private var gpxHeaderDict = [String : String]()
+    // private var rootDict = [String : String]()
     
     // MARK:- GPX v1.1 XML Schema tag types check
     private var isWaypoint = false
@@ -135,16 +137,15 @@ open class GPXParser: NSObject {
     private var isCopyright = false
     private var elementHasCopyright = false
     
+    private var extensionIndex = 0
+    
     // MARK:- Export parsed data
     
     public func parsedData() -> GPXRoot {
         self.parser.delegate = self
         self.parser.parse()
         
-        let root = GPXRoot(dictionary: gpxHeaderDict)
-        
         root.metadata = metadata
-        root.extensions = extensions
         root.add(waypoints: waypoints)
         root.add(routes: routes)
         root.add(tracks: tracks)
@@ -166,49 +167,46 @@ extension GPXParser: XMLParserDelegate {
         element = elementName
         
         switch elementName {
-        case "gpx":
-            gpxHeaderDict = attributeDict
+        //case "gpx":
+            //rootDict = attributeDict
         case "wpt":
             isWaypoint = true
-            waypointDict["lat"] = attributeDict["lat"]
-            waypointDict["lon"] = attributeDict["lon"]
+            waypointDict = attributeDict
         case "trk":
             isTrack = true
         case "trkseg":
             isTrackSegment = true
         case "trkpt":
             isTrackPoint = true
-            trackpointDict["lat"] = attributeDict["lat"]
-            trackpointDict["lon"] = attributeDict["lon"]
+            trackpointDict = attributeDict
         case "rte":
             isRoute = true
         case "rtept":
             isRoutePoint = true
-            routepointDict["lat"] = attributeDict["lat"]
-            routepointDict["lon"] = attributeDict["lon"]
+            routepointDict = attributeDict
         case "metadata":
             isMetadata = true
         case "extensions":
             isExtensions = true
         case "link":
             isLink = true
-            linkDict["href"] = attributeDict["href"]
+            linkDict = attributeDict
             
         // for metadata
         case "bounds":
             isBounds = true
-            boundsDict["minlon"] = attributeDict["minlon"]
-            boundsDict["maxlon"] = attributeDict["maxlon"]
-            boundsDict["minlat"] = attributeDict["minlat"]
-            boundsDict["maxlat"] = attributeDict["maxlat"]
+            boundsDict = attributeDict
         case "author":
             isAuthor = true
         case "email":
             isEmail = true
         case "copyright":
             isCopyright = true
-            copyrightDict["author"] = attributeDict["author"]
+            copyrightDict = attributeDict
         default:
+            if isExtensions {
+                parserFoundExtensionCode()
+            }
             break
         }
         
@@ -217,81 +215,83 @@ extension GPXParser: XMLParserDelegate {
     public func parser(_ parser: XMLParser, foundCharacters string: String) {
         let foundString = string.trimmingCharacters(in: .whitespacesAndNewlines)
         if foundString.isEmpty == false {
-            if element != "trkpt" || element != "wpt" || element != "rtept" || element != "metadata" || element != "extensions" {
-                
-                if isWaypoint {
-                    if isLink {
-                        linkDict[element] = foundString
-                    }
-                    else {
-                        waypointDict[element] = foundString
-                    }
+            
+            if isExtensions {
+                element = "\(element), \(extensionIndex)"
+            }
+            if isWaypoint {
+                if isLink {
+                    linkDict[element] = foundString
                 }
-                if isTrack {
-                    if isLink {
-                        linkDict[element] = foundString
-                    }
-                    trackDict[element] = foundString
-                }
-                if isTrackPoint {
-                    if isLink {
-                        linkDict[element] = foundString
-                    }
-                    else {
-                        trackpointDict[element] = foundString
-                    }
-                }
-                if isRoute {
-                    if isLink {
-                        linkDict[element] = foundString
-                    }
-                    routeDict[element] = foundString
-                }
-                if isRoutePoint {
-                    if isLink {
-                        linkDict[element] = foundString
-                    }
-                    else {
-                        routepointDict[element] = foundString
-                    }
-                }
-                if isMetadata {
-                    if isLink && !isAuthor {
-                        linkDict[element] = foundString
-                    }
-                    if isBounds {
-                        // do nothing
-                    }
-                    if isAuthor {
-                        if isLink {
-                            linkDict[element] = foundString
-                        }
-                        else {
-                            if isEmail {
-                                emailDict[element] = foundString
-                            }
-                            authorDict[element] = foundString
-                        }
-                    }
-                    if isCopyright {
-                        copyrightDict[element] = foundString
-                    }
-                    else {
-                        metadataDict[element] = foundString
-                    }
-                }
-                if isExtensions {
-                    extensionsDict[element] = foundString
+                else {
+                    waypointDict[element] = foundString
                 }
             }
-            
+            if isTrack && !isTrackPoint && !isTrackSegment {
+                if isLink {
+                    linkDict[element] = foundString
+                }
+                trackDict[element] = foundString
+            }
+            if isTrackPoint {
+                if isLink {
+                    linkDict[element] = foundString
+                }
+                else {
+                    trackpointDict[element] = foundString
+                }
+            }
+            if isRoute && !isRoutePoint {
+                if isLink {
+                    linkDict[element] = foundString
+                }
+                routeDict[element] = foundString
+            }
+            if isRoutePoint {
+                if isLink {
+                    linkDict[element] = foundString
+                }
+                else {
+                    routepointDict[element] = foundString
+                }
+            }
+            if isMetadata {
+                if isLink && !isAuthor {
+                    linkDict[element] = foundString
+                }
+                if isBounds {
+                    // do nothing
+                }
+                if isAuthor {
+                    if isLink {
+                        linkDict[element] = foundString
+                    }
+                    else {
+                        if isEmail {
+                            emailDict[element] = foundString
+                        }
+                        authorDict[element] = foundString
+                    }
+                }
+                if isCopyright {
+                    copyrightDict[element] = foundString
+                }
+                else {
+                    metadataDict[element] = foundString
+                }
+            }
+            /*
+            if isExtensions && !isMetadata && !isBounds && !isAuthor && !isCopyright && !isEmail && !isRoute && !isRoutePoint && !isTrack && !isTrackPoint && !isTrackSegment && !isWaypoint {
+                rootDict[element] = foundString
+            }
+            */
         }
     }
     
     public func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
         switch elementName {
         case "metadata":
-            self.metadata = GPXMetadata(dictionary: metadataDict)
+            self.metadata = GPXMetadata(dictionary: &metadataDict)
             if elementHasLink && !elementHasAuthor {
                 self.metadata?.link = GPXLink(dictionary: linkDict)
                 
@@ -341,7 +341,7 @@ extension GPXParser: XMLParserDelegate {
             metadataDict.removeAll()
             
         case "trkpt":
-            let tempTrackPoint = GPXTrackPoint(dictionary: trackpointDict)
+            let tempTrackPoint = GPXTrackPoint(dictionary: &trackpointDict)
             if elementHasLink {
                 tempTrackPoint.link = GPXLink(dictionary: linkDict)
                 linkDict.removeAll()
@@ -351,10 +351,11 @@ extension GPXParser: XMLParserDelegate {
             
             // clear values
             isTrackPoint = false
+            extensionIndex = 0
             trackpointDict.removeAll()
             
         case "wpt":
-            let tempWaypoint = GPXWaypoint(dictionary: waypointDict)
+            let tempWaypoint = GPXWaypoint(dictionary: &waypointDict)
             if elementHasLink {
                 tempWaypoint.link = GPXLink(dictionary: linkDict)
                 linkDict.removeAll()
@@ -364,10 +365,11 @@ extension GPXParser: XMLParserDelegate {
             
             // clear values
             isWaypoint = false
+            extensionIndex = 0
             waypointDict.removeAll()
             
         case "rte":
-            let tempRoute = GPXRoute(dictionary: routeDict)
+            let tempRoute = GPXRoute(dictionary: &routeDict)
             tempRoute.add(routepoints: self.routepoints)
             if elementHasLink {
                 tempRoute.link = GPXLink(dictionary: linkDict)
@@ -378,10 +380,11 @@ extension GPXParser: XMLParserDelegate {
             
             // clear values
             isRoute = false
+            extensionIndex = 0
             self.routepoints.removeAll()
             
         case "rtept":
-            let tempRoutePoint = GPXRoutePoint(dictionary: routepointDict)
+            let tempRoutePoint = GPXRoutePoint(dictionary: &routepointDict)
             if elementHasLink {
                 tempRoutePoint.link = GPXLink(dictionary: linkDict)
                 linkDict.removeAll()
@@ -391,10 +394,11 @@ extension GPXParser: XMLParserDelegate {
             
             // clear values
             isRoutePoint = false
+            extensionIndex = 0
             self.routepointDict.removeAll()
             
         case "trk":
-            let tempTrack = GPXTrack(dictionary: trackDict)
+            let tempTrack = GPXTrack(dictionary: &trackDict)
             tempTrack.add(trackSegments: self.tracksegements)
             if elementHasLink {
                 tempTrack.link = GPXLink(dictionary: linkDict)
@@ -405,6 +409,7 @@ extension GPXParser: XMLParserDelegate {
             
             //clear values
             isTrack = false
+            extensionIndex = 0
             self.trackDict.removeAll()
             self.tracksegements.removeAll()
             
@@ -415,12 +420,14 @@ extension GPXParser: XMLParserDelegate {
             
             // clear values
             isTrackSegment = false
+            extensionIndex = 0
             self.trackpoints.removeAll()
             
         case "extensions":
             self.extensions = GPXExtensions()
             
             // clear values
+            extensionIndex = 0
             isExtensions = false
             
         case "link":
@@ -452,9 +459,72 @@ extension GPXParser: XMLParserDelegate {
             
             // clear values
             isCopyright = false
+            /*
+        case "gpx":
+            self.root = GPXRoot(dictionary: &rootDict)
+            rootDict.removeAll()
+ */
         default:
-            break
+            let key = "\(elementName), \(extensionIndex)"
+            let def = "internalParsingIndex \(extensionIndex)"
+            if trackpointDict[key] == def || routepointDict[key] == def || waypointDict[key] == def || tracksegDict[key] == def || trackDict[key] == def || routeDict[key] == def || linkDict[key] == def || metadataDict[key] == def || boundsDict[key] == def || authorDict[key] == def || emailDict[key] == def || copyrightDict[key] == def {
+                extensionIndex += 1
+            }
+            else {
+                break
+            }
         }
     }
 
+
+}
+
+extension GPXParser {
+    
+    /// Invoked when parser finds non standard data, which will be treated as extensions data.
+    func parserFoundExtensionCode() {
+        
+        let key = "\(element), \(extensionIndex)"
+        let indexValue = "internalParsingIndex \(extensionIndex)"
+        
+        
+        if isTrackPoint {
+            trackpointDict[key] = indexValue
+        }
+        else if isRoutePoint {
+            routepointDict[key] = indexValue
+        }
+        else if isWaypoint {
+            waypointDict[key] = indexValue
+        }
+        else if isTrack {
+            trackDict[key] = indexValue
+        }
+        else if isTrackSegment {
+            tracksegDict[key] = indexValue
+        }
+        else if isAuthor {
+            authorDict[key] = indexValue
+        }
+        else if isBounds {
+            boundsDict[key] = indexValue
+        }
+        else if isCopyright {
+            copyrightDict[key] = indexValue
+        }
+        else if isEmail {
+            emailDict[key] = indexValue
+        }
+        else if isLink {
+            linkDict[key] = indexValue
+        }
+        else if isRoute {
+            routeDict[key] = indexValue
+        }
+            /* DOES NOT WORK
+        else { // for extension directly on GPXRoot
+            rootDict[key] = indexValue
+        }
+ */
+    }
 }

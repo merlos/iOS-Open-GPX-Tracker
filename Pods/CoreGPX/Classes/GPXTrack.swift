@@ -16,6 +16,7 @@ import Foundation
  */
 open class GPXTrack: GPXElement, Codable {
     
+    /// for Codable
     enum CodingKeys: String, CodingKey {
         case link
         case tracksegments = "trkseg"
@@ -52,21 +53,28 @@ open class GPXTrack: GPXElement, Codable {
     /// Type of current track.
     public var type: String?
     
+    /// Custom Extensions of track, if needed.
     public var extensions: GPXExtensions?
 
-    
+    /// Default Initializer
     public required init() {
         super.init()
     }
     
-    init(dictionary: [String : String]) {
+    /// Internal Initializer, for parsing use only.
+    init(dictionary: inout [String : String]) {
         super.init()
-        self.number = Convert.toInt(from: dictionary["number"])
-        self.name = dictionary["name"]
-        self.comment = dictionary["cmt"]
-        self.desc = dictionary["desc"]
-        self.source = dictionary["src"]
-        self.type = dictionary["type"]
+        dictionary.removeValue(forKey: self.tagName())
+        self.number = Convert.toInt(from: dictionary.removeValue(forKey: "number"))
+        self.name = dictionary.removeValue(forKey: "name")
+        self.comment = dictionary.removeValue(forKey: "cmt")
+        self.desc = dictionary.removeValue(forKey: "desc")
+        self.source = dictionary.removeValue(forKey: "src")
+        self.type = dictionary.removeValue(forKey: "type")
+        
+        if dictionary.count > 0 {
+            self.extensions = GPXExtensions(dictionary: dictionary)
+        }
     }
     
     // MARK:- Public Methods
@@ -113,6 +121,7 @@ open class GPXTrack: GPXElement, Codable {
         }
     }
     
+    /// Initializes a new track point in track, then returns the new track point.
     open func newTrackPointWith(latitude: Double, longitude: Double) -> GPXTrackPoint {
         var tracksegment: GPXTrackSegment
         

@@ -9,38 +9,64 @@ import UIKit
 import CoreLocation
 import MapKit
 import CoreGPX
-import WatchConnectivity
 
-//Button colors
+
+/// Purple color for button background
 let kPurpleButtonBackgroundColor: UIColor =  UIColor(red: 146.0/255.0, green: 166.0/255.0, blue: 218.0/255.0, alpha: 0.90)
+
+/// Green color for button background
 let kGreenButtonBackgroundColor: UIColor = UIColor(red: 142.0/255.0, green: 224.0/255.0, blue: 102.0/255.0, alpha: 0.90)
+
+/// Red color for button background
 let kRedButtonBackgroundColor: UIColor =  UIColor(red: 244.0/255.0, green: 94.0/255.0, blue: 94.0/255.0, alpha: 0.90)
+
+/// Blue color for button background
 let kBlueButtonBackgroundColor: UIColor = UIColor(red: 74.0/255.0, green: 144.0/255.0, blue: 226.0/255.0, alpha: 0.90)
+
+/// Blue color for disabled button background
 let kDisabledBlueButtonBackgroundColor: UIColor = UIColor(red: 74.0/255.0, green: 144.0/255.0, blue: 226.0/255.0, alpha: 0.10)
+
+/// Red color for disabled button background
 let kDisabledRedButtonBackgroundColor: UIColor =  UIColor(red: 244.0/255.0, green: 94.0/255.0, blue: 94.0/255.0, alpha: 0.10)
+
+/// White color for button background
 let kWhiteBackgroundColor: UIColor = UIColor(red: 254.0/255.0, green: 254.0/255.0, blue: 254.0/255.0, alpha: 0.90)
 
-//Accesory View buttons tags
+/// Delete Waypoint Button tag. Used in a waypoint bubble
 let kDeleteWaypointAccesoryButtonTag = 666
+
+/// Edit Waypoint Button tag. Used in a waypoint bubble.
 let kEditWaypointAccesoryButtonTag = 333
 
+/// Text to display when the system is not providing coordinates.
 let kNotGettingLocationText = "Not getting location"
-let kUnknownAccuracyText = "±···m"
+
+/// Text to display unknown accuracy
+let kUnknownAccuracyText = "±···"
+
+/// Text to display unknown speed.
 let kUnknownSpeedText = "·.··"
 
 /// Size for small buttons
-let  kButtonSmallSize: CGFloat = 48.0
+let kButtonSmallSize: CGFloat = 48.0
+
 /// Size for large buttons
 let kButtonLargeSize: CGFloat = 96.0
+
 /// Separation between buttons
 let kButtonSeparation: CGFloat = 6.0
 
 /// Upper limits threshold (in meters) on signal accuracy.
 let kSignalAccuracy6 = 6.0
+/// Upper limits threshold (in meters) on signal accuracy.
 let kSignalAccuracy5 = 11.0
+/// Upper limits threshold (in meters) on signal accuracy.
 let kSignalAccuracy4 = 31.0
+/// Upper limits threshold (in meters) on signal accuracy.
 let kSignalAccuracy3 = 51.0
+/// Upper limits threshold (in meters) on signal accuracy.
 let kSignalAccuracy2 = 101.0
+/// Upper limits threshold (in meters) on signal accuracy.
 let kSignalAccuracy1 = 201.0
 
 ///
@@ -68,10 +94,11 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         }
     }
     
+    /// TBD (not currently used)
     var followUserBeforePinchGesture = true
     
     
-    //MapView
+    /// location manager instance configuration
     let locationManager: CLLocationManager = {
         let manager = CLLocationManager()
         manager.requestAlwaysAuthorization()
@@ -92,10 +119,16 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
     /// Map View delegate 
     let mapViewDelegate = MapViewDelegate()
     
-    //Status Vars
+    /// Stop watch instance to control elapsed time
     var stopWatch = StopWatch()
+    
+    /// Name of the last file that was saved (without extension)
     var lastGpxFilename: String = ""
-    var wasSentToBackground: Bool = false //Was the app sent to background
+    
+    /// Status variable that indicates if the app was sent to background.
+    var wasSentToBackground: Bool = false
+    
+    /// Status variable that indicates if the location service auth was denied.
     var isDisplayingLocationServicesDenied: Bool = false
     
     /// Has the map any waypoint?
@@ -142,12 +175,12 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
                 
                 map.clearMap() //clear map
                 lastGpxFilename = "" //clear last filename, so when saving it appears an empty field
-                
+
                 map.coreDataHelper.clearAll()
                 map.coreDataHelper.deleteLastFileNameFromCoreData()
                 
-                totalTrackedDistanceLabel.distance = (map.totalTrackedDistance)
-                currentSegmentDistanceLabel.distance = (map.currentSegmentDistance)
+                totalTrackedDistanceLabel.distance = (map.session.totalTrackedDistance)
+                currentSegmentDistanceLabel.distance = (map.session.currentSegmentDistance)
                 
                 /*
                 // XXX Left here for reference
@@ -191,39 +224,80 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
     
     
     //UI
-    //labels
+    /// Label with the title of the app
     var appTitleLabel: UILabel
-    //var appTitleBackgroundView: UIView
+
+    /// Image with the GPS signal
     var signalImageView: UIImageView
-    var signalAccuracyLabel: UILabel
-    var coordsLabel: UILabel
-    var timeLabel: UILabel
-    var speedLabel: UILabel
-    var totalTrackedDistanceLabel: UIDistanceLabel
-    var currentSegmentDistanceLabel: UIDistanceLabel
- 
     
-    // Buttons
+    /// Current GPS signal accuracy text (based on kSignalAccuracyX constants)
+    var signalAccuracyLabel: UILabel
+    
+    /// Label that displays current latitude and longitude (lat,long)
+    var coordsLabel: UILabel
+    
+    /// Displays current elapsed time (00:00)
+    var timeLabel: UILabel
+    
+    /// Label that displays last known speed (in km/h)
+    var speedLabel: UILabel
+    
+    /// Distance of the total segments tracked
+    var totalTrackedDistanceLabel: DistanceLabel
+    
+    /// Distance of the current segment being tracked (since last time the Tracker button was pressed)
+    var currentSegmentDistanceLabel: DistanceLabel
+ 
+    /// Used to display in imperial (foot, miles, mph) or metric system (m, km, km/h)
+    var useImperial = false
+    
+    /// Follow user button (bottom bar)
     var followUserButton: UIButton
+    
+    /// New pin button (bottom bar)
     var newPinButton: UIButton
+    
+    /// View GPX Files button
     var folderButton: UIButton
+    
+    /// View app about button
     var aboutButton: UIButton
+    
+    /// View preferences button
     var preferencesButton: UIButton
+    
+    /// Share current gpx file button
     var shareButton: UIButton
+    
+    /// Spinning Activity Indicator for shareButton
+    let shareActivityIndicator: UIActivityIndicatorView
+    
+    /// Reset map button (bottom bar)
     var resetButton: UIButton
+    
+    /// Start/Pause tracker button (bottom bar)
     var trackerButton: UIButton
+    
+    /// Save current track into a GPX file
     var saveButton: UIButton
     
     // Signal accuracy images
+    /// GPS signal image. Level 0 (no signal)
     let signalImage0 = UIImage(named: "signal0")
+    /// GPS signal image. Level 1
     let signalImage1 = UIImage(named: "signal1")
+    /// GPS signal image. Level 2
     let signalImage2 = UIImage(named: "signal2")
+    /// GPS signal image. Level 3
     let signalImage3 = UIImage(named: "signal3")
+    /// GPS signal image. Level 4
     let signalImage4 = UIImage(named: "signal4")
+    /// GPS signal image. Level 5
     let signalImage5 = UIImage(named: "signal5")
+    /// GPS signal image. Level 6
     let signalImage6 = UIImage(named: "signal6")
  
-    // Initializer. Just initializes the class vars/const
+    /// Initializer. Just initializes the class vars/const
     required init(coder aDecoder: NSCoder) {
         self.map = GPXMapView(coder: aDecoder)!
         
@@ -234,8 +308,8 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         
         self.timeLabel = UILabel(coder: aDecoder)!
         self.speedLabel = UILabel(coder: aDecoder)!
-        self.totalTrackedDistanceLabel = UIDistanceLabel(coder: aDecoder)!
-        self.currentSegmentDistanceLabel = UIDistanceLabel(coder: aDecoder)!
+        self.totalTrackedDistanceLabel = DistanceLabel(coder: aDecoder)!
+        self.currentSegmentDistanceLabel = DistanceLabel(coder: aDecoder)!
         
         self.followUserButton = UIButton(coder: aDecoder)!
         self.newPinButton = UIButton(coder: aDecoder)!
@@ -248,8 +322,9 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         self.trackerButton = UIButton(coder: aDecoder)!
         self.saveButton = UIButton(coder: aDecoder)!
         
+        self.shareActivityIndicator = UIActivityIndicatorView(coder: aDecoder)
+        
         super.init(coder: aDecoder)!
-        followUser = true
     }
     
     ///
@@ -299,20 +374,6 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
             }
         }
         
-        // Watch communication session activation (available >iOS 9)
-        if #available(iOS 9.0, *) {
-            if WCSession.isSupported() {
-                print("ViewController:: WCSession is supported")
-                let session = WCSession.default
-                session.delegate = self
-                session.activate()
-                print("ViewController:: WCSession activated")
-            }
-            else {
-                print("ViewController:: WCSession is not supported")
-            }
-        }
-        
         // Map autorotate configuration
         map.autoresizesSubviews = true
         map.autoresizingMask = [.flexibleHeight, .flexibleWidth]
@@ -346,21 +407,11 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         //let pinchGesture = UIPinchGestureRecognizer(target: self, action: "pinchGesture")
         //map.addGestureRecognizer(pinchGesture)
         
-        //Preferences load
-        let defaults = UserDefaults.standard
-        if var tileServerInt = defaults.object(forKey: kDefaultsKeyTileServerInt) as? Int {
-            // In version 1.5 one tileServer was removed, so some users may have selected a tileServer that no longer exists.
-            tileServerInt = (tileServerInt >= GPXTileServer.count ? GPXTileServer.apple.rawValue : tileServerInt)
-            print("** Preferences : setting saved tileServer \(tileServerInt)")
-            map.tileServer = GPXTileServer(rawValue: tileServerInt)!
-        } else {
-            print("** Preferences: using default tileServer: Apple")
-            map.tileServer = .apple
-        }
-        if let useCacheBool = defaults.object(forKey: kDefaultsKeyUseCache) as? Bool {
-            print("** Preferences: setting saved useCache: \(useCacheBool)")
-            map.useCache = useCacheBool
-        }
+        //Preferences
+        map.tileServer = Preferences.shared.tileServer
+        map.useCache = Preferences.shared.useCache
+        useImperial = Preferences.shared.useImperial
+        
         
         //
         // Config user interface
@@ -424,7 +475,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         speedLabel.frame = CGRect(x: self.map.frame.width - 160,  y: 20 + 36 + iPhoneXdiff, width: 150, height: 20)
         speedLabel.textAlignment = .right
         speedLabel.font = font18
-        speedLabel.text = "0.00 km/h"
+        speedLabel.text = 0.00.toSpeed(useImperial: useImperial)
         speedLabel.autoresizingMask = [.flexibleWidth, .flexibleLeftMargin, .flexibleRightMargin]
         //timeLabel.backgroundColor = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.5)
         map.addSubview(speedLabel)
@@ -433,7 +484,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         totalTrackedDistanceLabel.frame = CGRect(x: self.map.frame.width - 160, y: 60 + 20 + iPhoneXdiff, width: 150, height: 40)
         totalTrackedDistanceLabel.textAlignment = .right
         totalTrackedDistanceLabel.font = font36
-        totalTrackedDistanceLabel.text = "0m"
+        totalTrackedDistanceLabel.text = 0.00.toDistance(useImperial: useImperial)
         totalTrackedDistanceLabel.autoresizingMask = [.flexibleWidth, .flexibleLeftMargin, .flexibleRightMargin]
         //timeLabel.backgroundColor = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.5)
         map.addSubview(totalTrackedDistanceLabel)
@@ -441,7 +492,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         currentSegmentDistanceLabel.frame = CGRect(x: self.map.frame.width - 160, y: 80 + 36 + iPhoneXdiff, width: 150, height: 20)
         currentSegmentDistanceLabel.textAlignment = .right
         currentSegmentDistanceLabel.font = font18
-        currentSegmentDistanceLabel.text = "0m"
+        currentSegmentDistanceLabel.text =  0.00.toDistance(useImperial: useImperial)
         currentSegmentDistanceLabel.autoresizingMask = [.flexibleWidth, .flexibleLeftMargin, .flexibleRightMargin]
         //timeLabel.backgroundColor = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.5)
         map.addSubview(currentSegmentDistanceLabel)
@@ -615,6 +666,8 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
     ///  1. whenever it enters background
     ///  2. whenever it becomes active
     ///  3. whenever it will terminate
+    ///  4. whenever it receives a file from Apple Watch
+    ///  5. whenever it should load file from Core Data recovery mechanism
     ///
     func addNotificationObservers() {
         let notificationCenter = NotificationCenter.default
@@ -626,7 +679,9 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         
         
         notificationCenter.addObserver(self, selector: #selector(applicationWillTerminate), name: UIApplication.willTerminateNotification, object: nil)
-        
+
+        notificationCenter.addObserver(self, selector: #selector(presentReceivedFile(_:)), name: .didReceiveFileFromAppleWatch, object: nil)
+
         notificationCenter.addObserver(self, selector: #selector(loadRecoveredFile(_:)), name: .loadRecoveredFile, object: nil)
     }
 
@@ -637,9 +692,26 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         NotificationCenter.default.removeObserver(self)
     }
     
+    ///
+    /// Presents alert when file received from Apple Watch
+    ///
+    @objc func presentReceivedFile(_ notification: Notification) {
+        
+        guard let fileName = notification.userInfo?["fileName"] as? String? else { return }
+        
+        // alert to display to notify user that file has been received.
+        let controller = UIAlertController(title: "File Received from Apple Watch", message: "Received file: \"\(fileName ?? "")\"", preferredStyle: .alert)
+        let action = UIAlertAction(title: "Done", style: .default) {
+            (action) in
+            print("ViewController:: Presented file received message from WatchConnectivity Session")
+        }
+        
+        controller.addAction(action)
+        self.present(controller, animated: true, completion: nil)
+    }
+    
     /// returns a string with the format of current date dd-MMM-yyyy-HHmm' (20-Jun-2018-1133)
     ///
-    
     func defaultFilename() -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd-MMM-yyyy-HHmm"
@@ -734,6 +806,9 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         self.present(navController, animated: true) { () -> Void in }
     }
     
+    ///
+    /// Opens Preferences table view controller
+    ///
     @objc func openPreferencesTableViewController() {
         print("openPreferencesTableViewController")
         let vc = PreferencesTableViewController(style: .grouped)
@@ -742,24 +817,65 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         self.present(navController, animated: true) { () -> Void in }
     }
     
-    
     /// Opens an Activity View Controller to share the file
     @objc func openShare() {
-        print("share")
-        //Create a temporary file
-        let filename =  lastGpxFilename.isEmpty ? defaultFilename() : lastGpxFilename
-        let gpxString: String = self.map.exportToGPXString()
-        let tmpFile = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent("\(filename).gpx")
-        GPXFileManager.saveToURL(tmpFile, gpxContents: gpxString)
-        //Add it to the list of tmpFiles.
-        //Note: it may add more than once the same file to the list.
+        print("ViewController: Share Button tapped")
         
-        //Call Share activity View controller
-        let activityViewController = UIActivityViewController(activityItems: [tmpFile], applicationActivities: nil)
-        activityViewController.popoverPresentationController?.sourceView = shareButton
-        activityViewController.popoverPresentationController?.sourceRect = shareButton.bounds
-        self.present(activityViewController, animated: true, completion: nil)
+        // async such that process is done in background
+        DispatchQueue.global(qos: .utility).async {
+            // UI code
+            DispatchQueue.main.sync {
+                self.shouldShowShareActivityIndicator(true)
+            }
+            
+            //Create a temporary file
+            let filename =  self.lastGpxFilename.isEmpty ? self.defaultFilename() : self.lastGpxFilename
+            let gpxString: String = self.map.exportToGPXString()
+            let tmpFile = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent("\(filename).gpx")
+            GPXFileManager.saveToURL(tmpFile, gpxContents: gpxString)
+            //Add it to the list of tmpFiles.
+            //Note: it may add more than once the same file to the list.
+            
+            // UI code
+            DispatchQueue.main.sync {
+                //Call Share activity View controller
+                let activityViewController = UIActivityViewController(activityItems: [tmpFile], applicationActivities: nil)
+                activityViewController.popoverPresentationController?.sourceView = self.shareButton
+                activityViewController.popoverPresentationController?.sourceRect = self.shareButton.bounds
+                self.present(activityViewController, animated: true, completion: nil)
+                self.shouldShowShareActivityIndicator(false)
+            }
+            
+        }
+    }
     
+    /// Displays spinning activity indicator for share button when true
+    func shouldShowShareActivityIndicator(_ isTrue: Bool) {
+        // setup
+        shareActivityIndicator.color = .black
+        shareActivityIndicator.frame = CGRect(x: 0, y: 0, width: 32, height: 32)
+        shareActivityIndicator.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
+        
+        if isTrue {
+            // cross dissolve from button to indicator
+            UIView.transition(with: self.shareButton, duration: 0.35, options: [.transitionCrossDissolve], animations: {
+                self.shareButton.addSubview(self.shareActivityIndicator)
+            }, completion: nil)
+            
+            shareActivityIndicator.startAnimating()
+            shareButton.setImage(nil, for: UIControl.State())
+            shareButton.isUserInteractionEnabled = false
+        }
+        else {
+            // cross dissolve from indicator to button
+            UIView.transition(with: self.shareButton, duration: 0.35, options: [.transitionCrossDissolve], animations: {
+                self.shareActivityIndicator.removeFromSuperview()
+            }, completion: nil)
+            
+            shareActivityIndicator.stopAnimating()
+            shareButton.setImage(UIImage(named: "share"), for: UIControl.State())
+            shareButton.isUserInteractionEnabled = true
+        }
     }
     
     ///
@@ -792,7 +908,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         }
     }
     
-    // Zoom gesture controls that follow user to
+    /// Does nothing in current implementation.
     func pinchGesture(_ gesture: UIPinchGestureRecognizer) {
         print("pinchGesture")
      /*   if gesture.state == UIGestureRecognizerState.Began {
@@ -811,7 +927,8 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
     ///
     @objc func addPinAtMyLocation() {
         print("Adding Pin at my location")
-        let waypoint = GPXWaypoint(coordinate: map.userLocation.coordinate)
+        let altitude = map.userLocation.location?.altitude
+        let waypoint = GPXWaypoint(coordinate: map.userLocation.coordinate, altitude: altitude)
         map.addWaypoint(waypoint)
         map.coreDataHelper.add(toCoreData: waypoint)
         self.hasWaypoints = true
@@ -996,7 +1113,7 @@ extension ViewController: PreferencesTableViewControllerDelegate {
     /// `PreferencesTableViewController` informs the main `ViewController` through this delegate.
     ///
     func didUpdateTileServer(_ newGpxTileServer: Int) {
-        print("** Preferences:: didUpdateTileServer: \(newGpxTileServer)")
+        print("PreferencesTableViewControllerDelegate:: didUpdateTileServer: \(newGpxTileServer)")
         self.map.tileServer = GPXTileServer(rawValue: newGpxTileServer)!
     }
     
@@ -1005,14 +1122,26 @@ extension ViewController: PreferencesTableViewControllerDelegate {
     /// informs the map to behave accordingly.
     ///
     func didUpdateUseCache(_ newUseCache: Bool) {
-        print("** Preferences:: didUpdateUseCache: \(newUseCache)")
+        print("PreferencesTableViewControllerDelegate:: didUpdateUseCache: \(newUseCache)")
         self.map.useCache = newUseCache
     }
-}
+    
+    // User changed the setting of use imperial units.
+    func didUpdateUseImperial(_ newUseImperial: Bool) {
+        print("PreferencesTableViewControllerDelegate:: didUpdateUseImperial: \(newUseImperial)")
+        useImperial = newUseImperial
+        totalTrackedDistanceLabel.useImperial = useImperial
+        currentSegmentDistanceLabel.useImperial = useImperial
+        //Because we dont know if last speed was unknown we set it as unknown.
+        // In regular circunstances it will go to the new units relatively fast.
+        speedLabel.text = kUnknownSpeedText
+        signalAccuracyLabel.text = kUnknownAccuracyText
+    }}
 
 // MARK: location manager Delegate
 
-
+/// Extends `ViewController`` to support `GPXFilesTableViewControllerDelegate` function
+/// that loads into the map a the file selected by the user.
 extension ViewController: GPXFilesTableViewControllerDelegate {
     ///
     /// Loads the selected GPX File into the map.
@@ -1036,16 +1165,24 @@ extension ViewController: GPXFilesTableViewControllerDelegate {
         self.map.regionToGPXExtent()
         self.gpxTrackingStatus = .paused
         
-        self.totalTrackedDistanceLabel.distance = self.map.totalTrackedDistance
+        self.totalTrackedDistanceLabel.distance = self.map.session.totalTrackedDistance
         
     }
 }
 
 // MARK: CLLocationManagerDelegate
 
-
+// Extends view controller to support Location Manager delegate protocol
 extension ViewController: CLLocationManagerDelegate {
 
+    /// Location manager calls this func to inform there was an error.
+    ///
+    /// It performs the following actions:
+    ///  - Sets coordsLabel with `kNotGettingLocationText`, signal accuracy to
+    ///    kUnknownAccuracyText and signalImageView to signalImage0.
+    ///  - If the error code is `CLError.denied` it calls `checkLocationServicesStatus`
+    
+    ///
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print("didFailWithError \(error)")
         coordsLabel.text = kNotGettingLocationText
@@ -1075,8 +1212,10 @@ extension ViewController: CLLocationManagerDelegate {
         let newLocation = locations.first!
         print("isUserLocationVisible: \(map.isUserLocationVisible) showUserLocation: \(map.showsUserLocation)")
         print("didUpdateLocation: received \(newLocation.coordinate) hAcc: \(newLocation.horizontalAccuracy) vAcc: \(newLocation.verticalAccuracy) floor: \(newLocation.floor?.description ?? "''") map.userTrackingMode: \(map.userTrackingMode.rawValue)")
+        
+        // Update horizontal accuracy
         let hAcc = newLocation.horizontalAccuracy
-        signalAccuracyLabel.text = "±\(hAcc)m"
+        signalAccuracyLabel.text =  hAcc.toAccuracy(useImperial: useImperial)
         if hAcc < kSignalAccuracy6 {
             self.signalImageView.image = signalImage6
         } else if hAcc < kSignalAccuracy5 {
@@ -1096,18 +1235,10 @@ extension ViewController: CLLocationManagerDelegate {
         //Update coordsLabel
         let latFormat = String(format: "%.6f", newLocation.coordinate.latitude)
         let lonFormat = String(format: "%.6f", newLocation.coordinate.longitude)
-        let altFormat = String(format: "%.2f", newLocation.altitude)
-        coordsLabel.text = "(\(latFormat),\(lonFormat)) · altitude: \(altFormat)m"
+        coordsLabel.text = "(\(latFormat),\(lonFormat)) · altitude: \(newLocation.altitude.toAltitude(useImperial: useImperial))"
         
-        
-        //Update speed (provided in m/s, but displayed in km/h)
-        var speedFormat: String
-        if newLocation.speed < 0 {
-            speedFormat = kUnknownSpeedText
-        } else {
-            speedFormat = String(format: "%.2f", (newLocation.speed * 3.6))
-        }
-        speedLabel.text = "\(speedFormat) km/h"
+        //Update speed
+        speedLabel.text = (newLocation.speed < 0) ? kUnknownSpeedText : newLocation.speed.toSpeed(useImperial: useImperial)
         
         //Update Map center and track overlay if user is being followed
         if followUser {
@@ -1116,8 +1247,8 @@ extension ViewController: CLLocationManagerDelegate {
         if gpxTrackingStatus == .tracking {
             print("didUpdateLocation: adding point to track (\(newLocation.coordinate.latitude),\(newLocation.coordinate.longitude))")
             map.addPointToCurrentTrackSegmentAtLocation(newLocation)
-            totalTrackedDistanceLabel.distance = map.totalTrackedDistance
-            currentSegmentDistanceLabel.distance = map.currentSegmentDistance
+            totalTrackedDistanceLabel.distance = map.session.totalTrackedDistance
+            currentSegmentDistanceLabel.distance = map.session.currentSegmentDistance
         }
     }
     
@@ -1134,63 +1265,6 @@ extension ViewController: CLLocationManagerDelegate {
     }
 }
 
-
-// MARK: WCSessionDelegate
-
-///
-/// Handles file transfers from Apple Watch companion app
-/// Should be non intrusive to UI, handling all in the background.
-
-/// File received are automatically moved to default location which stores all GPX files
-///
-/// Only available > iOS 9
-///
-@available(iOS 9.0, *)
-extension ViewController: WCSessionDelegate {
-    
-    // called when `WCSession` goes inactive
-    func sessionDidBecomeInactive(_ session: WCSession) {
-        print("GPXFilesTableViewController:: WCSession has become inactive")
-    }
-    
-    func sessionDidDeactivate(_ session: WCSession) {
-        print("GPXFilesTableViewController:: WCSession has deactivated")
-    }
-    
-    @available(iOS 9.3, *)
-    func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
-        switch activationState {
-        case .activated:
-            print("GPXFilesTableViewController:: activationDidCompleteWithActivationState: session activated")
-        case .inactive:
-            print("GPXFilesTableViewController:: activationDidCompleteWithActivationState: session inactive")
-        case .notActivated:
-            print("GPXFilesTableViewController:: activationDidCompleteWithActivationState: session not activated, error:\(String(describing: error))")
-            
-        default: break
-        }
-    }
-    
-    func session(_ session: WCSession, didReceive file: WCSessionFile) {
-        let fileName = file.metadata!["fileName"] as! String?
-        
-        // alert to display to notify user that file has been received.
-        let controller = UIAlertController(title: "File Received from Apple Watch", message: "Received file: \"\(fileName!)\"", preferredStyle: .alert)
-        let action = UIAlertAction(title: "Done", style: .default) {
-            (action) in
-            print("ViewController:: Presented file received message from WatchConnectivity Session")
-        }
-        
-        controller.addAction(action)
-        
-        DispatchQueue.global().sync {
-            GPXFileManager.moveFrom(file.fileURL, fileName: fileName)
-            print("ViewController:: Received file from WatchConnectivity Session")
-        }
-        
-        self.present(controller, animated: true, completion: nil)
-    }
-}
 
 extension Notification.Name {
     static let loadRecoveredFile = Notification.Name("loadRecoveredFile")

@@ -22,6 +22,9 @@ open class GPXEmail: GPXElement {
     /// Domain refers to the back part of the email address, after the **@**
     public var domain: String?
     
+    /// Full email as a string.
+    public var fullAddress: String?
+    
     // MARK:- Instance
     
     public required init() {
@@ -40,13 +43,7 @@ open class GPXEmail: GPXElement {
         self.domain = splitedEmail[1]
     }
     
-    /// Initialize with seperate values of both email ID and domain.
-    @available(*, deprecated: 0.5.0, renamed: "init(withFullEmailAddress:)")
-    public init(emailID: String, domain: String) {
-        self.emailID = emailID
-        self.domain = domain
-    }
-    
+
     /// For internal use only
     ///
     /// Initializes a waypoint through a dictionary, with each key being an attribute name.
@@ -60,6 +57,11 @@ open class GPXEmail: GPXElement {
     init(dictionary: [String : String]) {
         self.emailID = dictionary["id"]
         self.domain = dictionary["domain"]
+        
+        guard let id = dictionary["id"] else { return }
+        guard let domain = dictionary["domain"] else { return }
+        self.fullAddress = id + "@" + domain
+        
     }
     
     // MARK:- Tag
@@ -77,6 +79,6 @@ open class GPXEmail: GPXElement {
         if let domain = domain {
             attribute.appendFormat(" domain=\"%@\"", domain)
         }
-        gpx.appendFormat("%@<%@%@>\r\n", indent(forIndentationLevel: indentationLevel), self.tagName(), attribute)
+        gpx.appendOpenTag(indentation: indent(forIndentationLevel: indentationLevel), tag: tagName(), attribute: attribute)
     }
 }

@@ -20,6 +20,7 @@ open class GPXPerson: GPXElement {
     
     // MARK:- Instance
     
+    // Default Initializer.
     public required init() {
         super.init()
     }
