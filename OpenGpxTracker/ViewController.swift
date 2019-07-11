@@ -740,7 +740,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         self.map.regionToGPXExtent()
         self.gpxTrackingStatus = .paused
         
-        self.totalTrackedDistanceLabel.distance = self.map.totalTrackedDistance
+        self.totalTrackedDistanceLabel.distance = self.map.session.totalTrackedDistance
     }
     
     ///
