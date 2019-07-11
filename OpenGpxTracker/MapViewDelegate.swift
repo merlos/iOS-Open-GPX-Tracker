@@ -104,7 +104,7 @@ class MapViewDelegate: NSObject, MKMapViewDelegate, UIAlertViewDelegate {
         
         if newState == MKAnnotationView.DragState.ending {
             if let point = view.annotation as? GPXWaypoint {
-                point.elevation = nil // merge master note: add to core data
+                point.elevation = nil 
                 if let index = gpxMapView.session.waypoints.firstIndex(of: point) {
                     gpxMapView.coreDataHelper.update(toCoreData: point, from: index)
                 }

@@ -154,6 +154,10 @@ class CoreDataHelper {
             guard let latitude = waypoint.latitude   else { return }
             guard let longitude = waypoint.longitude else { return }
             
+            if let elevation = waypoint.elevation {
+                pt.elevation = elevation
+            }
+            
             pt.name = waypoint.name
             pt.desc = waypoint.desc
             pt.latitude = latitude
@@ -217,6 +221,10 @@ class CoreDataHelper {
                 
                 guard let latitude = updatedWaypoint.latitude   else { return }
                 guard let longitude = updatedWaypoint.longitude else { return }
+                
+                if let elevation = updatedWaypoint.elevation {
+                    pt.elevation = elevation
+                }
                 
                 pt.name = updatedWaypoint.name
                 pt.desc = updatedWaypoint.desc
@@ -339,6 +347,7 @@ class CoreDataHelper {
                     pt.time = safePoint.time
                     pt.desc = safePoint.desc
                     pt.name = safePoint.name
+                    pt.elevation = safePoint.elevation
                     
                     self.waypoints.append(pt)
                 }

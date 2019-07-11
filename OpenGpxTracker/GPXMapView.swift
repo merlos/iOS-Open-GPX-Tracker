@@ -154,7 +154,7 @@ class GPXMapView: MKMapView {
         if index == nil {
             print("Waypoint not found")
             return
-        } // merge master note: resolve twice indexing
+        } 
         self.removeAnnotation(waypoint)
         self.session.waypoints.remove(at: index!)
         self.coreDataHelper.deleteWaypoint(fromCoreDataAt: index!)
