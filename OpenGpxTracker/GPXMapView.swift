@@ -156,7 +156,7 @@ class GPXMapView: MKMapView {
             return
         } // merge master note: resolve twice indexing
         self.removeAnnotation(waypoint)
-        self.session.removeWaypoint(waypoint)
+        self.session.waypoints.remove(at: index!)
         self.coreDataHelper.deleteWaypoint(fromCoreDataAt: index!)
         //TODO: update map extent?
         
