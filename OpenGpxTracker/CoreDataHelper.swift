@@ -157,6 +157,9 @@ class CoreDataHelper {
             if let elevation = waypoint.elevation {
                 pt.elevation = elevation
             }
+            else {
+                pt.elevation = .greatestFiniteMagnitude
+            }
             
             pt.name = waypoint.name
             pt.desc = waypoint.desc
@@ -224,6 +227,9 @@ class CoreDataHelper {
                 
                 if let elevation = updatedWaypoint.elevation {
                     pt.elevation = elevation
+                }
+                else {
+                    pt.elevation = .greatestFiniteMagnitude
                 }
                 
                 pt.name = updatedWaypoint.name
@@ -347,7 +353,9 @@ class CoreDataHelper {
                     pt.time = safePoint.time
                     pt.desc = safePoint.desc
                     pt.name = safePoint.name
-                    pt.elevation = safePoint.elevation
+                    if safePoint.elevation != .greatestFiniteMagnitude {
+                        pt.elevation = safePoint.elevation
+                    }
                     
                     self.waypoints.append(pt)
                 }
