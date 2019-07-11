@@ -277,6 +277,11 @@ class GPXMapView: MKMapView {
     func continueFromGPXRoot(_ gpx: GPXRoot) {
         //clear current map
         self.clearMap()
+        
+        for pt in gpx.waypoints {
+            self.addWaypoint(pt)
+        }
+        
         self.session.continueFromGPXRoot(gpx)
         
         // for last session's previous tracks, through resuming

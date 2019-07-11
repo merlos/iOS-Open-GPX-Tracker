@@ -150,10 +150,6 @@ class GPXSession {
     
     func continueFromGPXRoot(_ gpx: GPXRoot) {
         
-        for pt in gpx.waypoints {
-            self.addWaypoint(pt)
-        }
-        
         let lastTrack = gpx.tracks.last ?? GPXTrack()
         totalTrackedDistance += lastTrack.length
         
