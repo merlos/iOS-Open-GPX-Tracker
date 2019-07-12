@@ -11,6 +11,7 @@ import UIKit
 import MapKit
 import CoreLocation
 import CoreGPX
+import CoreData
 
 
 ///
@@ -91,6 +92,9 @@ class GPXMapView: MKMapView {
     var tileServerOverlay: MKTileOverlay = MKTileOverlay()
     
     ///
+    let coreDataHelper = CoreDataHelper()
+    
+    ///
     /// Initializes the map with an empty currentSegmentOverlay.
     ///
     required init?(coder aDecoder: NSCoder) {
@@ -125,6 +129,7 @@ class GPXMapView: MKMapView {
         let coords: CLLocationCoordinate2D = self.convert(point, toCoordinateFrom: self)
         let waypoint = GPXWaypoint(coordinate: coords)
         self.addWaypoint(waypoint)
+        self.coreDataHelper.add(toCoreData: waypoint)
         
     }
     
@@ -134,7 +139,7 @@ class GPXMapView: MKMapView {
     /// - Parameters: The waypoint to add to the map.
     ///
     func addWaypoint(_ waypoint: GPXWaypoint) {
-        self.session.addWaypoint(waypoint)
+    	self.session.addWaypoint(waypoint)
         self.addAnnotation(waypoint)
         self.extent.extendAreaToIncludeLocation(waypoint.coordinate)
     }
@@ -145,8 +150,14 @@ class GPXMapView: MKMapView {
     /// - Parameters: The waypoint to remove from the map.
     ///
     func removeWaypoint(_ waypoint: GPXWaypoint) {
+        let index = session.waypoints.firstIndex(of: waypoint)
+        if index == nil {
+            print("Waypoint not found")
+            return
+        } 
         self.removeAnnotation(waypoint)
-        self.session.removeWaypoint(waypoint)
+        self.session.waypoints.remove(at: index!)
+        self.coreDataHelper.deleteWaypoint(fromCoreDataAt: index!)
         //TODO: update map extent?
         
     }
@@ -160,13 +171,14 @@ class GPXMapView: MKMapView {
         headingImageView?.transform = CGAffineTransform(rotationAngle: rotation)
     }
     
-    
     ///
     /// Adds a new point to current segment.
     /// - Parameters:
     ///    - location: Typically a location provided by CLLocation
     ///
     func addPointToCurrentTrackSegmentAtLocation(_ location: CLLocation) {
+    let pt = GPXTrackPoint(location: location)
+        self.coreDataHelper.add(toCoreData: pt, withTrackSegmentID: session.trackSegments.count)
         self.session.addPointToCurrentTrackSegmentAtLocation(location)
         //redrawCurrent track segment overlay
         //First remove last overlay, then re-add the overlay updated with the new point
@@ -244,6 +256,7 @@ class GPXMapView: MKMapView {
         //add waypoints
         for pt in gpx.waypoints {
             self.addWaypoint(pt)
+            self.coreDataHelper.add(toCoreData: pt)
         }
         //add track segments
         self.session.tracks = gpx.tracks
@@ -259,6 +272,46 @@ class GPXMapView: MKMapView {
                 }
             }
         }
+    }
+    
+    func continueFromGPXRoot(_ gpx: GPXRoot) {
+        //clear current map
+        self.clearMap()
+        
+        for pt in gpx.waypoints {
+            self.addWaypoint(pt)
+        }
+        
+        self.session.continueFromGPXRoot(gpx)
+        
+        // for last session's previous tracks, through resuming
+        for oneTrack in self.session.tracks {
+            session.totalTrackedDistance += oneTrack.length
+            for segment in oneTrack.tracksegments {
+                let overlay = segment.overlay
+                self.addOverlay(overlay)
+                
+                let segmentTrackpoints = segment.trackpoints
+                //add point to map extent
+                for waypoint in segmentTrackpoints {
+                    self.extent.extendAreaToIncludeLocation(waypoint.coordinate)
+                }
+            }
+        }
+        
+        // for last session track segment
+        for trackSegment in self.session.trackSegments {
+            
+            let overlay = trackSegment.overlay
+            self.addOverlay(overlay)
+            
+            let segmentTrackpoints = trackSegment.trackpoints
+            //add point to map extent
+            for waypoint in segmentTrackpoints {
+                self.extent.extendAreaToIncludeLocation(waypoint.coordinate)
+            }
+        }
+        
     }
 }
 

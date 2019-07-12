@@ -104,7 +104,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     lazy var managedObjectModel: NSManagedObjectModel = {
         // The managed object model for the application. This property is not optional. 
         // It is a fatal error for the application not to be able to find and load its model.
-        let modelURL = Bundle.main.url(forResource: "DATAMODELNAME", withExtension: "momd")!
+        let modelURL = Bundle.main.url(forResource: "OpenGpxTracker", withExtension: "momd")!
         return NSManagedObjectModel(contentsOf: modelURL)!
         }()
     
@@ -115,10 +115,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // This property is optional since there are legitimate error conditions that could cause the creation of the store to fail.
         // Create the coordinator and store
         let coordinator = NSPersistentStoreCoordinator(managedObjectModel: self.managedObjectModel)
-        let url = self.applicationDocumentsDirectory.appendingPathComponent("PROJECTNAME.sqlite")
+        let url = FileManager.default.urls(for: .libraryDirectory, in: .userDomainMask)[0].appendingPathComponent("open-gpx-tracker-session.sqlite")
+        
         var failureReason = "There was an error creating or loading the application's saved data."
         do {
-            try coordinator.addPersistentStore(ofType: NSSQLiteStoreType, configurationName: nil, at: url, options: nil)
+            try coordinator.addPersistentStore(ofType: NSSQLiteStoreType, configurationName: nil, at: url, options: [NSMigratePersistentStoresAutomaticallyOption: true, NSInferMappingModelAutomaticallyOption: true])
         } catch {
             // Report any error we got.
             var dict = [String: AnyObject]()

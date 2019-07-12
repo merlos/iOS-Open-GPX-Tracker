@@ -175,6 +175,9 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
                 
                 map.clearMap() //clear map
                 lastGpxFilename = "" //clear last filename, so when saving it appears an empty field
+
+                map.coreDataHelper.clearAll()
+                map.coreDataHelper.deleteLastFileNameFromCoreData()
                 
                 totalTrackedDistanceLabel.distance = (map.session.totalTrackedDistance)
                 currentSegmentDistanceLabel.distance = (map.session.currentSegmentDistance)
@@ -343,6 +346,8 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
     override func viewDidLoad() {
         super.viewDidLoad()
         stopWatch.delegate = self
+        
+        map.coreDataHelper.retrieveFromCoreData()
         
         //Because of the edges, iPhone X* is slightly different on the layout.
         //So, Is the current device an iPhone X?
@@ -662,6 +667,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
     ///  2. whenever it becomes active
     ///  3. whenever it will terminate
     ///  4. whenever it receives a file from Apple Watch
+    ///  5. whenever it should load file from Core Data recovery mechanism
     ///
     func addNotificationObservers() {
         let notificationCenter = NotificationCenter.default
@@ -673,9 +679,10 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         
         
         notificationCenter.addObserver(self, selector: #selector(applicationWillTerminate), name: UIApplication.willTerminateNotification, object: nil)
-        
+
         notificationCenter.addObserver(self, selector: #selector(presentReceivedFile(_:)), name: .didReceiveFileFromAppleWatch, object: nil)
 
+        notificationCenter.addObserver(self, selector: #selector(loadRecoveredFile(_:)), name: .loadRecoveredFile, object: nil)
     }
 
     ///
@@ -710,6 +717,30 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         dateFormatter.dateFormat = "dd-MMM-yyyy-HHmm"
         print("fileName:" + dateFormatter.string(from: Date()))
         return dateFormatter.string(from: Date())
+    }
+    
+    @objc func loadRecoveredFile(_ notification: Notification) {
+        guard let root = notification.userInfo?["recoveredRoot"] as? GPXRoot else {
+            return
+        }
+        guard let fileName = notification.userInfo?["fileName"] as? String else {
+            return
+        }
+
+        lastGpxFilename = fileName
+        // adds last file name to core data as well
+        self.map.coreDataHelper.add(toCoreData: fileName)
+        //force reset timer just in case reset does not do it
+        self.stopWatch.reset()
+        //load data
+        self.map.continueFromGPXRoot(root)
+        //stop following user
+        self.followUser = false
+        //center map in GPX data
+        self.map.regionToGPXExtent()
+        self.gpxTrackingStatus = .paused
+        
+        self.totalTrackedDistanceLabel.distance = self.map.session.totalTrackedDistance
     }
     
     ///
@@ -750,6 +781,9 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
     @objc func applicationWillTerminate() {
         print("viewController:: applicationWillTerminate")
         GPXFileManager.removeTemporaryFiles()
+        if gpxTrackingStatus == .notStarted {
+            map.coreDataHelper.deleteAllPointsFromCoreData()
+        }
     }
     
     ///
@@ -896,6 +930,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         let altitude = map.userLocation.location?.altitude
         let waypoint = GPXWaypoint(coordinate: map.userLocation.coordinate, altitude: altitude)
         map.addWaypoint(waypoint)
+        map.coreDataHelper.add(toCoreData: waypoint)
         self.hasWaypoints = true
     }
     
@@ -964,6 +999,8 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
             let gpxString = self.map.exportToGPXString()
             GPXFileManager.save(filename!, gpxContents: gpxString)
             self.lastGpxFilename = filename!
+            self.map.coreDataHelper.deleteLastFileNameFromCoreData()
+            self.map.coreDataHelper.add(toCoreData: filename!)
         }
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (action) in }
         
@@ -1116,6 +1153,8 @@ extension ViewController: GPXFilesTableViewControllerDelegate {
         self.resetButtonTapped()
         //println("Loaded GPX file", gpx.gpx())
         lastGpxFilename = gpxFilename
+        // adds last file name to core data as well
+        self.map.coreDataHelper.add(toCoreData: gpxFilename)
         //force reset timer just in case reset does not do it
         self.stopWatch.reset()
         //load data
@@ -1227,3 +1266,6 @@ extension ViewController: CLLocationManagerDelegate {
 }
 
 
+extension Notification.Name {
+    static let loadRecoveredFile = Notification.Name("loadRecoveredFile")
+}
