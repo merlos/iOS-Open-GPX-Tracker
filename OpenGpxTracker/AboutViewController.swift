@@ -53,6 +53,8 @@ class AboutViewController: UIViewController {
         let text = try? String(contentsOfFile: path!, encoding: String.Encoding.utf8)
         
         webView?.loadHTMLString(text!, baseURL: nil)
+        webView?.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        
         self.view.addSubview(webView!)
     }
     
