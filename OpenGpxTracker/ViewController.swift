@@ -570,18 +570,10 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         //                         |
         // [-----------------------|--------------------------]
         //                  map.frame/2 (center)
-        
-        let yCenterForButtons: CGFloat = map.frame.height - kButtonLargeSize/2 - 5 //center Y of start
-        
+
         
         // Start/Pause button
-        let trackerW: CGFloat = kButtonLargeSize
-        let trackerH: CGFloat = kButtonLargeSize
-        let trackerX: CGFloat = self.map.frame.width/2 - 0.0 // Center of start
-        let trackerY: CGFloat = yCenterForButtons
-        trackerButton.frame = CGRect(x: 0, y:0, width: trackerW, height: trackerH)
-        trackerButton.center = CGPoint(x: trackerX, y: trackerY)
-        trackerButton.layer.cornerRadius = trackerW/2
+        trackerButton.layer.cornerRadius = kButtonLargeSize/2
         trackerButton.setTitle("Start Tracking", for: UIControl.State())
         trackerButton.backgroundColor = kGreenButtonBackgroundColor
         trackerButton.addTarget(self, action: #selector(ViewController.trackerButtonTapped), for: .touchUpInside)
@@ -589,73 +581,92 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         trackerButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
         trackerButton.titleLabel?.numberOfLines = 2
         trackerButton.titleLabel?.textAlignment = .center
-        trackerButton.autoresizingMask = [.flexibleLeftMargin, .flexibleTopMargin, .flexibleBottomMargin, .flexibleRightMargin]
         map.addSubview(trackerButton)
         
         // Pin Button (on the left of start)
-        let newPinW: CGFloat = kButtonSmallSize
-        let newPinH: CGFloat = kButtonSmallSize
-        let newPinX: CGFloat = trackerX - trackerW/2 - kButtonSeparation - newPinW/2
-        let newPinY: CGFloat = yCenterForButtons
-        newPinButton.frame = CGRect(x: 0, y: 0, width: newPinW, height: newPinH)
-        newPinButton.center = CGPoint(x: newPinX, y: newPinY)
-        newPinButton.layer.cornerRadius = newPinW/2
+        newPinButton.layer.cornerRadius = kButtonSmallSize/2
         newPinButton.backgroundColor = kWhiteBackgroundColor
         newPinButton.setImage(UIImage(named: "addPin"), for: UIControl.State())
         newPinButton.setImage(UIImage(named: "addPinHigh"), for: .highlighted)
         newPinButton.addTarget(self, action: #selector(ViewController.addPinAtMyLocation), for: .touchUpInside)
-        newPinButton.autoresizingMask = [.flexibleLeftMargin, .flexibleTopMargin, .flexibleBottomMargin, .flexibleRightMargin]
         //let newPinLongPress = UILongPressGestureRecognizer(target: self, action: Selector("newPinLongPress:"))
         //newPinButton.addGestureRecognizer(newPinLongPress)
         map.addSubview(newPinButton)
         
         // Follow user button
-        let followW: CGFloat = kButtonSmallSize
-        let followH: CGFloat = kButtonSmallSize
-        let followX: CGFloat = newPinX - newPinW/2 - kButtonSeparation - followW/2
-        let followY: CGFloat = yCenterForButtons
-        followUserButton.frame = CGRect(x: 0, y: 0, width: followW, height: followH)
-        followUserButton.center = CGPoint(x: followX, y: followY)
-        followUserButton.layer.cornerRadius = followW/2
+        followUserButton.layer.cornerRadius = kButtonSmallSize/2
         followUserButton.backgroundColor = kWhiteBackgroundColor
         //follow_user_high represents the user is being followed. Default status when app starts
         followUserButton.setImage(UIImage(named: "follow_user_high"), for: UIControl.State())
         followUserButton.setImage(UIImage(named: "follow_user_high"), for: .highlighted)
         followUserButton.addTarget(self, action: #selector(ViewController.followButtonTroggler), for: .touchUpInside)
-        followUserButton.autoresizingMask = [.flexibleLeftMargin, .flexibleTopMargin, .flexibleBottomMargin, .flexibleRightMargin]
         map.addSubview(followUserButton)
         
         // Save button
-        let saveW: CGFloat = kButtonSmallSize
-        let saveH: CGFloat = kButtonSmallSize
-        let saveX: CGFloat = trackerX + trackerW/2 + kButtonSeparation + saveW/2
-        let saveY: CGFloat = yCenterForButtons
-        saveButton.frame = CGRect(x: 0, y: 0, width: saveW, height: saveH)
-        saveButton.center = CGPoint(x: saveX, y: saveY)
-        saveButton.layer.cornerRadius = saveW/2
+        saveButton.layer.cornerRadius = kButtonSmallSize/2
         saveButton.setTitle("Save", for: UIControl.State())
         saveButton.backgroundColor = kDisabledBlueButtonBackgroundColor
         saveButton.addTarget(self, action: #selector(ViewController.saveButtonTapped), for: .touchUpInside)
         saveButton.isHidden = false
         saveButton.titleLabel?.textAlignment = .center
-        saveButton.autoresizingMask = [.flexibleLeftMargin, .flexibleTopMargin, .flexibleBottomMargin, .flexibleRightMargin]
         map.addSubview(saveButton)
         
         // Reset button
-        let resetW: CGFloat = kButtonSmallSize
-        let resetH: CGFloat = kButtonSmallSize
-        let resetX: CGFloat = saveX + saveW/2 + kButtonSeparation + resetW/2
-        let resetY: CGFloat = yCenterForButtons
-        resetButton.frame = CGRect(x: 0, y: 0, width: resetW, height: resetH)
-        resetButton.center = CGPoint(x: resetX, y: resetY)
-        resetButton.layer.cornerRadius = resetW/2
+        resetButton.layer.cornerRadius = kButtonSmallSize/2
         resetButton.setTitle("Reset", for: UIControl.State())
         resetButton.backgroundColor = kDisabledRedButtonBackgroundColor
         resetButton.addTarget(self, action: #selector(ViewController.resetButtonTapped), for: .touchUpInside)
         resetButton.isHidden = false
         resetButton.titleLabel?.textAlignment = .center
-        resetButton.autoresizingMask = [.flexibleLeftMargin, .flexibleTopMargin, .flexibleBottomMargin, .flexibleRightMargin]
         map.addSubview(resetButton)
+        
+        addConstraints(isIPhoneX)
+    }
+    
+    /// Adds Constraints to all buttons of button bar
+    ///
+    /// The constraints will ensure that buttons will be positioned correctly, when there are orientation changes.
+    /// - Parameters:
+    ///     - isIPhoneX: if device is >= iPhone X, bottom gap will be zero
+    func addConstraints(_ isIPhoneX: Bool) {
+        // constants
+        let kBottomGap: CGFloat = isIPhoneX ? 0 : 15
+        let kBottomDistance: CGFloat = kBottomGap + 24
+        
+        // Switch off all autoresizing masks translate
+        trackerButton.translatesAutoresizingMaskIntoConstraints = false
+        newPinButton.translatesAutoresizingMaskIntoConstraints = false
+        followUserButton.translatesAutoresizingMaskIntoConstraints = false
+        saveButton.translatesAutoresizingMaskIntoConstraints = false
+        resetButton.translatesAutoresizingMaskIntoConstraints = false
+        
+        // set trackerButton to horizontal center of view
+        NSLayoutConstraint(item: trackerButton, attribute: .centerX, relatedBy: .equal, toItem: map, attribute: .centerX, multiplier: 1, constant: 0).isActive = true
+        
+        // seperation distance between each button
+        NSLayoutConstraint(item: trackerButton, attribute: .leading, relatedBy: .equal, toItem: newPinButton, attribute: .trailing, multiplier: 1, constant: kButtonSeparation).isActive = true
+        NSLayoutConstraint(item: newPinButton, attribute: .leading, relatedBy: .equal, toItem: followUserButton, attribute: .trailing, multiplier: 1, constant: kButtonSeparation).isActive = true
+        NSLayoutConstraint(item: saveButton, attribute: .leading, relatedBy: .equal, toItem: trackerButton, attribute: .trailing, multiplier: 1, constant: kButtonSeparation).isActive = true
+        NSLayoutConstraint(item: resetButton, attribute: .leading, relatedBy: .equal, toItem: saveButton, attribute: .trailing, multiplier: 1, constant: kButtonSeparation).isActive = true
+
+        // seperation distance between button and bottom of view
+        NSLayoutConstraint(item: self.bottomLayoutGuide, attribute: .top, relatedBy: .equal, toItem: followUserButton, attribute: .bottom, multiplier: 1, constant: kBottomDistance).isActive = true
+        NSLayoutConstraint(item: self.bottomLayoutGuide, attribute: .top, relatedBy: .equal, toItem: newPinButton, attribute: .bottom, multiplier: 1, constant: kBottomDistance).isActive = true
+        NSLayoutConstraint(item: self.bottomLayoutGuide, attribute: .top, relatedBy: .equal, toItem: trackerButton, attribute: .bottom, multiplier: 1, constant: kBottomGap).isActive = true
+        NSLayoutConstraint(item: self.bottomLayoutGuide, attribute: .top, relatedBy: .equal, toItem: saveButton, attribute: .bottom, multiplier: 1, constant: kBottomDistance).isActive = true
+        NSLayoutConstraint(item: self.bottomLayoutGuide, attribute: .top, relatedBy: .equal, toItem: resetButton, attribute: .bottom, multiplier: 1, constant: kBottomDistance).isActive = true
+        
+        // fixed dimensions for all buttons
+        NSLayoutConstraint(item: followUserButton, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: kButtonSmallSize).isActive = true
+        NSLayoutConstraint(item: followUserButton, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: kButtonSmallSize).isActive = true
+        NSLayoutConstraint(item: newPinButton, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: kButtonSmallSize).isActive = true
+        NSLayoutConstraint(item: newPinButton, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: kButtonSmallSize).isActive = true
+        NSLayoutConstraint(item: trackerButton, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: kButtonLargeSize).isActive = true
+        NSLayoutConstraint(item: trackerButton, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: kButtonLargeSize).isActive = true
+        NSLayoutConstraint(item: saveButton, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: kButtonSmallSize).isActive = true
+        NSLayoutConstraint(item: saveButton, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: kButtonSmallSize).isActive = true
+        NSLayoutConstraint(item: resetButton, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: kButtonSmallSize).isActive = true
+        NSLayoutConstraint(item: resetButton, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: kButtonSmallSize).isActive = true
     }
     
     ///
