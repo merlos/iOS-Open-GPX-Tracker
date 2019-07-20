@@ -669,6 +669,20 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         NSLayoutConstraint(item: resetButton, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: kButtonSmallSize).isActive = true
     }
     
+    /// For handling compass location changes when orientation is switched.
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        
+        // there must be a delay added, else this will not work
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            // set the new position of the compass.
+            self.map.compassRect = CGRect(x: size.width/2 - 18, y: 70.0 , width: 36, height: 36)
+            // update compass frame location
+            self.map.layoutSubviews()
+        }
+        
+    }
+    
     ///
     /// Asks the system to notify the app on some events
     ///
