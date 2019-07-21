@@ -457,16 +457,12 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         timeLabel.textAlignment = .right
         timeLabel.font = font36
         timeLabel.text = "00:00"
-        //timeLabel.autoresizingMask = [.flexibleWidth, .flexibleLeftMargin, .flexibleRightMargin]
-        timeLabel.translatesAutoresizingMaskIntoConstraints = false
-        
+
         //timeLabel.shadowColor = UIColor.whiteColor()
         //timeLabel.shadowOffset = CGSize(width: 1, height: 1)
         //timeLabel.backgroundColor = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.5)
         map.addSubview(timeLabel)
-        NSLayoutConstraint(item: timeLabel, attribute: .trailing, relatedBy: .equal, toItem: map, attribute: .trailing, multiplier: 1, constant: -10).isActive = true
-        NSLayoutConstraint(item: timeLabel, attribute: .leading, relatedBy: .equal, toItem: map, attribute: .leading, multiplier: 1, constant: 10).isActive = true
-        NSLayoutConstraint(item: timeLabel, attribute: .top, relatedBy: .equal, toItem: self.topLayoutGuide, attribute: .bottom, multiplier: 1, constant: 20 + iPhoneXdiff).isActive = true
+        
         
         
         //speed Label
@@ -641,6 +637,17 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         NSLayoutConstraint(item: appTitleLabel, attribute: .trailing, relatedBy: .equal, toItem: coordsLabel, attribute: .trailing, multiplier: 1, constant: 5).isActive = true
         NSLayoutConstraint(item: appTitleLabel, attribute: .leading, relatedBy: .equal, toItem: coordsLabel, attribute: .leading, multiplier: 1, constant: 0).isActive = true
         NSLayoutConstraint(item: appTitleLabel, attribute: .leading, relatedBy: .equal, toItem: self.view, attribute: .leading, multiplier: 1, constant: 0).isActive = true
+        
+        // MARK: Information Labels
+        
+        let iPhoneXdiff: CGFloat  = isIPhoneX ? 40 : 0
+        let kSignalViewOffset: CGFloat = 25
+        
+        timeLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint(item: timeLabel, attribute: .trailing, relatedBy: .equal, toItem: self.view, attribute: .trailing, multiplier: 1, constant: -7).isActive = true
+        NSLayoutConstraint(item: timeLabel, attribute: .leading, relatedBy: .equal, toItem: self.view, attribute: .centerX, multiplier: 1, constant: kSignalViewOffset).isActive = true
+        NSLayoutConstraint(item: timeLabel, attribute: .top, relatedBy: .equal, toItem: self.topLayoutGuide, attribute: .bottom, multiplier: 1, constant: 20 + iPhoneXdiff).isActive = true
         
         
         // MARK: Button Bar
