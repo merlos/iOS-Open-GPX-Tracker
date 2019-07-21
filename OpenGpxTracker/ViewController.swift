@@ -457,11 +457,17 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         timeLabel.textAlignment = .right
         timeLabel.font = font36
         timeLabel.text = "00:00"
-        timeLabel.autoresizingMask = [.flexibleWidth, .flexibleLeftMargin, .flexibleRightMargin]
+        //timeLabel.autoresizingMask = [.flexibleWidth, .flexibleLeftMargin, .flexibleRightMargin]
+        timeLabel.translatesAutoresizingMaskIntoConstraints = false
+        
         //timeLabel.shadowColor = UIColor.whiteColor()
         //timeLabel.shadowOffset = CGSize(width: 1, height: 1)
         //timeLabel.backgroundColor = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.5)
         map.addSubview(timeLabel)
+        NSLayoutConstraint(item: timeLabel, attribute: .trailing, relatedBy: .equal, toItem: map, attribute: .trailing, multiplier: 1, constant: -10).isActive = true
+        NSLayoutConstraint(item: timeLabel, attribute: .leading, relatedBy: .equal, toItem: map, attribute: .leading, multiplier: 1, constant: 10).isActive = true
+        NSLayoutConstraint(item: timeLabel, attribute: .top, relatedBy: .equal, toItem: self.topLayoutGuide, attribute: .bottom, multiplier: 1, constant: 20 + iPhoneXdiff).isActive = true
+        
         
         //speed Label
         speedLabel.frame = CGRect(x: self.map.frame.width - 160,  y: 20 + 36 + iPhoneXdiff, width: 150, height: 20)
@@ -629,10 +635,10 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         appTitleLabel.translatesAutoresizingMaskIntoConstraints = false
         coordsLabel.translatesAutoresizingMaskIntoConstraints = false
         
-        NSLayoutConstraint(item: coordsLabel, attribute: .trailing, relatedBy: .equal, toItem: self.view, attribute: .trailing, multiplier: 1, constant: -4).isActive = true
+        NSLayoutConstraint(item: coordsLabel, attribute: .trailing, relatedBy: .equal, toItem: self.view, attribute: .trailing, multiplier: 1, constant: -5).isActive = true
         NSLayoutConstraint(item: appTitleLabel, attribute: .top, relatedBy: .equal, toItem: self.view, attribute: .top, multiplier: 1, constant: isIPhoneX ? 40.0 : 20.0).isActive = true
         NSLayoutConstraint(item: appTitleLabel, attribute: .lastBaseline, relatedBy: .equal, toItem: coordsLabel, attribute: .lastBaseline, multiplier: 1, constant: 0).isActive = true
-        NSLayoutConstraint(item: appTitleLabel, attribute: .trailing, relatedBy: .equal, toItem: coordsLabel, attribute: .trailing, multiplier: 1, constant: 4).isActive = true
+        NSLayoutConstraint(item: appTitleLabel, attribute: .trailing, relatedBy: .equal, toItem: coordsLabel, attribute: .trailing, multiplier: 1, constant: 5).isActive = true
         NSLayoutConstraint(item: appTitleLabel, attribute: .leading, relatedBy: .equal, toItem: coordsLabel, attribute: .leading, multiplier: 1, constant: 0).isActive = true
         NSLayoutConstraint(item: appTitleLabel, attribute: .leading, relatedBy: .equal, toItem: self.view, attribute: .leading, multiplier: 1, constant: 0).isActive = true
         
