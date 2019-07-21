@@ -435,27 +435,19 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         let font12 = UIFont(name: "DinAlternate-Bold", size: 12.0)
         
         //add the app title Label (Branding, branding, branding! )
-        let appTitleW: CGFloat = self.view.frame.width//200.0
-        let appTitleH: CGFloat = 14.0
-        let appTitleX: CGFloat = 0 //self.view.frame.width/2 - appTitleW/2
-        let appTitleY: CGFloat = isIPhoneX ? 40.0 : 20.0
-        appTitleLabel.frame = CGRect(x:appTitleX, y: appTitleY, width: appTitleW, height: appTitleH)
         appTitleLabel.text = "  Open GPX Tracker"
         appTitleLabel.textAlignment = .left
         appTitleLabel.font = UIFont.boldSystemFont(ofSize: 10)
         //appTitleLabel.textColor = UIColor(red: 0.0/255.0, green: 0.0/255.0, blue: 0.0/255.0, alpha: 1.0)
         appTitleLabel.textColor = UIColor.yellow
         appTitleLabel.backgroundColor = UIColor(red: 58.0/255.0, green: 57.0/255.0, blue: 54.0/255.0, alpha: 0.80)
-        appTitleLabel.autoresizingMask = [.flexibleWidth, .flexibleLeftMargin, .flexibleRightMargin]
         self.view.addSubview(appTitleLabel)
         
         // CoordLabel
-        coordsLabel.frame = CGRect(x: self.map.frame.width - 305, y: appTitleY, width: 300, height: 12)
         coordsLabel.textAlignment = .right
         coordsLabel.font = font12
         coordsLabel.textColor = UIColor.white
         coordsLabel.text = kNotGettingLocationText
-        coordsLabel.autoresizingMask = [.flexibleWidth, .flexibleLeftMargin, .flexibleRightMargin]
         self.view.addSubview(coordsLabel)
         
         // Tracked info
@@ -623,12 +615,30 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         addConstraints(isIPhoneX)
     }
     
-    /// Adds Constraints to all buttons of button bar
+    /// Adds Constraints to subviews
     ///
-    /// The constraints will ensure that buttons will be positioned correctly, when there are orientation changes.
+    /// The constraints will ensure that subviews will be positioned correctly, when there are orientation changes, or iPad split view width changes.
+    ///
     /// - Parameters:
     ///     - isIPhoneX: if device is >= iPhone X, bottom gap will be zero
     func addConstraints(_ isIPhoneX: Bool) {
+        
+        // MARK: App Title Bar
+        
+        // Switch off all autoresizing masks translate
+        appTitleLabel.translatesAutoresizingMaskIntoConstraints = false
+        coordsLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint(item: coordsLabel, attribute: .trailing, relatedBy: .equal, toItem: self.view, attribute: .trailing, multiplier: 1, constant: -4).isActive = true
+        NSLayoutConstraint(item: appTitleLabel, attribute: .top, relatedBy: .equal, toItem: self.view, attribute: .top, multiplier: 1, constant: isIPhoneX ? 40.0 : 20.0).isActive = true
+        NSLayoutConstraint(item: appTitleLabel, attribute: .lastBaseline, relatedBy: .equal, toItem: coordsLabel, attribute: .lastBaseline, multiplier: 1, constant: 0).isActive = true
+        NSLayoutConstraint(item: appTitleLabel, attribute: .trailing, relatedBy: .equal, toItem: coordsLabel, attribute: .trailing, multiplier: 1, constant: 4).isActive = true
+        NSLayoutConstraint(item: appTitleLabel, attribute: .leading, relatedBy: .equal, toItem: coordsLabel, attribute: .leading, multiplier: 1, constant: 0).isActive = true
+        NSLayoutConstraint(item: appTitleLabel, attribute: .leading, relatedBy: .equal, toItem: self.view, attribute: .leading, multiplier: 1, constant: 0).isActive = true
+        
+        
+        // MARK: Button Bar
+        
         // constants
         let kBottomGap: CGFloat = isIPhoneX ? 0 : 15
         let kBottomDistance: CGFloat = kBottomGap + 24
