@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import CoreLocation
 
 import Cache
 
@@ -18,6 +19,8 @@ let kCacheSection = 1
 
 /// Map Source Section Id in PreferencesTableViewController
 let kMapSourceSection = 2
+
+let kActivityTypeSection = 3
 
 /// Cell Id of the Use Imperial units in UnitsSection
 let kUseImperialUnitsCell = 0
@@ -151,6 +154,21 @@ class PreferencesTableViewController: UITableViewController, UINavigationBarDele
             }
         }
         
+        if indexPath.section == kActivityTypeSection {
+            let activity = CLActivityType(rawValue: indexPath.row)!
+            switch activity {
+            case .other: cell.textLabel?.text = "Other"
+            case .automotiveNavigation: cell.textLabel?.text = "Automotive Navigation"
+            case .fitness: cell.textLabel?.text = "Fitness"
+            case .otherNavigation: cell.textLabel?.text = "Other Navigation"
+            case .airborne: cell.textLabel?.text = "Airborne"
+            default: fatalError()
+            }
+            if indexPath.row == preferences.locationActivityTypeInt {
+                cell.accessoryType = .checkmark
+            }
+        }
+        
         // Map Section
         if indexPath.section == kMapSourceSection {
             //cell.accessoryType = UITableViewCellAccessoryType.DetailDisclosureButton
@@ -237,6 +255,18 @@ class PreferencesTableViewController: UITableViewController, UINavigationBarDele
             
             //update map
             self.delegate?.didUpdateTileServer((indexPath as NSIndexPath).row)
+        }
+        
+        if indexPath.section == kActivityTypeSection {
+            let selected = IndexPath(row: preferences.locationActivityTypeInt, section: indexPath.section)
+            
+            tableView.cellForRow(at: selected)?.accessoryType = .none
+            
+            //add checkmark to new tile server
+            tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
+            preferences.locationActivityTypeInt = indexPath.row
+            
+            self.delegate?.didUpdateActivityType((indexPath as NSIndexPath).row)
         }
         
         //unselect row

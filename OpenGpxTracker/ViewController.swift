@@ -102,7 +102,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
     let locationManager: CLLocationManager = {
         let manager = CLLocationManager()
         manager.requestAlwaysAuthorization()
-        
+        manager.activityType = .other
         manager.desiredAccuracy = kCLLocationAccuracyBest
         manager.distanceFilter = 2 //meters
         manager.headingFilter = 1 //degrees (1 is default)
@@ -1104,6 +1104,11 @@ extension ViewController: StopWatchDelegate {
 // MARK: PreferencesTableViewControllerDelegate
 
 extension ViewController: PreferencesTableViewControllerDelegate {
+    
+    func didUpdateActivityType(_ newActivityType: Int) {
+        self.locationManager.activityType = CLActivityType(rawValue: newActivityType)!
+    }
+    
     ///
     /// Updates the `tileServer` the map is using.
     ///

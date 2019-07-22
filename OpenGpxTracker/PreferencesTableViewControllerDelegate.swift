@@ -22,4 +22,6 @@ protocol PreferencesTableViewControllerDelegate: class {
     /// User update the usage of imperial units
     func didUpdateUseImperial(_ newUseImperial: Bool)
     
+    func didUpdateActivityType(_ newActivityType: Int)
+    
 }
