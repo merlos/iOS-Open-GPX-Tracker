@@ -102,7 +102,8 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
     let locationManager: CLLocationManager = {
         let manager = CLLocationManager()
         manager.requestAlwaysAuthorization()
-        manager.activityType = .other
+        manager.activityType = CLActivityType(rawValue: Preferences.shared.locationActivityTypeInt)!
+        print("Chosen CLActivityType: \(manager.activityType.name)")
         manager.desiredAccuracy = kCLLocationAccuracyBest
         manager.distanceFilter = 2 //meters
         manager.headingFilter = 1 //degrees (1 is default)
@@ -411,7 +412,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         map.tileServer = Preferences.shared.tileServer
         map.useCache = Preferences.shared.useCache
         useImperial = Preferences.shared.useImperial
-        
+        //locationManager.activityType = Preferences.shared.locationActivityType
         
         //
         // Config user interface
@@ -1106,6 +1107,7 @@ extension ViewController: StopWatchDelegate {
 extension ViewController: PreferencesTableViewControllerDelegate {
     
     func didUpdateActivityType(_ newActivityType: Int) {
+        print("PreferencesTableViewControllerDelegate:: didUpdateActivityType: \(newActivityType)")
         self.locationManager.activityType = CLActivityType(rawValue: newActivityType)!
     }
     

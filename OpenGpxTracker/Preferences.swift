@@ -84,7 +84,7 @@ class Preferences: NSObject {
         
         if let activityTypeInt = defaults.object(forKey: kDefaultsKeyActivityType) as? Int {
             _activityType = CLActivityType(rawValue: activityTypeInt)!
-            
+            print("** Preferences:: loaded preference from defaults activityTypeInt \(activityTypeInt)")
         }
     }
     
@@ -135,13 +135,23 @@ class Preferences: NSObject {
         }
     }
     
+    var locationActivityType: CLActivityType {
+        get {
+            return _activityType
+        }
+        set {
+            _activityType = newValue
+            defaults.set(newValue.rawValue, forKey: kDefaultsKeyActivityType)
+        }
+    }
+    
     var locationActivityTypeInt: Int {
         get {
             return _activityType.rawValue
         }
         set {
             _activityType = CLActivityType(rawValue: newValue)!
-            defaults.set(newValue, forKey: kDefaultsKeyTileServerInt)
+            defaults.set(newValue, forKey: kDefaultsKeyActivityType)
         }
     }
 }

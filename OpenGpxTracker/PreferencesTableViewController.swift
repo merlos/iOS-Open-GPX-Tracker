@@ -86,7 +86,7 @@ class PreferencesTableViewController: UITableViewController, UINavigationBarDele
     /// Returns 3 sections: Units, Cache, Map Source
     override func numberOfSections(in tableView: UITableView?) -> Int {
         // Return the number of sections.
-        return 3
+        return 4
     }
     
     /// Returns the title of the existing sections.
@@ -97,6 +97,7 @@ class PreferencesTableViewController: UITableViewController, UINavigationBarDele
         case kUnitsSection: return "Units"
         case kCacheSection: return "Cache"
         case kMapSourceSection: return "Map source"
+        case kActivityTypeSection: return "Activity Type"
         default: fatalError("Unknown section")
         }
     }
@@ -108,6 +109,7 @@ class PreferencesTableViewController: UITableViewController, UINavigationBarDele
         case kCacheSection: return 2
         case kUnitsSection: return 1
         case kMapSourceSection: return GPXTileServer.count
+        case kActivityTypeSection: return 5
         default: fatalError("Unknown section")
         }
     }
@@ -155,16 +157,9 @@ class PreferencesTableViewController: UITableViewController, UINavigationBarDele
         }
         
         if indexPath.section == kActivityTypeSection {
-            let activity = CLActivityType(rawValue: indexPath.row)!
-            switch activity {
-            case .other: cell.textLabel?.text = "Other"
-            case .automotiveNavigation: cell.textLabel?.text = "Automotive Navigation"
-            case .fitness: cell.textLabel?.text = "Fitness"
-            case .otherNavigation: cell.textLabel?.text = "Other Navigation"
-            case .airborne: cell.textLabel?.text = "Airborne"
-            default: fatalError()
-            }
-            if indexPath.row == preferences.locationActivityTypeInt {
+            let activity = CLActivityType(rawValue: indexPath.row + 1)!
+            cell.textLabel?.text = activity.name
+            if indexPath.row + 1 == preferences.locationActivityTypeInt {
                 cell.accessoryType = .checkmark
             }
         }
@@ -258,15 +253,16 @@ class PreferencesTableViewController: UITableViewController, UINavigationBarDele
         }
         
         if indexPath.section == kActivityTypeSection {
-            let selected = IndexPath(row: preferences.locationActivityTypeInt, section: indexPath.section)
+            print("PreferencesTableView Activity Type section Row at index:  \(indexPath.row + 1)")
+            let selected = IndexPath(row: preferences.locationActivityTypeInt - 1, section: indexPath.section)
             
             tableView.cellForRow(at: selected)?.accessoryType = .none
             
             //add checkmark to new tile server
             tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
-            preferences.locationActivityTypeInt = indexPath.row
+            preferences.locationActivityTypeInt = indexPath.row + 1
             
-            self.delegate?.didUpdateActivityType((indexPath as NSIndexPath).row)
+            self.delegate?.didUpdateActivityType((indexPath as NSIndexPath).row + 1)
         }
         
         //unselect row
