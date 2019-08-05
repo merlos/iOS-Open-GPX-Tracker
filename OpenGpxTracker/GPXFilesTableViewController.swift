@@ -229,7 +229,7 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
     
     /// Loads the GPX file that corresponds to rowIndex in fileList in the map.
     internal func actionLoadFileAtIndex(_ rowIndex: Int) {
-        DispatchQueue.global(qos: .utility).async {
+        DispatchQueue.global(qos: .userInitiated).async {
             DispatchQueue.main.sync {
                 self.displayLoadingFileAlert(true)
             }
