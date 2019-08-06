@@ -157,8 +157,10 @@ class PreferencesTableViewController: UITableViewController, UINavigationBarDele
         }
         
         if indexPath.section == kActivityTypeSection {
+            cell = UITableViewCell(style: .subtitle, reuseIdentifier: "ActivityCell")
             let activity = CLActivityType(rawValue: indexPath.row + 1)!
             cell.textLabel?.text = activity.name
+            cell.detailTextLabel?.text = activity.description
             if indexPath.row + 1 == preferences.locationActivityTypeInt {
                 cell.accessoryType = .checkmark
             }
