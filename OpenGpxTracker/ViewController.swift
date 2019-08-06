@@ -485,7 +485,8 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         totalTrackedDistanceLabel.frame = CGRect(x: self.map.frame.width - 160, y: 60 + 20 + iPhoneXdiff, width: 150, height: 40)
         totalTrackedDistanceLabel.textAlignment = .right
         totalTrackedDistanceLabel.font = font36
-        totalTrackedDistanceLabel.text = 0.00.toDistance(useImperial: useImperial)
+        totalTrackedDistanceLabel.useImperial = useImperial
+        totalTrackedDistanceLabel.distance = 0.00
         totalTrackedDistanceLabel.autoresizingMask = [.flexibleWidth, .flexibleLeftMargin, .flexibleRightMargin]
         //timeLabel.backgroundColor = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.5)
         map.addSubview(totalTrackedDistanceLabel)
@@ -493,7 +494,8 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         currentSegmentDistanceLabel.frame = CGRect(x: self.map.frame.width - 160, y: 80 + 36 + iPhoneXdiff, width: 150, height: 20)
         currentSegmentDistanceLabel.textAlignment = .right
         currentSegmentDistanceLabel.font = font18
-        currentSegmentDistanceLabel.text =  0.00.toDistance(useImperial: useImperial)
+        currentSegmentDistanceLabel.useImperial = useImperial
+        currentSegmentDistanceLabel.distance = 0.00
         currentSegmentDistanceLabel.autoresizingMask = [.flexibleWidth, .flexibleLeftMargin, .flexibleRightMargin]
         //timeLabel.backgroundColor = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.5)
         map.addSubview(currentSegmentDistanceLabel)
