@@ -436,53 +436,40 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         let font12 = UIFont(name: "DinAlternate-Bold", size: 12.0)
         
         //add the app title Label (Branding, branding, branding! )
-        let appTitleW: CGFloat = self.view.frame.width//200.0
-        let appTitleH: CGFloat = 14.0
-        let appTitleX: CGFloat = 0 //self.view.frame.width/2 - appTitleW/2
-        let appTitleY: CGFloat = isIPhoneX ? 40.0 : 20.0
-        appTitleLabel.frame = CGRect(x:appTitleX, y: appTitleY, width: appTitleW, height: appTitleH)
         appTitleLabel.text = "  Open GPX Tracker"
         appTitleLabel.textAlignment = .left
         appTitleLabel.font = UIFont.boldSystemFont(ofSize: 10)
         //appTitleLabel.textColor = UIColor(red: 0.0/255.0, green: 0.0/255.0, blue: 0.0/255.0, alpha: 1.0)
         appTitleLabel.textColor = UIColor.yellow
         appTitleLabel.backgroundColor = UIColor(red: 58.0/255.0, green: 57.0/255.0, blue: 54.0/255.0, alpha: 0.80)
-        appTitleLabel.autoresizingMask = [.flexibleWidth, .flexibleLeftMargin, .flexibleRightMargin]
         self.view.addSubview(appTitleLabel)
         
         // CoordLabel
-        coordsLabel.frame = CGRect(x: self.map.frame.width - 305, y: appTitleY, width: 300, height: 12)
         coordsLabel.textAlignment = .right
         coordsLabel.font = font12
         coordsLabel.textColor = UIColor.white
         coordsLabel.text = kNotGettingLocationText
-        coordsLabel.autoresizingMask = [.flexibleWidth, .flexibleLeftMargin, .flexibleRightMargin]
         self.view.addSubview(coordsLabel)
         
         // Tracked info
         let iPhoneXdiff: CGFloat  = isIPhoneX ? 40 : 0
         //timeLabel
-        timeLabel.frame = CGRect(x: self.map.frame.width - 160, y: 20 + iPhoneXdiff, width: 150, height: 40)
         timeLabel.textAlignment = .right
         timeLabel.font = font36
         timeLabel.text = "00:00"
-        timeLabel.autoresizingMask = [.flexibleWidth, .flexibleLeftMargin, .flexibleRightMargin]
         //timeLabel.shadowColor = UIColor.whiteColor()
         //timeLabel.shadowOffset = CGSize(width: 1, height: 1)
         //timeLabel.backgroundColor = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.5)
         map.addSubview(timeLabel)
         
         //speed Label
-        speedLabel.frame = CGRect(x: self.map.frame.width - 160,  y: 20 + 36 + iPhoneXdiff, width: 150, height: 20)
         speedLabel.textAlignment = .right
         speedLabel.font = font18
         speedLabel.text = 0.00.toSpeed(useImperial: useImperial)
-        speedLabel.autoresizingMask = [.flexibleWidth, .flexibleLeftMargin, .flexibleRightMargin]
         //timeLabel.backgroundColor = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.5)
         map.addSubview(speedLabel)
         
         //tracked distance
-        totalTrackedDistanceLabel.frame = CGRect(x: self.map.frame.width - 160, y: 60 + 20 + iPhoneXdiff, width: 150, height: 40)
         totalTrackedDistanceLabel.textAlignment = .right
         totalTrackedDistanceLabel.font = font36
         totalTrackedDistanceLabel.useImperial = useImperial
@@ -491,7 +478,6 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         //timeLabel.backgroundColor = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.5)
         map.addSubview(totalTrackedDistanceLabel)
         
-        currentSegmentDistanceLabel.frame = CGRect(x: self.map.frame.width - 160, y: 80 + 36 + iPhoneXdiff, width: 150, height: 20)
         currentSegmentDistanceLabel.textAlignment = .right
         currentSegmentDistanceLabel.font = font18
         currentSegmentDistanceLabel.useImperial = useImperial
@@ -573,18 +559,10 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         //                         |
         // [-----------------------|--------------------------]
         //                  map.frame/2 (center)
-        
-        let yCenterForButtons: CGFloat = map.frame.height - kButtonLargeSize/2 - 5 //center Y of start
-        
+
         
         // Start/Pause button
-        let trackerW: CGFloat = kButtonLargeSize
-        let trackerH: CGFloat = kButtonLargeSize
-        let trackerX: CGFloat = self.map.frame.width/2 - 0.0 // Center of start
-        let trackerY: CGFloat = yCenterForButtons
-        trackerButton.frame = CGRect(x: 0, y:0, width: trackerW, height: trackerH)
-        trackerButton.center = CGPoint(x: trackerX, y: trackerY)
-        trackerButton.layer.cornerRadius = trackerW/2
+        trackerButton.layer.cornerRadius = kButtonLargeSize/2
         trackerButton.setTitle("Start Tracking", for: UIControl.State())
         trackerButton.backgroundColor = kGreenButtonBackgroundColor
         trackerButton.addTarget(self, action: #selector(ViewController.trackerButtonTapped), for: .touchUpInside)
@@ -592,73 +570,152 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         trackerButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
         trackerButton.titleLabel?.numberOfLines = 2
         trackerButton.titleLabel?.textAlignment = .center
-        trackerButton.autoresizingMask = [.flexibleLeftMargin, .flexibleTopMargin, .flexibleBottomMargin, .flexibleRightMargin]
         map.addSubview(trackerButton)
         
         // Pin Button (on the left of start)
-        let newPinW: CGFloat = kButtonSmallSize
-        let newPinH: CGFloat = kButtonSmallSize
-        let newPinX: CGFloat = trackerX - trackerW/2 - kButtonSeparation - newPinW/2
-        let newPinY: CGFloat = yCenterForButtons
-        newPinButton.frame = CGRect(x: 0, y: 0, width: newPinW, height: newPinH)
-        newPinButton.center = CGPoint(x: newPinX, y: newPinY)
-        newPinButton.layer.cornerRadius = newPinW/2
+        newPinButton.layer.cornerRadius = kButtonSmallSize/2
         newPinButton.backgroundColor = kWhiteBackgroundColor
         newPinButton.setImage(UIImage(named: "addPin"), for: UIControl.State())
         newPinButton.setImage(UIImage(named: "addPinHigh"), for: .highlighted)
         newPinButton.addTarget(self, action: #selector(ViewController.addPinAtMyLocation), for: .touchUpInside)
-        newPinButton.autoresizingMask = [.flexibleLeftMargin, .flexibleTopMargin, .flexibleBottomMargin, .flexibleRightMargin]
         //let newPinLongPress = UILongPressGestureRecognizer(target: self, action: Selector("newPinLongPress:"))
         //newPinButton.addGestureRecognizer(newPinLongPress)
         map.addSubview(newPinButton)
         
         // Follow user button
-        let followW: CGFloat = kButtonSmallSize
-        let followH: CGFloat = kButtonSmallSize
-        let followX: CGFloat = newPinX - newPinW/2 - kButtonSeparation - followW/2
-        let followY: CGFloat = yCenterForButtons
-        followUserButton.frame = CGRect(x: 0, y: 0, width: followW, height: followH)
-        followUserButton.center = CGPoint(x: followX, y: followY)
-        followUserButton.layer.cornerRadius = followW/2
+        followUserButton.layer.cornerRadius = kButtonSmallSize/2
         followUserButton.backgroundColor = kWhiteBackgroundColor
         //follow_user_high represents the user is being followed. Default status when app starts
         followUserButton.setImage(UIImage(named: "follow_user_high"), for: UIControl.State())
         followUserButton.setImage(UIImage(named: "follow_user_high"), for: .highlighted)
         followUserButton.addTarget(self, action: #selector(ViewController.followButtonTroggler), for: .touchUpInside)
-        followUserButton.autoresizingMask = [.flexibleLeftMargin, .flexibleTopMargin, .flexibleBottomMargin, .flexibleRightMargin]
         map.addSubview(followUserButton)
         
         // Save button
-        let saveW: CGFloat = kButtonSmallSize
-        let saveH: CGFloat = kButtonSmallSize
-        let saveX: CGFloat = trackerX + trackerW/2 + kButtonSeparation + saveW/2
-        let saveY: CGFloat = yCenterForButtons
-        saveButton.frame = CGRect(x: 0, y: 0, width: saveW, height: saveH)
-        saveButton.center = CGPoint(x: saveX, y: saveY)
-        saveButton.layer.cornerRadius = saveW/2
+        saveButton.layer.cornerRadius = kButtonSmallSize/2
         saveButton.setTitle("Save", for: UIControl.State())
         saveButton.backgroundColor = kDisabledBlueButtonBackgroundColor
         saveButton.addTarget(self, action: #selector(ViewController.saveButtonTapped), for: .touchUpInside)
         saveButton.isHidden = false
         saveButton.titleLabel?.textAlignment = .center
-        saveButton.autoresizingMask = [.flexibleLeftMargin, .flexibleTopMargin, .flexibleBottomMargin, .flexibleRightMargin]
         map.addSubview(saveButton)
         
         // Reset button
-        let resetW: CGFloat = kButtonSmallSize
-        let resetH: CGFloat = kButtonSmallSize
-        let resetX: CGFloat = saveX + saveW/2 + kButtonSeparation + resetW/2
-        let resetY: CGFloat = yCenterForButtons
-        resetButton.frame = CGRect(x: 0, y: 0, width: resetW, height: resetH)
-        resetButton.center = CGPoint(x: resetX, y: resetY)
-        resetButton.layer.cornerRadius = resetW/2
+        resetButton.layer.cornerRadius = kButtonSmallSize/2
         resetButton.setTitle("Reset", for: UIControl.State())
         resetButton.backgroundColor = kDisabledRedButtonBackgroundColor
         resetButton.addTarget(self, action: #selector(ViewController.resetButtonTapped), for: .touchUpInside)
         resetButton.isHidden = false
         resetButton.titleLabel?.textAlignment = .center
-        resetButton.autoresizingMask = [.flexibleLeftMargin, .flexibleTopMargin, .flexibleBottomMargin, .flexibleRightMargin]
         map.addSubview(resetButton)
+        
+        addConstraints(isIPhoneX)
+    }
+    
+    /// Adds Constraints to subviews
+    ///
+    /// The constraints will ensure that subviews will be positioned correctly, when there are orientation changes, or iPad split view width changes.
+    ///
+    /// - Parameters:
+    ///     - isIPhoneX: if device is >= iPhone X, bottom gap will be zero
+    func addConstraints(_ isIPhoneX: Bool) {
+        
+        // MARK: App Title Bar
+        
+        // Switch off all autoresizing masks translate
+        appTitleLabel.translatesAutoresizingMaskIntoConstraints = false
+        coordsLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint(item: coordsLabel, attribute: .trailing, relatedBy: .equal, toItem: self.view, attribute: .trailing, multiplier: 1, constant: -5).isActive = true
+        // not using self.topLayoutGuide as it will leave a gap between status bar and this, if used on non-notch devices
+        NSLayoutConstraint(item: appTitleLabel, attribute: .top, relatedBy: .equal, toItem: self.view, attribute: .top, multiplier: 1, constant: isIPhoneX ? 40.0 : 20.0).isActive = true
+        NSLayoutConstraint(item: appTitleLabel, attribute: .lastBaseline, relatedBy: .equal, toItem: coordsLabel, attribute: .lastBaseline, multiplier: 1, constant: 0).isActive = true
+        NSLayoutConstraint(item: appTitleLabel, attribute: .trailing, relatedBy: .equal, toItem: coordsLabel, attribute: .trailing, multiplier: 1, constant: 5).isActive = true
+        NSLayoutConstraint(item: appTitleLabel, attribute: .leading, relatedBy: .equal, toItem: coordsLabel, attribute: .leading, multiplier: 1, constant: 0).isActive = true
+        NSLayoutConstraint(item: appTitleLabel, attribute: .leading, relatedBy: .equal, toItem: self.view, attribute: .leading, multiplier: 1, constant: 0).isActive = true
+        
+        // MARK: Information Labels
+        
+        /// offset from center, without obstructing signal view
+        let kSignalViewOffset: CGFloat = 25
+        
+        // Switch off all autoresizing masks translate
+        timeLabel.translatesAutoresizingMaskIntoConstraints = false
+        speedLabel.translatesAutoresizingMaskIntoConstraints = false
+        totalTrackedDistanceLabel.translatesAutoresizingMaskIntoConstraints = false
+        currentSegmentDistanceLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint(item: timeLabel, attribute: .trailing, relatedBy: .equal, toItem: self.view, attribute: .trailing, multiplier: 1, constant: -7).isActive = true
+        NSLayoutConstraint(item: timeLabel, attribute: .leading, relatedBy: .equal, toItem: self.view, attribute: .centerX, multiplier: 1, constant: kSignalViewOffset).isActive = true
+        // self.topLayoutGuide takes care of the iPhone X safe area, iPhoneXdiff not needed
+        NSLayoutConstraint(item: timeLabel, attribute: .top, relatedBy: .equal, toItem: self.topLayoutGuide, attribute: .bottom, multiplier: 1, constant: 20).isActive = true
+        
+        NSLayoutConstraint(item: speedLabel, attribute: .trailing, relatedBy: .equal, toItem: self.view, attribute: .trailing, multiplier: 1, constant: -7).isActive = true
+        NSLayoutConstraint(item: speedLabel, attribute: .leading, relatedBy: .equal, toItem: self.view, attribute: .centerX, multiplier: 1, constant: kSignalViewOffset).isActive = true
+        NSLayoutConstraint(item: speedLabel, attribute: .top, relatedBy: .equal, toItem: timeLabel, attribute: .bottom, multiplier: 1, constant: -5).isActive = true
+        
+        NSLayoutConstraint(item: totalTrackedDistanceLabel, attribute: .trailing, relatedBy: .equal, toItem: self.view, attribute: .trailing, multiplier: 1, constant: -7).isActive = true
+        NSLayoutConstraint(item: totalTrackedDistanceLabel, attribute: .leading, relatedBy: .equal, toItem: self.view, attribute: .centerX, multiplier: 1, constant: kSignalViewOffset).isActive = true
+        NSLayoutConstraint(item: totalTrackedDistanceLabel, attribute: .top, relatedBy: .equal, toItem: speedLabel, attribute: .bottom, multiplier: 1, constant: 5).isActive = true
+        
+        NSLayoutConstraint(item: currentSegmentDistanceLabel, attribute: .trailing, relatedBy: .equal, toItem: self.view, attribute: .trailing, multiplier: 1, constant: -7).isActive = true
+        NSLayoutConstraint(item: currentSegmentDistanceLabel, attribute: .leading, relatedBy: .equal, toItem: self.view, attribute: .centerX, multiplier: 1, constant: kSignalViewOffset).isActive = true
+        NSLayoutConstraint(item: currentSegmentDistanceLabel, attribute: .top, relatedBy: .equal, toItem: totalTrackedDistanceLabel, attribute: .bottom, multiplier: 1, constant: 0).isActive = true
+        
+        
+        // MARK: Button Bar
+        
+        // constants
+        let kBottomGap: CGFloat = isIPhoneX ? 0 : 15
+        let kBottomDistance: CGFloat = kBottomGap + 24
+        
+        // Switch off all autoresizing masks translate
+        trackerButton.translatesAutoresizingMaskIntoConstraints = false
+        newPinButton.translatesAutoresizingMaskIntoConstraints = false
+        followUserButton.translatesAutoresizingMaskIntoConstraints = false
+        saveButton.translatesAutoresizingMaskIntoConstraints = false
+        resetButton.translatesAutoresizingMaskIntoConstraints = false
+        
+        // set trackerButton to horizontal center of view
+        NSLayoutConstraint(item: trackerButton, attribute: .centerX, relatedBy: .equal, toItem: map, attribute: .centerX, multiplier: 1, constant: 0).isActive = true
+        
+        // seperation distance between each button
+        NSLayoutConstraint(item: trackerButton, attribute: .leading, relatedBy: .equal, toItem: newPinButton, attribute: .trailing, multiplier: 1, constant: kButtonSeparation).isActive = true
+        NSLayoutConstraint(item: newPinButton, attribute: .leading, relatedBy: .equal, toItem: followUserButton, attribute: .trailing, multiplier: 1, constant: kButtonSeparation).isActive = true
+        NSLayoutConstraint(item: saveButton, attribute: .leading, relatedBy: .equal, toItem: trackerButton, attribute: .trailing, multiplier: 1, constant: kButtonSeparation).isActive = true
+        NSLayoutConstraint(item: resetButton, attribute: .leading, relatedBy: .equal, toItem: saveButton, attribute: .trailing, multiplier: 1, constant: kButtonSeparation).isActive = true
+
+        // seperation distance between button and bottom of view
+        NSLayoutConstraint(item: self.bottomLayoutGuide, attribute: .top, relatedBy: .equal, toItem: followUserButton, attribute: .bottom, multiplier: 1, constant: kBottomDistance).isActive = true
+        NSLayoutConstraint(item: self.bottomLayoutGuide, attribute: .top, relatedBy: .equal, toItem: newPinButton, attribute: .bottom, multiplier: 1, constant: kBottomDistance).isActive = true
+        NSLayoutConstraint(item: self.bottomLayoutGuide, attribute: .top, relatedBy: .equal, toItem: trackerButton, attribute: .bottom, multiplier: 1, constant: kBottomGap).isActive = true
+        NSLayoutConstraint(item: self.bottomLayoutGuide, attribute: .top, relatedBy: .equal, toItem: saveButton, attribute: .bottom, multiplier: 1, constant: kBottomDistance).isActive = true
+        NSLayoutConstraint(item: self.bottomLayoutGuide, attribute: .top, relatedBy: .equal, toItem: resetButton, attribute: .bottom, multiplier: 1, constant: kBottomDistance).isActive = true
+        
+        // fixed dimensions for all buttons
+        NSLayoutConstraint(item: followUserButton, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: kButtonSmallSize).isActive = true
+        NSLayoutConstraint(item: followUserButton, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: kButtonSmallSize).isActive = true
+        NSLayoutConstraint(item: newPinButton, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: kButtonSmallSize).isActive = true
+        NSLayoutConstraint(item: newPinButton, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: kButtonSmallSize).isActive = true
+        NSLayoutConstraint(item: trackerButton, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: kButtonLargeSize).isActive = true
+        NSLayoutConstraint(item: trackerButton, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: kButtonLargeSize).isActive = true
+        NSLayoutConstraint(item: saveButton, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: kButtonSmallSize).isActive = true
+        NSLayoutConstraint(item: saveButton, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: kButtonSmallSize).isActive = true
+        NSLayoutConstraint(item: resetButton, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: kButtonSmallSize).isActive = true
+        NSLayoutConstraint(item: resetButton, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: kButtonSmallSize).isActive = true
+    }
+    
+    /// For handling compass location changes when orientation is switched.
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        
+        DispatchQueue.main.async(){
+            // set the new position of the compass.
+            self.map.compassRect = CGRect(x: size.width/2 - 18, y: 70.0 , width: 36, height: 36)
+            // update compass frame location
+            self.map.layoutSubviews()
+        }
+        
     }
     
     ///
