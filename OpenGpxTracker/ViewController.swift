@@ -102,7 +102,8 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
     let locationManager: CLLocationManager = {
         let manager = CLLocationManager()
         manager.requestAlwaysAuthorization()
-        
+        manager.activityType = CLActivityType(rawValue: Preferences.shared.locationActivityTypeInt)!
+        print("Chosen CLActivityType: \(manager.activityType.name)")
         manager.desiredAccuracy = kCLLocationAccuracyBest
         manager.distanceFilter = 2 //meters
         manager.headingFilter = 1 //degrees (1 is default)
@@ -411,7 +412,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         map.tileServer = Preferences.shared.tileServer
         map.useCache = Preferences.shared.useCache
         useImperial = Preferences.shared.useImperial
-        
+        //locationManager.activityType = Preferences.shared.locationActivityType
         
         //
         // Config user interface
@@ -471,13 +472,17 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         //tracked distance
         totalTrackedDistanceLabel.textAlignment = .right
         totalTrackedDistanceLabel.font = font36
-        totalTrackedDistanceLabel.text = 0.00.toDistance(useImperial: useImperial)
+        totalTrackedDistanceLabel.useImperial = useImperial
+        totalTrackedDistanceLabel.distance = 0.00
+        totalTrackedDistanceLabel.autoresizingMask = [.flexibleWidth, .flexibleLeftMargin, .flexibleRightMargin]
         //timeLabel.backgroundColor = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.5)
         map.addSubview(totalTrackedDistanceLabel)
         
         currentSegmentDistanceLabel.textAlignment = .right
         currentSegmentDistanceLabel.font = font18
-        currentSegmentDistanceLabel.text =  0.00.toDistance(useImperial: useImperial)
+        currentSegmentDistanceLabel.useImperial = useImperial
+        currentSegmentDistanceLabel.distance = 0.00
+        currentSegmentDistanceLabel.autoresizingMask = [.flexibleWidth, .flexibleLeftMargin, .flexibleRightMargin]
         //timeLabel.backgroundColor = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.5)
         map.addSubview(currentSegmentDistanceLabel)
         
@@ -1159,6 +1164,16 @@ extension ViewController: StopWatchDelegate {
 // MARK: PreferencesTableViewControllerDelegate
 
 extension ViewController: PreferencesTableViewControllerDelegate {
+    
+    /// Update the activity type that the location manager is using.
+    ///
+    /// When user changes the activity type in preferences, this function is invoked to update the activity type of the location manager.
+    ///
+    func didUpdateActivityType(_ newActivityType: Int) {
+        print("PreferencesTableViewControllerDelegate:: didUpdateActivityType: \(newActivityType)")
+        self.locationManager.activityType = CLActivityType(rawValue: newActivityType)!
+    }
+    
     ///
     /// Updates the `tileServer` the map is using.
     ///

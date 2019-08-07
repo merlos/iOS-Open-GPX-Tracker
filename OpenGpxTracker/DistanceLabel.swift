@@ -46,7 +46,7 @@ open class DistanceLabel: UILabel {
         }
         set {
             _distance = newValue
-            text = newValue.toDistance(useImperial: useImperial)
+            text = newValue.toDistance(useImperial: _useImperial)
         }
     }
 }

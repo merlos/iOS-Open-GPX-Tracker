@@ -49,6 +49,7 @@
 		89F6E107227F7C5500CE3E3F /* Double+Measures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89F6E0F4227D091900CE3E3F /* Double+Measures.swift */; };
 		89F8749B1BBB7362004EF41A /* GPXTrack+length.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89F8749A1BBB7362004EF41A /* GPXTrack+length.swift */; };
 		89F8749F1BBCB97F004EF41A /* GPXRoot+length.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89F8749E1BBCB97F004EF41A /* GPXRoot+length.swift */; };
+		BF214B5E22E60B64000E96AA /* CLActivityType+Info.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF214B5D22E60B64000E96AA /* CLActivityType+Info.swift */; };
 		BF36B6CF220C6F1A00077B46 /* GPXFileTableInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF36B6CE220C6F1A00077B46 /* GPXFileTableInterfaceController.swift */; };
 		BF5C0D2222D771D1001C2575 /* DistanceLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF5C0D2122D771D0001C2575 /* DistanceLabel.swift */; };
 		BF637D132216C5FA0003EC04 /* WatchConnectivity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF637D122216C5FA0003EC04 /* WatchConnectivity.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
@@ -180,6 +181,7 @@
 		93BD71BED3CF101C2B01ABDA /* Pods_OpenGpxTracker_Watch_Extension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OpenGpxTracker_Watch_Extension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		95D28CBDF2535138FA16F38F /* Pods_OpenGpxTracker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OpenGpxTracker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A591D96EF2E41D00AD6BB3A /* Pods-OpenGpxTracker-Watch Extension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenGpxTracker-Watch Extension.debug.xcconfig"; path = "Pods/Target Support Files/Pods-OpenGpxTracker-Watch Extension/Pods-OpenGpxTracker-Watch Extension.debug.xcconfig"; sourceTree = "<group>"; };
+		BF214B5D22E60B64000E96AA /* CLActivityType+Info.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CLActivityType+Info.swift"; sourceTree = "<group>"; };
 		BF36B6CE220C6F1A00077B46 /* GPXFileTableInterfaceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPXFileTableInterfaceController.swift; sourceTree = "<group>"; };
 		BF5C0D2122D771D0001C2575 /* DistanceLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DistanceLabel.swift; sourceTree = "<group>"; };
 		BF637D122216C5FA0003EC04 /* WatchConnectivity.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WatchConnectivity.framework; path = System/Library/Frameworks/WatchConnectivity.framework; sourceTree = SDKROOT; };
@@ -260,6 +262,7 @@
 				89EA86642157C444002E03A7 /* Int+asFilesize.swift */,
 				89EA86622157B42C002E03A7 /* GPXFileInfo.swift */,
 				BF6408A2225C63E700BB5242 /* CoreDataHelper.swift */,
+				BF214B5D22E60B64000E96AA /* CLActivityType+Info.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -720,6 +723,7 @@
 				899D677019CE024600C88A0A /* GPXFileManager.swift in Sources */,
 				898EECDE19C49B5800B4B207 /* OpenGpxTracker.xcdatamodeld in Sources */,
 				89EA86652157C444002E03A7 /* Int+asFilesize.swift in Sources */,
+				BF214B5E22E60B64000E96AA /* CLActivityType+Info.swift in Sources */,
 				BF5C0D2222D771D1001C2575 /* DistanceLabel.swift in Sources */,
 				89F6E0F5227D091900CE3E3F /* Double+Measures.swift in Sources */,
 				8913CD8E1BDB2477009EC729 /* PreferencesTableViewControllerDelegate.swift in Sources */,

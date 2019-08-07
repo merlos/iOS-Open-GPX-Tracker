@@ -9,6 +9,7 @@
 
 
 import Foundation
+import CoreLocation
 
 
 /// Key on Defaults for the Tile Server integer.
@@ -19,6 +20,9 @@ let kDefaultsKeyUseCache: String = "UseCache"
 
 /// Key on Defaults for the use of imperial units.
 let kDefaultsKeyUseImperial: String = "UseImperial"
+
+/// Key on Defaults for the current selected activity type.
+let kDefaultsKeyActivityType: String = "ActivityType"
 
 
 /// A class to handle app preferences in one single place.
@@ -45,6 +49,9 @@ class Preferences: NSObject {
     
     /// In memory value of the preference.
     private var _tileServer: GPXTileServer = .apple
+    
+    /// In memory value of the preference.
+    private var _activityType: CLActivityType = .other
     
     /// UserDefaults.standard shortcut
     private let defaults = UserDefaults.standard
@@ -75,6 +82,12 @@ class Preferences: NSObject {
             tileServerInt = tileServerInt >= GPXTileServer.count ? GPXTileServer.apple.rawValue : tileServerInt
             _tileServer = GPXTileServer(rawValue: tileServerInt)!
             print("** Preferences:: loaded preference from defaults tileServerInt \(tileServerInt)")
+        }
+        
+        // load previous activity type
+        if let activityTypeInt = defaults.object(forKey: kDefaultsKeyActivityType) as? Int {
+            _activityType = CLActivityType(rawValue: activityTypeInt)!
+            print("** Preferences:: loaded preference from defaults activityTypeInt \(activityTypeInt)")
         }
     }
     
@@ -122,6 +135,27 @@ class Preferences: NSObject {
         set {
             _tileServer = GPXTileServer(rawValue: newValue)!
              defaults.set(newValue, forKey: kDefaultsKeyTileServerInt)
+        }
+    }
+    /// Gets and sets the type of activity preference
+    var locationActivityType: CLActivityType {
+        get {
+            return _activityType
+        }
+        set {
+            _activityType = newValue
+            defaults.set(newValue.rawValue, forKey: kDefaultsKeyActivityType)
+        }
+    }
+    
+    /// Gets and sets the activity type as its int value
+    var locationActivityTypeInt: Int {
+        get {
+            return _activityType.rawValue
+        }
+        set {
+            _activityType = CLActivityType(rawValue: newValue)!
+            defaults.set(newValue, forKey: kDefaultsKeyActivityType)
         }
     }
 }
