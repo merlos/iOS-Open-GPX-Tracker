@@ -7,8 +7,10 @@
 
 import CoreLocation
 
+/// Extends each CLActivityType to have a description and a name.
 extension CLActivityType {
     
+    /// Returns the string name of this activty type
     var name: String {
         switch self {
         case .other:                return "Automatic"
@@ -21,6 +23,9 @@ extension CLActivityType {
         }
     }
     
+    /// Returns a brief description of the purpose of the activty.
+    /// For example: for the activity type .other the description is
+    /// "System default. Automatically selects the mode"
     var description: String {
         switch self {
         case .other:                return "System default. Automatically selects the mode"
@@ -33,9 +38,8 @@ extension CLActivityType {
         }
     }
     
-    
-    
-    var count: Int {
+    /// Number of activity types (5)
+    static var count: Int {
         return 5
     }
     

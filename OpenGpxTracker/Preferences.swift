@@ -21,6 +21,7 @@ let kDefaultsKeyUseCache: String = "UseCache"
 /// Key on Defaults for the use of imperial units.
 let kDefaultsKeyUseImperial: String = "UseImperial"
 
+/// Key on Defaults for the current selected activity type.
 let kDefaultsKeyActivityType: String = "ActivityType"
 
 
@@ -134,7 +135,7 @@ class Preferences: NSObject {
              defaults.set(newValue, forKey: kDefaultsKeyTileServerInt)
         }
     }
-    
+    /// Gets and sets the type of activity preference
     var locationActivityType: CLActivityType {
         get {
             return _activityType
@@ -145,6 +146,7 @@ class Preferences: NSObject {
         }
     }
     
+    /// Gets and sets the activity type as its int value
     var locationActivityTypeInt: Int {
         get {
             return _activityType.rawValue

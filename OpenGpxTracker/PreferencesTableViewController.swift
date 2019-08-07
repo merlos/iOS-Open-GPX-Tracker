@@ -20,6 +20,7 @@ let kCacheSection = 1
 /// Map Source Section Id in PreferencesTableViewController
 let kMapSourceSection = 2
 
+/// Activity Type Section Id in PreferencesTableViewController
 let kActivityTypeSection = 3
 
 /// Cell Id of the Use Imperial units in UnitsSection
@@ -90,8 +91,8 @@ class PreferencesTableViewController: UITableViewController, UINavigationBarDele
     }
     
     /// Returns the title of the existing sections.
-    /// Uses `kCacheSection`, `kUnitsSection`and `kMapSourceSection` for deciding which
-    /// is the section title
+    /// Uses `kCacheSection`, `kUnitsSection`, `kMapSourceSection` and `kActivityTypeSection`
+    /// for deciding which is the section title
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch(section) {
         case kUnitsSection: return "Units"
@@ -102,14 +103,15 @@ class PreferencesTableViewController: UITableViewController, UINavigationBarDele
         }
     }
     
-    /// For section `kCacheSection` returns 2, `kUnitsSection` returns 1,
-    /// and for `kMapSourceSection` returns the number of tile servers defined in `GPXTileServer`
+    /// For section `kCacheSection` returns 2, for `kUnitsSection` returns 1,
+    /// for `kMapSourceSection` returns the number of tile servers defined in `GPXTileServer`,
+    /// and for kActivityTypeSection returns `CLActivityType.count`
     override func tableView(_ tableView: UITableView?, numberOfRowsInSection section: Int) -> Int {
         switch(section) {
         case kCacheSection: return 2
         case kUnitsSection: return 1
         case kMapSourceSection: return GPXTileServer.count
-        case kActivityTypeSection: return 5
+        case kActivityTypeSection: return CLActivityType.count
         default: fatalError("Unknown section")
         }
     }
@@ -122,6 +124,9 @@ class PreferencesTableViewController: UITableViewController, UINavigationBarDele
     /// If the section is kMapSourceSection, it returns a chekmark cell with the name of
     /// the tile server in the  `indexPath.row` index in `GPXTileServer`. The cell is marked
     /// if `selectedTileServerInt` is the same as `indexPath.row`.
+    ///
+    /// If the section is kActivityTypeSection it returns a checkmark cell with the name
+    /// and description of the CLActivityType whose indexPath.row matches with the activity type.
     ///
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var cell = UITableViewCell(style: .value1, reuseIdentifier: "MapCell")
@@ -156,6 +161,18 @@ class PreferencesTableViewController: UITableViewController, UINavigationBarDele
             }
         }
         
+        // Map Section
+        if indexPath.section == kMapSourceSection {
+            //cell.accessoryType = UITableViewCellAccessoryType.DetailDisclosureButton
+            //cell.accessoryView = [[ UIImageView alloc ] initWithImage:[UIImage imageNamed:@"Something" ]];
+            let tileServer = GPXTileServer(rawValue: indexPath.row)
+            cell.textLabel?.text = tileServer!.name
+            if indexPath.row == preferences.tileServerInt {
+                cell.accessoryType = .checkmark
+            }
+        }
+        
+        // Activity type section
         if indexPath.section == kActivityTypeSection {
             cell = UITableViewCell(style: .subtitle, reuseIdentifier: "ActivityCell")
             let activity = CLActivityType(rawValue: indexPath.row + 1)!
@@ -166,28 +183,28 @@ class PreferencesTableViewController: UITableViewController, UINavigationBarDele
             }
         }
         
-        // Map Section
-        if indexPath.section == kMapSourceSection {
-            //cell.accessoryType = UITableViewCellAccessoryType.DetailDisclosureButton
-            //cell.accessoryView = [[ UIImageView alloc ] initWithImage:[UIImage imageNamed:@"Something" ]];
-            let tileServer = GPXTileServer(rawValue: indexPath.row)
-            cell.textLabel?.text = tileServer!.name
-            if indexPath.row == preferences.tileServerInt {
-                cell.accessoryType = .checkmark
-            }
-            
-            return cell
-        }
         return cell
     }
     
     /// Performs the following actions depending on the section and row selected:
-    /// 1. A cell in kCacheSection is selected:
-    ///     1. kUseOfflineCacheCell: Activates or desactivates the use of cache
-    ///        (`kDefaultUseCache` in defaults)
-    /// 2. A cell in kMapSourceSection is selected: Updates the default key (`kDefaultsKeyTileServerInt`)
+    /// If the cell `kUseImperialUnitCell` in `kUnitsSection`it sets or unsets the use of imperial
+    /// units (`useImperial` in `Preferences``and calls the delegate method `didUpdateUseImperial`.
+    ///
+    /// If a cell in kCacheSection is selected and the cell is
+    ///     1. kUseOfflineCacheCell: Activates or desactivates the `useCache` in `Preferences`,
+    ///        and calls the delegate method `didUpdateUseCache`
+    ///     2. KClearCacheCacheCell: Clears the current cache and calls
+    ///
+    /// If a cell in `kMapSourceSection` is selected: Updates `tileServerInt` in `Preferences` and
+    /// calls the delegate method `didUpdateTileServer`
+    ///
+    /// If a cell in `kActivitySection` is selected: Updates the `activityType` in `Preferences` and
+    /// calls the delegate method `didUpdateActivityType`.
+    ///
+    /// In each case checks or unchecks the corresponding cell in the UI.
     ///
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
         if indexPath.section == kUnitsSection {
             switch indexPath.row {
             case kUseImperialUnitsCell:
@@ -202,6 +219,7 @@ class PreferencesTableViewController: UITableViewController, UINavigationBarDele
                 fatalError("didSelectRowAt: Unknown cell")
             }
         }
+        
         if indexPath.section == kCacheSection {  // 0 -> sets and unsets cache
             switch indexPath.row {
             case kUseOfflineCacheCell:
@@ -239,6 +257,7 @@ class PreferencesTableViewController: UITableViewController, UINavigationBarDele
                 fatalError("didSelectRowAt: Unknown cell")
             }
         }
+        
         if indexPath.section == kMapSourceSection { // section 1 (sets tileServerInt in defaults
             print("PreferenccesTableView Map Tile Server section Row at index:  \(indexPath.row)")
             
