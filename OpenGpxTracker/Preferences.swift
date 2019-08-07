@@ -50,6 +50,7 @@ class Preferences: NSObject {
     /// In memory value of the preference.
     private var _tileServer: GPXTileServer = .apple
     
+    /// In memory value of the preference.
     private var _activityType: CLActivityType = .other
     
     /// UserDefaults.standard shortcut
@@ -83,6 +84,7 @@ class Preferences: NSObject {
             print("** Preferences:: loaded preference from defaults tileServerInt \(tileServerInt)")
         }
         
+        // load previous activity type
         if let activityTypeInt = defaults.object(forKey: kDefaultsKeyActivityType) as? Int {
             _activityType = CLActivityType(rawValue: activityTypeInt)!
             print("** Preferences:: loaded preference from defaults activityTypeInt \(activityTypeInt)")

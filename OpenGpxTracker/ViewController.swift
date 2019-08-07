@@ -1165,6 +1165,10 @@ extension ViewController: StopWatchDelegate {
 
 extension ViewController: PreferencesTableViewControllerDelegate {
     
+    /// Update the activity type that the location manager is using.
+    ///
+    /// When user changes the activity type in preferences, this function is invoked to update the activity type of the location manager.
+    ///
     func didUpdateActivityType(_ newActivityType: Int) {
         print("PreferencesTableViewControllerDelegate:: didUpdateActivityType: \(newActivityType)")
         self.locationManager.activityType = CLActivityType(rawValue: newActivityType)!

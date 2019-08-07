@@ -84,7 +84,7 @@ class PreferencesTableViewController: UITableViewController, UINavigationBarDele
     
     // MARK: - Table view data source
     
-    /// Returns 3 sections: Units, Cache, Map Source
+    /// Returns 4 sections: Units, Cache, Map Source, Activity Type
     override func numberOfSections(in tableView: UITableView?) -> Int {
         // Return the number of sections.
         return 4
@@ -281,7 +281,7 @@ class PreferencesTableViewController: UITableViewController, UINavigationBarDele
             
             //add checkmark to new tile server
             tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
-            preferences.locationActivityTypeInt = indexPath.row + 1
+            preferences.locationActivityTypeInt = indexPath.row + 1 // +1 as activityType raw value starts at index 1
             
             self.delegate?.didUpdateActivityType((indexPath as NSIndexPath).row + 1)
         }
