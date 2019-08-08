@@ -8,7 +8,7 @@
 import Foundation
 
 /// GPX File extension
-let kFileExt = "gpx"
+let kFileExt = ["gpx", "GPX"]
 
 ///
 /// Class to handle actions with GPX files (save, delete, etc..)
@@ -53,7 +53,7 @@ class GPXFileManager: NSObject {
                         print(sortedURLs)
                         //Now we filter GPX Files
                         for (url, modificationDate, fileSize) in sortedURLs {
-                            if url.pathExtension == kFileExt {
+                            if kFileExt.contains(url.pathExtension) {
                                 GPXFiles.append(GPXFileInfo(fileURL: url))
                                 //GPXFiles.append(url.deletingPathExtension().lastPathComponent)
                                 print("\(modificationDate) \(modificationDate.timeAgo(numericDates: true)) \(fileSize)bytes -- \(url.deletingPathExtension().lastPathComponent)")
@@ -75,8 +75,8 @@ class GPXFileManager: NSObject {
         var fullURL = self.GPXFilesFolderURL.appendingPathComponent(filename)
         print("URLForFilename(\(filename): pathForFilename: \(fullURL)")
         //check if filename has extension
-        if fullURL.pathExtension != kFileExt {
-            fullURL = fullURL.appendingPathExtension(kFileExt)
+        if  !(kFileExt.contains(fullURL.pathExtension)) {
+            fullURL = fullURL.appendingPathExtension(kFileExt[0])
         }
         return fullURL
     }
