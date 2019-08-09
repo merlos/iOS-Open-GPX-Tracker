@@ -94,6 +94,9 @@ class GPXMapView: MKMapView {
     ///
     let coreDataHelper = CoreDataHelper()
     
+    /// Heading of device
+    var heading: CLHeading?
+    
     ///
     /// Initializes the map with an empty currentSegmentOverlay.
     ///
@@ -165,7 +168,9 @@ class GPXMapView: MKMapView {
     ///
     /// Updates the heading arrow based on the heading information
     ///
-    func updateHeading(_ heading: CLHeading) {
+    func updateHeading() {
+        guard let heading = self.heading else { return }
+        
         headingImageView?.isHidden = false
         let rotation = CGFloat((heading.trueHeading - camera.heading)/180 * Double.pi)
         headingImageView?.transform = CGAffineTransform(rotationAngle: rotation)

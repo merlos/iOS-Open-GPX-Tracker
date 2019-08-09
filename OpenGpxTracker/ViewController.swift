@@ -1331,7 +1331,8 @@ extension ViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateHeading newHeading: CLHeading) {
         print("ViewController::didUpdateHeading true: \(newHeading.trueHeading) magnetic: \(newHeading.magneticHeading)")
         print("mkMapcamera heading=\(map.camera.heading)")
-        map.updateHeading(newHeading)
+        map.heading = newHeading // updates heading variable
+        map.updateHeading() // updates heading view's rotation
         
     }
 }
