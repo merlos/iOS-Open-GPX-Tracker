@@ -167,7 +167,7 @@ class GPXMapView: MKMapView {
     ///
     func updateHeading(_ heading: CLHeading) {
         headingImageView?.isHidden = false
-        let rotation = CGFloat(heading.trueHeading/180 * Double.pi)
+        let rotation = CGFloat((heading.trueHeading - camera.heading)/180 * Double.pi)
         headingImageView?.transform = CGAffineTransform(rotationAngle: rotation)
     }
     
