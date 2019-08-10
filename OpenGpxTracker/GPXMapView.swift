@@ -97,6 +97,9 @@ class GPXMapView: MKMapView {
     /// Heading of device
     var heading: CLHeading?
     
+    /// Offset to heading due to user's map rotation
+    var headingOffset: CGFloat?
+    
     ///
     /// Initializes the map with an empty currentSegmentOverlay.
     ///
@@ -173,8 +176,15 @@ class GPXMapView: MKMapView {
         
         headingImageView?.isHidden = false
         let rotation = CGFloat((heading.trueHeading - camera.heading)/180 * Double.pi)
+        
+        var newRotation = rotation
+        
+        if let headingOffset = headingOffset {
+            newRotation = rotation + headingOffset
+        }
+ 
         UIView.animate(withDuration: 0.15) {
-            self.headingImageView?.transform = CGAffineTransform(rotationAngle: rotation)
+            self.headingImageView?.transform = CGAffineTransform(rotationAngle: newRotation)
         }
     }
     
