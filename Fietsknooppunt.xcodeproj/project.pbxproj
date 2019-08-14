@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		120DE71022B274910055C4CB /* GPXSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120DE70F22B274910055C4CB /* GPXSession.swift */; };
 		120DE71122B274A40055C4CB /* GPXSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120DE70F22B274910055C4CB /* GPXSession.swift */; };
+		4E3A6F752304A1C800FF21E1 /* Fietsknooppunt-Watch Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = BF692F632209AAFB00F8A0F1 /* Fietsknooppunt-Watch Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		8913CD8C1BDB0A9A009EC729 /* PreferencesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8913CD8B1BDB0A9A009EC729 /* PreferencesTableViewController.swift */; };
 		8913CD8E1BDB2477009EC729 /* PreferencesTableViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8913CD8D1BDB2477009EC729 /* PreferencesTableViewControllerDelegate.swift */; };
 		893BEC8619C7E62200C77354 /* GPXWaypoint+MKAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893BEC8519C7E62200C77354 /* GPXWaypoint+MKAnnotation.swift */; };
@@ -57,12 +58,11 @@
 		BF6428B8220EC1A90015447E /* GPXFileTableRowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF6428B7220EC1A90015447E /* GPXFileTableRowController.swift */; };
 		BF64602F220AE9CF00957FF6 /* GPXTrackSegment+MapKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 899D676B19CD9E9E00C88A0A /* GPXTrackSegment+MapKit.swift */; };
 		BF692F5D2209AAFB00F8A0F1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BF692F5C2209AAFB00F8A0F1 /* Assets.xcassets */; };
-		BF692F642209AAFB00F8A0F1 /* OpenGpxTracker-Watch Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = BF692F632209AAFB00F8A0F1 /* OpenGpxTracker-Watch Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		BF692F692209AAFB00F8A0F1 /* InterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF692F682209AAFB00F8A0F1 /* InterfaceController.swift */; };
 		BF692F6B2209AAFB00F8A0F1 /* ExtensionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF692F6A2209AAFB00F8A0F1 /* ExtensionDelegate.swift */; };
 		BF692F6D2209AAFB00F8A0F1 /* ComplicationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF692F6C2209AAFB00F8A0F1 /* ComplicationController.swift */; };
 		BF692F6F2209AAFC00F8A0F1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BF692F6E2209AAFC00F8A0F1 /* Assets.xcassets */; };
-		BF692F732209AAFC00F8A0F1 /* OpenGpxTracker-Watch.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = BF692F572209AAF900F8A0F1 /* OpenGpxTracker-Watch.app */; };
+		BF692F732209AAFC00F8A0F1 /* Fietsknooppunt-Watch.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = BF692F572209AAF900F8A0F1 /* Fietsknooppunt-Watch.app */; };
 		BF692F7E2209B36900F8A0F1 /* GPXWaypoint+MKAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893BEC8519C7E62200C77354 /* GPXWaypoint+MKAnnotation.swift */; };
 		BF692F802209B80300F8A0F1 /* GPXTrackPoint+MapKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 899D676D19CD9FAF00C88A0A /* GPXTrackPoint+MapKit.swift */; };
 		BF692F812209B80700F8A0F1 /* GPXFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 899D676F19CE024600C88A0A /* GPXFileManager.swift */; };
@@ -82,19 +82,19 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		4E3A6F762304A1C800FF21E1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 898EECCD19C49B5800B4B207 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = BF692F622209AAFB00F8A0F1;
+			remoteInfo = "Fietsknooppunt-Watch Extension";
+		};
 		898EECEE19C49B5800B4B207 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 898EECCD19C49B5800B4B207 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 898EECD419C49B5800B4B207;
 			remoteInfo = OpenGpxTracker;
-		};
-		BF692F652209AAFB00F8A0F1 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 898EECCD19C49B5800B4B207 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = BF692F622209AAFB00F8A0F1;
-			remoteInfo = "OpenGpxTracker-Watch Extension";
 		};
 		BF692F712209AAFC00F8A0F1 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -106,13 +106,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		BF692F792209AAFC00F8A0F1 /* Embed App Extensions */ = {
+		4E3A6F782304A1C800FF21E1 /* Embed App Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				BF692F642209AAFB00F8A0F1 /* OpenGpxTracker-Watch Extension.appex in Embed App Extensions */,
+				4E3A6F752304A1C800FF21E1 /* Fietsknooppunt-Watch Extension.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -123,7 +123,7 @@
 			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
 			dstSubfolderSpec = 16;
 			files = (
-				BF692F732209AAFC00F8A0F1 /* OpenGpxTracker-Watch.app in Embed Watch Content */,
+				BF692F732209AAFC00F8A0F1 /* Fietsknooppunt-Watch.app in Embed Watch Content */,
 			);
 			name = "Embed Watch Content";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -140,7 +140,7 @@
 		893BEC8519C7E62200C77354 /* GPXWaypoint+MKAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "GPXWaypoint+MKAnnotation.swift"; sourceTree = "<group>"; };
 		8945A90D1DC7AD040029AF93 /* CachedTileOverlay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CachedTileOverlay.swift; sourceTree = "<group>"; };
 		895F04B31A7143CE004BEE8A /* GPXExtentCoordinates.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPXExtentCoordinates.swift; sourceTree = "<group>"; };
-		898EECD519C49B5800B4B207 /* OpenGpxTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OpenGpxTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		898EECD519C49B5800B4B207 /* Fietsknooppunt.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Fietsknooppunt.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		898EECD919C49B5800B4B207 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		898EECDA19C49B5800B4B207 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		898EECDD19C49B5800B4B207 /* OpenGpxTracker.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = OpenGpxTracker.xcdatamodel; sourceTree = "<group>"; };
@@ -148,7 +148,7 @@
 		898EECE219C49B5800B4B207 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		898EECE419C49B5800B4B207 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		898EECE719C49B5800B4B207 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		898EECED19C49B5800B4B207 /* OpenGpxTrackerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OpenGpxTrackerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		898EECED19C49B5800B4B207 /* FietsknooppuntTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FietsknooppuntTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		898EECF219C49B5800B4B207 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		898EECF319C49B5800B4B207 /* OpenGpxTrackerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenGpxTrackerTests.swift; sourceTree = "<group>"; };
 		898EECFD19C49DC700B4B207 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
@@ -187,10 +187,10 @@
 		BF637D122216C5FA0003EC04 /* WatchConnectivity.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WatchConnectivity.framework; path = System/Library/Frameworks/WatchConnectivity.framework; sourceTree = SDKROOT; };
 		BF6408A2225C63E700BB5242 /* CoreDataHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataHelper.swift; sourceTree = "<group>"; };
 		BF6428B7220EC1A90015447E /* GPXFileTableRowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPXFileTableRowController.swift; sourceTree = "<group>"; };
-		BF692F572209AAF900F8A0F1 /* OpenGpxTracker-Watch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "OpenGpxTracker-Watch.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		BF692F572209AAF900F8A0F1 /* Fietsknooppunt-Watch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Fietsknooppunt-Watch.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF692F5C2209AAFB00F8A0F1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BF692F5E2209AAFB00F8A0F1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		BF692F632209AAFB00F8A0F1 /* OpenGpxTracker-Watch Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "OpenGpxTracker-Watch Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		BF692F632209AAFB00F8A0F1 /* Fietsknooppunt-Watch Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Fietsknooppunt-Watch Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF692F682209AAFB00F8A0F1 /* InterfaceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterfaceController.swift; sourceTree = "<group>"; };
 		BF692F6A2209AAFB00F8A0F1 /* ExtensionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionDelegate.swift; sourceTree = "<group>"; };
 		BF692F6C2209AAFB00F8A0F1 /* ComplicationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComplicationController.swift; sourceTree = "<group>"; };
@@ -283,10 +283,10 @@
 		898EECD619C49B5800B4B207 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				898EECD519C49B5800B4B207 /* OpenGpxTracker.app */,
-				898EECED19C49B5800B4B207 /* OpenGpxTrackerTests.xctest */,
-				BF692F572209AAF900F8A0F1 /* OpenGpxTracker-Watch.app */,
-				BF692F632209AAFB00F8A0F1 /* OpenGpxTracker-Watch Extension.appex */,
+				898EECD519C49B5800B4B207 /* Fietsknooppunt.app */,
+				898EECED19C49B5800B4B207 /* FietsknooppuntTests.xctest */,
+				BF692F572209AAF900F8A0F1 /* Fietsknooppunt-Watch.app */,
+				BF692F632209AAFB00F8A0F1 /* Fietsknooppunt-Watch Extension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -435,9 +435,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		898EECD419C49B5800B4B207 /* OpenGpxTracker */ = {
+		898EECD419C49B5800B4B207 /* Fietsknooppunt */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 898EECF719C49B5800B4B207 /* Build configuration list for PBXNativeTarget "OpenGpxTracker" */;
+			buildConfigurationList = 898EECF719C49B5800B4B207 /* Build configuration list for PBXNativeTarget "Fietsknooppunt" */;
 			buildPhases = (
 				196CCD645C9925FAA058D622 /* [CP] Check Pods Manifest.lock */,
 				898EECD119C49B5800B4B207 /* Sources */,
@@ -452,14 +452,14 @@
 			dependencies = (
 				BF692F722209AAFC00F8A0F1 /* PBXTargetDependency */,
 			);
-			name = OpenGpxTracker;
+			name = Fietsknooppunt;
 			productName = OpenGpxTracker;
-			productReference = 898EECD519C49B5800B4B207 /* OpenGpxTracker.app */;
+			productReference = 898EECD519C49B5800B4B207 /* Fietsknooppunt.app */;
 			productType = "com.apple.product-type.application";
 		};
-		898EECEC19C49B5800B4B207 /* OpenGpxTrackerTests */ = {
+		898EECEC19C49B5800B4B207 /* FietsknooppuntTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 898EECFA19C49B5800B4B207 /* Build configuration list for PBXNativeTarget "OpenGpxTrackerTests" */;
+			buildConfigurationList = 898EECFA19C49B5800B4B207 /* Build configuration list for PBXNativeTarget "FietsknooppuntTests" */;
 			buildPhases = (
 				898EECE919C49B5800B4B207 /* Sources */,
 				898EECEA19C49B5800B4B207 /* Frameworks */,
@@ -470,32 +470,32 @@
 			dependencies = (
 				898EECEF19C49B5800B4B207 /* PBXTargetDependency */,
 			);
-			name = OpenGpxTrackerTests;
+			name = FietsknooppuntTests;
 			productName = OpenGpxTrackerTests;
-			productReference = 898EECED19C49B5800B4B207 /* OpenGpxTrackerTests.xctest */;
+			productReference = 898EECED19C49B5800B4B207 /* FietsknooppuntTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		BF692F562209AAF900F8A0F1 /* OpenGpxTracker-Watch */ = {
+		BF692F562209AAF900F8A0F1 /* Fietsknooppunt-Watch */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = BF692F7A2209AAFC00F8A0F1 /* Build configuration list for PBXNativeTarget "OpenGpxTracker-Watch" */;
+			buildConfigurationList = BF692F7A2209AAFC00F8A0F1 /* Build configuration list for PBXNativeTarget "Fietsknooppunt-Watch" */;
 			buildPhases = (
 				BF692F552209AAF900F8A0F1 /* Resources */,
-				BF692F792209AAFC00F8A0F1 /* Embed App Extensions */,
 				DF47EB2F9EF82452477E687E /* Frameworks */,
+				4E3A6F782304A1C800FF21E1 /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				BF692F662209AAFB00F8A0F1 /* PBXTargetDependency */,
+				4E3A6F772304A1C800FF21E1 /* PBXTargetDependency */,
 			);
-			name = "OpenGpxTracker-Watch";
+			name = "Fietsknooppunt-Watch";
 			productName = "OpenGpxTracker-Watch";
-			productReference = BF692F572209AAF900F8A0F1 /* OpenGpxTracker-Watch.app */;
+			productReference = BF692F572209AAF900F8A0F1 /* Fietsknooppunt-Watch.app */;
 			productType = "com.apple.product-type.application.watchapp2";
 		};
-		BF692F622209AAFB00F8A0F1 /* OpenGpxTracker-Watch Extension */ = {
+		BF692F622209AAFB00F8A0F1 /* Fietsknooppunt-Watch Extension */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = BF692F782209AAFC00F8A0F1 /* Build configuration list for PBXNativeTarget "OpenGpxTracker-Watch Extension" */;
+			buildConfigurationList = BF692F782209AAFC00F8A0F1 /* Build configuration list for PBXNativeTarget "Fietsknooppunt-Watch Extension" */;
 			buildPhases = (
 				1EDBCB1D99E3EAA90FE83A6C /* [CP] Check Pods Manifest.lock */,
 				BF692F5F2209AAFB00F8A0F1 /* Sources */,
@@ -507,9 +507,9 @@
 			);
 			dependencies = (
 			);
-			name = "OpenGpxTracker-Watch Extension";
+			name = "Fietsknooppunt-Watch Extension";
 			productName = "OpenGpxTracker-Watch Extension";
-			productReference = BF692F632209AAFB00F8A0F1 /* OpenGpxTracker-Watch Extension.appex */;
+			productReference = BF692F632209AAFB00F8A0F1 /* Fietsknooppunt-Watch Extension.appex */;
 			productType = "com.apple.product-type.watchkit2-extension";
 		};
 /* End PBXNativeTarget section */
@@ -521,11 +521,11 @@
 				LastSwiftMigration = 0700;
 				LastSwiftUpdateCheck = 1010;
 				LastUpgradeCheck = 1020;
-				ORGANIZATIONNAME = TransitBox;
+				ORGANIZATIONNAME = com.mrfeet;
 				TargetAttributes = {
 					898EECD419C49B5800B4B207 = {
 						CreatedOnToolsVersion = 6.0;
-						DevelopmentTeam = SU64RGPDF2;
+						DevelopmentTeam = 2833YQH694;
 						LastSwiftMigration = 1020;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
@@ -535,16 +535,18 @@
 					};
 					898EECEC19C49B5800B4B207 = {
 						CreatedOnToolsVersion = 6.0;
+						DevelopmentTeam = 2833YQH694;
 						LastSwiftMigration = 1020;
 						TestTargetID = 898EECD419C49B5800B4B207;
 					};
 					BF692F562209AAF900F8A0F1 = {
 						CreatedOnToolsVersion = 10.1;
+						DevelopmentTeam = 2833YQH694;
 						ProvisioningStyle = Automatic;
 					};
 					BF692F622209AAFB00F8A0F1 = {
 						CreatedOnToolsVersion = 10.1;
-						DevelopmentTeam = SU64RGPDF2;
+						DevelopmentTeam = 2833YQH694;
 						LastSwiftMigration = 1020;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
@@ -555,7 +557,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 898EECD019C49B5800B4B207 /* Build configuration list for PBXProject "OpenGpxTracker" */;
+			buildConfigurationList = 898EECD019C49B5800B4B207 /* Build configuration list for PBXProject "Fietsknooppunt" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -568,10 +570,10 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				898EECD419C49B5800B4B207 /* OpenGpxTracker */,
-				898EECEC19C49B5800B4B207 /* OpenGpxTrackerTests */,
-				BF692F562209AAF900F8A0F1 /* OpenGpxTracker-Watch */,
-				BF692F622209AAFB00F8A0F1 /* OpenGpxTracker-Watch Extension */,
+				898EECD419C49B5800B4B207 /* Fietsknooppunt */,
+				898EECEC19C49B5800B4B207 /* FietsknooppuntTests */,
+				BF692F562209AAF900F8A0F1 /* Fietsknooppunt-Watch */,
+				BF692F622209AAFB00F8A0F1 /* Fietsknooppunt-Watch Extension */,
 			);
 		};
 /* End PBXProject section */
@@ -788,19 +790,19 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		4E3A6F772304A1C800FF21E1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = BF692F622209AAFB00F8A0F1 /* Fietsknooppunt-Watch Extension */;
+			targetProxy = 4E3A6F762304A1C800FF21E1 /* PBXContainerItemProxy */;
+		};
 		898EECEF19C49B5800B4B207 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 898EECD419C49B5800B4B207 /* OpenGpxTracker */;
+			target = 898EECD419C49B5800B4B207 /* Fietsknooppunt */;
 			targetProxy = 898EECEE19C49B5800B4B207 /* PBXContainerItemProxy */;
-		};
-		BF692F662209AAFB00F8A0F1 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = BF692F622209AAFB00F8A0F1 /* OpenGpxTracker-Watch Extension */;
-			targetProxy = BF692F652209AAFB00F8A0F1 /* PBXContainerItemProxy */;
 		};
 		BF692F722209AAFC00F8A0F1 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = BF692F562209AAF900F8A0F1 /* OpenGpxTracker-Watch */;
+			target = BF692F562209AAF900F8A0F1 /* Fietsknooppunt-Watch */;
 			targetProxy = BF692F712209AAFC00F8A0F1 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -938,11 +940,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				DEVELOPMENT_TEAM = SU64RGPDF2;
+				DEVELOPMENT_TEAM = 2833YQH694;
 				INFOPLIST_FILE = OpenGpxTracker/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = org.merlos.OpenGpxTracker;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mrfeet.Fietsknooppunt;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = OpenGpxTracker/ObjectiveCBridgingHeader.h;
 				SWIFT_VERSION = 5.0;
@@ -958,11 +960,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				DEVELOPMENT_TEAM = SU64RGPDF2;
+				DEVELOPMENT_TEAM = 2833YQH694;
 				INFOPLIST_FILE = OpenGpxTracker/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = org.merlos.OpenGpxTracker;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mrfeet.Fietsknooppunt;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = OpenGpxTracker/ObjectiveCBridgingHeader.h;
 				SWIFT_VERSION = 5.0;
@@ -974,7 +976,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 2833YQH694;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -988,7 +990,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "org.transitbox.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/OpenGpxTracker.app/OpenGpxTracker";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Fietsknooppunt.app/Fietsknooppunt";
 			};
 			name = Debug;
 		};
@@ -996,7 +998,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 2833YQH694;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -1006,14 +1008,14 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "org.transitbox.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/OpenGpxTracker.app/OpenGpxTracker";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Fietsknooppunt.app/Fietsknooppunt";
 			};
 			name = Release;
 		};
 		BF692F742209AAFC00F8A0F1 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -1024,13 +1026,13 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 2833YQH694;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				IBSC_MODULE = OpenGpxTracker_Watch_Extension;
 				INFOPLIST_FILE = "OpenGpxTracker-Watch/Info.plist";
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = org.merlos.OpenGpxTracker.watchkitapp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mrfeet.Fietsknooppunt.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -1044,7 +1046,7 @@
 		BF692F752209AAFC00F8A0F1 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -1056,12 +1058,12 @@
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 2833YQH694;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				IBSC_MODULE = OpenGpxTracker_Watch_Extension;
 				INFOPLIST_FILE = "OpenGpxTracker-Watch/Info.plist";
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = org.merlos.OpenGpxTracker.watchkitapp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mrfeet.Fietsknooppunt.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -1082,15 +1084,16 @@
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = SU64RGPDF2;
+				DEVELOPMENT_TEAM = 2833YQH694;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = "OpenGpxTracker-Watch Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = org.merlos.OpenGpxTracker.watchkitapp.extension;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mrfeet.Fietsknooppunt.watchkitapp.extension;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -1112,15 +1115,16 @@
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = SU64RGPDF2;
+				DEVELOPMENT_TEAM = 2833YQH694;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = "OpenGpxTracker-Watch Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = org.merlos.OpenGpxTracker.watchkitapp.extension;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mrfeet.Fietsknooppunt.watchkitapp.extension;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -1133,7 +1137,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		898EECD019C49B5800B4B207 /* Build configuration list for PBXProject "OpenGpxTracker" */ = {
+		898EECD019C49B5800B4B207 /* Build configuration list for PBXProject "Fietsknooppunt" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				898EECF519C49B5800B4B207 /* Debug */,
@@ -1142,7 +1146,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		898EECF719C49B5800B4B207 /* Build configuration list for PBXNativeTarget "OpenGpxTracker" */ = {
+		898EECF719C49B5800B4B207 /* Build configuration list for PBXNativeTarget "Fietsknooppunt" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				898EECF819C49B5800B4B207 /* Debug */,
@@ -1151,7 +1155,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		898EECFA19C49B5800B4B207 /* Build configuration list for PBXNativeTarget "OpenGpxTrackerTests" */ = {
+		898EECFA19C49B5800B4B207 /* Build configuration list for PBXNativeTarget "FietsknooppuntTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				898EECFB19C49B5800B4B207 /* Debug */,
@@ -1160,7 +1164,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		BF692F782209AAFC00F8A0F1 /* Build configuration list for PBXNativeTarget "OpenGpxTracker-Watch Extension" */ = {
+		BF692F782209AAFC00F8A0F1 /* Build configuration list for PBXNativeTarget "Fietsknooppunt-Watch Extension" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				BF692F762209AAFC00F8A0F1 /* Debug */,
@@ -1169,7 +1173,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		BF692F7A2209AAFC00F8A0F1 /* Build configuration list for PBXNativeTarget "OpenGpxTracker-Watch" */ = {
+		BF692F7A2209AAFC00F8A0F1 /* Build configuration list for PBXNativeTarget "Fietsknooppunt-Watch" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				BF692F742209AAFC00F8A0F1 /* Debug */,
