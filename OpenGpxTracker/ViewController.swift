@@ -297,8 +297,6 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
     let signalImage5 = UIImage(named: "signal5")
     /// GPS signal image. Level 6
     let signalImage6 = UIImage(named: "signal6")
-    
-    var rotationGesture = UIRotationGestureRecognizer()
  
     /// Initializer. Just initializes the class vars/const
     required init(coder aDecoder: NSCoder) {
@@ -613,25 +611,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         
         addConstraints(isIPhoneX)
         
-        // Rotation Gesture handling (for the map rotation's influence towards heading pointing arrow)
-        rotationGesture = UIRotationGestureRecognizer(target: self, action: #selector(rotationGestureHandling(_:)))
-        
-        rotationGesture.delegate = self
-        
-        self.map.addGestureRecognizer(rotationGesture)
-        self.map.isUserInteractionEnabled = true
-        self.map.isMultipleTouchEnabled = true
-
-    }
-    
-    /// Handles rotation detected from user, for heading arrow to update.
-    @objc func rotationGestureHandling(_ gesture: UIRotationGestureRecognizer) {
-        self.map.headingOffset = gesture.rotation
-        self.map.updateHeading()
-        
-        if gesture.state == .ended {
-            self.map.headingOffset = nil
-        }
+        map.rotationGesture.delegate = self
     }
     
     /// Adds Constraints to subviews
