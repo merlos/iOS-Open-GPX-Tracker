@@ -600,6 +600,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         saveButton.addTarget(self, action: #selector(ViewController.saveButtonTapped), for: .touchUpInside)
         saveButton.isHidden = false
         saveButton.titleLabel?.textAlignment = .center
+        saveButton.titleLabel?.adjustsFontSizeToFitWidth = true
         map.addSubview(saveButton)
         
         // Reset button
@@ -609,6 +610,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         resetButton.addTarget(self, action: #selector(ViewController.resetButtonTapped), for: .touchUpInside)
         resetButton.isHidden = false
         resetButton.titleLabel?.textAlignment = .center
+        resetButton.titleLabel?.adjustsFontSizeToFitWidth = true
         map.addSubview(resetButton)
         
         addConstraints(isIPhoneX)

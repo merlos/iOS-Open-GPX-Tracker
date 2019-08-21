@@ -10,8 +10,8 @@
 "START_TRACKING" = "Tracking starten";
 "PAUSE" = "Pause";
 "RESUME" = "Fortsetzen";
-"SAVE" = "Speichern";
-"RESET" = "Zurücksetzen";
+"SAVE" = "Sichern";
+"RESET" = "Löschen";
 "DONE" = "Fertig";
 "CANCEL" = "Abbrechen";
 "WATCH_FILE_RECEIVED_TITLE" = "Datei von der Apple Watch erhalten.";
