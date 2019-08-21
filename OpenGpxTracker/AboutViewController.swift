@@ -4,6 +4,8 @@
 //
 //  Created by merlos on 24/09/14.
 //
+//  Localized by nitricware on 19/08/19.
+//
 
 import UIKit
 import WebKit
@@ -38,10 +40,10 @@ class AboutViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.title = "About"
+        self.title = NSLocalizedString("ABOUT", comment: "no comment")
         
         //Add the done button
-        let shareItem = UIBarButtonItem(title: "Done", style: UIBarButtonItem.Style.plain, target: self, action: #selector(AboutViewController.closeViewController))
+        let shareItem = UIBarButtonItem(title: NSLocalizedString("DONE", comment: "no comment"), style: UIBarButtonItem.Style.plain, target: self, action: #selector(AboutViewController.closeViewController))
         self.navigationItem.rightBarButtonItems = [shareItem]
   
         //Add the Webview

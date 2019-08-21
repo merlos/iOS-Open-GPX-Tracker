@@ -4,6 +4,8 @@
 //
 //  Created by merlos on 14/09/14.
 //
+//  Localized by nitricware on 19/08/19.
+//
 
 import Foundation
 import UIKit
@@ -12,7 +14,7 @@ import MessageUI
 import WatchConnectivity
 
 /// Text displayed when there are no GPX files in the folder.
-let kNoFiles = "No gpx files"
+let kNoFiles = NSLocalizedString("NO_FILES", comment: "no comment")
 
 ///
 /// TableViewController that displays the list of files that have been saved in previous sessions.
@@ -54,13 +56,13 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
         self.tableView.frame = CGRect(x: navBarFrame.width + 1, y: 0, width: self.view.frame.width, height:
             self.view.frame.height - navBarFrame.height)
         
-        self.title = "Your GPX Files"
+        self.title = NSLocalizedString("YOUR_FILES", comment: "no comment")
         
         // add notification observer for reloading table when file is added.
         addNotificationObservers()
         
         // Button to return to the map
-        let shareItem = UIBarButtonItem(title: "Done", style: UIBarButtonItem.Style.plain, target: self, action: #selector(GPXFilesTableViewController.closeGPXFilesTableViewController))
+        let shareItem = UIBarButtonItem(title: NSLocalizedString("DONE", comment: "no comment"), style: UIBarButtonItem.Style.plain, target: self, action: #selector(GPXFilesTableViewController.closeGPXFilesTableViewController))
         
         self.navigationItem.rightBarButtonItems = [shareItem]
         
@@ -138,8 +140,7 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
             //cell.accessoryView = [[ UIImageView alloc ] initWithImage:[UIImage imageNamed:@"Something" ]];
             let gpxFileInfo = fileList.object(at: (indexPath as NSIndexPath).row) as! GPXFileInfo
             cell.textLabel?.text = gpxFileInfo.fileName
-            cell.detailTextLabel?.text =
-                "last saved \(gpxFileInfo.modifiedDatetimeAgo) (\(gpxFileInfo.fileSizeHumanised))"
+            cell.detailTextLabel?.text = String(format: NSLocalizedString("LAST_SAVED", comment: "no comment"), gpxFileInfo.modifiedDatetimeAgo, gpxFileInfo.fileSizeHumanised)
             cell.detailTextLabel?.textColor = UIColor.darkGray
             return cell
         } else {
@@ -153,19 +154,19 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
     /// Displays an action sheet with the actions for that file (Send it by email, Load in map and Delete).
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
-        let sheet = UIAlertController(title: nil, message: "Select option", preferredStyle: .actionSheet)
-        let mapOption = UIAlertAction(title: "Load in Map", style: .default) { action in
+        let sheet = UIAlertController(title: nil, message: NSLocalizedString("SELECT_OPTION", comment: "no comment"), preferredStyle: .actionSheet)
+        let mapOption = UIAlertAction(title: NSLocalizedString("LOAD_IN_MAP", comment: "no comment"), style: .default) { action in
             self.actionLoadFileAtIndex(indexPath.row)
         }
-        let shareOption = UIAlertAction(title: "Share", style: .default) { action in
+        let shareOption = UIAlertAction(title: NSLocalizedString("SHARE", comment: "no comment"), style: .default) { action in
             self.actionShareFileAtIndex(indexPath.row, tableView: tableView, indexPath: indexPath)
         }
         
-        let cancelOption = UIAlertAction(title: "Cancel", style: .cancel) { action in
+        let cancelOption = UIAlertAction(title: NSLocalizedString("CANCEL", comment: "no comment"), style: .cancel) { action in
             self.actionSheetCancel(sheet)
         }
         
-        let deleteOption = UIAlertAction(title: "Delete", style: .destructive) { action in
+        let deleteOption = UIAlertAction(title: NSLocalizedString("DELETE", comment: "no comment"), style: .destructive) { action in
             self.actionDeleteFileAtIndex(indexPath.row)
         }
         
@@ -260,7 +261,7 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
     /// Displays an alert with a activity indicator view to indicate loading of gpx file to map
     func displayLoadingFileAlert(_ loading: Bool, completion: (() -> Void)? = nil) {
         // setup of controllers and views
-        let alertController = UIAlertController(title: "Loading GPX File...", message: nil, preferredStyle: .alert)
+        let alertController = UIAlertController(title: NSLocalizedString("LOADING_FILE", comment: "no comment"), message: nil, preferredStyle: .alert)
         let activityIndicatorView = UIActivityIndicatorView(frame: CGRect(x: 35, y: 30, width: 32, height: 32))
         activityIndicatorView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         activityIndicatorView.style = .whiteLarge

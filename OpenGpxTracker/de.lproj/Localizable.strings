@@ -1,0 +1,86 @@
+/* 
+  Localizable.strings
+  OpenGpxTracker
+
+  Created by Kurt Höblinger on 19.08.19.
+  Copyright © 2019 TransitBox. All rights reserved.
+*/
+
+"NO_LOCATION" = "GPS nicht verfügbar";
+"START_TRACKING" = "Tracking starten";
+"PAUSE" = "Pause";
+"RESUME" = "Fortsetzen";
+"SAVE" = "Speichern";
+"RESET" = "Zurücksetzen";
+"DONE" = "Fertig";
+"CANCEL" = "Abbrechen";
+"WATCH_FILE_RECEIVED_TITLE" = "Datei von der Apple Watch erhalten.";
+"WATCH_FILE_RECEIVED_MESSAGE" = "Datei erhalten: \"%@\"";
+"SAVE_AS" = "Speichern unter";
+"ENTER_SESSION_NAME" = "GPX Sitzungs-Name eingeben";
+"LOCATION_SERVICES_DISABLED" = "Ortungsdienste ausgeschalten";
+"ENABLE_LOCATION_SERVICES" = "Gehe in die Einstellungen und schalte die Ortungsdienste ein.";
+"SETTINGS" = "Einstellungen";
+"ACCESS_TO_LOCATION_DENIED" = "Zugriff auf Standort verweigert.";
+"ALLOW_LOCATION" = "Erlaube GPX Tracker immer den Zugriff auf den Standort in den Einstellungen. ";
+"COORDS_LABEL" = "(%@, %@) · Höhe: %@";
+"NO_FILES" = "Keine GPX Dateien";
+"YOUR_FILES" = "Deine GPX Dateien";
+"LAST_SAVED" = "%@ (%@) zuletzt gespeichert";
+"DELETE" = "Löschen";
+"SELECT_OPTION" = "Auswählen";
+"LOAD_IN_MAP" = "In Karte laden";
+"SHARE" = "Teilen";
+"LOADING_FILE" = "Lade GPX Datei...";
+"ABOUT" = "Über";
+"PREFERENCES" = "Einstellungen";
+"UNITS" = "Einheiten";
+"CACHE" = "Cache";
+"MAP_SOURCE" = "Kartentyp";
+"ACTIVITY_TYPE" = "Aktivitätstyp";
+"USE_IMPERIAL_UNITS" = "Meilen verwenden";
+"OFFLINE_CACHE" = "Offline cache";
+"CLEAR_CACHE" = "Cache leeren";
+"EDIT_WAYPOINT_NAME_TITLE" = "Wegpunkt ändern";
+"EDIT_WAYPOINT_NAME_MESSAGE" = "Hinweis: Um einen Wegpunkt zu verändern, verschiebe den Pin.";
+
+
+"AT_AUTOMATIC" = "Automatisch";
+"AT_AUTOMOTIVE" = "Fahrzeugnavigation";
+"AT_FITNESS" = "Fitness";
+"AT_OTHER" = "Andere Navigation";
+"AT_FLIGHT" = "Flug";
+
+"AT_AUTOMATIC_DESC" = "Systemstandard. Modus wird automatisch erkannt";
+"AT_AUTOMOTIVE_DESC" = "Auto, Motorrad, LKW...";
+"AT_FITNESS_DESC" = "Laufen, Wandern, Radfahren...";
+"AT_OTHER_DESC" = "Andere Fahrzeugnavigation";
+"AT_FLIGHT_DESC" = "Flugaktivitäten";
+
+"T_YEARS_AGO" = "vor %d Jahren";
+"T_YEAR_AGO" = "vor 1 Jahr";
+"T_LAST_YEAR" = "Letztes Jahr";
+
+"T_MONTHS_AGO" = "vor %d Monaten";
+"T_MONTH_AGO" = "vor 1 Monat";
+"T_LAST_MONTH" = "Letztes Monat";
+
+"T_WEEKS_AGO" = "vor %d Wochen";
+"T_WEEK_AGO" = "vor 1 Woche";
+"T_LAST_WEEK" = "Letzte Woche";
+
+"T_DAYS_AGO" = "vor %d Tagen";
+"T_DAY_AGO" = "vor 1 Tag";
+"T_YESTERDAY" = "Gestern";
+
+"T_HOURS_AGO" = "vor %d Stunden";
+"T_HOUR_AGO" = "vor 1 Stunde";
+"T_LAST_HOUR" = "Letzte Stunde";
+
+"T_MINUTES_AGO" = "vor %d Minuten";
+"T_MINUTE_AGO" = "vor 1 Minute";
+"T_MINUTE_HOUR" = "Vorige Minute";
+
+"T_SECONDS_AGO" = "vor %d Sekunden";
+
+"T_JUST_NOW" = "Gerade eben";

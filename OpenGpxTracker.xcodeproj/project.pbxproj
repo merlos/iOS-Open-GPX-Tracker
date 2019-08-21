@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		120DE71022B274910055C4CB /* GPXSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120DE70F22B274910055C4CB /* GPXSession.swift */; };
 		120DE71122B274A40055C4CB /* GPXSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120DE70F22B274910055C4CB /* GPXSession.swift */; };
+		455F78BF230AA9DD003705F3 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 455F78C1230AA9DD003705F3 /* Localizable.strings */; };
 		8913CD8C1BDB0A9A009EC729 /* PreferencesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8913CD8B1BDB0A9A009EC729 /* PreferencesTableViewController.swift */; };
 		8913CD8E1BDB2477009EC729 /* PreferencesTableViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8913CD8D1BDB2477009EC729 /* PreferencesTableViewControllerDelegate.swift */; };
 		893BEC8619C7E62200C77354 /* GPXWaypoint+MKAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893BEC8519C7E62200C77354 /* GPXWaypoint+MKAnnotation.swift */; };
@@ -134,6 +135,10 @@
 		120DE70F22B274910055C4CB /* GPXSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPXSession.swift; sourceTree = "<group>"; };
 		3C3088B74A230AB1FD234D6F /* Pods_OpenGpxTracker_Watch.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OpenGpxTracker_Watch.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		44E786790A477838358F948C /* Pods-OpenGpxTracker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenGpxTracker.debug.xcconfig"; path = "Pods/Target Support Files/Pods-OpenGpxTracker/Pods-OpenGpxTracker.debug.xcconfig"; sourceTree = "<group>"; };
+		455F78BD230AA9D6003705F3 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		455F78BE230AA9D6003705F3 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Main.strings; sourceTree = "<group>"; };
+		455F78C0230AA9DD003705F3 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
+		455F78C2230AA9E4003705F3 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		554D2ACAA71E64B3A7B1A167 /* Pods-OpenGpxTracker-Watch Extension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenGpxTracker-Watch Extension.release.xcconfig"; path = "Pods/Target Support Files/Pods-OpenGpxTracker-Watch Extension/Pods-OpenGpxTracker-Watch Extension.release.xcconfig"; sourceTree = "<group>"; };
 		8913CD8B1BDB0A9A009EC729 /* PreferencesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferencesTableViewController.swift; sourceTree = "<group>"; };
 		8913CD8D1BDB2477009EC729 /* PreferencesTableViewControllerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferencesTableViewControllerDelegate.swift; sourceTree = "<group>"; };
@@ -382,6 +387,7 @@
 				898EECDA19C49B5800B4B207 /* AppDelegate.swift */,
 				899D678519D354EB00C88A0A /* about.html */,
 				898EECE419C49B5800B4B207 /* Images.xcassets */,
+				455F78C1230AA9DD003705F3 /* Localizable.strings */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -525,7 +531,7 @@
 				TargetAttributes = {
 					898EECD419C49B5800B4B207 = {
 						CreatedOnToolsVersion = 6.0;
-						DevelopmentTeam = SU64RGPDF2;
+						DevelopmentTeam = PMCWJ9GD9L;
 						LastSwiftMigration = 1020;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
@@ -535,16 +541,18 @@
 					};
 					898EECEC19C49B5800B4B207 = {
 						CreatedOnToolsVersion = 6.0;
+						DevelopmentTeam = PMCWJ9GD9L;
 						LastSwiftMigration = 1020;
 						TestTargetID = 898EECD419C49B5800B4B207;
 					};
 					BF692F562209AAF900F8A0F1 = {
 						CreatedOnToolsVersion = 10.1;
+						DevelopmentTeam = PMCWJ9GD9L;
 						ProvisioningStyle = Automatic;
 					};
 					BF692F622209AAFB00F8A0F1 = {
 						CreatedOnToolsVersion = 10.1;
-						DevelopmentTeam = SU64RGPDF2;
+						DevelopmentTeam = PMCWJ9GD9L;
 						LastSwiftMigration = 1020;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
@@ -562,6 +570,7 @@
 			knownRegions = (
 				en,
 				Base,
+				de,
 			);
 			mainGroup = 898EECCC19C49B5800B4B207;
 			productRefGroup = 898EECD619C49B5800B4B207 /* Products */;
@@ -581,6 +590,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				455F78BF230AA9DD003705F3 /* Localizable.strings in Resources */,
 				899D678719D354EB00C88A0A /* about.html in Resources */,
 				898EECE319C49B5800B4B207 /* Main.storyboard in Resources */,
 				898EECE819C49B5800B4B207 /* LaunchScreen.xib in Resources */,
@@ -806,10 +816,20 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		455F78C1230AA9DD003705F3 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				455F78C0230AA9DD003705F3 /* de */,
+				455F78C2230AA9E4003705F3 /* en */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
 		898EECE119C49B5800B4B207 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				898EECE219C49B5800B4B207 /* Base */,
+				455F78BE230AA9D6003705F3 /* de */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -818,6 +838,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				898EECE719C49B5800B4B207 /* Base */,
+				455F78BD230AA9D6003705F3 /* de */,
 			);
 			name = LaunchScreen.xib;
 			sourceTree = "<group>";
@@ -938,7 +959,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				DEVELOPMENT_TEAM = SU64RGPDF2;
+				DEVELOPMENT_TEAM = PMCWJ9GD9L;
 				INFOPLIST_FILE = OpenGpxTracker/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -958,7 +979,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				DEVELOPMENT_TEAM = SU64RGPDF2;
+				DEVELOPMENT_TEAM = PMCWJ9GD9L;
 				INFOPLIST_FILE = OpenGpxTracker/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -974,7 +995,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = PMCWJ9GD9L;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -996,7 +1017,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = PMCWJ9GD9L;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -1024,7 +1045,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = PMCWJ9GD9L;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				IBSC_MODULE = OpenGpxTracker_Watch_Extension;
 				INFOPLIST_FILE = "OpenGpxTracker-Watch/Info.plist";
@@ -1056,7 +1077,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = PMCWJ9GD9L;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				IBSC_MODULE = OpenGpxTracker_Watch_Extension;
 				INFOPLIST_FILE = "OpenGpxTracker-Watch/Info.plist";
@@ -1084,7 +1105,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_STYLE = Automatic;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = SU64RGPDF2;
+				DEVELOPMENT_TEAM = PMCWJ9GD9L;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = "OpenGpxTracker-Watch Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
@@ -1115,7 +1136,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = SU64RGPDF2;
+				DEVELOPMENT_TEAM = PMCWJ9GD9L;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = "OpenGpxTracker-Watch Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";

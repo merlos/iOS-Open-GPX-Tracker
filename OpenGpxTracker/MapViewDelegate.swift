@@ -1,3 +1,7 @@
+//
+//  Localized by nitricware on 19/08/19.
+//
+
 import MapKit
 import CoreGPX
 
@@ -72,17 +76,17 @@ class MapViewDelegate: NSObject, MKMapViewDelegate, UIAlertViewDelegate {
             
             let indexofEditedWaypoint = map.session.waypoints.firstIndex(of: waypoint)
             
-            let alertController = UIAlertController(title: "Edit waypoint name", message: "Hint: To change the waypoint location drag and drop the pin", preferredStyle: .alert)
+            let alertController = UIAlertController(title: NSLocalizedString("EDIT_WAYPOINT_NAME_TITLE", comment: "no comment"), message: NSLocalizedString("EDIT_WAYPOINT_NAME_MESSAGE", comment: "no comment"), preferredStyle: .alert)
             alertController.addTextField { (textField) in
                 textField.text = waypoint.title
                 textField.clearButtonMode = .always
             }
-            let saveAction = UIAlertAction(title: "Save", style: .default) { (action) in
+            let saveAction = UIAlertAction(title: NSLocalizedString("SAVE", comment: "no comment"), style: .default) { (action) in
                 print("Edit waypoint alert view")
                 self.waypointBeingEdited.title = alertController.textFields?[0].text
                 map.coreDataHelper.update(toCoreData: self.waypointBeingEdited, from: indexofEditedWaypoint!)
             }
-            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (action) in }
+            let cancelAction = UIAlertAction(title: NSLocalizedString("CANCEL", comment: "no comment"), style: .cancel) { (action) in }
             
             alertController.addAction(saveAction)
             alertController.addAction(cancelAction)
