@@ -94,6 +94,15 @@ class GPXMapView: MKMapView {
     ///
     let coreDataHelper = CoreDataHelper()
     
+    /// Heading of device
+    var heading: CLHeading?
+    
+    /// Offset to heading due to user's map rotation
+    var headingOffset: CGFloat?
+    
+    /// Gesture for heading arrow to be updated in realtime during user's map interactions
+    var rotationGesture = UIRotationGestureRecognizer()
+    
     ///
     /// Initializes the map with an empty currentSegmentOverlay.
     ///
@@ -102,6 +111,13 @@ class GPXMapView: MKMapView {
         self.currentSegmentOverlay = MKPolyline(coordinates: &tmpCoords, count: 0)
         self.compassRect = CGRect.init(x: 0, y: 0, width: 36, height: 36)
         super.init(coder: aDecoder)
+        
+        // Rotation Gesture handling (for the map rotation's influence towards heading pointing arrow)
+        rotationGesture = UIRotationGestureRecognizer(target: self, action: #selector(rotationGestureHandling(_:)))
+        
+        self.addGestureRecognizer(rotationGesture)
+        self.isUserInteractionEnabled = true
+        self.isMultipleTouchEnabled = true
     }
     
     ///
@@ -114,6 +130,16 @@ class GPXMapView: MKMapView {
             if compassRect.origin.x != 0 {
                 compassView.frame = compassRect
             }
+        }
+    }
+    
+    /// Handles rotation detected from user, for heading arrow to update.
+    @objc func rotationGestureHandling(_ gesture: UIRotationGestureRecognizer) {
+        self.headingOffset = gesture.rotation
+        self.updateHeading()
+        
+        if gesture.state == .ended {
+            self.headingOffset = nil
         }
     }
     
@@ -165,10 +191,21 @@ class GPXMapView: MKMapView {
     ///
     /// Updates the heading arrow based on the heading information
     ///
-    func updateHeading(_ heading: CLHeading) {
+    func updateHeading() {
+        guard let heading = self.heading else { return }
+        
         headingImageView?.isHidden = false
-        let rotation = CGFloat(heading.trueHeading/180 * Double.pi)
-        headingImageView?.transform = CGAffineTransform(rotationAngle: rotation)
+        let rotation = CGFloat((heading.trueHeading - camera.heading)/180 * Double.pi)
+        
+        var newRotation = rotation
+        
+        if let headingOffset = headingOffset {
+            newRotation = rotation + headingOffset
+        }
+ 
+        UIView.animate(withDuration: 0.15) {
+            self.headingImageView?.transform = CGAffineTransform(rotationAngle: newRotation)
+        }
     }
     
     ///

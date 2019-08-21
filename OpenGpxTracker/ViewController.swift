@@ -106,7 +106,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         print("Chosen CLActivityType: \(manager.activityType.name)")
         manager.desiredAccuracy = kCLLocationAccuracyBest
         manager.distanceFilter = 2 //meters
-        manager.headingFilter = 1 //degrees (1 is default)
+        manager.headingFilter = 3 //degrees (1 is default)
         manager.pausesLocationUpdatesAutomatically = false
         if #available(iOS 9.0, *) {
             manager.allowsBackgroundLocationUpdates = true
@@ -610,6 +610,8 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         map.addSubview(resetButton)
         
         addConstraints(isIPhoneX)
+        
+        map.rotationGesture.delegate = self
     }
     
     /// Adds Constraints to subviews
@@ -1280,8 +1282,8 @@ extension ViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         //updates signal image accuracy
         let newLocation = locations.first!
-        print("isUserLocationVisible: \(map.isUserLocationVisible) showUserLocation: \(map.showsUserLocation)")
-        print("didUpdateLocation: received \(newLocation.coordinate) hAcc: \(newLocation.horizontalAccuracy) vAcc: \(newLocation.verticalAccuracy) floor: \(newLocation.floor?.description ?? "''") map.userTrackingMode: \(map.userTrackingMode.rawValue)")
+       // print("isUserLocationVisible: \(map.isUserLocationVisible) showUserLocation: \(map.showsUserLocation)")
+       // print("didUpdateLocation: received \(newLocation.coordinate) hAcc: \(newLocation.horizontalAccuracy) vAcc: \(newLocation.verticalAccuracy) floor: \(newLocation.floor?.description ?? "''") map.userTrackingMode: \(map.userTrackingMode.rawValue)")
         
         // Update horizontal accuracy
         let hAcc = newLocation.horizontalAccuracy
@@ -1329,8 +1331,10 @@ extension ViewController: CLLocationManagerDelegate {
     /// to updathe the heading indicator (a small arrow next to user location point)
     ///
     func locationManager(_ manager: CLLocationManager, didUpdateHeading newHeading: CLHeading) {
-        print("ViewController::didUpdateHeading \(newHeading.trueHeading)")
-        map.updateHeading(newHeading)
+        print("ViewController::didUpdateHeading true: \(newHeading.trueHeading) magnetic: \(newHeading.magneticHeading)")
+        print("mkMapcamera heading=\(map.camera.heading)")
+        map.heading = newHeading // updates heading variable
+        map.updateHeading() // updates heading view's rotation
         
     }
 }
