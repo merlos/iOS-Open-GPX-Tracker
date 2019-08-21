@@ -9,13 +9,18 @@
 /* Begin PBXBuildFile section */
 		120DE71022B274910055C4CB /* GPXSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120DE70F22B274910055C4CB /* GPXSession.swift */; };
 		120DE71122B274A40055C4CB /* GPXSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120DE70F22B274910055C4CB /* GPXSession.swift */; };
-		455F78BF230AA9DD003705F3 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 455F78C1230AA9DD003705F3 /* Localizable.strings */; };
+		4588D66B230D23AA009AA75F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4588D66D230D23AA009AA75F /* InfoPlist.strings */; };
+		4588D66F230D2476009AA75F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4588D671230D2476009AA75F /* InfoPlist.strings */; };
+		45A430D9230D48C00003C2F2 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 45A430DE230D48C00003C2F2 /* Localizable.strings */; };
+		45A430DA230D48C00003C2F2 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 45A430DE230D48C00003C2F2 /* Localizable.strings */; };
+		45A430E5230D4B670003C2F2 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 45A430DE230D48C00003C2F2 /* Localizable.strings */; };
+		45A430E6230D4B680003C2F2 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 45A430DE230D48C00003C2F2 /* Localizable.strings */; };
+		45A430E9230D61240003C2F2 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 45A430EB230D61240003C2F2 /* Interface.storyboard */; };
 		8913CD8C1BDB0A9A009EC729 /* PreferencesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8913CD8B1BDB0A9A009EC729 /* PreferencesTableViewController.swift */; };
 		8913CD8E1BDB2477009EC729 /* PreferencesTableViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8913CD8D1BDB2477009EC729 /* PreferencesTableViewControllerDelegate.swift */; };
 		893BEC8619C7E62200C77354 /* GPXWaypoint+MKAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893BEC8519C7E62200C77354 /* GPXWaypoint+MKAnnotation.swift */; };
 		8945A90E1DC7AD040029AF93 /* CachedTileOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8945A90D1DC7AD040029AF93 /* CachedTileOverlay.swift */; };
 		895F04B41A7143CE004BEE8A /* GPXExtentCoordinates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895F04B31A7143CE004BEE8A /* GPXExtentCoordinates.swift */; };
-		89686CC52218793A0050D1E3 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BF692F7C2209AB8000F8A0F1 /* Interface.storyboard */; };
 		898EECDB19C49B5800B4B207 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 898EECDA19C49B5800B4B207 /* AppDelegate.swift */; };
 		898EECDE19C49B5800B4B207 /* OpenGpxTracker.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 898EECDC19C49B5800B4B207 /* OpenGpxTracker.xcdatamodeld */; };
 		898EECE019C49B5800B4B207 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 898EECDF19C49B5800B4B207 /* ViewController.swift */; };
@@ -137,8 +142,15 @@
 		44E786790A477838358F948C /* Pods-OpenGpxTracker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenGpxTracker.debug.xcconfig"; path = "Pods/Target Support Files/Pods-OpenGpxTracker/Pods-OpenGpxTracker.debug.xcconfig"; sourceTree = "<group>"; };
 		455F78BD230AA9D6003705F3 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		455F78BE230AA9D6003705F3 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Main.strings; sourceTree = "<group>"; };
-		455F78C0230AA9DD003705F3 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
-		455F78C2230AA9E4003705F3 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		4588D66C230D23AA009AA75F /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		4588D66E230D23AD009AA75F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		4588D670230D2476009AA75F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		4588D672230D247C009AA75F /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		45A430DD230D48C00003C2F2 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		45A430DF230D48C40003C2F2 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
+		45A430EA230D61240003C2F2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
+		45A430ED230D612B0003C2F2 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Interface.strings; sourceTree = "<group>"; };
+		45A430EF230D612C0003C2F2 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Interface.strings; sourceTree = "<group>"; };
 		554D2ACAA71E64B3A7B1A167 /* Pods-OpenGpxTracker-Watch Extension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenGpxTracker-Watch Extension.release.xcconfig"; path = "Pods/Target Support Files/Pods-OpenGpxTracker-Watch Extension/Pods-OpenGpxTracker-Watch Extension.release.xcconfig"; sourceTree = "<group>"; };
 		8913CD8B1BDB0A9A009EC729 /* PreferencesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferencesTableViewController.swift; sourceTree = "<group>"; };
 		8913CD8D1BDB2477009EC729 /* PreferencesTableViewControllerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferencesTableViewControllerDelegate.swift; sourceTree = "<group>"; };
@@ -201,7 +213,6 @@
 		BF692F6C2209AAFB00F8A0F1 /* ComplicationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComplicationController.swift; sourceTree = "<group>"; };
 		BF692F6E2209AAFC00F8A0F1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BF692F702209AAFC00F8A0F1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		BF692F7C2209AB8000F8A0F1 /* Interface.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Interface.storyboard; sourceTree = "<group>"; };
 		BFA3CE8122C23B2300A8B965 /* CoreDataAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataAlertView.swift; sourceTree = "<group>"; };
 		DC4908A01C4A136F009484AE /* TrackerButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackerButton.swift; sourceTree = "<group>"; };
 		DC4908A21C4A332E009484AE /* MapViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewDelegate.swift; sourceTree = "<group>"; };
@@ -314,6 +325,7 @@
 			isa = PBXGroup;
 			children = (
 				898EECD919C49B5800B4B207 /* Info.plist */,
+				4588D66D230D23AA009AA75F /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -382,12 +394,12 @@
 		899D678919D3551300C88A0A /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				45A430DE230D48C00003C2F2 /* Localizable.strings */,
 				898EECE619C49B5800B4B207 /* LaunchScreen.xib */,
 				898EECE119C49B5800B4B207 /* Main.storyboard */,
 				898EECDA19C49B5800B4B207 /* AppDelegate.swift */,
 				899D678519D354EB00C88A0A /* about.html */,
 				898EECE419C49B5800B4B207 /* Images.xcassets */,
-				455F78C1230AA9DD003705F3 /* Localizable.strings */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -417,7 +429,7 @@
 		BF692F582209AAF900F8A0F1 /* OpenGpxTracker-Watch */ = {
 			isa = PBXGroup;
 			children = (
-				BF692F7C2209AB8000F8A0F1 /* Interface.storyboard */,
+				45A430EB230D61240003C2F2 /* Interface.storyboard */,
 				BF692F5C2209AAFB00F8A0F1 /* Assets.xcassets */,
 				BF692F5E2209AAFB00F8A0F1 /* Info.plist */,
 			);
@@ -434,6 +446,7 @@
 				BF692F6C2209AAFB00F8A0F1 /* ComplicationController.swift */,
 				BF692F6E2209AAFC00F8A0F1 /* Assets.xcassets */,
 				BF692F702209AAFC00F8A0F1 /* Info.plist */,
+				4588D671230D2476009AA75F /* InfoPlist.strings */,
 			);
 			path = "OpenGpxTracker-Watch Extension";
 			sourceTree = "<group>";
@@ -590,7 +603,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				455F78BF230AA9DD003705F3 /* Localizable.strings in Resources */,
+				4588D66B230D23AA009AA75F /* InfoPlist.strings in Resources */,
+				45A430D9230D48C00003C2F2 /* Localizable.strings in Resources */,
 				899D678719D354EB00C88A0A /* about.html in Resources */,
 				898EECE319C49B5800B4B207 /* Main.storyboard in Resources */,
 				898EECE819C49B5800B4B207 /* LaunchScreen.xib in Resources */,
@@ -602,6 +616,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				45A430DA230D48C00003C2F2 /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -609,7 +624,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				89686CC52218793A0050D1E3 /* Interface.storyboard in Resources */,
+				45A430E9230D61240003C2F2 /* Interface.storyboard in Resources */,
+				45A430E6230D4B680003C2F2 /* Localizable.strings in Resources */,
 				BF692F5D2209AAFB00F8A0F1 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -619,6 +635,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				BF692F6F2209AAFC00F8A0F1 /* Assets.xcassets in Resources */,
+				45A430E5230D4B670003C2F2 /* Localizable.strings in Resources */,
+				4588D66F230D2476009AA75F /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -816,13 +834,42 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		455F78C1230AA9DD003705F3 /* Localizable.strings */ = {
+		4588D66D230D23AA009AA75F /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
-				455F78C0230AA9DD003705F3 /* de */,
-				455F78C2230AA9E4003705F3 /* en */,
+				4588D66C230D23AA009AA75F /* de */,
+				4588D66E230D23AD009AA75F /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		4588D671230D2476009AA75F /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4588D670230D2476009AA75F /* en */,
+				4588D672230D247C009AA75F /* de */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		45A430DE230D48C00003C2F2 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				45A430DD230D48C00003C2F2 /* en */,
+				45A430DF230D48C40003C2F2 /* de */,
 			);
 			name = Localizable.strings;
+			path = "/Users/kurt/Developer/iOS-Open-GPX-Tracker/OpenGpxTracker";
+			sourceTree = "<absolute>";
+		};
+		45A430EB230D61240003C2F2 /* Interface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				45A430EA230D61240003C2F2 /* Base */,
+				45A430ED230D612B0003C2F2 /* en */,
+				45A430EF230D612C0003C2F2 /* de */,
+			);
+			name = Interface.storyboard;
 			sourceTree = "<group>";
 		};
 		898EECE119C49B5800B4B207 /* Main.storyboard */ = {

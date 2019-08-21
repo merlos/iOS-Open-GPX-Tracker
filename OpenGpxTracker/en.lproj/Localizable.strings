@@ -1,11 +1,11 @@
-/* 
-  Localizable.strings
-  OpenGpxTracker
+/*
+ Localizable.strings
+ OpenGpxTracker
+ 
+ Created by Kurt Höblinger on 19.08.19.
+ */
 
-  Created by Kurt Höblinger on 19.08.19.
-  Copyright © 2019 TransitBox. All rights reserved.
-*/
-
+// App
 "NO_LOCATION" = "Not getting location";
 "START_TRACKING" = "Start Tracking";
 "PAUSE" = "Pause";
@@ -44,6 +44,21 @@
 "EDIT_WAYPOINT_NAME_TITLE" = "Edit waypoint name";
 "EDIT_WAYPOINT_NAME_MESSAGE" = "Hint: To change the waypoint location drag and drop the pin";
 
+// Watch
+"SENDING" = "Sending:";
+"X_FILES" = "%d files";
+"SUCCESSFULLY_SENT" = "Successfully sent:";
+"FAILED_TO_SEND" = "Failed to send:";
+"SEND_TO_IOS" = "Send to iOS app";
+"FILE_SELECTED_TITLE" = "GPX file selected";
+"FILE_SELECTED_MESSAGE" = "What would you like to do?";
+"ERROR_OCCURED_TITLE" = "Error occured";
+"ERROR_OCCURED_MESSAGE" = "GPX file was unsuccessfully sent to iOS app, due to %s ";
+"GPX_TRACKER" = "GPX Tracker";
+"FILE_SAVED_TITLE" = "GPX file saved";
+"FILE_SAVED_MESSAGE" = "Current session saved as %s.gpx ";
+
+// Activities
 "AT_AUTOMATIC" = "Automatic";
 "AT_AUTOMOTIVE" = "Automotive navigation";
 "AT_FITNESS" = "Fitness";
@@ -56,6 +71,7 @@
 "AT_OTHER_DESC" = "Other than automotive navigation";
 "AT_FLIGHT_DESC" = "Airborne activities";
 
+// Dates
 "T_YEARS_AGO" = "%d years ago";
 "T_YEAR_AGO" = "1 year ago";
 "T_LAST_YEAR" = "Last year";

@@ -1,10 +1,10 @@
-/* 
-  Localizable.strings
-  OpenGpxTracker
-
-  Created by Kurt Höblinger on 19.08.19.
-  Copyright © 2019 TransitBox. All rights reserved.
-*/
+/*
+ Localizable.strings
+ OpenGpxTracker
+ 
+ Created by Kurt Höblinger on 19.08.19.
+ Copyright © 2019 TransitBox. All rights reserved.
+ */
 
 "NO_LOCATION" = "GPS nicht verfügbar";
 "START_TRACKING" = "Tracking starten";
@@ -44,6 +44,19 @@
 "EDIT_WAYPOINT_NAME_TITLE" = "Wegpunkt ändern";
 "EDIT_WAYPOINT_NAME_MESSAGE" = "Hinweis: Um einen Wegpunkt zu verändern, verschiebe den Pin.";
 
+// Watch
+"SENDING" = "Sende:";
+"X_FILES" = "%d Dateien";
+"SUCCESSFULLY_SENT" = "Erfolgreich gesendet:";
+"FAILED_TO_SEND" = "Senden fehlgeschlagen:";
+"SEND_TO_IOS" = "Sende an iOS App";
+"FILE_SELECTED_TITLE" = "GPX Datei ausgewählt";
+"FILE_SELECTED_MESSAGE" = "Was möchtest Du tun?";
+"ERROR_OCCURED_TITLE" = "Fehler aufgetreten";
+"ERROR_OCCURED_MESSAGE" = "GPX Datei wurde nicht an iOS App gesendet: %s ";
+"GPX_TRACKER" = "GPX Tracker";
+"FILE_SAVED_TITLE" = "GPX Datei gespeichert";
+"FILE_SAVED_MESSAGE" = "Aktuelle Sitzung als %s.gpx gespeichert ";
 
 "AT_AUTOMATIC" = "Automatisch";
 "AT_AUTOMOTIVE" = "Fahrzeugnavigation";
