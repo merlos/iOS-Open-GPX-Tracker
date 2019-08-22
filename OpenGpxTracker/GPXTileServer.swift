@@ -29,12 +29,16 @@ enum GPXTileServer: Int {
     /// CartoDB tile server
     case cartoDB
     
+    /// OpenTopoMap tile server
+    case openTopoMap
+    
     ///String that describes the selected tile server.
     var name: String {
         switch self {
         case .apple: return "Apple Mapkit (no offline cache)"
         case .openStreetMap: return "Open Street Map"
         case .cartoDB: return "Carto DB"
+        case .openTopoMap: return "OpenTopoMap"
         //case .AnotherMap: return "My Map"
         }
     }
@@ -45,10 +49,10 @@ enum GPXTileServer: Int {
         case .apple: return ""
         case .openStreetMap: return "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         case .cartoDB: return "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png"
-            
+        case .openTopoMap: return "https://b.tile.opentopomap.org/{z}/{x}/{y}.png"
         //case .AnotherMap: return "http://another.map.tile.server/{z}/{x}/{y}.png"
         }
     }
     /// Returns the number of tile servers currently defined
-    static var count: Int { return GPXTileServer.cartoDB.rawValue + 1}
+    static var count: Int { return GPXTileServer.openTopoMap.rawValue + 1}
 }
