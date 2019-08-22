@@ -3,7 +3,6 @@
  OpenGpxTracker
  
  Created by Kurt Höblinger on 19.08.19.
- Copyright © 2019 TransitBox. All rights reserved.
  */
 
 "NO_LOCATION" = "GPS nicht verfügbar";
