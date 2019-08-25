@@ -1,0 +1,105 @@
+/*
+ Localizable.strings
+ OpenGpxTracker
+ 
+ Chinese (Simplified) Translation by Vincent Neo created on 23.08.19.
+ 
+ Note 1: "app" can be translated/referred as "应用程序", but I've noticed that it is still commonly denoted as "app" anyway, which is what I chose to use for this.
+ Note 2: As certain chinese words can be ambiguously interpreted, some words are rephrased, but should still be attributable as having the same or similar meaning.
+ 
+ */
+
+// App
+"NO_LOCATION" = "无法得到定位资料";
+"START_TRACKING" = "开始";
+"PAUSE" = "暂停";
+"RESUME" = "继续";
+"SAVE" = "储存";
+"RESET" = "清零";
+"DONE" = "完成";
+"CANCEL" = "取消";
+"WATCH_FILE_RECEIVED_TITLE" = "成功收到 Apple Watch 发来的 GPX 文件";
+"WATCH_FILE_RECEIVED_MESSAGE" = "成功收到 GPX 文件: \"%@\"";
+"SAVE_AS" = "储存为...";
+"ENTER_SESSION_NAME" = "请您输入这 GPX 文件名";
+"LOCATION_SERVICES_DISABLED" = "手机定位服务无法登入";
+"ENABLE_LOCATION_SERVICES" = "请您到 “设置” app，确保本 app 的 “定位服务” 已打开";
+"SETTINGS" = "设置";
+"ACCESS_TO_LOCATION_DENIED" = "app 定位服务不被允许登入";
+"ALLOW_LOCATION" = "在 “设置” app 里, 请您选择 “始终” 定位模式，让本 app 可以利用定位服务。本 app 需要此服务，才能完全操作。";
+"COORDS_LABEL" = "(%@, %@) · 海拔: %@";
+"NO_FILES" = "无法找到任何 GPX 文件";
+"YOUR_FILES" = "您的 GPX 文件";
+"LAST_SAVED" = "最后记录： %@ (%@)";
+"DELETE" = "删除";
+"SELECT_OPTION" = "请选择";
+"LOAD_IN_MAP" = "用地图显示文件资料";
+"SHARE" = "分享";
+"LOADING_FILE" = "在处理 GPX 文件中...";
+"ABOUT" = "资料";
+"PREFERENCES" = "设置";
+"UNITS" = "计量单位";
+"CACHE" = "地图高速缓存系统"; // not quite confident in translation. Have never heard of anyone used “cache” in Chinese before.
+"MAP_SOURCE" = "地图款式";
+"ACTIVITY_TYPE" = "活动类别";
+"USE_IMPERIAL_UNITS" = "要用英制吗？";
+"OFFLINE_CACHE" = "启用 - 线下高速缓存";
+"CLEAR_CACHE" = "清除 - 高速缓存";
+"EDIT_WAYPOINT_NAME_TITLE" = "改变导航点名";
+"EDIT_WAYPOINT_NAME_MESSAGE" = "暗示：要更改导航点位置吗？您只需要把地图上的红色针图案，拖和般到新位置。";
+
+// Watch
+"SENDING" = "正在发送中：";
+"X_FILES" = "%d 个文件";
+"SUCCESSFULLY_SENT" = "成功发送";
+"FAILED_TO_SEND" = "发送失败：";
+"SEND_TO_IOS" = "发送到 iOS app";
+"FILE_SELECTED_TITLE" = "GPX 文件已被选种";
+"FILE_SELECTED_MESSAGE" = "请问您想怎样处理文件呢？";
+"ERROR_OCCURED_TITLE" = "差错事故";
+"ERROR_OCCURED_MESSAGE" = "很遗憾的，GPX 文件无法发送到 iOS app，因为： %s ";
+"GPX_TRACKER" = "GPX 定位记录";
+"FILE_SAVED_TITLE" = "GPX 文件储存完毕";
+"FILE_SAVED_MESSAGE" = "目前的定位记录已被储存于 %s.gpx ";
+
+// Activities
+"AT_AUTOMATIC" = "自动设置";
+"AT_AUTOMOTIVE" = "汽车导航";
+"AT_FITNESS" = "运动活动";
+"AT_OTHER" = "其他导航";
+"AT_FLIGHT" = "飞行导航";
+
+"AT_AUTOMATIC_DESC" = "系统标准。自动选择导航记录法";
+"AT_AUTOMOTIVE_DESC" = "汽车，摩托车，卡车...";
+"AT_FITNESS_DESC" = "跑步，登山，骑脚踏车...";
+"AT_OTHER_DESC" = "其他车辆类型";
+"AT_FLIGHT_DESC" = "飞行活动";
+
+// Dates
+"T_YEARS_AGO" = "%d年前";
+"T_YEAR_AGO" = "一年前";
+"T_LAST_YEAR" = "去年";
+
+"T_MONTHS_AGO" = "%d个月前";
+"T_MONTH_AGO" = "一个月前";
+"T_LAST_MONTH" = "上个月";
+
+"T_WEEKS_AGO" = "%d星期前";
+"T_WEEK_AGO" = "一个星期前";
+"T_LAST_WEEK" = "上星期";
+
+"T_DAYS_AGO" = "%d天前";
+"T_DAY_AGO" = "一天前";
+"T_YESTERDAY" = "昨天";
+
+"T_HOURS_AGO" = "%d小时前";
+"T_HOUR_AGO" = "一小时前";
+"T_LAST_HOUR" = "上个小时";
+
+"T_MINUTES_AGO" = "%d分钟前";
+"T_MINUTE_AGO" = "一分钟前";
+"T_MINUTE_HOUR" = "一分钟前";
+
+"T_SECONDS_AGO" = "%d秒前";
+
+"T_JUST_NOW" = "不久前";
