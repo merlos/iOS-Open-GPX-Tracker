@@ -3,7 +3,6 @@
   OpenGpxTracker
 
   Created by Kurt Höblinger on 21.08.19.
-  Copyright © 2019 TransitBox. All rights reserved.
 */
 
 NSLocationAlwaysAndWhenInUseUsageDescription = "Der Standort wird nur verwendet um Deinen Standort auf der Karte darzustellen. Wähle \"immer\" um den Standort auch zur Verfügung zu stellen, wenn die App im Hintergrund arbeitet.";
