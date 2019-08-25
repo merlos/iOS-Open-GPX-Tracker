@@ -1,0 +1,101 @@
+/*
+ Localizable.strings
+ OpenGpxTracker
+ 
+ Created by Kurt Höblinger on 19.08.19.
+ */
+
+// App
+"NO_LOCATION" = "Not getting location";
+"START_TRACKING" = "Start Tracking";
+"PAUSE" = "Pause";
+"RESUME" = "Resume";
+"SAVE" = "Save";
+"RESET" = "Reset";
+"DONE" = "Done";
+"CANCEL" = "Cancel";
+"WATCH_FILE_RECEIVED_TITLE" = "File Received from Apple Watch";
+"WATCH_FILE_RECEIVED_MESSAGE" = "Received file: \"%@\"";
+"SAVE_AS" = "Save as";
+"ENTER_SESSION_NAME" = "Enter GPX session name";
+"LOCATION_SERVICES_DISABLED" = "Location services disabled";
+"ENABLE_LOCATION_SERVICES" = "Go to settings and enable location.";
+"SETTINGS" = "Settings";
+"ACCESS_TO_LOCATION_DENIED" = "Access to location denied";
+"ALLOW_LOCATION" = "On Location settings, allow always access to location for GPX Tracker ";
+"COORDS_LABEL" = "(%@, %@) · altitude: %@";
+"NO_FILES" = "No gpx files";
+"YOUR_FILES" = "Your gpx files";
+"LAST_SAVED" = "last saved %@ (%@)";
+"DELETE" = "Delete";
+"SELECT_OPTION" = "Select option";
+"LOAD_IN_MAP" = "Load in map";
+"SHARE" = "Share";
+"LOADING_FILE" = "Loading GPX File...";
+"ABOUT" = "About";
+"PREFERENCES" = "Preferences";
+"UNITS" = "Units";
+"CACHE" = "Cache";
+"MAP_SOURCE" = "Map Source";
+"ACTIVITY_TYPE" = "Activity Type";
+"USE_IMPERIAL_UNITS" = "Use imperial units?";
+"OFFLINE_CACHE" = "Offline cache";
+"CLEAR_CACHE" = "Clear cache";
+"EDIT_WAYPOINT_NAME_TITLE" = "Edit waypoint name";
+"EDIT_WAYPOINT_NAME_MESSAGE" = "Hint: To change the waypoint location drag and drop the pin";
+
+// Watch
+"SENDING" = "Sending:";
+"X_FILES" = "%d files";
+"SUCCESSFULLY_SENT" = "Successfully sent:";
+"FAILED_TO_SEND" = "Failed to send:";
+"SEND_TO_IOS" = "Send to iOS app";
+"FILE_SELECTED_TITLE" = "GPX file selected";
+"FILE_SELECTED_MESSAGE" = "What would you like to do?";
+"ERROR_OCCURED_TITLE" = "Error occured";
+"ERROR_OCCURED_MESSAGE" = "GPX file was unsuccessfully sent to iOS app, due to %s ";
+"GPX_TRACKER" = "GPX Tracker";
+"FILE_SAVED_TITLE" = "GPX file saved";
+"FILE_SAVED_MESSAGE" = "Current session saved as %s.gpx ";
+
+// Activities
+"AT_AUTOMATIC" = "Automatic";
+"AT_AUTOMOTIVE" = "Automotive navigation";
+"AT_FITNESS" = "Fitness";
+"AT_OTHER" = "Other navigation";
+"AT_FLIGHT" = "Flight";
+
+"AT_AUTOMATIC_DESC" = "System default. Automatically selects the mode";
+"AT_AUTOMOTIVE_DESC" = "Car, motorbike, trucks...";
+"AT_FITNESS_DESC" = "Running, hiking, cycling...";
+"AT_OTHER_DESC" = "Other than automotive navigation";
+"AT_FLIGHT_DESC" = "Airborne activities";
+
+// Dates
+"T_YEARS_AGO" = "%d years ago";
+"T_YEAR_AGO" = "1 year ago";
+"T_LAST_YEAR" = "Last year";
+
+"T_MONTHS_AGO" = "%d months ago";
+"T_MONTH_AGO" = "1 month ago";
+"T_LAST_MONTH" = "Last month";
+
+"T_WEEKS_AGO" = "%d weeks ago";
+"T_WEEK_AGO" = "1 week ago";
+"T_LAST_WEEK" = "Last week";
+
+"T_DAYS_AGO" = "%d days ago";
+"T_DAY_AGO" = "1 day ago";
+"T_YESTERDAY" = "Yesterday";
+
+"T_HOURS_AGO" = "%d hours ago";
+"T_HOUR_AGO" = "1 hour ago";
+"T_LAST_HOUR" = "Last hour";
+
+"T_MINUTES_AGO" = "%d minutes ago";
+"T_MINUTE_AGO" = "1 minute ago";
+"T_MINUTE_HOUR" = "A minute ago";
+
+"T_SECONDS_AGO" = "%d seconds ago";
+
+"T_JUST_NOW" = "Just now";
