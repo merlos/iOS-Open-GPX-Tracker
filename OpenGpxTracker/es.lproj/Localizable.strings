@@ -11,7 +11,7 @@
 "PAUSE" = "Pausar";
 "RESUME" = "Reanudar";
 "SAVE" = "Guardar";
-"RESET" = "Limpiar";
+"RESET" = "Reiniciar";
 "DONE" = "Cerrar";
 "CANCEL" = "Cancelar";
 "WATCH_FILE_RECEIVED_TITLE" = "Archivo de Apple Watch recibido";
@@ -53,23 +53,23 @@
 "FILE_SELECTED_TITLE" = "Archivo GPX seleccionado";
 "FILE_SELECTED_MESSAGE" = "¿Qué quieres hacer?";
 "ERROR_OCCURED_TITLE" = "Hubo un error";
-"ERROR_OCCURED_MESSAGE" = "El fichero no se pudo enviar a la app iOS debido a %s ";
+"ERROR_OCCURED_MESSAGE" = "El fichero no se pudo enviar a la app iOS debido a %s.";
 "GPX_TRACKER" = "GPX Tracker";
 "FILE_SAVED_TITLE" = "Archivo GPX guardado";
-"FILE_SAVED_MESSAGE" = "Sesión actual guardada como%s.gpx ";
+"FILE_SAVED_MESSAGE" = "Sesión actual guardada como %s.gpx";
 
 // Activities
 "AT_AUTOMATIC" = "Automático";
-"AT_AUTOMOTIVE" = "Navegación en auto";
+"AT_AUTOMOTIVE" = "Navegación en automóviles";
 "AT_FITNESS" = "Deporte";
 "AT_OTHER" = "Otro tipo navegación";
 "AT_FLIGHT" = "Avión";
 
-"AT_AUTOMATIC_DESC" = "Valor por defecto. Auto selecciona el mejor modo.";
+"AT_AUTOMATIC_DESC" = "Valor por defecto. Selecciona automáticamente el mejor modo";
 "AT_AUTOMOTIVE_DESC" = "Coche, moto, camión...";
 "AT_FITNESS_DESC" = "Correr, montar en bici, senderismo...";
-"AT_OTHER_DESC" = "Cualquier otro modo de navegación.";
-"AT_FLIGHT_DESC" = "Actividades en el aire.";
+"AT_OTHER_DESC" = "Cualquier otro modo de navegación";
+"AT_FLIGHT_DESC" = "Actividades en el aire";
 
 // Dates
 "T_YEARS_AGO" = "hace %d años";
