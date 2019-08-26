@@ -46,7 +46,7 @@
 "OFFLINE_CACHE" = "启用 - 线下高速缓存";
 "CLEAR_CACHE" = "清除 - 高速缓存";
 "EDIT_WAYPOINT_NAME_TITLE" = "改变导航点名";
-"EDIT_WAYPOINT_NAME_MESSAGE" = "暗示：要更改导航点位置吗？您只需要把地图上的红色针图案，拖和般到新位置。";
+"EDIT_WAYPOINT_NAME_MESSAGE" = "暗示：要更改导航点位置吗？您只需要把地图上的红色针图案，拖和搬到新位置。";
 
 // Watch
 "SENDING" = "正在发送中：";
