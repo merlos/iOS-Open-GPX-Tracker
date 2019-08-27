@@ -99,3 +99,11 @@
 "T_SECONDS_AGO" = "%d seconds ago";
 
 "T_JUST_NOW" = "just now";
+
+// CoreDataHelper
+
+"CONTINUE_SESSION_TITLE" = "Continue last session?";
+"CONTINUE_SESSION_MESSAGE" = "What would you like to do with the recovered content from last session?";
+
+"CONTINUE_SESSION_TITLE" = "Continue session";
+"SAVE_START_NEW" = "Save and start new";

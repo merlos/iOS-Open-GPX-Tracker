@@ -96,3 +96,11 @@
 "T_SECONDS_AGO" = "vor %d Sekunden";
 
 "T_JUST_NOW" = "Gerade eben";
+
+// CoreDataHelper
+
+"CONTINUE_SESSION_TITLE" = "Letzte Sitzung fortsetzen?";
+"CONTINUE_SESSION_MESSAGE" = "Was möchtest Du mit dem Wiederhergestellten Track der letzten Sitzung machen?";
+
+"CONTINUE_SESSION_TITLE" = "Sitzung fortsetzen";
+"SAVE_START_NEW" = "Speichern und Neustart";
