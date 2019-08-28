@@ -1,18 +1,18 @@
 
 /* Class = "WKInterfaceLabel"; text = "signal"; ObjectID = "036-aK-7ie"; */
-"036-aK-7ie.text" = "signal";
+"036-aK-7ie.text" = "信号";
 
 /* Class = "WKInterfaceLabel"; text = "File Name"; ObjectID = "19n-8m-sC5"; */
-"19n-8m-sC5.text" = "File Name";
+"19n-8m-sC5.text" = "文件名";
 
 /* Class = "WKInterfaceButton"; title = "View files"; ObjectID = "3QZ-4r-aMl"; */
-"3QZ-4r-aMl.title" = "View files";
+"3QZ-4r-aMl.title" = "文件目录";
 
 /* Class = "WKInterfaceLabel"; text = "speedValue"; ObjectID = "9yb-Lf-Jav"; */
 "9yb-Lf-Jav.text" = "speedValue";
 
 /* Class = "WKInterfaceLabel"; text = "Sending"; ObjectID = "AyV-DL-c4U"; */
-"AyV-DL-c4U.text" = "Sending";
+"AyV-DL-c4U.text" = "发送中";
 
 /* Class = "WKInterfaceLabel"; text = "SPEED"; ObjectID = "HGe-sg-FuE"; */
 "HGe-sg-FuE.text" = "速度";
@@ -21,19 +21,19 @@
 "IdU-wH-bcW.text" = "Alert Label";
 
 /* Class = "WKInterfaceLabel"; text = "File Name"; ObjectID = "Nkq-Do-muS"; */
-"Nkq-Do-muS.text" = "File Name";
+"Nkq-Do-muS.text" = "文件名";
 
 /* Class = "WKInterfaceButton"; title = "Save"; ObjectID = "Yfa-t6-5Sk"; */
-"Yfa-t6-5Sk.title" = "Save";
+"Yfa-t6-5Sk.title" = "储存";
 
 /* Class = "WKInterfaceButton"; title = "Start Tracking"; ObjectID = "exN-t4-It8"; */
-"exN-t4-It8.title" = "Start Tracking";
+"exN-t4-It8.title" = "开始记录";
 
 /* Class = "WKInterfaceLabel"; text = "altValue"; ObjectID = "fLq-xh-Kj9"; */
 "fLq-xh-Kj9.text" = "altValue";
 
 /* Class = "WKInterfaceButton"; title = "Reset"; ObjectID = "g9l-MU-PFV"; */
-"g9l-MU-PFV.title" = "Reset";
+"g9l-MU-PFV.title" = "清零";
 
 /* Class = "WKInterfaceLabel"; text = "0m"; ObjectID = "jLD-vq-fZz"; */
 "jLD-vq-fZz.text" = "0m";
