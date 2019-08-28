@@ -11,7 +11,7 @@
 
 // App
 "NO_LOCATION" = "无法得到定位资料";
-"START_TRACKING" = "开始";
+"START_TRACKING" = "开始记录";
 "PAUSE" = "暂停";
 "RESUME" = "继续";
 "SAVE" = "储存";
@@ -103,3 +103,11 @@
 "T_SECONDS_AGO" = "%d秒前";
 
 "T_JUST_NOW" = "不久前";
+
+// CoreDataHelper
+
+"CONTINUE_SESSION_TITLE" = "要继续未完成的记录吗？";
+"CONTINUE_SESSION_MESSAGE" = "应该如何对待已恢复好的定位记录呢？";
+
+"CONTINUE_SESSION_TITLE" = "继续记录";
+"SAVE_START_NEW" = "储存恢复好的记录，并从新开始";
