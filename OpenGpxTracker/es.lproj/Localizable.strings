@@ -98,4 +98,12 @@
 
 "T_SECONDS_AGO" = "hace %d segundos";
 
-"T_JUST_NOW" = "justo ahora";
+"T_JUST_NOW" = "hace un momento";
+
+// CoreDataHelper
+
+"CONTINUE_SESSION_TITLE" = "¿Continuar la última sesión?";
+"CONTINUE_SESSION_MESSAGE" = "¿Qué quieres hacer con la información recuperada de la última sesión?";
+
+"CONTINUE_SESSION_TITLE" = "Continuar la sesión";
+"SAVE_START_NEW" = "Guardar y comernzar una nueva";

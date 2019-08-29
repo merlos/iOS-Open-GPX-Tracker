@@ -1,39 +1,39 @@
 
 /* Class = "WKInterfaceLabel"; text = "signal"; ObjectID = "036-aK-7ie"; */
-"036-aK-7ie.text" = "signal";
+"036-aK-7ie.text" = "Señal";
 
 /* Class = "WKInterfaceLabel"; text = "File Name"; ObjectID = "19n-8m-sC5"; */
-"19n-8m-sC5.text" = "File Name";
+"19n-8m-sC5.text" = "Nombre del archivo";
 
 /* Class = "WKInterfaceButton"; title = "View files"; ObjectID = "3QZ-4r-aMl"; */
-"3QZ-4r-aMl.title" = "View files";
+"3QZ-4r-aMl.title" = "Ver archivos";
 
 /* Class = "WKInterfaceLabel"; text = "speedValue"; ObjectID = "9yb-Lf-Jav"; */
-"9yb-Lf-Jav.text" = "speedValue";
+"9yb-Lf-Jav.text" = "Velocidad";
 
 /* Class = "WKInterfaceLabel"; text = "Sending"; ObjectID = "AyV-DL-c4U"; */
-"AyV-DL-c4U.text" = "Sending";
+"AyV-DL-c4U.text" = "Enviando";
 
 /* Class = "WKInterfaceLabel"; text = "SPEED"; ObjectID = "HGe-sg-FuE"; */
-"HGe-sg-FuE.text" = "SPEED";
+"HGe-sg-FuE.text" = "VELOCIDAD";
 
 /* Class = "WKInterfaceLabel"; text = "Alert Label"; ObjectID = "IdU-wH-bcW"; */
-"IdU-wH-bcW.text" = "Alert Label";
+"IdU-wH-bcW.text" = "Etiqueta de alerta";
 
 /* Class = "WKInterfaceLabel"; text = "File Name"; ObjectID = "Nkq-Do-muS"; */
-"Nkq-Do-muS.text" = "File Name";
+"Nkq-Do-muS.text" = "Nombre del archivo";
 
 /* Class = "WKInterfaceButton"; title = "Save"; ObjectID = "Yfa-t6-5Sk"; */
-"Yfa-t6-5Sk.title" = "Save";
+"Yfa-t6-5Sk.title" = "Guardar";
 
 /* Class = "WKInterfaceButton"; title = "Start Tracking"; ObjectID = "exN-t4-It8"; */
-"exN-t4-It8.title" = "Start Tracking";
+"exN-t4-It8.title" = "Comenzar";
 
 /* Class = "WKInterfaceLabel"; text = "altValue"; ObjectID = "fLq-xh-Kj9"; */
-"fLq-xh-Kj9.text" = "altValue";
+"fLq-xh-Kj9.text" = "Valor de la altitud";
 
 /* Class = "WKInterfaceButton"; title = "Reset"; ObjectID = "g9l-MU-PFV"; */
-"g9l-MU-PFV.title" = "Reset";
+"g9l-MU-PFV.title" = "Reiniciar";
 
 /* Class = "WKInterfaceLabel"; text = "0m"; ObjectID = "jLD-vq-fZz"; */
 "jLD-vq-fZz.text" = "0m";
@@ -42,10 +42,10 @@
 "juk-oB-3vV.title" = "📍";
 
 /* Class = "WKInterfaceLabel"; text = "COORDINATES"; ObjectID = "oWE-ge-dGJ"; */
-"oWE-ge-dGJ.text" = "COORDINATES";
+"oWE-ge-dGJ.text" = "COORDENADAS";
 
 /* Class = "WKInterfaceLabel"; text = "ALTITUDE"; ObjectID = "sOz-Cs-O7T"; */
-"sOz-Cs-O7T.text" = "ALTITUDE";
+"sOz-Cs-O7T.text" = "ALTITUD";
 
 /* Class = "WKInterfaceLabel"; text = "coordinatesLabel"; ObjectID = "wh4-cP-QA2"; */
 "wh4-cP-QA2.text" = "coordinatesLabel";
