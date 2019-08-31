@@ -8,5 +8,5 @@
 
 NSLocationAlwaysAndWhenInUseUsageDescription = "Der Standort wird nur verwendet um Deinen Standort auf der Karte darzustellen. Wähle \"immer\" um den Standort auch zur Verfügung zu stellen, wenn die App im Hintergrund arbeitet.";
 NSLocationAlwaysUsageDescription = "Dein Standort wird benötigt um den GPX Track auch dann zu erstellen, wenn die App im Hintergrund läuft.";
-NSLocationUsageDescription = "Der Standort wird zum Erstellen von GPX und zum Hinzufügen von PDIs benötigt";
+NSLocationUsageDescription = "Der Standort wird zum Erstellen von GPX und zum Hinzufügen von POIs benötigt";
 NSLocationWhenInUseUsageDescription = "Der Standort wird verwendet um auf der Karte zu zeigen wo Du bist und wo Du warst.";

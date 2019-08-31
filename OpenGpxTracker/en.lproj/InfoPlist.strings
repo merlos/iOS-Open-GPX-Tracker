@@ -7,5 +7,5 @@
 
 NSLocationAlwaysAndWhenInUseUsageDescription = "Location is only used to display your position in the map. Select always allow to track your position even if the app is in background.";
 NSLocationAlwaysUsageDescription = "Location is needed to create the GPX track even when the app is in background.";
-NSLocationUsageDescription = "Location is needed to create GPX and add PDIs";
+NSLocationUsageDescription = "Location is needed to create GPX and add POIs";
 NSLocationWhenInUseUsageDescription = "Location is used to display in the map where are you and where you have been.";
