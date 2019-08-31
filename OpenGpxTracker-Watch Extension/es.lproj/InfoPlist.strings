@@ -6,7 +6,7 @@
   Copyright © 2019 TransitBox. All rights reserved.
 */
 
-NSLocationAlwaysAndWhenInUseUsageDescription = "Location is only used to display your position in the map. Select always allow to track your position even if the app is in background.";
-NSLocationAlwaysUsageDescription = "Location is needed to create the GPX track even when the app is in background.";
-NSLocationUsageDescription = "Location is needed to create GPX and add PDIs";
-NSLocationWhenInUseUsageDescription = "Location is used to display in the map where are you and where you have been.";
+NSLocationAlwaysAndWhenInUseUsageDescription = "Tu ubicación se usa solo para mostrar la posición en el mapa. Si quieres usar la app en segundo plano debes permitir siempre el acceso a tu ubicación.";
+NSLocationAlwaysUsageDescription = "Acceso a tu ubicación se usa para poder crear las trazas incluso cuando la app está en segundo plano.";
+NSLocationUsageDescription = "La ubicaión se usa para crear el fichero GPX y los puntos de interés.";
+NSLocationWhenInUseUsageDescription = "Tu localización se usa para mostarr tu ubicación en el mapa y para crear las trazas.";
