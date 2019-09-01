@@ -9,6 +9,9 @@ target 'OpenGpxTracker' do
     platform :ios, '8.0'
     shared_pods
     pod 'Cache', git: 'https://github.com/hyperoslo/Cache'
+    pod 'MapCache', git: 'https://github.com/merlos/MapCache.git',
+:branch => 'dev/ogpxt' 
+   #pod 'MapCache' git:'~> 0.5.2'
 end
 
 target 'OpenGpxTracker-Watch Extension' do
