@@ -13,11 +13,11 @@ extension CLActivityType {
     /// Returns the string name of this activty type
     var name: String {
         switch self {
-        case .other:                return "Automatic"
-        case .automotiveNavigation: return "Automotive navigation"
-        case .fitness:              return "Fitness"
-        case .otherNavigation:      return "Other navigation"
-        case .airborne:             return "Flight"
+        case .other:                return NSLocalizedString("AT_AUTOMATIC", comment: "no comment")
+        case .automotiveNavigation: return NSLocalizedString("AT_AUTOMOTIVE", comment: "no comment")
+        case .fitness:              return NSLocalizedString("AT_FITNESS", comment: "no comment")
+        case .otherNavigation:      return NSLocalizedString("AT_OTHER", comment: "no comment")
+        case .airborne:             return NSLocalizedString("AT_FLIGHT", comment: "no comment")
         @unknown default:
             return "Unknown Type: \(self.rawValue)"
         }
@@ -28,11 +28,11 @@ extension CLActivityType {
     /// "System default. Automatically selects the mode"
     var description: String {
         switch self {
-        case .other:                return "System default. Automatically selects the mode"
-        case .automotiveNavigation: return "Car, motorbike, trucks..."
-        case .fitness:              return "Running, hiking, cycling..."
-        case .otherNavigation:      return "Other than automotive navigation"
-        case .airborne:             return "Airborne activities"
+        case .other:                return NSLocalizedString("AT_AUTOMATIC_DESC", comment: "no comment")
+        case .automotiveNavigation: return NSLocalizedString("AT_AUTOMOTIVE_DESC", comment: "no comment")
+        case .fitness:              return NSLocalizedString("AT_FITNESS_DESC", comment: "no comment")
+        case .otherNavigation:      return NSLocalizedString("AT_OTHER_DESC", comment: "no comment")
+        case .airborne:             return NSLocalizedString("AT_FLIGHT_DESC", comment: "no comment")
         @unknown default:
             return "Unknown Type: \(self.rawValue)"
         }

@@ -1,0 +1,106 @@
+/*
+ Localizable.strings
+ OpenGpxTracker
+ 
+ Created by Kurt Höblinger on 19.08.19.
+ */
+
+"NO_LOCATION" = "GPS nicht verfügbar";
+"START_TRACKING" = "Tracking starten";
+"PAUSE" = "Pause";
+"RESUME" = "Fortsetzen";
+"SAVE" = "Sichern";
+"RESET" = "Löschen";
+"DONE" = "Fertig";
+"CANCEL" = "Abbrechen";
+"WATCH_FILE_RECEIVED_TITLE" = "Datei von der Apple Watch erhalten.";
+"WATCH_FILE_RECEIVED_MESSAGE" = "Datei erhalten: \"%@\"";
+"SAVE_AS" = "Speichern unter";
+"ENTER_SESSION_NAME" = "GPX Sitzungs-Name eingeben";
+"LOCATION_SERVICES_DISABLED" = "Ortungsdienste ausgeschalten";
+"ENABLE_LOCATION_SERVICES" = "Gehe in die Einstellungen und schalte die Ortungsdienste ein.";
+"SETTINGS" = "Einstellungen";
+"ACCESS_TO_LOCATION_DENIED" = "Zugriff auf Standort verweigert.";
+"ALLOW_LOCATION" = "Erlaube GPX Tracker immer den Zugriff auf den Standort in den Einstellungen. ";
+"COORDS_LABEL" = "(%@, %@) · Höhe: %@";
+"NO_FILES" = "Keine GPX Dateien";
+"YOUR_FILES" = "Deine GPX Dateien";
+"LAST_SAVED" = "%@ (%@) zuletzt gespeichert";
+"DELETE" = "Löschen";
+"SELECT_OPTION" = "Auswählen";
+"LOAD_IN_MAP" = "In Karte laden";
+"SHARE" = "Teilen";
+"LOADING_FILE" = "Lade GPX Datei...";
+"ABOUT" = "Über";
+"PREFERENCES" = "Einstellungen";
+"UNITS" = "Einheiten";
+"CACHE" = "Cache";
+"MAP_SOURCE" = "Kartentyp";
+"ACTIVITY_TYPE" = "Aktivitätstyp";
+"USE_IMPERIAL_UNITS" = "Meilen verwenden";
+"OFFLINE_CACHE" = "Offline cache";
+"CLEAR_CACHE" = "Cache leeren";
+"EDIT_WAYPOINT_NAME_TITLE" = "Wegpunkt ändern";
+"EDIT_WAYPOINT_NAME_MESSAGE" = "Hinweis: Um einen Wegpunkt zu verändern, verschiebe den Pin.";
+
+// Watch
+"SENDING" = "Sende:";
+"X_FILES" = "%d Dateien";
+"SUCCESSFULLY_SENT" = "Erfolgreich gesendet:";
+"FAILED_TO_SEND" = "Senden fehlgeschlagen:";
+"SEND_TO_IOS" = "Sende an iOS App";
+"FILE_SELECTED_TITLE" = "GPX Datei ausgewählt";
+"FILE_SELECTED_MESSAGE" = "Was möchtest Du tun?";
+"ERROR_OCCURED_TITLE" = "Fehler aufgetreten";
+"ERROR_OCCURED_MESSAGE" = "GPX Datei wurde nicht an iOS App gesendet: %s ";
+"GPX_TRACKER" = "GPX Tracker";
+"FILE_SAVED_TITLE" = "GPX Datei gespeichert";
+"FILE_SAVED_MESSAGE" = "Aktuelle Sitzung als %s.gpx gespeichert ";
+
+"AT_AUTOMATIC" = "Automatisch";
+"AT_AUTOMOTIVE" = "Fahrzeugnavigation";
+"AT_FITNESS" = "Fitness";
+"AT_OTHER" = "Andere Navigation";
+"AT_FLIGHT" = "Flug";
+
+"AT_AUTOMATIC_DESC" = "Systemstandard. Modus wird automatisch erkannt";
+"AT_AUTOMOTIVE_DESC" = "Auto, Motorrad, LKW...";
+"AT_FITNESS_DESC" = "Laufen, Wandern, Radfahren...";
+"AT_OTHER_DESC" = "Andere Fahrzeugnavigation";
+"AT_FLIGHT_DESC" = "Flugaktivitäten";
+
+"T_YEARS_AGO" = "vor %d Jahren";
+"T_YEAR_AGO" = "vor 1 Jahr";
+"T_LAST_YEAR" = "Letztes Jahr";
+
+"T_MONTHS_AGO" = "vor %d Monaten";
+"T_MONTH_AGO" = "vor 1 Monat";
+"T_LAST_MONTH" = "Letztes Monat";
+
+"T_WEEKS_AGO" = "vor %d Wochen";
+"T_WEEK_AGO" = "vor 1 Woche";
+"T_LAST_WEEK" = "Letzte Woche";
+
+"T_DAYS_AGO" = "vor %d Tagen";
+"T_DAY_AGO" = "vor 1 Tag";
+"T_YESTERDAY" = "Gestern";
+
+"T_HOURS_AGO" = "vor %d Stunden";
+"T_HOUR_AGO" = "vor 1 Stunde";
+"T_LAST_HOUR" = "Letzte Stunde";
+
+"T_MINUTES_AGO" = "vor %d Minuten";
+"T_MINUTE_AGO" = "vor 1 Minute";
+"T_MINUTE_HOUR" = "Vorige Minute";
+
+"T_SECONDS_AGO" = "vor %d Sekunden";
+
+"T_JUST_NOW" = "Gerade eben";
+
+// CoreDataHelper
+
+"CONTINUE_SESSION_TITLE" = "Letzte Sitzung fortsetzen?";
+"CONTINUE_SESSION_MESSAGE" = "Was möchtest Du mit dem Wiederhergestellten Track der letzten Sitzung machen?";
+
+"CONTINUE_SESSION_TITLE" = "Sitzung fortsetzen";
+"SAVE_START_NEW" = "Speichern und Neustart";

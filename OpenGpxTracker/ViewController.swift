@@ -4,6 +4,8 @@
 //
 //  Created by merlos on 13/09/14.
 //
+//  Localized by nitricware on 19/08/19.
+//
 
 import UIKit
 import CoreLocation
@@ -39,7 +41,7 @@ let kDeleteWaypointAccesoryButtonTag = 666
 let kEditWaypointAccesoryButtonTag = 333
 
 /// Text to display when the system is not providing coordinates.
-let kNotGettingLocationText = "Not getting location"
+let kNotGettingLocationText = NSLocalizedString("NO_LOCATION", comment: "no comment")
 
 /// Text to display unknown accuracy
 let kUnknownAccuracyText = "±···"
@@ -165,7 +167,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
             case .notStarted:
                 print("switched to non started")
                 // set Tracker button to allow Start 
-                trackerButton.setTitle("Start Tracking", for: UIControl.State())
+                trackerButton.setTitle(NSLocalizedString("START_TRACKING", comment: "no comment"), for: UIControl.State())
                 trackerButton.backgroundColor = kGreenButtonBackgroundColor
                 //save & reset button to transparent.
                 saveButton.backgroundColor = kDisabledBlueButtonBackgroundColor
@@ -196,7 +198,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
             case .tracking:
                 print("switched to tracking mode")
                 // set tracerkButton to allow Pause
-                trackerButton.setTitle("Pause", for: UIControl.State())
+                trackerButton.setTitle(NSLocalizedString("PAUSE", comment: "no comment"), for: UIControl.State())
                 trackerButton.backgroundColor = kPurpleButtonBackgroundColor
                 //activate save & reset buttons
                 saveButton.backgroundColor = kBlueButtonBackgroundColor
@@ -207,7 +209,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
             case .paused:
                 print("switched to paused mode")
                 // set trackerButton to allow Resume
-                self.trackerButton.setTitle("Resume", for: UIControl.State())
+                self.trackerButton.setTitle(NSLocalizedString("RESUME", comment: "no comment"), for: UIControl.State())
                 self.trackerButton.backgroundColor = kGreenButtonBackgroundColor
                 // activate save & reset (just in case switched from .NotStarted)
                 saveButton.backgroundColor = kBlueButtonBackgroundColor
@@ -563,7 +565,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         
         // Start/Pause button
         trackerButton.layer.cornerRadius = kButtonLargeSize/2
-        trackerButton.setTitle("Start Tracking", for: UIControl.State())
+        trackerButton.setTitle(NSLocalizedString("START_TRACKING", comment: "no comment"), for: UIControl.State())
         trackerButton.backgroundColor = kGreenButtonBackgroundColor
         trackerButton.addTarget(self, action: #selector(ViewController.trackerButtonTapped), for: .touchUpInside)
         trackerButton.isHidden = false
@@ -593,20 +595,22 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         
         // Save button
         saveButton.layer.cornerRadius = kButtonSmallSize/2
-        saveButton.setTitle("Save", for: UIControl.State())
+        saveButton.setTitle(NSLocalizedString("SAVE", comment: "no comment"), for: UIControl.State())
         saveButton.backgroundColor = kDisabledBlueButtonBackgroundColor
         saveButton.addTarget(self, action: #selector(ViewController.saveButtonTapped), for: .touchUpInside)
         saveButton.isHidden = false
         saveButton.titleLabel?.textAlignment = .center
+        saveButton.titleLabel?.adjustsFontSizeToFitWidth = true
         map.addSubview(saveButton)
         
         // Reset button
         resetButton.layer.cornerRadius = kButtonSmallSize/2
-        resetButton.setTitle("Reset", for: UIControl.State())
+        resetButton.setTitle(NSLocalizedString("RESET", comment: "no comment"), for: UIControl.State())
         resetButton.backgroundColor = kDisabledRedButtonBackgroundColor
         resetButton.addTarget(self, action: #selector(ViewController.resetButtonTapped), for: .touchUpInside)
         resetButton.isHidden = false
         resetButton.titleLabel?.textAlignment = .center
+        resetButton.titleLabel?.adjustsFontSizeToFitWidth = true
         map.addSubview(resetButton)
         
         addConstraints(isIPhoneX)
@@ -760,10 +764,11 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
     @objc func presentReceivedFile(_ notification: Notification) {
         
         guard let fileName = notification.userInfo?["fileName"] as? String? else { return }
-        
         // alert to display to notify user that file has been received.
-        let controller = UIAlertController(title: "File Received from Apple Watch", message: "Received file: \"\(fileName ?? "")\"", preferredStyle: .alert)
-        let action = UIAlertAction(title: "Done", style: .default) {
+        let alertTitle = NSLocalizedString("WATCH_FILE_RECEIVED_TITLE", comment: "no comment")
+        let alertMessage = NSLocalizedString("WATCH_FILE_RECEIVED_MESSAGE", comment: "no comment")
+        let controller = UIAlertController(title: alertTitle, message: String(format: alertMessage, fileName ?? ""), preferredStyle: .alert)
+        let action = UIAlertAction(title: NSLocalizedString("DONE", comment: "no comment"), style: .default) {
             (action) in
             print("ViewController:: Presented file received message from WatchConnectivity Session")
         }
@@ -1047,14 +1052,14 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         }
         
         // save alert configuration and presentation
-        let alertController = UIAlertController(title: "Save as", message: "Enter GPX session name", preferredStyle: .alert)
+        let alertController = UIAlertController(title: NSLocalizedString("SAVE_AS", comment: "no comment"), message: NSLocalizedString("ENTER_SESSION_NAME", comment: "no comment"), preferredStyle: .alert)
         
         alertController.addTextField(configurationHandler: { (textField) in
             textField.clearButtonMode = .always
             textField.text = self.lastGpxFilename.isEmpty ? self.defaultFilename() : self.lastGpxFilename
         })
         
-        let saveAction = UIAlertAction(title: "Save", style: .default) { (action) in
+        let saveAction = UIAlertAction(title: NSLocalizedString("SAVE", comment: "no comment"), style: .default) { (action) in
             let filename = (alertController.textFields?[0].text!.utf16.count == 0) ? self.defaultFilename() : alertController.textFields?[0].text
             print("Save File \(String(describing: filename))")
             //export to a file
@@ -1064,7 +1069,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
             self.map.coreDataHelper.deleteLastFileNameFromCoreData()
             self.map.coreDataHelper.add(toCoreData: filename!)
         }
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (action) in }
+        let cancelAction = UIAlertAction(title: NSLocalizedString("CANCEL", comment: "no comment"), style: .cancel) { (action) in }
         
         alertController.addAction(saveAction)
         alertController.addAction(cancelAction)
@@ -1108,13 +1113,13 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
     ///
     func displayLocationServicesDisabledAlert() {
         
-        let alertController = UIAlertController(title: "Location services disabled", message: "Go to settings and enable location.", preferredStyle: .alert)
-        let settingsAction = UIAlertAction(title: "Settings", style: .default) { (action) in
+        let alertController = UIAlertController(title: NSLocalizedString("LOCATION_SERVICES_DISABLED", comment: "no comment"), message: NSLocalizedString("ENABLE_LOCATION_SERVICES", comment: "no comment"), preferredStyle: .alert)
+        let settingsAction = UIAlertAction(title: NSLocalizedString("SETTINGS", comment: "no comment"), style: .default) { (action) in
             if let url = URL(string: UIApplication.openSettingsURLString) {
                 UIApplication.shared.openURL(url)
             }
         }
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (action) in }
+        let cancelAction = UIAlertAction(title: NSLocalizedString("CANCEL", comment: "no comment"), style: .cancel) { (action) in }
         
         alertController.addAction(settingsAction)
         alertController.addAction(cancelAction)
@@ -1132,13 +1137,13 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         if isDisplayingLocationServicesDenied {
             return // display it only once.
         }
-        let alertController = UIAlertController(title: "Access to location denied", message: "On Location settings, allow always access to location for GPX Tracker ", preferredStyle: .alert)
-        let settingsAction = UIAlertAction(title: "Settings", style: .default) { (action) in
+        let alertController = UIAlertController(title: NSLocalizedString("ACCESS_TO_LOCATION_DENIED", comment: "no comment"), message: NSLocalizedString("ALLOW_LOCATION", comment: "no comment"), preferredStyle: .alert)
+        let settingsAction = UIAlertAction(title: NSLocalizedString("SETTINGS", comment: "no comment"), style: .default) { (action) in
             if let url = URL(string: UIApplication.openSettingsURLString) {
                 UIApplication.shared.openURL(url)
             }
         }
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (action) in }
+        let cancelAction = UIAlertAction(title: NSLocalizedString("CANCEL", comment: "no comment"), style: .cancel) { (action) in }
         
         alertController.addAction(settingsAction)
         alertController.addAction(cancelAction)
@@ -1307,7 +1312,8 @@ extension ViewController: CLLocationManagerDelegate {
         //Update coordsLabel
         let latFormat = String(format: "%.6f", newLocation.coordinate.latitude)
         let lonFormat = String(format: "%.6f", newLocation.coordinate.longitude)
-        coordsLabel.text = "(\(latFormat),\(lonFormat)) · altitude: \(newLocation.altitude.toAltitude(useImperial: useImperial))"
+        let altitude = newLocation.altitude.toAltitude(useImperial: useImperial)
+        coordsLabel.text = String(format: NSLocalizedString("COORDS_LABEL", comment: "no comment"), latFormat, lonFormat, altitude)
         
         //Update speed
         speedLabel.text = (newLocation.speed < 0) ? kUnknownSpeedText : newLocation.speed.toSpeed(useImperial: useImperial)

@@ -10,7 +10,7 @@ import WatchKit
 import WatchConnectivity
 
 /// Text displayed when there are no GPX files in the folder.
-let kNoFiles = "No gpx files"
+let kNoFiles = NSLocalizedString("NO_FILES", comment: "no comment")
 
 ///
 /// WKInterfaceTable that displays the list of files that have been saved in previous sessions.
@@ -107,14 +107,14 @@ class GPXFileTableInterfaceController: WKInterfaceController {
     func updateProgressIndicators(status: sendingStatus, fileName: String?) {
         switch status {
         case .sending:
-            progressTitle.setText("Sending:")
+            progressTitle.setText(NSLocalizedString("SENDING", comment: "no comment"))
             guard let fileName = fileName else { return }
             
             /// count of pending files, does not seem to include the current one
             let fileTransfersCount = session?.outstandingFileTransfers.count ?? 0
             // if there are files pending for sending, filename will not be displayed with the name of file.
             if fileTransfersCount >= 1 {
-                progressFileName.setText("\(fileTransfersCount + 1) files")
+                progressFileName.setText(String(format: NSLocalizedString("X_FILES", comment: "no comment"), fileTransfersCount + 1))
             }
             else {
                 progressFileName.setText(fileName)
@@ -123,13 +123,13 @@ class GPXFileTableInterfaceController: WKInterfaceController {
         case .success:
             progressImageView.stopAnimating()
             progressImageView.setImage(UIImage(named: "Progress-success"))
-            progressTitle.setText("Sucessfully sent:")
+            progressTitle.setText(NSLocalizedString("SUCCESSFULLY_SENT", comment: "no comment"))
             hideProgressIndicatorsWithAnimation()
             
         case .failure:
             progressImageView.stopAnimating()
             progressImageView.setImage(UIImage(named: "Progress-failure"))
-            progressTitle.setText("Failed to send:")
+            progressTitle.setText(NSLocalizedString("FAILED_TO_SEND", comment: "no comment"))
             hideProgressIndicatorsWithAnimation()
         }
     }
@@ -139,7 +139,7 @@ class GPXFileTableInterfaceController: WKInterfaceController {
         super.willActivate()
         print("GPXFileTableInterfaceController:: willActivate willSendFile: \(willSendFile)")
         
-        self.setTitle("Your files")
+        self.setTitle(NSLocalizedString("YOUR_FILES", comment: "no comment"))
         session?.delegate = self
         
         if willSendFile == true {
@@ -199,17 +199,17 @@ class GPXFileTableInterfaceController: WKInterfaceController {
         if gpxFilesFound {
             
             /// Option lets user send selected file to iOS app
-            let shareOption = WKAlertAction(title: "Send to iOS app", style: .default) {
+            let shareOption = WKAlertAction(title: NSLocalizedString("SEND_TO_IOS", comment: "no comment"), style: .default) {
                 self.actionTransferFileAtIndex(rowIndex)
             }
             
             /// Option for users to cancel
-            let cancelOption = WKAlertAction(title: "Cancel", style: .cancel) {
+            let cancelOption = WKAlertAction(title: NSLocalizedString("CANCEL", comment: "no comment"), style: .cancel) {
                 self.actionSheetCancel()
             }
             
             /// Option to delete selected file
-            let deleteOption = WKAlertAction(title: "Delete", style: .destructive) {
+            let deleteOption = WKAlertAction(title: NSLocalizedString("DELETE", comment: "no comment"), style: .destructive) {
                 self.actionDeleteFileAtIndex(rowIndex)
                 self.loadTableData()
             }
@@ -217,7 +217,7 @@ class GPXFileTableInterfaceController: WKInterfaceController {
             /// Array of all available options
             let options = [shareOption, cancelOption, deleteOption]
             
-            presentAlert(withTitle: "GPX file selected", message: "What would you like to do?", preferredStyle: .actionSheet, actions: options)
+            presentAlert(withTitle: NSLocalizedString("FILE_SELECTED_TITLE", comment: "no comment"), message: NSLocalizedString("FILE_SELECTED_MESSAGE", comment: "no comment"), preferredStyle: .actionSheet, actions: options)
         }
     }
     
@@ -295,7 +295,7 @@ extension GPXFileTableInterfaceController: WCSessionDelegate {
     }
     
     func session(_ session: WCSession, didFinish fileTransfer: WCSessionFileTransfer, error: Error?) {
-        let doneAction = WKAlertAction(title: "Done", style: .default) { }
+        let doneAction = WKAlertAction(title: NSLocalizedString("DONE", comment: "no comment"), style: .default) { }
         guard let error = error else {
             print("WCSession: didFinish fileTransfer: \(fileTransfer.file.fileURL.absoluteString)")
             // presenting success indicator to user if file is successfully transferred
@@ -310,8 +310,9 @@ extension GPXFileTableInterfaceController: WCSessionDelegate {
         self.updateProgressIndicators(status: .failure, fileName: nil)
         
         // presents alert after 1.5s, with error message
+        // MARK: "as CVarArg" was suggested by XCode and my intruduce a bug...
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-            self.presentAlert(withTitle: "Error Occurred", message: "GPX file was unsuccessfully sent to iOS app, due to \(error) ", preferredStyle: .alert, actions: [doneAction])
+            self.presentAlert(withTitle: NSLocalizedString("ERROR_OCCURED_TITLE", comment: "no comment"), message: String(format: NSLocalizedString("ERROR_OCCURED_MESSAGE", comment: "no comment"), error as CVarArg), preferredStyle: .alert, actions: [doneAction])
         }
     }
     

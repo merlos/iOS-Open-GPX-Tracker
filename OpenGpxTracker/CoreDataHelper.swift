@@ -592,19 +592,19 @@ class CoreDataHelper {
                 // asks user on what to do with recovered data
                 DispatchQueue.main.sync {
                     // main action sheet setup
-                    let alertController = UIAlertController(title: "Continue last session?", message: "What would you like to do with the recovered content from last session?", preferredStyle: .actionSheet)
+                    let alertController = UIAlertController(title: NSLocalizedString("CONTINUE_SESSION_TITLE", comment: "no comment"), message: NSLocalizedString("CONTINUE_SESSION_MESSAGE", comment: "no comment"), preferredStyle: .actionSheet)
                     
                     // option to cancel
-                    let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (action) in
+                    let cancelAction = UIAlertAction(title: NSLocalizedString("CANCEL", comment: "no comment"), style: .cancel) { (action) in
                         self.clearAll()
                     }
                     // option to continue previous session, which will load it, but not save
-                    let continueAction = UIAlertAction(title: "Continue Session", style: .default) { (action) in
+                    let continueAction = UIAlertAction(title: NSLocalizedString("CONTINUE_SESSION", comment: "no comment"), style: .default) { (action) in
                         NotificationCenter.default.post(name: .loadRecoveredFile, object: nil, userInfo: ["recoveredRoot" : root, "fileName" : self.lastFileName])
                     }
                     
                     // option to save silently as file, session remains new
-                    let saveAction = UIAlertAction(title: "Save and Start New", style: .default) { (action) in
+                    let saveAction = UIAlertAction(title: NSLocalizedString("SAVE_START_NEW", comment: "no comment"), style: .default) { (action) in
                         self.saveFile(from: root, andIfAvailable: self.lastFileName)
                     }
                     

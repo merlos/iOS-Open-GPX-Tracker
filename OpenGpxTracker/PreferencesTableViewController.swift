@@ -4,6 +4,8 @@
 //
 //  Created by merlos on 24/10/15.
 //
+//  Localized by nitricware on 19/08/19.
+//
 
 import Foundation
 import UIKit
@@ -59,8 +61,8 @@ class PreferencesTableViewController: UITableViewController, UINavigationBarDele
         self.tableView.frame = CGRect(x: navBarFrame.width + 1, y: 0, width: self.view.frame.width, height:
             self.view.frame.height - navBarFrame.height)
         
-        self.title = "Preferences"
-        let shareItem = UIBarButtonItem(title: "Done", style: UIBarButtonItem.Style.plain, target: self, action: #selector(PreferencesTableViewController.closePreferencesTableViewController))
+        self.title = NSLocalizedString("PREFERENCES", comment: "no comment")
+        let shareItem = UIBarButtonItem(title: NSLocalizedString("DONE", comment: "no comment"), style: UIBarButtonItem.Style.plain, target: self, action: #selector(PreferencesTableViewController.closePreferencesTableViewController))
         self.navigationItem.rightBarButtonItems = [shareItem]
     }
     
@@ -95,10 +97,10 @@ class PreferencesTableViewController: UITableViewController, UINavigationBarDele
     /// for deciding which is the section title
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch(section) {
-        case kUnitsSection: return "Units"
-        case kCacheSection: return "Cache"
-        case kMapSourceSection: return "Map source"
-        case kActivityTypeSection: return "Activity Type"
+        case kUnitsSection: return NSLocalizedString("UNITS", comment: "no comment")
+        case kCacheSection: return NSLocalizedString("CACHE", comment: "no comment")
+        case kMapSourceSection: return NSLocalizedString("MAP_SOURCE", comment: "no comment")
+        case kActivityTypeSection: return NSLocalizedString("ACTIVITY_TYPE", comment: "no comment")
         default: fatalError("Unknown section")
         }
     }
@@ -136,7 +138,7 @@ class PreferencesTableViewController: UITableViewController, UINavigationBarDele
              switch (indexPath.row) {
              case kUseImperialUnitsCell:
                 cell = UITableViewCell(style: .value1, reuseIdentifier: "CacheCell")
-                cell.textLabel?.text = "Use imperial units?"
+                cell.textLabel?.text = NSLocalizedString("USE_IMPERIAL_UNITS", comment: "no comment")
                 if preferences.useImperial {
                     cell.accessoryType = .checkmark
                 }
@@ -149,13 +151,13 @@ class PreferencesTableViewController: UITableViewController, UINavigationBarDele
             switch (indexPath.row) {
             case kUseOfflineCacheCell:
                 cell = UITableViewCell(style: .value1, reuseIdentifier: "CacheCell")
-                cell.textLabel?.text = "Offline cache"
+                cell.textLabel?.text = NSLocalizedString("OFFLINE_CACHE", comment: "no comment")
                 if preferences.useCache {
                     cell.accessoryType = .checkmark
                 }
             case kClearCacheCell:
                 cell = UITableViewCell(style: .value1, reuseIdentifier: "CacheCell")
-                cell.textLabel?.text = "Clear cache"
+                cell.textLabel?.text = NSLocalizedString("CLEAR_CACHE", comment: "no comment")
                 cell.textLabel?.textColor = UIColor.red
             default: fatalError("Unknown section")
             }

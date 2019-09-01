@@ -24,7 +24,7 @@ let kWhiteBackgroundColor: UIColor = UIColor(red: 254.0/255.0, green: 254.0/255.
 let kDeleteWaypointAccesoryButtonTag = 666
 let kEditWaypointAccesoryButtonTag = 333
 
-let kNotGettingLocationText = "Not getting location"
+let kNotGettingLocationText = NSLocalizedString("NO_LOCATION", comment: "no comment")
 let kUnknownAccuracyText = "±···"
 let kUnknownSpeedText = "·.··"
 let kUnknownAltitudeText = "···"
@@ -130,7 +130,7 @@ class InterfaceController: WKInterfaceController {
             case .notStarted:
                 print("switched to non started")
                 // set Tracker button to allow Start
-                trackerButton.setTitle("Start Tracking")
+                trackerButton.setTitle(NSLocalizedString("START_TRACKING", comment: "no comment"))
                 trackerButton.setBackgroundColor(kGreenButtonBackgroundColor)
                 //save & reset button to transparent.
                 saveButton.setBackgroundColor(kDisabledBlueButtonBackgroundColor)
@@ -159,7 +159,7 @@ class InterfaceController: WKInterfaceController {
             case .tracking:
                 print("switched to tracking mode")
                 // set trackerButton to allow Pause
-                trackerButton.setTitle("Pause")
+                trackerButton.setTitle(NSLocalizedString("PAUSE", comment: "no comment"))
                 trackerButton.setBackgroundColor(kPurpleButtonBackgroundColor)
                 //activate save & reset buttons
                 saveButton.setBackgroundColor(kBlueButtonBackgroundColor)
@@ -170,7 +170,7 @@ class InterfaceController: WKInterfaceController {
             case .paused:
                 print("switched to paused mode")
                 // set trackerButton to allow Resume
-                self.trackerButton.setTitle("Resume")
+                self.trackerButton.setTitle(NSLocalizedString("RESUME", comment: "no comment"))
                 self.trackerButton.setBackgroundColor(kGreenButtonBackgroundColor)
                 // activate save & reset (just in case switched from .NotStarted)
                 saveButton.setBackgroundColor(kBlueButtonBackgroundColor)
@@ -213,7 +213,7 @@ class InterfaceController: WKInterfaceController {
         // This method is called when watch view controller is about to be visible to user
          print("InterfaceController:: willActivate")
         super.willActivate()
-        self.setTitle("GPX Tracker")
+        self.setTitle(NSLocalizedString("GPX_TRACKER", comment: "no comment"))
         
         stopWatch.delegate = self
         
@@ -291,7 +291,7 @@ class InterfaceController: WKInterfaceController {
         /// Just a 'done' button, without
         let action = WKAlertAction(title: "Done", style: .default) {}
         
-        presentAlert(withTitle: "GPX file saved", message: "Current session saved as \(filename).gpx ", preferredStyle: .alert, actions: [action])
+        presentAlert(withTitle: NSLocalizedString("FILE_SAVED_TITLE", comment: "no comment"), message: String(format: NSLocalizedString("NO_LOCATION", comment: "no comment"), filename), preferredStyle: .alert, actions: [action])
         
     }
     
@@ -345,7 +345,7 @@ class InterfaceController: WKInterfaceController {
             print("LocationServicesDisabledAlert: cancel pressed")
         }
         
-        presentAlert(withTitle: "Location services disabled", message: "Go to settings and enable location", preferredStyle: .alert, actions: [button])
+        presentAlert(withTitle: NSLocalizedString("LOCATION_SERVICES_DISABLED", comment: "no comment"), message: NSLocalizedString("ENABLE_LOCATION_SERVICES", comment: "no comment"), preferredStyle: .alert, actions: [button])
     }
     
     
@@ -361,7 +361,7 @@ class InterfaceController: WKInterfaceController {
             print("LocationServicesDeniedAlert: cancel pressed")
         }
         
-        presentAlert(withTitle: "Access to location denied", message: "On Location settings, allow always access to location for GPX Tracker", preferredStyle: .alert, actions: [button])
+        presentAlert(withTitle: NSLocalizedString("ACCESS_TO_LOCATION_DENIED", comment: "no comment"), message: NSLocalizedString("ALLOW_LOCATION", comment: "no comment"), preferredStyle: .alert, actions: [button])
     }
 
 }
