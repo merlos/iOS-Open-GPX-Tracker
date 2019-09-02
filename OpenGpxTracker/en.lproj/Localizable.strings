@@ -41,6 +41,7 @@
 "USE_IMPERIAL_UNITS" = "Use imperial units?";
 "OFFLINE_CACHE" = "Offline cache";
 "CLEAR_CACHE" = "Clear cache";
+"CACHE_IS_EMPTY" = "Cache is now empty";
 "EDIT_WAYPOINT_NAME_TITLE" = "Edit waypoint name";
 "EDIT_WAYPOINT_NAME_MESSAGE" = "Hint: To change the waypoint location drag and drop the pin";
 

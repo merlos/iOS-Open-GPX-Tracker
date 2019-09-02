@@ -240,7 +240,7 @@ class PreferencesTableViewController: UITableViewController, UINavigationBarDele
                 cache.clear {
                     print("Cache cleaned")
                     let cell = tableView.cellForRow(at: indexPath)!
-                    cell.textLabel?.text = "Cache is now empty"
+                    cell.textLabel?.text = NSLocalizedString("CACHE_IS_EMPTY", comment: "no comment")
                     cell.textLabel?.textColor = UIColor.gray
                     //Clear the size text
                     let cell2 = tableView.cellForRow(at: IndexPath(row: kUseOfflineCacheCell, section: kCacheSection))
