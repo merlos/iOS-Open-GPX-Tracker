@@ -1,30 +1,28 @@
 PODS:
   - CoreGPX (0.6.5)
-  - MapCache (0.5.2)
+  - MapCache (0.5.3)
 
 DEPENDENCIES:
   - CoreGPX (from `https://github.com/VincentNeo/CoreGPX.git`)
-  - MapCache (from `https://github.com/merlos/MapCache.git`, branch `dev/ogpxt`)
+  - MapCache (~> 0.5.3)
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - MapCache
 
 EXTERNAL SOURCES:
   CoreGPX:
     :git: https://github.com/VincentNeo/CoreGPX.git
-  MapCache:
-    :branch: dev/ogpxt
-    :git: https://github.com/merlos/MapCache.git
 
 CHECKOUT OPTIONS:
   CoreGPX:
     :commit: 4dbc033a2008282f21f446304868bb3f299abaa7
     :git: https://github.com/VincentNeo/CoreGPX.git
-  MapCache:
-    :commit: 1f72d22167358eb1979880f1b905d1383a715187
-    :git: https://github.com/merlos/MapCache.git
 
 SPEC CHECKSUMS:
   CoreGPX: ba7807800b30ac05cd357f4d20d82c13451940d5
-  MapCache: 9ba003d0a9c512900eafc9f26b0f8d1dfc6e4d21
+  MapCache: 9d1ee8fbfa3b115ff00096792b575d85a5f862c5
 
-PODFILE CHECKSUM: 145ece003609b3aee86fa2eb0a91e7baf50b0144
+PODFILE CHECKSUM: 667e05785b0101bb71c48243409d9a9d922cbb99
 
 COCOAPODS: 1.7.5
