@@ -13,7 +13,7 @@ import Cache
 ///
 /// Overwrites the default overlay to store downloaded images
 ///
-class CachedTileOverlay : MKTileOverlay {
+class CachedTileOverlay2 : MKTileOverlay {
     
     /// Tells loadTile method if the tile shall be loaded rom the app cache.
     var useCache: Bool = true
