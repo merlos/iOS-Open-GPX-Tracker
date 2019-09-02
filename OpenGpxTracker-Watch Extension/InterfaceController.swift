@@ -291,7 +291,8 @@ class InterfaceController: WKInterfaceController {
         /// Just a 'done' button, without
         let action = WKAlertAction(title: "Done", style: .default) {}
         
-        presentAlert(withTitle: NSLocalizedString("FILE_SAVED_TITLE", comment: "no comment"), message: String(format: NSLocalizedString("NO_LOCATION", comment: "no comment"), filename), preferredStyle: .alert, actions: [action])
+        presentAlert(withTitle: NSLocalizedString("FILE_SAVED_TITLE", comment: "no comment"),
+                     message:  "\(filename).gpx", preferredStyle: .alert, actions: [action])
         
     }
     
