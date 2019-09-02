@@ -24,9 +24,9 @@
 "ACCESS_TO_LOCATION_DENIED" = "Access to location denied";
 "ALLOW_LOCATION" = "On Location settings, allow always access to location for GPX Tracker ";
 "COORDS_LABEL" = "(%@, %@) · altitude: %@";
-"NO_FILES" = "No gpx files";
-"YOUR_FILES" = "Your gpx files";
-"LAST_SAVED" = "last saved %@ (%@)";
+"NO_FILES" = "No GPX files";
+"YOUR_FILES" = "Your GPX files";
+"LAST_SAVED" = "Last saved %@ (%@)";
 "DELETE" = "Delete";
 "SELECT_OPTION" = "Select option";
 "LOAD_IN_MAP" = "Load in map";
@@ -74,31 +74,31 @@
 // Dates
 "T_YEARS_AGO" = "%d years ago";
 "T_YEAR_AGO" = "1 year ago";
-"T_LAST_YEAR" = "Last year";
+"T_LAST_YEAR" = "last year";
 
 "T_MONTHS_AGO" = "%d months ago";
 "T_MONTH_AGO" = "1 month ago";
-"T_LAST_MONTH" = "Last month";
+"T_LAST_MONTH" = "last month";
 
 "T_WEEKS_AGO" = "%d weeks ago";
 "T_WEEK_AGO" = "1 week ago";
-"T_LAST_WEEK" = "Last week";
+"T_LAST_WEEK" = "last week";
 
 "T_DAYS_AGO" = "%d days ago";
 "T_DAY_AGO" = "1 day ago";
-"T_YESTERDAY" = "Yesterday";
+"T_YESTERDAY" = "yesterday";
 
 "T_HOURS_AGO" = "%d hours ago";
 "T_HOUR_AGO" = "1 hour ago";
-"T_LAST_HOUR" = "Last hour";
+"T_LAST_HOUR" = "yast hour";
 
 "T_MINUTES_AGO" = "%d minutes ago";
 "T_MINUTE_AGO" = "1 minute ago";
-"T_MINUTE_HOUR" = "A minute ago";
+"T_MINUTE_HOUR" = "a minute ago";
 
 "T_SECONDS_AGO" = "%d seconds ago";
 
-"T_JUST_NOW" = "Just now";
+"T_JUST_NOW" = "just now";
 
 // CoreDataHelper
 
@@ -106,4 +106,4 @@
 "CONTINUE_SESSION_MESSAGE" = "What would you like to do with the recovered content from last session?";
 
 "CONTINUE_SESSION_TITLE" = "Continue session";
-"SAVE_START_NEW" = "Save and Start New";
+"SAVE_START_NEW" = "Save and start new";

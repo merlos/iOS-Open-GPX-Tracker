@@ -1,0 +1,11 @@
+/* 
+  InfoPlist.strings
+  OpenGpxTracker
+
+  Created by Merlos on 25.08.19.
+*/
+
+NSLocationAlwaysAndWhenInUseUsageDescription = "Tu ubicación se usa solo para mostrar la posición en el mapa. Si quieres usar la app en segundo plano debes permitir siempre el acceso a tu ubicación.";
+NSLocationAlwaysUsageDescription = "Acceso a tu ubicación se usa para poder crear las trazas incluso cuando la app está en segundo plano.";
+NSLocationUsageDescription = "La ubicación se usa para crear el fichero GPX y los puntos de interés.";
+NSLocationWhenInUseUsageDescription = "Tu localización se usa para mostar tu ubicación en el mapa y para crear las trazas.";
