@@ -11,7 +11,7 @@ import Foundation
 import UIKit
 import CoreLocation
 
-import Cache
+import MapCache
 
 /// Units Section Id in PreferencesTableViewController
 let kUnitsSection = 0
@@ -49,6 +49,8 @@ class PreferencesTableViewController: UITableViewController, UINavigationBarDele
     
     /// Global Preferences
     var preferences : Preferences = Preferences.shared
+    
+    var cache : MapCache = MapCache(withConfig: MapCacheConfig(withUrlTemplate: ""))
     
     /// Does the following:
     /// 1. Defines the areas for navBar and the Table view
@@ -150,8 +152,9 @@ class PreferencesTableViewController: UITableViewController, UINavigationBarDele
         if indexPath.section == kCacheSection {
             switch (indexPath.row) {
             case kUseOfflineCacheCell:
-                cell = UITableViewCell(style: .value1, reuseIdentifier: "CacheCell")
+                cell = UITableViewCell(style: .subtitle, reuseIdentifier: "CacheCell")
                 cell.textLabel?.text = NSLocalizedString("OFFLINE_CACHE", comment: "no comment")
+                cell.detailTextLabel?.text = Int(cache.size).asFileSize()
                 if preferences.useCache {
                     cell.accessoryType = .checkmark
                 }
@@ -234,26 +237,15 @@ class PreferencesTableViewController: UITableViewController, UINavigationBarDele
                 self.delegate?.didUpdateUseCache(newUseCache)
             case kClearCacheCell:
                 print("clear cache")
-                // usage example of cache https://github.com/hyperoslo/Cache/blob/master/Playgrounds/Storage.playground/Contents.swift
-                // 1 -> clears cache
-                do {
-                    let diskConfig = DiskConfig(name: "ImageCache")
-                    let cache = try Storage(
-                        diskConfig: diskConfig,
-                        memoryConfig: MemoryConfig(),
-                        transformer: TransformerFactory.forData()
-                    )
-                    //Clear cache
-                    cache.async.removeAll(completion: { (result) in
-                        if case .value = result {
-                            print("Cache cleaned")
-                            let cell = tableView.cellForRow(at: indexPath)!
-                            cell.textLabel?.text = "Cache is now empty"
-                            cell.textLabel?.textColor = UIColor.gray
-                        }
-                    })
-                } catch {
-                    print(error)
+                //Create a cache
+                cache.clear {
+                    print("Cache cleaned")
+                    let cell = tableView.cellForRow(at: indexPath)!
+                    cell.textLabel?.text = "Cache is now empty"
+                    cell.textLabel?.textColor = UIColor.gray
+                    //Clear the size text
+                    let cell2 = tableView.cellForRow(at: IndexPath(row: kUseOfflineCacheCell, section: kCacheSection))
+                    cell2?.detailTextLabel?.text = 0.asFileSize()
                 }
             default:
                 fatalError("didSelectRowAt: Unknown cell")
