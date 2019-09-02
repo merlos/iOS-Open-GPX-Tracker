@@ -1,18 +1,14 @@
 PODS:
   - CoreGPX (0.6.5)
-  - CryptoSwift (1.0.0)
   - MapCache (0.5.2)
 
 DEPENDENCIES:
   - CoreGPX (from `https://github.com/VincentNeo/CoreGPX.git`)
-  - CryptoSwift (from `https://github.com/krzyzanowskim/CryptoSwift`)
   - MapCache (from `https://github.com/merlos/MapCache.git`, branch `dev/ogpxt`)
 
 EXTERNAL SOURCES:
   CoreGPX:
     :git: https://github.com/VincentNeo/CoreGPX.git
-  CryptoSwift:
-    :git: https://github.com/krzyzanowskim/CryptoSwift
   MapCache:
     :branch: dev/ogpxt
     :git: https://github.com/merlos/MapCache.git
@@ -21,18 +17,14 @@ CHECKOUT OPTIONS:
   CoreGPX:
     :commit: 4dbc033a2008282f21f446304868bb3f299abaa7
     :git: https://github.com/VincentNeo/CoreGPX.git
-  CryptoSwift:
-    :commit: c91564cc14c5133cbb2e2009bf59cbd6fbb1bd80
-    :git: https://github.com/krzyzanowskim/CryptoSwift
   MapCache:
     :commit: 1f72d22167358eb1979880f1b905d1383a715187
     :git: https://github.com/merlos/MapCache.git
 
 SPEC CHECKSUMS:
   CoreGPX: ba7807800b30ac05cd357f4d20d82c13451940d5
-  CryptoSwift: b91cc3e6902875f4baa91fdf1042c1344108a53b
   MapCache: 9ba003d0a9c512900eafc9f26b0f8d1dfc6e4d21
 
-PODFILE CHECKSUM: 45b95aa44281ffa9679d27310e94d3e1ef67c0f9
+PODFILE CHECKSUM: 145ece003609b3aee86fa2eb0a91e7baf50b0144
 
 COCOAPODS: 1.7.5
