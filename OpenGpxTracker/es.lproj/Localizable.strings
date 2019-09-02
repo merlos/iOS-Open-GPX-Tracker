@@ -105,5 +105,5 @@
 "CONTINUE_SESSION_TITLE" = "¿Continuar la última sesión?";
 "CONTINUE_SESSION_MESSAGE" = "¿Qué quieres hacer con la información recuperada de la última sesión?";
 
-"CONTINUE_SESSION_TITLE" = "Continuar la sesión";
+"CONTINUE_SESSION" = "Continuar la sesión";
 "SAVE_START_NEW" = "Guardar y comernzar una nueva";
