@@ -40,6 +40,7 @@
 "USE_IMPERIAL_UNITS" = "Meilen verwenden";
 "OFFLINE_CACHE" = "Offline cache";
 "CLEAR_CACHE" = "Cache leeren";
+"CACHE_IS_EMPTY" = "Die Cache ist jetzt leer";
 "EDIT_WAYPOINT_NAME_TITLE" = "Wegpunkt ändern";
 "EDIT_WAYPOINT_NAME_MESSAGE" = "Hinweis: Um einen Wegpunkt zu verändern, verschiebe den Pin.";
 
