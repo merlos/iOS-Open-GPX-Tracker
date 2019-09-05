@@ -80,10 +80,19 @@ class GPXMapView: MKMapView {
             }
             //add new overlay to map
             if newValue != .apple {
+                // if map is third party, dark mode is disabled.
+                if #available(iOS 13, *) {
+                    overrideUserInterfaceStyle = .light
+                }
                 self.tileServerOverlay = CachedTileOverlay(urlTemplate: newValue.templateUrl)
                 (self.tileServerOverlay as! CachedTileOverlay).useCache = self.useCache
                 tileServerOverlay.canReplaceMapContent = true
                 self.insertOverlay(tileServerOverlay, at: 0, level: .aboveLabels)
+            }
+            else {
+                if #available(iOS 13, *) {
+                    overrideUserInterfaceStyle = .unspecified
+                }
             }
         }
     }

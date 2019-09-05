@@ -284,6 +284,9 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
     /// Save current track into a GPX file
     var saveButton: UIButton
     
+    /// Check if device is notched type phone
+    var isIPhoneX = false
+    
     // Signal accuracy images
     /// GPS signal image. Level 0 (no signal)
     let signalImage0 = UIImage(named: "signal0")
@@ -340,6 +343,14 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         removeNotificationObservers()
     }
    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        if #available(iOS 13, *), !isIPhoneX {
+            return .darkContent
+        }
+        else { // to be dealt with for dark maps > iPhone X
+            return .default
+        }
+    }
     
     ///
     /// Initializes the view. It adds the UI elements to the view.
@@ -354,7 +365,6 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         
         //Because of the edges, iPhone X* is slightly different on the layout.
         //So, Is the current device an iPhone X?
-        var isIPhoneX = false
         if UIDevice().userInterfaceIdiom == .phone {
             switch UIScreen.main.nativeBounds.height {
             case 1136:
