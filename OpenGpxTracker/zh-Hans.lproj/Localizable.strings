@@ -109,5 +109,5 @@
 "CONTINUE_SESSION_TITLE" = "要继续未完成的记录吗？";
 "CONTINUE_SESSION_MESSAGE" = "应该如何对待已恢复好的定位记录呢？";
 
-"CONTINUE_SESSION_TITLE" = "继续记录";
+"CONTINUE_SESSION" = "继续记录";
 "SAVE_START_NEW" = "储存恢复好的记录，并从新开始";
