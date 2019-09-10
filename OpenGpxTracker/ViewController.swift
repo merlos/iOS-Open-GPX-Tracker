@@ -950,7 +950,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
             shareActivityIndicator.color = .white
         }
         else {
-            shareActivityIndicator.color = .black
+            shareActivityIndicator.color = UIColor(red: 0, green: 0.61, blue: 0.86, alpha: 1)
         }
         shareActivityIndicator.frame = CGRect(x: 0, y: 0, width: 32, height: 32)
         shareActivityIndicator.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
