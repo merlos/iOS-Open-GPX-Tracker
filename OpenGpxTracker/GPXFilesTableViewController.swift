@@ -265,7 +265,13 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
         let activityIndicatorView = UIActivityIndicatorView(frame: CGRect(x: 35, y: 30, width: 32, height: 32))
         activityIndicatorView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         activityIndicatorView.style = .whiteLarge
-        activityIndicatorView.color = .black
+        
+        if #available(iOS 13, *), traitCollection.userInterfaceStyle == .dark {
+            activityIndicatorView.color = .white
+        }
+        else {
+            activityIndicatorView.color = .black
+        }
         
         if loading { // will display alert
             activityIndicatorView.startAnimating()

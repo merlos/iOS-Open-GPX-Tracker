@@ -941,7 +941,12 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
     /// Displays spinning activity indicator for share button when true
     func shouldShowShareActivityIndicator(_ isTrue: Bool) {
         // setup
-        shareActivityIndicator.color = .black
+        if #available(iOS 13, *), traitCollection.userInterfaceStyle == .dark {
+            shareActivityIndicator.color = .white
+        }
+        else {
+            shareActivityIndicator.color = .black
+        }
         shareActivityIndicator.frame = CGRect(x: 0, y: 0, width: 32, height: 32)
         shareActivityIndicator.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
         
