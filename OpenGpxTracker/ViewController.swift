@@ -344,10 +344,20 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
     }
    
     override var preferredStatusBarStyle: UIStatusBarStyle {
-        if #available(iOS 13, *), !isIPhoneX {
-            return .darkContent
+        if #available(iOS 13, *) {
+            if !isIPhoneX {
+                // since status bar is always white < iPhone X
+                return .darkContent
+            }
+            else if map.tileServer == .apple {
+                // if is > iP X status bar can be white when map is dark
+                return .default
+            }
+            else {
+                return .darkContent
+            }
         }
-        else { // to be dealt with for dark maps > iPhone X
+        else { // < iOS 13
             return .default
         }
     }
@@ -759,6 +769,8 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         notificationCenter.addObserver(self, selector: #selector(presentReceivedFile(_:)), name: .didReceiveFileFromAppleWatch, object: nil)
 
         notificationCenter.addObserver(self, selector: #selector(loadRecoveredFile(_:)), name: .loadRecoveredFile, object: nil)
+        
+        notificationCenter.addObserver(self, selector: #selector(setNeedsStatusBarAppearanceUpdate), name: .updateVCStatusBar, object: nil)
     }
 
     ///
@@ -1358,4 +1370,5 @@ extension ViewController: CLLocationManagerDelegate {
 
 extension Notification.Name {
     static let loadRecoveredFile = Notification.Name("loadRecoveredFile")
+    static let updateVCStatusBar = Notification.Name("updateVCStatusBar")
 }

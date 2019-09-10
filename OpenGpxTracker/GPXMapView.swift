@@ -83,6 +83,7 @@ class GPXMapView: MKMapView {
                 // if map is third party, dark mode is disabled.
                 if #available(iOS 13, *) {
                     overrideUserInterfaceStyle = .light
+                    NotificationCenter.default.post(name: .updateVCStatusBar, object: nil, userInfo: nil)
                 }
                 self.tileServerOverlay = CachedTileOverlay(urlTemplate: newValue.templateUrl)
                 (self.tileServerOverlay as! CachedTileOverlay).useCache = self.useCache
@@ -92,6 +93,7 @@ class GPXMapView: MKMapView {
             else {
                 if #available(iOS 13, *) {
                     overrideUserInterfaceStyle = .unspecified
+                    NotificationCenter.default.post(name: .updateVCStatusBar, object: nil, userInfo: nil)
                 }
             }
         }
