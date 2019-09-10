@@ -343,12 +343,20 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         removeNotificationObservers()
     }
    
+    /// Handles status bar color as a result from iOS 13 appearance changes
     override var preferredStatusBarStyle: UIStatusBarStyle {
         if #available(iOS 13, *) {
             if !isIPhoneX {
-                // since status bar is always white < iPhone X
-                return .darkContent
+                if self.traitCollection.userInterfaceStyle == .dark {
+                    self.view.backgroundColor = .black
+                    return .lightContent
+                }
+                else {
+                    self.view.backgroundColor = .white
+                    return .darkContent
+                }
             }
+            // > iPhone X has no opaque status bar
             else if map.tileServer == .apple {
                 // if is > iP X status bar can be white when map is dark
                 return .default
