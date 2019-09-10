@@ -347,7 +347,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
     override var preferredStatusBarStyle: UIStatusBarStyle {
         if #available(iOS 13, *) {
             if !isIPhoneX {
-                if self.traitCollection.userInterfaceStyle == .dark {
+                if self.traitCollection.userInterfaceStyle == .dark && map.tileServer == .apple {
                     self.view.backgroundColor = .black
                     return .lightContent
                 }
@@ -357,12 +357,9 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
                 }
             }
             // > iPhone X has no opaque status bar
-            else if map.tileServer == .apple {
-                // if is > iP X status bar can be white when map is dark
-                return .default
-            }
             else {
-                return .darkContent
+                // if is > iP X status bar can be white when map is dark
+                return map.tileServer == .apple ? .default : .darkContent
             }
         }
         else { // < iOS 13
