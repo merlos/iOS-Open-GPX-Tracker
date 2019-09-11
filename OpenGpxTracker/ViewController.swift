@@ -749,6 +749,21 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         
     }
     
+    /// Will update polyline color when invoked
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        updatePolylineColor()
+    }
+    
+    /// Updates polyline color
+    func updatePolylineColor() {
+        for overlay in map.overlays {
+            if overlay is MKPolyline {
+                map.removeOverlay(overlay)
+                map.addOverlay(overlay)
+            }
+        }
+    }
+    
     ///
     /// Asks the system to notify the app on some events
     ///
@@ -775,7 +790,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
 
         notificationCenter.addObserver(self, selector: #selector(loadRecoveredFile(_:)), name: .loadRecoveredFile, object: nil)
         
-        notificationCenter.addObserver(self, selector: #selector(setNeedsStatusBarAppearanceUpdate), name: .updateVCStatusBar, object: nil)
+        notificationCenter.addObserver(self, selector: #selector(updateAppearance), name: .updateAppearance, object: nil)
     }
 
     ///
@@ -783,6 +798,12 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
     ///
     func removeNotificationObservers() {
         NotificationCenter.default.removeObserver(self)
+    }
+    
+    /// To update appearance when mapView requests to do so
+    @objc func updateAppearance() {
+        setNeedsStatusBarAppearanceUpdate()
+        updatePolylineColor()
     }
     
     ///
@@ -1380,5 +1401,5 @@ extension ViewController: CLLocationManagerDelegate {
 
 extension Notification.Name {
     static let loadRecoveredFile = Notification.Name("loadRecoveredFile")
-    static let updateVCStatusBar = Notification.Name("updateVCStatusBar")
+    static let updateAppearance = Notification.Name("updateAppearance")
 }
