@@ -275,6 +275,9 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
     /// Spinning Activity Indicator for shareButton
     let shareActivityIndicator: UIActivityIndicatorView
     
+    /// Spinning Activity Indicator's color
+    var shareActivityColor = UIColor(red: 0, green: 0.61, blue: 0.86, alpha: 1)
+    
     /// Reset map button (bottom bar)
     var resetButton: UIButton
     
@@ -806,10 +809,10 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         updatePolylineColor()
         // activity indicator color
         if #available(iOS 13, *), traitCollection.userInterfaceStyle == .dark {
-            shareActivityIndicator.color = .white
+            shareActivityColor = .white
         }
         else {
-            shareActivityIndicator.color = UIColor(red: 0, green: 0.61, blue: 0.86, alpha: 1)
+            shareActivityColor = UIColor(red: 0, green: 0.61, blue: 0.86, alpha: 1)
         }
     }
     
@@ -974,6 +977,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
     /// Displays spinning activity indicator for share button when true
     func shouldShowShareActivityIndicator(_ isTrue: Bool) {
         // setup
+        shareActivityIndicator.color = shareActivityColor
         shareActivityIndicator.frame = CGRect(x: 0, y: 0, width: 32, height: 32)
         shareActivityIndicator.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
         
