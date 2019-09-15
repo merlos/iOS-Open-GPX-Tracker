@@ -14,21 +14,17 @@ struct CoreDataAlertView {
     
     /// shows the action sheet that prompts user on what to do with recovered data.
     func showActionSheet(_ alertController: UIAlertController) {
-        let window = UIWindow(frame: UIScreen.main.bounds)
-        window.rootViewController = UIViewController()
-        
-        guard let windowLevel = UIApplication.shared.windows.last?.windowLevel else { return }
-        
-        window.windowLevel = windowLevel + 1
-        window.makeKeyAndVisible()
+        guard let appDelegate = UIApplication.shared.delegate else { return }
+        guard let rootVC = appDelegate.window!?.rootViewController else { return }
         
         if let popoverController = alertController.popoverPresentationController {
-            guard let view = window.rootViewController?.view else { return }
+            guard let view = rootVC.view else { return }
             popoverController.sourceView = view
             popoverController.sourceRect = CGRect(x: view.bounds.midX, y: view.bounds.midY, width: 0, height: 0)
             popoverController.permittedArrowDirections = []
         }
         
-        window.rootViewController?.present(alertController, animated: true, completion: nil)
+        rootVC.present(alertController, animated: true, completion: nil)
     }
+    
 }
