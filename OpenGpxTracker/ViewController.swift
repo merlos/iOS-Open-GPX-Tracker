@@ -644,6 +644,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         addConstraints(isIPhoneX)
         
         map.rotationGesture.delegate = self
+        updateAppearance()
     }
     
     /// Adds Constraints to subviews
@@ -805,14 +806,16 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
     
     /// To update appearance when mapView requests to do so
     @objc func updateAppearance() {
-        setNeedsStatusBarAppearanceUpdate()
-        updatePolylineColor()
-        // activity indicator color
-        if #available(iOS 13, *), traitCollection.userInterfaceStyle == .dark {
-            shareActivityColor = .white
-        }
-        else {
-            shareActivityColor = UIColor(red: 0, green: 0.61, blue: 0.86, alpha: 1)
+        if #available(iOS 13, *) {
+            setNeedsStatusBarAppearanceUpdate()
+            updatePolylineColor()
+            // activity indicator color
+            if map.traitCollection.userInterfaceStyle == .dark {
+                shareActivityColor = .white
+            }
+            else {
+                shareActivityColor = UIColor(red: 0, green: 0.61, blue: 0.86, alpha: 1)
+            }
         }
     }
     
