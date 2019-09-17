@@ -10,7 +10,7 @@ import Foundation
 /// Provides conversions, when required.
 ///
 /// Meant for internal conversions use only. 
-internal class Convert {
+internal final class Convert {
     
     // MARK:- Number conversion
     

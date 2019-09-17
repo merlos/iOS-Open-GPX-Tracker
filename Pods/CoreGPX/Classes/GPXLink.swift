@@ -17,10 +17,10 @@ fileprivate let kCommonWebExtensions: Set = ["htm", "html", "asp", "aspx", "jsp"
     - type of content
     - text of web link (probably a description kind of thing)
  */
-open class GPXLink: GPXElement, Codable {
+public final class GPXLink: GPXElement, Codable {
     
     /// For Codable use
-    enum CodingKeys: String, CodingKey {
+    private enum CodingKeys: String, CodingKey {
         case text
         case mimetype = "type"
         case href
@@ -37,8 +37,9 @@ open class GPXLink: GPXElement, Codable {
     /// URL of hyperlink
     public var href: String?
    
-    // MARK:- Instance
+    // MARK:- Initializers
     
+    /// Default Initializer.
     public required init() {
         super.init()
     }
@@ -72,25 +73,20 @@ open class GPXLink: GPXElement, Codable {
         }
     }
     
-    /// For internal use only
-    ///
-    /// Initializes a waypoint through a dictionary, with each key being an attribute name.
-    ///
-    /// - Remark:
-    /// This initializer is designed only for use when parsing GPX files, and shouldn't be used in other ways.
+    /// Inits native element from raw parser value
     ///
     /// - Parameters:
-    ///     - dictionary: a dictionary with a key of an attribute, followed by the value which is set as the GPX file is parsed.
-    ///
-    init(dictionary: [String : String]) {
-        self.href = dictionary["href"]
-        self.mimetype = dictionary["type"]
-        self.text = dictionary["text"]
+    ///     - raw: Raw element expected from parser
+    init(raw: GPXRawElement) {
+        for child in raw.children {
+            switch child.name {
+            case "type":    self.mimetype = child.text
+            case "text":    self.text = child.text
+            default: continue
+            }
+        }
+        self.href = raw.attributes["href"]
     }
-    
-    
-    // MARK:- Public Methods
-    
     
     // MARK:- Tag
     
@@ -98,7 +94,6 @@ open class GPXLink: GPXElement, Codable {
         return "link"
     }
    
-    
     // MARK:- GPX
     
     override func addOpenTag(toGPX gpx: NSMutableString, indentationLevel: Int) {

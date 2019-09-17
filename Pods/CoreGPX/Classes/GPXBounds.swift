@@ -12,8 +12,16 @@ import Foundation
  
  This is meant for having two pairs of longitude and latitude, signifying the maximum and minimum, defining the extent / boundaries of a particular element.
  */
-open class GPXBounds: GPXElement {
-
+public final class GPXBounds: GPXElement, Codable {
+    
+    /// Codable Implementation
+    private enum CodingKeys: String, CodingKey {
+        case minLatitude = "minlat"
+        case maxLatitude = "maxLat"
+        case minLongitude = "minlon"
+        case maxLongitude = "maxlon"
+    }
+    
     /// Minimum latitude of boundaries to a element.
     public var minLatitude: Double?
     /// Maximum latitude of boundaries to a element.
@@ -23,7 +31,7 @@ open class GPXBounds: GPXElement {
     /// Maximum longitude of boundaries to a element.
     public var maxLongitude: Double?
     
-    // MARK:- Instance
+    // MARK:- Initalizers
     
     /// Default initializer.
     public required init() {
@@ -45,22 +53,15 @@ open class GPXBounds: GPXElement {
         self.maxLongitude = maxLongitude
     }
     
-    /// For internal use only
-    ///
-    /// Initializes through a dictionary, with each key being an attribute name.
-    ///
-    /// - Remark:
-    /// This initializer is designed only for use when parsing GPX files, and shouldn't be used in other ways.
+    /// Inits native element from raw parser value
     ///
     /// - Parameters:
-    ///     - dictionary: a dictionary with a key of an attribute, followed by the value which is set as the GPX file is parsed.
-    ///
-    init(dictionary: [String : String]) {
-        super.init()
-        self.minLatitude = Convert.toDouble(from: dictionary["minlat"])
-        self.maxLatitude = Convert.toDouble(from: dictionary["maxlat"])
-        self.minLongitude = Convert.toDouble(from: dictionary["minlon"])
-        self.maxLongitude = Convert.toDouble(from: dictionary["maxlon"])
+    ///     - raw: Raw element expected from parser
+    init(raw: GPXRawElement) {
+        self.minLatitude = Convert.toDouble(from: raw.attributes["minlat"])
+        self.maxLatitude = Convert.toDouble(from: raw.attributes["maxlat"])
+        self.minLongitude = Convert.toDouble(from: raw.attributes["minlon"])
+        self.maxLongitude = Convert.toDouble(from: raw.attributes["maxlon"])
     }
     
     // MARK:- Tag

@@ -28,7 +28,7 @@ As it makes use of `XMLParser` for parsing GPX files, CoreGPX is fully dependent
 - [x] Parses GPX files using native XMLParser
 - [x] Support for iOS, macOS & watchOS
 - [x] **(new)** Supports `Codable` in essential classes
-- [x] **(beta)** Enhanced support for `GPXExtensions` for both parsing and creating. (Currently only for various elements, but not root extensions itself.)
+- [x] **(new)** Enhanced full support for `GPXExtensions` for both parsing and creating. 
 
 ## Documentation
 
@@ -167,18 +167,17 @@ This would be what you get from `root.gpx()` in the above example:
 Extensions in GPX files are represented as `GPXExtensions` in CoreGPX. 
  
  ### Accessing GPX Files's extensions
- Once a GPX file is parsed, you can access the extensions, by using subscript, with the parent tag.
- - Use `extensions[nil]`  to get extension data without parent tags.
- - Use `extensions["ParentTag"]` to get extension data with parent tags (in this case, its `"ParentTag"`)
+ Once a GPX file is parsed, you can access the extensions, by using subscript, with the tag name.
+ - Use `extensions["tagNameHere"]` to get a `GPXExtensionElement`, which will contain various data parsed.
+ Alternatively, use `get(from parent: String?)` to get a dictionary of extension data parsed.
  
  ### Writing GPX extensions
  - Firstly, initialize GPXRoot using `init(withExtensionAttributes:, schemaLocation:)` to initialize with extension schema information on the main gpx header tag.
  - Secondly, initialize GPXExtensions whenever needed, to be added to the GPXRoot/or other elements, when needed.
- - Use `extensions[nil] = ["Key1" : "Value1"]`  to write extension data without parent tags.
- - Use `extensions["ParentTag"] = ["ChildKey1" : "ChildValue1"]` to write extension data with parent tags (in this case, its `"ParentTag"`)
- Alternatively, you can use functions like: 
- - `insert(withParentTag:, withContents:)` to insert data with/without a parent tag.
- - `remove(contentsOfParentTag:)` to remove data with/without a parent tag.
+ - Use function `append(at parent: String?, contents: [String : String])`  to write extension data. If no parent, use `nil`.
+ 
+ To know more, please do read the documentation for `GPXExtensions` and `GPXExtensionsElement`.
+
 
 ## Example
 To know in depth of what `CoreGPX` can bring, do check out the Example app.

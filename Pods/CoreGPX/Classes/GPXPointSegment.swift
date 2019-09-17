@@ -12,7 +12,7 @@ import Foundation
  
  `ptsegType` of GPX schema. Not supported in GPXRoot, nor GPXParser's parsing.
  */
-open class GPXPointSegment: GPXElement {
+open class GPXPointSegment: GPXElement, Codable {
     
     /// points of segment
     public var points = [GPXPoint]()
@@ -22,6 +22,19 @@ open class GPXPointSegment: GPXElement {
     /// Default initializer.
     public required init() {
         super.init()
+    }
+    
+    /// Inits native element from raw parser value
+    ///
+    /// - Parameters:
+    ///     - raw: Raw element expected from parser
+    init(raw: GPXRawElement) {
+        for child in raw.children {
+            if child.name == "pt" {
+                points.append(GPXPoint(raw: child))
+            }
+            else { break }
+        }
     }
     
     // MARK:- Public Methods
@@ -39,7 +52,6 @@ open class GPXPointSegment: GPXElement {
     /// Appends a point to the point segment
     public func add(point: GPXPoint?) {
         if let validPoint = point {
-            point?.parent = self
             points.append(validPoint)
         }
     }
@@ -53,7 +65,6 @@ open class GPXPointSegment: GPXElement {
     public func remove(point: GPXPoint) {
         let contains = points.contains(point)
         if contains == true {
-            point.parent = nil
             if let index = points.firstIndex(of: point) {
                 points.remove(at: index)
             }

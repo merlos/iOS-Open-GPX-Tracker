@@ -17,7 +17,7 @@ import Foundation
  
  Formerly Named: `ISO8601DateParser` & `CopyrightYearParser`
  */
-class GPXDateParser {
+final class GPXDateParser {
     
     // MARK:- Supporting Variables
     

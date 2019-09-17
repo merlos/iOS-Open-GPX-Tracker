@@ -14,7 +14,14 @@ import Foundation
  
  For example, an email of **"yourname@thisisawebsite.com"**, would have an id of **'yourname'** and a domain of **'thisisawebsite.com'**.
  */
-open class GPXEmail: GPXElement {
+public final class GPXEmail: GPXElement, Codable {
+    
+    /// Codable Implementation
+    private enum CodingKeys: String, CodingKey {
+        case emailID = "id"
+        case domain
+        case fullAddress
+    }
     
     /// Email ID refers to the front part of the email address, before the **@**
     public var emailID: String?
@@ -43,25 +50,17 @@ open class GPXEmail: GPXElement {
         self.domain = splitedEmail[1]
     }
     
-
-    /// For internal use only
-    ///
-    /// Initializes a waypoint through a dictionary, with each key being an attribute name.
-    ///
-    /// - Remark:
-    /// This initializer is designed only for use when parsing GPX files, and shouldn't be used in other ways.
+    /// Inits native element from raw parser value
     ///
     /// - Parameters:
-    ///     - dictionary: a dictionary with a key of an attribute, followed by the value which is set as the GPX file is parsed.
-    ///
-    init(dictionary: [String : String]) {
-        self.emailID = dictionary["id"]
-        self.domain = dictionary["domain"]
+    ///     - raw: Raw element expected from parser
+    init(raw: GPXRawElement) {
+        self.emailID = raw.attributes["id"]
+        self.domain = raw.attributes["domain"]
         
-        guard let id = dictionary["id"] else { return }
-        guard let domain = dictionary["domain"] else { return }
+        guard let id = raw.attributes["id"] else { return }
+        guard let domain = raw.attributes["domain"] else { return }
         self.fullAddress = id + "@" + domain
-        
     }
     
     // MARK:- Tag

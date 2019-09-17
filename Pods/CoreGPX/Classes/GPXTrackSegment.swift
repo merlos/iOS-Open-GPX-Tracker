@@ -12,10 +12,10 @@ import Foundation
 
  Does not hold additional information by default.
  */
-open class GPXTrackSegment: GPXElement, Codable {
+public final class GPXTrackSegment: GPXElement, Codable {
     
     /// For Codable use
-    enum CodingKeys: String, CodingKey {
+    private enum CodingKeys: String, CodingKey {
         case trackpoints = "trkpt"
         case extensions
     }
@@ -35,19 +35,24 @@ open class GPXTrackSegment: GPXElement, Codable {
         super.init()
     }
     
-    /// Internal Initializer, for parsing use only.
-    init(dictionary: inout [String : String]) {
-        super.init()
-        dictionary.removeValue(forKey: self.tagName())
-        if dictionary.count > 0 {
-            self.extensions = GPXExtensions(dictionary: dictionary)
+    /// Inits native element from raw parser value
+    ///
+    /// - Parameters:
+    ///     - raw: Raw element expected from parser
+    init(raw: GPXRawElement) {
+        for child in raw.children {
+            switch child.name {
+            case "trkpt":       self.trackpoints.append(GPXTrackPoint(raw: child))
+            case "extensions":  self.extensions = GPXExtensions(raw: child)
+            default: continue
+            }
         }
     }
     
     // MARK:- Public Methods
     
     /// Initializes a new trackpoint to segment, and returns the trackpoint.
-    open func newTrackpointWith(latitude: Double, longitude: Double) -> GPXTrackPoint {
+    public func newTrackpointWith(latitude: Double, longitude: Double) -> GPXTrackPoint {
         let trackpoint = GPXTrackPoint(latitude: latitude, longitude: longitude)
         
         self.add(trackpoint: trackpoint)
@@ -56,20 +61,19 @@ open class GPXTrackSegment: GPXElement, Codable {
     }
     
     /// Adds a single track point to this track segment.
-    open func add(trackpoint: GPXTrackPoint?) {
+    public func add(trackpoint: GPXTrackPoint?) {
         if let validPoint = trackpoint {
             trackpoints.append(validPoint)
         }
     }
     
     /// Adds an array of track points to this track segment.
-    open func add(trackpoints: [GPXTrackPoint]) {
+    public func add(trackpoints: [GPXTrackPoint]) {
         self.trackpoints.append(contentsOf: trackpoints)
     }
     
     /// Removes a track point from this track segment.
-    open func remove(trackpoint: GPXTrackPoint) {
-        trackpoint.parent = nil
+    public func remove(trackpoint: GPXTrackPoint) {
         if let index = trackpoints.firstIndex(of: trackpoint) {
             trackpoints.remove(at: index)
         }

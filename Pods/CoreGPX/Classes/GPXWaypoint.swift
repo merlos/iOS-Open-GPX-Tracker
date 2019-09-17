@@ -17,12 +17,12 @@ import Foundation
  
  The waypoint should at least contain the attributes of both `latitude` and `longitude` in order to be considered a valid waypoint. Most attributes are optional, and are not required to be implemented.
 */
-open class GPXWaypoint: GPXElement, Codable {
+public class GPXWaypoint: GPXElement, Codable {
     
     // MARK: Codable Implementation
     
     /// For Codable use
-    enum CodingKeys: String, CodingKey {
+    private enum CodingKeys: String, CodingKey {
         case time
         case elevation = "ele"
         case latitude = "lat"
@@ -31,7 +31,7 @@ open class GPXWaypoint: GPXElement, Codable {
         case geoidHeight = "geoidheight"
         case name
         case comment = "cmt"
-        case desc = "desc"
+        case desc
         case source = "src"
         case symbol = "sym"
         case type
@@ -124,7 +124,7 @@ open class GPXWaypoint: GPXElement, Codable {
     /// - Warning:
     ///     - This attribute may have limited usefulness due to `CoreLocation` API.
     ///     - This is carried over from GPX schema, to be compliant with the schema.
-    public var fix: Int?
+    public var fix: GPXFix?
     
     /// Number of satellites used to calculate GPS fix of current point
     public var satellites: Int?
@@ -210,44 +210,50 @@ open class GPXWaypoint: GPXElement, Codable {
         self.longitude = longitude
     }
     
-    /// For internal use only
+    /// Initialize a point type, and verifies that point is within ranges of what latitude and longitude should be.
     ///
-    /// Initializes a waypoint through a dictionary, with each key being an attribute name.
-    ///
-    /// - Remark:
-    /// This initializer is designed only for use when parsing GPX files, and shouldn't be used in other ways.
+    /// - SeeAlso:
+    /// init(latitude:longitude:)
+    public convenience init(verifiedLatitude latitude: Double, longitude: Double) throws {
+        guard let error = GPXError.checkError(latitude: latitude, longitude: longitude) else {
+            self.init(latitude: latitude, longitude: longitude)
+            return }
+        
+        throw error
+        
+    }
+    
+    /// Inits native element from raw parser value
     ///
     /// - Parameters:
-    ///     - dictionary: a dictionary with a key of an attribute, followed by the value which is set as the GPX file is parsed.
-    ///
-    init(dictionary: inout [String : String]) {
+    ///     - raw: Raw element expected from parser
+    init(raw: GPXRawElement) {
+        self.latitude = Convert.toDouble(from: raw.attributes["lat"])
+        self.longitude = Convert.toDouble(from: raw.attributes["lon"])
         
-        self.time = GPXDateParser.parse(date: dictionary.removeValue(forKey: "time"))
-        super.init()
-        dictionary.removeValue(forKey: self.tagName())
-        self.elevation = Convert.toDouble(from: dictionary.removeValue(forKey: "ele"))
-        self.latitude = Convert.toDouble(from: dictionary.removeValue(forKey: "lat"))
-        self.longitude = Convert.toDouble(from: dictionary.removeValue(forKey: "lon"))
-        self.magneticVariation = Convert.toDouble(from: dictionary.removeValue(forKey: "magvar"))
-        self.geoidHeight = Convert.toDouble(from: dictionary.removeValue(forKey: "geoidheight"))
-        self.name = dictionary.removeValue(forKey: "name")
-        self.comment = dictionary.removeValue(forKey: "cmt")
-        self.desc = dictionary.removeValue(forKey: "desc")
-        self.source = dictionary.removeValue(forKey: "src")
-        self.symbol = dictionary.removeValue(forKey: "sym")
-        self.type = dictionary.removeValue(forKey: "type")
-        self.fix = Convert.toInt(from: dictionary.removeValue(forKey: "fix"))
-        self.satellites = Convert.toInt(from: dictionary.removeValue(forKey: "sat"))
-        self.horizontalDilution = Convert.toDouble(from: dictionary.removeValue(forKey: "hdop"))
-        self.verticalDilution = Convert.toDouble(from: dictionary.removeValue(forKey: "vdop"))
-        self.positionDilution = Convert.toDouble(from: dictionary.removeValue(forKey: "pdop"))
-        self.DGPSid = Convert.toInt(from: dictionary.removeValue(forKey: "dgpsid"))
-        self.ageofDGPSData = Convert.toDouble(from: dictionary.removeValue(forKey: "ageofdgpsdata"))
-        
-        if dictionary.count > 0 {
-            self.extensions = GPXExtensions(dictionary: dictionary)
+        for child in raw.children {
+            switch child.name {
+            case "time":        self.time = GPXDateParser.parse(date: child.text)
+            case "ele":         self.elevation = Convert.toDouble(from: child.text)
+            case "magvar":      self.magneticVariation = Convert.toDouble(from: child.text)
+            case "geoidheight": self.geoidHeight = Convert.toDouble(from: child.text)
+            case "name":        self.name = child.text
+            case "cmt":         self.comment = child.text
+            case "desc":        self.desc = child.text
+            case "src":         self.source = child.text
+            case "sym":         self.symbol = child.text
+            case "type":        self.type = child.text
+            case "fix":         self.fix = GPXFix(rawValue: child.text ?? "none")
+            case "sat":         self.satellites = Convert.toInt(from: child.text)
+            case "hdop":        self.horizontalDilution = Convert.toDouble(from: child.text)
+            case "vdop":        self.verticalDilution = Convert.toDouble(from: child.text)
+            case "pdop":        self.positionDilution = Convert.toDouble(from: child.text)
+            case "dgpsid":      self.DGPSid = Convert.toInt(from: child.text)
+            case "ageofdgpsid": self.ageofDGPSData = Convert.toDouble(from: child.text)
+            case "extensions":  self.extensions = GPXExtensions(raw: child)
+            default: continue
+            }
         }
-        
     }
     
     // MARK:- Public Methods
@@ -260,7 +266,7 @@ open class GPXWaypoint: GPXElement, Codable {
     ///
     ///   - Warning: Will be deprecated starting version 0.5.0
     @available(*, deprecated, message: "Initialize GPXLink first then, add it to this point type instead.")
-    open func newLink(withHref href: String) -> GPXLink {
+    public func newLink(withHref href: String) -> GPXLink {
         let link = GPXLink(withHref: href)
         self.link = link
         return link
@@ -306,7 +312,11 @@ open class GPXWaypoint: GPXElement, Codable {
  
         self.addProperty(forValue: symbol, gpx: gpx, tagName: "sym", indentationLevel: indentationLevel)
         self.addProperty(forValue: type, gpx: gpx, tagName: "type", indentationLevel: indentationLevel)
-        self.addProperty(forIntegerValue: fix, gpx: gpx, tagName: "source", indentationLevel: indentationLevel)
+        
+        if let fix = self.fix?.rawValue {
+            self.addProperty(forValue: fix, gpx: gpx, tagName: "fix", indentationLevel: indentationLevel)
+        }
+        
         self.addProperty(forIntegerValue: satellites, gpx: gpx, tagName: "sat", indentationLevel: indentationLevel)
         self.addProperty(forDoubleValue: horizontalDilution, gpx: gpx, tagName: "hdop", indentationLevel: indentationLevel)
         self.addProperty(forDoubleValue: verticalDilution, gpx: gpx, tagName: "vdop", indentationLevel: indentationLevel)
@@ -319,5 +329,3 @@ open class GPXWaypoint: GPXElement, Codable {
         }
     }
 }
-
-

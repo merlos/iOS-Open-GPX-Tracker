@@ -7,7 +7,12 @@
 
 import Foundation
 
-open class GPXRoutePoint: GPXWaypoint {
+/**
+ A route point is just like a waypoint or track point, but is suited to be part of a route.
+ 
+ These route points in collective, forms a valid route.
+ */
+public final class GPXRoutePoint: GPXWaypoint {
     
     /// Default initializer
     public required init() {
@@ -20,8 +25,8 @@ open class GPXRoutePoint: GPXWaypoint {
         super.init(latitude: latitude, longitude: longitude)
     }
     
-    override init(dictionary: inout [String : String]) {
-        super.init(dictionary: &dictionary)
+    override init(raw: GPXRawElement) {
+        super.init(raw: raw)
     }
     
     /// For initializing with a `Decoder`
