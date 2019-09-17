@@ -49,8 +49,25 @@ enum GPXTileServer: Int {
         case .apple: return ""
         case .openStreetMap: return "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         case .cartoDB: return "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png"
-        case .openTopoMap: return "https://b.tile.opentopomap.org/{z}/{x}/{y}.png"
+        case .openTopoMap: return "https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png"
         //case .AnotherMap: return "http://another.map.tile.server/{z}/{x}/{y}.png"
+        }
+    }
+    
+    /// In the `templateUrl` the {s} means subdomain, typically the subdomains available are a,b and c
+    /// Check the subdomains available for your server.
+    ///
+    /// Set an empty array (`[]`) in case you don't use `{s}` in your `templateUrl`.
+    ///
+    /// Subdomains is useful to distribute the tile request download among the diferent servers
+    /// and displaying them faster as result.
+    var subdomains: [String] {
+        switch self {
+        case .apple: return []
+        case .openStreetMap: return ["a","b","c"]
+        case .cartoDB: return ["a","b","c"]
+        case .openTopoMap: return ["a","b","c"]
+        //case .AnotherMap: return ["a","b"]
         }
     }
     /// Returns the number of tile servers currently defined

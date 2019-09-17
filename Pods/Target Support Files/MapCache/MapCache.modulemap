@@ -1,0 +1,6 @@
+framework module MapCache {
+  umbrella header "MapCache-umbrella.h"
+
+  export *
+  module * { export * }
+}
