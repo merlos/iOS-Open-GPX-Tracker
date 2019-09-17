@@ -41,6 +41,7 @@
 "USE_IMPERIAL_UNITS" = "¿Usar sistema imperial?";
 "OFFLINE_CACHE" = "Activar caché";
 "CLEAR_CACHE" = "Limpiar caché";
+"CACHE_IS_EMPTY" = "La caché está ahora vacía";
 "EDIT_WAYPOINT_NAME_TITLE" = "Editar punto de interés";
 "EDIT_WAYPOINT_NAME_MESSAGE" = "Sugerencia: arrastra y suelta el pin para mover el punto.";
 
@@ -105,5 +106,5 @@
 "CONTINUE_SESSION_TITLE" = "¿Continuar la última sesión?";
 "CONTINUE_SESSION_MESSAGE" = "¿Qué quieres hacer con la información recuperada de la última sesión?";
 
-"CONTINUE_SESSION_TITLE" = "Continuar la sesión";
+"CONTINUE_SESSION" = "Continuar la sesión";
 "SAVE_START_NEW" = "Guardar y comernzar una nueva";

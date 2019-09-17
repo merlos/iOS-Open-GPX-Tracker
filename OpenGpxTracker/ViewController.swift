@@ -12,7 +12,6 @@ import CoreLocation
 import MapKit
 import CoreGPX
 
-
 /// Purple color for button background
 let kPurpleButtonBackgroundColor: UIColor =  UIColor(red: 146.0/255.0, green: 166.0/255.0, blue: 218.0/255.0, alpha: 0.90)
 

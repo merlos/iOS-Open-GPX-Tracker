@@ -15,7 +15,6 @@
 		8913CD8C1BDB0A9A009EC729 /* PreferencesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8913CD8B1BDB0A9A009EC729 /* PreferencesTableViewController.swift */; };
 		8913CD8E1BDB2477009EC729 /* PreferencesTableViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8913CD8D1BDB2477009EC729 /* PreferencesTableViewControllerDelegate.swift */; };
 		893BEC8619C7E62200C77354 /* GPXWaypoint+MKAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893BEC8519C7E62200C77354 /* GPXWaypoint+MKAnnotation.swift */; };
-		8945A90E1DC7AD040029AF93 /* CachedTileOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8945A90D1DC7AD040029AF93 /* CachedTileOverlay.swift */; };
 		895F04B41A7143CE004BEE8A /* GPXExtentCoordinates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895F04B31A7143CE004BEE8A /* GPXExtentCoordinates.swift */; };
 		898EECDB19C49B5800B4B207 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 898EECDA19C49B5800B4B207 /* AppDelegate.swift */; };
 		898EECDE19C49B5800B4B207 /* OpenGpxTracker.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 898EECDC19C49B5800B4B207 /* OpenGpxTracker.xcdatamodeld */; };
@@ -38,8 +37,6 @@
 		899D678219D351DA00C88A0A /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 899D678119D351DA00C88A0A /* AboutViewController.swift */; };
 		899D678419D3528D00C88A0A /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 899D678319D3528D00C88A0A /* WebKit.framework */; };
 		899D678719D354EB00C88A0A /* about.html in Resources */ = {isa = PBXBuildFile; fileRef = 899D678519D354EB00C88A0A /* about.html */; };
-		89D2F8F91DD7FA7800A52D64 /* Cache.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89D2F8F81DD7FA7700A52D64 /* Cache.framework */; };
-		89D2F8FB1DD7FAF600A52D64 /* CryptoSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89D2F8FA1DD7FAF600A52D64 /* CryptoSwift.framework */; };
 		89E327BE1A7481EA00FC559E /* GPXTileServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E327BD1A7481EA00FC559E /* GPXTileServer.swift */; };
 		89EA86612157A08E002E03A7 /* Date+timeAgo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89EA86602157A08E002E03A7 /* Date+timeAgo.swift */; };
 		89EA86632157B42C002E03A7 /* GPXFileInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89EA86622157B42C002E03A7 /* GPXFileInfo.swift */; };
@@ -154,7 +151,6 @@
 		8913CD8B1BDB0A9A009EC729 /* PreferencesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferencesTableViewController.swift; sourceTree = "<group>"; };
 		8913CD8D1BDB2477009EC729 /* PreferencesTableViewControllerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferencesTableViewControllerDelegate.swift; sourceTree = "<group>"; };
 		893BEC8519C7E62200C77354 /* GPXWaypoint+MKAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "GPXWaypoint+MKAnnotation.swift"; sourceTree = "<group>"; };
-		8945A90D1DC7AD040029AF93 /* CachedTileOverlay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CachedTileOverlay.swift; sourceTree = "<group>"; };
 		895F04B31A7143CE004BEE8A /* GPXExtentCoordinates.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPXExtentCoordinates.swift; sourceTree = "<group>"; };
 		898E2BDC23129FDF00DC4E3F /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		898E2BDD23129FE000DC4E3F /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Main.strings; sourceTree = "<group>"; };
@@ -238,8 +234,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				BF637D132216C5FA0003EC04 /* WatchConnectivity.framework in Frameworks */,
-				89D2F8F91DD7FA7800A52D64 /* Cache.framework in Frameworks */,
-				89D2F8FB1DD7FAF600A52D64 /* CryptoSwift.framework in Frameworks */,
 				899D678419D3528D00C88A0A /* WebKit.framework in Frameworks */,
 				899D677819CF0A9F00C88A0A /* MessageUI.framework in Frameworks */,
 				898EED0019C4A15E00B4B207 /* CoreLocation.framework in Frameworks */,
@@ -277,7 +271,6 @@
 			isa = PBXGroup;
 			children = (
 				89F6E104227F7BD000CE3E3F /* shared */,
-				8945A90D1DC7AD040029AF93 /* CachedTileOverlay.swift */,
 				899D677119CE8B3600C88A0A /* StopWatch.swift */,
 				893BEC8519C7E62200C77354 /* GPXWaypoint+MKAnnotation.swift */,
 				899D676B19CD9E9E00C88A0A /* GPXTrackSegment+MapKit.swift */,
@@ -698,15 +691,13 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-OpenGpxTracker/Pods-OpenGpxTracker-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/Cache/Cache.framework",
 				"${BUILT_PRODUCTS_DIR}/CoreGPX-iOS/CoreGPX.framework",
-				"${BUILT_PRODUCTS_DIR}/CryptoSwift-iOS/CryptoSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/MapCache/MapCache.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Cache.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CoreGPX.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CryptoSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MapCache.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -735,12 +726,10 @@
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-OpenGpxTracker-Watch Extension/Pods-OpenGpxTracker-Watch Extension-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/CoreGPX-watchOS/CoreGPX.framework",
-				"${BUILT_PRODUCTS_DIR}/CryptoSwift-watchOS/CryptoSwift.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CoreGPX.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CryptoSwift.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -759,7 +748,6 @@
 				89E327BE1A7481EA00FC559E /* GPXTileServer.swift in Sources */,
 				898EECE019C49B5800B4B207 /* ViewController.swift in Sources */,
 				120DE71022B274910055C4CB /* GPXSession.swift in Sources */,
-				8945A90E1DC7AD040029AF93 /* CachedTileOverlay.swift in Sources */,
 				899D677019CE024600C88A0A /* GPXFileManager.swift in Sources */,
 				898EECDE19C49B5800B4B207 /* OpenGpxTracker.xcdatamodeld in Sources */,
 				89EA86652157C444002E03A7 /* Int+asFilesize.swift in Sources */,

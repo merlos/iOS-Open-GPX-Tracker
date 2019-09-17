@@ -45,6 +45,7 @@
 "USE_IMPERIAL_UNITS" = "要用英制吗？";
 "OFFLINE_CACHE" = "启用 - 线下高速缓存";
 "CLEAR_CACHE" = "清除 - 高速缓存";
+"CACHE_IS_EMPTY" = "高速缓存已被清空。";
 "EDIT_WAYPOINT_NAME_TITLE" = "改变导航点名";
 "EDIT_WAYPOINT_NAME_MESSAGE" = "暗示：要更改导航点位置吗？您只需要把地图上的红色针图案，拖和搬到新位置。";
 
@@ -109,5 +110,5 @@
 "CONTINUE_SESSION_TITLE" = "要继续未完成的记录吗？";
 "CONTINUE_SESSION_MESSAGE" = "应该如何对待已恢复好的定位记录呢？";
 
-"CONTINUE_SESSION_TITLE" = "继续记录";
+"CONTINUE_SESSION" = "继续记录";
 "SAVE_START_NEW" = "储存恢复好的记录，并从新开始";

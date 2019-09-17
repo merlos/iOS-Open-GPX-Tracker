@@ -41,6 +41,7 @@
 "USE_IMPERIAL_UNITS" = "Use imperial units?";
 "OFFLINE_CACHE" = "Offline cache";
 "CLEAR_CACHE" = "Clear cache";
+"CACHE_IS_EMPTY" = "Cache is now empty";
 "EDIT_WAYPOINT_NAME_TITLE" = "Edit waypoint name";
 "EDIT_WAYPOINT_NAME_MESSAGE" = "Hint: To change the waypoint location drag and drop the pin";
 
@@ -105,5 +106,5 @@
 "CONTINUE_SESSION_TITLE" = "Continue last session?";
 "CONTINUE_SESSION_MESSAGE" = "What would you like to do with the recovered content from last session?";
 
-"CONTINUE_SESSION_TITLE" = "Continue session";
+"CONTINUE_SESSION" = "Continue session";
 "SAVE_START_NEW" = "Save and start new";

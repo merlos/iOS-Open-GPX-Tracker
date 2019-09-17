@@ -1,9 +1,9 @@
 ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES
-FRAMEWORK_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/Cache" "${PODS_CONFIGURATION_BUILD_DIR}/CoreGPX-iOS" "${PODS_CONFIGURATION_BUILD_DIR}/CryptoSwift-iOS"
+FRAMEWORK_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/CoreGPX-iOS" "${PODS_CONFIGURATION_BUILD_DIR}/MapCache"
 GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
-HEADER_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/Cache/Cache.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/CoreGPX-iOS/CoreGPX.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/CryptoSwift-iOS/CryptoSwift.framework/Headers"
+HEADER_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/CoreGPX-iOS/CoreGPX.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/MapCache/MapCache.framework/Headers"
 LD_RUNPATH_SEARCH_PATHS = $(inherited) '@executable_path/Frameworks' '@loader_path/Frameworks'
-OTHER_LDFLAGS = $(inherited) -framework "Cache" -framework "CoreGPX" -framework "CryptoSwift" -framework "Foundation"
+OTHER_LDFLAGS = $(inherited) -framework "CoreGPX" -framework "MapCache" -framework "MapKit" -framework "UIKit"
 OTHER_SWIFT_FLAGS = $(inherited) -D COCOAPODS
 PODS_BUILD_DIR = ${BUILD_DIR}
 PODS_CONFIGURATION_BUILD_DIR = ${PODS_BUILD_DIR}/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)

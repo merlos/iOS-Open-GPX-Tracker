@@ -12,7 +12,7 @@ import MapKit
 import CoreLocation
 import CoreGPX
 import CoreData
-
+import MapCache
 
 ///
 /// A MapView that Tracks user position
@@ -68,14 +68,11 @@ class GPXMapView: MKMapView {
     /// - SeeAlso: GPXTileServer
     var tileServer: GPXTileServer = .apple {
         willSet {
-            // Info about how to use other tile servers:
-            //http://www.glimsoft.com/01/31/how-to-use-openstreetmap-on-ios-7-in-7-lines-of-code/2
-            
             print("Setting map tiles overlay to: \(newValue.name)" )
             
             // remove current overlay
             if self.tileServer != .apple {
-                //remove current overlay
+                //to see apple maps we need to remove the overlay added by map cache.
                 self.removeOverlay(self.tileServerOverlay)
             }
             //add new overlay to map
@@ -85,10 +82,12 @@ class GPXMapView: MKMapView {
                     overrideUserInterfaceStyle = .light
                     NotificationCenter.default.post(name: .updateAppearance, object: nil, userInfo: nil)
                 }
-                self.tileServerOverlay = CachedTileOverlay(urlTemplate: newValue.templateUrl)
-                (self.tileServerOverlay as! CachedTileOverlay).useCache = self.useCache
-                tileServerOverlay.canReplaceMapContent = true
-                self.insertOverlay(tileServerOverlay, at: 0, level: .aboveLabels)
+                var config = MapCacheConfig(withUrlTemplate: newValue.templateUrl)
+                config.subdomains = newValue.subdomains
+                let cache = MapCache(withConfig: config)
+                // the overlay returned substitutes Apple Maps tile overlay.
+                // we need to keep a reference to remove it, in case we return back to Apple Maps.
+                self.tileServerOverlay = useCache(cache)
             }
             else {
                 if #available(iOS 13, *) {
