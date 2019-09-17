@@ -123,6 +123,7 @@ class MapViewDelegate: NSObject, MKMapViewDelegate, UIAlertViewDelegate {
     func mapView(_ mapView: MKMapView, didAdd views: [MKAnnotationView]) {
         var i = 0
         let gpxMapView = mapView as! GPXMapView
+        var hasImpacted = false
         //adds the pins with an animation
         for object in views {
             i += 1
@@ -157,6 +158,10 @@ class MapViewDelegate: NSObject, MKMapViewDelegate, UIAlertViewDelegate {
                                 UIView.animate(withDuration: 0.1, animations: { () -> Void in
                                     annotationView.transform = CGAffineTransform.identity
                                 })
+                                if #available(iOS 10.0, *), !hasImpacted {
+                                    hasImpacted = true
+                                    UIImpactFeedbackGenerator(style: i > 2 ? .heavy : .medium).impactOccurred()
+                                }
                         })
                     }
             })
