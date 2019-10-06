@@ -822,19 +822,20 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
     /// Presents alert when file received from Apple Watch
     ///
     @objc func presentReceivedFile(_ notification: Notification) {
-        
-        guard let fileName = notification.userInfo?["fileName"] as? String? else { return }
-        // alert to display to notify user that file has been received.
-        let alertTitle = NSLocalizedString("WATCH_FILE_RECEIVED_TITLE", comment: "no comment")
-        let alertMessage = NSLocalizedString("WATCH_FILE_RECEIVED_MESSAGE", comment: "no comment")
-        let controller = UIAlertController(title: alertTitle, message: String(format: alertMessage, fileName ?? ""), preferredStyle: .alert)
-        let action = UIAlertAction(title: NSLocalizedString("DONE", comment: "no comment"), style: .default) {
-            (action) in
-            print("ViewController:: Presented file received message from WatchConnectivity Session")
+        DispatchQueue.main.async {
+            guard let fileName = notification.userInfo?["fileName"] as? String? else { return }
+            // alert to display to notify user that file has been received.
+            let alertTitle = NSLocalizedString("WATCH_FILE_RECEIVED_TITLE", comment: "no comment")
+            let alertMessage = NSLocalizedString("WATCH_FILE_RECEIVED_MESSAGE", comment: "no comment")
+            let controller = UIAlertController(title: alertTitle, message: String(format: alertMessage, fileName ?? ""), preferredStyle: .alert)
+            let action = UIAlertAction(title: NSLocalizedString("DONE", comment: "no comment"), style: .default) {
+                (action) in
+                print("ViewController:: Presented file received message from WatchConnectivity Session")
+            }
+            
+            controller.addAction(action)
+            self.present(controller, animated: true, completion: nil)
         }
-        
-        controller.addAction(action)
-        self.present(controller, animated: true, completion: nil)
     }
     
     /// returns a string with the format of current date dd-MMM-yyyy-HHmm' (20-Jun-2018-1133)
