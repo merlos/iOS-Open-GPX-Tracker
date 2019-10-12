@@ -179,7 +179,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
                 lastGpxFilename = "" //clear last filename, so when saving it appears an empty field
 
                 map.coreDataHelper.clearAll()
-                map.coreDataHelper.deleteLastFileNameFromCoreData()
+                map.coreDataHelper.deleteCDRootFromCoreData()
                 
                 totalTrackedDistanceLabel.distance = (map.session.totalTrackedDistance)
                 currentSegmentDistanceLabel.distance = (map.session.currentSegmentDistance)
@@ -795,7 +795,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
 
         lastGpxFilename = fileName
         // adds last file name to core data as well
-        self.map.coreDataHelper.add(toCoreData: fileName)
+        self.map.coreDataHelper.add(toCoreData: fileName, willContinueAfterSave: false)
         //force reset timer just in case reset does not do it
         self.stopWatch.reset()
         //load data
@@ -1065,8 +1065,9 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
             let gpxString = self.map.exportToGPXString()
             GPXFileManager.save(filename!, gpxContents: gpxString)
             self.lastGpxFilename = filename!
-            self.map.coreDataHelper.deleteLastFileNameFromCoreData()
-            self.map.coreDataHelper.add(toCoreData: filename!)
+            self.map.coreDataHelper.deleteCDRootFromCoreData()
+            self.map.coreDataHelper.clearAll()
+            self.map.coreDataHelper.add(toCoreData: filename!, willContinueAfterSave: true)
         }
         let cancelAction = UIAlertAction(title: NSLocalizedString("CANCEL", comment: "no comment"), style: .cancel) { (action) in }
         
@@ -1230,7 +1231,7 @@ extension ViewController: GPXFilesTableViewControllerDelegate {
         //println("Loaded GPX file", gpx.gpx())
         lastGpxFilename = gpxFilename
         // adds last file name to core data as well
-        self.map.coreDataHelper.add(toCoreData: gpxFilename)
+        self.map.coreDataHelper.add(toCoreData: gpxFilename, willContinueAfterSave: false)
         //force reset timer just in case reset does not do it
         self.stopWatch.reset()
         //load data

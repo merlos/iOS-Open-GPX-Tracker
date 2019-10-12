@@ -28,6 +28,9 @@ class CoreDataHelper {
     /// id to seperate trackpoints in different tracksegements
     var tracksegmentId = Int64()
     
+    var isContinued = false
+    var lastTracksegmentId = Int64()
+    
     // MARK:- Other Declarations
     
     /// app delegate.
@@ -54,7 +57,7 @@ class CoreDataHelper {
     /// - Parameters:
     ///     - lastFileName: Last file name of the previously logged GPX file.
     ///
-    func add(toCoreData lastFileName: String) {
+    func add(toCoreData lastFileName: String, willContinueAfterSave willContinue: Bool) {
 
         let childManagedObjectContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
         // Creates the link between child and parent
@@ -64,6 +67,8 @@ class CoreDataHelper {
             let root = NSEntityDescription.insertNewObject(forEntityName: "CDRoot", into: childManagedObjectContext) as! CDRoot
             
             root.lastFileName = lastFileName
+            root.continuedAfterSave = willContinue
+            root.lastTrackSegmentId = self.tracksegmentId
             
             do {
                 try childManagedObjectContext.save()
@@ -292,6 +297,8 @@ class CoreDataHelper {
                 guard let objectID = rootResults.last?.objectID else { self.lastFileName = ""; return }
                 guard let safePoint = self.appDelegate.managedObjectContext.object(with: objectID) as? CDRoot else { self.lastFileName = ""; return }
                 self.lastFileName = safePoint.lastFileName ?? ""
+                self.lastTracksegmentId = safePoint.lastTrackSegmentId
+                self.isContinued = safePoint.continuedAfterSave
             }
         }
         
@@ -385,9 +392,9 @@ class CoreDataHelper {
     
     /// Deletes all CDRoot entity objects from Core Data.
     ///
-    /// CDRoot currently only holds the previous filename, thus,
-    /// deleting all entities would ensure that Core Data will no longer hold any filenames.
-    func deleteLastFileNameFromCoreData() {
+    /// CDRoot holds information needed for core data functionalities other than data storage of trackpoints or waypoints, etc.
+    ///
+    func deleteCDRootFromCoreData() {
         let privateManagedObjectContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
         privateManagedObjectContext.parent = appDelegate.managedObjectContext
         // Creates a fetch request
@@ -584,9 +591,15 @@ class CoreDataHelper {
                     root = GPXRoot(creator: kGPXCreatorString)
                 }
                 // generates a GPXRoot from recovered data
-                
-                track.tracksegments = self.tracksegments
-                root.add(track: track)
+                if self.isContinued && self.tracksegments.count >= (self.lastTracksegmentId + 1) {
+                    // if gpx is saved, but further trkpts are added after save, and crashed, trkpt are appended, not adding to new trkseg.
+                    root.tracks.last?.tracksegments[Int(self.lastTracksegmentId)].add(trackpoints: self.tracksegments.first!.trackpoints)
+                        self.tracksegments.remove(at: 0)
+                }
+                else {
+                    track.tracksegments = self.tracksegments
+                    root.add(track: track)
+                }
                 root.waypoints = [GPXWaypoint]()
                 root.add(waypoints: self.waypoints)
                 // asks user on what to do with recovered data
@@ -648,7 +661,7 @@ class CoreDataHelper {
         
         // clear aft save.
         self.clearAll()
-        self.deleteLastFileNameFromCoreData()
+        self.deleteCDRootFromCoreData()
     }
     
     // MARK:- Reset & Clear
@@ -658,9 +671,10 @@ class CoreDataHelper {
     /// the Id is to ensure that when retrieving the entities, the order remains.
     /// This is important to ensure that the resulting recovery file has the correct order.
     func resetIds() {
-        self.trackpointId = Int64()
-        self.waypointId = Int64()
-        self.tracksegmentId = Int64()
+        self.trackpointId = 0
+        self.waypointId = 0
+        self.tracksegmentId = 0
+        
     }
     
     /// Clear all arrays and current segment after recovery.
