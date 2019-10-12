@@ -392,8 +392,8 @@ class CoreDataHelper {
     
     /// Deletes all CDRoot entity objects from Core Data.
     ///
-    /// CDRoot currently only holds the previous filename, thus,
-    /// deleting all entities would ensure that Core Data will no longer hold any filenames.
+    /// CDRoot holds information needed for core data functionalities other than data storage of trackpoints or waypoints, etc.
+    ///
     func deleteCDRootFromCoreData() {
         let privateManagedObjectContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
         privateManagedObjectContext.parent = appDelegate.managedObjectContext
