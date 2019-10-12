@@ -78,7 +78,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         print("load gpx File: \(url.absoluteString)")
         let fileManager = FileManager.default
         do {
-            try fileManager.moveItem(at: url, to: GPXFileManager.GPXFilesFolderURL.appendingPathComponent(url.lastPathComponent))
+            _ = url.startAccessingSecurityScopedResource()
+            try fileManager.copyItem(at: url, to: GPXFileManager.GPXFilesFolderURL.appendingPathComponent(url.lastPathComponent))
+            url.stopAccessingSecurityScopedResource()
         }
         catch let error as NSError {
             print("Ooops! Something went wrong: \(error)")
