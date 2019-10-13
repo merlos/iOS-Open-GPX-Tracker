@@ -19,7 +19,7 @@ You can use Open GPX tracker for:
  - Publishing Open Street Map Traces.
  - Creating real GPX files for testing your iOS apps in Xcode.
 
-# Main Features
+## Main Features
 
  - Displays tracking route in a map
  - Supports Apple Map Kit, [Open Street Map](http://wiki.openstreetmap.org/wiki/Tile_usage_policy) and [Carto DB](http://www.cartodb.com) as map sources
@@ -34,7 +34,7 @@ You can use Open GPX tracker for:
  - Displays current location and altitude
  - Displays tracked time
  - Displays user heading (device orientation) 
- - Displays location accuracy (in meters) 
+ - Displays location accuracy 
  - Displays tracked distance (total and current segment)
  - GPX files can be imported from any other app using the share option
  - Share GPX files with other apps
@@ -43,8 +43,10 @@ You can use Open GPX tracker for:
     - Offline cache On/Off
     - Clear cache
     - Select the map server.
+  - Darkmode
+  - i18n support: English, German, Chinese (simplified), Spanish
 
-## Apple Watch Features (since v1.6.0 )
+### Apple Watch Features (since v1.6.0)
 - Create GPX Files on your Apple Watch
 - Pause/Resume tracking
 - Save into GPX File
@@ -53,13 +55,17 @@ You can use Open GPX tracker for:
 - Display GPS Signal strength
 - View current location information (speed, latitude, longitude, altitude)
 
-# Install
+## Install
 
 The app is [available on the App Store](https://itunes.apple.com/app/open-gpx-tracker/id984503772) since May 2015.
 
 Another option to install the app is to download the source code and compile it by yourself using Xcode. If you want to run it on a device, you also need an Apple developer account.
 
-# Download Source code
+## Translate Open GPX Tracker
+Open GPX tracker supports language translations (since v1.7.0).[See list of supported languages and how to translate the app into your language](https://github.com/merlos/iOS-Open-GPX-Tracker/wiki/How-to-translate-Open-GPX-Tracker-into-my-language).
+
+
+## Download Source code
 This application is written in Swift. To download the code run this command in a console:
 
 ```
@@ -70,12 +76,12 @@ Then, to test it open the file `OpenGpxTracker.xcworkspace` with XCode.
 
 Please note the [limitations of using Open Street Maps Tile Servers](http://wiki.openstreetmap.org/wiki/Tile_usage_policy)
 
-### Adding another tile server
+### Add a tile server
 Adding a tile server is easy, just edit the file `GPXTileServer.swift`, uncomment the lines with `AnotherMap` and modify the templateUrl to point to the new tile server.
 
 You have a list of tile servers in [Open Street Map Wiki](http://wiki.openstreetmap.org/wiki/Tile_servers)
 
-# Reference documentation
+## Reference documentation
 
 The application is being documented using [jazzy](https://github.com/realm/jazzy) and following [NSHipster tutorial on swift documentation](https://nshipster.com/swift-documentation/).
 
@@ -83,14 +89,12 @@ The application is being documented using [jazzy](https://github.com/realm/jazzy
 
 [Read Source code documentation](https://www.merlos.org/iOS-Open-GPX-Tracker/docs/index.html)
 
-# Contribute
+## Contribute
 You can contribute by forking and submitting a pull request.
 
 Please note that by submitting any pull request you are providing me (Juan M. Merlos) the rights to include and distribute those changes also on the binary app published on the App Store (which is released under Apple's Standard License Agreement)
 
-License
-====================
-
+## License
 Open GPX Tracker app for iOS.  Copyright (C) 2014  Juan M. Merlos (@merlos)
 
 This program is free software: you can redistribute it and/or modify
