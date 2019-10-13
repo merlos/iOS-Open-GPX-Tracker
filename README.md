@@ -46,7 +46,7 @@ You can use Open GPX tracker for:
   - Darkmode
   - i18n support: English, German, Chinese (simplified), Spanish
 
-### Apple Watch Features (since v1.6.0)
+### Apple Watch Features (since 1.6.0)
 - Create GPX Files on your Apple Watch
 - Pause/Resume tracking
 - Save into GPX File
@@ -62,8 +62,7 @@ The app is [available on the App Store](https://itunes.apple.com/app/open-gpx-tr
 Another option to install the app is to download the source code and compile it by yourself using Xcode. If you want to run it on a device, you also need an Apple developer account.
 
 ## Translate Open GPX Tracker
-Open GPX tracker supports language translations (since v1.7.0).[See list of supported languages and how to translate the app into your language](https://github.com/merlos/iOS-Open-GPX-Tracker/wiki/How-to-translate-Open-GPX-Tracker-into-my-language).
-
+Open GPX tracker supports language translations (since 1.7.0). [See list of supported languages and how to translate the app into your language](https://github.com/merlos/iOS-Open-GPX-Tracker/wiki/How-to-translate-Open-GPX-Tracker-into-my-language).
 
 ## Download Source code
 This application is written in Swift. To download the code run this command in a console:
