@@ -274,6 +274,9 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
     /// Spinning Activity Indicator for shareButton
     let shareActivityIndicator: UIActivityIndicatorView
     
+    /// Spinning Activity Indicator's color
+    var shareActivityColor = UIColor(red: 0, green: 0.61, blue: 0.86, alpha: 1)
+    
     /// Reset map button (bottom bar)
     var resetButton: UIButton
     
@@ -282,6 +285,9 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
     
     /// Save current track into a GPX file
     var saveButton: UIButton
+    
+    /// Check if device is notched type phone
+    var isIPhoneX = false
     
     // Signal accuracy images
     /// GPS signal image. Level 0 (no signal)
@@ -339,6 +345,29 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         removeNotificationObservers()
     }
    
+    /// Handles status bar color as a result from iOS 13 appearance changes
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        if #available(iOS 13, *) {
+            if !isIPhoneX {
+                if self.traitCollection.userInterfaceStyle == .dark && map.tileServer == .apple {
+                    self.view.backgroundColor = .black
+                    return .lightContent
+                }
+                else {
+                    self.view.backgroundColor = .white
+                    return .darkContent
+                }
+            }
+            // > iPhone X has no opaque status bar
+            else {
+                // if is > iP X status bar can be white when map is dark
+                return map.tileServer == .apple ? .default : .darkContent
+            }
+        }
+        else { // < iOS 13
+            return .default
+        }
+    }
     
     ///
     /// Initializes the view. It adds the UI elements to the view.
@@ -353,7 +382,6 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         
         //Because of the edges, iPhone X* is slightly different on the layout.
         //So, Is the current device an iPhone X?
-        var isIPhoneX = false
         if UIDevice().userInterfaceIdiom == .phone {
             switch UIScreen.main.nativeBounds.height {
             case 1136:
@@ -615,6 +643,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         addConstraints(isIPhoneX)
         
         map.rotationGesture.delegate = self
+        updateAppearance()
     }
     
     /// Adds Constraints to subviews
@@ -723,6 +752,21 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         
     }
     
+    /// Will update polyline color when invoked
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        updatePolylineColor()
+    }
+    
+    /// Updates polyline color
+    func updatePolylineColor() {
+        for overlay in map.overlays {
+            if overlay is MKPolyline {
+                map.removeOverlay(overlay)
+                map.addOverlay(overlay)
+            }
+        }
+    }
+    
     ///
     /// Asks the system to notify the app on some events
     ///
@@ -748,6 +792,8 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         notificationCenter.addObserver(self, selector: #selector(presentReceivedFile(_:)), name: .didReceiveFileFromAppleWatch, object: nil)
 
         notificationCenter.addObserver(self, selector: #selector(loadRecoveredFile(_:)), name: .loadRecoveredFile, object: nil)
+        
+        notificationCenter.addObserver(self, selector: #selector(updateAppearance), name: .updateAppearance, object: nil)
     }
 
     ///
@@ -757,23 +803,39 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         NotificationCenter.default.removeObserver(self)
     }
     
+    /// To update appearance when mapView requests to do so
+    @objc func updateAppearance() {
+        if #available(iOS 13, *) {
+            setNeedsStatusBarAppearanceUpdate()
+            updatePolylineColor()
+            // activity indicator color
+            if map.traitCollection.userInterfaceStyle == .dark {
+                shareActivityColor = .white
+            }
+            else {
+                shareActivityColor = UIColor(red: 0, green: 0.61, blue: 0.86, alpha: 1)
+            }
+        }
+    }
+    
     ///
     /// Presents alert when file received from Apple Watch
     ///
     @objc func presentReceivedFile(_ notification: Notification) {
-        
-        guard let fileName = notification.userInfo?["fileName"] as? String? else { return }
-        // alert to display to notify user that file has been received.
-        let alertTitle = NSLocalizedString("WATCH_FILE_RECEIVED_TITLE", comment: "no comment")
-        let alertMessage = NSLocalizedString("WATCH_FILE_RECEIVED_MESSAGE", comment: "no comment")
-        let controller = UIAlertController(title: alertTitle, message: String(format: alertMessage, fileName ?? ""), preferredStyle: .alert)
-        let action = UIAlertAction(title: NSLocalizedString("DONE", comment: "no comment"), style: .default) {
-            (action) in
-            print("ViewController:: Presented file received message from WatchConnectivity Session")
+        DispatchQueue.main.async {
+            guard let fileName = notification.userInfo?["fileName"] as? String? else { return }
+            // alert to display to notify user that file has been received.
+            let alertTitle = NSLocalizedString("WATCH_FILE_RECEIVED_TITLE", comment: "no comment")
+            let alertMessage = NSLocalizedString("WATCH_FILE_RECEIVED_MESSAGE", comment: "no comment")
+            let controller = UIAlertController(title: alertTitle, message: String(format: alertMessage, fileName ?? ""), preferredStyle: .alert)
+            let action = UIAlertAction(title: NSLocalizedString("DONE", comment: "no comment"), style: .default) {
+                (action) in
+                print("ViewController:: Presented file received message from WatchConnectivity Session")
+            }
+            
+            controller.addAction(action)
+            self.present(controller, animated: true, completion: nil)
         }
-        
-        controller.addAction(action)
-        self.present(controller, animated: true, completion: nil)
     }
     
     /// returns a string with the format of current date dd-MMM-yyyy-HHmm' (20-Jun-2018-1133)
@@ -918,7 +980,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
     /// Displays spinning activity indicator for share button when true
     func shouldShowShareActivityIndicator(_ isTrue: Bool) {
         // setup
-        shareActivityIndicator.color = .black
+        shareActivityIndicator.color = shareActivityColor
         shareActivityIndicator.frame = CGRect(x: 0, y: 0, width: 32, height: 32)
         shareActivityIndicator.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
         
@@ -1348,4 +1410,5 @@ extension ViewController: CLLocationManagerDelegate {
 
 extension Notification.Name {
     static let loadRecoveredFile = Notification.Name("loadRecoveredFile")
+    static let updateAppearance = Notification.Name("updateAppearance")
 }

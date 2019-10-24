@@ -77,12 +77,23 @@ class GPXMapView: MKMapView {
             }
             //add new overlay to map
             if newValue != .apple {
+                // if map is third party, dark mode is disabled.
+                if #available(iOS 13, *) {
+                    overrideUserInterfaceStyle = .light
+                    NotificationCenter.default.post(name: .updateAppearance, object: nil, userInfo: nil)
+                }
                 var config = MapCacheConfig(withUrlTemplate: newValue.templateUrl)
                 config.subdomains = newValue.subdomains
                 let cache = MapCache(withConfig: config)
                 // the overlay returned substitutes Apple Maps tile overlay.
                 // we need to keep a reference to remove it, in case we return back to Apple Maps.
                 self.tileServerOverlay = useCache(cache)
+            }
+            else {
+                if #available(iOS 13, *) {
+                    overrideUserInterfaceStyle = .unspecified
+                    NotificationCenter.default.post(name: .updateAppearance, object: nil, userInfo: nil)
+                }
             }
         }
     }

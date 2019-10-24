@@ -12,10 +12,10 @@ import Foundation
  
  The route can represent the planned route of a specific trip.
  */
-open class GPXRoute: GPXElement, Codable {
+public final class GPXRoute: GPXElement, Codable {
     
     /// For Codable use
-    enum CodingKeys: String, CodingKey {
+    private enum CodingKeys: String, CodingKey {
         case name
         case comment = "cmt"
         case desc
@@ -61,19 +61,24 @@ open class GPXRoute: GPXElement, Codable {
         super.init()
     }
     
-    /// Internal initializer. For parsing use only.
-    init(dictionary: inout [String : String]) {
-        super.init()
-        dictionary.removeValue(forKey: self.tagName())
-        self.name = dictionary.removeValue(forKey: "name")
-        self.comment = dictionary.removeValue(forKey: "cmt")
-        self.desc = dictionary.removeValue(forKey: "desc")
-        self.source = dictionary.removeValue(forKey: "src")
-        self.type = dictionary.removeValue(forKey: "type")
-        self.number = Convert.toInt(from: dictionary.removeValue(forKey: "number"))
-        
-        if dictionary.count > 0 {
-            self.extensions = GPXExtensions(dictionary: dictionary)
+    /// Inits native element from raw parser value
+    ///
+    /// - Parameters:
+    ///     - raw: Raw element expected from parser
+    init(raw: GPXRawElement) {
+        for child in raw.children {
+            switch child.name {
+            case "link":        self.link = GPXLink()
+            case "rtept":       self.routepoints = [GPXRoutePoint]()
+            case "name":        self.name = child.text
+            case "cmt":         self.comment = child.text
+            case "desc":        self.desc = child.text
+            case "src":         self.source = child.text
+            case "type":        self.type = child.text
+            case "number":      self.number = Convert.toInt(from: child.text)
+            case "extensions":  self.extensions = GPXExtensions(raw: child)
+            default: continue
+            }
         }
     }
     
@@ -115,7 +120,6 @@ open class GPXRoute: GPXElement, Codable {
     func remove(routepoint: GPXRoutePoint) {
         let contains = routepoints.contains(routepoint)
         if contains == true {
-            routepoint.parent = nil
             if let index = routepoints.firstIndex(of: routepoint) {
                 routepoints.remove(at: index)
             }

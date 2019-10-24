@@ -14,10 +14,10 @@ import Foundation
  
  Tracks are meant to show the start and finish of a journey, through the track segments that it holds.
  */
-open class GPXTrack: GPXElement, Codable {
+public final class GPXTrack: GPXElement, Codable {
     
     /// for Codable
-    enum CodingKeys: String, CodingKey {
+    private enum CodingKeys: String, CodingKey {
         case link
         case tracksegments = "trkseg"
         case name
@@ -61,19 +61,23 @@ open class GPXTrack: GPXElement, Codable {
         super.init()
     }
     
-    /// Internal Initializer, for parsing use only.
-    init(dictionary: inout [String : String]) {
-        super.init()
-        dictionary.removeValue(forKey: self.tagName())
-        self.number = Convert.toInt(from: dictionary.removeValue(forKey: "number"))
-        self.name = dictionary.removeValue(forKey: "name")
-        self.comment = dictionary.removeValue(forKey: "cmt")
-        self.desc = dictionary.removeValue(forKey: "desc")
-        self.source = dictionary.removeValue(forKey: "src")
-        self.type = dictionary.removeValue(forKey: "type")
-        
-        if dictionary.count > 0 {
-            self.extensions = GPXExtensions(dictionary: dictionary)
+    /// Inits native element from raw parser value
+    ///
+    /// - Parameters:
+    ///     - raw: Raw element expected from parser
+    init(raw: GPXRawElement) {
+        for child in raw.children {
+            switch child.name {
+            case "link":        self.link = GPXLink(raw: child)
+            case "trkseg":      self.tracksegments.append(GPXTrackSegment(raw: child))
+            case "name":        self.name = child.text
+            case "cmt":         self.comment = child.text
+            case "desc":        self.desc = child.text
+            case "src":         self.source = child.text
+            case "type":        self.type = child.text
+            case "extensions":  self.extensions = GPXExtensions(raw: child)
+            default: continue
+            }
         }
     }
     
@@ -82,7 +86,7 @@ open class GPXTrack: GPXElement, Codable {
     /// Initialize a new `GPXLink` to the track.
     ///
     /// Method not recommended for use. Please initialize `GPXLink` manually and adding it to the track instead.
-    open func newLink(withHref href: String) -> GPXLink {
+    public func newLink(withHref href: String) -> GPXLink {
         let link = GPXLink(withHref: href)
         return link
     }
@@ -90,31 +94,29 @@ open class GPXTrack: GPXElement, Codable {
     /// Initialize a new `GPXTrackSegement` to the track.
     ///
     /// Method not recommended for use. Please initialize `GPXTrackSegment` manually and adding it to the track instead.
-    open func newTrackSegment() -> GPXTrackSegment {
+    public func newTrackSegment() -> GPXTrackSegment {
         let tracksegment = GPXTrackSegment()
         self.add(trackSegment: tracksegment)
         return tracksegment
     }
     
     /// Adds a single track segment to the track.
-    open func add(trackSegment: GPXTrackSegment?) {
+    public func add(trackSegment: GPXTrackSegment?) {
         if let validTrackSegment = trackSegment {
-            validTrackSegment.parent = self
             tracksegments.append(validTrackSegment)
         }
     }
     
     /// Adds an array of track segments to the track.
-    open func add(trackSegments: [GPXTrackSegment]) {
+    public func add(trackSegments: [GPXTrackSegment]) {
         self.tracksegments.append(contentsOf: trackSegments)
     }
     
     /// Removes a tracksegment from the track.
-    open func remove(trackSegment: GPXTrackSegment) {
+    public func remove(trackSegment: GPXTrackSegment) {
         let contains = tracksegments.contains(trackSegment)
         
         if contains == true {
-            trackSegment.parent = nil
             if let index = tracksegments.firstIndex(of: trackSegment) {
                 tracksegments.remove(at: index)
             }
@@ -122,7 +124,7 @@ open class GPXTrack: GPXElement, Codable {
     }
     
     /// Initializes a new track point in track, then returns the new track point.
-    open func newTrackPointWith(latitude: Double, longitude: Double) -> GPXTrackPoint {
+    public func newTrackPointWith(latitude: Double, longitude: Double) -> GPXTrackPoint {
         var tracksegment: GPXTrackSegment
         
         if let lastTracksegment = tracksegments.last {

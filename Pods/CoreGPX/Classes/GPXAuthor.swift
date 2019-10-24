@@ -8,19 +8,26 @@
 import Foundation
 
 /// Author type, holds information of the creator of the GPX file. A subclass of `GPXPerson`.
-open class GPXAuthor: GPXPerson {
+public final class GPXAuthor: GPXPerson {
+    
+    // MARK:- Initializers
     
     /// Default Initializer
     public required init() {
         super.init()
     }
     
-    /// Internal use only. For parsing use.
-    override init(dictionary: [String : String]) {
-        super.init(dictionary: dictionary)
+    /// Inits native element from raw parser value
+    override init(raw: GPXRawElement) {
+        super.init(raw: raw)
     }
     
-    // MARK: Tag
+    /// Decoder handling (from superclass)
+    required public init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
+    }
+    
+    // MARK:- Tag
     
     override func tagName() -> String {
         return "author"

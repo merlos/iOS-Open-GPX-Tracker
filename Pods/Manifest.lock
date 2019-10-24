@@ -1,5 +1,5 @@
 PODS:
-  - CoreGPX (0.6.5)
+  - CoreGPX (0.7.1)
   - MapCache (0.5.3)
 
 DEPENDENCIES:
@@ -16,11 +16,11 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   CoreGPX:
-    :commit: 4dbc033a2008282f21f446304868bb3f299abaa7
+    :commit: b2538e52f67bb9f7ef00ea169a33a93abc174df4
     :git: https://github.com/VincentNeo/CoreGPX.git
 
 SPEC CHECKSUMS:
-  CoreGPX: ba7807800b30ac05cd357f4d20d82c13451940d5
+  CoreGPX: a25d38752ebe5e5dc0ecb83c2dfc096caae3aee5
   MapCache: 9d1ee8fbfa3b115ff00096792b575d85a5f862c5
 
 PODFILE CHECKSUM: 667e05785b0101bb71c48243409d9a9d922cbb99

@@ -6,8 +6,8 @@
     },
     {
       "idiom" : "universal",
-      "scale" : "2x",
-      "filename" : "folder_high@2x.png"
+      "filename" : "folder_high@2x.png",
+      "scale" : "2x"
     },
     {
       "idiom" : "universal",

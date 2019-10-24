@@ -10,7 +10,7 @@ import Foundation
 /// Provides conversions, when required.
 ///
 /// Meant for internal conversions use only. 
-internal class Convert {
+internal final class Convert {
     
     // MARK:- Number conversion
     
@@ -52,6 +52,7 @@ internal class Convert {
         
         // Timezone should be 0 as GPX uses UTC time, not local time.
         formatter.timeZone = TimeZone(secondsFromGMT: 0)
+        formatter.locale = Locale(identifier: "en_US_POSIX")
         
         // dateTime（YYYY-MM-DDThh:mm:ssZ）
         formatter.dateFormat = "yyyy'-'MM'-'dd'T'HH':'mm':'ss'Z'"

@@ -12,7 +12,7 @@ import Foundation
  
  `ptType` of GPX schema. Not supported in GPXRoot, nor GPXParser's parsing.
  */
-open class GPXPoint: GPXElement {
+open class GPXPoint: GPXElement, Codable {
 
     /// Elevation Value in (metre, m)
     public var elevation: Double?
@@ -35,13 +35,21 @@ open class GPXPoint: GPXElement {
         self.latitude = latitude
         self.longitude = longitude
     }
-    /// Internal initializer, for parsing only.
-    init(dictionary: [String : String]) {
-        super.init()
-        self.latitude = Convert.toDouble(from: dictionary["lat"])
-        self.longitude = Convert.toDouble(from: dictionary["lon"])
-        self.elevation = Convert.toDouble(from: dictionary["ele"])
-        self.time = GPXDateParser.parse(date: dictionary["time"])
+    
+    /// Inits native element from raw parser value
+    ///
+    /// - Parameters:
+    ///     - raw: Raw element expected from parser
+    init(raw: GPXRawElement) {
+        self.latitude = Convert.toDouble(from: raw.attributes["lat"])
+        self.longitude = Convert.toDouble(from: raw.attributes["lon"])
+        for child in raw.children {
+            switch child.name {
+            case "ele": self.elevation = Convert.toDouble(from: child.text)
+            case "time": self.time = GPXDateParser.parse(date: child.text)
+            default: continue
+            }
+        }
     }
     
     // MARK:- Tag

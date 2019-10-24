@@ -18,8 +18,6 @@ import Foundation
  */
 open class GPXElement: NSObject {
     
-    var parent: GPXElement?
-
     // MARK:- Tag
     
     /// Tag name of the element.
@@ -31,6 +29,7 @@ open class GPXElement: NSObject {
     
     // MARK:- Instance
   
+    /// Default Initializer
     public required override init() {
         super.init()
     }
