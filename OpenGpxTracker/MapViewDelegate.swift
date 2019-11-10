@@ -46,14 +46,14 @@ class MapViewDelegate: NSObject, MKMapViewDelegate, UIAlertViewDelegate {
         if overlay is MKPolyline {
             let pr = MKPolylineRenderer(overlay: overlay)
             
-            pr.alpha = 0.5
+            pr.alpha = 0.8
             pr.strokeColor = UIColor.blue
             
             if #available(iOS 13, *) {
                 pr.shouldRasterize = true
                 if mapView.traitCollection.userInterfaceStyle == .dark {
-                    pr.alpha = 0.2
-                    pr.strokeColor = UIColor.white
+                    pr.alpha = 0.5
+                    pr.strokeColor = UIColor.yellow
                 }
             }
             
