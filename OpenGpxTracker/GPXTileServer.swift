@@ -48,7 +48,8 @@ enum GPXTileServer: Int {
         switch self {
         case .apple: return ""
         case .openStreetMap: return "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        case .cartoDB: return "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png"
+       // case .cartoDB: return "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png"
+        case .cartoDB: return "https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}.png"
         case .openTopoMap: return "https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png"
         //case .AnotherMap: return "http://another.map.tile.server/{z}/{x}/{y}.png"
         }
@@ -68,6 +69,24 @@ enum GPXTileServer: Int {
         case .cartoDB: return ["a","b","c"]
         case .openTopoMap: return ["a","b","c"]
         //case .AnotherMap: return ["a","b"]
+        }
+    }
+    /// Maximum zoom level the tile server supports
+    /// Tile servers render till a certain level of zoom that ranges from 0 to maximumZ.
+    ///
+    ///  Typically the value is around 19,20 or 21.
+    ///
+    ///  Use negative to avoid setting a limit.
+    ///
+    /// - see https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames#Tile_servers
+    ///
+    var maximumZ: Int {
+        switch self {
+            case .apple: return -1
+            case .openStreetMap: return 19
+            case .cartoDB: return 21
+            case .openTopoMap: return 19
+            //case .AnotherMap: return ["a","b"]
         }
     }
     /// Returns the number of tile servers currently defined
