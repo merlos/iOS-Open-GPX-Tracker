@@ -191,7 +191,7 @@ class MapViewDelegate: NSObject, MKMapViewDelegate, UIAlertViewDelegate {
         guard let map = mapView as? GPXMapView else {
             return
         }
-        print("MapView: User interaction has ended zoomLevel: \(map.zoomLevel) \(map.zoomLevel2)")
+        print("MapView: User interaction has ended")
         
         map.updateHeading()
         
