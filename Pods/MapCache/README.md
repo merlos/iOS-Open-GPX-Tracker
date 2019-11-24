@@ -1,37 +1,37 @@
 # MapCache Swift
 
-<p><div style="text-align:center"><img src="./images/MapCache.png"></div>
+<p><div style="text-align:center"><img src="https://github.com/merlos/MapCache/raw/master/images/MapCache.png"></div>
 </p>
 
 [![CI Status](https://travis-ci.com/merlos/MapCache.svg?branch=master)](https://travis-ci.org/merlos/MapCache)
 [![Version](https://img.shields.io/cocoapods/v/MapCache.svg?style=flat)](https://cocoapods.org/pods/MapCache)
 [![License](https://img.shields.io/cocoapods/l/MapCache.svg?style=flat)](https://cocoapods.org/pods/MapCache)
 [![Platform](https://img.shields.io/cocoapods/p/MapCache.svg?style=flat)](https://cocoapods.org/pods/MapCache)
+[![Documentation](https://www.merlos.org/MapCache/badge.svg)](http://merlos.org/MapCache)
 
 The missing part of [MapKit](https://developer.apple.com/documentation/mapkit): A simple way to cache [map tiles](https://en.wikipedia.org/wiki/Tiled_web_map) and support offline browsing of maps.
 
 Current features: 
 * Automatically save tiles in a disk cache as user browses the map.
-* You can to set cache capacity. Once the cache is full it will use a LRU (Least recently Used) algorithm.
+* You can to set cache capacity. Once the cache is full it will use a LRU (Least Recently Used) algorithm.
 * Get Current cache size
 * Clear existing cache
-
+* Download a full region of the map
+ 
 What is coming:
- * Download a full region of the map. 
  * Smart predownloading/caching: anticipate tiles that may be needed during network idle
  * Background cache updates downloads
  * Improve documentation
 
 ## Installation
-
 MapCache is available through [CocoaPods](https://cocoapods.org). To install
-it, simply add the following line to your Podfile:
+it, simply add the following line to your `Podfile`:
 
 ```ruby
 pod 'MapCache'
 ```
-## How to use the MapCache?
 
+## How to use the MapCache?
 In the view controller where you have the `MKMapView` import `MapCache`
 
 ```swift
@@ -41,7 +41,6 @@ import MapCache
 Then within the ViewController add
 
 ```swift
-
 // ViewController.swift
 class ViewController: UIViewController {
   @IBOutlet weak var map: MKMapView!
@@ -62,7 +61,7 @@ class ViewController: UIViewController {
     mapCache = MapCache(withConfig: config)
 
     // We tell the MKMapView to use our cache
-    map.useCache(mapCache!)
+    _ = map.useCache(mapCache!)
 
     ...
 }
@@ -124,6 +123,15 @@ config.subdomains = ["a", "b"]
 // Cache Name is basically is the subfolder name in which the tiles are store.
 // Default value is "MapCache"
 config.cacheName = "Carto" 
+
+
+// Max zoom supported by the tile server
+// Default value is 19
+config.maximumZ = 21
+
+// Minimum zoom can also be set.
+// config.minimumZ = 0 
+
 
 
 // Capacity of the cache in bytes. Once the cache is full it uses a LRU algorithm 

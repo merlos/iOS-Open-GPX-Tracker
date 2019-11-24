@@ -153,7 +153,8 @@ class PreferencesTableViewController: UITableViewController, UINavigationBarDele
             case kUseOfflineCacheCell:
                 cell = UITableViewCell(style: .subtitle, reuseIdentifier: "CacheCell")
                 cell.textLabel?.text = NSLocalizedString("OFFLINE_CACHE", comment: "no comment")
-                cell.detailTextLabel?.text = Int(cache.size).asFileSize()
+                let fileSize = cache.diskCache.fileSize ?? 0
+                cell.detailTextLabel?.text = Int(fileSize).asFileSize()
                 if preferences.useCache {
                     cell.accessoryType = .checkmark
                 }
