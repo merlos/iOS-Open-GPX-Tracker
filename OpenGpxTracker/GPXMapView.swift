@@ -33,6 +33,7 @@ import MapCache
 /// If the user opens the file in a session for the second, then tracks some seg ments and saves
 /// the file again, the resulting gpx file will have two tracks.
 ///
+
 class GPXMapView: MKMapView {
     
     /// Current session of GPX location logging. Handles all background tasks and recording.
@@ -63,37 +64,49 @@ class GPXMapView: MKMapView {
     /// initialized on MapViewDelegate
     var headingImageView: UIImageView?
     
-    
     /// Selected tile server.
     /// - SeeAlso: GPXTileServer
     var tileServer: GPXTileServer = .apple {
         willSet {
             print("Setting map tiles overlay to: \(newValue.name)" )
-            
             // remove current overlay
             if self.tileServer != .apple {
                 //to see apple maps we need to remove the overlay added by map cache.
                 self.removeOverlay(self.tileServerOverlay)
             }
-            //add new overlay to map
-            if newValue != .apple {
+            
+            /// Min distance to the floor of the camera
+            if #available(iOS 13, *) {
+             self.setCameraZoomRange(MKMapView.CameraZoomRange(minCenterCoordinateDistance: newValue.minCameraDistance, maxCenterCoordinateDistance: -1), animated: true)
+            }
+            
+            //add new overlay to map if not using Apple Maps
+            if newValue == .apple {
+                if #available(iOS 13, *) {
+                    overrideUserInterfaceStyle = .unspecified
+                    NotificationCenter.default.post(name: .updateAppearance, object: nil, userInfo: nil)
+                }
+                
+            } else {
                 // if map is third party, dark mode is disabled.
                 if #available(iOS 13, *) {
                     overrideUserInterfaceStyle = .light
                     NotificationCenter.default.post(name: .updateAppearance, object: nil, userInfo: nil)
                 }
+                //Update cacheConfig
                 var config = MapCacheConfig(withUrlTemplate: newValue.templateUrl)
                 config.subdomains = newValue.subdomains
+                
+                if newValue.maximumZ > 0 {
+                    config.maximumZ = newValue.maximumZ
+                }
+                if newValue.minimumZ > 0  {
+                    config.minimumZ = newValue.minimumZ
+                }
                 let cache = MapCache(withConfig: config)
                 // the overlay returned substitutes Apple Maps tile overlay.
                 // we need to keep a reference to remove it, in case we return back to Apple Maps.
                 self.tileServerOverlay = useCache(cache)
-            }
-            else {
-                if #available(iOS 13, *) {
-                    overrideUserInterfaceStyle = .unspecified
-                    NotificationCenter.default.post(name: .updateAppearance, object: nil, userInfo: nil)
-                }
             }
         }
     }

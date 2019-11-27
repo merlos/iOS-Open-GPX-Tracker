@@ -194,6 +194,8 @@ class MapViewDelegate: NSObject, MKMapViewDelegate, UIAlertViewDelegate {
         print("MapView: User interaction has ended")
         
         map.updateHeading()
+        
+        //Is 
     }
     
 }

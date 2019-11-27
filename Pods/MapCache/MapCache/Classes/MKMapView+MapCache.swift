@@ -18,6 +18,14 @@ extension MKMapView {
         
         let tileServerOverlay = CachedTileOverlay(withCache: cache)
         tileServerOverlay.canReplaceMapContent = true
+        
+        if cache.config.maximumZ > 0 {
+            tileServerOverlay.maximumZ = cache.config.maximumZ
+        }
+        
+        if cache.config.minimumZ > 0 {
+            tileServerOverlay.minimumZ = cache.config.minimumZ
+        }
         self.insertOverlay(tileServerOverlay, at: 0, level: .aboveLabels)
         return tileServerOverlay
     }

@@ -26,7 +26,7 @@ public class MapCache : MapCacheProtocol {
         var urlString = config.urlTemplate.replacingOccurrences(of: "{z}", with: String(path.z))
         urlString = urlString.replacingOccurrences(of: "{x}", with: String(path.x))
         urlString = urlString.replacingOccurrences(of: "{y}", with: String(path.y))
-        urlString = urlString.replacingOccurrences(of: "{s}", with: config.randomSubdomain() ?? "")
+        urlString = urlString.replacingOccurrences(of: "{s}", with: config.roundRobinSubdomain() ?? "")
         print("MapCache::url() urlString: \(urlString)")
         return URL(string: urlString)!
     }
@@ -71,14 +71,14 @@ public class MapCache : MapCacheProtocol {
         task.resume()
     }
     
-    public var size: UInt64 {
+    public var diskSize: UInt64 {
         get  {
-            return diskCache.size
+            return diskCache.diskSize
         }
     }
     
-    public func calculateSize() -> UInt64 {
-        return diskCache.calculateSize()
+    public func calculateDiskSize() -> UInt64 {
+        return diskCache.calculateDiskSize()
     }
     
     public func clear(completition: (() -> ())? ) {
