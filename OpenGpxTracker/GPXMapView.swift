@@ -69,6 +69,7 @@ class GPXMapView: MKMapView {
     var tileServer: GPXTileServer = .apple {
         willSet {
             print("Setting map tiles overlay to: \(newValue.name)" )
+            updateMapInformation(newValue)
             // remove current overlay
             if self.tileServer != .apple {
                 //to see apple maps we need to remove the overlay added by map cache.
@@ -153,6 +154,19 @@ class GPXMapView: MKMapView {
             if compassRect.origin.x != 0 {
                 compassView.frame = compassRect
             }
+        }
+        
+        updateMapInformation(tileServer)
+    }
+    
+    /// hides apple maps stuff when map tile != apple.
+    func updateMapInformation(_ tileServer: GPXTileServer) {
+        if let mapLogo = self.subviews.filter({ $0.isKind(of:NSClassFromString("MKAppleLogoImageView")!) }).first {
+            mapLogo.isHidden = (tileServer != .apple)
+        }
+        
+        if let mapText = self.subviews.filter({ $0.isKind(of:NSClassFromString("MKAttributionLabel")!) }).first {
+            mapText.isHidden = (tileServer != .apple)
         }
     }
     
