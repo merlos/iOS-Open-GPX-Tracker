@@ -141,7 +141,12 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
             let gpxFileInfo = fileList.object(at: (indexPath as NSIndexPath).row) as! GPXFileInfo
             cell.textLabel?.text = gpxFileInfo.fileName
             cell.detailTextLabel?.text = String(format: NSLocalizedString("LAST_SAVED", comment: "no comment"), gpxFileInfo.modifiedDatetimeAgo, gpxFileInfo.fileSizeHumanised)
-            cell.detailTextLabel?.textColor = UIColor.darkGray
+            if #available(iOS 13, *), traitCollection.userInterfaceStyle == .dark {
+                cell.detailTextLabel?.textColor = UIColor.lightText
+            }
+            else {
+                cell.detailTextLabel?.textColor = UIColor.darkGray
+            }
             return cell
         } else {
             let cell: UITableViewCell = UITableViewCell(style: UITableViewCell.CellStyle.subtitle, reuseIdentifier: "Cell")
