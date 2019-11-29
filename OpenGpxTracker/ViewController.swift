@@ -644,6 +644,10 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         
         map.rotationGesture.delegate = self
         updateAppearance()
+        
+        if #available(iOS 13, *) {
+            shareActivityColor = .mainUIColor
+        }
     }
     
     /// Adds Constraints to subviews
@@ -808,13 +812,6 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         if #available(iOS 13, *) {
             setNeedsStatusBarAppearanceUpdate()
             updatePolylineColor()
-            // activity indicator color
-            if map.traitCollection.userInterfaceStyle == .dark {
-                shareActivityColor = .white
-            }
-            else {
-                shareActivityColor = UIColor(red: 0, green: 0.61, blue: 0.86, alpha: 1)
-            }
         }
     }
     
