@@ -161,11 +161,13 @@ class GPXMapView: MKMapView {
     
     /// hides apple maps stuff when map tile != apple.
     func updateMapInformation(_ tileServer: GPXTileServer) {
-        if let mapLogo = self.subviews.filter({ $0.isKind(of:NSClassFromString("MKAppleLogoImageView")!) }).first {
+        if let logoClass = NSClassFromString("MKAppleLogoImageView"),
+           let mapLogo = self.subviews.filter({ $0.isKind(of: logoClass) }).first {
             mapLogo.isHidden = (tileServer != .apple)
         }
         
-        if let mapText = self.subviews.filter({ $0.isKind(of:NSClassFromString("MKAttributionLabel")!) }).first {
+        if let textClass = NSClassFromString("MKAttributionLabel"),
+           let mapText = self.subviews.filter({ $0.isKind(of: textClass) }).first {
             mapText.isHidden = (tileServer != .apple)
         }
     }
