@@ -76,16 +76,16 @@ public final class GPXBounds: GPXElement, Codable {
         let attribute = NSMutableString()
         
         if let minLatitude = minLatitude {
-            attribute.appendFormat(" minlat=\"%f\"", minLatitude)
+            attribute.append(" minlat=\"\(minLatitude)\"")
         }
         if let minLongitude = minLongitude {
-            attribute.appendFormat(" minlon=\"%f\"", minLongitude)
+            attribute.append(" minlon=\"\(minLongitude)\"")
         }
         if let maxLatitude = maxLatitude {
-            attribute.appendFormat(" maxlat=\"%f\"", maxLatitude)
+            attribute.append(" maxlat=\"\(maxLatitude)\"")
         }
         if let maxLongitude = maxLongitude {
-            attribute.appendFormat(" maxlon=\"%f\"", maxLongitude)
+            attribute.append(" maxlon=\"\(maxLongitude)\"")
         }
         gpx.appendOpenTag(indentation: indent(forIndentationLevel: indentationLevel), tag: tagName(), attribute: attribute)
     }

@@ -57,25 +57,33 @@ open class GPXExtensionsElement: GPXElement, Codable {
     
     override func addOpenTag(toGPX gpx: NSMutableString, indentationLevel: Int) {
         let attribute = NSMutableString()
-        for (key, value) in attributes {
-            attribute.appendFormat(" %@=\"%@\"", key, value)
+        if !attributes.isEmpty {
+            for (key, value) in attributes {
+                attribute.appendFormat(" %@=\"%@\"", key, value)
+            }
+            gpx.appendOpenTag(indentation: indent(forIndentationLevel: indentationLevel), tag: tagName(), attribute: attribute)
         }
-        gpx.appendOpenTag(indentation: indent(forIndentationLevel: indentationLevel), tag: tagName(), attribute: attribute)
+        else if let text = text {
+            self.addProperty(forValue: text, gpx: gpx, tagName: tagName(), indentationLevel: indentationLevel)
+        }
+        else {
+            super.addOpenTag(toGPX: gpx, indentationLevel: indentationLevel)
+        }
     }
     
     override func addChildTag(toGPX gpx: NSMutableString, indentationLevel: Int) {
         super.addChildTag(toGPX: gpx, indentationLevel: indentationLevel)
-        if let text = text {
-            self.addProperty(forValue: text, gpx: gpx, tagName: tagName(), indentationLevel: indentationLevel)
-        }
+        
         for child in children {
-            if let text = child.text {
-                self.addProperty(forValue: text, gpx: gpx, tagName: child.tagName(), indentationLevel: indentationLevel)
-            }
-            else {
-                child.gpx(gpx, indentationLevel: indentationLevel)
-            }
+            child.gpx(gpx, indentationLevel: indentationLevel)
         }
         
     }
+    
+    override func addCloseTag(toGPX gpx: NSMutableString, indentationLevel: Int) {
+        if text == nil {
+            gpx.appendCloseTag(indentation: indent(forIndentationLevel: indentationLevel), tag: tagName())
+        }
+    }
+ 
 }

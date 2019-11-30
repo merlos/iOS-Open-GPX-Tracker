@@ -283,12 +283,12 @@ public class GPXWaypoint: GPXElement, Codable {
     override func addOpenTag(toGPX gpx: NSMutableString, indentationLevel: Int) {
         let attribute = NSMutableString()
         
-        if latitude != nil {
-            attribute.appendFormat(" lat=\"%f\"", latitude!)
+        if let latitude = latitude {
+            attribute.append(" lat=\"\(latitude)\"")
         }
         
-        if longitude != nil {
-            attribute.appendFormat(" lon=\"%f\"", longitude!)
+        if let longitude = longitude {
+            attribute.append(" lon=\"\(longitude)\"")
         }
         
         gpx.appendOpenTag(indentation: indent(forIndentationLevel: indentationLevel), tag: tagName(), attribute: attribute)

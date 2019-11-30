@@ -126,7 +126,7 @@ root.metadata = metadata              // adds metadata stuff
 ### Example of application of `GPXRoot`
 ```Swift
 let root = GPXRoot(creator: "Your app name here!")
-let trackpoints = [GPXTrackPoint]()
+var trackpoints = [GPXTrackPoint]()
 
 let yourLatitudeHere: CLLocationDegrees = 1.3521
 let yourLongitudeHere: CLLocationDegrees = 103.8198

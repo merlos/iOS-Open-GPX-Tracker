@@ -63,10 +63,10 @@ open class GPXPoint: GPXElement, Codable {
     override func addOpenTag(toGPX gpx: NSMutableString, indentationLevel: Int) {
         let attribute = NSMutableString()
         if let latitude = latitude {
-            attribute.appendFormat(" lat=\"%f\"", latitude)
+            attribute.append(" lat=\"\(latitude)\"")
         }
         if let longitude = longitude {
-            attribute.appendFormat(" lon=\"%f\"", longitude)
+            attribute.append(" lon=\"\(longitude)\"")
         }
         
         gpx.appendOpenTag(indentation: indent(forIndentationLevel: indentationLevel), tag: tagName(), attribute: attribute)

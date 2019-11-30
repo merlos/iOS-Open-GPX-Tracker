@@ -140,21 +140,7 @@ public final class GPXExtensions: GPXElement, Codable {
     }
     
     // MARK:- Unavailable classes
-    
-    /// Insert a dictionary of extension objects
-    ///
-    /// - Parameters:
-    ///     - tag: Parent Tag. If inserting without the parent tag, this value should be `nil`
-    ///     - contents: Contents as a dictionary to be inserted to this object.
-    @available( *, unavailable, message: "Please append GPXExtensionsElement to this extension instead, or use append(at:). Read documentation to learn more.")
-    public func insert(withParentTag tag: String?, withContents contents: [String : String]) {}
-    
-    /// Remove a dictionary of extension objects
-    ///
-    /// - Parameters:
-    ///     - tag: Parent Tag of contents for removal. If removing without the parent tag, this value should be `nil`
-    @available( *, unavailable, message: "Please append GPXExtensionsElement to this extension instead, or use get(from:). Read documentation to learn more.")
-    public func remove(contentsOfParentTag tag: String?) {}
+    //        Have been removed.
     
     
     // MARK:- GPX

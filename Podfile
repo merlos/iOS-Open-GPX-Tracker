@@ -1,7 +1,7 @@
 use_frameworks!
 
 def shared_pods
-    pod 'CoreGPX', git: 'https://github.com/VincentNeo/CoreGPX.git'
+    pod 'CoreGPX'
 end
 
 target 'OpenGpxTracker' do
