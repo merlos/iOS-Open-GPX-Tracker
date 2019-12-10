@@ -82,18 +82,7 @@ class GPXMapView: MKMapView {
             }
             
             //add new overlay to map if not using Apple Maps
-            if newValue == .apple {
-                if #available(iOS 13, *) {
-                    overrideUserInterfaceStyle = .unspecified
-                    NotificationCenter.default.post(name: .updateAppearance, object: nil, userInfo: nil)
-                }
-                
-            } else {
-                // if map is third party, dark mode is disabled.
-                if #available(iOS 13, *) {
-                    overrideUserInterfaceStyle = .light
-                    NotificationCenter.default.post(name: .updateAppearance, object: nil, userInfo: nil)
-                }
+            if newValue != .apple {
                 //Update cacheConfig
                 var config = MapCacheConfig(withUrlTemplate: newValue.templateUrl)
                 config.subdomains = newValue.subdomains
@@ -109,6 +98,20 @@ class GPXMapView: MKMapView {
                 // we need to keep a reference to remove it, in case we return back to Apple Maps.
                 self.tileServerOverlay = useCache(cache)
             }
+        }
+        didSet {
+            
+            if #available(iOS 13, *) {
+                if tileServer == .apple {
+                    overrideUserInterfaceStyle = .unspecified
+                    NotificationCenter.default.post(name: .updateAppearance, object: nil, userInfo: nil)
+                }
+                else { // if map is third party, dark mode is disabled.
+                    overrideUserInterfaceStyle = .light
+                    NotificationCenter.default.post(name: .updateAppearance, object: nil, userInfo: nil)
+                }
+            }
+            
         }
     }
     
