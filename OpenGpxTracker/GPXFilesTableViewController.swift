@@ -274,6 +274,9 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
         if #available(iOS 13, *) {
             activityIndicatorView.color = .blackAndWhite
         }
+        else {
+            activityIndicatorView.color = .black
+        }
 
         if loading { // will display alert
             activityIndicatorView.startAnimating()
