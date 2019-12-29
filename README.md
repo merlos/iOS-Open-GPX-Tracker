@@ -17,7 +17,7 @@ You can use Open GPX tracker for:
 
  - Creating routes and waypoints for editing Open Street Map.
  - Publishing Open Street Map Traces.
- - Creating real GPX files for testing your iOS apps in Xcode.
+ - [Creating GPX files for testing your iOS apps in Xcode](https://medium.com/@merlos/how-to-simulate-locations-in-xcode-b0f7f16e126d).
 
 ## Main Features
 
