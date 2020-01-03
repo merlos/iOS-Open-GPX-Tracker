@@ -197,7 +197,6 @@ class GPXMapView: MKMapView {
         let coords: CLLocationCoordinate2D = self.convert(point, toCoordinateFrom: self)
         let waypoint = GPXWaypoint(coordinate: coords)
         self.addWaypoint(waypoint)
-        self.coreDataHelper.add(toCoreData: waypoint)
         
     }
     
@@ -210,6 +209,7 @@ class GPXMapView: MKMapView {
     	self.session.addWaypoint(waypoint)
         self.addAnnotation(waypoint)
         self.extent.extendAreaToIncludeLocation(waypoint.coordinate)
+        self.coreDataHelper.add(toCoreData: waypoint)
     }
     
     ///
