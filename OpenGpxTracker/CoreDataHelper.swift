@@ -657,22 +657,25 @@ class CoreDataHelper {
                     }
                     
                     // Fix #151
+                    /*
                     let count = root.waypoints.count
-                    if count < self.waypointId, let last = root.waypoints.last, last =~ self.waypoints[count-1] {
-                        
-                        for index in count-1...self.waypoints.count-1 {
+                    if count < self.waypointId {//, let last = root.waypoints.last, last =~ self.waypoints[count-1] {
+                        root.waypoints = self.waypoints
+                        /*for index in count-1...self.waypoints.count-1 {
                             root.waypoints.append(self.waypoints[index])
-                        }
-                    }
+                        }*/
+                    }*/
                     
                 }
                 else {
                     track.tracksegments = self.tracksegments
                     root.add(track: track)
-                    root.add(waypoints: self.waypoints)
+                    //root.waypoints = self.waypoints
+                    //root.add(waypoints: self.waypoints)
                 }
                 //root.waypoints = [GPXWaypoint]()
                 //root.add(waypoints: self.waypoints)
+                root.waypoints = self.waypoints
                 // asks user on what to do with recovered data
                 DispatchQueue.main.sync {
                     print(root.gpx())
