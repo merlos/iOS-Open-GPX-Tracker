@@ -644,27 +644,16 @@ class CoreDataHelper {
                     root = GPXRoot(creator: kGPXCreatorString)
                 }
                 // generates a GPXRoot from recovered data
-                if self.isContinued {
-                    if self.tracksegments.count >= (self.lastTracksegmentId + 1) {
-                        //Check if there was a tracksegment
-                        if root.tracks.last?.tracksegments.count == 0 {
-                            root.tracks.last?.add(trackSegment: GPXTrackSegment())
-                        }
-                        // if gpx is saved, but further trkpts are added after save, and crashed, trkpt are appended, not adding to new trkseg.
-                        root.tracks.last?.tracksegments[Int(self.lastTracksegmentId)].add(trackpoints: self.tracksegments.first!.trackpoints)
-                        self.tracksegments.remove(at: 0)
-                        
-                    }
+                if self.isContinued && self.tracksegments.count >= (self.lastTracksegmentId + 1) {
                     
-                    // Fix #151
-                    /*
-                    let count = root.waypoints.count
-                    if count < self.waypointId {//, let last = root.waypoints.last, last =~ self.waypoints[count-1] {
-                        root.waypoints = self.waypoints
-                        /*for index in count-1...self.waypoints.count-1 {
-                            root.waypoints.append(self.waypoints[index])
-                        }*/
-                    }*/
+                    //Check if there was a tracksegment
+                    if root.tracks.last?.tracksegments.count == 0 {
+                        root.tracks.last?.add(trackSegment: GPXTrackSegment())
+                    }
+                    // if gpx is saved, but further trkpts are added after save, and crashed, trkpt are appended, not adding to new trkseg.
+                    root.tracks.last?.tracksegments[Int(self.lastTracksegmentId)].add(trackpoints: self.tracksegments.first!.trackpoints)
+                    self.tracksegments.remove(at: 0)
+
                     
                 }
                 else {
