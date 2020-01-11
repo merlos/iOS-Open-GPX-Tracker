@@ -481,7 +481,7 @@ class CoreDataHelper {
     
     
     /// Delete all trackpoints and waypoints in Core Data.
-    func deleteAllPointsFromCoreData() {
+    func deleteAllTrackFromCoreData() {
         
         let privateManagedObjectContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
         privateManagedObjectContext.parent = appDelegate.managedObjectContext
@@ -490,18 +490,14 @@ class CoreDataHelper {
         
         // Creates fetch requests for both trackpoint and waypoint
         let trackpointFetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "CDTrackpoint")
-        let waypointFetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "CDWaypoint")
         
         if #available(iOS 9.0, *) {
             privateManagedObjectContext.perform {
                 do {
                     let trackpointDeleteRequest = NSBatchDeleteRequest(fetchRequest: trackpointFetchRequest)
-                    let waypointDeleteRequest = NSBatchDeleteRequest(fetchRequest: waypointFetchRequest)
                     
                     // execute both delete requests.
                     try privateManagedObjectContext.execute(trackpointDeleteRequest)
-                    try privateManagedObjectContext.execute(waypointDeleteRequest)
-                    
                     try privateManagedObjectContext.save()
                     
                     self.appDelegate.managedObjectContext.performAndWait {
@@ -530,6 +526,64 @@ class CoreDataHelper {
                 }
             }
             
+            do {
+                // Executes all delete requests
+                try privateManagedObjectContext.execute(trackpointAsynchronousFetchRequest)
+                try privateManagedObjectContext.save()
+                self.appDelegate.managedObjectContext.performAndWait {
+                    do {
+                        // Saves the changes from the child to the main context to be applied properly
+                        try self.appDelegate.managedObjectContext.save()
+                    } catch {
+                        print("Failure to save context after delete: \(error)")
+                    }
+                }
+                
+            } catch let error {
+                print("NSAsynchronousFetchRequest (for batch delete <iOS 9) error: \(error)")
+            }
+        }
+    }
+    
+    /// Delete all trackpoints and waypoints in Core Data.
+    func deleteAllWaypointsFromCoreData() {
+        
+        let privateManagedObjectContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
+        privateManagedObjectContext.parent = appDelegate.managedObjectContext
+        
+        print("Core Data Helper: Batch Delete trackpoints and waypoints from Core Data")
+        
+        // Creates fetch requests for both trackpoint and waypoint
+        let waypointFetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "CDWaypoint")
+        
+        if #available(iOS 9.0, *) {
+            privateManagedObjectContext.perform {
+                do {
+                    let waypointDeleteRequest = NSBatchDeleteRequest(fetchRequest: waypointFetchRequest)
+                    
+                    // execute both delete requests.
+                    try privateManagedObjectContext.execute(waypointDeleteRequest)
+                    
+                    try privateManagedObjectContext.save()
+                    
+                    self.appDelegate.managedObjectContext.performAndWait {
+                        do {
+                            // Saves the changes from the child to the main context to be applied properly
+                            try self.appDelegate.managedObjectContext.save()
+                        } catch {
+                            print("Failure to save context after delete: \(error)")
+                        }
+                    }
+                }
+                catch {
+                    print("Failed to delete all from core data, error: \(error)")
+                }
+                
+            }
+            
+        }
+        else { // for pre iOS 9 (less efficient, load in memory before removal)
+            
             let waypointAsynchronousFetchRequest = NSAsynchronousFetchRequest(fetchRequest: waypointFetchRequest) { asynchronousFetchResult in
                 
                 guard let results = asynchronousFetchResult.finalResult as? [CDWaypoint] else { return }
@@ -543,7 +597,6 @@ class CoreDataHelper {
             
             do {
                 // Executes all delete requests
-                try privateManagedObjectContext.execute(trackpointAsynchronousFetchRequest)
                 try privateManagedObjectContext.execute(waypointAsynchronousFetchRequest)
                 try privateManagedObjectContext.save()
                 self.appDelegate.managedObjectContext.performAndWait {
@@ -600,16 +653,21 @@ class CoreDataHelper {
                     // if gpx is saved, but further trkpts are added after save, and crashed, trkpt are appended, not adding to new trkseg.
                     root.tracks.last?.tracksegments[Int(self.lastTracksegmentId)].add(trackpoints: self.tracksegments.first!.trackpoints)
                     self.tracksegments.remove(at: 0)
+
                     
                 }
                 else {
                     track.tracksegments = self.tracksegments
                     root.add(track: track)
+                    //root.waypoints = self.waypoints
+                    //root.add(waypoints: self.waypoints)
                 }
-                root.waypoints = [GPXWaypoint]()
-                root.add(waypoints: self.waypoints)
+                //root.waypoints = [GPXWaypoint]()
+                //root.add(waypoints: self.waypoints)
+                root.waypoints = self.waypoints
                 // asks user on what to do with recovered data
                 DispatchQueue.main.sync {
+                    print(root.gpx())
                     // main action sheet setup
                     let alertController = UIAlertController(title: NSLocalizedString("CONTINUE_SESSION_TITLE", comment: "no comment"), message: NSLocalizedString("CONTINUE_SESSION_MESSAGE", comment: "no comment"), preferredStyle: .actionSheet)
                     
@@ -690,10 +748,27 @@ class CoreDataHelper {
         self.currentSegment = GPXTrackSegment()
     }
     
+    func clearAllExceptWaypoints() {
+        // once file recovery is completed, Core Data stored items are deleted.
+        self.deleteAllTrackFromCoreData()
+        
+        // once file recovery is completed, arrays are cleared.
+        self.tracksegments = []
+        self.currentSegment = GPXTrackSegment()
+        
+        // current segment should be 'reset' as well
+        self.currentSegment = GPXTrackSegment()
+        
+        // reset order sorting ids
+        self.trackpointId = 0
+        self.tracksegmentId = 0
+    }
+    
     /// clears all
     func clearAll() {
         // once file recovery is completed, Core Data stored items are deleted.
-        self.deleteAllPointsFromCoreData()
+        self.deleteAllTrackFromCoreData()
+        self.deleteAllWaypointsFromCoreData()
         
         // once file recovery is completed, arrays are cleared.
         self.clearObjects()

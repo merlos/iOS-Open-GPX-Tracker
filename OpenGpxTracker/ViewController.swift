@@ -907,7 +907,8 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         print("viewController:: applicationWillTerminate")
         GPXFileManager.removeTemporaryFiles()
         if gpxTrackingStatus == .notStarted {
-            map.coreDataHelper.deleteAllPointsFromCoreData()
+            map.coreDataHelper.deleteAllTrackFromCoreData()
+            map.coreDataHelper.deleteAllWaypointsFromCoreData()
         }
     }
     
@@ -1125,7 +1126,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
             GPXFileManager.save(filename!, gpxContents: gpxString)
             self.lastGpxFilename = filename!
             self.map.coreDataHelper.deleteCDRootFromCoreData()
-            self.map.coreDataHelper.clearAll()
+            self.map.coreDataHelper.clearAllExceptWaypoints()
             self.map.coreDataHelper.add(toCoreData: filename!, willContinueAfterSave: true)
         }
         let cancelAction = UIAlertAction(title: NSLocalizedString("CANCEL", comment: "no comment"), style: .cancel) { (action) in }

@@ -157,7 +157,7 @@ class GPXSession {
         self.tracks = gpx.tracks
         
         // remove last track as that track is packaged by Core Data, but should its tracksegments should be seperated, into self.tracksegments.
-        self.tracks.removeLast()
+        //self.tracks.removeLast()
         
         self.trackSegments = lastTrack.tracksegments
         
