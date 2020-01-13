@@ -1,0 +1,110 @@
+/*
+ Localizable.strings
+ OpenGpxTracker
+
+ Originally Translated to Ukrainian by Vadim Nekhai <vadimnekhai@gmail.com> on 13 January 2020
+ */
+
+// App
+"NO_LOCATION" = "Місце розташування не отримане";
+"START_TRACKING" = "Розпочати запис";
+"PAUSE" = "Пауза";
+"RESUME" = "Продовжити";
+"SAVE" = "Зберегти";
+"RESET" = "Скинути";
+"DONE" = "Готово";
+"CANCEL" = "Скасувати";
+"WATCH_FILE_RECEIVED_TITLE" = "Файл із Apple Watch отриманий";
+"WATCH_FILE_RECEIVED_MESSAGE" = "Файл отриманий: \"%@\"";
+"SAVE_AS" = "Зберегти як";
+"ENTER_SESSION_NAME" = "Введіть назву сеансу GPX";
+"LOCATION_SERVICES_DISABLED" = "Служба геолокації вимкнена";
+"ENABLE_LOCATION_SERVICES" = "Перейдіть до налаштувань та увімкніть геолокацію.";
+"SETTINGS" = "Налаштування";
+"ACCESS_TO_LOCATION_DENIED" = "У доступі до локації відмовлено";
+"ALLOW_LOCATION" = "У налаштуваннях місця (геолокації) дозвольте постійний доступ до локації для GPX трекера";
+"COORDS_LABEL" = "(%@, %@) · Висота: %@";
+"NO_FILES" = "Немає файлів GPX";
+"YOUR_FILES" = "Ваші GPX-файли";
+"LAST_SAVED" = "Останнє збереження %@ (%@)";
+"DELETE" = "Видалити";
+"SELECT_OPTION" = "Виберіть опцію";
+"LOAD_IN_MAP" = "Завантажити на мапу";
+"SHARE" = "Поширити";
+"LOADING_FILE" = "Завантаження GPX-файлу...";
+"ABOUT" = "Про програму";
+"PREFERENCES" = "Налаштування";
+"UNITS" = "Одиниці вимірювання";
+"CACHE" = "Кеш";
+"MAP_SOURCE" = "Джерело мапи";
+"ACTIVITY_TYPE" = "Тип активності";
+"USE_IMPERIAL_UNITS" = "Використовувати англійську систему мір?";
+"OFFLINE_CACHE" = "Офлайновий кеш";
+"CLEAR_CACHE" = "Очистити кеш";
+"CACHE_IS_EMPTY" = "Кеш порожній";
+"EDIT_WAYPOINT_NAME_TITLE" = "Редагувати назву маршрутної точки";
+"EDIT_WAYPOINT_NAME_MESSAGE" = "Підказка: щоб змініти місце розташування маршрутної точки, перетягніть шпильку";
+
+// Watch
+"SENDING" = "Надсилання:";
+"X_FILES" = "%d файлів";
+"SUCCESSFULLY_SENT" = "Успішно надіслано:";
+"FAILED_TO_SEND" = "Не вдалося надіслати:";
+"SEND_TO_IOS" = "Надіслати в додаток iOS";
+"FILE_SELECTED_TITLE" = "GPX файл вибраний";
+"FILE_SELECTED_MESSAGE" = "Що ви бажаєте зробити?";
+"ERROR_OCCURED_TITLE" = "Виникла помилка";
+"ERROR_OCCURED_MESSAGE" = "Виникла помилка під час надсилання файлу GPX в додаток iOS, через %s ";
+"GPX_TRACKER" = "GPX Трекер";
+"FILE_SAVED_TITLE" = "GPX-файл збережений";
+"FILE_SAVED_MESSAGE" = "Поточний сеанс збережений як %s.gpx ";
+
+// Activities
+"AT_AUTOMATIC" = "Автоматично";
+"AT_AUTOMOTIVE" = "Автомобільна навігація";
+"AT_FITNESS" = "Фітнес";
+"AT_OTHER" = "Інша навігація";
+"AT_FLIGHT" = "Політ";
+
+"AT_AUTOMATIC_DESC" = "Системний усталений. Вибирається автоматично";
+"AT_AUTOMOTIVE_DESC" = "Автомобілі, мотоцикли, вантажівки...";
+"AT_FITNESS_DESC" = "Біг, пішохідний туризм, велосипед...";
+"AT_OTHER_DESC" = "Навігація, відмінна від автомобільної";
+"AT_FLIGHT_DESC" = "Активності в повітрі";
+
+// Dates
+"T_YEARS_AGO" = "%d років тому";
+"T_YEAR_AGO" = "1 рік тому";
+"T_LAST_YEAR" = "минулого року";
+
+"T_MONTHS_AGO" = "%d місяців тому";
+"T_MONTH_AGO" = "1 місяць тому";
+"T_LAST_MONTH" = "минулого місяця";
+
+"T_WEEKS_AGO" = "%d тижнів тому";
+"T_WEEK_AGO" = "1 тиждень тому";
+"T_LAST_WEEK" = "минулого тижня";
+
+"T_DAYS_AGO" = "%d днів тому";
+"T_DAY_AGO" = "1 день тому";
+"T_YESTERDAY" = "вчора";
+
+"T_HOURS_AGO" = "%d годин тому";
+"T_HOUR_AGO" = "1 годину тому";
+"T_LAST_HOUR" = "минулої години";
+
+"T_MINUTES_AGO" = "%d хвилин тому";
+"T_MINUTE_AGO" = "1 хвилина тому";
+"T_MINUTE_HOUR" = "хвилину тому";
+
+"T_SECONDS_AGO" = "%d секунд тому";
+
+"T_JUST_NOW" = "тільки що";
+
+// CoreDataHelper
+
+"CONTINUE_SESSION_TITLE" = "Продовжити останній сеанс?";
+"CONTINUE_SESSION_MESSAGE" = "Що б ви хотіли зробити із відновленим вмістом минулого сеансу?";
+
+"CONTINUE_SESSION" = "Продовжити сеанс";
+"SAVE_START_NEW" = "Зберегти та розпочати новий";

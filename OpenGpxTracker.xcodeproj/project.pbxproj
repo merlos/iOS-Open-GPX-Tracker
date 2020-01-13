@@ -225,6 +225,10 @@
 		BFF3047C2312D8A00012D263 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		BFF3047D2312D8A10012D263 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		BFF3047E2312D8A10012D263 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		D39420E323CC1B0500EDC8F6 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/Interface.strings; sourceTree = "<group>"; };
+		D39420E423CC1B0500EDC8F6 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/Localizable.strings; sourceTree = "<group>"; };
+		D39420E523CC1B0500EDC8F6 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		D39420E623CC1B0500EDC8F6 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		DC4908A01C4A136F009484AE /* TrackerButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackerButton.swift; sourceTree = "<group>"; };
 		DC4908A21C4A332E009484AE /* MapViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewDelegate.swift; sourceTree = "<group>"; };
 		F8AD19460733F6AD5C43BE2D /* Pods-OpenGpxTracker.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenGpxTracker.release.xcconfig"; path = "Pods/Target Support Files/Pods-OpenGpxTracker/Pods-OpenGpxTracker.release.xcconfig"; sourceTree = "<group>"; };
@@ -591,6 +595,7 @@
 				de,
 				es,
 				"zh-Hans",
+				uk,
 			);
 			mainGroup = 898EECCC19C49B5800B4B207;
 			productRefGroup = 898EECD619C49B5800B4B207 /* Products */;
@@ -845,6 +850,7 @@
 				4588D66E230D23AD009AA75F /* en */,
 				898E2BE023129FE000DC4E3F /* es */,
 				BFF3047D2312D8A10012D263 /* zh-Hans */,
+				D39420E523CC1B0500EDC8F6 /* uk */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -856,6 +862,7 @@
 				4588D672230D247C009AA75F /* de */,
 				898E2BE123129FE000DC4E3F /* es */,
 				BFF3047E2312D8A10012D263 /* zh-Hans */,
+				D39420E623CC1B0500EDC8F6 /* uk */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -868,6 +875,7 @@
 				45A430EF230D612C0003C2F2 /* de */,
 				898E2BDE23129FE000DC4E3F /* es */,
 				BFF3047B2312D8A00012D263 /* zh-Hans */,
+				D39420E323CC1B0500EDC8F6 /* uk */,
 			);
 			name = Interface.storyboard;
 			sourceTree = "<group>";
@@ -901,6 +909,7 @@
 				BF1FE1A9230EABA500404B59 /* de */,
 				898E2BDF23129FE000DC4E3F /* es */,
 				BFF3047C2312D8A00012D263 /* zh-Hans */,
+				D39420E423CC1B0500EDC8F6 /* uk */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
