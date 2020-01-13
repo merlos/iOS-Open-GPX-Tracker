@@ -42,7 +42,7 @@
 "g9l-MU-PFV.title" = "Скинути";
 
 /* Class = "WKInterfaceLabel"; text = "0m"; ObjectID = "jLD-vq-fZz"; */
-"jLD-vq-fZz.text" = "0хв";
+"jLD-vq-fZz.text" = "0м";
 
 /* Class = "WKInterfaceButton"; title = "📍"; ObjectID = "juk-oB-3vV"; */
 "juk-oB-3vV.title" = "📍";
