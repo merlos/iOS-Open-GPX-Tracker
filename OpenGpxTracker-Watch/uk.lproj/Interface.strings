@@ -1,0 +1,60 @@
+/*
+ Interface.strings
+ OpenGpxTracker
+
+ Originally Translated to Ukrainian by Vadim Nekhai <vadimnekhai@gmail.com> on 13 January 2020
+ */
+
+/* Class = "WKInterfaceLabel"; text = "signal"; ObjectID = "036-aK-7ie"; */
+"036-aK-7ie.text" = "Сигнал";
+
+/* Class = "WKInterfaceLabel"; text = "File Name"; ObjectID = "19n-8m-sC5"; */
+"19n-8m-sC5.text" = "Ім’я файлу";
+
+/* Class = "WKInterfaceButton"; title = "View files"; ObjectID = "3QZ-4r-aMl"; */
+"3QZ-4r-aMl.title" = "Перегляд файлів";
+
+/* Class = "WKInterfaceLabel"; text = "speedValue"; ObjectID = "9yb-Lf-Jav"; */
+"9yb-Lf-Jav.text" = "Значення швидкості";
+
+/* Class = "WKInterfaceLabel"; text = "Sending"; ObjectID = "AyV-DL-c4U"; */
+"AyV-DL-c4U.text" = "Надсилання";
+
+/* Class = "WKInterfaceLabel"; text = "SPEED"; ObjectID = "HGe-sg-FuE"; */
+"HGe-sg-FuE.text" = "ШВИДКІСТЬ";
+
+/* Class = "WKInterfaceLabel"; text = "Alert Label"; ObjectID = "IdU-wH-bcW"; */
+"IdU-wH-bcW.text" = "Значення сповіщення";
+
+/* Class = "WKInterfaceLabel"; text = "File Name"; ObjectID = "Nkq-Do-muS"; */
+"Nkq-Do-muS.text" = "Ім’я файлу";
+
+/* Class = "WKInterfaceButton"; title = "Save"; ObjectID = "Yfa-t6-5Sk"; */
+"Yfa-t6-5Sk.title" = "Зберегти";
+
+/* Class = "WKInterfaceButton"; title = "Start Tracking"; ObjectID = "exN-t4-It8"; */
+"exN-t4-It8.title" = "Розпочати запис треку";
+
+/* Class = "WKInterfaceLabel"; text = "altValue"; ObjectID = "fLq-xh-Kj9"; */
+"fLq-xh-Kj9.text" = "Значення висоти";
+
+/* Class = "WKInterfaceButton"; title = "Reset"; ObjectID = "g9l-MU-PFV"; */
+"g9l-MU-PFV.title" = "Скинути";
+
+/* Class = "WKInterfaceLabel"; text = "0m"; ObjectID = "jLD-vq-fZz"; */
+"jLD-vq-fZz.text" = "0м";
+
+/* Class = "WKInterfaceButton"; title = "📍"; ObjectID = "juk-oB-3vV"; */
+"juk-oB-3vV.title" = "📍";
+
+/* Class = "WKInterfaceLabel"; text = "COORDINATES"; ObjectID = "oWE-ge-dGJ"; */
+"oWE-ge-dGJ.text" = "КООРДИНАТИ";
+
+/* Class = "WKInterfaceLabel"; text = "ALTITUDE"; ObjectID = "sOz-Cs-O7T"; */
+"sOz-Cs-O7T.text" = "ВИСОТА";
+
+/* Class = "WKInterfaceLabel"; text = "coordinatesLabel"; ObjectID = "wh4-cP-QA2"; */
+"wh4-cP-QA2.text" = "Значення координат";
+
+/* Class = "WKInterfaceLabel"; text = "00:00"; ObjectID = "xum-IR-If6"; */
+"xum-IR-If6.text" = "00:00";
