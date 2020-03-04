@@ -79,10 +79,13 @@ class DefaultNameSetupViewController: UITableViewController, UITextFieldDelegate
         var cell = UITableViewCell(style: .default, reuseIdentifier: "inputCell")
         if indexPath.row == 0 {
             
-            label = UILabel(frame: CGRect(x: 25, y: 0, width: view.frame.width - 50, height: cell.frame.height))
+            label = UILabel(frame: CGRect(x: 82, y: 0, width: view.frame.width - 97, height: cell.frame.height))
             cell.addSubview(label)
-            label.text = "f"
-            //cell.textLabel!.text = dateFormatter.string(from: Date())
+            label.text = ""
+            cell.textLabel!.text = "Sample: "
+            if #available(iOS 8.2, *) {
+                cell.textLabel?.font = .systemFont(ofSize: 17, weight: .thin)
+            }
         }
         if indexPath.row == 1 {
             cell = UITableViewCell(style: .default, reuseIdentifier: "inputCell")
