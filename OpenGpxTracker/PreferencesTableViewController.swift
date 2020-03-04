@@ -24,6 +24,9 @@ let kMapSourceSection = 2
 /// Activity Type Section Id in PreferencesTableViewController
 let kActivityTypeSection = 3
 
+/// Default Name Section Id in PreferencesTableViewController
+let kDefaultNameSection = 4
+
 /// Cell Id of the Use Imperial units in UnitsSection
 let kUseImperialUnitsCell = 0
 
@@ -90,7 +93,7 @@ class PreferencesTableViewController: UITableViewController, UINavigationBarDele
     /// Returns 4 sections: Units, Cache, Map Source, Activity Type
     override func numberOfSections(in tableView: UITableView?) -> Int {
         // Return the number of sections.
-        return 4
+        return 5
     }
     
     /// Returns the title of the existing sections.
@@ -102,6 +105,7 @@ class PreferencesTableViewController: UITableViewController, UINavigationBarDele
         case kCacheSection: return NSLocalizedString("CACHE", comment: "no comment")
         case kMapSourceSection: return NSLocalizedString("MAP_SOURCE", comment: "no comment")
         case kActivityTypeSection: return NSLocalizedString("ACTIVITY_TYPE", comment: "no comment")
+        case kDefaultNameSection: return NSLocalizedString("DEFAULT_NAME_SECTION", comment: "no comment")
         default: fatalError("Unknown section")
         }
     }
@@ -115,6 +119,7 @@ class PreferencesTableViewController: UITableViewController, UINavigationBarDele
         case kUnitsSection: return 1
         case kMapSourceSection: return GPXTileServer.count
         case kActivityTypeSection: return CLActivityType.count
+        case kDefaultNameSection: return 1
         default: fatalError("Unknown section")
         }
     }
@@ -186,6 +191,14 @@ class PreferencesTableViewController: UITableViewController, UINavigationBarDele
             if indexPath.row + 1 == preferences.locationActivityTypeInt {
                 cell.accessoryType = .checkmark
             }
+        }
+        
+        // Default Name section
+        if indexPath.section == kDefaultNameSection {
+            cell = UITableViewCell(style: .value1, reuseIdentifier: "DefaultNameCell")
+            cell.textLabel?.text = "Set to:"
+            cell.detailTextLabel?.text = "DD-MM-HH" //placeholder
+            cell.accessoryType = .disclosureIndicator
         }
         
         return cell
@@ -278,6 +291,11 @@ class PreferencesTableViewController: UITableViewController, UINavigationBarDele
             preferences.locationActivityTypeInt = indexPath.row + 1 // +1 as activityType raw value starts at index 1
             
             self.delegate?.didUpdateActivityType((indexPath as NSIndexPath).row + 1)
+        }
+        
+        if indexPath.section == kDefaultNameSection {
+            print("PreferencesTableView Default Name cell clicked")
+            self.navigationController?.pushViewController(DefaultNameSetupViewController(style: .grouped), animated: true)
         }
         
         //unselect row
