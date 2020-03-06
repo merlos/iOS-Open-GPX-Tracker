@@ -54,6 +54,8 @@ class PreferencesTableViewController: UITableViewController, UINavigationBarDele
     
     var cache : MapCache = MapCache(withConfig: MapCacheConfig(withUrlTemplate: ""))
     
+    var cachedSize = String()
+    
     /// Does the following:
     /// 1. Defines the areas for navBar and the Table view
     /// 2. Sets the title
@@ -68,6 +70,9 @@ class PreferencesTableViewController: UITableViewController, UINavigationBarDele
         self.title = NSLocalizedString("PREFERENCES", comment: "no comment")
         let shareItem = UIBarButtonItem(title: NSLocalizedString("DONE", comment: "no comment"), style: UIBarButtonItem.Style.plain, target: self, action: #selector(PreferencesTableViewController.closePreferencesTableViewController))
         self.navigationItem.rightBarButtonItems = [shareItem]
+        
+        let fileSize = cache.diskCache.fileSize ?? 0
+        cachedSize = Int(fileSize).asFileSize()
     }
     
     /// Close this controller.
@@ -158,8 +163,8 @@ class PreferencesTableViewController: UITableViewController, UINavigationBarDele
             case kUseOfflineCacheCell:
                 cell = UITableViewCell(style: .subtitle, reuseIdentifier: "CacheCell")
                 cell.textLabel?.text = NSLocalizedString("OFFLINE_CACHE", comment: "no comment")
-                let fileSize = cache.diskCache.fileSize ?? 0
-                cell.detailTextLabel?.text = Int(fileSize).asFileSize()
+                
+                cell.detailTextLabel?.text = cachedSize
                 if preferences.useCache {
                     cell.accessoryType = .checkmark
                 }
@@ -258,7 +263,8 @@ class PreferencesTableViewController: UITableViewController, UINavigationBarDele
                     cell.textLabel?.textColor = UIColor.gray
                     //Clear the size text
                     let cell2 = tableView.cellForRow(at: IndexPath(row: kUseOfflineCacheCell, section: kCacheSection))
-                    cell2?.detailTextLabel?.text = 0.asFileSize()
+                    self.cachedSize = 0.asFileSize()
+                    cell2?.detailTextLabel?.text = self.cachedSize
                 }
             default:
                 fatalError("didSelectRowAt: Unknown cell")
