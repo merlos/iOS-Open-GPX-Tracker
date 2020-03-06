@@ -55,12 +55,12 @@ class DefaultNameSetupViewController: UITableViewController, UITextFieldDelegate
     @objc func buttonTapped(_ sender: UIBarButtonItem, for event: UIEvent) {
         if cellTextField.text != nil {
             switch sender.tag {
-            case 0: cellTextField.text! += "{dd}"
-            case 1: cellTextField.text! += "{MM}"
-            case 2: cellTextField.text! += "{yyyy}"
-            case 3: cellTextField.text! += "{HH}"
-            case 4: cellTextField.text! += "{mm}"
-            case 5: cellTextField.text! += "{ss}"
+            case 0: cellTextField.insertText("{dd}")
+            case 1: cellTextField.insertText("{MM}")
+            case 2: cellTextField.insertText("{yyyy}")
+            case 3: cellTextField.insertText("{HH}")
+            case 4: cellTextField.insertText("{mm}")
+            case 5: cellTextField.insertText("{ss}")
             default: return
             }
             textFieldTyping()
@@ -76,7 +76,7 @@ class DefaultNameSetupViewController: UITableViewController, UITextFieldDelegate
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        var cell = UITableViewCell(style: .default, reuseIdentifier: "inputCell")
+        let cell = UITableViewCell(style: .default, reuseIdentifier: "inputCell")
         if indexPath.row == 0 {
             
             label = UILabel(frame: CGRect(x: 82, y: 0, width: view.frame.width - 97, height: cell.frame.height))
@@ -88,7 +88,6 @@ class DefaultNameSetupViewController: UITableViewController, UITextFieldDelegate
             }
         }
         if indexPath.row == 1 {
-            cell = UITableViewCell(style: .default, reuseIdentifier: "inputCell")
             cellTextField = UITextField(frame: CGRect(x: 25, y: 0, width: view.frame.width - 50, height: cell.frame.height))
             //let textView = UITextView(frame: CGRect(x: 25, y: 5, width: view.frame.width - 50, height: cell.frame.height))
             cellTextField.text = ""
