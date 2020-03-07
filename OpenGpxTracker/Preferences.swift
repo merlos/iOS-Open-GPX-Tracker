@@ -253,6 +253,14 @@ class Preferences: NSObject {
         }
     }
     
+    /// Get date format preset name
+    var dateFormatPresetName: String {
+        get {
+            let presets =  ["Defaults", "ISO8601 (UTC)", "ISO8601 (UTC offset)", "Day, Date at time (12 hr)", "Day, Date at time (24 hr)"]
+            return presets[_dateFormatPreset]
+        }
+    }
+    
     /// Get and sets whether to use UTC for date format
     var dateFormatUseUTC: Bool {
         get {

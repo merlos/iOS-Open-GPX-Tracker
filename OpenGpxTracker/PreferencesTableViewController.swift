@@ -202,9 +202,10 @@ class PreferencesTableViewController: UITableViewController, UINavigationBarDele
         
         // Default Name section
         if indexPath.section == kDefaultNameSection {
-            cell = UITableViewCell(style: .value1, reuseIdentifier: "DefaultNameCell")
+            cell = UITableViewCell(style: .subtitle, reuseIdentifier: "DefaultNameCell")
             cell.textLabel?.text = "Set to:"
-            cell.detailTextLabel?.text = "DD-MM-HH" //placeholder
+            cell.detailTextLabel?.text = preferences.dateFormatPreset == -1 ?
+                                         preferences.dateFormatInput : preferences.dateFormatPresetName
             cell.accessoryType = .disclosureIndicator
         }
         
