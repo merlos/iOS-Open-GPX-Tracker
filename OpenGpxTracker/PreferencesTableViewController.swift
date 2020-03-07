@@ -54,6 +54,8 @@ class PreferencesTableViewController: UITableViewController, UINavigationBarDele
     
     var cache : MapCache = MapCache(withConfig: MapCacheConfig(withUrlTemplate: ""))
     
+    // Compute once, better performance for scrolling table view (reuse)
+    /// Store cached size for reuse.
     var cachedSize = String()
     
     /// Does the following:

@@ -24,6 +24,17 @@ let kDefaultsKeyUseImperial: String = "UseImperial"
 /// Key on Defaults for the current selected activity type.
 let kDefaultsKeyActivityType: String = "ActivityType"
 
+/// Key on Defaults for the current date format..
+let kDefaultsKeyDateFormat: String = "DateFormat"
+
+/// Key on Defaults for the current input date format
+let kDefaultsKeyDateFormatInput: String = "DateFormatPresetInput"
+
+/// Key on Defaults for the current selected date format preset cell index.
+let kDefaultsKeyDateFormatPreset: String = "DateFormatPreset"
+
+/// Key on Defaults for the current selected date format, to use UTC time or not..
+let kDefaultsKeyDateFormatUseUTC: String = "DateFormatPresetUseUTC"
 
 /// A class to handle app preferences in one single place.
 /// When the app starts for the first time the following preferences are set:
@@ -52,6 +63,18 @@ class Preferences: NSObject {
     
     /// In memory value of the preference.
     private var _activityType: CLActivityType = .other
+    
+    ///
+    private var _dateFormat = "dd-MMM-yyyy-HHmm"
+    
+    ///
+    private var _dateFormatInput = "{dd}-{MMM}-{yyyy}-{HH}{mm}"
+    
+    ///
+    private var _dateFormatPreset: Int = 0
+    
+    ///
+    private var _dateFormatUseUTC: Bool = false
     
     /// UserDefaults.standard shortcut
     private let defaults = UserDefaults.standard
@@ -88,6 +111,30 @@ class Preferences: NSObject {
         if let activityTypeInt = defaults.object(forKey: kDefaultsKeyActivityType) as? Int {
             _activityType = CLActivityType(rawValue: activityTypeInt)!
             print("** Preferences:: loaded preference from defaults activityTypeInt \(activityTypeInt)")
+        }
+        
+        // load previous date format
+        if let dateFormatStr = defaults.object(forKey: kDefaultsKeyDateFormat) as? String {
+            _dateFormat = dateFormatStr
+            print("** Preferences:: loaded preference from defaults dateFormatStr \(dateFormatStr)")
+        }
+        
+        // load previous date format (usr input)
+        if let dateFormatStrIn = defaults.object(forKey: kDefaultsKeyDateFormatInput) as? String {
+            _dateFormatInput = dateFormatStrIn
+            print("** Preferences:: loaded preference from defaults dateFormatStr \(dateFormatStrIn)")
+        }
+        
+        // load previous date format preset
+        if let dateFormatPresetInt = defaults.object(forKey: kDefaultsKeyDateFormatPreset) as? Int {
+            _dateFormatPreset = dateFormatPresetInt
+            print("** Preferences:: loaded preference from defaults dateFormatPresetInt \(dateFormatPresetInt)")
+        }
+        
+        // load previous date format, to use UTC time instead of local time
+        if let dateFormatUTCBool = defaults.object(forKey: kDefaultsKeyDateFormatPreset) as? Bool {
+            _dateFormatUseUTC = dateFormatUTCBool
+            print("** Preferences:: loaded preference from defaults dateFormatPresetUTCBool \(dateFormatUTCBool)")
         }
     }
     
@@ -156,6 +203,52 @@ class Preferences: NSObject {
         set {
             _activityType = CLActivityType(rawValue: newValue)!
             defaults.set(newValue, forKey: kDefaultsKeyActivityType)
+        }
+    }
+    
+    /// Gets and sets the date formatter friendly date format
+    var dateFormat: String {
+        get {
+            return _dateFormat
+        }
+        
+        set {
+             _dateFormat = newValue
+             defaults.set(newValue, forKey: kDefaultsKeyDateFormat)
+        }
+    }
+    
+    /// Gets and sets the user friendly input date format
+    var dateFormatInput: String {
+        get {
+            return _dateFormatInput
+        }
+        
+        set {
+             _dateFormatInput = newValue
+             defaults.set(newValue, forKey: kDefaultsKeyDateFormatInput)
+        }
+    }
+    
+    /// Get and sets user preference of date format presets. (-1 if custom)
+    var dateFormatPreset: Int {
+        get {
+            return _dateFormatPreset
+        }
+        set {
+            _dateFormatPreset = newValue
+             defaults.set(newValue, forKey: kDefaultsKeyDateFormatPreset)
+        }
+    }
+    
+    /// Get and sets whether to use UTC for date format
+    var dateFormatUseUTC: Bool {
+        get {
+            return _dateFormatUseUTC
+        }
+        set {
+            _dateFormatUseUTC = newValue
+             defaults.set(newValue, forKey: kDefaultsKeyDateFormatUseUTC)
         }
     }
 }

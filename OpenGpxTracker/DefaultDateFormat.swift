@@ -8,10 +8,10 @@
 import Foundation
 
 class DefaultDateFormat {
+    
     let dateFormatter = DateFormatter()
     
-    
-    static func getDateFormat(unprocessed: String) -> String {
+    func getDateFormat(unprocessed: String) -> String {
         var newText = ""
         let arr = unprocessed.components(separatedBy: CharacterSet(charactersIn: "{}"))
         let arrCount = arr.count
@@ -25,6 +25,14 @@ class DefaultDateFormat {
         }
 
         return newText
+    }
+    
+    func getDate(processedFormat dateFormat: String, useUTC: Bool = false, useENLocale: Bool = false) -> String {
+        //processedDateFormat = DefaultDateFormat.getDateFormat(unprocessed: self.cellTextField.text!)
+        dateFormatter.dateFormat = dateFormat
+        dateFormatter.timeZone = useUTC ? TimeZone(secondsFromGMT: 0) : TimeZone.current
+        dateFormatter.locale = useENLocale ? Locale(identifier: "en_US_POSIX") : Locale.current
+        return dateFormatter.string(from: Date())
     }
 
 }

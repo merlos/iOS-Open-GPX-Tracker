@@ -10,47 +10,33 @@ import UIKit
 class DefaultNameSetupViewController: UITableViewController, UITextFieldDelegate {
     
     var cellTextField = UITextField()
-    var label = UILabel()
+    var cellSampleLabel = UILabel()
+    
+    var processedDateFormat = String()
+    let defaultDateFormat = DefaultDateFormat()
+    
+    var useUTC = false
+    
+    /// Global Preferences
+    var preferences : Preferences = Preferences.shared
 
+    let presets = [("Defaults", "dd-MMM-yyyy-HHmm", "{dd}-{MMM}-{yyyy}-{HH}{mm}"),
+                    ("ISO8601 (UTC)", "yyyy-MM-dd'T'HH:mm:ss'Z'", "{yyyy}-{MM}-{dd}T{HH}:{mm}:{ss}Z"),
+                    ("ISO8601 (UTC offset)", "yyyy-MM-dd'T'HH:mm:ssZ", "{yyyy}-{MM}-{dd}T{HH}:{mm}:{ss}{Z}"),
+                    ("Day, Date at time (12 hr)", "EEEE, MMM d, yyyy 'at' h:mm a", "{EEEE}, {MMM} {d}, {yyyy} at {h}:{mm} {a}"),
+                    ("Day, Date at time (24 hr)", "EEEE, MMM d, yyyy 'at' HH:mm", "{EEEE}, {MMM} {d}, {yyyy} at {HH}:{mm}")]
     
     /// Sections of table view
     private enum kSections: Int, CaseIterable {
-        case input, presets
+        case input, useUTC, presets
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-    }
-
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        return true
-    
-    }
-
-    func textFieldShouldClear(_ textField: UITextField) -> Bool {
-        return false
+        useUTC = preferences.dateFormatUseUTC
     }
     
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        return kSections.allCases.count
-    }
-    
-    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        switch section {
-        case kSections.input.rawValue: return "Input"
-        case kSections.presets.rawValue: return "Presets"
-        default: fatalError("Section out of range")
-        }
-    }
-    
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        switch section {
-        case kSections.input.rawValue: return 2
-        case kSections.presets.rawValue: return 0 //placeholder
-        default: fatalError("Section out of range")
-        }
-    }
+    // MARK:- Text Field Related
     
     @objc func buttonTapped(_ sender: UIBarButtonItem, for event: UIEvent) {
         if cellTextField.text != nil {
@@ -65,61 +51,196 @@ class DefaultNameSetupViewController: UITableViewController, UITextFieldDelegate
             }
             textFieldTyping()
         }
-        
     }
 
     @objc func textFieldTyping() {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = DefaultDateFormat.getDateFormat(unprocessed: self.cellTextField.text!)
-        label.text = dateFormatter.string(from: Date())
+        processedDateFormat = defaultDateFormat.getDateFormat(unprocessed: self.cellTextField.text!)
+        //dateFormatter.dateFormat = processedDateFormat
+        cellSampleLabel.text = defaultDateFormat.getDate(processedFormat: processedDateFormat, useUTC: useUTC)
+    }
+
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        //remove checkmark from selected date format preset, as textfield edited == not preset anymore
+        let selectedIndexPath = IndexPath(row: preferences.dateFormatPreset, section: kSections.presets.rawValue)
+        tableView.cellForRow(at: selectedIndexPath)?.accessoryType = .none
+        useUTC = false
+        lockUTCCell(useUTC)
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        if cellTextField.text != preferences.dateFormatInput {
+            saveDateFormat(processedDateFormat, input: cellTextField.text)
+
+        }
+        else {
+            let selectedIndexPath = IndexPath(row: preferences.dateFormatPreset, section: kSections.presets.rawValue)
+            tableView.cellForRow(at: selectedIndexPath)?.accessoryType = .checkmark
+            
+            if preferences.dateFormatPreset == 1 {
+                useUTC = true
+                lockUTCCell(useUTC)
+            }
+        }
+    }
+
+    func textFieldShouldClear(_ textField: UITextField) -> Bool {
+        return false
+    }
+    
+    func saveDateFormat(_ dateFormat: String, input: String?, index: Int = -1) {
+        guard let input = input else { return }
+        if dateFormat == "invalid" || input.isEmpty { return } // ensures no invalid date format (revert)
+        preferences.dateFormat = dateFormat
+        preferences.dateFormatInput = input
+        preferences.dateFormatPreset = index
+        preferences.dateFormatUseUTC = useUTC
+    }
+    
+    func lockUTCCell(_ state: Bool) {
+        let indexPath = IndexPath(row: 0, section: kSections.useUTC.rawValue)
+        useUTC = state
+        
+        tableView.cellForRow(at: indexPath)?.accessoryType = state ? .checkmark : .none
+        tableView.cellForRow(at: indexPath)?.isUserInteractionEnabled = !state
+        tableView.cellForRow(at: indexPath)?.textLabel?.isEnabled = !state
+    }
+    
+    // MARK:- Table View
+    
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        return kSections.allCases.count
+    }
+    
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        switch section {
+        case kSections.input.rawValue: return "Input"
+        case kSections.useUTC.rawValue: return "Universal Coordinated Time"
+        case kSections.presets.rawValue: return "Presets"
+        default: fatalError("Section out of range")
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        switch section {
+        case kSections.input.rawValue: return 2
+        case kSections.useUTC.rawValue: return 1
+        case kSections.presets.rawValue: return presets.count
+        default: fatalError("Row out of range")
+        }
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = UITableViewCell(style: .default, reuseIdentifier: "inputCell")
-        if indexPath.row == 0 {
-            
-            label = UILabel(frame: CGRect(x: 82, y: 0, width: view.frame.width - 97, height: cell.frame.height))
-            cell.addSubview(label)
-            label.text = ""
-            cell.textLabel!.text = "Sample: "
-            if #available(iOS 8.2, *) {
-                cell.textLabel?.font = .systemFont(ofSize: 17, weight: .thin)
+        var cell = UITableViewCell(style: .default, reuseIdentifier: "inputCell")
+        
+        if indexPath.section == kSections.input.rawValue {
+            if indexPath.row == 0 {
+                
+                cellSampleLabel = UILabel(frame: CGRect(x: 87, y: 0, width: view.frame.width - 99, height: cell.frame.height))
+                cellSampleLabel.font = .boldSystemFont(ofSize: 17)
+                cell.addSubview(cellSampleLabel)
+                cellSampleLabel.text = ""
+                cell.textLabel!.text = "Sample: "
+                cell.textLabel?.font = .systemFont(ofSize: 17)
+                
             }
+            else if indexPath.row == 1 {
+                cellTextField = UITextField(frame: CGRect(x: 22, y: 0, width: view.frame.width - 48, height: cell.frame.height))
+                //let textView = UITextView(frame: CGRect(x: 25, y: 5, width: view.frame.width - 50, height: cell.frame.height))
+                cellTextField.text = preferences.dateFormatInput
+                textFieldTyping()
+                //cellTextField.placeholder = "Default Name"
+                cellTextField.delegate = self
+                cellTextField.returnKeyType = .done
+                let bar = UIToolbar()
+                let day = UIBarButtonItem(title: "Day", style: .plain, target: self, action: #selector(buttonTapped(_:for:)))
+                day.tag = 0
+                let month = UIBarButtonItem(title: "Month", style: .plain, target: self, action: #selector(buttonTapped(_:for:)))
+                month.tag = 1
+                let year = UIBarButtonItem(title: "Year", style: .plain, target: self, action: #selector(buttonTapped(_:for:)))
+                year.tag = 2
+                let hour = UIBarButtonItem(title: "Hour", style: .plain, target: self, action: #selector(buttonTapped(_:for:)))
+                hour.tag = 3
+                let min = UIBarButtonItem(title: "Minute", style: .plain, target: self, action: #selector(buttonTapped(_:for:)))
+                min.tag = 4
+                let sec = UIBarButtonItem(title: "Second", style: .plain, target: self, action: #selector(buttonTapped(_:for:)))
+                sec.tag = 5
+
+                bar.items = [day, month, year, hour, min, sec]
+                bar.sizeToFit()
+                cellTextField.addTarget(self, action: #selector(textFieldTyping), for: UIControl.Event.editingChanged)
+                cellTextField.inputAccessoryView = bar
+
+                cell.contentView.addSubview(cellTextField)
+                if indexPath.section == kSections.input.rawValue {
+                    
+                }
+            }
+            cell.selectionStyle = .none
+            cellTextField.autocorrectionType = .no
         }
-        if indexPath.row == 1 {
-            cellTextField = UITextField(frame: CGRect(x: 25, y: 0, width: view.frame.width - 50, height: cell.frame.height))
-            //let textView = UITextView(frame: CGRect(x: 25, y: 5, width: view.frame.width - 50, height: cell.frame.height))
-            cellTextField.text = ""
-            //cellTextField.placeholder = "Default Name"
-            cellTextField.delegate = self
-            cellTextField.returnKeyType = .done
-            let bar = UIToolbar()
-            let day = UIBarButtonItem(title: "Day", style: .plain, target: self, action: #selector(buttonTapped(_:for:)))
-            day.tag = 0
-            let month = UIBarButtonItem(title: "Month", style: .plain, target: self, action: #selector(buttonTapped(_:for:)))
-            month.tag = 1
-            let year = UIBarButtonItem(title: "Year", style: .plain, target: self, action: #selector(buttonTapped(_:for:)))
-            year.tag = 2
-            let hour = UIBarButtonItem(title: "Hour", style: .plain, target: self, action: #selector(buttonTapped(_:for:)))
-            hour.tag = 3
-            let min = UIBarButtonItem(title: "Minute", style: .plain, target: self, action: #selector(buttonTapped(_:for:)))
-            min.tag = 4
-            let sec = UIBarButtonItem(title: "Second", style: .plain, target: self, action: #selector(buttonTapped(_:for:)))
-            sec.tag = 5
-
-            bar.items = [day, month, year, hour, min, sec]
-            bar.sizeToFit()
-            cellTextField.addTarget(self, action: #selector(textFieldTyping), for: UIControl.Event.editingChanged)
-            cellTextField.inputAccessoryView = bar
-
-            cell.contentView.addSubview(cellTextField)
-            if indexPath.section == kSections.input.rawValue {
+            
+        else if indexPath.section == kSections.useUTC.rawValue {
+            cell.textLabel!.text = "Use UTC?"
+            cell.accessoryType = preferences.dateFormatUseUTC ? .checkmark : .none
+            
+            if preferences.dateFormatPreset == 1 {
+                cell.isUserInteractionEnabled = !useUTC
+                cell.textLabel?.isEnabled = !useUTC
                 
             }
         }
+        
+        else if indexPath.section == kSections.presets.rawValue {
+            cell = UITableViewCell(style: .subtitle, reuseIdentifier: "presetCell")
+            cell.textLabel?.text = presets[indexPath.row].0
+            cell.detailTextLabel?.text = presets[indexPath.row].1
+            
+            if preferences.dateFormatPreset != -1 { // if not custom
+                cell.accessoryType = preferences.dateFormatPreset == indexPath.row ? .checkmark : .none
+            }
+        }
+
         return cell
     }
-    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.section == kSections.useUTC.rawValue {
+            //remove checkmark from selected date format preset
+            let newUseUTC = !preferences.dateFormatUseUTC
+            preferences.dateFormatUseUTC = newUseUTC
+            useUTC = newUseUTC
+            tableView.cellForRow(at: indexPath)?.accessoryType = newUseUTC ? .checkmark : .none
+        }
+        if indexPath.section == kSections.presets.rawValue {
+            //cellSampleLabel.text = "{\(presets[indexPath.row].1)}"
+            cellTextField.text = presets[indexPath.row].2
+            
+            //update cell UI
+            //remove checkmark from selected date format preset
+            let selectedIndexPath = IndexPath(row: preferences.dateFormatPreset, section: indexPath.section)
+            tableView.cellForRow(at: selectedIndexPath)?.accessoryType = .none
+            
+            //add checkmark to new selected date format preset
+            tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
+            preferences.dateFormatPreset = indexPath.row
+            preferences.dateFormatInput = presets[indexPath.row].2
+            preferences.dateFormat = processedDateFormat
+            if preferences.dateFormatPreset == 1 {
+                lockUTCCell(true)
+            }
+            else {
+                lockUTCCell(false)
+            }
+            preferences.dateFormatUseUTC = useUTC
+        }
+        textFieldTyping()
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
 
 }
