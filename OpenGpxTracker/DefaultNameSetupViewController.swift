@@ -49,6 +49,12 @@ class DefaultNameSetupViewController: UITableViewController, UITextFieldDelegate
             case 3: cellTextField.insertText("{HH}")
             case 4: cellTextField.insertText("{mm}")
             case 5: cellTextField.insertText("{ss}")
+            case 6:
+                cellTextField.insertText("{}")
+                
+                guard let currRange = cellTextField.selectedTextRange,
+                      let wantedRange = cellTextField.position(from: currRange.start, offset: -1) else { return }
+                cellTextField.selectedTextRange = cellTextField.textRange(from: wantedRange, to: wantedRange)
             default: return
             }
             textFieldTyping()
@@ -92,12 +98,12 @@ class DefaultNameSetupViewController: UITableViewController, UITextFieldDelegate
     }
 
     func textFieldShouldClear(_ textField: UITextField) -> Bool {
-        return false
+        return true
     }
     
     func saveDateFormat(_ dateFormat: String, input: String?, index: Int = -1) {
         guard let input = input else { return }
-        if dateFormat == "invalid" || input.isEmpty { return } // ensures no invalid date format (revert)
+        if dateFormat == "invalid" || input.isEmpty || dateFormat.isEmpty { return } // ensures no invalid date format (revert)
         preferences.dateFormat = dateFormat
         preferences.dateFormatInput = input
         preferences.dateFormatPreset = index
@@ -168,24 +174,26 @@ class DefaultNameSetupViewController: UITableViewController, UITextFieldDelegate
                 //let textView = UITextView(frame: CGRect(x: 25, y: 5, width: view.frame.width - 50, height: cell.frame.height))
                 cellTextField.text = preferences.dateFormatInput
                 textFieldTyping()
-                //cellTextField.placeholder = "Default Name"
+                cellTextField.clearButtonMode = .whileEditing
                 cellTextField.delegate = self
                 cellTextField.returnKeyType = .done
                 let bar = UIToolbar()
+                let bracket = UIBarButtonItem(title: "{ ... }", style: .plain, target: self, action: #selector(buttonTapped(_:for:)))
+                bracket.tag = 6
                 let day = UIBarButtonItem(title: "Day", style: .plain, target: self, action: #selector(buttonTapped(_:for:)))
                 day.tag = 0
                 let month = UIBarButtonItem(title: "Month", style: .plain, target: self, action: #selector(buttonTapped(_:for:)))
                 month.tag = 1
                 let year = UIBarButtonItem(title: "Year", style: .plain, target: self, action: #selector(buttonTapped(_:for:)))
                 year.tag = 2
-                let hour = UIBarButtonItem(title: "Hour", style: .plain, target: self, action: #selector(buttonTapped(_:for:)))
+                let hour = UIBarButtonItem(title: "Hr", style: .plain, target: self, action: #selector(buttonTapped(_:for:)))
                 hour.tag = 3
-                let min = UIBarButtonItem(title: "Minute", style: .plain, target: self, action: #selector(buttonTapped(_:for:)))
+                let min = UIBarButtonItem(title: "Min", style: .plain, target: self, action: #selector(buttonTapped(_:for:)))
                 min.tag = 4
-                let sec = UIBarButtonItem(title: "Second", style: .plain, target: self, action: #selector(buttonTapped(_:for:)))
+                let sec = UIBarButtonItem(title: "Sec", style: .plain, target: self, action: #selector(buttonTapped(_:for:)))
                 sec.tag = 5
 
-                bar.items = [day, month, year, hour, min, sec]
+                bar.items = [bracket, day, month, year, hour, min, sec]
                 bar.sizeToFit()
                 cellTextField.addTarget(self, action: #selector(textFieldTyping), for: UIControl.Event.editingChanged)
                 cellTextField.inputAccessoryView = bar
