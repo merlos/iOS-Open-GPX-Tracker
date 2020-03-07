@@ -136,7 +136,7 @@ class DefaultNameSetupViewController: UITableViewController, UITextFieldDelegate
     
     override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
         if section == kSections.input.rawValue {
-            return "Clicking done on the keyboard saves the date format for use, regardless if its a preset or custom."
+            return "Clicking done on the keyboard saves the date format for use, regardless if its a preset or custom. Date format should be encapsulated within { ... }. For full list of applicable date format syntax please refer to Unicode Technical Standard (UTS) #35."
         }
         else { return nil }
     }
