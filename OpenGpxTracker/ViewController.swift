@@ -838,10 +838,12 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
     /// returns a string with the format of current date dd-MMM-yyyy-HHmm' (20-Jun-2018-1133)
     ///
     func defaultFilename() -> String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd-MMM-yyyy-HHmm"
-        print("fileName:" + dateFormatter.string(from: Date()))
-        return dateFormatter.string(from: Date())
+        let defaultDate = DefaultDateFormat()
+        //let dateFormatter = DateFormatter()
+        //dateFormatter.dateFormat = "dd-MMM-yyyy-HHmm"
+        let dateStr = defaultDate.getDateFromPrefs()
+        print("fileName:" + dateStr)//dateFormatter.string(from: Date()))
+        return dateStr//dateFormatter.string(from: Date())
     }
     
     @objc func loadRecoveredFile(_ notification: Notification) {

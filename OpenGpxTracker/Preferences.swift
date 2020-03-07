@@ -36,6 +36,9 @@ let kDefaultsKeyDateFormatPreset: String = "DateFormatPreset"
 /// Key on Defaults for the current selected date format, to use UTC time or not..
 let kDefaultsKeyDateFormatUseUTC: String = "DateFormatPresetUseUTC"
 
+/// Key on Defaults for the current selected date format, to use local Locale or `en_US_POSIX`
+let kDefaultsKeyDateFormatUseEN: String = "DateFormatPresetUseEN"
+
 /// A class to handle app preferences in one single place.
 /// When the app starts for the first time the following preferences are set:
 ///
@@ -75,6 +78,9 @@ class Preferences: NSObject {
     
     ///
     private var _dateFormatUseUTC: Bool = false
+    
+    ///
+    private var _dateFormatUseEN: Bool = false
     
     /// UserDefaults.standard shortcut
     private let defaults = UserDefaults.standard
@@ -122,7 +128,7 @@ class Preferences: NSObject {
         // load previous date format (usr input)
         if let dateFormatStrIn = defaults.object(forKey: kDefaultsKeyDateFormatInput) as? String {
             _dateFormatInput = dateFormatStrIn
-            print("** Preferences:: loaded preference from defaults dateFormatStr \(dateFormatStrIn)")
+            print("** Preferences:: loaded preference from defaults dateFormatStrIn \(dateFormatStrIn)")
         }
         
         // load previous date format preset
@@ -132,9 +138,15 @@ class Preferences: NSObject {
         }
         
         // load previous date format, to use UTC time instead of local time
-        if let dateFormatUTCBool = defaults.object(forKey: kDefaultsKeyDateFormatPreset) as? Bool {
+        if let dateFormatUTCBool = defaults.object(forKey: kDefaultsKeyDateFormatUseUTC) as? Bool {
             _dateFormatUseUTC = dateFormatUTCBool
             print("** Preferences:: loaded preference from defaults dateFormatPresetUTCBool \(dateFormatUTCBool)")
+        }
+        
+        // load previous date format, to use EN locale instead of local locale
+        if let dateFormatENBool = defaults.object(forKey: kDefaultsKeyDateFormatUseEN) as? Bool {
+            _dateFormatUseEN = dateFormatENBool
+            print("** Preferences:: loaded preference from defaults dateFormatPresetENBool \(dateFormatENBool)")
         }
     }
     
@@ -249,6 +261,17 @@ class Preferences: NSObject {
         set {
             _dateFormatUseUTC = newValue
              defaults.set(newValue, forKey: kDefaultsKeyDateFormatUseUTC)
+        }
+    }
+    
+    /// Get and sets whether to use local locale or EN
+    var dateFormatUseEN: Bool {
+        get {
+            return _dateFormatUseEN
+        }
+        set {
+            _dateFormatUseEN = newValue
+             defaults.set(newValue, forKey: kDefaultsKeyDateFormatUseEN)
         }
     }
 }

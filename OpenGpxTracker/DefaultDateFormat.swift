@@ -34,5 +34,13 @@ class DefaultDateFormat {
         dateFormatter.locale = useENLocale ? Locale(identifier: "en_US_POSIX") : Locale.current
         return dateFormatter.string(from: Date())
     }
+    
+    func getDateFromPrefs() -> String {
+        let dateFormat = Preferences.shared.dateFormat
+        let useUTC = Preferences.shared.dateFormatUseUTC
+        let useEN = Preferences.shared.dateFormatUseEN
+        return getDate(processedFormat: dateFormat, useUTC: useUTC, useENLocale: useEN)
+        
+    }
 
 }
