@@ -7,20 +7,33 @@
 
 import UIKit
 
+/// It is an editor for the default file name.
 class DefaultNameSetupViewController: UITableViewController, UITextFieldDelegate {
     
+    /// text field for user to key in file name format.
     var cellTextField = UITextField()
+    
+    /// sample text to depict possible date time format.
     var cellSampleLabel = UILabel()
     
+    /// proccessed date format text, such as 'TIME' HH:MM:ss, instead of TIME {HH}:{MM}:{ss}
+    ///
+    /// also used for final date formatting for use in default name callup when saving.
     var processedDateFormat = String()
+    
+    ///
     let defaultDateFormat = DefaultDateFormat()
     
+    /// to use UTC time instead of local.
     var useUTC = false
+    
+    /// to use en_US_POSIX instead of usual locale. (Force English name scheme)
     var useEN = false
     
     /// Global Preferences
     var preferences : Preferences = Preferences.shared
 
+    /// Built in presets. Should be made addable customs next time.
     let presets =  [("Defaults", "dd-MMM-yyyy-HHmm", "{dd}-{MMM}-{yyyy}-{HH}{mm}"),
                     ("ISO8601 (UTC)", "yyyy-MM-dd'T'HH:mm:ss'Z'", "{yyyy}-{MM}-{dd}T{HH}:{mm}:{ss}Z"),
                     ("ISO8601 (UTC offset)", "yyyy-MM-dd'T'HH:mm:ssZ", "{yyyy}-{MM}-{dd}T{HH}:{mm}:{ss}{Z}"),
@@ -40,6 +53,7 @@ class DefaultNameSetupViewController: UITableViewController, UITextFieldDelegate
     
     // MARK:- Text Field Related
     
+    /// Handles text insertion as per keyboard bar button pressed.
     @objc func buttonTapped(_ sender: UIBarButtonItem, for event: UIEvent) {
         if cellTextField.text != nil {
             switch sender.tag {
@@ -61,32 +75,39 @@ class DefaultNameSetupViewController: UITableViewController, UITextFieldDelegate
         }
     }
 
+    /// Call when text field is currently editing, and an update to sample label is required.
     @objc func textFieldTyping() {
         processedDateFormat = defaultDateFormat.getDateFormat(unprocessed: self.cellTextField.text!)
         //dateFormatter.dateFormat = processedDateFormat
         cellSampleLabel.text = defaultDateFormat.getDate(processedFormat: processedDateFormat, useUTC: useUTC, useENLocale: useEN)
     }
-
+    
+    // MARK:- UITextField Delegate
+    
+    /// Enables keyboard 'done' action to resign text field
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
     
     }
     
+    /// handling of textfield when editing commence.
     func textFieldDidBeginEditing(_ textField: UITextField) {
         //remove checkmark from selected date format preset, as textfield edited == not preset anymore
         let selectedIndexPath = IndexPath(row: preferences.dateFormatPreset, section: kSections.presets.rawValue)
         tableView.cellForRow(at: selectedIndexPath)?.accessoryType = .none
-        useUTC = false
+        useUTC = false // clear UTC value, unlock UTC cell, as format may now be custom.
         lockUTCCell(useUTC)
     }
     
+    /// handling of textfield when editing is done.
     func textFieldDidEndEditing(_ textField: UITextField) {
         if cellTextField.text != preferences.dateFormatInput {
             saveDateFormat(processedDateFormat, input: cellTextField.text)
-
+            // save if user input is custom / derivative of preset.
         }
         else {
+            // to get back preset set, and its rules (such as UTC for ISO8601 preset)
             let selectedIndexPath = IndexPath(row: preferences.dateFormatPreset, section: kSections.presets.rawValue)
             tableView.cellForRow(at: selectedIndexPath)?.accessoryType = .checkmark
             
@@ -97,10 +118,14 @@ class DefaultNameSetupViewController: UITableViewController, UITextFieldDelegate
         }
     }
 
+    /// allows clear button to operate.
     func textFieldShouldClear(_ textField: UITextField) -> Bool {
         return true
     }
     
+    // MARK:- Preference Setting
+    
+    /// Saves date format to Preferences/UserDefaults
     func saveDateFormat(_ dateFormat: String, input: String?, index: Int = -1) {
         guard let input = input else { return }
         if dateFormat == "invalid" || input.isEmpty || dateFormat.isEmpty { return } // ensures no invalid date format (revert)
@@ -110,6 +135,9 @@ class DefaultNameSetupViewController: UITableViewController, UITextFieldDelegate
         preferences.dateFormatUseUTC = useUTC
     }
     
+    // MARK:- Table View
+    
+    /// Locks UTC cell such that it cannot be unchecked, for preset that require it.
     func lockUTCCell(_ state: Bool) {
         let indexPath = IndexPath(row: 0, section: kSections.settings.rawValue)
         useUTC = state
@@ -120,12 +148,12 @@ class DefaultNameSetupViewController: UITableViewController, UITextFieldDelegate
         textFieldTyping()
     }
     
-    // MARK:- Table View
-    
+    /// return number of sections based on `kSections`
     override func numberOfSections(in tableView: UITableView) -> Int {
         return kSections.allCases.count
     }
     
+    /// implement title of each section
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section {
         case kSections.input.rawValue: return NSLocalizedString("DEFAULT_NAME_DATE_FORMAT", comment: "no comment")
@@ -135,6 +163,7 @@ class DefaultNameSetupViewController: UITableViewController, UITextFieldDelegate
         }
     }
     
+    /// implement footer for input section only
     override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
         if section == kSections.input.rawValue {
             return NSLocalizedString("DEFAULT_NAME_INPUT_FOOTER", comment: "no comment")
@@ -142,6 +171,7 @@ class DefaultNameSetupViewController: UITableViewController, UITextFieldDelegate
         else { return nil }
     }
     
+    /// return number of rows in each section
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
         case kSections.input.rawValue: return 2
@@ -155,6 +185,7 @@ class DefaultNameSetupViewController: UITableViewController, UITextFieldDelegate
         }
     }
     
+    /// setup each cell, according its requirements.
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         var cell = UITableViewCell(style: .default, reuseIdentifier: "inputCell")
@@ -237,6 +268,8 @@ class DefaultNameSetupViewController: UITableViewController, UITextFieldDelegate
 
         return cell
     }
+    
+    /// handling of cell selection.
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == kSections.settings.rawValue {
             if indexPath.row == 0 {

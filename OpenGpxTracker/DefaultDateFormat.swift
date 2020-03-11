@@ -7,10 +7,13 @@
 
 import Foundation
 
+/// Handles processing of 'unprocessed' user input date format, processing of sample date format, etc
 class DefaultDateFormat {
     
+    /// DateFormatter for use in each instance.
     let dateFormatter = DateFormatter()
     
+    /// returns a 'processed', `DateFormatter`-friendly date format.
     func getDateFormat(unprocessed: String) -> String {
         var newText = ""
         let arr = unprocessed.components(separatedBy: CharacterSet(charactersIn: "{}"))
@@ -27,6 +30,7 @@ class DefaultDateFormat {
         return newText
     }
     
+    /// Returns sample date time based on user input.
     func getDate(processedFormat dateFormat: String, useUTC: Bool = false, useENLocale: Bool = false) -> String {
         //processedDateFormat = DefaultDateFormat.getDateFormat(unprocessed: self.cellTextField.text!)
         dateFormatter.dateFormat = dateFormat
@@ -35,6 +39,7 @@ class DefaultDateFormat {
         return dateFormatter.string(from: Date())
     }
     
+    /// Returns Preference stored date format and its settings.
     func getDateFromPrefs() -> String {
         let dateFormat = Preferences.shared.dateFormat
         let useUTC = Preferences.shared.dateFormatUseUTC
