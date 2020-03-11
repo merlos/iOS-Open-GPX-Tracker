@@ -29,7 +29,7 @@ class DefaultNameSetupViewController: UITableViewController, UITextFieldDelegate
     
     /// Sections of table view
     private enum kSections: Int, CaseIterable {
-        case input, useUTC, presets
+        case input, settings, presets
     }
 
     override func viewDidLoad() {
@@ -111,12 +111,13 @@ class DefaultNameSetupViewController: UITableViewController, UITextFieldDelegate
     }
     
     func lockUTCCell(_ state: Bool) {
-        let indexPath = IndexPath(row: 0, section: kSections.useUTC.rawValue)
+        let indexPath = IndexPath(row: 0, section: kSections.settings.rawValue)
         useUTC = state
         
         tableView.cellForRow(at: indexPath)?.accessoryType = state ? .checkmark : .none
         tableView.cellForRow(at: indexPath)?.isUserInteractionEnabled = !state
         tableView.cellForRow(at: indexPath)?.textLabel?.isEnabled = !state
+        textFieldTyping()
     }
     
     // MARK:- Table View
@@ -127,16 +128,16 @@ class DefaultNameSetupViewController: UITableViewController, UITextFieldDelegate
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section {
-        case kSections.input.rawValue: return "Date Format"
-        case kSections.useUTC.rawValue: return "Time/Locale Settings"
-        case kSections.presets.rawValue: return "Presets"
+        case kSections.input.rawValue: return NSLocalizedString("DEFAULT_NAME_DATE_FORMAT", comment: "no comment")
+        case kSections.settings.rawValue: return NSLocalizedString("DEFAULT_NAME_SETTINGS", comment: "no comment")
+        case kSections.presets.rawValue: return NSLocalizedString("DEFAULT_NAME_PRESET", comment: "no comment")
         default: fatalError("Section out of range")
         }
     }
     
     override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
         if section == kSections.input.rawValue {
-            return "Clicking done on the keyboard saves the date format for use, regardless if its a preset or custom. Date format should be encapsulated within { ... }. For full list of applicable date format syntax please refer to Unicode Technical Standard (UTS) #35."
+            return NSLocalizedString("DEFAULT_NAME_INPUT_FOOTER", comment: "no comment")
         }
         else { return nil }
     }
@@ -144,7 +145,7 @@ class DefaultNameSetupViewController: UITableViewController, UITextFieldDelegate
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
         case kSections.input.rawValue: return 2
-        case kSections.useUTC.rawValue:
+        case kSections.settings.rawValue:
             if Locale.current.languageCode == "en" {
                 return 1 // force locale to EN should only be shown if Locale is not EN.
             }
@@ -165,7 +166,8 @@ class DefaultNameSetupViewController: UITableViewController, UITextFieldDelegate
                 cellSampleLabel.font = .boldSystemFont(ofSize: 17)
                 cell.addSubview(cellSampleLabel)
                 cellSampleLabel.text = ""
-                cell.textLabel!.text = "Sample: "
+                cellSampleLabel.adjustsFontSizeToFitWidth = true
+                cell.textLabel!.text = NSLocalizedString("DEFAULT_NAME_SAMPLE_OUTPUT_TITLE", comment: "no comment")
                 cell.textLabel?.font = .systemFont(ofSize: 17)
                 
             }
@@ -207,9 +209,9 @@ class DefaultNameSetupViewController: UITableViewController, UITextFieldDelegate
             cellTextField.autocorrectionType = .no
         }
             
-        else if indexPath.section == kSections.useUTC.rawValue {
+        else if indexPath.section == kSections.settings.rawValue {
             if indexPath.row == 0 {
-                cell.textLabel!.text = "Use UTC?"
+                cell.textLabel!.text = NSLocalizedString("DEFAULT_NAME_USE_UTC", comment: "no comment")//"Use UTC?"
                 cell.accessoryType = preferences.dateFormatUseUTC ? .checkmark : .none
                 
                 if preferences.dateFormatPreset == 1 {
@@ -218,7 +220,7 @@ class DefaultNameSetupViewController: UITableViewController, UITextFieldDelegate
                 }
             }
             else if indexPath.row == 1 {
-                cell.textLabel!.text = "Force English Locale?"
+                cell.textLabel!.text = NSLocalizedString("DEFAULT_NAME_ENGLISH_LOCALE", comment: "no comment")//"Force English Locale?"
                 cell.accessoryType = preferences.dateFormatUseEN ? .checkmark : .none
             }
         }
@@ -236,7 +238,7 @@ class DefaultNameSetupViewController: UITableViewController, UITextFieldDelegate
         return cell
     }
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.section == kSections.useUTC.rawValue {
+        if indexPath.section == kSections.settings.rawValue {
             if indexPath.row == 0 {
                 //remove checkmark from selected utc setting
                 let newUseUTC = !preferences.dateFormatUseUTC

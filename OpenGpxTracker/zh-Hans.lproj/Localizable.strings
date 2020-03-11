@@ -112,3 +112,19 @@
 
 "CONTINUE_SESSION" = "继续记录";
 "SAVE_START_NEW" = "储存恢复好的记录，并从新开始";
+
+// Default File Name
+
+// in preferences section
+"DEFAULT_NAME_SECTION" = "预设文件名";
+
+// in default name editor view
+"DEFAULT_NAME_DATE_FORMAT" = "文件名格式（根据日期和时间）";
+"DEFAULT_NAME_SETTINGS" = "设置";
+"DEFAULT_NAME_PRESET" = "预定程序";
+
+"DEFAULT_NAME_INPUT_FOOTER" = "在键盘上，按下 “完成” 按钮，无论预定程序有被更改或新程序，就等于设定了文件名格式。关于日期或时间的句法设定，请使用 { ... } 来包围。全部日期或时间的句法可在 Unicode Technical Standard (UTS) #35 里了解。";
+
+"DEFAULT_NAME_SAMPLE_OUTPUT_TITLE" = "样品：";
+"DEFAULT_NAME_USE_UTC" = "要使用 UTC Time 吗？";
+"DEFAULT_NAME_ENGLISH_LOCALE" = "要使用英文日期和时间写法吗？";
