@@ -1,0 +1,110 @@
+/*
+Localizable.strings
+OpenGpxTracker
+
+Created by Phiilman on 28.03.20.
+*/
+
+// App
+"NO_LOCATION" = "NEi sijaintia";
+"START_TRACKING" = "Aloita seuranta";
+"PAUSE" = "Tauko";
+"RESUME" = "Jatka";
+"SAVE" = "Tallenna";
+"RESET" = "Nollaa";
+"DONE" = "Valmis";
+"CANCEL" = "Hylkää";
+"WATCH_FILE_RECEIVED_TITLE" = "Tiedosto vastaanotettu Apple Watch";
+"WATCH_FILE_RECEIVED_MESSAGE" = "Vastaanotettu tiedosto: \"%@\"";
+"SAVE_AS" = "Tallenna nimellä";
+"ENTER_SESSION_NAME" = "Anna GPX tapahtumalle nimi";
+"LOCATION_SERVICES_DISABLED" = "Sijainti estetty puhelimen asetuksissa.";
+"ENABLE_LOCATION_SERVICES" = "Salli sijainti puhelimen asetuksista.";
+"SETTINGS" = "Asetukset";
+"ACCESS_TO_LOCATION_DENIED" = "Access to location denied";
+"ALLOW_LOCATION" = "Vaihda puhelimen asetuksista GPX Tracker sijainti, salli aina.";
+"COORDS_LABEL" = "(%@, %@) · korkeus: %@";
+"NO_FILES" = "Ei GPX -tiedostoja";
+"YOUR_FILES" = "Sinun GPX tiedostosi";
+"LAST_SAVED" = "Viimeksi tallennettu %@ (%@)";
+"DELETE" = "Poista";
+"SELECT_OPTION" = "Valitse asetus";
+"LOAD_IN_MAP" = "Lataa kartalle";
+"SHARE" = "Jaa";
+"LOADING_FILE" = "Lataa GPX tiedostoa";
+"ABOUT" = "Tietoja";
+"PREFERENCES" = "Asetukset";
+"UNITS" = "Yksiköt";
+"CACHE" = "Välimuisti";
+"MAP_SOURCE" = "Kartan lähde";
+"ACTIVITY_TYPE" = "Aktiviteetti";
+"USE_IMPERIAL_UNITS" = "Käytä Britti-mittoja?";
+"OFFLINE_CACHE" = "Offline välimuisti";
+"CLEAR_CACHE" = "Tyhjennä välimuisti";
+"CACHE_IS_EMPTY" = "Välimuisti on tyhjä";
+"EDIT_WAYPOINT_NAME_TITLE" = "Nimeä merkkipiste";
+"EDIT_WAYPOINT_NAME_MESSAGE" = "Vihje: Vedä ja pudota nuppineulaa siirtääksesi merkin paikkaa.";
+
+// Watch
+"SENDING" = "Lähettää:";
+"X_FILES" = "%d tiedostoa";
+"SUCCESSFULLY_SENT" = "Lähetetty:";
+"FAILED_TO_SEND" = "Lähetys epäonnistui:";
+"SEND_TO_IOS" = "Lähetä iOS:iin";
+"FILE_SELECTED_TITLE" = "GPX -tiedosto valittu";
+"FILE_SELECTED_MESSAGE" = "Mitä haluaisit tehdä?";
+"ERROR_OCCURED_TITLE" = "Virhe tapahtunut";
+"ERROR_OCCURED_MESSAGE" = "GPX -tiedoston lähetys iOS:iin ei onnistunut: %s ";
+"GPX_TRACKER" = "GPX Tracker";
+"FILE_SAVED_TITLE" = "GPX -tiedosto tallennettu";
+"FILE_SAVED_MESSAGE" = "Tapahtuma tallennettu nimellä %s.gpx ";
+
+// Activities
+"AT_AUTOMATIC" = "Automaattinen";
+"AT_AUTOMOTIVE" = "Seuraava navigointi";
+"AT_FITNESS" = "Fitness";
+"AT_OTHER" = "Muu navigointi";
+"AT_FLIGHT" = "Lento";
+
+"AT_AUTOMATIC_DESC" = "Oletus. Aktiviteetti tyyli valitaan automaattisesti.";
+"AT_AUTOMOTIVE_DESC" = "Moottorikulkuneuvo, tms.";
+"AT_FITNESS_DESC" = "Urheilu.";
+"AT_OTHER_DESC" = "Muu.";
+"AT_FLIGHT_DESC" = "Ilmailu.";
+
+// Dates
+"T_YEARS_AGO" = "%d vuotta sitten";
+"T_YEAR_AGO" = "1 vuosi sitten";
+"T_LAST_YEAR" = "viime vuonna";
+
+"T_MONTHS_AGO" = "%d kuukautta sitten";
+"T_MONTH_AGO" = "1 kuukausi sitten";
+"T_LAST_MONTH" = "viime kuussa";
+
+"T_WEEKS_AGO" = "%d viikkoa sitten";
+"T_WEEK_AGO" = "1 viikko sitten";
+"T_LAST_WEEK" = "viime viikolla";
+
+"T_DAYS_AGO" = "%d päivää sitten";
+"T_DAY_AGO" = "1 päivä sitten";
+"T_YESTERDAY" = "eilen";
+
+"T_HOURS_AGO" = "%d tuntia sitten";
+"T_HOUR_AGO" = "1 tunti sitten";
+"T_LAST_HOUR" = "tunnin sisään";
+
+"T_MINUTES_AGO" = "%d minuuttia sitten";
+"T_MINUTE_AGO" = "1 minuutti sitten";
+"T_MINUTE_HOUR" = "minuutin sisään";
+
+"T_SECONDS_AGO" = "%d sekuntia sitten";
+
+"T_JUST_NOW" = "nyt";
+
+// CoreDataHelper
+
+"CONTINUE_SESSION_TITLE" = "Jatka edellistä tapahtumaa?";
+"CONTINUE_SESSION_MESSAGE" = "Mitä haluat tehdä edellisen tapahtuman suhteen?";
+
+"CONTINUE_SESSION" = "Jatka tapahtumaa";
+"SAVE_START_NEW" = "Tallenna ja aloita uusi tapahtuma";
