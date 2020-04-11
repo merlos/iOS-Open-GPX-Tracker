@@ -206,6 +206,10 @@
 		BF1FE1A9230EABA500404B59 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		BF214B5D22E60B64000E96AA /* CLActivityType+Info.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CLActivityType+Info.swift"; sourceTree = "<group>"; };
 		BF36B6CE220C6F1A00077B46 /* GPXFileTableInterfaceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPXFileTableInterfaceController.swift; sourceTree = "<group>"; };
+		BF3D192924371DC30079B630 /* fi-FI */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "fi-FI"; path = "fi-FI.lproj/Interface.strings"; sourceTree = "<group>"; };
+		BF3D192A24371DC30079B630 /* fi-FI */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "fi-FI"; path = "fi-FI.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		BF3D192B24371DC30079B630 /* fi-FI */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "fi-FI"; path = "fi-FI.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		BF3D192C24371DC30079B630 /* fi-FI */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "fi-FI"; path = "fi-FI.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		BF5C0D2122D771D0001C2575 /* DistanceLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DistanceLabel.swift; sourceTree = "<group>"; };
 		BF637D122216C5FA0003EC04 /* WatchConnectivity.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WatchConnectivity.framework; path = System/Library/Frameworks/WatchConnectivity.framework; sourceTree = SDKROOT; };
 		BF6408A2225C63E700BB5242 /* CoreDataHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataHelper.swift; sourceTree = "<group>"; };
@@ -596,6 +600,7 @@
 				es,
 				"zh-Hans",
 				uk,
+				"fi-FI",
 			);
 			mainGroup = 898EECCC19C49B5800B4B207;
 			productRefGroup = 898EECD619C49B5800B4B207 /* Products */;
@@ -862,6 +867,7 @@
 				898E2BE023129FE000DC4E3F /* es */,
 				BFF3047D2312D8A10012D263 /* zh-Hans */,
 				D39420E523CC1B0500EDC8F6 /* uk */,
+				BF3D192B24371DC30079B630 /* fi-FI */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -874,6 +880,7 @@
 				898E2BE123129FE000DC4E3F /* es */,
 				BFF3047E2312D8A10012D263 /* zh-Hans */,
 				D39420E623CC1B0500EDC8F6 /* uk */,
+				BF3D192C24371DC30079B630 /* fi-FI */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -887,6 +894,7 @@
 				898E2BDE23129FE000DC4E3F /* es */,
 				BFF3047B2312D8A00012D263 /* zh-Hans */,
 				D39420E323CC1B0500EDC8F6 /* uk */,
+				BF3D192924371DC30079B630 /* fi-FI */,
 			);
 			name = Interface.storyboard;
 			sourceTree = "<group>";
@@ -910,6 +918,7 @@
 				898E2BDF23129FE000DC4E3F /* es */,
 				BFF3047C2312D8A00012D263 /* zh-Hans */,
 				D39420E423CC1B0500EDC8F6 /* uk */,
+				BF3D192A24371DC30079B630 /* fi-FI */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
