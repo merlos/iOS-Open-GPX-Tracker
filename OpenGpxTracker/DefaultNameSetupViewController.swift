@@ -49,9 +49,28 @@ class DefaultNameSetupViewController: UITableViewController, UITextFieldDelegate
         super.viewDidLoad()
         useUTC = preferences.dateFormatUseUTC
         useEN = preferences.dateFormatUseEN
+        
+        addNotificationObservers()
+    }
+    
+    func addNotificationObservers() {
+        let notificationCenter = NotificationCenter.default
+        
+        notificationCenter.addObserver(self, selector: #selector(dateButtonTapped(_:)), name: .dateFieldTapped, object: nil)
     }
     
     // MARK:- Text Field Related
+    
+    @objc func dateButtonTapped(_ sender: Notification) {
+        if cellTextField.text != nil {
+            guard let notificationValues = sender.userInfo else { return }
+            let patternDict = notificationValues as! [String : String]
+            guard let pattern = patternDict["sender"] else { return }
+
+            cellTextField.insertText("{\(pattern)}")
+
+        }
+    }
     
     /// Handles text insertion as per keyboard bar button pressed.
     @objc func buttonTapped(_ sender: UIBarButtonItem, for event: UIEvent) {
@@ -128,7 +147,8 @@ class DefaultNameSetupViewController: UITableViewController, UITextFieldDelegate
     /// Saves date format to Preferences/UserDefaults
     func saveDateFormat(_ dateFormat: String, input: String?, index: Int = -1) {
         guard let input = input else { return }
-        if dateFormat == "invalid" || input.isEmpty || dateFormat.isEmpty { return } // ensures no invalid date format (revert)
+        print(dateFormat)
+        if dateFormat == "invalid" || dateFormat == "'invalid'" || dateFormat == "'invalid: { ... } must not consecutively repeat'" || input.isEmpty || dateFormat.isEmpty { return } // ensures no invalid date format (revert)
         preferences.dateFormat = dateFormat
         preferences.dateFormatInput = input
         preferences.dateFormatPreset = index
@@ -228,8 +248,16 @@ class DefaultNameSetupViewController: UITableViewController, UITextFieldDelegate
 
                 bar.items = [bracket, day, month, year, hour, min, sec]
                 bar.sizeToFit()
+                
+                if #available(iOS 13, *) {
+                    let dateFieldSelector = DateFieldTypeView(frame: CGRect(x: 0, y: 0, width: cellTextField.frame.width, height: 75))
+                    cellTextField.inputAccessoryView = dateFieldSelector
+                }
+                else {
+                    cellTextField.inputAccessoryView = bar
+                }
                 cellTextField.addTarget(self, action: #selector(textFieldTyping), for: UIControl.Event.editingChanged)
-                cellTextField.inputAccessoryView = bar
+
 
                 cell.contentView.addSubview(cellTextField)
                 if indexPath.section == kSections.input.rawValue {
@@ -259,7 +287,7 @@ class DefaultNameSetupViewController: UITableViewController, UITextFieldDelegate
         else if indexPath.section == kSections.presets.rawValue {
             cell = UITableViewCell(style: .subtitle, reuseIdentifier: "presetCell")
             cell.textLabel?.text = presets[indexPath.row].0
-            cell.detailTextLabel?.text = presets[indexPath.row].1
+            cell.detailTextLabel?.text = defaultDateFormat.getDate(processedFormat: presets[indexPath.row].1, useUTC: useUTC, useENLocale: useEN)//presets[indexPath.row].1
             
             if preferences.dateFormatPreset != -1 { // if not custom
                 cell.accessoryType = preferences.dateFormatPreset == indexPath.row ? .checkmark : .none

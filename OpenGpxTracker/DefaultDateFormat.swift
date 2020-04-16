@@ -16,17 +16,30 @@ class DefaultDateFormat {
     /// returns a 'processed', `DateFormatter`-friendly date format.
     func getDateFormat(unprocessed: String) -> String {
         var newText = ""
-        let arr = unprocessed.components(separatedBy: CharacterSet(charactersIn: "{}"))
-        let arrCount = arr.count
-        for i in 0...arrCount - 1 {
-            if arr.count == 1  {
-                newText += "'invalid'"
-            }
-            else if arrCount > 1 && !arr[i].isEmpty {
-                newText += (i % 2 == 0) ? "'\(arr[i])'" : arr[i]//arr[i]
+        
+        // prevents acknowledging unterminated date formats as valid
+        if (unprocessed.countInstances(of: "{") != unprocessed.countInstances(of: "}"))
+        || unprocessed.countInstances(of: "{}") > 0 {
+            newText = "'invalid'"
+        }
+        else {
+            let arr = unprocessed.components(separatedBy: CharacterSet(charactersIn: "{}"))
+            var lastField: String?
+            let arrCount = arr.count
+            for i in 0...arrCount - 1 {
+                if let lastField = lastField, lastField.countInstances(of: String(arr[i].last ?? Character(" "))) > 0 {
+                    newText = "'invalid: { ... } must not consecutively repeat'"
+                    break
+                }
+                if arr.count == 1  {
+                    newText += "'invalid'"
+                }
+                else if arrCount > 1 && !arr[i].isEmpty {
+                    newText += (i % 2 == 0) ? "'\(arr[i])'" : arr[i]
+                    lastField = (i % 2 != 0) ? arr[i] : nil
+                }
             }
         }
-
         return newText
     }
     
@@ -48,4 +61,20 @@ class DefaultDateFormat {
         
     }
 
+}
+// from: https://stackoverflow.com/a/45073012/13292870
+// count occurances
+extension String {
+    /// stringToFind must be at least 1 character.
+    func countInstances(of stringToFind: String) -> Int {
+        assert(!stringToFind.isEmpty)
+        var count = 0
+        var searchRange: Range<String.Index>?
+        while let foundRange = range(of: stringToFind, options: [.literal], range: searchRange) {
+            count += 1
+            searchRange = Range(uncheckedBounds: (lower: foundRange.upperBound, upper: endIndex))
+        }
+        return count
+    }
+    
 }

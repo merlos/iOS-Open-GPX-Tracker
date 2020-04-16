@@ -57,6 +57,7 @@
 		BF6408A3225C63E700BB5242 /* CoreDataHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF6408A2225C63E700BB5242 /* CoreDataHelper.swift */; };
 		BF6428B8220EC1A90015447E /* GPXFileTableRowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF6428B7220EC1A90015447E /* GPXFileTableRowController.swift */; };
 		BF64602F220AE9CF00957FF6 /* GPXTrackSegment+MapKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 899D676B19CD9E9E00C88A0A /* GPXTrackSegment+MapKit.swift */; };
+		BF68ECC62448B887005C779F /* DateFieldTypeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF68ECC52448B887005C779F /* DateFieldTypeView.swift */; };
 		BF692F5D2209AAFB00F8A0F1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BF692F5C2209AAFB00F8A0F1 /* Assets.xcassets */; };
 		BF692F642209AAFB00F8A0F1 /* OpenGpxTracker-Watch Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = BF692F632209AAFB00F8A0F1 /* OpenGpxTracker-Watch Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		BF692F692209AAFB00F8A0F1 /* InterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF692F682209AAFB00F8A0F1 /* InterfaceController.swift */; };
@@ -212,6 +213,7 @@
 		BF637D122216C5FA0003EC04 /* WatchConnectivity.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WatchConnectivity.framework; path = System/Library/Frameworks/WatchConnectivity.framework; sourceTree = SDKROOT; };
 		BF6408A2225C63E700BB5242 /* CoreDataHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataHelper.swift; sourceTree = "<group>"; };
 		BF6428B7220EC1A90015447E /* GPXFileTableRowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPXFileTableRowController.swift; sourceTree = "<group>"; };
+		BF68ECC52448B887005C779F /* DateFieldTypeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateFieldTypeView.swift; sourceTree = "<group>"; };
 		BF692F572209AAF900F8A0F1 /* OpenGpxTracker-Watch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "OpenGpxTracker-Watch.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF692F5C2209AAFB00F8A0F1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BF692F5E2209AAFB00F8A0F1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -395,6 +397,7 @@
 				8913CD8D1BDB2477009EC729 /* PreferencesTableViewControllerDelegate.swift */,
 				DC4908A21C4A332E009484AE /* MapViewDelegate.swift */,
 				BF9AE57B2410011D00B103A0 /* DefaultNameSetupViewController.swift */,
+				BF68ECC52448B887005C779F /* DateFieldTypeView.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -763,6 +766,7 @@
 				89E327BE1A7481EA00FC559E /* GPXTileServer.swift in Sources */,
 				898EECE019C49B5800B4B207 /* ViewController.swift in Sources */,
 				120DE71022B274910055C4CB /* GPXSession.swift in Sources */,
+				BF68ECC62448B887005C779F /* DateFieldTypeView.swift in Sources */,
 				BF9AE57E2410012700B103A0 /* DefaultDateFormat.swift in Sources */,
 				899D677019CE024600C88A0A /* GPXFileManager.swift in Sources */,
 				898EECDE19C49B5800B4B207 /* OpenGpxTracker.xcdatamodeld in Sources */,
