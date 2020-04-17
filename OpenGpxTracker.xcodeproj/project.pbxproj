@@ -79,6 +79,11 @@
 		BF9AE57C2410011D00B103A0 /* DefaultNameSetupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9AE57B2410011D00B103A0 /* DefaultNameSetupViewController.swift */; };
 		BF9AE57E2410012700B103A0 /* DefaultDateFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9AE57D2410012700B103A0 /* DefaultDateFormat.swift */; };
 		BFA3CE8222C23B2300A8B965 /* CoreDataAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFA3CE8122C23B2300A8B965 /* CoreDataAlertView.swift */; };
+		BFB06F02244A037300AC0CDC /* UIColor+Keyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFB06F01244A037300AC0CDC /* UIColor+Keyboard.swift */; };
+		BFE026C0244A0160005423E6 /* String+CountInstances.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFE026BF244A0160005423E6 /* String+CountInstances.swift */; };
+		BFE026C2244A01DB005423E6 /* UIInsetLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFE026C1244A01DB005423E6 /* UIInsetLabel.swift */; };
+		BFE026C4244A0281005423E6 /* DateField.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFE026C3244A0281005423E6 /* DateField.swift */; };
+		BFE026C6244A02A4005423E6 /* DateFieldButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFE026C5244A02A4005423E6 /* DateFieldButton.swift */; };
 		BFF3047F2312DC1D0012D263 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = BF1FE1A6230EAB9B00404B59 /* Localizable.strings */; };
 		BFF304802312DC1F0012D263 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = BF1FE1A6230EAB9B00404B59 /* Localizable.strings */; };
 		BFF304812312DC700012D263 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 45A430EB230D61240003C2F2 /* Interface.storyboard */; };
@@ -226,6 +231,11 @@
 		BF9AE57B2410011D00B103A0 /* DefaultNameSetupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultNameSetupViewController.swift; sourceTree = "<group>"; };
 		BF9AE57D2410012700B103A0 /* DefaultDateFormat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultDateFormat.swift; sourceTree = "<group>"; };
 		BFA3CE8122C23B2300A8B965 /* CoreDataAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataAlertView.swift; sourceTree = "<group>"; };
+		BFB06F01244A037300AC0CDC /* UIColor+Keyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Keyboard.swift"; sourceTree = "<group>"; };
+		BFE026BF244A0160005423E6 /* String+CountInstances.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+CountInstances.swift"; sourceTree = "<group>"; };
+		BFE026C1244A01DB005423E6 /* UIInsetLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIInsetLabel.swift; sourceTree = "<group>"; };
+		BFE026C3244A0281005423E6 /* DateField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateField.swift; sourceTree = "<group>"; };
+		BFE026C5244A02A4005423E6 /* DateFieldButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFieldButton.swift; sourceTree = "<group>"; };
 		BFF3047A2312D8A00012D263 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
 		BFF3047B2312D8A00012D263 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Interface.strings"; sourceTree = "<group>"; };
 		BFF3047C2312D8A00012D263 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
@@ -299,6 +309,10 @@
 				BF6408A2225C63E700BB5242 /* CoreDataHelper.swift */,
 				BF214B5D22E60B64000E96AA /* CLActivityType+Info.swift */,
 				BF15092123916FC100F51F1B /* UIColor+DarkMode.swift */,
+				BFE026BF244A0160005423E6 /* String+CountInstances.swift */,
+				BFE026C1244A01DB005423E6 /* UIInsetLabel.swift */,
+				BFE026C3244A0281005423E6 /* DateField.swift */,
+				BFB06F01244A037300AC0CDC /* UIColor+Keyboard.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -397,7 +411,6 @@
 				8913CD8D1BDB2477009EC729 /* PreferencesTableViewControllerDelegate.swift */,
 				DC4908A21C4A332E009484AE /* MapViewDelegate.swift */,
 				BF9AE57B2410011D00B103A0 /* DefaultNameSetupViewController.swift */,
-				BF68ECC52448B887005C779F /* DateFieldTypeView.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -409,6 +422,8 @@
 				BF5C0D2122D771D0001C2575 /* DistanceLabel.swift */,
 				BFA3CE8122C23B2300A8B965 /* CoreDataAlertView.swift */,
 				DC4908A01C4A136F009484AE /* TrackerButton.swift */,
+				BFE026C5244A02A4005423E6 /* DateFieldButton.swift */,
+				BF68ECC52448B887005C779F /* DateFieldTypeView.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -760,6 +775,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BFE026C6244A02A4005423E6 /* DateFieldButton.swift in Sources */,
 				BF15092223916FC100F51F1B /* UIColor+DarkMode.swift in Sources */,
 				899D677F19D2366100C88A0A /* GPXMapView.swift in Sources */,
 				BF6408A3225C63E700BB5242 /* CoreDataHelper.swift in Sources */,
@@ -777,6 +793,7 @@
 				8913CD8E1BDB2477009EC729 /* PreferencesTableViewControllerDelegate.swift in Sources */,
 				899D676E19CD9FAF00C88A0A /* GPXTrackPoint+MapKit.swift in Sources */,
 				89F8749B1BBB7362004EF41A /* GPXTrack+length.swift in Sources */,
+				BFB06F02244A037300AC0CDC /* UIColor+Keyboard.swift in Sources */,
 				BFA3CE8222C23B2300A8B965 /* CoreDataAlertView.swift in Sources */,
 				899D678219D351DA00C88A0A /* AboutViewController.swift in Sources */,
 				89EA86612157A08E002E03A7 /* Date+timeAgo.swift in Sources */,
@@ -789,6 +806,9 @@
 				899D676C19CD9E9E00C88A0A /* GPXTrackSegment+MapKit.swift in Sources */,
 				899D677219CE8B3600C88A0A /* StopWatch.swift in Sources */,
 				89F6E0F7227E107C00CE3E3F /* Preferences.swift in Sources */,
+				BFE026C0244A0160005423E6 /* String+CountInstances.swift in Sources */,
+				BFE026C4244A0281005423E6 /* DateField.swift in Sources */,
+				BFE026C2244A01DB005423E6 /* UIInsetLabel.swift in Sources */,
 				BF9AE57C2410011D00B103A0 /* DefaultNameSetupViewController.swift in Sources */,
 				893BEC8619C7E62200C77354 /* GPXWaypoint+MKAnnotation.swift in Sources */,
 				DC4908A31C4A332E009484AE /* MapViewDelegate.swift in Sources */,

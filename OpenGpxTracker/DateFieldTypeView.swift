@@ -7,110 +7,58 @@
 
 import UIKit
 
-struct DateField {
-    var title: String
-    var patterns: [String]
-    var subtitles: [String : String]?
-}
-
-class UIInsetLabel: UILabel {
-    var insets = UIEdgeInsets.zero
-    
-    override func drawText(in rect: CGRect) {
-        super.drawText(in: rect.inset(by: insets))
-    }
-    
-    override var intrinsicContentSize: CGSize {
-        var size = super.intrinsicContentSize
-        
-        size.width += insets.left + insets.right
-        size.height += insets.top + insets.bottom
-
-        return size
-    }
-
-}
-
-
-class DateFieldButton: UIButton {
-    
-    var pattern = String()
-    
-    override var isSelected: Bool {
-        didSet {
-            if #available(iOS 13.0, *) {
-                backgroundColor = isSelected ?  .highlightKeyboardColor : .keyboardColor
-            } else {
-                backgroundColor = isSelected ?  .highlightLightKeyboard : .lightKeyboard
-            }
-        }
-    }
-    
-    override var isHighlighted: Bool {
-        didSet {
-            if #available(iOS 13.0, *) {
-                backgroundColor = isHighlighted ?  .highlightKeyboardColor : .keyboardColor
-            } else {
-                backgroundColor = isHighlighted ?  .highlightLightKeyboard : .darkKeyboard
-            }
-        }
-    }
-    
-}
-
 @available(iOS 9.0, *)
 class DateFieldTypeView: UIScrollView {
         
-    let dateFormatter = DateFormatter()
+    private let dateFormatter = DateFormatter()
     
-    //public var fieldType: DateFieldType
-    var dateFields: [DateField] {
+    private var dateFields: [DateField] {
         get {
             var fields = [DateField]()
-            fields.append(DateField(title: "Year",
+            // some subtitles are an attempt to clarify, in case of different Locales, causing some example of patterns to look the same.
+            fields.append(DateField(type: "Year",
                                     patterns: ["YY", "YYYY"]))
-            fields.append(DateField(title: "Month",
+            fields.append(DateField(type: "Month",
                                     patterns: ["M", "MM", "MMMMM", "MMM", "MMMM"],
                                     subtitles: ["M" : "Single",
                                                 "MMMMM" : "•",
                                                 "MMM" : "• • •",
                                                 "MMMM" : "Full"]))
-            // some subtitles are an attempt to clarify, in case of different Locales, causing some example of patterns to look the same.
-            fields.append(DateField(title: "Day",
+            fields.append(DateField(type: "Day",
                                     patterns: ["d", "dd", "D"],
                                     subtitles: ["d" : "Single",
                                                 "dd" : "Of Month",
                                                 "D" : "Of Year"]))
-            fields.append(DateField(title: "Hour",
+            fields.append(DateField(type: "Hour",
                                     patterns: ["h", "hh", "H", "HH", "K", "KK", "k", "kk"],
                                     subtitles: ["h" : "Single", "hh" : "12hr",
                                                 "H" : "Single", "HH" : "24hr",
                                                 "K" : "Single", "KK" : "0-11",
                                                 "k" : "Single", "kk" : "1-24"]))
-            fields.append(DateField(title: "Minute",
+            fields.append(DateField(type: "Minute",
                                     patterns: ["m", "mm"],
                                     subtitles: ["m" : "Single"]))
-            fields.append(DateField(title: "Second",
+            fields.append(DateField(type: "Second",
                                     patterns: ["s", "ss"],
                                     subtitles: ["s" : "Single"]))
-            fields.append(DateField(title: "Day of the Week",
+            fields.append(DateField(type: "Day of the Week",
                                     patterns: ["e", "ee", "EEEEE", "EEEEEE", "E", "EEEE"],
                                     subtitles: ["e" : "Single",
                                                 "EEEEE" : "•",
                                                 "EEEEEE" : "• •",
                                                 "E" : "• • •",
                                                 "EEEE" : "Full"]))
-            fields.append(DateField(title: "Period",
+            fields.append(DateField(type: "Period",
                                     patterns: ["aaaaa", "a", "B"],
                                     subtitles: ["aaaaa" : "Single", "B" : "Text"]))
-            fields.append(DateField(title: "Week",
+            fields.append(DateField(type: "Week",
                                     patterns: ["w", "ww", "W"],
                                     subtitles: ["w" : "Single", "ww" : "Of Year", "W" : "Of Month"]))
-            fields.append(DateField(title: "Quarter",
+            fields.append(DateField(type: "Quarter",
                                     patterns: ["Q", "QQ", "QQQ", "QQQQ"]))
-            fields.append(DateField(title: "Era",
+            fields.append(DateField(type: "Era",
                                     patterns: ["GGGGG", "G", "GGGG"]))
-            fields.append(DateField(title: "Time Zone",
+            fields.append(DateField(type: "Time Zone",
                                     patterns: ["X", "Z", "ZZZZZ", "z", "O", "ZZZZ", "zzzz", "VVV", "VVVV"],
                                     subtitles: ["z" : "Abbr. / GMT",
                                                 "zzzz" : "Full",
@@ -167,7 +115,7 @@ class DateFieldTypeView: UIScrollView {
         vStack.translatesAutoresizingMaskIntoConstraints = false
         
         let textTitle = UIInsetLabel()
-        textTitle.text = field.title.uppercased()
+        textTitle.text = field.type.uppercased()
         textTitle.textColor = .gray
         textTitle.font = .boldSystemFont(ofSize: 14)
         textTitle.insets = UIEdgeInsets(top: 5, left: 5, bottom: 0, right: 0)
