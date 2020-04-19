@@ -7,11 +7,14 @@
 
 import UIKit
 
+/// View that is meant to be attached above keyboard, supplementing default name inputs.
 @available(iOS 9.0, *)
 class DateFieldTypeView: UIScrollView {
-        
+    
+    /// date formatter to display current time example
     private let dateFormatter = DateFormatter()
     
+    /// valid date fields that are to be displayed.
     private var dateFields: [DateField] {
         get {
             var fields = [DateField]()
@@ -48,12 +51,15 @@ class DateFieldTypeView: UIScrollView {
                                                 "EEEEEE" : "• •",
                                                 "E" : "• • •",
                                                 "EEEE" : "Full"]))
-            fields.append(DateField(type: "Period",
+            fields.append(DateField(type: "Time of Day",
                                     patterns: ["aaaaa", "a", "B"],
-                                    subtitles: ["aaaaa" : "Single", "B" : "Text"]))
+                                    subtitles: ["aaaaa" : "Single",
+                                                "B" : "Text"]))
             fields.append(DateField(type: "Week",
                                     patterns: ["w", "ww", "W"],
-                                    subtitles: ["w" : "Single", "ww" : "Of Year", "W" : "Of Month"]))
+                                    subtitles: ["w" : "Single",
+                                                "ww" : "Of Year",
+                                                "W" : "Of Month"]))
             fields.append(DateField(type: "Quarter",
                                     patterns: ["Q", "QQ", "QQQ", "QQQQ"]))
             fields.append(DateField(type: "Era",
@@ -71,23 +77,28 @@ class DateFieldTypeView: UIScrollView {
             return fields
         }
     }
-    
+    /// Default initializer
     override init(frame: CGRect) {
         super.init(frame: frame)
         viewDidInit()
     }
     
+    /// Default initializer
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         viewDidInit()
     }
     
+    
+    /// Things to do, when view successfully inits.
     func viewDidInit() {
         if #available(iOS 13.0, *) {
             self.backgroundColor = .keyboardColor
         } else {
             self.backgroundColor = .lightKeyboard
         }
+        
+        // holds everything
         let scrollStack = UIStackView()
         scrollStack.axis = .horizontal
         scrollStack.distribution = .fill
@@ -101,11 +112,15 @@ class DateFieldTypeView: UIScrollView {
         }
         
         self.addSubview(scrollStack)
-        self.addConstraints( NSLayoutConstraint.constraints(withVisualFormat: "H:|-20-[sStack]-20-|", options: NSLayoutConstraint.FormatOptions(rawValue: 0), metrics: nil, views: ["sStack": scrollStack])
-        )
+        self.addConstraints( NSLayoutConstraint.constraints(withVisualFormat: "H:|-20-[sStack]-20-|", options: .alignAllLeft, metrics: nil, views: ["sStack": scrollStack]) )
 
     }
     
+    /// Generates vertical stack that encapsulates text title, with all date patterns of same type.
+    ///
+    ///     |TYPE|
+    ///     |genHStack(field:)|
+    ///
     func genVStack(field: DateField) -> UIStackView {
         let vStack = UIStackView()
         vStack.axis = .vertical
@@ -127,6 +142,11 @@ class DateFieldTypeView: UIScrollView {
         
     }
     
+    /// Generates horizontal stack that encapsulates all date patterns of same type.
+    ///
+    ///     |pattern|pattern|pattern|
+    ///     |SUBTITLE|SUBTITLE|
+    ///
     func genHStack(field: DateField) -> UIStackView {
         
         let hStack = UIStackView()
@@ -137,27 +157,30 @@ class DateFieldTypeView: UIScrollView {
         hStack.translatesAutoresizingMaskIntoConstraints = false
         
         for pattern in field.patterns {
-            let button = DateFieldButton(type: .custom)
+            let button = DatePatternButton(type: .custom)
             button.layer.cornerRadius = 10
 
             dateFormatter.dateFormat = pattern
-            let realPattern = dateFormatter.string(from: Date())
-            
-            button.setTitle(realPattern, for: .normal)
-            button.titleLabel?.text = realPattern
+            let currentDateExample = dateFormatter.string(from: Date())
+            button.setTitle(currentDateExample, for: .normal)
+            button.titleLabel?.text = currentDateExample
             button.contentEdgeInsets = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
             
+            // color of button font
             if #available(iOS 13, *) {
                 button.setTitleColor(.blackAndWhite, for: .normal)
             }
             else {
                 button.setTitleColor(.black, for: .normal)
             }
+            
+            // for passing pattern to textField when needed
             button.pattern = pattern
             
             button.addTarget(self, action: #selector(buttonTapped(sender:)), for: .touchUpInside)
 
             
+            // Subtitle implementation (optional)
             if let subtitle = field.subtitles?[pattern] {
                 let subtitleLabel = UIInsetLabel()
                 let subVStack = UIStackView()
@@ -186,13 +209,14 @@ class DateFieldTypeView: UIScrollView {
         return hStack
     }
     
-    @objc func buttonTapped(sender: DateFieldButton) {
+    /// Called when any pattern button is tapped.
+    @objc func buttonTapped(sender: DatePatternButton) {
         NotificationCenter.default.post(name: .dateFieldTapped, object: nil, userInfo: ["sender" : sender.pattern])
     }
 
     
 }
-/// Notifications for file receival from external source.
+/// Notifications name of for date pattern sending
 extension Notification.Name {
     
     /// When date field type is tapped from view.

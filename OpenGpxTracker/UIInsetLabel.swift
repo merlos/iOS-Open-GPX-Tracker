@@ -12,10 +12,12 @@ class UIInsetLabel: UILabel {
     /// Insert the insets you need here. Defaults to zero.
     var insets = UIEdgeInsets.zero
     
+    ///
     override func drawText(in rect: CGRect) {
         super.drawText(in: rect.inset(by: insets))
     }
     
+    ///
     override var intrinsicContentSize: CGSize {
         var size = super.intrinsicContentSize
         

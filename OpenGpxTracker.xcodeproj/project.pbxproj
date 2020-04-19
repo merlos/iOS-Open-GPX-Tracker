@@ -83,7 +83,7 @@
 		BFE026C0244A0160005423E6 /* String+CountInstances.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFE026BF244A0160005423E6 /* String+CountInstances.swift */; };
 		BFE026C2244A01DB005423E6 /* UIInsetLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFE026C1244A01DB005423E6 /* UIInsetLabel.swift */; };
 		BFE026C4244A0281005423E6 /* DateField.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFE026C3244A0281005423E6 /* DateField.swift */; };
-		BFE026C6244A02A4005423E6 /* DateFieldButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFE026C5244A02A4005423E6 /* DateFieldButton.swift */; };
+		BFE026C6244A02A4005423E6 /* DatePatternButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFE026C5244A02A4005423E6 /* DatePatternButton.swift */; };
 		BFF3047F2312DC1D0012D263 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = BF1FE1A6230EAB9B00404B59 /* Localizable.strings */; };
 		BFF304802312DC1F0012D263 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = BF1FE1A6230EAB9B00404B59 /* Localizable.strings */; };
 		BFF304812312DC700012D263 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 45A430EB230D61240003C2F2 /* Interface.storyboard */; };
@@ -235,7 +235,7 @@
 		BFE026BF244A0160005423E6 /* String+CountInstances.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+CountInstances.swift"; sourceTree = "<group>"; };
 		BFE026C1244A01DB005423E6 /* UIInsetLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIInsetLabel.swift; sourceTree = "<group>"; };
 		BFE026C3244A0281005423E6 /* DateField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateField.swift; sourceTree = "<group>"; };
-		BFE026C5244A02A4005423E6 /* DateFieldButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFieldButton.swift; sourceTree = "<group>"; };
+		BFE026C5244A02A4005423E6 /* DatePatternButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePatternButton.swift; sourceTree = "<group>"; };
 		BFF3047A2312D8A00012D263 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
 		BFF3047B2312D8A00012D263 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Interface.strings"; sourceTree = "<group>"; };
 		BFF3047C2312D8A00012D263 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
@@ -292,7 +292,6 @@
 		8948550619CB954100AB366A /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				BF9AE57D2410012700B103A0 /* DefaultDateFormat.swift */,
 				89F6E104227F7BD000CE3E3F /* shared */,
 				899D677119CE8B3600C88A0A /* StopWatch.swift */,
 				893BEC8519C7E62200C77354 /* GPXWaypoint+MKAnnotation.swift */,
@@ -309,10 +308,11 @@
 				BF6408A2225C63E700BB5242 /* CoreDataHelper.swift */,
 				BF214B5D22E60B64000E96AA /* CLActivityType+Info.swift */,
 				BF15092123916FC100F51F1B /* UIColor+DarkMode.swift */,
+				BFB06F01244A037300AC0CDC /* UIColor+Keyboard.swift */,
 				BFE026BF244A0160005423E6 /* String+CountInstances.swift */,
 				BFE026C1244A01DB005423E6 /* UIInsetLabel.swift */,
 				BFE026C3244A0281005423E6 /* DateField.swift */,
-				BFB06F01244A037300AC0CDC /* UIColor+Keyboard.swift */,
+				BF9AE57D2410012700B103A0 /* DefaultDateFormat.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -422,7 +422,7 @@
 				BF5C0D2122D771D0001C2575 /* DistanceLabel.swift */,
 				BFA3CE8122C23B2300A8B965 /* CoreDataAlertView.swift */,
 				DC4908A01C4A136F009484AE /* TrackerButton.swift */,
-				BFE026C5244A02A4005423E6 /* DateFieldButton.swift */,
+				BFE026C5244A02A4005423E6 /* DatePatternButton.swift */,
 				BF68ECC52448B887005C779F /* DateFieldTypeView.swift */,
 			);
 			name = Views;
@@ -775,7 +775,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BFE026C6244A02A4005423E6 /* DateFieldButton.swift in Sources */,
+				BFE026C6244A02A4005423E6 /* DatePatternButton.swift in Sources */,
 				BF15092223916FC100F51F1B /* UIColor+DarkMode.swift in Sources */,
 				899D677F19D2366100C88A0A /* GPXMapView.swift in Sources */,
 				BF6408A3225C63E700BB5242 /* CoreDataHelper.swift in Sources */,
