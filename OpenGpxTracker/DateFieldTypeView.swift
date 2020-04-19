@@ -11,6 +11,21 @@ import UIKit
 @available(iOS 9.0, *)
 class DateFieldTypeView: UIScrollView {
     
+    // MARK:- Localization Strings
+    private let kSingleDigit = NSLocalizedString("SINGLE_DIGIT", comment: "")
+    private let kFull = NSLocalizedString("FULL_TEXT", comment: "")
+    private let kText = NSLocalizedString("TEXT", comment: "")
+    
+    private let kOfMonth = NSLocalizedString("OF_MONTH", comment: "")
+    private let kOfYear = NSLocalizedString("OF_YEAR", comment: "")
+    
+    private let kAbbr = NSLocalizedString("ABBR_GMT", comment: "")
+    private let kUTCoffset = NSLocalizedString("UTC_OFFSET", comment: "")
+    private let kGMTshort = NSLocalizedString("GMT_SHORT", comment: "")
+    private let kGMTfull = NSLocalizedString("GMT_FULL", comment: "")
+    private let kLocation = NSLocalizedString("LOCATION", comment: "")
+    private let kLocationTime = NSLocalizedString("LOCATION_TIME", comment: "")
+    
     /// date formatter to display current time example
     private let dateFormatter = DateFormatter()
     
@@ -19,60 +34,60 @@ class DateFieldTypeView: UIScrollView {
         get {
             var fields = [DateField]()
             // some subtitles are an attempt to clarify, in case of different Locales, causing some example of patterns to look the same.
-            fields.append(DateField(type: "Year",
+            fields.append(DateField(type: NSLocalizedString("YEAR", comment: ""),
                                     patterns: ["YY", "YYYY"]))
-            fields.append(DateField(type: "Month",
+            fields.append(DateField(type: NSLocalizedString("MONTH", comment: ""),
                                     patterns: ["M", "MM", "MMMMM", "MMM", "MMMM"],
-                                    subtitles: ["M" : "Single",
+                                    subtitles: ["M" : kSingleDigit,
                                                 "MMMMM" : "•",
                                                 "MMM" : "• • •",
-                                                "MMMM" : "Full"]))
-            fields.append(DateField(type: "Day",
+                                                "MMMM" : kFull]))
+            fields.append(DateField(type: NSLocalizedString("DAY", comment: ""),
                                     patterns: ["d", "dd", "D"],
-                                    subtitles: ["d" : "Single",
-                                                "dd" : "Of Month",
-                                                "D" : "Of Year"]))
-            fields.append(DateField(type: "Hour",
+                                    subtitles: ["d" : kSingleDigit,
+                                                "dd" : kOfMonth,
+                                                "D" : kOfYear]))
+            fields.append(DateField(type: NSLocalizedString("HOUR", comment: ""),
                                     patterns: ["h", "hh", "H", "HH", "K", "KK", "k", "kk"],
-                                    subtitles: ["h" : "Single", "hh" : "12hr",
-                                                "H" : "Single", "HH" : "24hr",
-                                                "K" : "Single", "KK" : "0-11",
-                                                "k" : "Single", "kk" : "1-24"]))
-            fields.append(DateField(type: "Minute",
+                                    subtitles: ["h" : kSingleDigit, "hh" : "12hr",
+                                                "H" : kSingleDigit, "HH" : "24hr",
+                                                "K" : kSingleDigit, "KK" : "0-11",
+                                                "k" : kSingleDigit, "kk" : "1-24"]))
+            fields.append(DateField(type: NSLocalizedString("MINUTE", comment: ""),
                                     patterns: ["m", "mm"],
-                                    subtitles: ["m" : "Single"]))
-            fields.append(DateField(type: "Second",
+                                    subtitles: ["m" : kSingleDigit]))
+            fields.append(DateField(type: NSLocalizedString("SECOND", comment: ""),
                                     patterns: ["s", "ss"],
-                                    subtitles: ["s" : "Single"]))
-            fields.append(DateField(type: "Day of the Week",
+                                    subtitles: ["s" : kSingleDigit]))
+            fields.append(DateField(type: NSLocalizedString("DAY_OF_THE_WEEK", comment: ""),
                                     patterns: ["e", "ee", "EEEEE", "EEEEEE", "E", "EEEE"],
-                                    subtitles: ["e" : "Single",
+                                    subtitles: ["e" : kSingleDigit,
                                                 "EEEEE" : "•",
                                                 "EEEEEE" : "• •",
                                                 "E" : "• • •",
-                                                "EEEE" : "Full"]))
-            fields.append(DateField(type: "Time of Day",
+                                                "EEEE" : kFull]))
+            fields.append(DateField(type: NSLocalizedString("TIME_OF_DAY", comment: ""),
                                     patterns: ["aaaaa", "a", "B"],
-                                    subtitles: ["aaaaa" : "Single",
+                                    subtitles: ["aaaaa" : kSingleDigit,
                                                 "B" : "Text"]))
-            fields.append(DateField(type: "Week",
+            fields.append(DateField(type: NSLocalizedString("WEEK", comment: ""),
                                     patterns: ["w", "ww", "W"],
-                                    subtitles: ["w" : "Single",
-                                                "ww" : "Of Year",
-                                                "W" : "Of Month"]))
-            fields.append(DateField(type: "Quarter",
+                                    subtitles: ["w" : kSingleDigit,
+                                                "ww" : kOfYear,
+                                                "W" : kOfMonth]))
+            fields.append(DateField(type: NSLocalizedString("QUARTER", comment: ""),
                                     patterns: ["Q", "QQ", "QQQ", "QQQQ"]))
-            fields.append(DateField(type: "Era",
+            fields.append(DateField(type: NSLocalizedString("ERA", comment: ""),
                                     patterns: ["GGGGG", "G", "GGGG"]))
-            fields.append(DateField(type: "Time Zone",
+            fields.append(DateField(type: NSLocalizedString("TIME_ZONE", comment: ""),
                                     patterns: ["X", "Z", "ZZZZZ", "z", "O", "ZZZZ", "zzzz", "VVV", "VVVV"],
-                                    subtitles: ["z" : "Abbr. / GMT",
-                                                "zzzz" : "Full",
-                                                "X" : "GMT Offset",
-                                                "O" : "GMT Short",
-                                                "ZZZZ" : "GMT Full",
-                                                "VVV" : "Location",
-                                                "VVVV" : "Location's Time"]))
+                                    subtitles: ["z" : kAbbr,
+                                                "zzzz" : kFull,
+                                                "X" : kUTCoffset,
+                                                "O" : kGMTshort,
+                                                "ZZZZ" : kGMTfull,
+                                                "VVV" : kLocation,
+                                                "VVVV" : kLocationTime]))
         
             return fields
         }

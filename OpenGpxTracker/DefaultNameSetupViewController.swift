@@ -249,7 +249,7 @@ class DefaultNameSetupViewController: UITableViewController, UITextFieldDelegate
                 bar.items = [bracket, day, month, year, hour, min, sec]
                 bar.sizeToFit()
                 
-                if #available(iOS 13, *) {
+                if #available(iOS 9, *) {
                     let dateFieldSelector = DateFieldTypeView(frame: CGRect(x: 0, y: 0, width: cellTextField.frame.width, height: 75))
                     cellTextField.inputAccessoryView = dateFieldSelector
                 }

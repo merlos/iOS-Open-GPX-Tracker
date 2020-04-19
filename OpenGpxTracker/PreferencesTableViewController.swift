@@ -202,10 +202,11 @@ class PreferencesTableViewController: UITableViewController, UINavigationBarDele
         
         // Default Name section
         if indexPath.section == kDefaultNameSection {
+            let dateFormatter = DefaultDateFormat()
             cell = UITableViewCell(style: .subtitle, reuseIdentifier: "DefaultNameCell")
-            cell.textLabel?.text = "Set to:"
-            cell.detailTextLabel?.text = preferences.dateFormatPreset == -1 ?
-                                         preferences.dateFormatInput : preferences.dateFormatPresetName
+            cell.textLabel?.text = preferences.dateFormatPreset == -1 ? preferences.dateFormatInput : preferences.dateFormatPresetName
+            let dateText = dateFormatter.getDate(processedFormat: preferences.dateFormat, useUTC: preferences.dateFormatUseUTC, useENLocale: preferences.dateFormatUseEN)
+            cell.detailTextLabel?.text = dateText
             cell.accessoryType = .disclosureIndicator
         }
         
