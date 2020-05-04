@@ -90,12 +90,12 @@ class DefaultNameSetupViewController: UITableViewController, UITextFieldDelegate
                 cellTextField.selectedTextRange = cellTextField.textRange(from: wantedRange, to: wantedRange)
             default: return
             }
-            textFieldTyping()
+            updateSampleTextField()
         }
     }
 
     /// Call when text field is currently editing, and an update to sample label is required.
-    @objc func textFieldTyping() {
+    @objc func updateSampleTextField() {
         processedDateFormat = defaultDateFormat.getDateFormat(unprocessed: self.cellTextField.text!)
         //dateFormatter.dateFormat = processedDateFormat
         cellSampleLabel.text = defaultDateFormat.getDate(processedFormat: processedDateFormat, useUTC: useUTC, useENLocale: useEN)
@@ -165,7 +165,7 @@ class DefaultNameSetupViewController: UITableViewController, UITextFieldDelegate
         tableView.cellForRow(at: indexPath)?.accessoryType = state ? .checkmark : .none
         tableView.cellForRow(at: indexPath)?.isUserInteractionEnabled = !state
         tableView.cellForRow(at: indexPath)?.textLabel?.isEnabled = !state
-        textFieldTyping()
+        updateSampleTextField()
     }
     
     /// return number of sections based on `kSections`
@@ -217,7 +217,7 @@ class DefaultNameSetupViewController: UITableViewController, UITextFieldDelegate
                 cellSampleLabel.font = .boldSystemFont(ofSize: 17)
                 cell.addSubview(cellSampleLabel)
                 cellSampleLabel.text = ""
-                textFieldTyping()
+                updateSampleTextField()
                 cellSampleLabel.adjustsFontSizeToFitWidth = true
                 cell.textLabel!.text = NSLocalizedString("DEFAULT_NAME_SAMPLE_OUTPUT_TITLE", comment: "no comment")
                 cell.textLabel?.font = .systemFont(ofSize: 17)
@@ -227,7 +227,7 @@ class DefaultNameSetupViewController: UITableViewController, UITextFieldDelegate
                 cellTextField = UITextField(frame: CGRect(x: 22, y: 0, width: view.frame.width - 48, height: cell.frame.height))
                 //let textView = UITextView(frame: CGRect(x: 25, y: 5, width: view.frame.width - 50, height: cell.frame.height))
                 cellTextField.text = preferences.dateFormatInput
-                textFieldTyping()
+                updateSampleTextField()
                 cellTextField.clearButtonMode = .whileEditing
                 cellTextField.delegate = self
                 cellTextField.returnKeyType = .done
@@ -257,7 +257,7 @@ class DefaultNameSetupViewController: UITableViewController, UITextFieldDelegate
                 else {
                     cellTextField.inputAccessoryView = bar
                 }
-                cellTextField.addTarget(self, action: #selector(textFieldTyping), for: UIControl.Event.editingChanged)
+                cellTextField.addTarget(self, action: #selector(updateSampleTextField), for: UIControl.Event.editingChanged)
 
 
                 cell.contentView.addSubview(cellTextField)
@@ -278,12 +278,12 @@ class DefaultNameSetupViewController: UITableViewController, UITextFieldDelegate
                     cell.isUserInteractionEnabled = !useUTC
                     cell.textLabel?.isEnabled = !useUTC
                 }
-                textFieldTyping()
+                updateSampleTextField()
             }
             else if indexPath.row == 1 {
                 cell.textLabel!.text = NSLocalizedString("DEFAULT_NAME_ENGLISH_LOCALE", comment: "no comment")//"Force English Locale?"
                 cell.accessoryType = preferences.dateFormatUseEN ? .checkmark : .none
-                textFieldTyping()
+                updateSampleTextField()
             }
         }
         
@@ -317,7 +317,7 @@ class DefaultNameSetupViewController: UITableViewController, UITextFieldDelegate
                 useEN = newUseEN
                 tableView.cellForRow(at: indexPath)?.accessoryType = newUseEN ? .checkmark : .none
             }
-            textFieldTyping()
+            updateSampleTextField()
         }
         if indexPath.section == kSections.presets.rawValue {
             //cellSampleLabel.text = "{\(presets[indexPath.row].1)}"
@@ -332,7 +332,7 @@ class DefaultNameSetupViewController: UITableViewController, UITextFieldDelegate
             tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
             preferences.dateFormatPreset = indexPath.row
             preferences.dateFormatInput = presets[indexPath.row].2
-            textFieldTyping()
+            updateSampleTextField()
             preferences.dateFormat = processedDateFormat
             if preferences.dateFormatPreset == 1 {
                 lockUTCCell(true)
