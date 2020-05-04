@@ -108,3 +108,48 @@
 
 "CONTINUE_SESSION" = "Continue session";
 "SAVE_START_NEW" = "Save and start new";
+
+// Default File Name
+
+// in preferences section
+"DEFAULT_NAME_SECTION" = "Default file name setup";
+
+// in default name editor view
+"DEFAULT_NAME_DATE_FORMAT" = "File Name Format";
+"DEFAULT_NAME_SETTINGS" = "Settings";
+"DEFAULT_NAME_PRESET" = "Presets";
+
+"DEFAULT_NAME_INPUT_FOOTER" = "Clicking done on the keyboard saves the date format for use, regardless if its a preset or custom. Date format should be encapsulated within { ... }. For full list of applicable date format syntax please refer to Unicode Technical Standard (UTS) #35.";
+
+"DEFAULT_NAME_SAMPLE_OUTPUT_TITLE" = "Sample: ";
+"DEFAULT_NAME_USE_UTC" = "Use UTC Time?";
+"DEFAULT_NAME_ENGLISH_LOCALE" = "Force English language based date formatting?";
+
+// DateFieldTypeView
+"YEAR" = "Year";
+"MONTH" = "Month";
+"DAY" = "Day";
+"HOUR" = "Hour";
+"MINUTE" = "Minute";
+"SECOND" = "Second";
+"DAY_OF_THE_WEEK" = "Day of the week";
+"TIME_OF_DAY" = "Time of day";
+"WEEK" = "Week";
+"QUARTER" = "Quarter";
+"ERA" = "Era";
+"TIME_ZONE" = "Time Zone";
+
+"SINGLE_DIGIT" = "Single";
+"FULL_TEXT" = "Full";
+"TEXT" = "Text";
+
+"OF_MONTH" = "Of Month";
+"OF_YEAR" = "Of Year";
+
+"ABBR_GMT" = "Abbr. / GMT";
+"UTC_OFFSET" = "UTC offset";
+"GMT_SHORT" = "GMT short";
+"GMT_FULL" = "GMT full";
+"LOCATION" = "Location";
+"LOCATION_TIME" = "Location's Time";
+

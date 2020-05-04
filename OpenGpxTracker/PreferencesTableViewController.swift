@@ -24,6 +24,9 @@ let kMapSourceSection = 2
 /// Activity Type Section Id in PreferencesTableViewController
 let kActivityTypeSection = 3
 
+/// Default Name Section Id in PreferencesTableViewController
+let kDefaultNameSection = 4
+
 /// Cell Id of the Use Imperial units in UnitsSection
 let kUseImperialUnitsCell = 0
 
@@ -51,6 +54,10 @@ class PreferencesTableViewController: UITableViewController, UINavigationBarDele
     
     var cache : MapCache = MapCache(withConfig: MapCacheConfig(withUrlTemplate: ""))
     
+    // Compute once, better performance for scrolling table view (reuse)
+    /// Store cached size for reuse.
+    var cachedSize = String()
+    
     /// Does the following:
     /// 1. Defines the areas for navBar and the Table view
     /// 2. Sets the title
@@ -65,6 +72,9 @@ class PreferencesTableViewController: UITableViewController, UINavigationBarDele
         self.title = NSLocalizedString("PREFERENCES", comment: "no comment")
         let shareItem = UIBarButtonItem(title: NSLocalizedString("DONE", comment: "no comment"), style: UIBarButtonItem.Style.plain, target: self, action: #selector(PreferencesTableViewController.closePreferencesTableViewController))
         self.navigationItem.rightBarButtonItems = [shareItem]
+        
+        let fileSize = cache.diskCache.fileSize ?? 0
+        cachedSize = Int(fileSize).asFileSize()
     }
     
     /// Close this controller.
@@ -90,7 +100,7 @@ class PreferencesTableViewController: UITableViewController, UINavigationBarDele
     /// Returns 4 sections: Units, Cache, Map Source, Activity Type
     override func numberOfSections(in tableView: UITableView?) -> Int {
         // Return the number of sections.
-        return 4
+        return 5
     }
     
     /// Returns the title of the existing sections.
@@ -102,6 +112,7 @@ class PreferencesTableViewController: UITableViewController, UINavigationBarDele
         case kCacheSection: return NSLocalizedString("CACHE", comment: "no comment")
         case kMapSourceSection: return NSLocalizedString("MAP_SOURCE", comment: "no comment")
         case kActivityTypeSection: return NSLocalizedString("ACTIVITY_TYPE", comment: "no comment")
+        case kDefaultNameSection: return NSLocalizedString("DEFAULT_NAME_SECTION", comment: "no comment")
         default: fatalError("Unknown section")
         }
     }
@@ -115,6 +126,7 @@ class PreferencesTableViewController: UITableViewController, UINavigationBarDele
         case kUnitsSection: return 1
         case kMapSourceSection: return GPXTileServer.count
         case kActivityTypeSection: return CLActivityType.count
+        case kDefaultNameSection: return 1
         default: fatalError("Unknown section")
         }
     }
@@ -153,8 +165,8 @@ class PreferencesTableViewController: UITableViewController, UINavigationBarDele
             case kUseOfflineCacheCell:
                 cell = UITableViewCell(style: .subtitle, reuseIdentifier: "CacheCell")
                 cell.textLabel?.text = NSLocalizedString("OFFLINE_CACHE", comment: "no comment")
-                let fileSize = cache.diskCache.fileSize ?? 0
-                cell.detailTextLabel?.text = Int(fileSize).asFileSize()
+                
+                cell.detailTextLabel?.text = cachedSize
                 if preferences.useCache {
                     cell.accessoryType = .checkmark
                 }
@@ -186,6 +198,16 @@ class PreferencesTableViewController: UITableViewController, UINavigationBarDele
             if indexPath.row + 1 == preferences.locationActivityTypeInt {
                 cell.accessoryType = .checkmark
             }
+        }
+        
+        // Default Name section
+        if indexPath.section == kDefaultNameSection {
+            let dateFormatter = DefaultDateFormat()
+            cell = UITableViewCell(style: .subtitle, reuseIdentifier: "DefaultNameCell")
+            cell.textLabel?.text = preferences.dateFormatPreset == -1 ? preferences.dateFormatInput : preferences.dateFormatPresetName
+            let dateText = dateFormatter.getDate(processedFormat: preferences.dateFormat, useUTC: preferences.dateFormatUseUTC, useENLocale: preferences.dateFormatUseEN)
+            cell.detailTextLabel?.text = dateText
+            cell.accessoryType = .disclosureIndicator
         }
         
         return cell
@@ -245,7 +267,8 @@ class PreferencesTableViewController: UITableViewController, UINavigationBarDele
                     cell.textLabel?.textColor = UIColor.gray
                     //Clear the size text
                     let cell2 = tableView.cellForRow(at: IndexPath(row: kUseOfflineCacheCell, section: kCacheSection))
-                    cell2?.detailTextLabel?.text = 0.asFileSize()
+                    self.cachedSize = 0.asFileSize()
+                    cell2?.detailTextLabel?.text = self.cachedSize
                 }
             default:
                 fatalError("didSelectRowAt: Unknown cell")
@@ -278,6 +301,11 @@ class PreferencesTableViewController: UITableViewController, UINavigationBarDele
             preferences.locationActivityTypeInt = indexPath.row + 1 // +1 as activityType raw value starts at index 1
             
             self.delegate?.didUpdateActivityType((indexPath as NSIndexPath).row + 1)
+        }
+        
+        if indexPath.section == kDefaultNameSection {
+            print("PreferencesTableView Default Name cell clicked")
+            self.navigationController?.pushViewController(DefaultNameSetupViewController(style: .grouped), animated: true)
         }
         
         //unselect row

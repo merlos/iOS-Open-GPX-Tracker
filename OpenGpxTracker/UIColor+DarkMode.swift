@@ -28,5 +28,21 @@ extension UIColor {
             @unknown default:           return .systemGray
                 }
     }
+
+    static let keyboardColor = UIColor { (traitCollection: UITraitCollection) -> UIColor in
+        switch traitCollection.userInterfaceStyle {
+            case .unspecified, .light:  return .lightKeyboard
+            case .dark:                 return .darkKeyboard
+            @unknown default:           return .lightKeyboard
+                }
+    }
+    
+    static let highlightKeyboardColor = UIColor { (traitCollection: UITraitCollection) -> UIColor in
+        switch traitCollection.userInterfaceStyle {
+            case .unspecified, .light:  return .highlightLightKeyboard
+            case .dark:                 return .highlightDarkKeyboard
+            @unknown default:           return .highlightLightKeyboard
+                }
+    }
     
 }
