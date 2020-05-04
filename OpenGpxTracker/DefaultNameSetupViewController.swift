@@ -278,10 +278,12 @@ class DefaultNameSetupViewController: UITableViewController, UITextFieldDelegate
                     cell.isUserInteractionEnabled = !useUTC
                     cell.textLabel?.isEnabled = !useUTC
                 }
+                textFieldTyping()
             }
             else if indexPath.row == 1 {
                 cell.textLabel!.text = NSLocalizedString("DEFAULT_NAME_ENGLISH_LOCALE", comment: "no comment")//"Force English Locale?"
                 cell.accessoryType = preferences.dateFormatUseEN ? .checkmark : .none
+                textFieldTyping()
             }
         }
         
