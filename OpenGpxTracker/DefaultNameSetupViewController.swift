@@ -217,6 +217,7 @@ class DefaultNameSetupViewController: UITableViewController, UITextFieldDelegate
                 cellSampleLabel.font = .boldSystemFont(ofSize: 17)
                 cell.addSubview(cellSampleLabel)
                 cellSampleLabel.text = ""
+                textFieldTyping()
                 cellSampleLabel.adjustsFontSizeToFitWidth = true
                 cell.textLabel!.text = NSLocalizedString("DEFAULT_NAME_SAMPLE_OUTPUT_TITLE", comment: "no comment")
                 cell.textLabel?.font = .systemFont(ofSize: 17)
