@@ -82,7 +82,7 @@ class GPXMapView: MKMapView {
             }
             
             //add new overlay to map if not using Apple Maps
-            if newValue != .apple {
+            if newValue != .apple && newValue != .appleSat {
                 //Update cacheConfig
                 var config = MapCacheConfig(withUrlTemplate: newValue.templateUrl)
                 config.subdomains = newValue.subdomains
@@ -97,6 +97,9 @@ class GPXMapView: MKMapView {
                 // the overlay returned substitutes Apple Maps tile overlay.
                 // we need to keep a reference to remove it, in case we return back to Apple Maps.
                 self.tileServerOverlay = useCache(cache)
+            }
+            else {
+                self.mapType = (newValue == .apple) ? .standard : .satellite
             }
         }
         didSet {

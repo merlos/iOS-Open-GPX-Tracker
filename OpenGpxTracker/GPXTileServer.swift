@@ -22,6 +22,9 @@ enum GPXTileServer: Int {
     /// Apple tile server
     case apple
     
+    /// Apple satelite tile server
+    case appleSat
+    
     /// Open Street Map tile server
     case openStreetMap
     //case AnotherMap
@@ -36,6 +39,7 @@ enum GPXTileServer: Int {
     var name: String {
         switch self {
         case .apple: return "Apple Mapkit (no offline cache)"
+        case .appleSat: return "Apple Satellite (no offline cache)"
         case .openStreetMap: return "Open Street Map"
         case .cartoDB: return "Carto DB"
         case .openTopoMap: return "OpenTopoMap"
@@ -47,6 +51,7 @@ enum GPXTileServer: Int {
     var templateUrl: String {
         switch self {
         case .apple: return ""
+        case .appleSat: return ""
         case .openStreetMap: return "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
        // case .cartoDB: return "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png"
         case .cartoDB: return "https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}.png"
@@ -65,6 +70,7 @@ enum GPXTileServer: Int {
     var subdomains: [String] {
         switch self {
         case .apple: return []
+        case .appleSat: return []
         case .openStreetMap: return ["a","b","c"]
         case .cartoDB: return ["a","b","c"]
         case .openTopoMap: return ["a","b","c"]
@@ -84,6 +90,7 @@ enum GPXTileServer: Int {
     var maximumZ: Int {
         switch self {
             case .apple: return -1
+            case .appleSat: return -1
             case .openStreetMap: return 19
             case .cartoDB: return 21
             case .openTopoMap: return 17
@@ -101,6 +108,7 @@ enum GPXTileServer: Int {
     var minimumZ: Int {
         switch self {
             case .apple: return 0
+            case .appleSat: return 0
             case .openStreetMap: return 0
             case .cartoDB: return 0
             case .openTopoMap: return 0
@@ -118,6 +126,7 @@ enum GPXTileServer: Int {
     var minCameraDistance: Double {
         switch self {
         case .apple: return -1.0 // Not limited
+        case .appleSat: return -1.0
         case .openStreetMap: return 750.0
         case .cartoDB: return 200.0
         case .openTopoMap: return 2850.0
