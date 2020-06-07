@@ -594,13 +594,13 @@ class CoreDataHelper {
                 for result in results {
                     let safePoint = privateManagedObjectContext.object(with: result.objectID)
                     privateManagedObjectContext.delete(safePoint)
-                    do {
-                        // Save delete request
-                        try privateManagedObjectContext.save()
-                    }
-                    catch let error {
-                        print("NSAsynchronousFetchRequest (for batch delete <iOS 9) error at each deletion: \(error)")
-                    }
+                }
+                do {
+                    // Save delete request
+                    try privateManagedObjectContext.save()
+                }
+                catch let error {
+                    print("NSAsynchronousFetchRequest (for batch delete <iOS 9) error at each deletion: \(error)")
                 }
             }
 
