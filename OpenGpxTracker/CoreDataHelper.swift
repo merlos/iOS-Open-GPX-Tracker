@@ -489,7 +489,7 @@ class CoreDataHelper {
         print("Core Data Helper: Batch Delete trackpoints from Core Data")
         
         
-        if #available(iOS 9.0, *) {
+        if #available(iOS 10.0, *) {
             privateManagedObjectContext.perform {
                 do {
                     let trackpointFetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "CDTrackpoint")
@@ -523,6 +523,13 @@ class CoreDataHelper {
                 
                 for result in results {
                     privateManagedObjectContext.delete(result)
+                }
+                do {
+                    // Save delete request
+                    try privateManagedObjectContext.save()
+                }
+                catch let error {
+                    print("NSAsynchronousFetchRequest (for batch delete <iOS 9) error in saving: \(error)")
                 }
             }
             
@@ -600,7 +607,7 @@ class CoreDataHelper {
                     try privateManagedObjectContext.save()
                 }
                 catch let error {
-                    print("NSAsynchronousFetchRequest (for batch delete <iOS 9) error at each deletion: \(error)")
+                    print("NSAsynchronousFetchRequest (for batch delete <iOS 9) error in saving: \(error)")
                 }
             }
 
