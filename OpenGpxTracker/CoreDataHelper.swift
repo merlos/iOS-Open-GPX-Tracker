@@ -214,14 +214,14 @@ class CoreDataHelper {
         let privateManagedObjectContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
         privateManagedObjectContext.parent = appDelegate.managedObjectContext
         // Creates a fetch request
-        let wptFetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "CDWaypoint")
+        let wptFetchRequest = NSFetchRequest<CDWaypoint>(entityName: "CDWaypoint")
         
         let asynchronousWaypointFetchRequest = NSAsynchronousFetchRequest(fetchRequest: wptFetchRequest) { asynchronousFetchResult in
             
             print("Core Data Helper: updating waypoint in Core Data")
             
             // Retrieves an array of points from Core Data
-            guard let waypointResults = asynchronousFetchResult.finalResult as? [CDWaypoint] else { return }
+            guard let waypointResults = asynchronousFetchResult.finalResult else { return }
             
             privateManagedObjectContext.perform {
                 let objectID = waypointResults[index].objectID
@@ -279,9 +279,9 @@ class CoreDataHelper {
         let privateManagedObjectContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
         privateManagedObjectContext.parent = appDelegate.managedObjectContext
         // Creates a fetch request
-        let trkptFetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "CDTrackpoint")
-        let wptFetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "CDWaypoint")
-        let rootFetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "CDRoot")
+        let trkptFetchRequest = NSFetchRequest<CDTrackpoint>(entityName: "CDTrackpoint")
+        let wptFetchRequest = NSFetchRequest<CDWaypoint>(entityName: "CDWaypoint")
+        let rootFetchRequest = NSFetchRequest<CDRoot>(entityName: "CDRoot")
         
         // Ensure that fetched data is ordered 
         let sortTrkpt = NSSortDescriptor(key: "trackpointId", ascending: true)
@@ -290,7 +290,7 @@ class CoreDataHelper {
         wptFetchRequest.sortDescriptors = [sortWpt]
         
         let asyncRootFetchRequest = NSAsynchronousFetchRequest(fetchRequest: rootFetchRequest) { asynchronousFetchResult in
-            guard let rootResults = asynchronousFetchResult.finalResult as? [CDRoot] else {
+            guard let rootResults = asynchronousFetchResult.finalResult else {
                 return }
             
             DispatchQueue.main.async {
@@ -307,7 +307,7 @@ class CoreDataHelper {
             
             print("Core Data Helper: fetching recoverable trackpoints from Core Data")
             
-            guard let trackPointResults = asynchronousFetchResult.finalResult as? [CDTrackpoint] else { return }
+            guard let trackPointResults = asynchronousFetchResult.finalResult else { return }
             // Dispatches to use the data in the main queue
             DispatchQueue.main.async {
                 self.tracksegmentId = trackPointResults.first?.trackSegmentId ?? 0
@@ -345,7 +345,7 @@ class CoreDataHelper {
             print("Core Data Helper: fetching recoverable waypoints from Core Data")
             
             // Retrieves an array of points from Core Data
-            guard let waypointResults = asynchronousFetchResult.finalResult as? [CDWaypoint] else { return }
+            guard let waypointResults = asynchronousFetchResult.finalResult else { return }
             
             // Dispatches to use the data in the main queue
             DispatchQueue.main.async {
@@ -398,14 +398,14 @@ class CoreDataHelper {
         let privateManagedObjectContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
         privateManagedObjectContext.parent = appDelegate.managedObjectContext
         // Creates a fetch request
-        let rootFetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "CDRoot")
+        let rootFetchRequest = NSFetchRequest<CDRoot>(entityName: "CDRoot")
         
         let asynchronousWaypointFetchRequest = NSAsynchronousFetchRequest(fetchRequest: rootFetchRequest) { asynchronousFetchResult in
             
             print("Core Data Helper: delete last filename from Core Data.")
             
             // Retrieves an array of points from Core Data
-            guard let results = asynchronousFetchResult.finalResult as? [CDRoot] else { return }
+            guard let results = asynchronousFetchResult.finalResult else { return }
             
             for result in results {
                 privateManagedObjectContext.delete(result)
@@ -444,14 +444,14 @@ class CoreDataHelper {
         let privateManagedObjectContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
         privateManagedObjectContext.parent = appDelegate.managedObjectContext
         // Creates a fetch request
-        let wptFetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "CDWaypoint")
+        let wptFetchRequest = NSFetchRequest<CDWaypoint>(entityName: "CDWaypoint")
         
         let asynchronousWaypointFetchRequest = NSAsynchronousFetchRequest(fetchRequest: wptFetchRequest) { asynchronousFetchResult in
             
             print("Core Data Helper: delete waypoint from Core Data at index: \(index)")
             
             // Retrieves an array of points from Core Data
-            guard let waypointResults = asynchronousFetchResult.finalResult as? [CDWaypoint] else { return }
+            guard let waypointResults = asynchronousFetchResult.finalResult else { return }
             
             privateManagedObjectContext.delete(waypointResults[index])
             
@@ -486,14 +486,13 @@ class CoreDataHelper {
         let privateManagedObjectContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
         privateManagedObjectContext.parent = appDelegate.managedObjectContext
         
-        print("Core Data Helper: Batch Delete trackpoints and waypoints from Core Data")
+        print("Core Data Helper: Batch Delete trackpoints from Core Data")
         
-        // Creates fetch requests for both trackpoint and waypoint
-        let trackpointFetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "CDTrackpoint")
         
-        if #available(iOS 9.0, *) {
+        if #available(iOS 10.0, *) {
             privateManagedObjectContext.perform {
                 do {
+                    let trackpointFetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "CDTrackpoint")
                     let trackpointDeleteRequest = NSBatchDeleteRequest(fetchRequest: trackpointFetchRequest)
                     
                     // execute both delete requests.
@@ -517,12 +516,20 @@ class CoreDataHelper {
             
         }
         else { // for pre iOS 9 (less efficient, load in memory before removal)
+            let trackpointFetchRequest = NSFetchRequest<CDTrackpoint>(entityName: "CDTrackpoint")
             let trackpointAsynchronousFetchRequest = NSAsynchronousFetchRequest(fetchRequest: trackpointFetchRequest) { asynchronousFetchResult in
                 
-                guard let results = asynchronousFetchResult.finalResult as? [CDTrackpoint] else { return }
+                guard let results = asynchronousFetchResult.finalResult else { return }
                 
                 for result in results {
                     privateManagedObjectContext.delete(result)
+                }
+                do {
+                    // Save delete request
+                    try privateManagedObjectContext.save()
+                }
+                catch let error {
+                    print("NSAsynchronousFetchRequest (for batch delete <iOS 9) error in saving: \(error)")
                 }
             }
             
@@ -551,17 +558,16 @@ class CoreDataHelper {
         let privateManagedObjectContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
         privateManagedObjectContext.parent = appDelegate.managedObjectContext
         
-        print("Core Data Helper: Batch Delete trackpoints and waypoints from Core Data")
+        print("Core Data Helper: Batch Delete waypoints from Core Data")
         
-        // Creates fetch requests for both trackpoint and waypoint
-        let waypointFetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "CDWaypoint")
         
-        if #available(iOS 9.0, *) {
+        if #available(iOS 10.0, *) {
             privateManagedObjectContext.perform {
                 do {
+                    let waypointFetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "CDWaypoint")
                     let waypointDeleteRequest = NSBatchDeleteRequest(fetchRequest: waypointFetchRequest)
                     
-                    // execute both delete requests.
+                    // execute delete request.
                     try privateManagedObjectContext.execute(waypointDeleteRequest)
                     
                     try privateManagedObjectContext.save()
@@ -584,17 +590,27 @@ class CoreDataHelper {
         }
         else { // for pre iOS 9 (less efficient, load in memory before removal)
             
+            let waypointFetchRequest = NSFetchRequest<CDWaypoint>(entityName: "CDWaypoint")
+            waypointFetchRequest.includesPropertyValues = false
             let waypointAsynchronousFetchRequest = NSAsynchronousFetchRequest(fetchRequest: waypointFetchRequest) { asynchronousFetchResult in
                 
-                guard let results = asynchronousFetchResult.finalResult as? [CDWaypoint] else { return }
+                guard let results = asynchronousFetchResult.finalResult else { return }
                 
                 //self.resetIds()
                 
                 for result in results {
-                    privateManagedObjectContext.delete(result)
+                    let safePoint = privateManagedObjectContext.object(with: result.objectID)
+                    privateManagedObjectContext.delete(safePoint)
+                }
+                do {
+                    // Save delete request
+                    try privateManagedObjectContext.save()
+                }
+                catch let error {
+                    print("NSAsynchronousFetchRequest (for batch delete <iOS 9) error in saving: \(error)")
                 }
             }
-            
+
             do {
                 // Executes all delete requests
                 try privateManagedObjectContext.execute(waypointAsynchronousFetchRequest)

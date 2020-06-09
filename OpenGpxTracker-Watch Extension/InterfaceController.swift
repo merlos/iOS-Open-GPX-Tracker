@@ -286,7 +286,7 @@ class InterfaceController: WKInterfaceController {
         let gpxString = self.map.exportToGPXString()
         GPXFileManager.save(filename, gpxContents: gpxString)
         self.lastGpxFilename = filename
-        print(gpxString)
+        //print(gpxString)
         
         /// Just a 'done' button, without
         let action = WKAlertAction(title: "Done", style: .default) {}
