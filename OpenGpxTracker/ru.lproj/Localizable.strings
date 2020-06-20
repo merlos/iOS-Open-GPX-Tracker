@@ -1,0 +1,155 @@
+/*
+ Localizable.strings
+ OpenGpxTracker
+
+ Created by Evgeniy NeoFusion on 20.06.20.
+ */
+
+// App
+"NO_LOCATION" = "Геопозиция не получена";
+"START_TRACKING" = "Начать запись";
+"PAUSE" = "Пауза";
+"RESUME" = "Продолжить";
+"SAVE" = "Сохранить";
+"RESET" = "Сбросить";
+"DONE" = "Готово";
+"CANCEL" = "Отменить";
+"WATCH_FILE_RECEIVED_TITLE" = "Файл получен из Apple Watch";
+"WATCH_FILE_RECEIVED_MESSAGE" = "Получен файл: \"%@\"";
+"SAVE_AS" = "Сохранить как";
+"ENTER_SESSION_NAME" = "Введите название GPX-сессии";
+"LOCATION_SERVICES_DISABLED" = "Геолокация выключена";
+"ENABLE_LOCATION_SERVICES" = "Перейдите в настройки и включите геолокацию.";
+"SETTINGS" = "Параметры";
+"ACCESS_TO_LOCATION_DENIED" = "Доступ к геолокации запрещен";
+"ALLOW_LOCATION" = "В настройках геолокации разрешите GPX Tracker использоваю Вашу геопозицию";
+"COORDS_LABEL" = "(%@, %@) · высота: %@";
+"NO_FILES" = "Нет GPX-файлов";
+"YOUR_FILES" = "Ваши GPX-файлы";
+"LAST_SAVED" = "Сохранен %@ (%@)";
+"DELETE" = "Удалить";
+"SELECT_OPTION" = "Выберите действие";
+"LOAD_IN_MAP" = "Показать на карте";
+"SHARE" = "Поделиться";
+"LOADING_FILE" = "Загрузка GPX-файла...";
+"ABOUT" = "О программе";
+"PREFERENCES" = "Настройки";
+"UNITS" = "Единицы измерения";
+"CACHE" = "Кэш";
+"MAP_SOURCE" = "Поставщик карт";
+"ACTIVITY_TYPE" = "Тип активности";
+"USE_IMPERIAL_UNITS" = "Использовать английскую систему мер?";
+"OFFLINE_CACHE" = "Офлайн кэш";
+"CLEAR_CACHE" = "Очистить кэш";
+"CACHE_IS_EMPTY" = "Кэш очищен";
+"EDIT_WAYPOINT_NAME_TITLE" = "Введите имя метки";
+"EDIT_WAYPOINT_NAME_MESSAGE" = "Подсказка: Чтобы изменить положение метки на карте, перетащите ее";
+
+// Watch
+"SENDING" = "Отправка:";
+"X_FILES" = "%d файлов";
+"SUCCESSFULLY_SENT" = "Успешно отправлено:";
+"FAILED_TO_SEND" = "Ошибка отправки:";
+"SEND_TO_IOS" = "Отправить в приложение iOS";
+"FILE_SELECTED_TITLE" = "GPX-файл выбран";
+"FILE_SELECTED_MESSAGE" = "Что вы хотите с ним сделать?";
+"ERROR_OCCURED_TITLE" = "Произошла ошибка";
+"ERROR_OCCURED_MESSAGE" = "Ошибка отправки GPX-файла в приложение iOS, по причине \"%s\" ";
+"GPX_TRACKER" = "GPX Tracker";
+"FILE_SAVED_TITLE" = "GPX-файл сохранен";
+"FILE_SAVED_MESSAGE" = "Текущая сессия сохранена как %s.gpx ";
+
+// Activities
+"AT_AUTOMATIC" = "Автоматически";
+"AT_AUTOMOTIVE" = "Автомобильная навигация";
+"AT_FITNESS" = "Фитнес";
+"AT_OTHER" = "Другие типы навигации";
+"AT_FLIGHT" = "Полет";
+
+"AT_AUTOMATIC_DESC" = "По умолчанию. Автоматический выбор режима";
+"AT_AUTOMOTIVE_DESC" = "Автомобиль, мотоцикл, грузовик...";
+"AT_FITNESS_DESC" = "Бег, пеший туризм, велосипед...";
+"AT_OTHER_DESC" = "Иные виды автомобильной навигации";
+"AT_FLIGHT_DESC" = "Активности в воздухе";
+
+// Dates
+"T_YEARS_AGO" = "%d лет назад";
+"T_YEAR_AGO" = "1 год назад";
+"T_LAST_YEAR" = "год назад";
+
+"T_MONTHS_AGO" = "%d месяцев назад";
+"T_MONTH_AGO" = "1 месяц назад";
+"T_LAST_MONTH" = "месяц назад";
+
+"T_WEEKS_AGO" = "%d недель назад";
+"T_WEEK_AGO" = "1 неделю назад";
+"T_LAST_WEEK" = "неделю назад";
+
+"T_DAYS_AGO" = "%d дней назад";
+"T_DAY_AGO" = "1 день назад";
+"T_YESTERDAY" = "вчера";
+
+"T_HOURS_AGO" = "%d часов назад";
+"T_HOUR_AGO" = "1 час назад";
+"T_LAST_HOUR" = "час назад";
+
+"T_MINUTES_AGO" = "%d минут назад";
+"T_MINUTE_AGO" = "1 минуту назад";
+"T_MINUTE_HOUR" = "минуту назад";
+
+"T_SECONDS_AGO" = "%d секунд назад";
+
+"T_JUST_NOW" = "только что";
+
+// CoreDataHelper
+
+"CONTINUE_SESSION_TITLE" = "Продолжить прошлую сессию?";
+"CONTINUE_SESSION_MESSAGE" = "Что вы хотите сделать с восстановленными данными из прошлой сессии?";
+
+"CONTINUE_SESSION" = "Продолжить сессию";
+"SAVE_START_NEW" = "Сохранить и начать новую";
+
+// Default File Name
+
+// in preferences section
+"DEFAULT_NAME_SECTION" = "Настройка форматирования имени файла";
+
+// in default name editor view
+"DEFAULT_NAME_DATE_FORMAT" = "Формат имени файла";
+"DEFAULT_NAME_SETTINGS" = "Параметры";
+"DEFAULT_NAME_PRESET" = "Пресеты";
+
+"DEFAULT_NAME_INPUT_FOOTER" = "Нажатие кнопки «Готово» на клавиатуре сохраняет введенную строку форматирования независимо от того, пресет это или пользовательский вариант. Каждый параметр должен быть обернут { ... }. За полным списком параметров форматирования вывода даты и времени обращайтесь к Unicode Technical Standard (UTS) #35.";
+
+"DEFAULT_NAME_SAMPLE_OUTPUT_TITLE" = "Пример: ";
+"DEFAULT_NAME_USE_UTC" = "Использовать время UTC?";
+"DEFAULT_NAME_ENGLISH_LOCALE" = "Принудительно форматировать дату на английском языке?";
+
+// DateFieldTypeView
+"YEAR" = "Год";
+"MONTH" = "Месяц";
+"DAY" = "День";
+"HOUR" = "Час";
+"MINUTE" = "Минута";
+"SECOND" = "Секунда";
+"DAY_OF_THE_WEEK" = "День недели";
+"TIME_OF_DAY" = "AM/PM";
+"WEEK" = "Неделя";
+"QUARTER" = "Квартал";
+"ERA" = "Эра";
+"TIME_ZONE" = "Часовой пояс";
+
+"SINGLE_DIGIT" = "Простое";
+"FULL_TEXT" = "Полное";
+"TEXT" = "Текст";
+
+"OF_MONTH" = "Месяца";
+"OF_YEAR" = "Года";
+
+"ABBR_GMT" = "Аббр. / GMT";
+"UTC_OFFSET" = "Смещение UTC";
+"GMT_SHORT" = "GMT сокращенное";
+"GMT_FULL" = "GMT полное";
+"LOCATION" = "Местоположение";
+"LOCATION_TIME" = "Время местоположения";
+
