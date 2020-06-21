@@ -160,6 +160,10 @@
 		45A430ED230D612B0003C2F2 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Interface.strings; sourceTree = "<group>"; };
 		45A430EF230D612C0003C2F2 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Interface.strings; sourceTree = "<group>"; };
 		554D2ACAA71E64B3A7B1A167 /* Pods-OpenGpxTracker-Watch Extension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenGpxTracker-Watch Extension.release.xcconfig"; path = "Pods/Target Support Files/Pods-OpenGpxTracker-Watch Extension/Pods-OpenGpxTracker-Watch Extension.release.xcconfig"; sourceTree = "<group>"; };
+		84DE40602499509900ED7D6D /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		84DE40612499509900ED7D6D /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Interface.strings; sourceTree = "<group>"; };
+		84DE40622499509900ED7D6D /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
+		84DE40632499509900ED7D6D /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		8913CD8B1BDB0A9A009EC729 /* PreferencesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferencesTableViewController.swift; sourceTree = "<group>"; };
 		8913CD8D1BDB2477009EC729 /* PreferencesTableViewControllerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferencesTableViewControllerDelegate.swift; sourceTree = "<group>"; };
 		893BEC8519C7E62200C77354 /* GPXWaypoint+MKAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "GPXWaypoint+MKAnnotation.swift"; sourceTree = "<group>"; };
@@ -625,6 +629,7 @@
 				"zh-Hans",
 				uk,
 				"fi-FI",
+				ru,
 			);
 			mainGroup = 898EECCC19C49B5800B4B207;
 			productRefGroup = 898EECD619C49B5800B4B207 /* Products */;
@@ -900,6 +905,7 @@
 				BFF3047D2312D8A10012D263 /* zh-Hans */,
 				D39420E523CC1B0500EDC8F6 /* uk */,
 				BF3D192B24371DC30079B630 /* fi-FI */,
+				84DE40632499509900ED7D6D /* ru */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -913,6 +919,7 @@
 				BFF3047E2312D8A10012D263 /* zh-Hans */,
 				D39420E623CC1B0500EDC8F6 /* uk */,
 				BF3D192C24371DC30079B630 /* fi-FI */,
+				84DE40602499509900ED7D6D /* ru */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -927,6 +934,7 @@
 				BFF3047B2312D8A00012D263 /* zh-Hans */,
 				D39420E323CC1B0500EDC8F6 /* uk */,
 				BF3D192924371DC30079B630 /* fi-FI */,
+				84DE40612499509900ED7D6D /* ru */,
 			);
 			name = Interface.storyboard;
 			sourceTree = "<group>";
@@ -951,6 +959,7 @@
 				BFF3047C2312D8A00012D263 /* zh-Hans */,
 				D39420E423CC1B0500EDC8F6 /* uk */,
 				BF3D192A24371DC30079B630 /* fi-FI */,
+				84DE40622499509900ED7D6D /* ru */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
