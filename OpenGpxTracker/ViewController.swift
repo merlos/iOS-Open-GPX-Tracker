@@ -737,7 +737,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
         
-        DispatchQueue.main.async() {
+        DispatchQueue.main.async {
             // set the new position of the compass.
             self.map.compassRect = CGRect(x: size.width/2 - 18, y: 70.0, width: 36, height: 36)
             // update compass frame location
@@ -1174,13 +1174,18 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         if isDisplayingLocationServicesDenied {
             return // display it only once.
         }
-        let alertController = UIAlertController(title: NSLocalizedString("ACCESS_TO_LOCATION_DENIED", comment: "no comment"), message: NSLocalizedString("ALLOW_LOCATION", comment: "no comment"), preferredStyle: .alert)
-        let settingsAction = UIAlertAction(title: NSLocalizedString("SETTINGS", comment: "no comment"), style: .default) { (action) in
+        let alertController = UIAlertController(title: NSLocalizedString("ACCESS_TO_LOCATION_DENIED", comment: "no comment"),
+                                                message: NSLocalizedString("ALLOW_LOCATION", comment: "no comment"),
+                                                preferredStyle: .alert)
+        let settingsAction = UIAlertAction(title: NSLocalizedString("SETTINGS", comment: "no comment"),
+                                           style: .default) { _ in
             if let url = URL(string: UIApplication.openSettingsURLString) {
                 UIApplication.shared.openURL(url)
             }
         }
-        let cancelAction = UIAlertAction(title: NSLocalizedString("CANCEL", comment: "no comment"), style: .cancel) { (action) in }
+        let cancelAction = UIAlertAction(title: NSLocalizedString("CANCEL",
+                                                                  comment: "no comment"),
+                                         style: .cancel) { _ in }
         
         alertController.addAction(settingsAction)
         alertController.addAction(cancelAction)

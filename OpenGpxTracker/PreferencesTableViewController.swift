@@ -205,7 +205,9 @@ class PreferencesTableViewController: UITableViewController, UINavigationBarDele
             let dateFormatter = DefaultDateFormat()
             cell = UITableViewCell(style: .subtitle, reuseIdentifier: "DefaultNameCell")
             cell.textLabel?.text = preferences.dateFormatPreset == -1 ? preferences.dateFormatInput : preferences.dateFormatPresetName
-            let dateText = dateFormatter.getDate(processedFormat: preferences.dateFormat, useUTC: preferences.dateFormatUseUTC, useENLocale: preferences.dateFormatUseEN)
+            let dateText = dateFormatter.getDate(processedFormat: preferences.dateFormat,
+                                                 useUTC: preferences.dateFormatUseUTC,
+                                                 useENLocale: preferences.dateFormatUseEN)
             cell.detailTextLabel?.text = dateText
             cell.accessoryType = .disclosureIndicator
         }

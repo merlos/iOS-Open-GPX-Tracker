@@ -660,7 +660,9 @@ class CoreDataHelper {
                 DispatchQueue.main.sync {
                     print(root.gpx())
                     // main action sheet setup
-                    let alertController = UIAlertController(title: NSLocalizedString("CONTINUE_SESSION_TITLE", comment: "no comment"), message: NSLocalizedString("CONTINUE_SESSION_MESSAGE", comment: "no comment"), preferredStyle: .actionSheet)
+                    let alertController = UIAlertController(title: NSLocalizedString("CONTINUE_SESSION_TITLE", comment: "no comment"),
+                                                            message: NSLocalizedString("CONTINUE_SESSION_MESSAGE", comment: "no comment"),
+                                                            preferredStyle: .actionSheet)
                     
                     // option to cancel
                     let cancelAction = UIAlertAction(title: NSLocalizedString("CANCEL", comment: "no comment"), style: .cancel) { _ in

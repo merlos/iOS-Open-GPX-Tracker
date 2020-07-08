@@ -29,8 +29,6 @@ extension Date {
         
         let unitFlags: Set<Calendar.Component> = [.minute, .hour, .day, .weekOfMonth, .month, .year, .second]
         let components: DateComponents = calendar.dateComponents(unitFlags, from: earliest, to: latest)
-        //print("")
-        //print(components)
         if let year = components.year {
             if year >= 2 {
                 return String(format: NSLocalizedString("T_YEARS_AGO", comment: "no comment"), year)
@@ -42,7 +40,9 @@ extension Date {
             if month >= 2 {
                 return String(format: NSLocalizedString("T_MONTHS_AGO", comment: "no comment"), month)
             } else if month >= 1 {
-                return numericDates ? NSLocalizedString("T_MONTH_AGO", comment: "no comment") : NSLocalizedString("T_LAST_MONTH", comment: "no comment")
+                let monthAgo = NSLocalizedString("T_MONTH_AGO", comment: "no comment")
+                let lastMonth = NSLocalizedString("T_LAST_MONTH", comment: "no comment")
+                return numericDates ? monthAgo : lastMonth
             }
         }
         if let weekOfMonth = components.weekOfMonth {

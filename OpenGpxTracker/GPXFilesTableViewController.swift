@@ -62,7 +62,10 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
         addNotificationObservers()
         
         // Button to return to the map
-        let shareItem = UIBarButtonItem(title: NSLocalizedString("DONE", comment: "no comment"), style: UIBarButtonItem.Style.plain, target: self, action: #selector(GPXFilesTableViewController.closeGPXFilesTableViewController))
+        let shareItem = UIBarButtonItem(title: NSLocalizedString("DONE", comment: "no comment"),
+                                        style: UIBarButtonItem.Style.plain,
+                                        target: self,
+                                        action: #selector(GPXFilesTableViewController.closeGPXFilesTableViewController))
         
         self.navigationItem.rightBarButtonItems = [shareItem]
         
