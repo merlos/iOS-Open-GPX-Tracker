@@ -55,6 +55,7 @@ class GPXMapView: MKMapView {
         didSet {
             if self.tileServerOverlay is CachedTileOverlay {
                 print("GPXMapView:: setting useCache \(self.useCache)")
+                // swiftlint:disable force_cast
                 (self.tileServerOverlay as! CachedTileOverlay).useCache = self.useCache
             }
         }

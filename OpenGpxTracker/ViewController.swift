@@ -1411,4 +1411,5 @@ extension ViewController: CLLocationManagerDelegate {
 extension Notification.Name {
     static let loadRecoveredFile = Notification.Name("loadRecoveredFile")
     static let updateAppearance = Notification.Name("updateAppearance")
+    // swiftlint:disable file_length
 }

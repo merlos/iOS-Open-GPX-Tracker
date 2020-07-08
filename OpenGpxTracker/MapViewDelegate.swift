@@ -115,6 +115,7 @@ class MapViewDelegate: NSObject, MKMapViewDelegate, UIAlertViewDelegate {
     /// Handles the change of the coordinates when a pin is dropped.
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView,
         didChange newState: MKAnnotationView.DragState, fromOldState oldState: MKAnnotationView.DragState) {
+        // swiftlint:disable force_cast
         let gpxMapView = mapView as! GPXMapView
         
         if newState == MKAnnotationView.DragState.ending {
@@ -133,6 +134,7 @@ class MapViewDelegate: NSObject, MKMapViewDelegate, UIAlertViewDelegate {
     /// Adds the pin to the map with an animation (comes from the top of the screen)
     func mapView(_ mapView: MKMapView, didAdd views: [MKAnnotationView]) {
         var i = 0
+        // swiftlint:disable force_cast
         let gpxMapView = mapView as! GPXMapView
         var hasImpacted = false
         //adds the pins with an animation

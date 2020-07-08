@@ -34,6 +34,7 @@ class CoreDataHelper {
     // MARK:- Other Declarations
     
     /// app delegate.
+    // swiftlint:disable force_cast
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     
     // arrays for handling retrieval of data when needed.
@@ -101,6 +102,7 @@ class CoreDataHelper {
         
         childManagedObjectContext.perform {
             print("Core Data Helper: Add trackpoint with id: \(self.trackpointId)")
+            // swiftlint:disable force_cast
             let pt = NSEntityDescription.insertNewObject(forEntityName: "CDTrackpoint", into: childManagedObjectContext) as! CDTrackpoint
             
             guard let elevation = trackpoint.elevation else { return }
@@ -154,6 +156,7 @@ class CoreDataHelper {
         
         waypointChildManagedObjectContext.perform {
             print("Core Data Helper: Add waypoint with id: \(self.waypointId)")
+            // swiftlint:disable force_cast
             let pt = NSEntityDescription.insertNewObject(forEntityName: "CDWaypoint", into: waypointChildManagedObjectContext) as! CDWaypoint
             
             guard let latitude = waypoint.latitude   else { return }

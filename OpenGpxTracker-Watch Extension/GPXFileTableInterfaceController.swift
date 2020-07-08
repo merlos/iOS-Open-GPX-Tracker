@@ -64,7 +64,7 @@ class GPXFileTableInterfaceController: WKInterfaceController {
     // MARK: Progress Indicators
     
     /// States of sending files
-    enum sendingStatus {
+    enum SendingStatus {
         /// represents current state as sending
         case sending
         /// represents current state as successful
@@ -104,7 +104,7 @@ class GPXFileTableInterfaceController: WKInterfaceController {
     /// Updates progress indicators according to status when sending.
     ///
     /// If status is success or failure, method will hide and animate progress indicators when done
-    func updateProgressIndicators(status: sendingStatus, fileName: String?) {
+    func updateProgressIndicators(status: SendingStatus, fileName: String?) {
         switch status {
         case .sending:
             progressTitle.setText(NSLocalizedString("SENDING", comment: "no comment"))
@@ -179,6 +179,7 @@ class GPXFileTableInterfaceController: WKInterfaceController {
         if gpxFilesFound {
             for index in 0..<fileTable.numberOfRows {
                 guard let cell = fileTable.rowController(at: index) as? GPXFileTableRowController else { continue }
+                // swiftlint:disable force_cast
                 let gpxFileInfo = fileList.object(at: index) as! GPXFileInfo
                 cell.fileLabel.setText(gpxFileInfo.fileName)
             }
@@ -234,6 +235,7 @@ class GPXFileTableInterfaceController: WKInterfaceController {
             self.hideProgressIndicators()
             return
         }
+        // swiftlint:disable force_cast
         let gpxFileInfo = fileList.object(at: rowIndex) as! GPXFileInfo
         self.scroll(to: progressGroup, at: .top, animated: true) // scrolls to top when indicator is shown.
         self.updateProgressIndicators(status: .sending, fileName: gpxFileInfo.fileName)

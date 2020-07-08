@@ -41,7 +41,7 @@ class DefaultNameSetupViewController: UITableViewController, UITextFieldDelegate
                     ("Day, Date at time (24 hr)", "EEEE, MMM d, yyyy 'at' HH:mm", "{EEEE}, {MMM} {d}, {yyyy} at {HH}:{mm}")]
     
     /// Sections of table view
-    private enum kSections: Int, CaseIterable {
+    private enum Sections: Int, CaseIterable {
         case input, settings, presets
     }
 
@@ -64,6 +64,7 @@ class DefaultNameSetupViewController: UITableViewController, UITextFieldDelegate
     @objc func dateButtonTapped(_ sender: Notification) {
         if cellTextField.text != nil {
             guard let notificationValues = sender.userInfo else { return }
+            // swiftlint:disable force_cast
             let patternDict = notificationValues as! [String : String]
             guard let pattern = patternDict["sender"] else { return }
 
@@ -113,7 +114,7 @@ class DefaultNameSetupViewController: UITableViewController, UITextFieldDelegate
     /// handling of textfield when editing commence.
     func textFieldDidBeginEditing(_ textField: UITextField) {
         //remove checkmark from selected date format preset, as textfield edited == not preset anymore
-        let selectedIndexPath = IndexPath(row: preferences.dateFormatPreset, section: kSections.presets.rawValue)
+        let selectedIndexPath = IndexPath(row: preferences.dateFormatPreset, section: Sections.presets.rawValue)
         tableView.cellForRow(at: selectedIndexPath)?.accessoryType = .none
         useUTC = false // clear UTC value, unlock UTC cell, as format may now be custom.
         lockUTCCell(useUTC)
@@ -127,7 +128,7 @@ class DefaultNameSetupViewController: UITableViewController, UITextFieldDelegate
         }
         else {
             // to get back preset set, and its rules (such as UTC for ISO8601 preset)
-            let selectedIndexPath = IndexPath(row: preferences.dateFormatPreset, section: kSections.presets.rawValue)
+            let selectedIndexPath = IndexPath(row: preferences.dateFormatPreset, section: Sections.presets.rawValue)
             tableView.cellForRow(at: selectedIndexPath)?.accessoryType = .checkmark
             
             if preferences.dateFormatPreset == 1 {
@@ -159,7 +160,7 @@ class DefaultNameSetupViewController: UITableViewController, UITextFieldDelegate
     
     /// Locks UTC cell such that it cannot be unchecked, for preset that require it.
     func lockUTCCell(_ state: Bool) {
-        let indexPath = IndexPath(row: 0, section: kSections.settings.rawValue)
+        let indexPath = IndexPath(row: 0, section: Sections.settings.rawValue)
         useUTC = state
         
         tableView.cellForRow(at: indexPath)?.accessoryType = state ? .checkmark : .none
@@ -168,24 +169,24 @@ class DefaultNameSetupViewController: UITableViewController, UITextFieldDelegate
         updateSampleTextField()
     }
     
-    /// return number of sections based on `kSections`
+    /// return number of sections based on `Sections`
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return kSections.allCases.count
+        return Sections.allCases.count
     }
     
     /// implement title of each section
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section {
-        case kSections.input.rawValue: return NSLocalizedString("DEFAULT_NAME_DATE_FORMAT", comment: "no comment")
-        case kSections.settings.rawValue: return NSLocalizedString("DEFAULT_NAME_SETTINGS", comment: "no comment")
-        case kSections.presets.rawValue: return NSLocalizedString("DEFAULT_NAME_PRESET", comment: "no comment")
+        case Sections.input.rawValue: return NSLocalizedString("DEFAULT_NAME_DATE_FORMAT", comment: "no comment")
+        case Sections.settings.rawValue: return NSLocalizedString("DEFAULT_NAME_SETTINGS", comment: "no comment")
+        case Sections.presets.rawValue: return NSLocalizedString("DEFAULT_NAME_PRESET", comment: "no comment")
         default: fatalError("Section out of range")
         }
     }
     
     /// implement footer for input section only
     override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
-        if section == kSections.input.rawValue {
+        if section == Sections.input.rawValue {
             return NSLocalizedString("DEFAULT_NAME_INPUT_FOOTER", comment: "no comment")
         }
         else { return nil }
@@ -194,13 +195,13 @@ class DefaultNameSetupViewController: UITableViewController, UITextFieldDelegate
     /// return number of rows in each section
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
-        case kSections.input.rawValue: return 2
-        case kSections.settings.rawValue:
+        case Sections.input.rawValue: return 2
+        case Sections.settings.rawValue:
             if Locale.current.languageCode == "en" {
                 return 1 // force locale to EN should only be shown if Locale is not EN.
             }
             else { return 2 }
-        case kSections.presets.rawValue: return presets.count
+        case Sections.presets.rawValue: return presets.count
         default: fatalError("Row out of range")
         }
     }
@@ -210,7 +211,7 @@ class DefaultNameSetupViewController: UITableViewController, UITextFieldDelegate
         
         var cell = UITableViewCell(style: .default, reuseIdentifier: "inputCell")
         
-        if indexPath.section == kSections.input.rawValue {
+        if indexPath.section == Sections.input.rawValue {
             if indexPath.row == 0 {
                 
                 cellSampleLabel = UILabel(frame: CGRect(x: 87, y: 0, width: view.frame.width - 99, height: cell.frame.height))
@@ -261,7 +262,7 @@ class DefaultNameSetupViewController: UITableViewController, UITextFieldDelegate
 
 
                 cell.contentView.addSubview(cellTextField)
-                if indexPath.section == kSections.input.rawValue {
+                if indexPath.section == Sections.input.rawValue {
                     
                 }
             }
@@ -269,7 +270,7 @@ class DefaultNameSetupViewController: UITableViewController, UITextFieldDelegate
             cellTextField.autocorrectionType = .no
         }
             
-        else if indexPath.section == kSections.settings.rawValue {
+        else if indexPath.section == Sections.settings.rawValue {
             if indexPath.row == 0 {
                 cell.textLabel!.text = NSLocalizedString("DEFAULT_NAME_USE_UTC", comment: "no comment")//"Use UTC?"
                 cell.accessoryType = preferences.dateFormatUseUTC ? .checkmark : .none
@@ -287,7 +288,7 @@ class DefaultNameSetupViewController: UITableViewController, UITextFieldDelegate
             }
         }
         
-        else if indexPath.section == kSections.presets.rawValue {
+        else if indexPath.section == Sections.presets.rawValue {
             cell = UITableViewCell(style: .subtitle, reuseIdentifier: "presetCell")
             cell.textLabel?.text = presets[indexPath.row].0
             cell.detailTextLabel?.text = defaultDateFormat.getDate(processedFormat: presets[indexPath.row].1, useUTC: useUTC, useENLocale: useEN)//presets[indexPath.row].1
@@ -302,7 +303,7 @@ class DefaultNameSetupViewController: UITableViewController, UITextFieldDelegate
     
     /// handling of cell selection.
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.section == kSections.settings.rawValue {
+        if indexPath.section == Sections.settings.rawValue {
             if indexPath.row == 0 {
                 //remove checkmark from selected utc setting
                 let newUseUTC = !preferences.dateFormatUseUTC
@@ -319,7 +320,7 @@ class DefaultNameSetupViewController: UITableViewController, UITextFieldDelegate
             }
             updateSampleTextField()
         }
-        if indexPath.section == kSections.presets.rawValue {
+        if indexPath.section == Sections.presets.rawValue {
             //cellSampleLabel.text = "{\(presets[indexPath.row].1)}"
             cellTextField.text = presets[indexPath.row].2
             

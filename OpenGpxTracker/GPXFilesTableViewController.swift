@@ -138,6 +138,7 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
             let cell: UITableViewCell = UITableViewCell(style: UITableViewCell.CellStyle.subtitle, reuseIdentifier: "Cell")
             //cell.accessoryType = UITableViewCellAccessoryType.DetailDisclosureButton
             //cell.accessoryView = [[ UIImageView alloc ] initWithImage:[UIImage imageNamed:@"Something" ]];
+            // swiftlint:disable force_cast
             let gpxFileInfo = fileList.object(at: (indexPath as NSIndexPath).row) as! GPXFileInfo
             cell.textLabel?.text = gpxFileInfo.fileName
             cell.detailTextLabel?.text = String(format: NSLocalizedString("LAST_SAVED", comment: "no comment"), gpxFileInfo.modifiedDatetimeAgo, gpxFileInfo.fileSizeHumanised)
@@ -201,6 +202,7 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
     
     /// Returns the name of the file in the `rowIndex` passed as parameter.
     internal func fileListObjectTitle(_ rowIndex: Int) -> String {
+        // swiftlint:disable force_cast
         return (fileList.object(at: rowIndex) as! GPXFileInfo).fileName
     }
     

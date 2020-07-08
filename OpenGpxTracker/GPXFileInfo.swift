@@ -20,6 +20,7 @@ class GPXFileInfo: NSObject {
     /// Last time the file was modified
     var modifiedDate: Date {
         get {
+            // swiftlint:disable force_try
             return try! fileURL.resourceValues(forKeys: [.contentModificationDateKey]).contentModificationDate ?? Date.distantPast
         }
     }
@@ -34,6 +35,7 @@ class GPXFileInfo: NSObject {
     /// File size in bytes
     var fileSize: Int {
         get {
+            // swiftlint:disable force_try
             return try! fileURL.resourceValues(forKeys: [.fileSizeKey]).fileSize ?? 0
         }
     }
