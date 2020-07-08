@@ -110,11 +110,12 @@ class MapViewDelegate: NSObject, MKMapViewDelegate, UIAlertViewDelegate {
             print("[calloutAccesoryControlTapped ERROR] unknown control")
         }
     }
-    
-    
+
     /// Handles the change of the coordinates when a pin is dropped.
-    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView,
-        didChange newState: MKAnnotationView.DragState, fromOldState oldState: MKAnnotationView.DragState) {
+    func mapView(_ mapView: MKMapView,
+                 annotationView view: MKAnnotationView,
+                 didChange newState: MKAnnotationView.DragState,
+                 fromOldState oldState: MKAnnotationView.DragState) {
         // swiftlint:disable force_cast
         let gpxMapView = mapView as! GPXMapView
         
@@ -125,11 +126,10 @@ class MapViewDelegate: NSObject, MKMapViewDelegate, UIAlertViewDelegate {
                     gpxMapView.coreDataHelper.update(toCoreData: point, from: index)
                 }
                 
-                print("Annotation name: \(String(describing: point.title)) lat:\(String(describing:point.latitude)) lon \(String(describing:point.longitude))")
+                print("Annotation name: \(String(describing: point.title)) lat:\(String(describing: point.latitude)) lon \(String(describing: point.longitude))")
             }
         }
     }
-    
     
     /// Adds the pin to the map with an animation (comes from the top of the screen)
     func mapView(_ mapView: MKMapView, didAdd views: [MKAnnotationView]) {
@@ -157,7 +157,7 @@ class MapViewDelegate: NSObject, MKMapViewDelegate, UIAlertViewDelegate {
             
             let endFrame: CGRect = annotationView.frame
             annotationView.frame = CGRect(x: annotationView.frame.origin.x, y: annotationView.frame.origin.y - mapView.superview!.frame.size.height,
-                width: annotationView.frame.size.width, height:annotationView.frame.size.height)
+                width: annotationView.frame.size.width, height: annotationView.frame.size.height)
             let interval: TimeInterval = 0.04 * 1.1
             UIView.animate(withDuration: 0.5, delay: interval, options: UIView.AnimationOptions.curveLinear, animations: { () -> Void in
                 annotationView.frame = endFrame

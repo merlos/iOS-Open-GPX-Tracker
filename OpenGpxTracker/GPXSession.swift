@@ -53,7 +53,6 @@ class GPXSession {
     /// Current segment distance in meters
     var currentSegmentDistance = 0.00
     
-    
     ///
     /// Adds a waypoint to the map.
     ///

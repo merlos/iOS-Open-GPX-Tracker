@@ -17,7 +17,7 @@ import CoreGPX
 ///
 class CoreDataHelper {
     
-    // MARK:- IDs
+    // MARK: IDs
     // ids to keep track of object's sequence
     
     /// for waypoints
@@ -31,7 +31,7 @@ class CoreDataHelper {
     var isContinued = false
     var lastTracksegmentId = Int64()
     
-    // MARK:- Other Declarations
+    // MARK: Other Declarations
     
     /// app delegate.
     // swiftlint:disable force_cast
@@ -51,7 +51,7 @@ class CoreDataHelper {
     // last file name of the recovered file, if the recovered file was a continuation.
     var lastFileName = String()
     
-    // MARK:- Add to Core Data
+    // MARK: Add to Core Data
     
     /// Adds the last file name to Core Data
     ///
@@ -81,8 +81,7 @@ class CoreDataHelper {
                         print("Failure to save parent context when adding last file name: \(error)")
                     }
                 }
-            }
-            catch {
+            } catch {
                 print("Failure to save child context when adding last file name: \(error)")
             }
         }
@@ -120,8 +119,7 @@ class CoreDataHelper {
             do {
                 let serialized = try JSONEncoder().encode(trackpoint)
                 pt.serialized = serialized
-            }
-            catch {
+            } catch {
                 print("Core Data Helper: serialization error when adding trackpoint: \(error)")
             }
             
@@ -137,8 +135,7 @@ class CoreDataHelper {
                         print("Failure to save parent context when adding trackpoint: \(error)")
                     }
                 }
-            }
-            catch {
+            } catch {
                 print("Failure to save child context when adding trackpoint: \(error)")
             }
         }
@@ -164,8 +161,7 @@ class CoreDataHelper {
             
             if let elevation = waypoint.elevation {
                 pt.elevation = elevation
-            }
-            else {
+            } else {
                 pt.elevation = .greatestFiniteMagnitude
             }
             
@@ -180,8 +176,7 @@ class CoreDataHelper {
             do {
                 let serialized = try JSONEncoder().encode(waypoint)
                 pt.serialized = serialized
-            }
-            catch {
+            } catch {
                 print("Core Data Helper: serialization error when adding waypoint: \(error)")
             }
             
@@ -197,14 +192,13 @@ class CoreDataHelper {
                         print("Failure to save parent context when adding waypoint: \(error)")
                     }
                 }
-            }
-            catch {
+            } catch {
                 print("Failure to save parent context when adding waypoint: \(error)")
             }
         }
     }
     
-    // MARK:- Update Core Data
+    // MARK: Update Core Data
     
     /// Updates a previously added waypoint to Core Data
     ///
@@ -235,8 +229,7 @@ class CoreDataHelper {
                 
                 if let elevation = updatedWaypoint.elevation {
                     pt.elevation = elevation
-                }
-                else {
+                } else {
                     pt.elevation = .greatestFiniteMagnitude
                 }
                 
@@ -255,8 +248,7 @@ class CoreDataHelper {
                             print("Failure to update and save waypoint to parent context: \(error)")
                         }
                     }
-                }
-                catch {
+                } catch {
                     print("Failure to update and save waypoint to context at child context: \(error)")
                 }
             }
@@ -270,7 +262,7 @@ class CoreDataHelper {
         }
     }
     
-    // MARK:- Retrieval From Core Data
+    // MARK: Retrieval From Core Data
 
     /// Retrieves everything from Core Data
     ///
@@ -391,7 +383,7 @@ class CoreDataHelper {
         }
     }
     
-    // MARK:- Delete from Core Data
+    // MARK: Delete from Core Data
     
     /// Deletes all CDRoot entity objects from Core Data.
     ///
@@ -424,8 +416,7 @@ class CoreDataHelper {
                         print("Failure to save context: \(error)")
                     }
                 }
-            }
-            catch {
+            } catch {
                 print("Failure to save context at child context: \(error)")
             }
         }
@@ -468,8 +459,7 @@ class CoreDataHelper {
                         print("Failure to save context (when deleting waypoint): \(error)")
                     }
                 }
-            }
-            catch {
+            } catch {
                 print("Failure to save context at child context (when deleting waypoint): \(error)")
             }
         }
@@ -481,8 +471,7 @@ class CoreDataHelper {
         }
         
     }
-    
-    
+
     /// Delete all trackpoints and waypoints in Core Data.
     func deleteAllTrackFromCoreData() {
         
@@ -490,8 +479,7 @@ class CoreDataHelper {
         privateManagedObjectContext.parent = appDelegate.managedObjectContext
         
         print("Core Data Helper: Batch Delete trackpoints from Core Data")
-        
-        
+
         if #available(iOS 10.0, *) {
             privateManagedObjectContext.perform {
                 do {
@@ -510,15 +498,13 @@ class CoreDataHelper {
                             print("Failure to save context after delete: \(error)")
                         }
                     }
-                }
-                catch {
+                } catch {
                     print("Failed to delete all from core data, error: \(error)")
                 }
                 
             }
             
-        }
-        else { // for pre iOS 9 (less efficient, load in memory before removal)
+        } else { // for pre iOS 9 (less efficient, load in memory before removal)
             let trackpointFetchRequest = NSFetchRequest<CDTrackpoint>(entityName: "CDTrackpoint")
             let trackpointAsynchronousFetchRequest = NSAsynchronousFetchRequest(fetchRequest: trackpointFetchRequest) { asynchronousFetchResult in
                 
@@ -530,8 +516,7 @@ class CoreDataHelper {
                 do {
                     // Save delete request
                     try privateManagedObjectContext.save()
-                }
-                catch let error {
+                } catch let error {
                     print("NSAsynchronousFetchRequest (for batch delete <iOS 9) error in saving: \(error)")
                 }
             }
@@ -562,8 +547,7 @@ class CoreDataHelper {
         privateManagedObjectContext.parent = appDelegate.managedObjectContext
         
         print("Core Data Helper: Batch Delete waypoints from Core Data")
-        
-        
+
         if #available(iOS 10.0, *) {
             privateManagedObjectContext.perform {
                 do {
@@ -583,15 +567,13 @@ class CoreDataHelper {
                             print("Failure to save context after delete: \(error)")
                         }
                     }
-                }
-                catch {
+                } catch {
                     print("Failed to delete all from core data, error: \(error)")
                 }
                 
             }
             
-        }
-        else { // for pre iOS 9 (less efficient, load in memory before removal)
+        } else { // for pre iOS 9 (less efficient, load in memory before removal)
             
             let waypointFetchRequest = NSFetchRequest<CDWaypoint>(entityName: "CDWaypoint")
             waypointFetchRequest.includesPropertyValues = false
@@ -608,8 +590,7 @@ class CoreDataHelper {
                 do {
                     // Save delete request
                     try privateManagedObjectContext.save()
-                }
-                catch let error {
+                } catch let error {
                     print("NSAsynchronousFetchRequest (for batch delete <iOS 9) error in saving: \(error)")
                 }
             }
@@ -633,7 +614,7 @@ class CoreDataHelper {
         }
     }
     
-    // MARK:- Handles recovered data
+    // MARK: Handles recovered data
     
     /// Prompts user on what to do with recovered data
     ///
@@ -649,7 +630,6 @@ class CoreDataHelper {
         DispatchQueue.global().async {
             // checks if trackpoint and waypoint are available
             if self.currentSegment.trackpoints.count > 0 || self.waypoints.count > 0 {
-                
                 let root: GPXRoot
                 let track = GPXTrack()
 
@@ -658,8 +638,7 @@ class CoreDataHelper {
                     let gpx = GPXFileManager.URLForFilename(self.lastFileName)
                     let parsedRoot = GPXParser(withURL: gpx)?.parsedData()
                     root = parsedRoot ?? GPXRoot(creator: kGPXCreatorString)
-                }
-                else {
+                } else {
                     root = GPXRoot(creator: kGPXCreatorString)
                 }
                 // generates a GPXRoot from recovered data
@@ -671,18 +650,11 @@ class CoreDataHelper {
                     }
                     // if gpx is saved, but further trkpts are added after save, and crashed, trkpt are appended, not adding to new trkseg.
                     root.tracks.last?.tracksegments[Int(self.lastTracksegmentId)].add(trackpoints: self.tracksegments.first!.trackpoints)
-                    self.tracksegments.remove(at: 0)
-
-                    
-                }
-                else {
+                    self.tracksegments.remove(at: 0)                    
+                } else {
                     track.tracksegments = self.tracksegments
                     root.add(track: track)
-                    //root.waypoints = self.waypoints
-                    //root.add(waypoints: self.waypoints)
                 }
-                //root.waypoints = [GPXWaypoint]()
-                //root.add(waypoints: self.waypoints)
                 root.waypoints = self.waypoints
                 // asks user on what to do with recovered data
                 DispatchQueue.main.sync {
@@ -691,16 +663,16 @@ class CoreDataHelper {
                     let alertController = UIAlertController(title: NSLocalizedString("CONTINUE_SESSION_TITLE", comment: "no comment"), message: NSLocalizedString("CONTINUE_SESSION_MESSAGE", comment: "no comment"), preferredStyle: .actionSheet)
                     
                     // option to cancel
-                    let cancelAction = UIAlertAction(title: NSLocalizedString("CANCEL", comment: "no comment"), style: .cancel) { (action) in
+                    let cancelAction = UIAlertAction(title: NSLocalizedString("CANCEL", comment: "no comment"), style: .cancel) { _ in
                         self.clearAll()
                     }
                     // option to continue previous session, which will load it, but not save
-                    let continueAction = UIAlertAction(title: NSLocalizedString("CONTINUE_SESSION", comment: "no comment"), style: .default) { (action) in
-                        NotificationCenter.default.post(name: .loadRecoveredFile, object: nil, userInfo: ["recoveredRoot" : root, "fileName" : self.lastFileName])
+                    let continueAction = UIAlertAction(title: NSLocalizedString("CONTINUE_SESSION", comment: "no comment"), style: .default) { _ in
+                        NotificationCenter.default.post(name: .loadRecoveredFile, object: nil, userInfo: ["recoveredRoot": root, "fileName": self.lastFileName])
                     }
                     
                     // option to save silently as file, session remains new
-                    let saveAction = UIAlertAction(title: NSLocalizedString("SAVE_START_NEW", comment: "no comment"), style: .default) { (action) in
+                    let saveAction = UIAlertAction(title: NSLocalizedString("SAVE_START_NEW", comment: "no comment"), style: .default) { _ in
                         self.saveFile(from: root, andIfAvailable: self.lastFileName)
                     }
                     
@@ -709,12 +681,10 @@ class CoreDataHelper {
                     alertController.addAction(saveAction)
                     CoreDataAlertView().showActionSheet(alertController)
                 }
-            }
-            else {
+            } else {
                 // no recovery file will be generated if nothing is recovered (or did not crash).
             }
         }
-       
     }
     
     /// saves recovered data to a gpx file, silently, without loading on map.
@@ -726,11 +696,9 @@ class CoreDataHelper {
         
         if lastfileName != "" {
             fileName = lastfileName
-        }
-        else if let lastTrkptDate = gpx.tracks.last?.tracksegments.last?.trackpoints.last?.time {
+        } else if let lastTrkptDate = gpx.tracks.last?.tracksegments.last?.trackpoints.last?.time {
             fileName = dateFormatter.string(from: lastTrkptDate)
-        }
-        else {
+        } else {
             // File name's date will be as of recovery time, not of crash time.
             fileName = dateFormatter.string(from: Date())
         }
@@ -747,7 +715,7 @@ class CoreDataHelper {
         self.deleteCDRootFromCoreData()
     }
     
-    // MARK:- Reset & Clear
+    // MARK: Reset & Clear
     
     /// Resets trackpoints and waypoints Id
     ///

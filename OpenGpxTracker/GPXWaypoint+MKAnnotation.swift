@@ -13,7 +13,7 @@ import CoreGPX
 /// Extends GPXWaypoint to support the MKAnnotation protocol. It allows to
 /// add the waypoint as a pin in the map
 ///
-extension GPXWaypoint : MKAnnotation {
+extension GPXWaypoint: MKAnnotation {
     
     ///
     /// Inits the point with a coordinate

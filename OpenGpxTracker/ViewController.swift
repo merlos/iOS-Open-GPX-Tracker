@@ -12,6 +12,8 @@ import CoreLocation
 import MapKit
 import CoreGPX
 
+// swiftlint:disable line_length
+
 /// Purple color for button background
 let kPurpleButtonBackgroundColor: UIColor =  UIColor(red: 146.0/255.0, green: 166.0/255.0, blue: 218.0/255.0, alpha: 0.90)
 
@@ -76,7 +78,7 @@ let kSignalAccuracy1 = 201.0
 /// Displays a map and a set the buttons to control the tracking
 ///
 ///
-class ViewController: UIViewController, UIGestureRecognizerDelegate  {
+class ViewController: UIViewController, UIGestureRecognizerDelegate {
     
     /// Shall the map be centered on current user position?
     /// If yes, whenever the user moves, the center of the map too.
@@ -97,8 +99,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
     
     /// TBD (not currently used)
     var followUserBeforePinchGesture = true
-    
-    
+
     /// location manager instance configuration
     let locationManager: CLLocationManager = {
         let manager = CLLocationManager()
@@ -143,8 +144,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
             }
         }
     }
-    
-   
+
     /// Defines the different statuses regarding tracking current user location.
     enum GpxTrackingStatus {
         
@@ -223,8 +223,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
 
     /// Editing Waypoint Temporal Reference
     var lastLocation: CLLocation? //Last point of current segment.
-    
-    
+
     //UI
     /// Label with the title of the app
     var appTitleLabel: UILabel
@@ -352,19 +351,15 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
                 if self.traitCollection.userInterfaceStyle == .dark && map.tileServer == .apple {
                     self.view.backgroundColor = .black
                     return .lightContent
-                }
-                else {
+                } else {
                     self.view.backgroundColor = .white
                     return .darkContent
                 }
-            }
-            // > iPhone X has no opaque status bar
-            else {
+            } else { // > iPhone X has no opaque status bar
                 // if is > iP X status bar can be white when map is dark
                 return map.tileServer == .apple ? .default : .darkContent
             }
-        }
-        else { // < iOS 13
+        } else { // < iOS 13
             return .default
         }
     }
@@ -418,7 +413,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         map.isZoomEnabled = true
         map.isRotateEnabled = true
         //set the position of the compass.
-        map.compassRect = CGRect(x: map.frame.width/2 - 18, y: isIPhoneX ? 105.0 : 70.0 , width: 36, height: 36)
+        map.compassRect = CGRect(x: map.frame.width/2 - 18, y: isIPhoneX ? 105.0 : 70.0, width: 36, height: 36)
         
         //If user long presses the map, it will add a Pin (waypoint) at that point
         map.addGestureRecognizer(
@@ -562,17 +557,16 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         
         // Add signal accuracy images and labels
         signalImageView.image = signalImage0
-        signalImageView.frame = CGRect(x: self.view.frame.width/2 - 25.0, y:  14 + 5 + iPhoneXdiff, width: 50, height: 30)
+        signalImageView.frame = CGRect(x: self.view.frame.width/2 - 25.0, y: 14 + 5 + iPhoneXdiff, width: 50, height: 30)
         signalImageView.autoresizingMask  = [.flexibleLeftMargin, .flexibleRightMargin]
         map.addSubview(signalImageView)
-        signalAccuracyLabel.frame = CGRect(x: self.view.frame.width/2 - 25.0, y:  14 + 5 + 30 + iPhoneXdiff , width: 50, height: 12)
+        signalAccuracyLabel.frame = CGRect(x: self.view.frame.width/2 - 25.0, y: 14 + 5 + 30 + iPhoneXdiff, width: 50, height: 12)
         signalAccuracyLabel.font = font12
         signalAccuracyLabel.text = kUnknownAccuracyText
         signalAccuracyLabel.textAlignment = .center
         signalAccuracyLabel.autoresizingMask = [.flexibleLeftMargin, .flexibleRightMargin]
         map.addSubview(signalAccuracyLabel)
-        
-        
+
         //
         // Button Bar
         //
@@ -589,7 +583,6 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         // [-----------------------|--------------------------]
         //                  map.frame/2 (center)
 
-        
         // Start/Pause button
         trackerButton.layer.cornerRadius = kButtonLargeSize/2
         trackerButton.setTitle(NSLocalizedString("START_TRACKING", comment: "no comment"), for: UIControl.State())
@@ -607,8 +600,6 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         newPinButton.setImage(UIImage(named: "addPin"), for: UIControl.State())
         newPinButton.setImage(UIImage(named: "addPinHigh"), for: .highlighted)
         newPinButton.addTarget(self, action: #selector(ViewController.addPinAtMyLocation), for: .touchUpInside)
-        //let newPinLongPress = UILongPressGestureRecognizer(target: self, action: Selector("newPinLongPress:"))
-        //newPinButton.addGestureRecognizer(newPinLongPress)
         map.addSubview(newPinButton)
         
         // Follow user button
@@ -699,8 +690,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         NSLayoutConstraint(item: currentSegmentDistanceLabel, attribute: .trailing, relatedBy: .equal, toItem: self.view, attribute: .trailing, multiplier: 1, constant: -7).isActive = true
         NSLayoutConstraint(item: currentSegmentDistanceLabel, attribute: .leading, relatedBy: .equal, toItem: self.view, attribute: .centerX, multiplier: 1, constant: kSignalViewOffset).isActive = true
         NSLayoutConstraint(item: currentSegmentDistanceLabel, attribute: .top, relatedBy: .equal, toItem: totalTrackedDistanceLabel, attribute: .bottom, multiplier: 1, constant: 0).isActive = true
-        
-        
+
         // MARK: Button Bar
         
         // constants
@@ -747,9 +737,9 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
         
-        DispatchQueue.main.async(){
+        DispatchQueue.main.async() {
             // set the new position of the compass.
-            self.map.compassRect = CGRect(x: size.width/2 - 18, y: 70.0 , width: 36, height: 36)
+            self.map.compassRect = CGRect(x: size.width/2 - 18, y: 70.0, width: 36, height: 36)
             // update compass frame location
             self.map.layoutSubviews()
         }
@@ -789,8 +779,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
             name: UIApplication.didEnterBackgroundNotification, object: nil)
        
         notificationCenter.addObserver(self, selector: #selector(applicationDidBecomeActive), name: UIApplication.didBecomeActiveNotification, object: nil)
-        
-        
+
         notificationCenter.addObserver(self, selector: #selector(applicationWillTerminate), name: UIApplication.willTerminateNotification, object: nil)
 
         notificationCenter.addObserver(self, selector: #selector(presentReceivedFile(_:)), name: .didReceiveFileFromAppleWatch, object: nil)
@@ -825,8 +814,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
             let alertTitle = NSLocalizedString("WATCH_FILE_RECEIVED_TITLE", comment: "no comment")
             let alertMessage = NSLocalizedString("WATCH_FILE_RECEIVED_MESSAGE", comment: "no comment")
             let controller = UIAlertController(title: alertTitle, message: String(format: alertMessage, fileName ?? ""), preferredStyle: .alert)
-            let action = UIAlertAction(title: NSLocalizedString("DONE", comment: "no comment"), style: .default) {
-                (action) in
+            let action = UIAlertAction(title: NSLocalizedString("DONE", comment: "no comment"), style: .default) { _ in
                 print("ViewController:: Presented file received message from WatchConnectivity Session")
             }
             
@@ -993,8 +981,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
             shareActivityIndicator.startAnimating()
             shareButton.setImage(nil, for: UIControl.State())
             shareButton.isUserInteractionEnabled = false
-        }
-        else {
+        } else {
             // cross dissolve from indicator to button
             UIView.transition(with: self.shareButton, duration: 0.35, options: [.transitionCrossDissolve], animations: {
                 self.shareActivityIndicator.removeFromSuperview()
@@ -1019,7 +1006,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
     /// UIGestureRecognizerDelegate required for stopFollowingUser
     ///
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer,
-        shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+                           shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         return true
     }
    
@@ -1039,15 +1026,6 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
     /// Does nothing in current implementation.
     func pinchGesture(_ gesture: UIPinchGestureRecognizer) {
         print("pinchGesture")
-     /*   if gesture.state == UIGestureRecognizerState.Began {
-            self.followUserBeforePinchGesture = self.followUser
-            self.followUser = false
-        }
-        //return to back
-        if gesture.state == UIGestureRecognizerState.Ended {
-            self.followUser = self.followUserBeforePinchGesture
-        }
-        */
     }
     
     ///
@@ -1080,7 +1058,6 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
     @objc func resetButtonTapped() {
         self.gpxTrackingStatus = .notStarted
     }
-    
 
     ///
     /// Main Start/Pause Button was tapped.
@@ -1095,7 +1072,6 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         case .tracking:
             gpxTrackingStatus = .paused
         case .paused:
-            //set to tracking
             gpxTrackingStatus = .tracking
         }
     }
@@ -1120,7 +1096,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
             textField.text = self.lastGpxFilename.isEmpty ? self.defaultFilename() : self.lastGpxFilename
         })
         
-        let saveAction = UIAlertAction(title: NSLocalizedString("SAVE", comment: "no comment"), style: .default) { (action) in
+        let saveAction = UIAlertAction(title: NSLocalizedString("SAVE", comment: "no comment"), style: .default) { _ in
             let filename = (alertController.textFields?[0].text!.utf16.count == 0) ? self.defaultFilename() : alertController.textFields?[0].text
             print("Save File \(String(describing: filename))")
             //export to a file
@@ -1131,7 +1107,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
             self.map.coreDataHelper.clearAllExceptWaypoints()
             self.map.coreDataHelper.add(toCoreData: filename!, willContinueAfterSave: true)
         }
-        let cancelAction = UIAlertAction(title: NSLocalizedString("CANCEL", comment: "no comment"), style: .cancel) { (action) in }
+        let cancelAction = UIAlertAction(title: NSLocalizedString("CANCEL", comment: "no comment"), style: .cancel) { _ in }
         
         alertController.addAction(saveAction)
         alertController.addAction(cancelAction)
@@ -1144,7 +1120,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
     /// There was a memory warning. Right now, it does nothing but to log a line.
     ///
     override func didReceiveMemoryWarning() {
-        print("didReceiveMemoryWarning");
+        print("didReceiveMemoryWarning")
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
@@ -1176,12 +1152,12 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
     func displayLocationServicesDisabledAlert() {
         
         let alertController = UIAlertController(title: NSLocalizedString("LOCATION_SERVICES_DISABLED", comment: "no comment"), message: NSLocalizedString("ENABLE_LOCATION_SERVICES", comment: "no comment"), preferredStyle: .alert)
-        let settingsAction = UIAlertAction(title: NSLocalizedString("SETTINGS", comment: "no comment"), style: .default) { (action) in
+        let settingsAction = UIAlertAction(title: NSLocalizedString("SETTINGS", comment: "no comment"), style: .default) { _ in
             if let url = URL(string: UIApplication.openSettingsURLString) {
                 UIApplication.shared.openURL(url)
             }
         }
-        let cancelAction = UIAlertAction(title: NSLocalizedString("CANCEL", comment: "no comment"), style: .cancel) { (action) in }
+        let cancelAction = UIAlertAction(title: NSLocalizedString("CANCEL", comment: "no comment"), style: .cancel) { _ in }
         
         alertController.addAction(settingsAction)
         alertController.addAction(cancelAction)
@@ -1190,7 +1166,6 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
 
     }
 
-    
     ///
     /// Displays an alert that informs the user that access to location was denied for this app (other apps may have access).
     /// It also dispays a button allows the user to go to settings to activate the location.
@@ -1349,9 +1324,6 @@ extension ViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         //updates signal image accuracy
         let newLocation = locations.first!
-       // print("isUserLocationVisible: \(map.isUserLocationVisible) showUserLocation: \(map.showsUserLocation)")
-       // print("didUpdateLocation: received \(newLocation.coordinate) hAcc: \(newLocation.horizontalAccuracy) vAcc: \(newLocation.verticalAccuracy) floor: \(newLocation.floor?.description ?? "''") map.userTrackingMode: \(map.userTrackingMode.rawValue)")
-        
         // Update horizontal accuracy
         let hAcc = newLocation.horizontalAccuracy
         signalAccuracyLabel.text =  hAcc.toAccuracy(useImperial: useImperial)
@@ -1367,7 +1339,7 @@ extension ViewController: CLLocationManagerDelegate {
             self.signalImageView.image = signalImage2
         } else if hAcc < kSignalAccuracy1 {
             self.signalImageView.image = signalImage1
-        } else{
+        } else {
             self.signalImageView.image = signalImage0
         }
         
@@ -1391,8 +1363,7 @@ extension ViewController: CLLocationManagerDelegate {
             currentSegmentDistanceLabel.distance = map.session.currentSegmentDistance
         }
     }
-    
-    
+
     ///
     ///
     /// When there is a change on the heading (direction in which the device oriented) it makes a request to the map
@@ -1407,9 +1378,10 @@ extension ViewController: CLLocationManagerDelegate {
     }
 }
 
-
 extension Notification.Name {
     static let loadRecoveredFile = Notification.Name("loadRecoveredFile")
     static let updateAppearance = Notification.Name("updateAppearance")
     // swiftlint:disable file_length
 }
+
+// swiftlint:enable line_length

@@ -21,8 +21,7 @@ class DefaultDateFormat {
         if (unprocessed.countInstances(of: "{") != unprocessed.countInstances(of: "}"))
         || unprocessed.countInstances(of: "{}") > 0 {
             newText = "'invalid'"
-        }
-        else {
+        } else {
             let arr = unprocessed.components(separatedBy: CharacterSet(charactersIn: "{}"))
             var lastField: String?
             let arrCount = arr.count
@@ -31,10 +30,9 @@ class DefaultDateFormat {
                     newText = "'invalid: { ... } must not consecutively repeat'"
                     break
                 }
-                if arr.count == 1  {
+                if arr.count == 1 {
                     newText += "'invalid'"
-                }
-                else if arrCount > 1 && !arr[i].isEmpty {
+                } else if arrCount > 1 && !arr[i].isEmpty {
                     newText += (i % 2 == 0) ? "'\(arr[i])'" : arr[i]
                     lastField = (i % 2 != 0) ? arr[i] : nil
                 }

@@ -5,7 +5,6 @@
 //  Created by merlos on 24/09/14.
 //
 
-
 import Foundation
 import UIKit
 import MapKit
@@ -48,7 +47,7 @@ class GPXMapView: MKMapView {
     ///position of the compass in the map
     ///Example:
     /// map.compassRect = CGRect(x: map.frame.width/2 - 18, y: 70, width: 36, height: 36)
-    var compassRect : CGRect
+    var compassRect: CGRect
     
     /// Is the map using local image cache??
     var useCache: Bool = true { //use tile overlay cache (
@@ -91,7 +90,7 @@ class GPXMapView: MKMapView {
                 if newValue.maximumZ > 0 {
                     config.maximumZ = newValue.maximumZ
                 }
-                if newValue.minimumZ > 0  {
+                if newValue.minimumZ > 0 {
                     config.minimumZ = newValue.minimumZ
                 }
                 let cache = MapCache(withConfig: config)
@@ -106,8 +105,7 @@ class GPXMapView: MKMapView {
                 if tileServer == .apple {
                     overrideUserInterfaceStyle = .unspecified
                     NotificationCenter.default.post(name: .updateAppearance, object: nil, userInfo: nil)
-                }
-                else { // if map is third party, dark mode is disabled.
+                } else { // if map is third party, dark mode is disabled.
                     overrideUserInterfaceStyle = .light
                     NotificationCenter.default.post(name: .updateAppearance, object: nil, userInfo: nil)
                 }
@@ -154,7 +152,7 @@ class GPXMapView: MKMapView {
     override func layoutSubviews() {
         super.layoutSubviews()
         // set compass position by setting its frame
-        if let compassView = self.subviews.filter({ $0.isKind(of:NSClassFromString("MKCompassView")!) }).first {
+        if let compassView = self.subviews.filter({ $0.isKind(of: NSClassFromString("MKCompassView")!) }).first {
             if compassRect.origin.x != 0 {
                 compassView.frame = compassRect
             }
@@ -318,7 +316,6 @@ class GPXMapView: MKMapView {
         self.setRegion(extent.region, animated: true)
     }
 
-
     /*
     func importFromGPXString(gpxString: String) {
         // TODO
@@ -394,4 +391,3 @@ class GPXMapView: MKMapView {
         
     }
 }
-

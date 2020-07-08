@@ -10,8 +10,6 @@ import UIKit
 import CoreData
 import WatchConnectivity
 
-
-///
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
@@ -57,8 +55,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 session.delegate = self
                 session.activate()
                 print("AppDelegate:: WCSession activated")
-            }
-            else {
+            } else {
                 print("AppDelegate:: WCSession is not supported")
             }
         }
@@ -74,15 +71,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     /// Default pandle load GPX file
-    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
+    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
         print("load gpx File: \(url.absoluteString)")
         let fileManager = FileManager.default
         do {
             _ = url.startAccessingSecurityScopedResource()
             try fileManager.copyItem(at: url, to: GPXFileManager.GPXFilesFolderURL.appendingPathComponent(url.lastPathComponent))
             url.stopAccessingSecurityScopedResource()
-        }
-        catch let error as NSError {
+        } catch let error as NSError {
             print("Ooops! Something went wrong: \(error)")
         }
         

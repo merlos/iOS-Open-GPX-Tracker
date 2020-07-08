@@ -37,23 +37,21 @@ class GPXFileTableInterfaceController: WKInterfaceController {
     var fileList: NSMutableArray = [kNoFiles]
     
     /// Is there any GPX file in the directory?
-    var gpxFilesFound = false;
+    var gpxFilesFound = false
     
     /// Temporary variable to manage
     var selectedRowIndex = -1
     
     /// true if a gpx file will be sent.
     var willSendFile: Bool {
-        get {
-            return session?.outstandingFileTransfers.count != 0
-        }
+        return session?.outstandingFileTransfers.count != 0
     }
     
     /// To ensure hide animation properly timed.
     var time = DispatchTime.now()
     
     /// Watch communication session
-    private let session : WCSession? = WCSession.isSupported() ? WCSession.default : nil
+    private let session: WCSession? = WCSession.isSupported() ? WCSession.default: nil
     
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)
@@ -115,8 +113,7 @@ class GPXFileTableInterfaceController: WKInterfaceController {
             // if there are files pending for sending, filename will not be displayed with the name of file.
             if fileTransfersCount >= 1 {
                 progressFileName.setText(String(format: NSLocalizedString("X_FILES", comment: "no comment"), fileTransfersCount + 1))
-            }
-            else {
+            } else {
                 progressFileName.setText(fileName)
             }
             
@@ -144,8 +141,7 @@ class GPXFileTableInterfaceController: WKInterfaceController {
         
         if willSendFile == true {
             self.showProgressIndicators()
-        }
-        else {
+        } else {
             self.hideProgressIndicators()
         }
         
@@ -183,8 +179,7 @@ class GPXFileTableInterfaceController: WKInterfaceController {
                 let gpxFileInfo = fileList.object(at: index) as! GPXFileInfo
                 cell.fileLabel.setText(gpxFileInfo.fileName)
             }
-        }
-        else {
+        } else {
             guard let cell = fileTable.rowController(at: 0) as? GPXFileTableRowController else { return }
             cell.fileLabel.setText(kNoFiles)
         }
@@ -225,8 +220,7 @@ class GPXFileTableInterfaceController: WKInterfaceController {
     //
     // MARK: Action Sheet - Actions
     //
-    
-    
+
     /// Attempts to transfer file to iOS app
     func actionTransferFileAtIndex(_ rowIndex: Int) {
         session?.activate()
@@ -240,7 +234,7 @@ class GPXFileTableInterfaceController: WKInterfaceController {
         self.scroll(to: progressGroup, at: .top, animated: true) // scrolls to top when indicator is shown.
         self.updateProgressIndicators(status: .sending, fileName: gpxFileInfo.fileName)
         DispatchQueue.global().async {
-            self.session?.transferFile(fileURL, metadata: ["fileName" : "\(gpxFileInfo.fileName).gpx"])
+            self.session?.transferFile(fileURL, metadata: ["fileName": "\(gpxFileInfo.fileName).gpx"])
         }
     }
     
@@ -264,7 +258,6 @@ class GPXFileTableInterfaceController: WKInterfaceController {
         fileList.removeObject(at: rowIndex)
         
     }
-    
 
     override func didDeactivate() {
         // This method is called when watch view controller is no longer visible
@@ -273,8 +266,7 @@ class GPXFileTableInterfaceController: WKInterfaceController {
 
 }
 
-
-// MARK:- WCSessionDelegate
+// MARK: WCSessionDelegate
 
 ///
 /// Handles all the file transfer to iOS app processes
@@ -292,7 +284,6 @@ extension GPXFileTableInterfaceController: WCSessionDelegate {
 
         default:
             print("GPXFileTableInterfaceController:: activationDidCompleteWithActivationState: default, error:\(String(describing: error))")
-            break
         }
     }
     

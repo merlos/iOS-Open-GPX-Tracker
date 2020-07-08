@@ -21,7 +21,7 @@ extension Date {
     /// - Parameters:
     ///      - numericDates: Set it to true to get "1 year ago", "1 month ago" or false if you prefer "Last year", "Last month"
     ///
-    func timeAgo(numericDates:Bool) -> String {
+    func timeAgo(numericDates: Bool) -> String {
         let calendar = Calendar.current
         let now = Date()
         let earliest = self < now ? self : now

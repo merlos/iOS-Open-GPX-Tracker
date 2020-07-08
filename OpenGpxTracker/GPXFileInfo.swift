@@ -19,39 +19,29 @@ class GPXFileInfo: NSObject {
     
     /// Last time the file was modified
     var modifiedDate: Date {
-        get {
-            // swiftlint:disable force_try
-            return try! fileURL.resourceValues(forKeys: [.contentModificationDateKey]).contentModificationDate ?? Date.distantPast
-        }
+        // swiftlint:disable force_try
+        return try! fileURL.resourceValues(forKeys: [.contentModificationDateKey]).contentModificationDate ?? Date.distantPast
     }
     
     /// modified date has a time ago string (for instance: 3 days ago)
     var modifiedDatetimeAgo: String {
-        get {
-            return modifiedDate.timeAgo(numericDates: true)
-        }
+        return modifiedDate.timeAgo(numericDates: true)
     }
     
     /// File size in bytes
     var fileSize: Int {
-        get {
-            // swiftlint:disable force_try
-            return try! fileURL.resourceValues(forKeys: [.fileSizeKey]).fileSize ?? 0
-        }
+        // swiftlint:disable force_try
+        return try! fileURL.resourceValues(forKeys: [.fileSizeKey]).fileSize ?? 0
     }
     
     /// File size as string in a more readable format (example: 10 KB)
     var fileSizeHumanised: String {
-        get {
-            return fileSize.asFileSize()
-        }
+        return fileSize.asFileSize()
     }
     
     /// The filename without extension
     var fileName: String {
-        get {
-            return fileURL.deletingPathExtension().lastPathComponent
-        }
+        return fileURL.deletingPathExtension().lastPathComponent
     }
     
     ///
