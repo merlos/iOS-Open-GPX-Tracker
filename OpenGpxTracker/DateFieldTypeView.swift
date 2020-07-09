@@ -124,8 +124,10 @@ class DateFieldTypeView: UIScrollView {
         }
         
         self.addSubview(scrollStack)
-        self.addConstraints( NSLayoutConstraint.constraints(withVisualFormat: "H:|-20-[sStack]-20-|", options: .alignAllLeft, metrics: nil, views: ["sStack": scrollStack]) )
-
+        self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-20-[sStack]-20-|",
+                                                           options: .alignAllLeft,
+                                                           metrics: nil,
+                                                           views: ["sStack": scrollStack]))
     }
     
     /// Generates vertical stack that encapsulates text title, with all date patterns of same type.
@@ -160,7 +162,6 @@ class DateFieldTypeView: UIScrollView {
     ///     |SUBTITLE|SUBTITLE|
     ///
     func genHStack(field: DateField) -> UIStackView {
-        
         let hStack = UIStackView()
         hStack.axis = .horizontal
         hStack.distribution = .fill
@@ -207,12 +208,18 @@ class DateFieldTypeView: UIScrollView {
                 
                 subVStack.addArrangedSubview(button)
                 subVStack.addArrangedSubview(subtitleLabel)
-                NSLayoutConstraint(item: subtitleLabel, attribute: .width, relatedBy: .equal, toItem: button, attribute: .width, multiplier: 1, constant: 0).isActive = true
+                let subtitleConstraint = NSLayoutConstraint(item: subtitleLabel,
+                                                            attribute: .width,
+                                                            relatedBy: .equal,
+                                                            toItem: button,
+                                                            attribute: .width,
+                                                            multiplier: 1,
+                                                            constant: 0)
+                subtitleConstraint.isActive = true
                 hStack.addArrangedSubview(subVStack)
             } else {
                 hStack.addArrangedSubview(button)
             }
-
         }
         
         return hStack
