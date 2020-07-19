@@ -1,0 +1,12 @@
+/*
+  InfoPlist.strings
+  OpenGpxTracker
+
+  Created by Kurt Höblinger on 21.08.19.
+  Translated to French by Mathieu Hefti on 08.07.20.
+*/
+
+NSLocationAlwaysAndWhenInUseUsageDescription = "La localisation n'est utilisée que pour afficher votre position sur la carte. Sélectionnez Toujours pour suivre votre position même lorsque l'application fonctionne en arrière-plan.";
+NSLocationAlwaysUsageDescription = "La localisation est nécessaire pour créer une trace GPX même lorsque l'application fonctionne en arrière-plan.";
+NSLocationUsageDescription = "La localisation est nécessaire pour créer des traces GPX et des points de repère";
+NSLocationWhenInUseUsageDescription = "La localisation est utilisée pour afficher l'endroit où vous vous trouvez et les lieux que vous avez visités sur la carte.";
