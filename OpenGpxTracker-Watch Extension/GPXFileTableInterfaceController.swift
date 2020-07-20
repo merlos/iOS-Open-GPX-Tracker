@@ -96,7 +96,7 @@ class GPXFileTableInterfaceController: WKInterfaceController {
         self.progressGroup.setHeight(30)
         self.progressGroup.setHidden(false)
         progressImageView.setImageNamed("Progress-")
-        progressImageView.startAnimatingWithImages(in: NSMakeRange(0, 12), duration: 1, repeatCount: 0)
+        progressImageView.startAnimatingWithImages(in: NSRange(location: 0, length: 12), duration: 1, repeatCount: 0)
     }
     
     /// Updates progress indicators according to status when sending.
