@@ -52,8 +52,8 @@ class GPXFileManager: NSObject {
                 for (url, modificationDate, fileSize) in sortedURLs {
                     if kFileExt.contains(url.pathExtension) {
                         GPXFiles.append(GPXFileInfo(fileURL: url))
-                        //GPXFiles.append(url.deletingPathExtension().lastPathComponent)
-                        print("\(modificationDate) \(modificationDate.timeAgo(numericDates: true)) \(fileSize)bytes -- \(url.deletingPathExtension().lastPathComponent)")
+                        let lastPathComponent = url.deletingPathExtension().lastPathComponent
+                        print("\(modificationDate) \(modificationDate.timeAgo(numericDates: true)) \(fileSize)bytes -- \(lastPathComponent)")
                     }
                 }
             }

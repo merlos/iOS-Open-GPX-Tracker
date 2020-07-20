@@ -70,7 +70,9 @@ class PreferencesTableViewController: UITableViewController, UINavigationBarDele
             self.view.frame.height - navBarFrame.height)
         
         self.title = NSLocalizedString("PREFERENCES", comment: "no comment")
-        let shareItem = UIBarButtonItem(title: NSLocalizedString("DONE", comment: "no comment"), style: UIBarButtonItem.Style.plain, target: self, action: #selector(PreferencesTableViewController.closePreferencesTableViewController))
+        let shareItem = UIBarButtonItem(title: NSLocalizedString("DONE", comment: "no comment"),
+                                        style: UIBarButtonItem.Style.plain, target: self,
+                                        action: #selector(PreferencesTableViewController.closePreferencesTableViewController))
         self.navigationItem.rightBarButtonItems = [shareItem]
         
         let fileSize = cache.diskCache.fileSize ?? 0

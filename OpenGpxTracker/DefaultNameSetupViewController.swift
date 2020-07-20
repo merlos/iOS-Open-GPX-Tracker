@@ -75,6 +75,30 @@ class DefaultNameSetupViewController: UITableViewController, UITextFieldDelegate
         }
     }
     
+    /// Legacy date selection toolbar for iOS 8 use, as it lacks new API for the new toolbar layout.
+    func createSimpleDateSelectionBar() -> UIToolbar {
+        let bar = UIToolbar()
+        let bracket = UIBarButtonItem(title: "{ ... }", style: .plain, target: self, action: #selector(buttonTapped(_:for:)))
+        bracket.tag = 6
+        let day = UIBarButtonItem(title: "Day", style: .plain, target: self, action: #selector(buttonTapped(_:for:)))
+        day.tag = 0
+        let month = UIBarButtonItem(title: "Month", style: .plain, target: self, action: #selector(buttonTapped(_:for:)))
+        month.tag = 1
+        let year = UIBarButtonItem(title: "Year", style: .plain, target: self, action: #selector(buttonTapped(_:for:)))
+        year.tag = 2
+        let hour = UIBarButtonItem(title: "Hr", style: .plain, target: self, action: #selector(buttonTapped(_:for:)))
+        hour.tag = 3
+        let min = UIBarButtonItem(title: "Min", style: .plain, target: self, action: #selector(buttonTapped(_:for:)))
+        min.tag = 4
+        let sec = UIBarButtonItem(title: "Sec", style: .plain, target: self, action: #selector(buttonTapped(_:for:)))
+        sec.tag = 5
+
+        bar.items = [bracket, day, month, year, hour, min, sec]
+        bar.sizeToFit()
+        
+        return bar
+    }
+    
     /// Handles text insertion as per keyboard bar button pressed.
     @objc func buttonTapped(_ sender: UIBarButtonItem, for event: UIEvent) {
         if cellTextField.text != nil {
@@ -225,37 +249,19 @@ class DefaultNameSetupViewController: UITableViewController, UITextFieldDelegate
                 cell.textLabel?.font = .systemFont(ofSize: 17)
                 
             } else if indexPath.row == 1 {
+                
                 cellTextField = UITextField(frame: CGRect(x: 22, y: 0, width: view.frame.width - 48, height: cell.frame.height))
-                //let textView = UITextView(frame: CGRect(x: 25, y: 5, width: view.frame.width - 50, height: cell.frame.height))
                 cellTextField.text = preferences.dateFormatInput
                 updateSampleTextField()
                 cellTextField.clearButtonMode = .whileEditing
                 cellTextField.delegate = self
                 cellTextField.returnKeyType = .done
-                let bar = UIToolbar()
-                let bracket = UIBarButtonItem(title: "{ ... }", style: .plain, target: self, action: #selector(buttonTapped(_:for:)))
-                bracket.tag = 6
-                let day = UIBarButtonItem(title: "Day", style: .plain, target: self, action: #selector(buttonTapped(_:for:)))
-                day.tag = 0
-                let month = UIBarButtonItem(title: "Month", style: .plain, target: self, action: #selector(buttonTapped(_:for:)))
-                month.tag = 1
-                let year = UIBarButtonItem(title: "Year", style: .plain, target: self, action: #selector(buttonTapped(_:for:)))
-                year.tag = 2
-                let hour = UIBarButtonItem(title: "Hr", style: .plain, target: self, action: #selector(buttonTapped(_:for:)))
-                hour.tag = 3
-                let min = UIBarButtonItem(title: "Min", style: .plain, target: self, action: #selector(buttonTapped(_:for:)))
-                min.tag = 4
-                let sec = UIBarButtonItem(title: "Sec", style: .plain, target: self, action: #selector(buttonTapped(_:for:)))
-                sec.tag = 5
-
-                bar.items = [bracket, day, month, year, hour, min, sec]
-                bar.sizeToFit()
                 
                 if #available(iOS 9, *) {
                     let dateFieldSelector = DateFieldTypeView(frame: CGRect(x: 0, y: 0, width: cellTextField.frame.width, height: 75))
                     cellTextField.inputAccessoryView = dateFieldSelector
                 } else {
-                    cellTextField.inputAccessoryView = bar
+                    cellTextField.inputAccessoryView = createSimpleDateSelectionBar()
                 }
                 cellTextField.addTarget(self, action: #selector(updateSampleTextField), for: UIControl.Event.editingChanged)
 
@@ -267,17 +273,15 @@ class DefaultNameSetupViewController: UITableViewController, UITextFieldDelegate
             if indexPath.row == 0 {
                 cell.textLabel!.text = NSLocalizedString("DEFAULT_NAME_USE_UTC", comment: "no comment")//"Use UTC?"
                 cell.accessoryType = preferences.dateFormatUseUTC ? .checkmark : .none
-                
                 if preferences.dateFormatPreset == 1 {
                     cell.isUserInteractionEnabled = !useUTC
                     cell.textLabel?.isEnabled = !useUTC
                 }
-                updateSampleTextField()
             } else if indexPath.row == 1 {
                 cell.textLabel!.text = NSLocalizedString("DEFAULT_NAME_ENGLISH_LOCALE", comment: "no comment")//"Force English Locale?"
                 cell.accessoryType = preferences.dateFormatUseEN ? .checkmark : .none
-                updateSampleTextField()
             }
+            updateSampleTextField()
         } else if indexPath.section == Sections.presets.rawValue {
             cell = UITableViewCell(style: .subtitle, reuseIdentifier: "presetCell")
             cell.textLabel?.text = presets[indexPath.row].0

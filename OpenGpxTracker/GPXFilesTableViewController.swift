@@ -138,8 +138,9 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
             //cell.accessoryView = [[ UIImageView alloc ] initWithImage:[UIImage imageNamed:@"Something" ]];
             // swiftlint:disable force_cast
             let gpxFileInfo = fileList.object(at: (indexPath as NSIndexPath).row) as! GPXFileInfo
+            let lastSaved = NSLocalizedString("LAST_SAVED", comment: "no comment")
             cell.textLabel?.text = gpxFileInfo.fileName
-            cell.detailTextLabel?.text = String(format: NSLocalizedString("LAST_SAVED", comment: "no comment"), gpxFileInfo.modifiedDatetimeAgo, gpxFileInfo.fileSizeHumanised)
+            cell.detailTextLabel?.text = String(format: lastSaved, gpxFileInfo.modifiedDatetimeAgo, gpxFileInfo.fileSizeHumanised)
             if #available(iOS 13, *) {
                 cell.detailTextLabel?.textColor = UIColor.secondaryLabel
             } else {
@@ -304,9 +305,11 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
         activityViewController.popoverPresentationController?.sourceView = tableView.cellForRow(at: indexPath)
         activityViewController.popoverPresentationController?.sourceRect = cellRect
         
-        // NOTE: as the activity view controller can be quite tall at times, the display of it may be offset automatically at times to ensure the activity view popup fits the screen.
+        // NOTE: As the activity view controller can be quite tall at times,
+        //       the display of it may be offset automatically at times to ensure the activity view popup fits the screen.
         
-        activityViewController.completionWithItemsHandler = {(activityType: UIActivity.ActivityType?, completed: Bool, returnedItems: [Any]?, error: Error?) in
+        activityViewController.completionWithItemsHandler = {
+            (activityType: UIActivity.ActivityType?, completed: Bool, returnedItems: [Any]?, error: Error?) in
             if !completed {
                 // User canceled
                 print("actionShareAtIndex: Cancelled")

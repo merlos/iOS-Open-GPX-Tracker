@@ -146,7 +146,10 @@ class MapViewDelegate: NSObject, MKMapViewDelegate, UIAlertViewDelegate {
                 if gpxMapView.headingImageView == nil {
                     let image = UIImage(named: "heading")!
                     gpxMapView.headingImageView = UIImageView(image: image)
-                    gpxMapView.headingImageView!.frame = CGRect(x: (annotationView.frame.size.width - image.size.width)/2, y: (annotationView.frame.size.height - image.size.height)/2, width: image.size.width, height: image.size.height)
+                    gpxMapView.headingImageView!.frame = CGRect(x: (annotationView.frame.size.width - image.size.width)/2,
+                                                                y: (annotationView.frame.size.height - image.size.height)/2,
+                                                                width: image.size.width,
+                                                                height: image.size.height)
                     annotationView.insertSubview(gpxMapView.headingImageView!, at: 0)
                     gpxMapView.headingImageView!.isHidden = true
                 }

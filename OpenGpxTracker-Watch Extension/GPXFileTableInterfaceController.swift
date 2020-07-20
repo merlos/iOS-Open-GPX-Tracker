@@ -274,16 +274,17 @@ class GPXFileTableInterfaceController: WKInterfaceController {
 extension GPXFileTableInterfaceController: WCSessionDelegate {
     
     func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
+        let prefixText = "GPXFileTableInterfaceController:: activationDidCompleteWithActivationState:"
         switch activationState {
         case .activated:
-            print("GPXFileTableInterfaceController:: activationDidCompleteWithActivationState: session activated")
+            print("\(prefixText) session activated")
         case .inactive:
-             print("GPXFileTableInterfaceController:: activationDidCompleteWithActivationState: session inactive")
+            print("\(prefixText) session inactive")
         case .notActivated:
-            print("GPXFileTableInterfaceController:: activationDidCompleteWithActivationState: session not activated, error:\(String(describing: error))")
+            print("\(prefixText) session not activated, error:\(String(describing: error))")
 
         default:
-            print("GPXFileTableInterfaceController:: activationDidCompleteWithActivationState: default, error:\(String(describing: error))")
+            print("\(prefixText) default, error:\(String(describing: error))")
         }
     }
     
@@ -305,7 +306,9 @@ extension GPXFileTableInterfaceController: WCSessionDelegate {
         // presents alert after 1.5s, with error message
         // MARK: "as CVarArg" was suggested by XCode and my intruduce a bug...
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-            self.presentAlert(withTitle: NSLocalizedString("ERROR_OCCURED_TITLE", comment: "no comment"), message: String(format: NSLocalizedString("ERROR_OCCURED_MESSAGE", comment: "no comment"), error as CVarArg), preferredStyle: .alert, actions: [doneAction])
+            self.presentAlert(withTitle: NSLocalizedString("ERROR_OCCURED_TITLE", comment: "no comment"),
+                              message: String(format: NSLocalizedString("ERROR_OCCURED_MESSAGE", comment: "no comment"), error as CVarArg),
+                              preferredStyle: .alert, actions: [doneAction])
         }
     }
     

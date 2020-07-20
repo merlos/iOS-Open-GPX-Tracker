@@ -94,7 +94,9 @@ class Preferences: NSObject {
         } else { // get from locale config
             let locale = NSLocale.current
             _useImperial = !locale.usesMetricSystem
-            print("** Preferences:: NO defaults for useImperial. Using locale: \(locale.languageCode ?? "unknown") useImperial: \(_useImperial) usesMetric:\(locale.usesMetricSystem)")
+            let langCode = locale.languageCode ?? "unknown"
+            let useMetric = locale.usesMetricSystem
+            print("** Preferences:: NO defaults for useImperial. Using locale: \(langCode) useImperial: \(_useImperial) usesMetric:\(useMetric)")
         }
     
         // Use cache
