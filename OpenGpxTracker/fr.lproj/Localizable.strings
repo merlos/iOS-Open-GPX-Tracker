@@ -10,9 +10,9 @@
 "NO_LOCATION" = "Localisation inaccessible";
 "START_TRACKING" = "Démarrer le suivi";
 "PAUSE" = "Pause";
-"RESUME" = "Reprendre";
-"SAVE" = "Enregistrer";
-"RESET" = "Réinitialiser";
+"RESUME" = "Reprise";
+"SAVE" = "Enreg.";
+"RESET" = "Réinit.";
 "DONE" = "Terminer";
 "CANCEL" = "Annuler";
 "WATCH_FILE_RECEIVED_TITLE" = "Fichier reçu d'Apple Watch";
@@ -124,7 +124,7 @@
 
 "DEFAULT_NAME_SAMPLE_OUTPUT_TITLE" = "Exemple: ";
 "DEFAULT_NAME_USE_UTC" = "Utiliser le temps UTC?";
-"DEFAULT_NAME_ENGLISH_LOCALE" = "Forcer le format de date en langue anglaise?";
+"DEFAULT_NAME_ENGLISH_LOCALE" = "Utiliser le format anglais?";
 
 // DateFieldTypeView
 "YEAR" = "Année";

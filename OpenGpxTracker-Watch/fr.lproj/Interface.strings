@@ -24,7 +24,7 @@
 "Nkq-Do-muS.text" = "Nom de fichier";
 
 /* Class = "WKInterfaceButton"; title = "Save"; ObjectID = "Yfa-t6-5Sk"; */
-"Yfa-t6-5Sk.title" = "Enregistrer";
+"Yfa-t6-5Sk.title" = "Enreg.";
 
 /* Class = "WKInterfaceButton"; title = "Start Tracking"; ObjectID = "exN-t4-It8"; */
 "exN-t4-It8.title" = "Démarrer le suivi";
@@ -33,7 +33,7 @@
 "fLq-xh-Kj9.text" = "valeurAlt";
 
 /* Class = "WKInterfaceButton"; title = "Reset"; ObjectID = "g9l-MU-PFV"; */
-"g9l-MU-PFV.title" = "Réinitialiser";
+"g9l-MU-PFV.title" = "Réinit.";
 
 /* Class = "WKInterfaceLabel"; text = "0m"; ObjectID = "jLD-vq-fZz"; */
 "jLD-vq-fZz.text" = "0m";
