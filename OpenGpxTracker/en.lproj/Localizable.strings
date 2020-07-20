@@ -123,7 +123,7 @@
 
 "DEFAULT_NAME_SAMPLE_OUTPUT_TITLE" = "Sample: ";
 "DEFAULT_NAME_USE_UTC" = "Use UTC Time?";
-"DEFAULT_NAME_ENGLISH_LOCALE" = "Force English language based date formatting?";
+"DEFAULT_NAME_ENGLISH_LOCALE" = "Force English locale date format?";
 
 // DateFieldTypeView
 "YEAR" = "Year";
