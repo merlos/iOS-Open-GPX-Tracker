@@ -21,6 +21,9 @@ class DefaultNameSetupViewController: UITableViewController, UITextFieldDelegate
     /// also used for final date formatting for use in default name callup when saving.
     var processedDateFormat = String()
     
+    /// A value denoting the validity of the processed date format.
+    var dateFormatIsInvalid = false
+    
     ///
     let defaultDateFormat = DefaultDateFormat()
     
@@ -96,7 +99,9 @@ class DefaultNameSetupViewController: UITableViewController, UITextFieldDelegate
 
     /// Call when text field is currently editing, and an update to sample label is required.
     @objc func updateSampleTextField() {
-        processedDateFormat = defaultDateFormat.getDateFormat(unprocessed: self.cellTextField.text!)
+        let processed = defaultDateFormat.getDateFormat(unprocessed: self.cellTextField.text!)
+        processedDateFormat = processed.0
+        dateFormatIsInvalid = processed.1
         //dateFormatter.dateFormat = processedDateFormat
         cellSampleLabel.text = defaultDateFormat.getDate(processedFormat: processedDateFormat, useUTC: useUTC, useENLocale: useEN)
     }
@@ -147,7 +152,7 @@ class DefaultNameSetupViewController: UITableViewController, UITextFieldDelegate
     func saveDateFormat(_ dateFormat: String, input: String?, index: Int = -1) {
         guard let input = input else { return }
         print(dateFormat)
-        if dateFormat == "invalid" || dateFormat == "'invalid'" || dateFormat == "'invalid: { ... } must not consecutively repeat'" || input.isEmpty || dateFormat.isEmpty { return } // ensures no invalid date format (revert)
+        if dateFormatIsInvalid || input.isEmpty || dateFormat.isEmpty { return } // ensures no invalid date format (revert)
         preferences.dateFormat = dateFormat
         preferences.dateFormatInput = input
         preferences.dateFormatPreset = index

@@ -14,13 +14,14 @@ class DefaultDateFormat {
     let dateFormatter = DateFormatter()
     
     /// returns a 'processed', `DateFormatter`-friendly date format.
-    func getDateFormat(unprocessed: String) -> String {
+    func getDateFormat(unprocessed: String) -> (String, Bool) {
         var newText = ""
-        
+        var isInvalid = false
         // prevents acknowledging unterminated date formats as valid
         if (unprocessed.countInstances(of: "{") != unprocessed.countInstances(of: "}"))
         || unprocessed.countInstances(of: "{}") > 0 {
             newText = "'invalid'"
+            isInvalid = true
         } else {
             let arr = unprocessed.components(separatedBy: CharacterSet(charactersIn: "{}"))
             var lastField: String?
@@ -28,17 +29,19 @@ class DefaultDateFormat {
             for i in 0...arrCount - 1 {
                 if let lastField = lastField, lastField.countInstances(of: String(arr[i].last ?? Character(" "))) > 0 {
                     newText = "'invalid: { ... } must not consecutively repeat'"
+                    isInvalid = true
                     break
                 }
                 if arr.count == 1 {
                     newText += "'invalid'"
+                    isInvalid = true
                 } else if arrCount > 1 && !arr[i].isEmpty {
                     newText += (i % 2 == 0) ? "'\(arr[i])'" : arr[i]
                     lastField = (i % 2 != 0) ? arr[i] : nil
                 }
             }
         }
-        return newText
+        return (newText, isInvalid)
     }
     
     /// Returns sample date time based on user input.
