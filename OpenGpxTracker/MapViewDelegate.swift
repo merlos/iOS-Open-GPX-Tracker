@@ -94,12 +94,12 @@ class MapViewDelegate: NSObject, MKMapViewDelegate, UIAlertViewDelegate {
                 textField.text = waypoint.title
                 textField.clearButtonMode = .always
             }
-            let saveAction = UIAlertAction(title: NSLocalizedString("SAVE", comment: "no comment"), style: .default) { (action) in
+            let saveAction = UIAlertAction(title: NSLocalizedString("SAVE", comment: "no comment"), style: .default) { _ in
                 print("Edit waypoint alert view")
                 self.waypointBeingEdited.title = alertController.textFields?[0].text
                 map.coreDataHelper.update(toCoreData: self.waypointBeingEdited, from: indexofEditedWaypoint!)
             }
-            let cancelAction = UIAlertAction(title: NSLocalizedString("CANCEL", comment: "no comment"), style: .cancel) { (action) in }
+            let cancelAction = UIAlertAction(title: NSLocalizedString("CANCEL", comment: "no comment"), style: .cancel) { _ in }
             
             alertController.addAction(saveAction)
             alertController.addAction(cancelAction)
@@ -172,7 +172,7 @@ class MapViewDelegate: NSObject, MKMapViewDelegate, UIAlertViewDelegate {
                             //aV.transform = CGAffineTransformMakeScale(1.0, 0.8)
                             annotationView.transform = CGAffineTransform(a: 1.0, b: 0, c: 0, d: 0.8, tx: 0, ty: annotationView.frame.size.height*0.1)
                             
-                            }, completion: { (finished: Bool) -> Void in
+                            }, completion: { _ -> Void in
                                 UIView.animate(withDuration: 0.1, animations: { () -> Void in
                                     annotationView.transform = CGAffineTransform.identity
                                 })

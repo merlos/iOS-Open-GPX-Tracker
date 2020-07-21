@@ -337,7 +337,9 @@ class InterfaceController: WKInterfaceController {
             print("LocationServicesDisabledAlert: cancel pressed")
         }
         
-        presentAlert(withTitle: NSLocalizedString("LOCATION_SERVICES_DISABLED", comment: "no comment"), message: NSLocalizedString("ENABLE_LOCATION_SERVICES", comment: "no comment"), preferredStyle: .alert, actions: [button])
+        presentAlert(withTitle: NSLocalizedString("LOCATION_SERVICES_DISABLED", comment: "no comment"),
+                     message: NSLocalizedString("ENABLE_LOCATION_SERVICES", comment: "no comment"),
+                     preferredStyle: .alert, actions: [button])
     }
     
     ///
@@ -352,7 +354,9 @@ class InterfaceController: WKInterfaceController {
             print("LocationServicesDeniedAlert: cancel pressed")
         }
         
-        presentAlert(withTitle: NSLocalizedString("ACCESS_TO_LOCATION_DENIED", comment: "no comment"), message: NSLocalizedString("ALLOW_LOCATION", comment: "no comment"), preferredStyle: .alert, actions: [button])
+        presentAlert(withTitle: NSLocalizedString("ACCESS_TO_LOCATION_DENIED", comment: "no comment"),
+                     message: NSLocalizedString("ALLOW_LOCATION", comment: "no comment"),
+                     preferredStyle: .alert, actions: [button])
     }
 
 }
