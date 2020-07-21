@@ -266,7 +266,8 @@ class CoreDataHelper {
 
     /// Retrieves everything from Core Data
     ///
-    /// Currently, it retrieves CDTrackpoint, CDWaypoint and CDRoot, to process from those Core Data types to CoreGPX types such as GPXTrackPoint, GPXWaypoint, etc.
+    /// Currently, it retrieves CDTrackpoint, CDWaypoint and CDRoot,
+    /// to process from those Core Data types to CoreGPX types such as GPXTrackPoint, GPXWaypoint, etc.
     ///
     /// It will also call on crashFileRecovery() method to continue the next procudure.
     ///
@@ -670,7 +671,8 @@ class CoreDataHelper {
                     }
                     // option to continue previous session, which will load it, but not save
                     let continueAction = UIAlertAction(title: NSLocalizedString("CONTINUE_SESSION", comment: "no comment"), style: .default) { _ in
-                        NotificationCenter.default.post(name: .loadRecoveredFile, object: nil, userInfo: ["recoveredRoot": root, "fileName": self.lastFileName])
+                        NotificationCenter.default.post(name: .loadRecoveredFile, object: nil,
+                                                        userInfo: ["recoveredRoot": root, "fileName": self.lastFileName])
                     }
                     
                     // option to save silently as file, session remains new

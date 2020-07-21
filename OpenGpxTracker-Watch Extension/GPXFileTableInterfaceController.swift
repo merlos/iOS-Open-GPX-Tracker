@@ -86,7 +86,8 @@ class GPXFileTableInterfaceController: WKInterfaceController {
                     self.progressGroup.setHeight(0)
                 })
         }
-        // imageview do not have to be set with stop animating, as image indicator should already have been set as successful or failure image, which is static.
+        // imageview do not have to be set with stop animating,
+        // as image indicator should already have been set as successful or failure image, which is static.
     }
     
     /// Displays progress indicators.
@@ -213,7 +214,9 @@ class GPXFileTableInterfaceController: WKInterfaceController {
             /// Array of all available options
             let options = [shareOption, cancelOption, deleteOption]
             
-            presentAlert(withTitle: NSLocalizedString("FILE_SELECTED_TITLE", comment: "no comment"), message: NSLocalizedString("FILE_SELECTED_MESSAGE", comment: "no comment"), preferredStyle: .actionSheet, actions: options)
+            presentAlert(withTitle: NSLocalizedString("FILE_SELECTED_TITLE", comment: "no comment"),
+                         message: NSLocalizedString("FILE_SELECTED_MESSAGE", comment: "no comment"),
+                         preferredStyle: .actionSheet, actions: options)
         }
     }
     
