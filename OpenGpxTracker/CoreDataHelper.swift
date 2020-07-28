@@ -274,6 +274,7 @@ class CoreDataHelper {
     func retrieveFromCoreData() {
         let privateManagedObjectContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
         privateManagedObjectContext.parent = appDelegate.managedObjectContext
+        
         // Creates a fetch request
         let trkptFetchRequest = NSFetchRequest<CDTrackpoint>(entityName: "CDTrackpoint")
         let wptFetchRequest = NSFetchRequest<CDWaypoint>(entityName: "CDWaypoint")
@@ -286,8 +287,7 @@ class CoreDataHelper {
         wptFetchRequest.sortDescriptors = [sortWpt]
         
         let asyncRootFetchRequest = NSAsynchronousFetchRequest(fetchRequest: rootFetchRequest) { asynchronousFetchResult in
-            guard let rootResults = asynchronousFetchResult.finalResult else {
-                return }
+            guard let rootResults = asynchronousFetchResult.finalResult else { return }
             
             DispatchQueue.main.async {
                 guard let objectID = rootResults.last?.objectID else { self.lastFileName = ""; return }
@@ -474,132 +474,41 @@ class CoreDataHelper {
     }
 
     /// Delete all trackpoints and waypoints in Core Data.
-    func deleteAllTrackFromCoreData() {
+    func coreDataDeleteAll<T: NSManagedObject>(of type: T.Type) {
         
-        let privateManagedObjectContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
-        privateManagedObjectContext.parent = appDelegate.managedObjectContext
-        
-        print("Core Data Helper: Batch Delete trackpoints from Core Data")
+        print("Core Data Helper: Batch Delete \(T.self) from Core Data")
 
         if #available(iOS 10.0, *) {
-            privateManagedObjectContext.perform {
-                do {
-                    let trackpointFetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "CDTrackpoint")
-                    let trackpointDeleteRequest = NSBatchDeleteRequest(fetchRequest: trackpointFetchRequest)
-                    
-                    // execute both delete requests.
-                    try privateManagedObjectContext.execute(trackpointDeleteRequest)
-                    try privateManagedObjectContext.save()
-                    
-                    self.appDelegate.managedObjectContext.performAndWait {
-                        do {
-                            // Saves the changes from the child to the main context to be applied properly
-                            try self.appDelegate.managedObjectContext.save()
-                        } catch {
-                            print("Failure to save context after delete: \(error)")
-                        }
-                    }
-                } catch {
-                    print("Failed to delete all from core data, error: \(error)")
-                }
-                
-            }
-            
+            modernBatchDelete(of: T.self)
         } else { // for pre iOS 9 (less efficient, load in memory before removal)
-            let trackpointFetchRequest = NSFetchRequest<CDTrackpoint>(entityName: "CDTrackpoint")
-            let trackpointAsynchronousFetchRequest = NSAsynchronousFetchRequest(fetchRequest: trackpointFetchRequest) { asynchronousFetchResult in
-                
-                guard let results = asynchronousFetchResult.finalResult else { return }
-                
-                for result in results {
-                    privateManagedObjectContext.delete(result)
-                }
-                do {
-                    // Save delete request
-                    try privateManagedObjectContext.save()
-                } catch let error {
-                    print("NSAsynchronousFetchRequest (for batch delete <iOS 9) error in saving: \(error)")
-                }
-            }
-            
-            do {
-                // Executes all delete requests
-                try privateManagedObjectContext.execute(trackpointAsynchronousFetchRequest)
-                try privateManagedObjectContext.save()
-                self.appDelegate.managedObjectContext.performAndWait {
-                    do {
-                        // Saves the changes from the child to the main context to be applied properly
-                        try self.appDelegate.managedObjectContext.save()
-                    } catch {
-                        print("Failure to save context after delete: \(error)")
-                    }
-                }
-                
-            } catch let error {
-                print("NSAsynchronousFetchRequest (for batch delete <iOS 9) error: \(error)")
-            }
+            legacyBatchDelete(of: T.self)
         }
     }
     
-    /// Delete all trackpoints and waypoints in Core Data.
-    func deleteAllWaypointsFromCoreData() {
-        
+    @available(iOS 10.0, *)
+    func modernBatchDelete<T: NSManagedObject>(of type: T.Type) {
         let privateManagedObjectContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
         privateManagedObjectContext.parent = appDelegate.managedObjectContext
         
-        print("Core Data Helper: Batch Delete waypoints from Core Data")
-
-        if #available(iOS 10.0, *) {
-            privateManagedObjectContext.perform {
-                do {
-                    let waypointFetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "CDWaypoint")
-                    let waypointDeleteRequest = NSBatchDeleteRequest(fetchRequest: waypointFetchRequest)
-                    
-                    // execute delete request.
-                    try privateManagedObjectContext.execute(waypointDeleteRequest)
-                    
-                    try privateManagedObjectContext.save()
-                    
-                    self.appDelegate.managedObjectContext.performAndWait {
-                        do {
-                            // Saves the changes from the child to the main context to be applied properly
-                            try self.appDelegate.managedObjectContext.save()
-                        } catch {
-                            print("Failure to save context after delete: \(error)")
-                        }
-                    }
-                } catch {
-                    print("Failed to delete all from core data, error: \(error)")
-                }
-                
-            }
-            
-        } else { // for pre iOS 9 (less efficient, load in memory before removal)
-            
-            let waypointFetchRequest = NSFetchRequest<CDWaypoint>(entityName: "CDWaypoint")
-            waypointFetchRequest.includesPropertyValues = false
-            let waypointAsynchronousFetchRequest = NSAsynchronousFetchRequest(fetchRequest: waypointFetchRequest) { asynchronousFetchResult in
-                
-                guard let results = asynchronousFetchResult.finalResult else { return }
-                
-                //self.resetIds()
-                
-                for result in results {
-                    let safePoint = privateManagedObjectContext.object(with: result.objectID)
-                    privateManagedObjectContext.delete(safePoint)
-                }
-                do {
-                    // Save delete request
-                    try privateManagedObjectContext.save()
-                } catch let error {
-                    print("NSAsynchronousFetchRequest (for batch delete <iOS 9) error in saving: \(error)")
-                }
-            }
-
+        privateManagedObjectContext.perform {
             do {
-                // Executes all delete requests
-                try privateManagedObjectContext.execute(waypointAsynchronousFetchRequest)
+                var name = String()
+                if T.self is CDWaypoint.Type {
+                    name = "CDWaypoint"
+                } else if T.self is CDTrackpoint.Type {
+                    name = "CDTrackpoint"
+                } else {
+                    print("Unexpected generic type for coreDataDeleteAll(of:)")
+                    return
+                }
+                let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: name)
+                let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
+                
+                // execute delete request.
+                try privateManagedObjectContext.execute(deleteRequest)
+                
                 try privateManagedObjectContext.save()
+                
                 self.appDelegate.managedObjectContext.performAndWait {
                     do {
                         // Saves the changes from the child to the main context to be applied properly
@@ -608,11 +517,58 @@ class CoreDataHelper {
                         print("Failure to save context after delete: \(error)")
                     }
                 }
-                
+            } catch {
+                print("Failed to delete all from core data, error: \(error)")
+            }
+            
+        }
+    }
+    
+    func legacyBatchDelete<T: NSManagedObject>(of type: T.Type) {
+        let privateManagedObjectContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
+        privateManagedObjectContext.parent = appDelegate.managedObjectContext
+        
+        let fetchRequest: NSFetchRequest<T>
+        if T.self is CDWaypoint.Type {
+            fetchRequest = NSFetchRequest<T>(entityName: "CDWaypoint")
+        } else if T.self is CDTrackpoint.Type {
+            fetchRequest = NSFetchRequest<T>(entityName: "CDTrackpoint")
+        } else { print("Unexpected generic type for coreDataDeleteAll(of:)"); return }
+        
+        fetchRequest.includesPropertyValues = false
+        let asyncFetchRequest = NSAsynchronousFetchRequest(fetchRequest: fetchRequest) { asynchronousFetchResult in
+            
+            guard let results = asynchronousFetchResult.finalResult else { return }
+            
+            for result in results {
+                //let safePoint = privateManagedObjectContext.object(with: result.objectID) -> (thread safety) check if actually needed
+                privateManagedObjectContext.delete(result)
+            }
+            do {
+                // Save delete request
+                try privateManagedObjectContext.save()
             } catch let error {
-                print("NSAsynchronousFetchRequest (for batch delete <iOS 9) error: \(error)")
+                print("NSAsynchronousFetchRequest (for batch delete <iOS 9) error in saving: \(error)")
             }
         }
+
+        do {
+            // Executes all delete requests
+            try privateManagedObjectContext.execute(asyncFetchRequest)
+            try privateManagedObjectContext.save()
+            self.appDelegate.managedObjectContext.performAndWait {
+                do {
+                    // Saves the changes from the child to the main context to be applied properly
+                    try self.appDelegate.managedObjectContext.save()
+                } catch {
+                    print("Failure to save context after delete: \(error)")
+                }
+            }
+            
+        } catch let error {
+            print("NSAsynchronousFetchRequest (for batch delete <iOS 9) error: \(error)")
+        }
+
     }
     
     // MARK: Handles recovered data
@@ -741,7 +697,7 @@ class CoreDataHelper {
     
     func clearAllExceptWaypoints() {
         // once file recovery is completed, Core Data stored items are deleted.
-        self.deleteAllTrackFromCoreData()
+        self.coreDataDeleteAll(of: CDTrackpoint.self)
         
         // once file recovery is completed, arrays are cleared.
         self.tracksegments = []
@@ -758,8 +714,8 @@ class CoreDataHelper {
     /// clears all
     func clearAll() {
         // once file recovery is completed, Core Data stored items are deleted.
-        self.deleteAllTrackFromCoreData()
-        self.deleteAllWaypointsFromCoreData()
+        self.coreDataDeleteAll(of: CDTrackpoint.self)
+        self.coreDataDeleteAll(of: CDWaypoint.self)
         
         // once file recovery is completed, arrays are cleared.
         self.clearObjects()

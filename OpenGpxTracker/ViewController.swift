@@ -895,8 +895,8 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         print("viewController:: applicationWillTerminate")
         GPXFileManager.removeTemporaryFiles()
         if gpxTrackingStatus == .notStarted {
-            map.coreDataHelper.deleteAllTrackFromCoreData()
-            map.coreDataHelper.deleteAllWaypointsFromCoreData()
+            map.coreDataHelper.coreDataDeleteAll(of: CDTrackpoint.self)
+            map.coreDataHelper.coreDataDeleteAll(of: CDWaypoint.self)
         }
     }
     
