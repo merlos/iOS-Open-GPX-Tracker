@@ -386,11 +386,7 @@ class CoreDataHelper {
     
     // MARK: Delete from Core Data
     
-    /// Deletes all CDRoot entity objects from Core Data.
-    ///
-    /// CDRoot holds information needed for core data functionalities other than data storage of trackpoints or waypoints, etc.
-    ///
-    func deleteCDRootFromCoreData() {
+    func coreDataDelete<T: NSManagedObject>(this object: T.Type) {
         let privateManagedObjectContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
         privateManagedObjectContext.parent = appDelegate.managedObjectContext
         // Creates a fetch request
@@ -428,14 +424,13 @@ class CoreDataHelper {
             print("NSAsynchronousFetchRequest (while deleting last file name) error: \(error)")
         }
     }
-    
+
     /// Delete Waypoint from index
     ///
     /// - Parameters:
     ///     - index: index of the waypoint that is meant to be deleted.
     ///
     func deleteWaypoint(fromCoreDataAt index: Int) {
-        lastFileName = String()
         let privateManagedObjectContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
         privateManagedObjectContext.parent = appDelegate.managedObjectContext
         // Creates a fetch request
@@ -492,15 +487,7 @@ class CoreDataHelper {
         
         privateManagedObjectContext.perform {
             do {
-                var name = String()
-                if T.self is CDWaypoint.Type {
-                    name = "CDWaypoint"
-                } else if T.self is CDTrackpoint.Type {
-                    name = "CDTrackpoint"
-                } else {
-                    print("Unexpected generic type for coreDataDeleteAll(of:)")
-                    return
-                }
+                let name = "\(T.self)" // Generic name of the object is the entityName
                 let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: name)
                 let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
                 
@@ -528,12 +515,7 @@ class CoreDataHelper {
         let privateManagedObjectContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
         privateManagedObjectContext.parent = appDelegate.managedObjectContext
         
-        let fetchRequest: NSFetchRequest<T>
-        if T.self is CDWaypoint.Type {
-            fetchRequest = NSFetchRequest<T>(entityName: "CDWaypoint")
-        } else if T.self is CDTrackpoint.Type {
-            fetchRequest = NSFetchRequest<T>(entityName: "CDTrackpoint")
-        } else { print("Unexpected generic type for coreDataDeleteAll(of:)"); return }
+        let fetchRequest = NSFetchRequest<T>(entityName: "\(T.self)")
         
         fetchRequest.includesPropertyValues = false
         let asyncFetchRequest = NSAsynchronousFetchRequest(fetchRequest: fetchRequest) { asynchronousFetchResult in
@@ -672,7 +654,8 @@ class CoreDataHelper {
         
         // clear aft save.
         self.clearAll()
-        self.deleteCDRootFromCoreData()
+        self.coreDataDeleteAll(of: CDRoot.self)
+        //self.deleteCDRootFromCoreData()
     }
     
     // MARK: Reset & Clear
