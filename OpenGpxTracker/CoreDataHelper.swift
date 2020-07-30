@@ -385,45 +385,6 @@ class CoreDataHelper {
     }
     
     // MARK: Delete from Core Data
-    
-    func coreDataDelete<T: NSManagedObject>(this object: T.Type) {
-        let privateManagedObjectContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
-        privateManagedObjectContext.parent = appDelegate.managedObjectContext
-        // Creates a fetch request
-        let rootFetchRequest = NSFetchRequest<CDRoot>(entityName: "CDRoot")
-        
-        let asynchronousWaypointFetchRequest = NSAsynchronousFetchRequest(fetchRequest: rootFetchRequest) { asynchronousFetchResult in
-            
-            print("Core Data Helper: delete last filename from Core Data.")
-            
-            // Retrieves an array of points from Core Data
-            guard let results = asynchronousFetchResult.finalResult else { return }
-            
-            for result in results {
-                privateManagedObjectContext.delete(result)
-            }
-            
-            do {
-                try privateManagedObjectContext.save()
-                self.appDelegate.managedObjectContext.performAndWait {
-                    do {
-                        // Saves the changes from the child to the main context to be applied properly
-                        try self.appDelegate.managedObjectContext.save()
-                    } catch {
-                        print("Failure to save context: \(error)")
-                    }
-                }
-            } catch {
-                print("Failure to save context at child context: \(error)")
-            }
-        }
-        
-        do {
-            try privateManagedObjectContext.execute(asynchronousWaypointFetchRequest)
-        } catch let error {
-            print("NSAsynchronousFetchRequest (while deleting last file name) error: \(error)")
-        }
-    }
 
     /// Delete Waypoint from index
     ///
@@ -435,7 +396,7 @@ class CoreDataHelper {
         privateManagedObjectContext.parent = appDelegate.managedObjectContext
         // Creates a fetch request
         let wptFetchRequest = NSFetchRequest<CDWaypoint>(entityName: "CDWaypoint")
-        
+        wptFetchRequest.includesPropertyValues = false
         let asynchronousWaypointFetchRequest = NSAsynchronousFetchRequest(fetchRequest: wptFetchRequest) { asynchronousFetchResult in
             
             print("Core Data Helper: delete waypoint from Core Data at index: \(index)")
@@ -597,7 +558,8 @@ class CoreDataHelper {
                 root.waypoints = self.waypoints
                 // asks user on what to do with recovered data
                 DispatchQueue.main.sync {
-                    print(root.gpx())
+                    //print(root.gpx())
+
                     // main action sheet setup
                     let alertController = UIAlertController(title: NSLocalizedString("CONTINUE_SESSION_TITLE", comment: "no comment"),
                                                             message: NSLocalizedString("CONTINUE_SESSION_MESSAGE", comment: "no comment"),
@@ -684,7 +646,6 @@ class CoreDataHelper {
         
         // once file recovery is completed, arrays are cleared.
         self.tracksegments = []
-        self.currentSegment = GPXTrackSegment()
         
         // current segment should be 'reset' as well
         self.currentSegment = GPXTrackSegment()
