@@ -410,9 +410,10 @@ extension InterfaceController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         //updates signal image accuracy
         let newLocation = locations.first!
-        print("didUpdateLocation: received \(newLocation.coordinate) hAcc: \(newLocation.horizontalAccuracy) vAcc: \(newLocation.verticalAccuracy) floor: \(newLocation.floor?.description ?? "''")")
         
         let hAcc = newLocation.horizontalAccuracy
+        let vAcc = newLocation.verticalAccuracy
+        print("didUpdateLocation: received \(newLocation.coordinate) hAcc: \(hAcc) vAcc: \(vAcc) floor: \(newLocation.floor?.description ?? "''")")
 
         signalAccuracyLabel.setText(hAcc.toAccuracy(useImperial: preferences.useImperial))
         if hAcc < kSignalAccuracy6 {

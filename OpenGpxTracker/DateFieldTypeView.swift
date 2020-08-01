@@ -193,36 +193,46 @@ class DateFieldTypeView: UIScrollView {
 
             // Subtitle implementation (optional)
             if let subtitle = field.subtitles?[pattern] {
-                let subtitleLabel = UIInsetLabel()
-                let subVStack = UIStackView()
-                subVStack.axis = .vertical
-                subVStack.distribution = .fill
-                subVStack.alignment = .leading
-                subVStack.spacing = -2.5
-                subVStack.translatesAutoresizingMaskIntoConstraints = false
-                
-                subtitleLabel.insets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-                subtitleLabel.text = subtitle.uppercased()
-                subtitleLabel.font = .boldSystemFont(ofSize: 8)
-                subtitleLabel.textAlignment = .center
-                
-                subVStack.addArrangedSubview(button)
-                subVStack.addArrangedSubview(subtitleLabel)
-                let subtitleConstraint = NSLayoutConstraint(item: subtitleLabel,
-                                                            attribute: .width,
-                                                            relatedBy: .equal,
-                                                            toItem: button,
-                                                            attribute: .width,
-                                                            multiplier: 1,
-                                                            constant: 0)
-                subtitleConstraint.isActive = true
-                hStack.addArrangedSubview(subVStack)
+                hStack.addArrangedSubview(genSubtitleView(subtitle: subtitle, button: button))
             } else {
                 hStack.addArrangedSubview(button)
             }
         }
         
         return hStack
+    }
+    
+    /// Generates subtitle view for genHStack(field:)
+    ///
+    ///        |pattern|pattern|pattern|
+    ///     -> |SUBTITLE|SUBTITLE|
+    ///
+    func genSubtitleView(subtitle: String, button: DatePatternButton) -> UIStackView {
+        let subtitleLabel = UIInsetLabel()
+        let subVStack = UIStackView()
+        subVStack.axis = .vertical
+        subVStack.distribution = .fill
+        subVStack.alignment = .leading
+        subVStack.spacing = -2.5
+        subVStack.translatesAutoresizingMaskIntoConstraints = false
+        
+        subtitleLabel.insets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        subtitleLabel.text = subtitle.uppercased()
+        subtitleLabel.font = .boldSystemFont(ofSize: 8)
+        subtitleLabel.textAlignment = .center
+        
+        subVStack.addArrangedSubview(button)
+        subVStack.addArrangedSubview(subtitleLabel)
+        let subtitleConstraint = NSLayoutConstraint(item: subtitleLabel,
+                                                    attribute: .width,
+                                                    relatedBy: .equal,
+                                                    toItem: button,
+                                                    attribute: .width,
+                                                    multiplier: 1,
+                                                    constant: 0)
+        subtitleConstraint.isActive = true
+        
+        return subVStack
     }
     
     /// Called when any pattern button is tapped.
