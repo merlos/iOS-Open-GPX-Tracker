@@ -263,7 +263,7 @@ class CoreDataHelper {
     }
     
     // MARK: Retrieval From Core Data
-
+    
     /// Retrieves everything from Core Data
     ///
     /// Currently, it retrieves CDTrackpoint, CDWaypoint and CDRoot,
@@ -275,110 +275,11 @@ class CoreDataHelper {
         let privateManagedObjectContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
         privateManagedObjectContext.parent = appDelegate.managedObjectContext
         
-        // Creates a fetch request
-        let trkptFetchRequest = NSFetchRequest<CDTrackpoint>(entityName: "CDTrackpoint")
-        let wptFetchRequest = NSFetchRequest<CDWaypoint>(entityName: "CDWaypoint")
-        let rootFetchRequest = NSFetchRequest<CDRoot>(entityName: "CDRoot")
-        
-        // Ensure that fetched data is ordered 
-        let sortTrkpt = NSSortDescriptor(key: "trackpointId", ascending: true)
-        let sortWpt = NSSortDescriptor(key: "waypointId", ascending: true)
-        trkptFetchRequest.sortDescriptors = [sortTrkpt]
-        wptFetchRequest.sortDescriptors = [sortWpt]
-        
-        let asyncRootFetchRequest = NSAsynchronousFetchRequest(fetchRequest: rootFetchRequest) { asynchronousFetchResult in
-            guard let rootResults = asynchronousFetchResult.finalResult else { return }
-            
-            DispatchQueue.main.async {
-                guard let objectID = rootResults.last?.objectID else { self.lastFileName = ""; return }
-                guard let safePoint = self.appDelegate.managedObjectContext.object(with: objectID) as? CDRoot else { self.lastFileName = ""; return }
-                self.lastFileName = safePoint.lastFileName ?? ""
-                self.lastTracksegmentId = safePoint.lastTrackSegmentId
-                self.isContinued = safePoint.continuedAfterSave
-            }
-        }
-        
-        // Creates `asynchronousFetchRequest` with the fetch request and the completion closure
-        let asynchronousTrackPointFetchRequest = NSAsynchronousFetchRequest(fetchRequest: trkptFetchRequest) { asynchronousFetchResult in
-            
-            print("Core Data Helper: fetching recoverable trackpoints from Core Data")
-            
-            guard let trackPointResults = asynchronousFetchResult.finalResult else { return }
-            // Dispatches to use the data in the main queue
-            DispatchQueue.main.async {
-                self.tracksegmentId = trackPointResults.first?.trackSegmentId ?? 0
-                
-                for result in trackPointResults {
-                    let objectID = result.objectID
-                    
-                    // thread safe
-                    guard let safePoint = self.appDelegate.managedObjectContext.object(with: objectID) as? CDTrackpoint else { continue }
-                    
-                    if self.tracksegmentId != safePoint.trackSegmentId {
-                        if self.currentSegment.trackpoints.count > 0 {
-                            self.tracksegments.append(self.currentSegment)
-                            self.currentSegment = GPXTrackSegment()
-                        }
-                        
-                        self.tracksegmentId = safePoint.trackSegmentId
-                    }
-                    
-                    let pt = GPXTrackPoint(latitude: safePoint.latitude, longitude: safePoint.longitude)
-                    
-                    pt.time = safePoint.time
-                    pt.elevation = safePoint.elevation
-                    
-                    self.currentSegment.trackpoints.append(pt)
-                    
-                }
-                self.trackpointId = trackPointResults.last?.trackpointId ?? Int64()
-                self.tracksegments.append(self.currentSegment)
-            }
-        }
-        
-        let asynchronousWaypointFetchRequest = NSAsynchronousFetchRequest(fetchRequest: wptFetchRequest) { asynchronousFetchResult in
-            
-            print("Core Data Helper: fetching recoverable waypoints from Core Data")
-            
-            // Retrieves an array of points from Core Data
-            guard let waypointResults = asynchronousFetchResult.finalResult else { return }
-            
-            // Dispatches to use the data in the main queue
-            DispatchQueue.main.async {
-                for result in waypointResults {
-                    let objectID = result.objectID
-                    
-                    // thread safe
-                    guard let safePoint = self.appDelegate.managedObjectContext.object(with: objectID) as? CDWaypoint else { continue }
-                    
-                    let pt = GPXWaypoint(latitude: safePoint.latitude, longitude: safePoint.longitude)
-                    
-                    pt.time = safePoint.time
-                    pt.desc = safePoint.desc
-                    pt.name = safePoint.name
-                    if safePoint.elevation != .greatestFiniteMagnitude {
-                        pt.elevation = safePoint.elevation
-                    }
-                    
-                    self.waypoints.append(pt)
-                }
-                
-                self.waypointId = waypointResults.last?.waypointId ?? Int64()
-                
-                // trackpoint request first, followed by waypoint request
-                // hence, crashFileRecovery method is ran in this.
-                self.crashFileRecovery()
-                print("Core Data Helper: async fetches complete.")
-            }
-        }
-        
         do {
-            // Executes two requests, one for trackpoint, one for waypoint.
-            
             // Note: it appears that the actual object context execution happens after all of this, probably due to its async nature.
-            try privateManagedObjectContext.execute(asyncRootFetchRequest)
-            try privateManagedObjectContext.execute(asynchronousTrackPointFetchRequest)
-            try privateManagedObjectContext.execute(asynchronousWaypointFetchRequest)
+            try privateManagedObjectContext.execute(rootFetchRequest())
+            try privateManagedObjectContext.execute(trackPointFetchRequest())
+            try privateManagedObjectContext.execute(waypointFetchRequest())
         } catch let error {
             print("NSAsynchronousFetchRequest (fetch request for recovery) error: \(error)")
         }
@@ -429,7 +330,7 @@ class CoreDataHelper {
         
     }
 
-    /// Delete all trackpoints and waypoints in Core Data.
+    /// Delete all objects of entity given as parameter in Core Data.
     func coreDataDeleteAll<T: NSManagedObject>(of type: T.Type) {
         
         print("Core Data Helper: Batch Delete \(T.self) from Core Data")

@@ -65,8 +65,7 @@ extension CoreDataHelper {
                         print("Failure to save context: \(error)")
                     }
                 }
-            }
-            catch {
+            } catch {
                 print("Failure to save context at child context: \(error)")
             }
         }
