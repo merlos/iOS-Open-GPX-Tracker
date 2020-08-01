@@ -475,41 +475,38 @@ class CoreDataHelper {
     func legacyBatchDelete<T: NSManagedObject>(of type: T.Type) {
         let privateManagedObjectContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
         privateManagedObjectContext.parent = appDelegate.managedObjectContext
-        
+        // Creates a fetch request
         let fetchRequest = NSFetchRequest<T>(entityName: "\(T.self)")
-        
         fetchRequest.includesPropertyValues = false
-        let asyncFetchRequest = NSAsynchronousFetchRequest(fetchRequest: fetchRequest) { asynchronousFetchResult in
+        let asynchronousWaypointFetchRequest = NSAsynchronousFetchRequest(fetchRequest: fetchRequest) { asynchronousFetchResult in
             
+            // Retrieves an array of points from Core Data
             guard let results = asynchronousFetchResult.finalResult else { return }
             
             for result in results {
-                //let safePoint = privateManagedObjectContext.object(with: result.objectID) -> (thread safety) check if actually needed
                 privateManagedObjectContext.delete(result)
             }
+            
             do {
-                // Save delete request
                 try privateManagedObjectContext.save()
-            } catch let error {
-                print("NSAsynchronousFetchRequest (for batch delete <iOS 9) error in saving: \(error)")
-            }
-        }
-
-        do {
-            // Executes all delete requests
-            try privateManagedObjectContext.execute(asyncFetchRequest)
-            try privateManagedObjectContext.save()
-            self.appDelegate.managedObjectContext.performAndWait {
-                do {
-                    // Saves the changes from the child to the main context to be applied properly
-                    try self.appDelegate.managedObjectContext.save()
-                } catch {
-                    print("Failure to save context after delete: \(error)")
+                self.appDelegate.managedObjectContext.performAndWait {
+                    do {
+                        // Saves the changes from the child to the main context to be applied properly
+                        try self.appDelegate.managedObjectContext.save()
+                    } catch {
+                        print("Failure to save context: \(error)")
+                    }
                 }
             }
-            
+            catch {
+                print("Failure to save context at child context: \(error)")
+            }
+        }
+        
+        do {
+            try privateManagedObjectContext.execute(asynchronousWaypointFetchRequest)
         } catch let error {
-            print("NSAsynchronousFetchRequest (for batch delete <iOS 9) error: \(error)")
+            print("NSAsynchronousFetchRequest (while deleting \(T.self) error: \(error)")
         }
 
     }
@@ -558,7 +555,7 @@ class CoreDataHelper {
                 root.waypoints = self.waypoints
                 // asks user on what to do with recovered data
                 DispatchQueue.main.sync {
-                    //print(root.gpx())
+                    print(root.gpx())
 
                     // main action sheet setup
                     let alertController = UIAlertController(title: NSLocalizedString("CONTINUE_SESSION_TITLE", comment: "no comment"),
