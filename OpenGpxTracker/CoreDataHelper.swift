@@ -555,7 +555,8 @@ class CoreDataHelper {
                 root.waypoints = self.waypoints
                 // asks user on what to do with recovered data
                 DispatchQueue.main.sync {
-                    print(root.gpx())
+                    // for debugging
+                    // print(root.gpx())
 
                     // main action sheet setup
                     let alertController = UIAlertController(title: NSLocalizedString("CONTINUE_SESSION_TITLE", comment: "no comment"),
