@@ -641,6 +641,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         }
     }
     
+    // MARK: - Add Constraints for views
     /// Adds Constraints to subviews
     ///
     /// The constraints will ensure that subviews will be positioned correctly, when there are orientation changes, or iPad split view width changes.
@@ -648,7 +649,12 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
     /// - Parameters:
     ///     - isIPhoneX: if device is >= iPhone X, bottom gap will be zero
     func addConstraints(_ isIPhoneX: Bool) {
-        
+        addConstraintsToAppTitleBar(isIPhoneX)
+        addConstraintsToInfoLabels(isIPhoneX)
+        addConstraintsToButtonBar(isIPhoneX)
+    }
+    /// Adds constraints to subviews forming the app title bar (top bar)
+    func addConstraintsToAppTitleBar(_ isIPhoneX: Bool) {
         // MARK: App Title Bar
         
         // Switch off all autoresizing masks translate
@@ -662,7 +668,10 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         NSLayoutConstraint(item: appTitleLabel, attribute: .trailing, relatedBy: .equal, toItem: coordsLabel, attribute: .trailing, multiplier: 1, constant: 5).isActive = true
         NSLayoutConstraint(item: appTitleLabel, attribute: .leading, relatedBy: .equal, toItem: coordsLabel, attribute: .leading, multiplier: 1, constant: 0).isActive = true
         NSLayoutConstraint(item: appTitleLabel, attribute: .leading, relatedBy: .equal, toItem: self.view, attribute: .leading, multiplier: 1, constant: 0).isActive = true
-        
+    }
+    
+    /// Adds constraints to subviews forming the informational labels (top right side; i.e. speed, elapse time labels)
+    func addConstraintsToInfoLabels(_ isIPhoneX: Bool) {
         // MARK: Information Labels
         
         /// offset from center, without obstructing signal view
@@ -691,6 +700,10 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         NSLayoutConstraint(item: currentSegmentDistanceLabel, attribute: .leading, relatedBy: .equal, toItem: self.view, attribute: .centerX, multiplier: 1, constant: kSignalViewOffset).isActive = true
         NSLayoutConstraint(item: currentSegmentDistanceLabel, attribute: .top, relatedBy: .equal, toItem: totalTrackedDistanceLabel, attribute: .bottom, multiplier: 1, constant: 0).isActive = true
 
+    }
+    
+    /// Adds constraints to subviews forming the button bar (bottom session controls bar)
+    func addConstraintsToButtonBar(_ isIPhoneX: Bool) {
         // MARK: Button Bar
         
         // constants
