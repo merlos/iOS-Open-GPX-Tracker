@@ -327,10 +327,12 @@ class GPXMapView: MKMapView {
         addTrackSegments(for: gpx)
     }
 
-    private func addWaypoints(for gpx: GPXRoot) {
+    private func addWaypoints(for gpx: GPXRoot, fromImport: Bool = true) {
         for waypoint in gpx.waypoints {
             addWaypoint(waypoint)
-            coreDataHelper.add(toCoreData: waypoint)
+            if fromImport {
+                coreDataHelper.add(toCoreData: waypoint)
+            }
         }
     }
 
@@ -352,7 +354,7 @@ class GPXMapView: MKMapView {
     
     func continueFromGPXRoot(_ gpx: GPXRoot) {
         clearMap()
-        addWaypoints(for: gpx)
+        addWaypoints(for: gpx, fromImport: false)
         
         session.continueFromGPXRoot(gpx)
         

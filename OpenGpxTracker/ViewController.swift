@@ -179,7 +179,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
                 lastGpxFilename = "" //clear last filename, so when saving it appears an empty field
 
                 map.coreDataHelper.clearAll()
-                map.coreDataHelper.deleteCDRootFromCoreData()
+                map.coreDataHelper.coreDataDeleteAll(of: CDRoot.self)//deleteCDRootFromCoreData()
                 
                 totalTrackedDistanceLabel.distance = (map.session.totalTrackedDistance)
                 currentSegmentDistanceLabel.distance = (map.session.currentSegmentDistance)
@@ -895,8 +895,8 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         print("viewController:: applicationWillTerminate")
         GPXFileManager.removeTemporaryFiles()
         if gpxTrackingStatus == .notStarted {
-            map.coreDataHelper.deleteAllTrackFromCoreData()
-            map.coreDataHelper.deleteAllWaypointsFromCoreData()
+            map.coreDataHelper.coreDataDeleteAll(of: CDTrackpoint.self)
+            map.coreDataHelper.coreDataDeleteAll(of: CDWaypoint.self)
         }
     }
     
@@ -1101,7 +1101,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
             let gpxString = self.map.exportToGPXString()
             GPXFileManager.save(filename!, gpxContents: gpxString)
             self.lastGpxFilename = filename!
-            self.map.coreDataHelper.deleteCDRootFromCoreData()
+            self.map.coreDataHelper.coreDataDeleteAll(of: CDRoot.self)//deleteCDRootFromCoreData()
             self.map.coreDataHelper.clearAllExceptWaypoints()
             self.map.coreDataHelper.add(toCoreData: filename!, willContinueAfterSave: true)
         }
