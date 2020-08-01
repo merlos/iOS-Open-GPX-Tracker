@@ -127,8 +127,10 @@ class MapViewDelegate: NSObject, MKMapViewDelegate, UIAlertViewDelegate {
                 if let index = gpxMapView.session.waypoints.firstIndex(of: point) {
                     gpxMapView.coreDataHelper.update(toCoreData: point, from: index)
                 }
-                
-                print("Annotation name: \(String(describing: point.title)) lat:\(String(describing: point.latitude)) lon \(String(describing: point.longitude))")
+                let titleDesc = String(describing: point.title)
+                let latDesc = String(describing: point.latitude)
+                let lonDesc = String(describing: point.longitude)
+                print("Annotation name: \(titleDesc) lat:\(latDesc) lon \(lonDesc)")
             }
         }
     }

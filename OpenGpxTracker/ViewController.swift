@@ -341,7 +341,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
     ///
     deinit {
         print("*** deinit")
-        removeNotificationObservers()
+        NotificationCenter.default.removeObserver(self)
     }
    
     /// Handles status bar color as a result from iOS 13 appearance changes
@@ -377,7 +377,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         
         //Because of the edges, iPhone X* is slightly different on the layout.
         //So, Is the current device an iPhone X?
-        if UIDevice().userInterfaceIdiom == .phone {
+        if UIDevice.current.userInterfaceIdiom == .phone {
             switch UIScreen.main.nativeBounds.height {
             case 1136:
                 print("device: IPHONE 5,5S,5C")
@@ -798,13 +798,6 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         notificationCenter.addObserver(self, selector: #selector(loadRecoveredFile(_:)), name: .loadRecoveredFile, object: nil)
         
         notificationCenter.addObserver(self, selector: #selector(updateAppearance), name: .updateAppearance, object: nil)
-    }
-
-    ///
-    /// Removes the notification observers
-    ///
-    func removeNotificationObservers() {
-        NotificationCenter.default.removeObserver(self)
     }
     
     /// To update appearance when mapView requests to do so
