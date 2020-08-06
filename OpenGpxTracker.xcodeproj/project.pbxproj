@@ -13,6 +13,7 @@
 		4588D66B230D23AA009AA75F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4588D66D230D23AA009AA75F /* InfoPlist.strings */; };
 		4588D66F230D2476009AA75F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4588D671230D2476009AA75F /* InfoPlist.strings */; };
 		45A430E9230D61240003C2F2 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 45A430EB230D61240003C2F2 /* Interface.storyboard */; };
+		61A97B6024DC78A1006A67EC /* HTTrack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61A97B5F24DC78A1006A67EC /* HTTrack.swift */; };
 		8913CD8C1BDB0A9A009EC729 /* PreferencesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8913CD8B1BDB0A9A009EC729 /* PreferencesTableViewController.swift */; };
 		8913CD8E1BDB2477009EC729 /* PreferencesTableViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8913CD8D1BDB2477009EC729 /* PreferencesTableViewControllerDelegate.swift */; };
 		893BEC8619C7E62200C77354 /* GPXWaypoint+MKAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893BEC8519C7E62200C77354 /* GPXWaypoint+MKAnnotation.swift */; };
@@ -164,6 +165,7 @@
 		45A430ED230D612B0003C2F2 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Interface.strings; sourceTree = "<group>"; };
 		45A430EF230D612C0003C2F2 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Interface.strings; sourceTree = "<group>"; };
 		554D2ACAA71E64B3A7B1A167 /* Pods-OpenGpxTracker-Watch Extension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenGpxTracker-Watch Extension.release.xcconfig"; path = "Pods/Target Support Files/Pods-OpenGpxTracker-Watch Extension/Pods-OpenGpxTracker-Watch Extension.release.xcconfig"; sourceTree = "<group>"; };
+		61A97B5F24DC78A1006A67EC /* HTTrack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTrack.swift; sourceTree = "<group>"; };
 		84DE40602499509900ED7D6D /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		84DE40612499509900ED7D6D /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Interface.strings; sourceTree = "<group>"; };
 		84DE40622499509900ED7D6D /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -301,9 +303,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		61A97B6124DC78F9006A67EC /* HikeTracker */ = {
+			isa = PBXGroup;
+			children = (
+				61A97B5F24DC78A1006A67EC /* HTTrack.swift */,
+			);
+			name = HikeTracker;
+			sourceTree = "<group>";
+		};
 		8948550619CB954100AB366A /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				61A97B6124DC78F9006A67EC /* HikeTracker */,
 				89F6E104227F7BD000CE3E3F /* shared */,
 				899D677119CE8B3600C88A0A /* StopWatch.swift */,
 				893BEC8519C7E62200C77354 /* GPXWaypoint+MKAnnotation.swift */,
@@ -803,6 +814,7 @@
 				898EECDE19C49B5800B4B207 /* OpenGpxTracker.xcdatamodeld in Sources */,
 				89EA86652157C444002E03A7 /* Int+asFilesize.swift in Sources */,
 				BF214B5E22E60B64000E96AA /* CLActivityType+Info.swift in Sources */,
+				61A97B6024DC78A1006A67EC /* HTTrack.swift in Sources */,
 				BF5C0D2222D771D1001C2575 /* DistanceLabel.swift in Sources */,
 				89F6E0F5227D091900CE3E3F /* Double+Measures.swift in Sources */,
 				8913CD8E1BDB2477009EC729 /* PreferencesTableViewControllerDelegate.swift in Sources */,
