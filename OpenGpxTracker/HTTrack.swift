@@ -8,6 +8,8 @@
 import Foundation
 import CoreLocation
 
+// An implementation of SmoothTrack.swift to be merged into Open GPX Tracker
+
 class HTTrack {
     
 }
