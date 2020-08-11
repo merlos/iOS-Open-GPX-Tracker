@@ -12,5 +12,13 @@ import CoreLocation
 // Should be ready for a Pull request now
 
 class HTTrack {
+    var previouslocation: CLLocation?
     
+    func filtered(_ rawLocation: CLLocation) -> CLLocation? {
+        return rawLocation
+    }
+    init() {
+        
+    }
 }
+

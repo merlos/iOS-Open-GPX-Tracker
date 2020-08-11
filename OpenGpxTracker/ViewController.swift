@@ -115,6 +115,9 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         return manager
     }()
     
+    // MARK: HikeTracker Mode
+    var hikeTracker: HTTrack?
+    
     /// Map View
     var map: GPXMapView
     
