@@ -11,22 +11,21 @@ import Foundation
 import CoreLocation
 
 class HTAggregator {
+    //MARK: Properties
     var startingPoint: CLLocation?
     
-    // Accumulators
-    var longitude:CLLocationDistance = 0.0, latitude:CLLocationDistance = 0.0, altitude:CLLocationDistance = 0.0
-    var hAccuracy:CLLocationAccuracy = 0.0, vAccuracy:CLLocationAccuracy = 0.0
-    var timeStamp:TimeInterval = 0.0
-    var weightSum: Double = 0.0
-    var count:Int = 0
+    //MARK: Private Properties
+    private var longitude:CLLocationDistance = 0.0, latitude:CLLocationDistance = 0.0, altitude:CLLocationDistance = 0.0
+    private var hAccuracy:CLLocationAccuracy = 0.0, vAccuracy:CLLocationAccuracy = 0.0
+    private var timeStamp:TimeInterval = 0.0
+    private var weightSum: Double = 0.0
+    private var count:Int = 0
 
-    func weighter(_ point: CLLocation) -> Double {
-        return 1.0 / point.accuracy()
-    }
-
+    //MARK: Public Methods
     func add(_ point: CLLocation) -> CLLocationDistance {
         let weight = weighter(point)
         
+        // Include point in the weighted average
         longitude += weight * point.coordinate.longitude
         latitude += weight * point.coordinate.latitude
         altitude += weight * point.altitude
@@ -35,13 +34,15 @@ class HTAggregator {
         timeStamp += weight * point.timestamp.timeIntervalSinceReferenceDate
         weightSum += weight
         count += 1
+        
+        // Compute the distance from the starting point
         if startingPoint == nil {
+            // Initialize the starting point
             startingPoint = point
             return 0.0
         } else {
             let horizontalLocationSoFar = CLLocation(latitude: latitude / weightSum, longitude: longitude / weightSum)
             let result = horizontalLocationSoFar.distance(from: startingPoint!)
-
             return result
         }
     }
@@ -62,8 +63,14 @@ class HTAggregator {
             horizontalAccuracy: location.horizontalAccuracy, verticalAccuracy: location.verticalAccuracy,
             timestamp: location.timestamp)
     }
+    
+    //MARK: Private Methods
+    // This is just here to facilitate experimentation with weighting schemes
+    private func weighter(_ point: CLLocation) -> Double {
+        return 1.0 / point.accuracy()
+    }
 }
 
-func show(n: Int, point: CLLocation, message: String) {
-    print("line #", n, "at ", point, "|| ", message)
-}
+//func show(n: Int, point: CLLocation, message: String) {
+//    print("line #", n, "at ", point, "|| ", message)
+//}
