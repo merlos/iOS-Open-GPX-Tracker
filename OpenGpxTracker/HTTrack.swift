@@ -9,16 +9,25 @@ import Foundation
 import CoreLocation
 
 // An implementation of SmoothTrack.swift to be merged into Open GPX Tracker
-// Should be ready for a Pull request now
+
+var grossErrorBound = 15.0
+var spacingFactor = 1.0
 
 class HTTrack {
-    var previouslocation: CLLocation?
+    var previousLocation: CLLocation?
+    var aggregator: HTAggregator?
     
     func filtered(_ rawLocation: CLLocation) -> CLLocation? {
+        if previousLocation == nil { // New track
+            previousLocation = rawLocation
+            aggregator = HTAggregator()
+            return nil
+        } else { // send to aggregator
+            
+        }
         return rawLocation
     }
     init() {
         
     }
 }
-

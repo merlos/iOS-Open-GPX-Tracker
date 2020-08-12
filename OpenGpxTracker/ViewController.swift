@@ -1351,7 +1351,18 @@ extension ViewController: CLLocationManagerDelegate {
     ///
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         //updates signal image accuracy
-        let newLocation = locations.first!
+        // MARK: HikeTracker Mode
+        // Fetch an update from the locations array
+        // That array is guaranteed to be non-empty and the most recent location update is at the end - .last
+        var newLocation = locations.last!
+        if gpxTrackingStatus == .tracking && hikeTracker != nil {
+            guard let filteredLocation = hikeTracker!.filtered(newLocation) else {
+                return
+            }
+            newLocation = filteredLocation
+        }
+        // MARK: HikeTracker replaces: let newLocation = locations.first!
+        
        // print("isUserLocationVisible: \(map.isUserLocationVisible) showUserLocation: \(map.showsUserLocation)")
        // print("didUpdateLocation: received \(newLocation.coordinate) hAcc: \(newLocation.horizontalAccuracy) vAcc: \(newLocation.verticalAccuracy) floor: \(newLocation.floor?.description ?? "''") map.userTrackingMode: \(map.userTrackingMode.rawValue)")
         
