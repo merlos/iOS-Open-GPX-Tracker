@@ -60,6 +60,8 @@
 	<string>Location is needed to create GPX and add PDIs</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Location is used to display in the map where are you and where you have been.</string>
+	<key>setAllowsBackgroundLocationUpdates</key>
+	<string>App needs to track in the background</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>location</string>

@@ -106,7 +106,12 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         manager.activityType = CLActivityType(rawValue: Preferences.shared.locationActivityTypeInt)!
         print("Chosen CLActivityType: \(manager.activityType.name)")
         manager.desiredAccuracy = kCLLocationAccuracyBest
-        manager.distanceFilter = 2 //meters
+        
+        // MARK: HikeTracker Mode
+        // manager.distanceFilter = 2 //meters
+        // /Markend - We will handle the spacing of points in HTTrack & HTAggregator;
+        //            The aggregator wants all the data it can get
+        
         manager.headingFilter = 3 //degrees (1 is default)
         manager.pausesLocationUpdatesAutomatically = false
         if #available(iOS 9.0, *) {
@@ -117,6 +122,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
     
     // MARK: HikeTracker Mode
     var hikeTracker: HTTrack?
+    // /Markend
     
     /// Map View
     var map: GPXMapView
@@ -186,6 +192,9 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
                 
                 totalTrackedDistanceLabel.distance = (map.session.totalTrackedDistance)
                 currentSegmentDistanceLabel.distance = (map.session.currentSegmentDistance)
+                //MARK: HikeTracker Mode
+                hikeTracker = nil
+                // /MarkEnd
                 
                 /*
                 // XXX Left here for reference
@@ -207,6 +216,9 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
                 resetButton.backgroundColor = kRedButtonBackgroundColor
                 // start clock
                 self.stopWatch.start()
+                //MARK: HikeTracker Mode
+                if hikeTracker == nil { hikeTracker = HTTrack() }
+                // /MarkEnd
                 
             case .paused:
                 print("switched to paused mode")
@@ -220,6 +232,10 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
                 self.stopWatch.stop()
                 // start new track segment
                 self.map.startNewTrackSegment()
+                //MARK: HikeTracker Mode
+                if hikeTracker != nil { hikeTracker!.reinit() }
+                // /MarkEnd
+
             }
         }
     }
@@ -1351,17 +1367,18 @@ extension ViewController: CLLocationManagerDelegate {
     ///
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         //updates signal image accuracy
-        // MARK: HikeTracker Mode
+        //MARK: HikeTracker Mode
         // Fetch an update from the locations array
         // That array is guaranteed to be non-empty and the most recent location update is at the end - .last
         var newLocation = locations.last!
         if gpxTrackingStatus == .tracking && hikeTracker != nil {
-            guard let filteredLocation = hikeTracker!.filtered(newLocation) else {
+            if let filteredLocation = hikeTracker!.filtered(newLocation) {
+                newLocation = filteredLocation
+            } else {
                 return
             }
-            newLocation = filteredLocation
         }
-        // MARK: HikeTracker replaces: let newLocation = locations.first!
+        // /MarkEnd: This section replaces: "let newLocation = locations.first!"
         
        // print("isUserLocationVisible: \(map.isUserLocationVisible) showUserLocation: \(map.showsUserLocation)")
        // print("didUpdateLocation: received \(newLocation.coordinate) hAcc: \(newLocation.horizontalAccuracy) vAcc: \(newLocation.verticalAccuracy) floor: \(newLocation.floor?.description ?? "''") map.userTrackingMode: \(map.userTrackingMode.rawValue)")

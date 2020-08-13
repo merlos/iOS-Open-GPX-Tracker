@@ -15,10 +15,10 @@ var spacingFactor = 1.0
 var saveNextPoint: Bool = false
 
 class HTTrack {
-    var previousLocation: CLLocation?
-    var aggregator: HTAggregator?
+    private var previousLocation: CLLocation?
+    private var aggregator: HTAggregator?
     
-    func filtered(_ rawLocation: CLLocation) -> CLLocation? {
+    public func filtered(_ rawLocation: CLLocation) -> CLLocation? {
         if previousLocation == nil { // New track - wait for an location with decent accuracy
             if rawLocation.accuracy() < grossErrorBound {
                 previousLocation = rawLocation
@@ -47,8 +47,10 @@ class HTTrack {
         }
         return nil // can't get here
     }
-    init() {
-        
+    
+    public func reinit() {
+        previousLocation = nil
+        aggregator = nil
     }
 }
 
