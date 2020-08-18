@@ -14,6 +14,9 @@
 		4588D66F230D2476009AA75F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4588D671230D2476009AA75F /* InfoPlist.strings */; };
 		45A430E9230D61240003C2F2 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 45A430EB230D61240003C2F2 /* Interface.storyboard */; };
 		61A97B6024DC78A1006A67EC /* HTTrack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61A97B5F24DC78A1006A67EC /* HTTrack.swift */; };
+		61C3519E24E456CE00DA30F5 /* HTAggregator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61C3519D24E456CE00DA30F5 /* HTAggregator.swift */; };
+		61C351A024E4581F00DA30F5 /* CLLocation+accuracy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61C3519F24E4581F00DA30F5 /* CLLocation+accuracy.swift */; };
+		61C351A224E458F600DA30F5 /* Double+asString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61C351A124E458F600DA30F5 /* Double+asString.swift */; };
 		8913CD8C1BDB0A9A009EC729 /* PreferencesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8913CD8B1BDB0A9A009EC729 /* PreferencesTableViewController.swift */; };
 		8913CD8E1BDB2477009EC729 /* PreferencesTableViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8913CD8D1BDB2477009EC729 /* PreferencesTableViewControllerDelegate.swift */; };
 		893BEC8619C7E62200C77354 /* GPXWaypoint+MKAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893BEC8519C7E62200C77354 /* GPXWaypoint+MKAnnotation.swift */; };
@@ -166,6 +169,9 @@
 		45A430EF230D612C0003C2F2 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Interface.strings; sourceTree = "<group>"; };
 		554D2ACAA71E64B3A7B1A167 /* Pods-OpenGpxTracker-Watch Extension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenGpxTracker-Watch Extension.release.xcconfig"; path = "Pods/Target Support Files/Pods-OpenGpxTracker-Watch Extension/Pods-OpenGpxTracker-Watch Extension.release.xcconfig"; sourceTree = "<group>"; };
 		61A97B5F24DC78A1006A67EC /* HTTrack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTrack.swift; sourceTree = "<group>"; };
+		61C3519D24E456CE00DA30F5 /* HTAggregator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTAggregator.swift; sourceTree = "<group>"; };
+		61C3519F24E4581F00DA30F5 /* CLLocation+accuracy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CLLocation+accuracy.swift"; sourceTree = "<group>"; };
+		61C351A124E458F600DA30F5 /* Double+asString.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Double+asString.swift"; sourceTree = "<group>"; };
 		84DE40602499509900ED7D6D /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		84DE40612499509900ED7D6D /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Interface.strings; sourceTree = "<group>"; };
 		84DE40622499509900ED7D6D /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -179,7 +185,7 @@
 		898E2BDF23129FE000DC4E3F /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
 		898E2BE023129FE000DC4E3F /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		898E2BE123129FE000DC4E3F /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		898EECD519C49B5800B4B207 /* OpenGpxTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OpenGpxTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		898EECD519C49B5800B4B207 /* TrackerHT.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TrackerHT.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		898EECD919C49B5800B4B207 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		898EECDA19C49B5800B4B207 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		898EECDD19C49B5800B4B207 /* OpenGpxTracker.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = OpenGpxTracker.xcdatamodel; sourceTree = "<group>"; };
@@ -307,6 +313,9 @@
 			isa = PBXGroup;
 			children = (
 				61A97B5F24DC78A1006A67EC /* HTTrack.swift */,
+				61C3519D24E456CE00DA30F5 /* HTAggregator.swift */,
+				61C3519F24E4581F00DA30F5 /* CLLocation+accuracy.swift */,
+				61C351A124E458F600DA30F5 /* Double+asString.swift */,
 			);
 			name = HikeTracker;
 			sourceTree = "<group>";
@@ -314,7 +323,6 @@
 		8948550619CB954100AB366A /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				61A97B6124DC78F9006A67EC /* HikeTracker */,
 				89F6E104227F7BD000CE3E3F /* shared */,
 				899D677119CE8B3600C88A0A /* StopWatch.swift */,
 				893BEC8519C7E62200C77354 /* GPXWaypoint+MKAnnotation.swift */,
@@ -356,7 +364,7 @@
 		898EECD619C49B5800B4B207 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				898EECD519C49B5800B4B207 /* OpenGpxTracker.app */,
+				898EECD519C49B5800B4B207 /* TrackerHT.app */,
 				898EECED19C49B5800B4B207 /* OpenGpxTrackerTests.xctest */,
 				BF692F572209AAF900F8A0F1 /* OpenGpxTracker-Watch.app */,
 				BF692F632209AAFB00F8A0F1 /* OpenGpxTracker-Watch Extension.appex */,
@@ -369,6 +377,7 @@
 			children = (
 				899D678019D2373600C88A0A /* Views */,
 				899D677919D0CAF400C88A0A /* Controllers */,
+				61A97B6124DC78F9006A67EC /* HikeTracker */,
 				8948550619CB954100AB366A /* Models */,
 				898EED0219C5EE1500B4B207 /* ObjectiveCBridgingHeader.h */,
 				898EECDC19C49B5800B4B207 /* OpenGpxTracker.xcdatamodeld */,
@@ -533,7 +542,7 @@
 			);
 			name = OpenGpxTracker;
 			productName = OpenGpxTracker;
-			productReference = 898EECD519C49B5800B4B207 /* OpenGpxTracker.app */;
+			productReference = 898EECD519C49B5800B4B207 /* TrackerHT.app */;
 			productType = "com.apple.product-type.application";
 		};
 		898EECEC19C49B5800B4B207 /* OpenGpxTrackerTests */ = {
@@ -807,6 +816,7 @@
 				BFE026C6244A02A4005423E6 /* DatePatternButton.swift in Sources */,
 				BF15092223916FC100F51F1B /* UIColor+DarkMode.swift in Sources */,
 				899D677F19D2366100C88A0A /* GPXMapView.swift in Sources */,
+				61C351A024E4581F00DA30F5 /* CLLocation+accuracy.swift in Sources */,
 				BF6408A3225C63E700BB5242 /* CoreDataHelper.swift in Sources */,
 				89E327BE1A7481EA00FC559E /* GPXTileServer.swift in Sources */,
 				898EECE019C49B5800B4B207 /* ViewController.swift in Sources */,
@@ -814,6 +824,7 @@
 				BF68ECC62448B887005C779F /* DateFieldTypeView.swift in Sources */,
 				BF9AE57E2410012700B103A0 /* DefaultDateFormat.swift in Sources */,
 				899D677019CE024600C88A0A /* GPXFileManager.swift in Sources */,
+				61C3519E24E456CE00DA30F5 /* HTAggregator.swift in Sources */,
 				898EECDE19C49B5800B4B207 /* OpenGpxTracker.xcdatamodeld in Sources */,
 				89EA86652157C444002E03A7 /* Int+asFilesize.swift in Sources */,
 				BF214B5E22E60B64000E96AA /* CLActivityType+Info.swift in Sources */,
@@ -831,6 +842,7 @@
 				899D677B19D10F7C00C88A0A /* GPXFilesTableViewControlllerDelegate.swift in Sources */,
 				8913CD8C1BDB0A9A009EC729 /* PreferencesTableViewController.swift in Sources */,
 				899D677D19D22E1B00C88A0A /* StopWatchDelegate.swift in Sources */,
+				61C351A224E458F600DA30F5 /* Double+asString.swift in Sources */,
 				898EECDB19C49B5800B4B207 /* AppDelegate.swift in Sources */,
 				89EA86632157B42C002E03A7 /* GPXFileInfo.swift in Sources */,
 				899D676C19CD9E9E00C88A0A /* GPXTrackSegment+MapKit.swift in Sources */,
@@ -1110,7 +1122,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MARKETING_VERSION = 1.7.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.geezerhiker.OpenGpxTracker;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = TrackerHT;
 				SWIFT_OBJC_BRIDGING_HEADER = OpenGpxTracker/ObjectiveCBridgingHeader.h;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1131,7 +1143,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MARKETING_VERSION = 1.7.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.geezerhiker.OpenGpxTracker;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = TrackerHT;
 				SWIFT_OBJC_BRIDGING_HEADER = OpenGpxTracker/ObjectiveCBridgingHeader.h;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
