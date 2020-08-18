@@ -33,3 +33,5 @@ DerivedData
 Carthage/Build
 
 
+#my stuff
+.DS_Store

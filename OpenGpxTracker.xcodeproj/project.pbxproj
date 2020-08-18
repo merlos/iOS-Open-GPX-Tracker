@@ -185,7 +185,7 @@
 		898E2BDF23129FE000DC4E3F /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
 		898E2BE023129FE000DC4E3F /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		898E2BE123129FE000DC4E3F /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		898EECD519C49B5800B4B207 /* OpenGpxTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OpenGpxTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		898EECD519C49B5800B4B207 /* TrackerHT.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TrackerHT.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		898EECD919C49B5800B4B207 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		898EECDA19C49B5800B4B207 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		898EECDD19C49B5800B4B207 /* OpenGpxTracker.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = OpenGpxTracker.xcdatamodel; sourceTree = "<group>"; };
@@ -364,7 +364,7 @@
 		898EECD619C49B5800B4B207 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				898EECD519C49B5800B4B207 /* OpenGpxTracker.app */,
+				898EECD519C49B5800B4B207 /* TrackerHT.app */,
 				898EECED19C49B5800B4B207 /* OpenGpxTrackerTests.xctest */,
 				BF692F572209AAF900F8A0F1 /* OpenGpxTracker-Watch.app */,
 				BF692F632209AAFB00F8A0F1 /* OpenGpxTracker-Watch Extension.appex */,
@@ -542,7 +542,7 @@
 			);
 			name = OpenGpxTracker;
 			productName = OpenGpxTracker;
-			productReference = 898EECD519C49B5800B4B207 /* OpenGpxTracker.app */;
+			productReference = 898EECD519C49B5800B4B207 /* TrackerHT.app */;
 			productType = "com.apple.product-type.application";
 		};
 		898EECEC19C49B5800B4B207 /* OpenGpxTrackerTests */ = {
@@ -1122,7 +1122,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MARKETING_VERSION = 1.7.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.geezerhiker.OpenGpxTracker;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = TrackerHT;
 				SWIFT_OBJC_BRIDGING_HEADER = OpenGpxTracker/ObjectiveCBridgingHeader.h;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1143,7 +1143,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MARKETING_VERSION = 1.7.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.geezerhiker.OpenGpxTracker;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = TrackerHT;
 				SWIFT_OBJC_BRIDGING_HEADER = OpenGpxTracker/ObjectiveCBridgingHeader.h;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
