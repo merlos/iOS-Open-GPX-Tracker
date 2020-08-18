@@ -29,7 +29,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "898EECD419C49B5800B4B207"
-               BuildableName = "OpenGpxTracker.app"
+               BuildableName = "TrackerHT.app"
                BlueprintName = "OpenGpxTracker"
                ReferencedContainer = "container:OpenGpxTracker.xcodeproj">
             </BuildableReference>
@@ -41,8 +41,6 @@
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
-      <Testables>
-      </Testables>
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
@@ -52,8 +50,8 @@
             ReferencedContainer = "container:OpenGpxTracker.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
-      <AdditionalOptions>
-      </AdditionalOptions>
+      <Testables>
+      </Testables>
    </TestAction>
    <LaunchAction
       buildConfiguration = "Debug"
@@ -77,17 +75,6 @@
             ReferencedContainer = "container:OpenGpxTracker.xcodeproj">
          </BuildableReference>
       </RemoteRunnable>
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "BF692F562209AAF900F8A0F1"
-            BuildableName = "OpenGpxTracker-Watch.app"
-            BlueprintName = "OpenGpxTracker-Watch"
-            ReferencedContainer = "container:OpenGpxTracker.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
-      <AdditionalOptions>
-      </AdditionalOptions>
       <LocationScenarioReference
          identifier = "Tokyo, Japan"
          referenceType = "1">
