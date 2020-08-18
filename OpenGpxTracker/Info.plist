@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
-	<string>GPX Tracker</string>
+	<string>$(PRODUCT_NAME)</string>
 	<key>CFBundleDocumentTypes</key>
 	<array>
 		<dict>
@@ -60,8 +60,6 @@
 	<string>Location is needed to create GPX and add PDIs</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Location is used to display in the map where are you and where you have been.</string>
-	<key>setAllowsBackgroundLocationUpdates</key>
-	<string>App needs to track in the background</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>location</string>
@@ -136,5 +134,7 @@
 			</dict>
 		</dict>
 	</array>
+	<key>setAllowsBackgroundLocationUpdates</key>
+	<string>App needs to track in the background</string>
 </dict>
 </plist>
