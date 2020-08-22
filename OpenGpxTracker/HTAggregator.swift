@@ -5,6 +5,21 @@
 //  Created by Alan Heezen on 8/12/20.
 //  Modification of HikeTracker.Aggregator
 //      for Open GPX Tracker
+
+//	An HTTrack instance refuses to accept any location until its accuracy has
+//	come down into a reasonable range. Currently that is set at 15 meters, which
+//	my phone usually reaches within a minute or so of starting.
+//
+//	Once it has a starting point, HTTrack creates an HTAggregator instance and
+//	starts feeding it the raw location data. The HTAggregator.add(:CLLocation)
+//	method keeps a 6-dimensional (the three spatial coordinates, the two
+//	accuracies, and time) running average of these locations and calculates the
+//	horizontal distance back to the starting location.
+//
+//	It returns this distance to the HTTrack instance, which has the option of
+//	proceeding with the aggregation or calling the evaluate() function to convert
+//	the running average into a full-blown CLLocation object (which is passed to
+//	the MapView) and starting over with a fresh HTAggregator.
 //
 
 import Foundation

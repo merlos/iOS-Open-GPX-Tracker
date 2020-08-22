@@ -377,12 +377,12 @@
 			children = (
 				899D678019D2373600C88A0A /* Views */,
 				899D677919D0CAF400C88A0A /* Controllers */,
-				61A97B6124DC78F9006A67EC /* HikeTracker */,
 				8948550619CB954100AB366A /* Models */,
 				898EED0219C5EE1500B4B207 /* ObjectiveCBridgingHeader.h */,
 				898EECDC19C49B5800B4B207 /* OpenGpxTracker.xcdatamodeld */,
 				899D678919D3551300C88A0A /* Resources */,
 				898EECD819C49B5800B4B207 /* Supporting Files */,
+				61A97B6124DC78F9006A67EC /* HikeTracker */,
 			);
 			path = OpenGpxTracker;
 			sourceTree = "<group>";
