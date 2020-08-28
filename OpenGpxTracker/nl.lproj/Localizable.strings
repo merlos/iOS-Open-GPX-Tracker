@@ -1,0 +1,154 @@
+/*
+ Localizable.strings
+ OpenGpxTracker
+ 
+ Dutch Translation by @julian08100, submitted on 12/08/2020
+ */
+
+// App
+"NO_LOCATION" = "Geen locatie ontvangen";
+"START_TRACKING" = "Beginnen met traceren";
+"PAUSE" = "Pauze";
+"RESUME" = "Doorgaan";
+"SAVE" = "Opslaan";
+"RESET" = "Reset";
+"DONE" = "Klaar";
+"CANCEL" = "Annuleren";
+"WATCH_FILE_RECEIVED_TITLE" = "Bestand ontvangen van Apple Watch";
+"WATCH_FILE_RECEIVED_MESSAGE" = "Bestand ontvangen: \"%@\"";
+"SAVE_AS" = "Opslaan als";
+"ENTER_SESSION_NAME" = "Voer de naam van het GPX bestand in";
+"LOCATION_SERVICES_DISABLED" = "Locatievoorzieningen uitgeschakeld";
+"ENABLE_LOCATION_SERVICES" = "Ga naar instellingen en schakel locatievoorzieningen in.";
+"SETTINGS" = "Settings";
+"ACCESS_TO_LOCATION_DENIED" = "Geen toegang tot locatie";
+"ALLOW_LOCATION" = "Bij locatievoorzieningen, sta locatie altijd toe bij GPX tracker";
+"COORDS_LABEL" = "(%@, %@) · altitude: %@";
+"NO_FILES" = "Geen GPX bestanden";
+"YOUR_FILES" = "Jouw GPX bestanden";
+"LAST_SAVED" = "Laatst opgeslagen %@ (%@)";
+"DELETE" = "Verwijderen";
+"SELECT_OPTION" = "Selecteer optie";
+"LOAD_IN_MAP" = "Laad in kaart";
+"SHARE" = "Delen";
+"LOADING_FILE" = "GPX bestand aan het laden...";
+"ABOUT" = "Over";
+"PREFERENCES" = "Voorkeuren";
+"UNITS" = "Eenheden";
+"CACHE" = "Cache";
+"MAP_SOURCE" = "Kaartbron";
+"ACTIVITY_TYPE" = "Soort activiteit";
+"USE_IMPERIAL_UNITS" = "Gebruik imperiale eenheden?";
+"OFFLINE_CACHE" = "Offline cache";
+"CLEAR_CACHE" = "Cache leegmaken";
+"CACHE_IS_EMPTY" = "Cache is nu verwijderd";
+"EDIT_WAYPOINT_NAME_TITLE" = "Waypoint naam wijzigen";
+"EDIT_WAYPOINT_NAME_MESSAGE" = "Tip: Om het the waypoint te wijzigen drag en drop de locatie pin.";
+
+// Watch
+"SENDING" = "Aan het versturen:";
+"X_FILES" = "%d bestanden";
+"SUCCESSFULLY_SENT" = "Succesvol verstuurd:";
+"FAILED_TO_SEND" = "Versturen mislukt:";
+"SEND_TO_IOS" = "Versturen naar iOS app";
+"FILE_SELECTED_TITLE" = "GPX bestand geselecteerd";
+"FILE_SELECTED_MESSAGE" = "Wat wil je graag doen?";
+"ERROR_OCCURED_TITLE" = "Error";
+"ERROR_OCCURED_MESSAGE" = "GPX bestand was succesvol verstuurd naar iOS App, door middel van %s ";
+"GPX_TRACKER" = "GPX Tracker";
+"FILE_SAVED_TITLE" = "GPX bestand opgeslagen";
+"FILE_SAVED_MESSAGE" = "Huidige sessie opgeslagen als %s.gpx ";
+
+// Activities
+"AT_AUTOMATIC" = "Automatisch";
+"AT_AUTOMOTIVE" = "Autonavigatie";
+"AT_FITNESS" = "Fitness";
+"AT_OTHER" = "Andere navigatie";
+"AT_FLIGHT" = "Vlucht";
+
+"AT_AUTOMATIC_DESC" = "Systeem default. Automatisch modus selecteren";
+"AT_AUTOMOTIVE_DESC" = "Auto, motor, truck...";
+"AT_FITNESS_DESC" = "Hardlopen, hiken, fietsen...";
+"AT_OTHER_DESC" = "Anders than autonavigatie";
+"AT_FLIGHT_DESC" = "Luchtactiviteiten";
+
+// Dates
+"T_YEARS_AGO" = "%d jaren geleden";
+"T_YEAR_AGO" = "1 jaar geleden";
+"T_LAST_YEAR" = "afgelopen jaar";
+
+"T_MONTHS_AGO" = "%d maanden geleden";
+"T_MONTH_AGO" = "1 maand geleden";
+"T_LAST_MONTH" = "afgelopen maand";
+
+"T_WEEKS_AGO" = "%d weken geleden";
+"T_WEEK_AGO" = "1 week geleden";
+"T_LAST_WEEK" = "afgelopen week";
+
+"T_DAYS_AGO" = "%d dagen geleden";
+"T_DAY_AGO" = "1 dag geleden";
+"T_YESTERDAY" = "gisteren";
+
+"T_HOURS_AGO" = "%d uren geleden";
+"T_HOUR_AGO" = "1 uur geleden";
+"T_LAST_HOUR" = "afgelopen uur";
+
+"T_MINUTES_AGO" = "%d minuten geleden";
+"T_MINUTE_AGO" = "1 minuut geleden";
+"T_MINUTE_HOUR" = "een minuut geleden";
+
+"T_SECONDS_AGO" = "%d seconden geleden";
+
+"T_JUST_NOW" = "nu";
+
+// CoreDataHelper
+
+"CONTINUE_SESSION_TITLE" = "Doorgaan met huidige sessie?";
+"CONTINUE_SESSION_MESSAGE" = "Wat wil je doen met de herstelde data van de afgelopen sessie?";
+
+"CONTINUE_SESSION" = "Doorgaan met sessie";
+"SAVE_START_NEW" = "Opslaan en een nieuwe starten";
+
+// Default File Name
+
+// in preferences section
+"DEFAULT_NAME_SECTION" = "Default bestandsnaam instellingen";
+
+// in default name editor view
+"DEFAULT_NAME_DATE_FORMAT" = "Bestandsnaam format";
+"DEFAULT_NAME_SETTINGS" = "Instellingen";
+"DEFAULT_NAME_PRESET" = "Voorkeuren";
+
+"DEFAULT_NAME_INPUT_FOOTER" = "Door op klaar te klikken op het toetsenbord wordt het datum format opgeslagen voor gebruik, ook als het ingesteld of custom is. Het datum format moet bewerkt worden in { ... }. Voor de volledige lijst van toepasbare datum formats syntax kan je kijken naar de Unicode Technical Standard (UTS) #35.";
+
+"DEFAULT_NAME_SAMPLE_OUTPUT_TITLE" = "Voorbeeld: ";
+"DEFAULT_NAME_USE_UTC" = "Gebruik UTC Tijd?";
+"DEFAULT_NAME_ENGLISH_LOCALE" = "Forceer Engels lokale datum format?";
+
+// DateFieldTypeView
+"YEAR" = "Jaar";
+"MONTH" = "Maand";
+"DAY" = "Dag";
+"HOUR" = "Uur";
+"MINUTE" = "Minuut";
+"SECOND" = "Second";
+"DAY_OF_THE_WEEK" = "Dag van de week";
+"TIME_OF_DAY" = "Tijd van de dag";
+"WEEK" = "Week";
+"QUARTER" = "Kwartaal";
+"ERA" = "Era";
+"TIME_ZONE" = "Tijdzone";
+
+"SINGLE_DIGIT" = "Alleen";
+"FULL_TEXT" = "Volledig";
+"TEXT" = "Tekst";
+
+"OF_MONTH" = "Van de maand";
+"OF_YEAR" = "Van het jaar";
+
+"ABBR_GMT" = "Voorbeeld / GMT";
+"UTC_OFFSET" = "UTC";
+"GMT_SHORT" = "GMT kort";
+"GMT_FULL" = "GMT volledig";
+"LOCATION" = "Locatie";
+"LOCATION_TIME" = "Locatietijd";
