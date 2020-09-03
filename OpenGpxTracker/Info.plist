@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
-	<string>GPX Tracker</string>
+	<string>$(PRODUCT_NAME)</string>
 	<key>CFBundleDocumentTypes</key>
 	<array>
 		<dict>
@@ -134,5 +134,7 @@
 			</dict>
 		</dict>
 	</array>
+	<key>setAllowsBackgroundLocationUpdates</key>
+	<string>App needs to track in the background</string>
 </dict>
 </plist>

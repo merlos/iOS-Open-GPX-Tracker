@@ -26,7 +26,7 @@
 		<string>UIInterfaceOrientationPortraitUpsideDown</string>
 	</array>
 	<key>WKCompanionAppBundleIdentifier</key>
-	<string>org.merlos.OpenGpxTracker</string>
+	<string>com.geezerhiker.OpenGpxTracker</string>
 	<key>WKWatchKitApp</key>
 	<true/>
 </dict>
