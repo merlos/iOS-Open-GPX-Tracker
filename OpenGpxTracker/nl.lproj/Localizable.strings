@@ -7,7 +7,7 @@
 
 // App
 "NO_LOCATION" = "Geen locatie ontvangen";
-"START_TRACKING" = "Beginnen met traceren";
+"START_TRACKING" = "Starten";
 "PAUSE" = "Pauze";
 "RESUME" = "Doorgaan";
 "SAVE" = "Opslaan";
