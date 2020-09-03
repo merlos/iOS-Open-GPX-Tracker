@@ -1,0 +1,11 @@
+/*
+  InfoPlist.strings
+  OpenGpxTracker
+
+  Dutch Translation by @julian08100, submitted on 12/08/2020
+*/
+
+NSLocationAlwaysAndWhenInUseUsageDescription = "De locatie is alleen gebruikt voor het laten zien van de positie op de kaart. Selecteer altijd 'Altijd locatie delen'";
+NSLocationAlwaysUsageDescription = "De locatie is nodig voor het mane van een GPX track ook wanneer de App in de achtergrond is.";
+NSLocationUsageDescription = "De locatie is nodig voor het maken van GPX en het maken van POI's.";
+NSLocationWhenInUseUsageDescription = "De locatie wordt gebruikt om je locatie te laten zien op de kaart waar je bent en waar je bent geweest.";
