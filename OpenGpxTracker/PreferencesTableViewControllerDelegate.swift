@@ -22,6 +22,9 @@ protocol PreferencesTableViewControllerDelegate: class {
     /// User updated the usage of imperial units
     func didUpdateUseImperial(_ newUseImperial: Bool)
     
+    /// User updated the usage of hiker mode
+    func didUpdateUseHikerMode(_ newUseHikerMode: Bool)
+    
     /// User updated the activity type
     func didUpdateActivityType(_ newActivityType: Int)
     

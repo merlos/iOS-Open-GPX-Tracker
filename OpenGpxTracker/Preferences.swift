@@ -21,6 +21,9 @@ let kDefaultsKeyUseCache: String = "UseCache"
 /// Key on Defaults for the use of imperial units.
 let kDefaultsKeyUseImperial: String = "UseImperial"
 
+/// Key on Defaults for the use of hiker mode.
+let kDefaultsKeyUseHikerMode: String = "UseHikerMode"
+
 /// Key on Defaults for the current selected activity type.
 let kDefaultsKeyActivityType: String = "ActivityType"
 
@@ -57,6 +60,9 @@ class Preferences: NSObject {
     
     /// In memory value of the preference.
     private var _useImperial: Bool = false
+    
+    /// In memory value of the preference.
+    private var _useHikerMode: Bool = false
     
     /// In memory value of the preference.
     private var _useCache: Bool = true
@@ -99,6 +105,12 @@ class Preferences: NSObject {
             print("** Preferences:: NO defaults for useImperial. Using locale: \(locale.languageCode ?? "unknown") useImperial: \(_useImperial) usesMetric:\(locale.usesMetricSystem)")
         }
     
+        // Use HikerMode
+        if let useHikerModeDefaults = defaults.object(forKey: kDefaultsKeyUseHikerMode) as? Bool {
+            print("** Preferences:: loaded from defaults. useHikerMode: \(useHikerModeDefaults)")
+            _useHikerMode = useHikerModeDefaults
+        }
+
         // Use cache
         if let useCacheFromDefaults = defaults.object(forKey: kDefaultsKeyUseCache) as? Bool {
             _useCache = useCacheFromDefaults
@@ -159,6 +171,17 @@ class Preferences: NSObject {
         set {
             _useImperial = newValue
             defaults.set(newValue, forKey: kDefaultsKeyUseImperial)
+        }
+    }
+    
+    /// If true, user prefers to display HikerMode
+    var useHikerMode: Bool {
+        get {
+            return _useHikerMode
+        }
+        set {
+            _useHikerMode = newValue
+            defaults.set(newValue, forKey: kDefaultsKeyUseHikerMode)
         }
     }
     

@@ -272,6 +272,9 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
     /// Used to display in imperial (foot, miles, mph) or metric system (m, km, km/h)
     var useImperial = false
     
+    /// Used to run in hiker mode
+    var useHikerMode = false
+    
     /// Follow user button (bottom bar)
     var followUserButton: UIButton
     
@@ -460,6 +463,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         map.tileServer = Preferences.shared.tileServer
         map.useCache = Preferences.shared.useCache
         useImperial = Preferences.shared.useImperial
+        useHikerMode = Preferences.shared.useHikerMode
         //locationManager.activityType = Preferences.shared.locationActivityType
         
         //
@@ -485,6 +489,9 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         
         //add the app title Label (Branding, branding, branding! )
         appTitleLabel.text = "  Open GPX Tracker"
+        // MARK: Hiker Mode
+        appTitleLabel.text = "  TrackerHT"
+        
         appTitleLabel.textAlignment = .left
         appTitleLabel.font = UIFont.boldSystemFont(ofSize: 10)
         //appTitleLabel.textColor = UIColor(red: 0.0/255.0, green: 0.0/255.0, blue: 0.0/255.0, alpha: 1.0)
@@ -1294,7 +1301,21 @@ extension ViewController: PreferencesTableViewControllerDelegate {
         // In regular circunstances it will go to the new units relatively fast.
         speedLabel.text = kUnknownSpeedText
         signalAccuracyLabel.text = kUnknownAccuracyText
-    }}
+    }
+    
+    // User changed the setting of use hiker mode.
+    func didUpdateUseHikerMode(_ newUseHikerMode: Bool) {
+        print("PreferencesTableViewControllerDelegate:: didUpdateUseHikerMode: \(newUseHikerMode)")
+        useHikerMode = newUseHikerMode
+//        totalTrackedDistanceLabel.useHikerMode = useHikerMode
+//        currentSegmentDistanceLabel.useHikerMode = useHikerMode
+        //Because we dont know if last speed was unknown we set it as unknown.
+        // In regular circunstances it will go to the new units relatively fast.
+//        speedLabel.text = kUnknownSpeedText
+//        signalAccuracyLabel.text = kUnknownAccuracyText
+    }
+    
+}
 
 // MARK: location manager Delegate
 

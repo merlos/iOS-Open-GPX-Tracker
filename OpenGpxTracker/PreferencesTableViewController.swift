@@ -30,6 +30,9 @@ let kDefaultNameSection = 4
 /// Cell Id of the Use Imperial units in UnitsSection
 let kUseImperialUnitsCell = 0
 
+/// Cell Id of the Use Hiker Mode units in UnitsSection
+let kUseHikerModeCell = 1
+
 /// Cell Id for Use offline cache in CacheSection of PreferencesTableViewController
 let kUseOfflineCacheCell = 0
 
@@ -108,7 +111,7 @@ class PreferencesTableViewController: UITableViewController, UINavigationBarDele
     /// for deciding which is the section title
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch(section) {
-        case kUnitsSection: return NSLocalizedString("UNITS", comment: "no comment")
+        case kUnitsSection: return NSLocalizedString("BASIC CHOICES", comment: "no comment")
         case kCacheSection: return NSLocalizedString("CACHE", comment: "no comment")
         case kMapSourceSection: return NSLocalizedString("MAP_SOURCE", comment: "no comment")
         case kActivityTypeSection: return NSLocalizedString("ACTIVITY_TYPE", comment: "no comment")
@@ -123,7 +126,7 @@ class PreferencesTableViewController: UITableViewController, UINavigationBarDele
     override func tableView(_ tableView: UITableView?, numberOfRowsInSection section: Int) -> Int {
         switch(section) {
         case kCacheSection: return 2
-        case kUnitsSection: return 1
+        case kUnitsSection: return 2
         case kMapSourceSection: return GPXTileServer.count
         case kActivityTypeSection: return CLActivityType.count
         case kDefaultNameSection: return 1
@@ -153,6 +156,12 @@ class PreferencesTableViewController: UITableViewController, UINavigationBarDele
                 cell = UITableViewCell(style: .value1, reuseIdentifier: "CacheCell")
                 cell.textLabel?.text = NSLocalizedString("USE_IMPERIAL_UNITS", comment: "no comment")
                 if preferences.useImperial {
+                    cell.accessoryType = .checkmark
+                }
+             case kUseHikerModeCell:
+                cell = UITableViewCell(style: .value1, reuseIdentifier: "HikerCell")
+                cell.textLabel?.text = NSLocalizedString("USE_HIKER_MODE", comment: "no comment")
+                if preferences.useHikerMode {
                     cell.accessoryType = .checkmark
                 }
              default: fatalError("Unknown section")
@@ -242,6 +251,14 @@ class PreferencesTableViewController: UITableViewController, UINavigationBarDele
                 tableView.cellForRow(at: indexPath)?.accessoryType = newUseImperial ? .checkmark : .none
                 //notify the map
                 self.delegate?.didUpdateUseImperial(newUseImperial)
+            case kUseHikerModeCell:
+                let newUseHikerMode = !preferences.useHikerMode
+                preferences.useHikerMode = newUseHikerMode
+                print("PreferencesTableViewController: toggle hiker mode to \(newUseHikerMode)")
+                // update cell UI
+                tableView.cellForRow(at: indexPath)?.accessoryType = newUseHikerMode ? .checkmark : .none
+                //notify the map
+                self.delegate?.didUpdateUseHikerMode(newUseHikerMode)
             default:
                 fatalError("didSelectRowAt: Unknown cell")
             }
