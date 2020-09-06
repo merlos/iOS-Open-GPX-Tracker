@@ -60,7 +60,7 @@ class HTTrack {
     private var aggregator: HTAggregator?
     
     public func filtered(_ rawLocation: CLLocation) -> CLLocation? {
-        if previousLocation == nil { // New track - wait for a reading with decent accuracy
+        if previousLocation == nil { // tracking is started or resumed - wait for a reading with decent accuracy
             if rawLocation.accuracy() < grossErrorBound {
                 previousLocation = rawLocation
                 aggregator = HTAggregator()
@@ -70,7 +70,7 @@ class HTTrack {
             }
         } else {
             if saveNextPoint {
-                // This won't occur until I find a way to handle this feature in the VC
+                // Note to self: This won't occur until I find a way to handle this feature in the VC
                 // ¿¿ Do a reach-around, slipping the aggregated point into the map
                 // and returning the rawLocation to be processed by the VC??
                 // Another possibility would be to return an array and loop through it in the VC

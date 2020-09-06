@@ -70,6 +70,10 @@ let kSignalAccuracy2 = 101.0
 /// Upper limits threshold (in meters) on signal accuracy.
 let kSignalAccuracy1 = 201.0
 
+// MARK: HikeTracker Mode
+/// Spacing between locations
+let kDefaultDistanceFilter = 2.0
+
 ///
 /// Main View Controller of the Application. It is loaded when the application is launched
 ///
@@ -108,9 +112,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         manager.desiredAccuracy = kCLLocationAccuracyBest
         
         // MARK: HikeTracker Mode
-        // manager.distanceFilter = 2 //meters
-        // /Markend - We will handle the spacing of points in HTTrack & HTAggregator;
-        //            The aggregator wants all the data it can get
+        manager.distanceFilter = kDefaultDistanceFilter //meters
         
         manager.headingFilter = 3 //degrees (1 is default)
         manager.pausesLocationUpdatesAutomatically = false
@@ -193,7 +195,10 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
                 totalTrackedDistanceLabel.distance = (map.session.totalTrackedDistance)
                 currentSegmentDistanceLabel.distance = (map.session.currentSegmentDistance)
                 //MARK: HikeTracker Mode
-                hikeTracker = nil
+                if !useHikerMode {
+                    locationManager.distanceFilter = kDefaultDistanceFilter
+                    hikeTracker = nil
+                }
                 // /MarkEnd
                 
                 /*
@@ -217,7 +222,10 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
                 // start clock
                 self.stopWatch.start()
                 //MARK: HikeTracker Mode
-                if hikeTracker == nil { hikeTracker = HTTrack() }
+                if useHikerMode && (hikeTracker == nil) {
+                    locationManager.distanceFilter = kCLDistanceFilterNone
+                    hikeTracker = HTTrack()
+                }
                 // /MarkEnd
                 
             case .paused:
@@ -452,10 +460,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         panGesture.delegate = self
         map.addGestureRecognizer(panGesture)
         
-        locationManager.delegate = self
-        locationManager.startUpdatingLocation()
-        locationManager.startUpdatingHeading()
-        
+        // MARK: HikeTracker Mode
         //let pinchGesture = UIPinchGestureRecognizer(target: self, action: "pinchGesture")
         //map.addGestureRecognizer(pinchGesture)
         
@@ -464,8 +469,17 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         map.useCache = Preferences.shared.useCache
         useImperial = Preferences.shared.useImperial
         useHikerMode = Preferences.shared.useHikerMode
-        //locationManager.activityType = Preferences.shared.locationActivityType
         
+        locationManager.delegate = self
+        if useHikerMode {
+            locationManager.distanceFilter = kCLDistanceFilterNone
+        } else {
+            locationManager.distanceFilter = kDefaultDistanceFilter
+        }
+        locationManager.startUpdatingLocation()
+        locationManager.startUpdatingHeading()
+        //locationManager.activityType = Preferences.shared.locationActivityType
+        // MARK: HikeTracker Mode End - added if-else and rearranging some lines
         //
         // Config user interface
         //
@@ -489,8 +503,6 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate  {
         
         //add the app title Label (Branding, branding, branding! )
         appTitleLabel.text = "  Open GPX Tracker"
-        // MARK: Hiker Mode
-        appTitleLabel.text = "  TrackerHT"
         
         appTitleLabel.textAlignment = .left
         appTitleLabel.font = UIFont.boldSystemFont(ofSize: 10)
@@ -1303,16 +1315,11 @@ extension ViewController: PreferencesTableViewControllerDelegate {
         signalAccuracyLabel.text = kUnknownAccuracyText
     }
     
+    //MARK: HikeTracker Mode
     // User changed the setting of use hiker mode.
     func didUpdateUseHikerMode(_ newUseHikerMode: Bool) {
         print("PreferencesTableViewControllerDelegate:: didUpdateUseHikerMode: \(newUseHikerMode)")
         useHikerMode = newUseHikerMode
-//        totalTrackedDistanceLabel.useHikerMode = useHikerMode
-//        currentSegmentDistanceLabel.useHikerMode = useHikerMode
-        //Because we dont know if last speed was unknown we set it as unknown.
-        // In regular circunstances it will go to the new units relatively fast.
-//        speedLabel.text = kUnknownSpeedText
-//        signalAccuracyLabel.text = kUnknownAccuracyText
     }
     
 }
@@ -1387,19 +1394,24 @@ extension ViewController: CLLocationManagerDelegate {
     ///
     ///
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        //updates signal image accuracy
+        // also updates signal image accuracy
+        
         //MARK: HikeTracker Mode
-        // Fetch an update from the locations array
-        // That array is guaranteed to be non-empty and the most recent location update is at the end - .last
+        // Fetch an update from the locations array, which is guaranteed to be non-empty
+        // and normally has only one entry; the most recent location update is at the end
         var newLocation = locations.last!
-        if gpxTrackingStatus == .tracking && hikeTracker != nil {
+        if (gpxTrackingStatus == .tracking) && (hikeTracker != nil) {
             if let filteredLocation = hikeTracker!.filtered(newLocation) {
+                // use the filtered point in place of the new one
                 newLocation = filteredLocation
             } else {
+                // just ignore this point if the hikeTracker didn't like it
                 return
             }
         }
-        // /MarkEnd: This section replaces: "let newLocation = locations.first!"
+        // MARK: HikeTracker Mode End: This section replaces: "let newLocation = locations.first!"
+        // Perhaps it could be placed just before the Update Map section (line 1433)
+        // but why bother with unused readings at all? A slight lag in the UI update shouldn't hurt.
         
        // print("isUserLocationVisible: \(map.isUserLocationVisible) showUserLocation: \(map.showsUserLocation)")
        // print("didUpdateLocation: received \(newLocation.coordinate) hAcc: \(newLocation.horizontalAccuracy) vAcc: \(newLocation.verticalAccuracy) floor: \(newLocation.floor?.description ?? "''") map.userTrackingMode: \(map.userTrackingMode.rawValue)")

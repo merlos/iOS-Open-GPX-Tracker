@@ -174,7 +174,7 @@ class Preferences: NSObject {
         }
     }
     
-    /// If true, user prefers to display HikerMode
+    /// If true, user prefers to use HikerMode
     var useHikerMode: Bool {
         get {
             return _useHikerMode
