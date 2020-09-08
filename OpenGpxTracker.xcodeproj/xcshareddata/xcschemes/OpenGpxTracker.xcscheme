@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "898EECD419C49B5800B4B207"
-               BuildableName = "OpenGpxTracker.app"
+               BuildableName = "TrackerHT.app"
                BlueprintName = "OpenGpxTracker"
                ReferencedContainer = "container:OpenGpxTracker.xcodeproj">
             </BuildableReference>
@@ -27,6 +27,15 @@
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "898EECD419C49B5800B4B207"
+            BuildableName = "TrackerHT.app"
+            BlueprintName = "OpenGpxTracker"
+            ReferencedContainer = "container:OpenGpxTracker.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
       <Testables>
          <TestableReference
             skipped = "NO">
@@ -39,17 +48,6 @@
             </BuildableReference>
          </TestableReference>
       </Testables>
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "898EECD419C49B5800B4B207"
-            BuildableName = "OpenGpxTracker.app"
-            BlueprintName = "OpenGpxTracker"
-            ReferencedContainer = "container:OpenGpxTracker.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
-      <AdditionalOptions>
-      </AdditionalOptions>
    </TestAction>
    <LaunchAction
       buildConfiguration = "Debug"
@@ -66,13 +64,11 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "898EECD419C49B5800B4B207"
-            BuildableName = "OpenGpxTracker.app"
+            BuildableName = "TrackerHT.app"
             BlueprintName = "OpenGpxTracker"
             ReferencedContainer = "container:OpenGpxTracker.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
-      <AdditionalOptions>
-      </AdditionalOptions>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
@@ -85,7 +81,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "898EECD419C49B5800B4B207"
-            BuildableName = "OpenGpxTracker.app"
+            BuildableName = "TrackerHT.app"
             BlueprintName = "OpenGpxTracker"
             ReferencedContainer = "container:OpenGpxTracker.xcodeproj">
          </BuildableReference>

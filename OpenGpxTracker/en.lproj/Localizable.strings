@@ -39,6 +39,7 @@
 "MAP_SOURCE" = "Map Source";
 "ACTIVITY_TYPE" = "Activity Type";
 "USE_IMPERIAL_UNITS" = "Use imperial units?";
+"USE_HIKER_MODE" = "Use Hiker Mode";
 "OFFLINE_CACHE" = "Offline cache";
 "CLEAR_CACHE" = "Clear cache";
 "CACHE_IS_EMPTY" = "Cache is now empty";

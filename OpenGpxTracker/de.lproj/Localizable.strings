@@ -38,6 +38,7 @@
 "MAP_SOURCE" = "Kartentyp";
 "ACTIVITY_TYPE" = "Aktivitätstyp";
 "USE_IMPERIAL_UNITS" = "Meilen verwenden";
+"USE_HIKER_MODE" = "Wanderer-Modus verwendenuse";
 "OFFLINE_CACHE" = "Offline cache";
 "CLEAR_CACHE" = "Cache leeren";
 "CACHE_IS_EMPTY" = "Die Cache ist jetzt leer";
