@@ -48,6 +48,8 @@
 
 import Foundation
 import CoreLocation
+// MARK: for Testing
+import AVFoundation
 
 // An implementation of SmoothTrack.swift to be merged into Open GPX Tracker
 
@@ -64,6 +66,8 @@ class HTTrack {
             if rawLocation.accuracy() < grossErrorBound {
                 previousLocation = rawLocation
                 aggregator = HTAggregator()
+                // MARK: for Testing
+                AudioServicesPlaySystemSound(SystemSoundID(1106))
                 return rawLocation // pass it on to the map
             } else {
                 return nil

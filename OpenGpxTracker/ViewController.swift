@@ -11,6 +11,8 @@ import UIKit
 import CoreLocation
 import MapKit
 import CoreGPX
+// MARK: HikeTracker Mode
+import AVFoundation
 
 /// Purple color for button background
 let kPurpleButtonBackgroundColor: UIColor =  UIColor(red: 146.0/255.0, green: 166.0/255.0, blue: 218.0/255.0, alpha: 0.90)
@@ -1409,6 +1411,7 @@ extension ViewController: CLLocationManagerDelegate {
                 return
             }
         }
+        AudioServicesPlaySystemSound(SystemSoundID(1057))
         // MARK: HikeTracker Mode End: This section replaces: "let newLocation = locations.first!"
         // Perhaps it could be placed just before the Update Map section (line 1433)
         // but why bother with unused readings at all? A slight lag in the UI update shouldn't hurt.
