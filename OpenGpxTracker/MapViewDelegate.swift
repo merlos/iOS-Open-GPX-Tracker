@@ -40,7 +40,7 @@ class MapViewDelegate: NSObject, MKMapViewDelegate, UIAlertViewDelegate {
     /// Displays the line for each segment
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         if overlay.isKind(of: MKTileOverlay.self) {
-            return MKTileOverlayRenderer(overlay: overlay)
+            return mapView.mapCacheRenderer(forOverlay: overlay)
         }
         
         if overlay is MKPolyline {

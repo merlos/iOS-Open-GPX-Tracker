@@ -120,9 +120,9 @@ enum GPXTileServer: Int {
     var minCameraDistance: Double {
         switch self {
         case .apple: return -1.0 // Not limited
-        case .openStreetMap: return 750.0
-        case .cartoDB: return 200.0
-        case .openTopoMap: return 2850.0
+        case .openStreetMap: return -1.0
+        case .cartoDB: return -1.0
+        case .openTopoMap: return -1.0
         }
     }
 
