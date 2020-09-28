@@ -37,23 +37,21 @@ class GPXFileTableInterfaceController: WKInterfaceController {
     var fileList: NSMutableArray = [kNoFiles]
     
     /// Is there any GPX file in the directory?
-    var gpxFilesFound = false;
+    var gpxFilesFound = false
     
     /// Temporary variable to manage
     var selectedRowIndex = -1
     
     /// true if a gpx file will be sent.
     var willSendFile: Bool {
-        get {
-            return session?.outstandingFileTransfers.count != 0
-        }
+        return session?.outstandingFileTransfers.count != 0
     }
     
     /// To ensure hide animation properly timed.
     var time = DispatchTime.now()
     
     /// Watch communication session
-    private let session : WCSession? = WCSession.isSupported() ? WCSession.default : nil
+    private let session: WCSession? = WCSession.isSupported() ? WCSession.default: nil
     
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)
@@ -64,7 +62,7 @@ class GPXFileTableInterfaceController: WKInterfaceController {
     // MARK: Progress Indicators
     
     /// States of sending files
-    enum sendingStatus {
+    enum SendingStatus {
         /// represents current state as sending
         case sending
         /// represents current state as successful
@@ -88,7 +86,8 @@ class GPXFileTableInterfaceController: WKInterfaceController {
                     self.progressGroup.setHeight(0)
                 })
         }
-        // imageview do not have to be set with stop animating, as image indicator should already have been set as successful or failure image, which is static.
+        // imageview do not have to be set with stop animating,
+        // as image indicator should already have been set as successful or failure image, which is static.
     }
     
     /// Displays progress indicators.
@@ -98,13 +97,13 @@ class GPXFileTableInterfaceController: WKInterfaceController {
         self.progressGroup.setHeight(30)
         self.progressGroup.setHidden(false)
         progressImageView.setImageNamed("Progress-")
-        progressImageView.startAnimatingWithImages(in: NSMakeRange(0, 12), duration: 1, repeatCount: 0)
+        progressImageView.startAnimatingWithImages(in: NSRange(location: 0, length: 12), duration: 1, repeatCount: 0)
     }
     
     /// Updates progress indicators according to status when sending.
     ///
     /// If status is success or failure, method will hide and animate progress indicators when done
-    func updateProgressIndicators(status: sendingStatus, fileName: String?) {
+    func updateProgressIndicators(status: SendingStatus, fileName: String?) {
         switch status {
         case .sending:
             progressTitle.setText(NSLocalizedString("SENDING", comment: "no comment"))
@@ -115,8 +114,7 @@ class GPXFileTableInterfaceController: WKInterfaceController {
             // if there are files pending for sending, filename will not be displayed with the name of file.
             if fileTransfersCount >= 1 {
                 progressFileName.setText(String(format: NSLocalizedString("X_FILES", comment: "no comment"), fileTransfersCount + 1))
-            }
-            else {
+            } else {
                 progressFileName.setText(fileName)
             }
             
@@ -144,8 +142,7 @@ class GPXFileTableInterfaceController: WKInterfaceController {
         
         if willSendFile == true {
             self.showProgressIndicators()
-        }
-        else {
+        } else {
             self.hideProgressIndicators()
         }
         
@@ -179,11 +176,11 @@ class GPXFileTableInterfaceController: WKInterfaceController {
         if gpxFilesFound {
             for index in 0..<fileTable.numberOfRows {
                 guard let cell = fileTable.rowController(at: index) as? GPXFileTableRowController else { continue }
+                // swiftlint:disable force_cast
                 let gpxFileInfo = fileList.object(at: index) as! GPXFileInfo
                 cell.fileLabel.setText(gpxFileInfo.fileName)
             }
-        }
-        else {
+        } else {
             guard let cell = fileTable.rowController(at: 0) as? GPXFileTableRowController else { return }
             cell.fileLabel.setText(kNoFiles)
         }
@@ -217,15 +214,16 @@ class GPXFileTableInterfaceController: WKInterfaceController {
             /// Array of all available options
             let options = [shareOption, cancelOption, deleteOption]
             
-            presentAlert(withTitle: NSLocalizedString("FILE_SELECTED_TITLE", comment: "no comment"), message: NSLocalizedString("FILE_SELECTED_MESSAGE", comment: "no comment"), preferredStyle: .actionSheet, actions: options)
+            presentAlert(withTitle: NSLocalizedString("FILE_SELECTED_TITLE", comment: "no comment"),
+                         message: NSLocalizedString("FILE_SELECTED_MESSAGE", comment: "no comment"),
+                         preferredStyle: .actionSheet, actions: options)
         }
     }
     
     //
     // MARK: Action Sheet - Actions
     //
-    
-    
+
     /// Attempts to transfer file to iOS app
     func actionTransferFileAtIndex(_ rowIndex: Int) {
         session?.activate()
@@ -234,11 +232,12 @@ class GPXFileTableInterfaceController: WKInterfaceController {
             self.hideProgressIndicators()
             return
         }
+        // swiftlint:disable force_cast
         let gpxFileInfo = fileList.object(at: rowIndex) as! GPXFileInfo
         self.scroll(to: progressGroup, at: .top, animated: true) // scrolls to top when indicator is shown.
         self.updateProgressIndicators(status: .sending, fileName: gpxFileInfo.fileName)
         DispatchQueue.global().async {
-            self.session?.transferFile(fileURL, metadata: ["fileName" : "\(gpxFileInfo.fileName).gpx"])
+            self.session?.transferFile(fileURL, metadata: ["fileName": "\(gpxFileInfo.fileName).gpx"])
         }
     }
     
@@ -262,7 +261,6 @@ class GPXFileTableInterfaceController: WKInterfaceController {
         fileList.removeObject(at: rowIndex)
         
     }
-    
 
     override func didDeactivate() {
         // This method is called when watch view controller is no longer visible
@@ -271,8 +269,7 @@ class GPXFileTableInterfaceController: WKInterfaceController {
 
 }
 
-
-// MARK:- WCSessionDelegate
+// MARK: WCSessionDelegate
 
 ///
 /// Handles all the file transfer to iOS app processes
@@ -280,17 +277,17 @@ class GPXFileTableInterfaceController: WKInterfaceController {
 extension GPXFileTableInterfaceController: WCSessionDelegate {
     
     func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
+        let prefixText = "GPXFileTableInterfaceController:: activationDidCompleteWithActivationState:"
         switch activationState {
         case .activated:
-            print("GPXFileTableInterfaceController:: activationDidCompleteWithActivationState: session activated")
+            print("\(prefixText) session activated")
         case .inactive:
-             print("GPXFileTableInterfaceController:: activationDidCompleteWithActivationState: session inactive")
+            print("\(prefixText) session inactive")
         case .notActivated:
-            print("GPXFileTableInterfaceController:: activationDidCompleteWithActivationState: session not activated, error:\(String(describing: error))")
+            print("\(prefixText) session not activated, error:\(String(describing: error))")
 
         default:
-            print("GPXFileTableInterfaceController:: activationDidCompleteWithActivationState: default, error:\(String(describing: error))")
-            break
+            print("\(prefixText) default, error:\(String(describing: error))")
         }
     }
     
@@ -312,7 +309,9 @@ extension GPXFileTableInterfaceController: WCSessionDelegate {
         // presents alert after 1.5s, with error message
         // MARK: "as CVarArg" was suggested by XCode and my intruduce a bug...
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-            self.presentAlert(withTitle: NSLocalizedString("ERROR_OCCURED_TITLE", comment: "no comment"), message: String(format: NSLocalizedString("ERROR_OCCURED_MESSAGE", comment: "no comment"), error as CVarArg), preferredStyle: .alert, actions: [doneAction])
+            self.presentAlert(withTitle: NSLocalizedString("ERROR_OCCURED_TITLE", comment: "no comment"),
+                              message: String(format: NSLocalizedString("ERROR_OCCURED_MESSAGE", comment: "no comment"), error as CVarArg),
+                              preferredStyle: .alert, actions: [doneAction])
         }
     }
     

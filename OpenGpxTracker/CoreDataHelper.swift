@@ -17,7 +17,7 @@ import CoreGPX
 ///
 class CoreDataHelper {
     
-    // MARK:- IDs
+    // MARK: IDs
     // ids to keep track of object's sequence
     
     /// for waypoints
@@ -31,9 +31,10 @@ class CoreDataHelper {
     var isContinued = false
     var lastTracksegmentId = Int64()
     
-    // MARK:- Other Declarations
+    // MARK: Other Declarations
     
     /// app delegate.
+    // swiftlint:disable force_cast
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     
     // arrays for handling retrieval of data when needed.
@@ -50,7 +51,7 @@ class CoreDataHelper {
     // last file name of the recovered file, if the recovered file was a continuation.
     var lastFileName = String()
     
-    // MARK:- Add to Core Data
+    // MARK: Add to Core Data
     
     /// Adds the last file name to Core Data
     ///
@@ -80,8 +81,7 @@ class CoreDataHelper {
                         print("Failure to save parent context when adding last file name: \(error)")
                     }
                 }
-            }
-            catch {
+            } catch {
                 print("Failure to save child context when adding last file name: \(error)")
             }
         }
@@ -101,6 +101,7 @@ class CoreDataHelper {
         
         childManagedObjectContext.perform {
             print("Core Data Helper: Add trackpoint with id: \(self.trackpointId)")
+            // swiftlint:disable force_cast
             let pt = NSEntityDescription.insertNewObject(forEntityName: "CDTrackpoint", into: childManagedObjectContext) as! CDTrackpoint
             
             guard let elevation = trackpoint.elevation else { return }
@@ -118,8 +119,7 @@ class CoreDataHelper {
             do {
                 let serialized = try JSONEncoder().encode(trackpoint)
                 pt.serialized = serialized
-            }
-            catch {
+            } catch {
                 print("Core Data Helper: serialization error when adding trackpoint: \(error)")
             }
             
@@ -135,8 +135,7 @@ class CoreDataHelper {
                         print("Failure to save parent context when adding trackpoint: \(error)")
                     }
                 }
-            }
-            catch {
+            } catch {
                 print("Failure to save child context when adding trackpoint: \(error)")
             }
         }
@@ -154,6 +153,7 @@ class CoreDataHelper {
         
         waypointChildManagedObjectContext.perform {
             print("Core Data Helper: Add waypoint with id: \(self.waypointId)")
+            // swiftlint:disable force_cast
             let pt = NSEntityDescription.insertNewObject(forEntityName: "CDWaypoint", into: waypointChildManagedObjectContext) as! CDWaypoint
             
             guard let latitude = waypoint.latitude   else { return }
@@ -161,8 +161,7 @@ class CoreDataHelper {
             
             if let elevation = waypoint.elevation {
                 pt.elevation = elevation
-            }
-            else {
+            } else {
                 pt.elevation = .greatestFiniteMagnitude
             }
             
@@ -177,8 +176,7 @@ class CoreDataHelper {
             do {
                 let serialized = try JSONEncoder().encode(waypoint)
                 pt.serialized = serialized
-            }
-            catch {
+            } catch {
                 print("Core Data Helper: serialization error when adding waypoint: \(error)")
             }
             
@@ -194,14 +192,13 @@ class CoreDataHelper {
                         print("Failure to save parent context when adding waypoint: \(error)")
                     }
                 }
-            }
-            catch {
+            } catch {
                 print("Failure to save parent context when adding waypoint: \(error)")
             }
         }
     }
     
-    // MARK:- Update Core Data
+    // MARK: Update Core Data
     
     /// Updates a previously added waypoint to Core Data
     ///
@@ -232,8 +229,7 @@ class CoreDataHelper {
                 
                 if let elevation = updatedWaypoint.elevation {
                     pt.elevation = elevation
-                }
-                else {
+                } else {
                     pt.elevation = .greatestFiniteMagnitude
                 }
                 
@@ -252,8 +248,7 @@ class CoreDataHelper {
                             print("Failure to update and save waypoint to parent context: \(error)")
                         }
                     }
-                }
-                catch {
+                } catch {
                     print("Failure to update and save waypoint to context at child context: \(error)")
                 }
             }
@@ -267,185 +262,42 @@ class CoreDataHelper {
         }
     }
     
-    // MARK:- Retrieval From Core Data
-
+    // MARK: Retrieval From Core Data
+    
     /// Retrieves everything from Core Data
     ///
-    /// Currently, it retrieves CDTrackpoint, CDWaypoint and CDRoot, to process from those Core Data types to CoreGPX types such as GPXTrackPoint, GPXWaypoint, etc.
+    /// Currently, it retrieves CDTrackpoint, CDWaypoint and CDRoot,
+    /// to process from those Core Data types to CoreGPX types such as GPXTrackPoint, GPXWaypoint, etc.
     ///
     /// It will also call on crashFileRecovery() method to continue the next procudure.
     ///
     func retrieveFromCoreData() {
         let privateManagedObjectContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
         privateManagedObjectContext.parent = appDelegate.managedObjectContext
-        // Creates a fetch request
-        let trkptFetchRequest = NSFetchRequest<CDTrackpoint>(entityName: "CDTrackpoint")
-        let wptFetchRequest = NSFetchRequest<CDWaypoint>(entityName: "CDWaypoint")
-        let rootFetchRequest = NSFetchRequest<CDRoot>(entityName: "CDRoot")
-        
-        // Ensure that fetched data is ordered 
-        let sortTrkpt = NSSortDescriptor(key: "trackpointId", ascending: true)
-        let sortWpt = NSSortDescriptor(key: "waypointId", ascending: true)
-        trkptFetchRequest.sortDescriptors = [sortTrkpt]
-        wptFetchRequest.sortDescriptors = [sortWpt]
-        
-        let asyncRootFetchRequest = NSAsynchronousFetchRequest(fetchRequest: rootFetchRequest) { asynchronousFetchResult in
-            guard let rootResults = asynchronousFetchResult.finalResult else {
-                return }
-            
-            DispatchQueue.main.async {
-                guard let objectID = rootResults.last?.objectID else { self.lastFileName = ""; return }
-                guard let safePoint = self.appDelegate.managedObjectContext.object(with: objectID) as? CDRoot else { self.lastFileName = ""; return }
-                self.lastFileName = safePoint.lastFileName ?? ""
-                self.lastTracksegmentId = safePoint.lastTrackSegmentId
-                self.isContinued = safePoint.continuedAfterSave
-            }
-        }
-        
-        // Creates `asynchronousFetchRequest` with the fetch request and the completion closure
-        let asynchronousTrackPointFetchRequest = NSAsynchronousFetchRequest(fetchRequest: trkptFetchRequest) { asynchronousFetchResult in
-            
-            print("Core Data Helper: fetching recoverable trackpoints from Core Data")
-            
-            guard let trackPointResults = asynchronousFetchResult.finalResult else { return }
-            // Dispatches to use the data in the main queue
-            DispatchQueue.main.async {
-                self.tracksegmentId = trackPointResults.first?.trackSegmentId ?? 0
-                
-                for result in trackPointResults {
-                    let objectID = result.objectID
-                    
-                    // thread safe
-                    guard let safePoint = self.appDelegate.managedObjectContext.object(with: objectID) as? CDTrackpoint else { continue }
-                    
-                    if self.tracksegmentId != safePoint.trackSegmentId {
-                        if self.currentSegment.trackpoints.count > 0 {
-                            self.tracksegments.append(self.currentSegment)
-                            self.currentSegment = GPXTrackSegment()
-                        }
-                        
-                        self.tracksegmentId = safePoint.trackSegmentId
-                    }
-                    
-                    let pt = GPXTrackPoint(latitude: safePoint.latitude, longitude: safePoint.longitude)
-                    
-                    pt.time = safePoint.time
-                    pt.elevation = safePoint.elevation
-                    
-                    self.currentSegment.trackpoints.append(pt)
-                    
-                }
-                self.trackpointId = trackPointResults.last?.trackpointId ?? Int64()
-                self.tracksegments.append(self.currentSegment)
-            }
-        }
-        
-        let asynchronousWaypointFetchRequest = NSAsynchronousFetchRequest(fetchRequest: wptFetchRequest) { asynchronousFetchResult in
-            
-            print("Core Data Helper: fetching recoverable waypoints from Core Data")
-            
-            // Retrieves an array of points from Core Data
-            guard let waypointResults = asynchronousFetchResult.finalResult else { return }
-            
-            // Dispatches to use the data in the main queue
-            DispatchQueue.main.async {
-                for result in waypointResults {
-                    let objectID = result.objectID
-                    
-                    // thread safe
-                    guard let safePoint = self.appDelegate.managedObjectContext.object(with: objectID) as? CDWaypoint else { continue }
-                    
-                    let pt = GPXWaypoint(latitude: safePoint.latitude, longitude: safePoint.longitude)
-                    
-                    pt.time = safePoint.time
-                    pt.desc = safePoint.desc
-                    pt.name = safePoint.name
-                    if safePoint.elevation != .greatestFiniteMagnitude {
-                        pt.elevation = safePoint.elevation
-                    }
-                    
-                    self.waypoints.append(pt)
-                }
-                
-                self.waypointId = waypointResults.last?.waypointId ?? Int64()
-                
-                // trackpoint request first, followed by waypoint request
-                // hence, crashFileRecovery method is ran in this.
-                self.crashFileRecovery()
-                print("Core Data Helper: async fetches complete.")
-            }
-        }
         
         do {
-            // Executes two requests, one for trackpoint, one for waypoint.
-            
             // Note: it appears that the actual object context execution happens after all of this, probably due to its async nature.
-            try privateManagedObjectContext.execute(asyncRootFetchRequest)
-            try privateManagedObjectContext.execute(asynchronousTrackPointFetchRequest)
-            try privateManagedObjectContext.execute(asynchronousWaypointFetchRequest)
+            try privateManagedObjectContext.execute(rootFetchRequest())
+            try privateManagedObjectContext.execute(trackPointFetchRequest())
+            try privateManagedObjectContext.execute(waypointFetchRequest())
         } catch let error {
             print("NSAsynchronousFetchRequest (fetch request for recovery) error: \(error)")
         }
     }
     
-    // MARK:- Delete from Core Data
-    
-    /// Deletes all CDRoot entity objects from Core Data.
-    ///
-    /// CDRoot holds information needed for core data functionalities other than data storage of trackpoints or waypoints, etc.
-    ///
-    func deleteCDRootFromCoreData() {
-        let privateManagedObjectContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
-        privateManagedObjectContext.parent = appDelegate.managedObjectContext
-        // Creates a fetch request
-        let rootFetchRequest = NSFetchRequest<CDRoot>(entityName: "CDRoot")
-        
-        let asynchronousWaypointFetchRequest = NSAsynchronousFetchRequest(fetchRequest: rootFetchRequest) { asynchronousFetchResult in
-            
-            print("Core Data Helper: delete last filename from Core Data.")
-            
-            // Retrieves an array of points from Core Data
-            guard let results = asynchronousFetchResult.finalResult else { return }
-            
-            for result in results {
-                privateManagedObjectContext.delete(result)
-            }
-            
-            do {
-                try privateManagedObjectContext.save()
-                self.appDelegate.managedObjectContext.performAndWait {
-                    do {
-                        // Saves the changes from the child to the main context to be applied properly
-                        try self.appDelegate.managedObjectContext.save()
-                    } catch {
-                        print("Failure to save context: \(error)")
-                    }
-                }
-            }
-            catch {
-                print("Failure to save context at child context: \(error)")
-            }
-        }
-        
-        do {
-            try privateManagedObjectContext.execute(asynchronousWaypointFetchRequest)
-        } catch let error {
-            print("NSAsynchronousFetchRequest (while deleting last file name) error: \(error)")
-        }
-    }
-    
+    // MARK: Delete from Core Data
+
     /// Delete Waypoint from index
     ///
     /// - Parameters:
     ///     - index: index of the waypoint that is meant to be deleted.
     ///
     func deleteWaypoint(fromCoreDataAt index: Int) {
-        lastFileName = String()
         let privateManagedObjectContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
         privateManagedObjectContext.parent = appDelegate.managedObjectContext
         // Creates a fetch request
         let wptFetchRequest = NSFetchRequest<CDWaypoint>(entityName: "CDWaypoint")
-        
+        wptFetchRequest.includesPropertyValues = false
         let asynchronousWaypointFetchRequest = NSAsynchronousFetchRequest(fetchRequest: wptFetchRequest) { asynchronousFetchResult in
             
             print("Core Data Helper: delete waypoint from Core Data at index: \(index)")
@@ -465,8 +317,7 @@ class CoreDataHelper {
                         print("Failure to save context (when deleting waypoint): \(error)")
                     }
                 }
-            }
-            catch {
+            } catch {
                 print("Failure to save context at child context (when deleting waypoint): \(error)")
             }
         }
@@ -478,159 +329,20 @@ class CoreDataHelper {
         }
         
     }
-    
-    
-    /// Delete all trackpoints and waypoints in Core Data.
-    func deleteAllTrackFromCoreData() {
-        
-        let privateManagedObjectContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
-        privateManagedObjectContext.parent = appDelegate.managedObjectContext
-        
-        print("Core Data Helper: Batch Delete trackpoints from Core Data")
-        
-        
-        if #available(iOS 10.0, *) {
-            privateManagedObjectContext.perform {
-                do {
-                    let trackpointFetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "CDTrackpoint")
-                    let trackpointDeleteRequest = NSBatchDeleteRequest(fetchRequest: trackpointFetchRequest)
-                    
-                    // execute both delete requests.
-                    try privateManagedObjectContext.execute(trackpointDeleteRequest)
-                    try privateManagedObjectContext.save()
-                    
-                    self.appDelegate.managedObjectContext.performAndWait {
-                        do {
-                            // Saves the changes from the child to the main context to be applied properly
-                            try self.appDelegate.managedObjectContext.save()
-                        } catch {
-                            print("Failure to save context after delete: \(error)")
-                        }
-                    }
-                }
-                catch {
-                    print("Failed to delete all from core data, error: \(error)")
-                }
-                
-            }
-            
-        }
-        else { // for pre iOS 9 (less efficient, load in memory before removal)
-            let trackpointFetchRequest = NSFetchRequest<CDTrackpoint>(entityName: "CDTrackpoint")
-            let trackpointAsynchronousFetchRequest = NSAsynchronousFetchRequest(fetchRequest: trackpointFetchRequest) { asynchronousFetchResult in
-                
-                guard let results = asynchronousFetchResult.finalResult else { return }
-                
-                for result in results {
-                    privateManagedObjectContext.delete(result)
-                }
-                do {
-                    // Save delete request
-                    try privateManagedObjectContext.save()
-                }
-                catch let error {
-                    print("NSAsynchronousFetchRequest (for batch delete <iOS 9) error in saving: \(error)")
-                }
-            }
-            
-            do {
-                // Executes all delete requests
-                try privateManagedObjectContext.execute(trackpointAsynchronousFetchRequest)
-                try privateManagedObjectContext.save()
-                self.appDelegate.managedObjectContext.performAndWait {
-                    do {
-                        // Saves the changes from the child to the main context to be applied properly
-                        try self.appDelegate.managedObjectContext.save()
-                    } catch {
-                        print("Failure to save context after delete: \(error)")
-                    }
-                }
-                
-            } catch let error {
-                print("NSAsynchronousFetchRequest (for batch delete <iOS 9) error: \(error)")
-            }
-        }
-    }
-    
-    /// Delete all trackpoints and waypoints in Core Data.
-    func deleteAllWaypointsFromCoreData() {
-        
-        let privateManagedObjectContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
-        privateManagedObjectContext.parent = appDelegate.managedObjectContext
-        
-        print("Core Data Helper: Batch Delete waypoints from Core Data")
-        
-        
-        if #available(iOS 10.0, *) {
-            privateManagedObjectContext.perform {
-                do {
-                    let waypointFetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "CDWaypoint")
-                    let waypointDeleteRequest = NSBatchDeleteRequest(fetchRequest: waypointFetchRequest)
-                    
-                    // execute delete request.
-                    try privateManagedObjectContext.execute(waypointDeleteRequest)
-                    
-                    try privateManagedObjectContext.save()
-                    
-                    self.appDelegate.managedObjectContext.performAndWait {
-                        do {
-                            // Saves the changes from the child to the main context to be applied properly
-                            try self.appDelegate.managedObjectContext.save()
-                        } catch {
-                            print("Failure to save context after delete: \(error)")
-                        }
-                    }
-                }
-                catch {
-                    print("Failed to delete all from core data, error: \(error)")
-                }
-                
-            }
-            
-        }
-        else { // for pre iOS 9 (less efficient, load in memory before removal)
-            
-            let waypointFetchRequest = NSFetchRequest<CDWaypoint>(entityName: "CDWaypoint")
-            waypointFetchRequest.includesPropertyValues = false
-            let waypointAsynchronousFetchRequest = NSAsynchronousFetchRequest(fetchRequest: waypointFetchRequest) { asynchronousFetchResult in
-                
-                guard let results = asynchronousFetchResult.finalResult else { return }
-                
-                //self.resetIds()
-                
-                for result in results {
-                    let safePoint = privateManagedObjectContext.object(with: result.objectID)
-                    privateManagedObjectContext.delete(safePoint)
-                }
-                do {
-                    // Save delete request
-                    try privateManagedObjectContext.save()
-                }
-                catch let error {
-                    print("NSAsynchronousFetchRequest (for batch delete <iOS 9) error in saving: \(error)")
-                }
-            }
 
-            do {
-                // Executes all delete requests
-                try privateManagedObjectContext.execute(waypointAsynchronousFetchRequest)
-                try privateManagedObjectContext.save()
-                self.appDelegate.managedObjectContext.performAndWait {
-                    do {
-                        // Saves the changes from the child to the main context to be applied properly
-                        try self.appDelegate.managedObjectContext.save()
-                    } catch {
-                        print("Failure to save context after delete: \(error)")
-                    }
-                }
-                
-            } catch let error {
-                print("NSAsynchronousFetchRequest (for batch delete <iOS 9) error: \(error)")
-            }
+    /// Delete all objects of entity given as parameter in Core Data.
+    func coreDataDeleteAll<T: NSManagedObject>(of type: T.Type) {
+        
+        print("Core Data Helper: Batch Delete \(T.self) from Core Data")
+
+        if #available(iOS 10.0, *) {
+            modernBatchDelete(of: T.self)
+        } else { // for pre iOS 9 (less efficient, load in memory before removal)
+            legacyBatchDelete(of: T.self)
         }
     }
     
-    // MARK:- Handles recovered data
+    // MARK: Handles recovered data
     
     /// Prompts user on what to do with recovered data
     ///
@@ -646,7 +358,6 @@ class CoreDataHelper {
         DispatchQueue.global().async {
             // checks if trackpoint and waypoint are available
             if self.currentSegment.trackpoints.count > 0 || self.waypoints.count > 0 {
-                
                 let root: GPXRoot
                 let track = GPXTrack()
 
@@ -655,8 +366,7 @@ class CoreDataHelper {
                     let gpx = GPXFileManager.URLForFilename(self.lastFileName)
                     let parsedRoot = GPXParser(withURL: gpx)?.parsedData()
                     root = parsedRoot ?? GPXRoot(creator: kGPXCreatorString)
-                }
-                else {
+                } else {
                     root = GPXRoot(creator: kGPXCreatorString)
                 }
                 // generates a GPXRoot from recovered data
@@ -668,36 +378,34 @@ class CoreDataHelper {
                     }
                     // if gpx is saved, but further trkpts are added after save, and crashed, trkpt are appended, not adding to new trkseg.
                     root.tracks.last?.tracksegments[Int(self.lastTracksegmentId)].add(trackpoints: self.tracksegments.first!.trackpoints)
-                    self.tracksegments.remove(at: 0)
-
-                    
-                }
-                else {
+                    self.tracksegments.remove(at: 0)                    
+                } else {
                     track.tracksegments = self.tracksegments
                     root.add(track: track)
-                    //root.waypoints = self.waypoints
-                    //root.add(waypoints: self.waypoints)
                 }
-                //root.waypoints = [GPXWaypoint]()
-                //root.add(waypoints: self.waypoints)
                 root.waypoints = self.waypoints
                 // asks user on what to do with recovered data
                 DispatchQueue.main.sync {
-                    print(root.gpx())
+                    // for debugging
+                    // print(root.gpx())
+
                     // main action sheet setup
-                    let alertController = UIAlertController(title: NSLocalizedString("CONTINUE_SESSION_TITLE", comment: "no comment"), message: NSLocalizedString("CONTINUE_SESSION_MESSAGE", comment: "no comment"), preferredStyle: .actionSheet)
+                    let alertController = UIAlertController(title: NSLocalizedString("CONTINUE_SESSION_TITLE", comment: "no comment"),
+                                                            message: NSLocalizedString("CONTINUE_SESSION_MESSAGE", comment: "no comment"),
+                                                            preferredStyle: .actionSheet)
                     
                     // option to cancel
-                    let cancelAction = UIAlertAction(title: NSLocalizedString("CANCEL", comment: "no comment"), style: .cancel) { (action) in
+                    let cancelAction = UIAlertAction(title: NSLocalizedString("CANCEL", comment: "no comment"), style: .cancel) { _ in
                         self.clearAll()
                     }
                     // option to continue previous session, which will load it, but not save
-                    let continueAction = UIAlertAction(title: NSLocalizedString("CONTINUE_SESSION", comment: "no comment"), style: .default) { (action) in
-                        NotificationCenter.default.post(name: .loadRecoveredFile, object: nil, userInfo: ["recoveredRoot" : root, "fileName" : self.lastFileName])
+                    let continueAction = UIAlertAction(title: NSLocalizedString("CONTINUE_SESSION", comment: "no comment"), style: .default) { _ in
+                        NotificationCenter.default.post(name: .loadRecoveredFile, object: nil,
+                                                        userInfo: ["recoveredRoot": root, "fileName": self.lastFileName])
                     }
                     
                     // option to save silently as file, session remains new
-                    let saveAction = UIAlertAction(title: NSLocalizedString("SAVE_START_NEW", comment: "no comment"), style: .default) { (action) in
+                    let saveAction = UIAlertAction(title: NSLocalizedString("SAVE_START_NEW", comment: "no comment"), style: .default) { _ in
                         self.saveFile(from: root, andIfAvailable: self.lastFileName)
                     }
                     
@@ -706,12 +414,10 @@ class CoreDataHelper {
                     alertController.addAction(saveAction)
                     CoreDataAlertView().showActionSheet(alertController)
                 }
-            }
-            else {
+            } else {
                 // no recovery file will be generated if nothing is recovered (or did not crash).
             }
         }
-       
     }
     
     /// saves recovered data to a gpx file, silently, without loading on map.
@@ -723,11 +429,9 @@ class CoreDataHelper {
         
         if lastfileName != "" {
             fileName = lastfileName
-        }
-        else if let lastTrkptDate = gpx.tracks.last?.tracksegments.last?.trackpoints.last?.time {
+        } else if let lastTrkptDate = gpx.tracks.last?.tracksegments.last?.trackpoints.last?.time {
             fileName = dateFormatter.string(from: lastTrkptDate)
-        }
-        else {
+        } else {
             // File name's date will be as of recovery time, not of crash time.
             fileName = dateFormatter.string(from: Date())
         }
@@ -741,10 +445,11 @@ class CoreDataHelper {
         
         // clear aft save.
         self.clearAll()
-        self.deleteCDRootFromCoreData()
+        self.coreDataDeleteAll(of: CDRoot.self)
+        //self.deleteCDRootFromCoreData()
     }
     
-    // MARK:- Reset & Clear
+    // MARK: Reset & Clear
     
     /// Resets trackpoints and waypoints Id
     ///
@@ -766,11 +471,10 @@ class CoreDataHelper {
     
     func clearAllExceptWaypoints() {
         // once file recovery is completed, Core Data stored items are deleted.
-        self.deleteAllTrackFromCoreData()
+        self.coreDataDeleteAll(of: CDTrackpoint.self)
         
         // once file recovery is completed, arrays are cleared.
         self.tracksegments = []
-        self.currentSegment = GPXTrackSegment()
         
         // current segment should be 'reset' as well
         self.currentSegment = GPXTrackSegment()
@@ -783,8 +487,8 @@ class CoreDataHelper {
     /// clears all
     func clearAll() {
         // once file recovery is completed, Core Data stored items are deleted.
-        self.deleteAllTrackFromCoreData()
-        self.deleteAllWaypointsFromCoreData()
+        self.coreDataDeleteAll(of: CDTrackpoint.self)
+        self.coreDataDeleteAll(of: CDWaypoint.self)
         
         // once file recovery is completed, arrays are cleared.
         self.clearObjects()

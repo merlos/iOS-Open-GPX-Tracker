@@ -50,9 +50,9 @@ class PreferencesTableViewController: UITableViewController, UINavigationBarDele
     weak var delegate: PreferencesTableViewControllerDelegate?
     
     /// Global Preferences
-    var preferences : Preferences = Preferences.shared
+    var preferences: Preferences = Preferences.shared
     
-    var cache : MapCache = MapCache(withConfig: MapCacheConfig(withUrlTemplate: ""))
+    var cache: MapCache = MapCache(withConfig: MapCacheConfig(withUrlTemplate: ""))
     
     // Compute once, better performance for scrolling table view (reuse)
     /// Store cached size for reuse.
@@ -70,7 +70,9 @@ class PreferencesTableViewController: UITableViewController, UINavigationBarDele
             self.view.frame.height - navBarFrame.height)
         
         self.title = NSLocalizedString("PREFERENCES", comment: "no comment")
-        let shareItem = UIBarButtonItem(title: NSLocalizedString("DONE", comment: "no comment"), style: UIBarButtonItem.Style.plain, target: self, action: #selector(PreferencesTableViewController.closePreferencesTableViewController))
+        let shareItem = UIBarButtonItem(title: NSLocalizedString("DONE", comment: "no comment"),
+                                        style: UIBarButtonItem.Style.plain, target: self,
+                                        action: #selector(PreferencesTableViewController.closePreferencesTableViewController))
         self.navigationItem.rightBarButtonItems = [shareItem]
         
         let fileSize = cache.diskCache.fileSize ?? 0
@@ -107,7 +109,7 @@ class PreferencesTableViewController: UITableViewController, UINavigationBarDele
     /// Uses `kCacheSection`, `kUnitsSection`, `kMapSourceSection` and `kActivityTypeSection`
     /// for deciding which is the section title
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        switch(section) {
+        switch section {
         case kUnitsSection: return NSLocalizedString("UNITS", comment: "no comment")
         case kCacheSection: return NSLocalizedString("CACHE", comment: "no comment")
         case kMapSourceSection: return NSLocalizedString("MAP_SOURCE", comment: "no comment")
@@ -121,7 +123,7 @@ class PreferencesTableViewController: UITableViewController, UINavigationBarDele
     /// for `kMapSourceSection` returns the number of tile servers defined in `GPXTileServer`,
     /// and for kActivityTypeSection returns `CLActivityType.count`
     override func tableView(_ tableView: UITableView?, numberOfRowsInSection section: Int) -> Int {
-        switch(section) {
+        switch section {
         case kCacheSection: return 2
         case kUnitsSection: return 1
         case kMapSourceSection: return GPXTileServer.count
@@ -148,7 +150,7 @@ class PreferencesTableViewController: UITableViewController, UINavigationBarDele
         
         // Units section
         if indexPath.section == kUnitsSection {
-             switch (indexPath.row) {
+             switch indexPath.row {
              case kUseImperialUnitsCell:
                 cell = UITableViewCell(style: .value1, reuseIdentifier: "CacheCell")
                 cell.textLabel?.text = NSLocalizedString("USE_IMPERIAL_UNITS", comment: "no comment")
@@ -161,7 +163,7 @@ class PreferencesTableViewController: UITableViewController, UINavigationBarDele
         
         // Cache Section
         if indexPath.section == kCacheSection {
-            switch (indexPath.row) {
+            switch indexPath.row {
             case kUseOfflineCacheCell:
                 cell = UITableViewCell(style: .subtitle, reuseIdentifier: "CacheCell")
                 cell.textLabel?.text = NSLocalizedString("OFFLINE_CACHE", comment: "no comment")
@@ -205,7 +207,9 @@ class PreferencesTableViewController: UITableViewController, UINavigationBarDele
             let dateFormatter = DefaultDateFormat()
             cell = UITableViewCell(style: .subtitle, reuseIdentifier: "DefaultNameCell")
             cell.textLabel?.text = preferences.dateFormatPreset == -1 ? preferences.dateFormatInput : preferences.dateFormatPresetName
-            let dateText = dateFormatter.getDate(processedFormat: preferences.dateFormat, useUTC: preferences.dateFormatUseUTC, useENLocale: preferences.dateFormatUseEN)
+            let dateText = dateFormatter.getDate(processedFormat: preferences.dateFormat,
+                                                 useUTC: preferences.dateFormatUseUTC,
+                                                 useENLocale: preferences.dateFormatUseEN)
             cell.detailTextLabel?.text = dateText
             cell.accessoryType = .disclosureIndicator
         }

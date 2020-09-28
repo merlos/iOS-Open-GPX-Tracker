@@ -5,7 +5,6 @@
 //  Created by merlos on 24/09/14.
 //
 
-
 import Foundation
 import UIKit
 import MapKit
@@ -48,14 +47,15 @@ class GPXMapView: MKMapView {
     ///position of the compass in the map
     ///Example:
     /// map.compassRect = CGRect(x: map.frame.width/2 - 18, y: 70, width: 36, height: 36)
-    var compassRect : CGRect
+    var compassRect: CGRect
     
     /// Is the map using local image cache??
     var useCache: Bool = true { //use tile overlay cache (
         didSet {
-            if self.tileServerOverlay is CachedTileOverlay {
-                print("GPXMapView:: setting useCache \(self.useCache)")
-                (self.tileServerOverlay as! CachedTileOverlay).useCache = self.useCache
+            if tileServerOverlay is CachedTileOverlay {
+                print("GPXMapView:: setting useCache \(useCache)")
+                // swiftlint:disable force_cast
+                (tileServerOverlay as! CachedTileOverlay).useCache = useCache
             }
         }
     }
@@ -71,14 +71,16 @@ class GPXMapView: MKMapView {
             print("Setting map tiles overlay to: \(newValue.name)" )
             updateMapInformation(newValue)
             // remove current overlay
-            if self.tileServer != .apple {
+            if tileServer != .apple {
                 //to see apple maps we need to remove the overlay added by map cache.
-                self.removeOverlay(self.tileServerOverlay)
+                removeOverlay(tileServerOverlay)
             }
             
             /// Min distance to the floor of the camera
             if #available(iOS 13, *) {
-             self.setCameraZoomRange(MKMapView.CameraZoomRange(minCenterCoordinateDistance: newValue.minCameraDistance, maxCenterCoordinateDistance: -1), animated: true)
+                let zoomRange = MKMapView.CameraZoomRange(minCenterCoordinateDistance: newValue.minCameraDistance,
+                                                          maxCenterCoordinateDistance: -1)
+                setCameraZoomRange(zoomRange, animated: true)
             }
             
             //add new overlay to map if not using Apple Maps
@@ -90,13 +92,13 @@ class GPXMapView: MKMapView {
                 if newValue.maximumZ > 0 {
                     config.maximumZ = newValue.maximumZ
                 }
-                if newValue.minimumZ > 0  {
+                if newValue.minimumZ > 0 {
                     config.minimumZ = newValue.minimumZ
                 }
                 let cache = MapCache(withConfig: config)
                 // the overlay returned substitutes Apple Maps tile overlay.
                 // we need to keep a reference to remove it, in case we return back to Apple Maps.
-                self.tileServerOverlay = useCache(cache)
+                tileServerOverlay = useCache(cache)
             }
         }
         didSet {
@@ -105,8 +107,7 @@ class GPXMapView: MKMapView {
                 if tileServer == .apple {
                     overrideUserInterfaceStyle = .unspecified
                     NotificationCenter.default.post(name: .updateAppearance, object: nil, userInfo: nil)
-                }
-                else { // if map is third party, dark mode is disabled.
+                } else { // if map is third party, dark mode is disabled.
                     overrideUserInterfaceStyle = .light
                     NotificationCenter.default.post(name: .updateAppearance, object: nil, userInfo: nil)
                 }
@@ -135,16 +136,16 @@ class GPXMapView: MKMapView {
     ///
     required init?(coder aDecoder: NSCoder) {
         var tmpCoords: [CLLocationCoordinate2D] = [] //init with empty
-        self.currentSegmentOverlay = MKPolyline(coordinates: &tmpCoords, count: 0)
-        self.compassRect = CGRect.init(x: 0, y: 0, width: 36, height: 36)
+        currentSegmentOverlay = MKPolyline(coordinates: &tmpCoords, count: 0)
+        compassRect = CGRect.init(x: 0, y: 0, width: 36, height: 36)
         super.init(coder: aDecoder)
         
         // Rotation Gesture handling (for the map rotation's influence towards heading pointing arrow)
         rotationGesture = UIRotationGestureRecognizer(target: self, action: #selector(rotationGestureHandling(_:)))
         
-        self.addGestureRecognizer(rotationGesture)
-        self.isUserInteractionEnabled = true
-        self.isMultipleTouchEnabled = true
+        addGestureRecognizer(rotationGesture)
+        isUserInteractionEnabled = true
+        isMultipleTouchEnabled = true
     }
     
     ///
@@ -153,7 +154,7 @@ class GPXMapView: MKMapView {
     override func layoutSubviews() {
         super.layoutSubviews()
         // set compass position by setting its frame
-        if let compassView = self.subviews.filter({ $0.isKind(of:NSClassFromString("MKCompassView")!) }).first {
+        if let compassView = subviews.filter({ $0.isKind(of: NSClassFromString("MKCompassView")!) }).first {
             if compassRect.origin.x != 0 {
                 compassView.frame = compassRect
             }
@@ -165,23 +166,23 @@ class GPXMapView: MKMapView {
     /// hides apple maps stuff when map tile != apple.
     func updateMapInformation(_ tileServer: GPXTileServer) {
         if let logoClass = NSClassFromString("MKAppleLogoImageView"),
-           let mapLogo = self.subviews.filter({ $0.isKind(of: logoClass) }).first {
+           let mapLogo = subviews.filter({ $0.isKind(of: logoClass) }).first {
             mapLogo.isHidden = (tileServer != .apple)
         }
         
         if let textClass = NSClassFromString("MKAttributionLabel"),
-           let mapText = self.subviews.filter({ $0.isKind(of: textClass) }).first {
+           let mapText = subviews.filter({ $0.isKind(of: textClass) }).first {
             mapText.isHidden = (tileServer != .apple)
         }
     }
     
     /// Handles rotation detected from user, for heading arrow to update.
     @objc func rotationGestureHandling(_ gesture: UIRotationGestureRecognizer) {
-        self.headingOffset = gesture.rotation
-        self.updateHeading()
+        headingOffset = gesture.rotation
+        updateHeading()
         
         if gesture.state == .ended {
-            self.headingOffset = nil
+            headingOffset = nil
         }
     }
     
@@ -194,10 +195,10 @@ class GPXMapView: MKMapView {
     ///     - point: The location in which the waypoint has to be added.
     ///
     func addWaypointAtViewPoint(_ point: CGPoint) {
-        let coords: CLLocationCoordinate2D = self.convert(point, toCoordinateFrom: self)
+        let coords: CLLocationCoordinate2D = convert(point, toCoordinateFrom: self)
         let waypoint = GPXWaypoint(coordinate: coords)
-        self.addWaypoint(waypoint)
-        self.coreDataHelper.add(toCoreData: waypoint)
+        addWaypoint(waypoint)
+        coreDataHelper.add(toCoreData: waypoint)
         
     }
     
@@ -207,9 +208,9 @@ class GPXMapView: MKMapView {
     /// - Parameters: The waypoint to add to the map.
     ///
     func addWaypoint(_ waypoint: GPXWaypoint) {
-    	self.session.addWaypoint(waypoint)
-        self.addAnnotation(waypoint)
-        self.extent.extendAreaToIncludeLocation(waypoint.coordinate)
+    	session.addWaypoint(waypoint)
+        addAnnotation(waypoint)
+        extent.extendAreaToIncludeLocation(waypoint.coordinate)
     }
     
     ///
@@ -223,18 +224,16 @@ class GPXMapView: MKMapView {
             print("Waypoint not found")
             return
         } 
-        self.removeAnnotation(waypoint)
-        self.session.waypoints.remove(at: index!)
-        self.coreDataHelper.deleteWaypoint(fromCoreDataAt: index!)
-        //TODO: update map extent?
-        
+        removeAnnotation(waypoint)
+        session.waypoints.remove(at: index!)
+        coreDataHelper.deleteWaypoint(fromCoreDataAt: index!)
     }
     
     ///
     /// Updates the heading arrow based on the heading information
     ///
     func updateHeading() {
-        guard let heading = self.heading else { return }
+        guard let heading = heading else { return }
         
         headingImageView?.isHidden = false
         let rotation = CGFloat((heading.trueHeading - camera.heading)/180 * Double.pi)
@@ -257,14 +256,14 @@ class GPXMapView: MKMapView {
     ///
     func addPointToCurrentTrackSegmentAtLocation(_ location: CLLocation) {
     let pt = GPXTrackPoint(location: location)
-        self.coreDataHelper.add(toCoreData: pt, withTrackSegmentID: session.trackSegments.count)
-        self.session.addPointToCurrentTrackSegmentAtLocation(location)
+        coreDataHelper.add(toCoreData: pt, withTrackSegmentID: session.trackSegments.count)
+        session.addPointToCurrentTrackSegmentAtLocation(location)
         //redrawCurrent track segment overlay
         //First remove last overlay, then re-add the overlay updated with the new point
-        self.removeOverlay(currentSegmentOverlay)
-        currentSegmentOverlay = self.session.currentSegment.overlay
-        self.addOverlay(currentSegmentOverlay)
-        self.extent.extendAreaToIncludeLocation(location.coordinate)
+        removeOverlay(currentSegmentOverlay)
+        currentSegmentOverlay = session.currentSegment.overlay
+        addOverlay(currentSegmentOverlay)
+        extent.extendAreaToIncludeLocation(location.coordinate)
     }
     
     ///
@@ -272,9 +271,9 @@ class GPXMapView: MKMapView {
     /// initializes currentSegment to a new one.
     ///
     func startNewTrackSegment() {
-        if self.session.currentSegment.trackpoints.count > 0 {
-            self.session.startNewTrackSegment()
-            self.currentSegmentOverlay = MKPolyline()
+        if session.currentSegment.trackpoints.count > 0 {
+            session.startNewTrackSegment()
+            currentSegmentOverlay = MKPolyline()
         }
     }
     
@@ -282,22 +281,22 @@ class GPXMapView: MKMapView {
     /// Finishes current segment.
     ///
     func finishCurrentSegment() {
-        self.startNewTrackSegment() //basically, we need to append the segment to the list of segments
+        startNewTrackSegment() //basically, we need to append the segment to the list of segments
     }
     
     ///
     /// Clears map.
     ///
     func clearMap() {
-        self.session.reset()
-        self.removeOverlays(self.overlays)
-        self.removeAnnotations(self.annotations)
-        self.extent = GPXExtentCoordinates()
+        session.reset()
+        removeOverlays(overlays)
+        removeAnnotations(annotations)
+        extent = GPXExtentCoordinates()
         
         //add tile server overlay
         //by removing all overlays, tile server overlay is also removed. We need to add it back
         if tileServer != .apple {
-            self.addOverlay(tileServerOverlay, level: .aboveLabels)
+            addOverlay(tileServerOverlay, level: .aboveLabels)
         }
     }
     
@@ -307,22 +306,15 @@ class GPXMapView: MKMapView {
     ///
     ///
     func exportToGPXString() -> String {
-        return self.session.exportToGPXString()
+        return session.exportToGPXString()
     }
    
     ///
     /// Sets the map region to display all the GPX data in the map (segments and waypoints).
     ///
     func regionToGPXExtent() {
-        self.setRegion(extent.region, animated: true)
+        setRegion(extent.region, animated: true)
     }
-
-
-    /*
-    func importFromGPXString(gpxString: String) {
-        // TODO
-    }
-    */
     
     /// Imports GPX contents into the map.
     ///
@@ -330,67 +322,69 @@ class GPXMapView: MKMapView {
     ///     - gpx: The result of loading a gpx file with iOS-GPX-Framework.
     ///
     func importFromGPXRoot(_ gpx: GPXRoot) {
-        //clear current map
-        self.clearMap()
-        //add waypoints
-        for pt in gpx.waypoints {
-            self.addWaypoint(pt)
-            self.coreDataHelper.add(toCoreData: pt)
+        clearMap()
+        addWaypoints(for: gpx)
+        addTrackSegments(for: gpx)
+    }
+
+    private func addWaypoints(for gpx: GPXRoot, fromImport: Bool = true) {
+        for waypoint in gpx.waypoints {
+            addWaypoint(waypoint)
+            if fromImport {
+                coreDataHelper.add(toCoreData: waypoint)
+            }
         }
-        //add track segments
-        self.session.tracks = gpx.tracks
-        for oneTrack in self.session.tracks {
-            self.session.totalTrackedDistance += oneTrack.length
+    }
+
+    private func addTrackSegments(for gpx: GPXRoot) {
+        session.tracks = gpx.tracks
+        for oneTrack in session.tracks {
+            session.totalTrackedDistance += oneTrack.length
             for segment in oneTrack.tracksegments {
                 let overlay = segment.overlay
-                self.addOverlay(overlay)
+                addOverlay(overlay)
                 let segmentTrackpoints = segment.trackpoints
                 //add point to map extent
                 for waypoint in segmentTrackpoints {
-                    self.extent.extendAreaToIncludeLocation(waypoint.coordinate)
+                    extent.extendAreaToIncludeLocation(waypoint.coordinate)
                 }
             }
         }
     }
     
     func continueFromGPXRoot(_ gpx: GPXRoot) {
-        //clear current map
-        self.clearMap()
+        clearMap()
+        addWaypoints(for: gpx, fromImport: false)
         
-        for pt in gpx.waypoints {
-            self.addWaypoint(pt)
-        }
-        
-        self.session.continueFromGPXRoot(gpx)
+        session.continueFromGPXRoot(gpx)
         
         // for last session's previous tracks, through resuming
-        for oneTrack in self.session.tracks {
+        for oneTrack in session.tracks {
             session.totalTrackedDistance += oneTrack.length
             for segment in oneTrack.tracksegments {
                 let overlay = segment.overlay
-                self.addOverlay(overlay)
+                addOverlay(overlay)
                 
                 let segmentTrackpoints = segment.trackpoints
                 //add point to map extent
                 for waypoint in segmentTrackpoints {
-                    self.extent.extendAreaToIncludeLocation(waypoint.coordinate)
+                    extent.extendAreaToIncludeLocation(waypoint.coordinate)
                 }
             }
         }
         
         // for last session track segment
-        for trackSegment in self.session.trackSegments {
+        for trackSegment in session.trackSegments {
             
             let overlay = trackSegment.overlay
-            self.addOverlay(overlay)
+            addOverlay(overlay)
             
             let segmentTrackpoints = trackSegment.trackpoints
             //add point to map extent
             for waypoint in segmentTrackpoints {
-                self.extent.extendAreaToIncludeLocation(waypoint.coordinate)
+                extent.extendAreaToIncludeLocation(waypoint.coordinate)
             }
         }
         
     }
 }
-

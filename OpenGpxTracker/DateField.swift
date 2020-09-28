@@ -19,5 +19,5 @@ struct DateField {
     /// To facilitate explanation of said pattern, that falls under same type, if needed.
     ///
     /// Key of subtitle should be accessible in `patterns`
-    var subtitles: [String : String]?
+    var subtitles: [String: String]?
 }

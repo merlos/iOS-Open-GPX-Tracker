@@ -31,29 +31,23 @@ class MailerManager: NSObject, MFMailComposeViewControllerDelegate {
         var body = "Open GPX Tracker \n is an open source app for Apple devices. Create GPS tracks and export them to GPX files."
         composer.setMessageBody(body, isHTML: true)
         let fileData: NSData = NSData.dataWithContentsOfFile(filepath, options: .DataReadingMappedIfSafe, error: nil)
-        composer.addAttachmentData(fileData, mimeType:"application/gpx+xml", fileName: filepath.lastPathComponent)
+        composer.addAttachmentData(fileData, mimeType: "application/gpx+xml", fileName: filepath.lastPathComponent)
     
         //Display the comopser view controller
         controller.presentViewController(composer, animated: true, completion: nil)
     
     }
-    
-    
-    
-    
+
     func mailComposeController(controller: MFMailComposeViewController!,
-        didFinishWithResult result: MFMailComposeResult,
-        error: NSError!) {
-            
+                               didFinishWithResult result: MFMailComposeResult,
+                               error: NSError!) {
             switch result.value {
             case MFMailComposeResultSent.value:
                 println("Email sent")
-                
             default:
                 println("Whoops")
             }
             
             controller.dismissViewControllerAnimated(true, completion: nil)
-            
     }
 }

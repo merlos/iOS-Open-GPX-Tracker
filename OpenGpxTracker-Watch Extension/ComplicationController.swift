@@ -8,12 +8,12 @@
 
 import ClockKit
 
-
 class ComplicationController: NSObject, CLKComplicationDataSource {
     
     // MARK: - Timeline Configuration
     
-    func getSupportedTimeTravelDirections(for complication: CLKComplication, withHandler handler: @escaping (CLKComplicationTimeTravelDirections) -> Void) {
+    func getSupportedTimeTravelDirections(for complication: CLKComplication,
+                                          withHandler handler: @escaping (CLKComplicationTimeTravelDirections) -> Void) {
         handler([.forward, .backward])
     }
     
@@ -36,12 +36,14 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
         handler(nil)
     }
     
-    func getTimelineEntries(for complication: CLKComplication, before date: Date, limit: Int, withHandler handler: @escaping ([CLKComplicationTimelineEntry]?) -> Void) {
+    func getTimelineEntries(for complication: CLKComplication, before date: Date, limit: Int,
+                            withHandler handler: @escaping ([CLKComplicationTimelineEntry]?) -> Void) {
         // Call the handler with the timeline entries prior to the given date
         handler(nil)
     }
     
-    func getTimelineEntries(for complication: CLKComplication, after date: Date, limit: Int, withHandler handler: @escaping ([CLKComplicationTimelineEntry]?) -> Void) {
+    func getTimelineEntries(for complication: CLKComplication, after date: Date, limit: Int,
+                            withHandler handler: @escaping ([CLKComplicationTimelineEntry]?) -> Void) {
         // Call the handler with the timeline entries after to the given date
         handler(nil)
     }

@@ -39,7 +39,6 @@ enum GPXTileServer: Int {
         case .openStreetMap: return "Open Street Map"
         case .cartoDB: return "Carto DB"
         case .openTopoMap: return "OpenTopoMap"
-        //case .AnotherMap: return "My Map"
         }
     }
     
@@ -48,10 +47,8 @@ enum GPXTileServer: Int {
         switch self {
         case .apple: return ""
         case .openStreetMap: return "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-       // case .cartoDB: return "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png"
         case .cartoDB: return "https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}.png"
         case .openTopoMap: return "https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png"
-        //case .AnotherMap: return "http://another.map.tile.server/{z}/{x}/{y}.png"
         }
     }
     
@@ -65,10 +62,9 @@ enum GPXTileServer: Int {
     var subdomains: [String] {
         switch self {
         case .apple: return []
-        case .openStreetMap: return ["a","b","c"]
-        case .cartoDB: return ["a","b","c"]
-        case .openTopoMap: return ["a","b","c"]
-        //case .AnotherMap: return ["a","b"]
+        case .openStreetMap: return ["a", "b", "c"]
+        case .cartoDB: return ["a", "b", "c"]
+        case .openTopoMap: return ["a", "b", "c"]
         }
     }
     /// Maximum zoom level the tile server supports
@@ -83,11 +79,14 @@ enum GPXTileServer: Int {
     ///
     var maximumZ: Int {
         switch self {
-            case .apple: return -1
-            case .openStreetMap: return 19
-            case .cartoDB: return 21
-            case .openTopoMap: return 17
-            //case .AnotherMap: return 10
+        case .apple:
+            return -1
+        case .openStreetMap:
+            return 19
+        case .cartoDB:
+            return 21
+        case .openTopoMap:
+            return 17
         }
     }
     ///
@@ -100,11 +99,14 @@ enum GPXTileServer: Int {
     ///
     var minimumZ: Int {
         switch self {
-            case .apple: return 0
-            case .openStreetMap: return 0
-            case .cartoDB: return 0
-            case .openTopoMap: return 0
-            //case .AnotherMap: return ["a","b"]
+        case .apple:
+            return 0
+        case .openStreetMap:
+            return 0
+        case .cartoDB:
+            return 0
+        case .openTopoMap:
+            return 0
         }
     }
     
@@ -121,11 +123,9 @@ enum GPXTileServer: Int {
         case .openStreetMap: return 750.0
         case .cartoDB: return 200.0
         case .openTopoMap: return 2850.0
-            //case .AnotherMap: return 1000.0
         }
     }
-    
-    
+
     /// Returns the number of tile servers currently defined
     static var count: Int { return GPXTileServer.openTopoMap.rawValue + 1}
 }

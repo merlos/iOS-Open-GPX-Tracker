@@ -11,7 +11,7 @@ import UIKit
 @available(iOS 9.0, *)
 class DateFieldTypeView: UIScrollView {
     
-    // MARK:- Localization Strings
+    // MARK: Localization Strings
     private let kSingleDigit = NSLocalizedString("SINGLE_DIGIT", comment: "")
     private let kFull = NSLocalizedString("FULL_TEXT", comment: "")
     private let kText = NSLocalizedString("TEXT", comment: "")
@@ -31,66 +31,64 @@ class DateFieldTypeView: UIScrollView {
     
     /// valid date fields that are to be displayed.
     private var dateFields: [DateField] {
-        get {
-            var fields = [DateField]()
-            // some subtitles are an attempt to clarify, in case of different Locales, causing some example of patterns to look the same.
-            fields.append(DateField(type: NSLocalizedString("YEAR", comment: ""),
-                                    patterns: ["YY", "YYYY"]))
-            fields.append(DateField(type: NSLocalizedString("MONTH", comment: ""),
-                                    patterns: ["M", "MM", "MMMMM", "MMM", "MMMM"],
-                                    subtitles: ["M" : kSingleDigit,
-                                                "MMMMM" : "•",
-                                                "MMM" : "• • •",
-                                                "MMMM" : kFull]))
-            fields.append(DateField(type: NSLocalizedString("DAY", comment: ""),
-                                    patterns: ["d", "dd", "D"],
-                                    subtitles: ["d" : kSingleDigit,
-                                                "dd" : kOfMonth,
-                                                "D" : kOfYear]))
-            fields.append(DateField(type: NSLocalizedString("HOUR", comment: ""),
-                                    patterns: ["h", "hh", "H", "HH", "K", "KK", "k", "kk"],
-                                    subtitles: ["h" : kSingleDigit, "hh" : "12hr",
-                                                "H" : kSingleDigit, "HH" : "24hr",
-                                                "K" : kSingleDigit, "KK" : "0-11",
-                                                "k" : kSingleDigit, "kk" : "1-24"]))
-            fields.append(DateField(type: NSLocalizedString("MINUTE", comment: ""),
-                                    patterns: ["m", "mm"],
-                                    subtitles: ["m" : kSingleDigit]))
-            fields.append(DateField(type: NSLocalizedString("SECOND", comment: ""),
-                                    patterns: ["s", "ss"],
-                                    subtitles: ["s" : kSingleDigit]))
-            fields.append(DateField(type: NSLocalizedString("DAY_OF_THE_WEEK", comment: ""),
-                                    patterns: ["e", "ee", "EEEEE", "EEEEEE", "E", "EEEE"],
-                                    subtitles: ["e" : kSingleDigit,
-                                                "EEEEE" : "•",
-                                                "EEEEEE" : "• •",
-                                                "E" : "• • •",
-                                                "EEEE" : kFull]))
-            fields.append(DateField(type: NSLocalizedString("TIME_OF_DAY", comment: ""),
-                                    patterns: ["aaaaa", "a", "B"],
-                                    subtitles: ["aaaaa" : kSingleDigit,
-                                                "B" : "Text"]))
-            fields.append(DateField(type: NSLocalizedString("WEEK", comment: ""),
-                                    patterns: ["w", "ww", "W"],
-                                    subtitles: ["w" : kSingleDigit,
-                                                "ww" : kOfYear,
-                                                "W" : kOfMonth]))
-            fields.append(DateField(type: NSLocalizedString("QUARTER", comment: ""),
-                                    patterns: ["Q", "QQ", "QQQ", "QQQQ"]))
-            fields.append(DateField(type: NSLocalizedString("ERA", comment: ""),
-                                    patterns: ["GGGGG", "G", "GGGG"]))
-            fields.append(DateField(type: NSLocalizedString("TIME_ZONE", comment: ""),
-                                    patterns: ["X", "Z", "ZZZZZ", "z", "O", "ZZZZ", "zzzz", "VVV", "VVVV"],
-                                    subtitles: ["z" : kAbbr,
-                                                "zzzz" : kFull,
-                                                "X" : kUTCoffset,
-                                                "O" : kGMTshort,
-                                                "ZZZZ" : kGMTfull,
-                                                "VVV" : kLocation,
-                                                "VVVV" : kLocationTime]))
-        
-            return fields
-        }
+        var fields = [DateField]()
+        // some subtitles are an attempt to clarify, in case of different Locales, causing some example of patterns to look the same.
+        fields.append(DateField(type: NSLocalizedString("YEAR", comment: ""),
+                                patterns: ["YY", "YYYY"]))
+        fields.append(DateField(type: NSLocalizedString("MONTH", comment: ""),
+                                patterns: ["M", "MM", "MMMMM", "MMM", "MMMM"],
+                                subtitles: ["M": kSingleDigit,
+                                            "MMMMM": "•",
+                                            "MMM": "• • •",
+                                            "MMMM": kFull]))
+        fields.append(DateField(type: NSLocalizedString("DAY", comment: ""),
+                                patterns: ["d", "dd", "D"],
+                                subtitles: ["d": kSingleDigit,
+                                            "dd": kOfMonth,
+                                            "D": kOfYear]))
+        fields.append(DateField(type: NSLocalizedString("HOUR", comment: ""),
+                                patterns: ["h", "hh", "H", "HH", "K", "KK", "k", "kk"],
+                                subtitles: ["h": kSingleDigit, "hh": "12hr",
+                                            "H": kSingleDigit, "HH": "24hr",
+                                            "K": kSingleDigit, "KK": "0-11",
+                                            "k": kSingleDigit, "kk": "1-24"]))
+        fields.append(DateField(type: NSLocalizedString("MINUTE", comment: ""),
+                                patterns: ["m", "mm"],
+                                subtitles: ["m": kSingleDigit]))
+        fields.append(DateField(type: NSLocalizedString("SECOND", comment: ""),
+                                patterns: ["s", "ss"],
+                                subtitles: ["s": kSingleDigit]))
+        fields.append(DateField(type: NSLocalizedString("DAY_OF_THE_WEEK", comment: ""),
+                                patterns: ["e", "ee", "EEEEE", "EEEEEE", "E", "EEEE"],
+                                subtitles: ["e": kSingleDigit,
+                                            "EEEEE": "•",
+                                            "EEEEEE": "• •",
+                                            "E": "• • •",
+                                            "EEEE": kFull]))
+        fields.append(DateField(type: NSLocalizedString("TIME_OF_DAY", comment: ""),
+                                patterns: ["aaaaa", "a", "B"],
+                                subtitles: ["aaaaa": kSingleDigit,
+                                            "B": "Text"]))
+        fields.append(DateField(type: NSLocalizedString("WEEK", comment: ""),
+                                patterns: ["w", "ww", "W"],
+                                subtitles: ["w": kSingleDigit,
+                                            "ww": kOfYear,
+                                            "W": kOfMonth]))
+        fields.append(DateField(type: NSLocalizedString("QUARTER", comment: ""),
+                                patterns: ["Q", "QQ", "QQQ", "QQQQ"]))
+        fields.append(DateField(type: NSLocalizedString("ERA", comment: ""),
+                                patterns: ["GGGGG", "G", "GGGG"]))
+        fields.append(DateField(type: NSLocalizedString("TIME_ZONE", comment: ""),
+                                patterns: ["X", "Z", "ZZZZZ", "z", "O", "ZZZZ", "zzzz", "VVV", "VVVV"],
+                                subtitles: ["z": kAbbr,
+                                            "zzzz": kFull,
+                                            "X": kUTCoffset,
+                                            "O": kGMTshort,
+                                            "ZZZZ": kGMTfull,
+                                            "VVV": kLocation,
+                                            "VVVV": kLocationTime]))
+
+        return fields
     }
     /// Default initializer
     override init(frame: CGRect) {
@@ -103,7 +101,6 @@ class DateFieldTypeView: UIScrollView {
         super.init(coder: coder)
         viewDidInit()
     }
-    
     
     /// Things to do, when view successfully inits.
     func viewDidInit() {
@@ -127,8 +124,10 @@ class DateFieldTypeView: UIScrollView {
         }
         
         self.addSubview(scrollStack)
-        self.addConstraints( NSLayoutConstraint.constraints(withVisualFormat: "H:|-20-[sStack]-20-|", options: .alignAllLeft, metrics: nil, views: ["sStack": scrollStack]) )
-
+        self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-20-[sStack]-20-|",
+                                                           options: .alignAllLeft,
+                                                           metrics: nil,
+                                                           views: ["sStack": scrollStack]))
     }
     
     /// Generates vertical stack that encapsulates text title, with all date patterns of same type.
@@ -163,7 +162,6 @@ class DateFieldTypeView: UIScrollView {
     ///     |SUBTITLE|SUBTITLE|
     ///
     func genHStack(field: DateField) -> UIStackView {
-        
         let hStack = UIStackView()
         hStack.axis = .horizontal
         hStack.distribution = .fill
@@ -184,8 +182,7 @@ class DateFieldTypeView: UIScrollView {
             // color of button font
             if #available(iOS 13, *) {
                 button.setTitleColor(.blackAndWhite, for: .normal)
-            }
-            else {
+            } else {
                 button.setTitleColor(.black, for: .normal)
             }
             
@@ -194,41 +191,54 @@ class DateFieldTypeView: UIScrollView {
             
             button.addTarget(self, action: #selector(buttonTapped(sender:)), for: .touchUpInside)
 
-            
             // Subtitle implementation (optional)
             if let subtitle = field.subtitles?[pattern] {
-                let subtitleLabel = UIInsetLabel()
-                let subVStack = UIStackView()
-                subVStack.axis = .vertical
-                subVStack.distribution = .fill
-                subVStack.alignment = .leading
-                subVStack.spacing = -2.5
-                subVStack.translatesAutoresizingMaskIntoConstraints = false
-                
-                subtitleLabel.insets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-                subtitleLabel.text = subtitle.uppercased()
-                subtitleLabel.font = .boldSystemFont(ofSize: 8)
-                subtitleLabel.textAlignment = .center
-                
-                subVStack.addArrangedSubview(button)
-                subVStack.addArrangedSubview(subtitleLabel)
-                NSLayoutConstraint(item: subtitleLabel, attribute: .width, relatedBy: .equal, toItem: button, attribute: .width, multiplier: 1, constant: 0).isActive = true
-                hStack.addArrangedSubview(subVStack)
-            }
-            else {
+                hStack.addArrangedSubview(genSubtitleView(subtitle: subtitle, button: button))
+            } else {
                 hStack.addArrangedSubview(button)
             }
-
         }
         
         return hStack
     }
     
+    /// Generates subtitle view for genHStack(field:)
+    ///
+    ///        |pattern|pattern|pattern|
+    ///     -> |SUBTITLE|SUBTITLE|
+    ///
+    func genSubtitleView(subtitle: String, button: DatePatternButton) -> UIStackView {
+        let subtitleLabel = UIInsetLabel()
+        let subVStack = UIStackView()
+        subVStack.axis = .vertical
+        subVStack.distribution = .fill
+        subVStack.alignment = .leading
+        subVStack.spacing = -2.5
+        subVStack.translatesAutoresizingMaskIntoConstraints = false
+        
+        subtitleLabel.insets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        subtitleLabel.text = subtitle.uppercased()
+        subtitleLabel.font = .boldSystemFont(ofSize: 8)
+        subtitleLabel.textAlignment = .center
+        
+        subVStack.addArrangedSubview(button)
+        subVStack.addArrangedSubview(subtitleLabel)
+        let subtitleConstraint = NSLayoutConstraint(item: subtitleLabel,
+                                                    attribute: .width,
+                                                    relatedBy: .equal,
+                                                    toItem: button,
+                                                    attribute: .width,
+                                                    multiplier: 1,
+                                                    constant: 0)
+        subtitleConstraint.isActive = true
+        
+        return subVStack
+    }
+    
     /// Called when any pattern button is tapped.
     @objc func buttonTapped(sender: DatePatternButton) {
-        NotificationCenter.default.post(name: .dateFieldTapped, object: nil, userInfo: ["sender" : sender.pattern])
+        NotificationCenter.default.post(name: .dateFieldTapped, object: nil, userInfo: ["sender": sender.pattern])
     }
-
     
 }
 /// Notifications name of for date pattern sending

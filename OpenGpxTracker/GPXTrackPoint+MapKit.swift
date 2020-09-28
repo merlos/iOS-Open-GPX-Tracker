@@ -5,7 +5,6 @@
 //  Created by merlos on 20/09/14.
 //
 
-
 import Foundation
 import UIKit
 import MapKit
@@ -22,6 +21,4 @@ extension GPXTrackPoint {
         self.time = Date()
         self.elevation = location.altitude
     }
-    
-    
 }

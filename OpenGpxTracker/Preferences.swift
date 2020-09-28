@@ -7,10 +7,8 @@
 //
 // Shared file: this file is also included in the OpenGpxTracker-Watch Extension target.
 
-
 import Foundation
 import CoreLocation
-
 
 /// Key on Defaults for the Tile Server integer.
 let kDefaultsKeyTileServerInt: String = "TileServerInt"
@@ -96,13 +94,15 @@ class Preferences: NSObject {
         } else { // get from locale config
             let locale = NSLocale.current
             _useImperial = !locale.usesMetricSystem
-            print("** Preferences:: NO defaults for useImperial. Using locale: \(locale.languageCode ?? "unknown") useImperial: \(_useImperial) usesMetric:\(locale.usesMetricSystem)")
+            let langCode = locale.languageCode ?? "unknown"
+            let useMetric = locale.usesMetricSystem
+            print("** Preferences:: NO defaults for useImperial. Using locale: \(langCode) useImperial: \(_useImperial) usesMetric:\(useMetric)")
         }
     
         // Use cache
         if let useCacheFromDefaults = defaults.object(forKey: kDefaultsKeyUseCache) as? Bool {
             _useCache = useCacheFromDefaults
-            print("Preferences:: loaded preference from defaults useCache= \(useCacheFromDefaults)");
+            print("Preferences:: loaded preference from defaults useCache= \(useCacheFromDefaults)")
         }
         
         // Map Tile server
@@ -255,10 +255,8 @@ class Preferences: NSObject {
     
     /// Get date format preset name
     var dateFormatPresetName: String {
-        get {
-            let presets =  ["Defaults", "ISO8601 (UTC)", "ISO8601 (UTC offset)", "Day, Date at time (12 hr)", "Day, Date at time (24 hr)"]
-            return _dateFormatPreset < presets.count ? presets[_dateFormatPreset] : "???"
-        }
+        let presets =  ["Defaults", "ISO8601 (UTC)", "ISO8601 (UTC offset)", "Day, Date at time (12 hr)", "Day, Date at time (24 hr)"]
+        return _dateFormatPreset < presets.count ? presets[_dateFormatPreset] : "???"
     }
     
     /// Get and sets whether to use UTC for date format

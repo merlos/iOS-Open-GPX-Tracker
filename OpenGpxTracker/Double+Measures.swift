@@ -6,7 +6,6 @@
 //
 // Shared file: this file is also included in the OpenGpxTracker-Watch Extension target.
 
-
 import Foundation
 
 /// Number of meters in 1 mile (mi)
@@ -25,7 +24,6 @@ let kKilometersPerHourInOneMeterPerSecond = 3.6
 /// Number of miles per hour in 1 meter per second
 /// To convert m/s -> mph
 let kMilesPerHourInOneMeterPerSecond = 2.237
-
 
 /// Number of miles per hour in 1 meter per second
 ///

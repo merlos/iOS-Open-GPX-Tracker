@@ -14,35 +14,47 @@ extension UIColor {
     /// Main UI color
     static let mainUIColor = UIColor { (traitCollection: UITraitCollection) -> UIColor in
         switch traitCollection.userInterfaceStyle {
-            case .unspecified, .light:  return UIColor(red: 0, green: 0.61, blue: 0.86, alpha: 1)
-            case .dark:                 return .white
-            @unknown default:           return UIColor(red: 0, green: 0.61, blue: 0.86, alpha: 1)
-                }
+        case .unspecified, .light:
+            return UIColor(red: 0, green: 0.61, blue: 0.86, alpha: 1)
+        case .dark:
+            return .white
+        default:
+            return UIColor(red: 0, green: 0.61, blue: 0.86, alpha: 1)
+        }
     }
     
     /// Returns a colour opposite of trait collection (i.e. light gets black, dark gets white.)
     static let blackAndWhite = UIColor { (traitCollection: UITraitCollection) -> UIColor in
         switch traitCollection.userInterfaceStyle {
-            case .unspecified, .light:  return .black
-            case .dark:                 return .white
-            @unknown default:           return .systemGray
-                }
+        case .unspecified, .light:
+            return .black
+        case .dark:
+            return .white
+        default:
+            return .systemGray
+        }
     }
 
     static let keyboardColor = UIColor { (traitCollection: UITraitCollection) -> UIColor in
         switch traitCollection.userInterfaceStyle {
-            case .unspecified, .light:  return .lightKeyboard
-            case .dark:                 return .darkKeyboard
-            @unknown default:           return .lightKeyboard
-                }
+        case .unspecified, .light:
+            return .lightKeyboard
+        case .dark:
+            return .darkKeyboard
+        default:
+            return .lightKeyboard
+        }
     }
     
     static let highlightKeyboardColor = UIColor { (traitCollection: UITraitCollection) -> UIColor in
         switch traitCollection.userInterfaceStyle {
-            case .unspecified, .light:  return .highlightLightKeyboard
-            case .dark:                 return .highlightDarkKeyboard
-            @unknown default:           return .highlightLightKeyboard
-                }
+        case .unspecified, .light:
+            return .highlightLightKeyboard
+        case .dark:
+            return .highlightDarkKeyboard
+        default:
+            return .highlightLightKeyboard
+        }
     }
     
 }

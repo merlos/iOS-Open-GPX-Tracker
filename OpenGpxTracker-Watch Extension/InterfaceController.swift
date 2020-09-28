@@ -44,7 +44,6 @@ let kSignalAccuracy3 = 51.0
 let kSignalAccuracy2 = 101.0
 let kSignalAccuracy1 = 201.0
 
-
 ///
 /// Main View Controller of the Watch Application. It is loaded when the application is launched
 ///
@@ -64,8 +63,7 @@ class InterfaceController: WKInterfaceController {
     @IBOutlet var coordinatesLabel: WKInterfaceLabel!
     @IBOutlet var altitudeLabel: WKInterfaceLabel!
     @IBOutlet var speedLabel: WKInterfaceLabel!
-    
-    
+
     /// Location Manager
     let locationManager: CLLocationManager = {
         let manager = CLLocationManager()
@@ -185,13 +183,11 @@ class InterfaceController: WKInterfaceController {
     
     /// Editing Waypoint Temporal Reference
     var lastLocation: CLLocation? //Last point of current segment.
-    
-    
+
     override func awake(withContext context: Any?) {
         print("InterfaceController:: awake")
         super.awake(withContext: context)
-        
-        
+
         totalTrackedDistanceLabel.setText( 0.00.toDistance(useImperial: preferences.useImperial))
         
         if gpxTrackingStatus == .notStarted {
@@ -207,8 +203,7 @@ class InterfaceController: WKInterfaceController {
             signalImageView.setImage(signalImage0)
         }
     }
-    
-    
+
     override func willActivate() {
         // This method is called when watch view controller is about to be visible to user
          print("InterfaceController:: willActivate")
@@ -233,9 +228,7 @@ class InterfaceController: WKInterfaceController {
             locationManager.stopUpdatingLocation()
         }
     }
-    
-    
-    
+
     ///
     /// Main Start/Pause Button was tapped.
     ///
@@ -292,7 +285,7 @@ class InterfaceController: WKInterfaceController {
         let action = WKAlertAction(title: "Done", style: .default) {}
         
         presentAlert(withTitle: NSLocalizedString("FILE_SAVED_TITLE", comment: "no comment"),
-                     message:  "\(filename).gpx", preferredStyle: .alert, actions: [action])
+                     message: "\(filename).gpx", preferredStyle: .alert, actions: [action])
         
     }
     
@@ -304,8 +297,7 @@ class InterfaceController: WKInterfaceController {
     @IBAction func resetButtonTapped() {
         self.gpxTrackingStatus = .notStarted
     }
-    
-   
+
     /// returns a string with the format of current date dd-MMM-yyyy-HHmm' (20-Jun-2018-1133)
     ///
     func defaultFilename() -> String {
@@ -314,8 +306,7 @@ class InterfaceController: WKInterfaceController {
         print("fileName:" + dateFormatter.string(from: Date()))
         return dateFormatter.string(from: Date())
     }
-    
-    
+
     ///
     /// Checks the location services status
     /// - Are location services enabled (access to location device wide)? If not => displays an alert
@@ -346,9 +337,10 @@ class InterfaceController: WKInterfaceController {
             print("LocationServicesDisabledAlert: cancel pressed")
         }
         
-        presentAlert(withTitle: NSLocalizedString("LOCATION_SERVICES_DISABLED", comment: "no comment"), message: NSLocalizedString("ENABLE_LOCATION_SERVICES", comment: "no comment"), preferredStyle: .alert, actions: [button])
+        presentAlert(withTitle: NSLocalizedString("LOCATION_SERVICES_DISABLED", comment: "no comment"),
+                     message: NSLocalizedString("ENABLE_LOCATION_SERVICES", comment: "no comment"),
+                     preferredStyle: .alert, actions: [button])
     }
-    
     
     ///
     /// Displays an alert that informs the user that access to location was denied for this app (other apps may have access).
@@ -362,7 +354,9 @@ class InterfaceController: WKInterfaceController {
             print("LocationServicesDeniedAlert: cancel pressed")
         }
         
-        presentAlert(withTitle: NSLocalizedString("ACCESS_TO_LOCATION_DENIED", comment: "no comment"), message: NSLocalizedString("ALLOW_LOCATION", comment: "no comment"), preferredStyle: .alert, actions: [button])
+        presentAlert(withTitle: NSLocalizedString("ACCESS_TO_LOCATION_DENIED", comment: "no comment"),
+                     message: NSLocalizedString("ALLOW_LOCATION", comment: "no comment"),
+                     preferredStyle: .alert, actions: [button])
     }
 
 }
@@ -382,7 +376,6 @@ extension InterfaceController: StopWatchDelegate {
 }
 
 // MARK: CLLocationManagerDelegate
-
 
 extension InterfaceController: CLLocationManagerDelegate {
     
@@ -417,9 +410,10 @@ extension InterfaceController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         //updates signal image accuracy
         let newLocation = locations.first!
-        print("didUpdateLocation: received \(newLocation.coordinate) hAcc: \(newLocation.horizontalAccuracy) vAcc: \(newLocation.verticalAccuracy) floor: \(newLocation.floor?.description ?? "''")")
         
         let hAcc = newLocation.horizontalAccuracy
+        let vAcc = newLocation.verticalAccuracy
+        print("didUpdateLocation: received \(newLocation.coordinate) hAcc: \(hAcc) vAcc: \(vAcc) floor: \(newLocation.floor?.description ?? "''")")
 
         signalAccuracyLabel.setText(hAcc.toAccuracy(useImperial: preferences.useImperial))
         if hAcc < kSignalAccuracy6 {
@@ -434,7 +428,7 @@ extension InterfaceController: CLLocationManagerDelegate {
             self.signalImageView.setImage(signalImage2)
         } else if hAcc < kSignalAccuracy1 {
             self.signalImageView.setImage(signalImage1)
-        } else{
+        } else {
             self.signalImageView.setImage(signalImage0)
         }
         
@@ -455,6 +449,4 @@ extension InterfaceController: CLLocationManagerDelegate {
             //currentSegmentDistanceLabel.distance = map.currentSegmentDistance
         }
     }
-    
 }
-
