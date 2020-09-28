@@ -35,7 +35,7 @@ extension URL {
     }
     
     
-    /// Returns the allocated file a regular file in bytes
+    /// Returns the allocated file a regular file in bytes.
       func regularFileSize() throws -> UInt64 {
           let allocatedSizeResourceKeys: Set<URLResourceKey> = [
               .isRegularFileKey,

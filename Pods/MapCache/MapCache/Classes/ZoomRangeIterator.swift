@@ -7,23 +7,23 @@
 
 import Foundation
 
-/// Iterator that allows the use of ZoomRange in a for loop
+/// Iterator that allows the use of ZoomRange in a for loop.
 ///
-/// - SeeAlso: https://developer.apple.com/documentation/swift/iteratorprotocol
+/// - SeeAlso: [IteratorProtocol](https://developer.apple.com/documentation/swift/iteratorprotocol)
 public struct ZoomRangeIterator: IteratorProtocol {
     
-    /// keeps the counter of the iterator
+    /// Keeps the counter of the iterator.
     var  counter : UInt8 = 0
     
-    /// the range in question
+    /// The zoom range in question.
     var range: ZoomRange
     
-    /// receives the range to iterate.
+    /// Receives the range to iterate.
     init(_ range: ZoomRange) {
         self.range = range
     }
     
-    /// Gets next zoom value
+    /// Gets next zoom value.
     mutating public func next() -> Zoom? {
         guard counter < range.count else { return nil }
         let next = range.min + counter

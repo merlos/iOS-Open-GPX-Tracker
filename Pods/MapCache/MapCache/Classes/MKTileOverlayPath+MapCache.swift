@@ -12,7 +12,8 @@ import MapKit
 ///
 extension MKTileOverlayPath {
     
-    /// Creates a MkTileOverlayPath from a MapCache `TileCoords`
+    /// Creates a `MkTileOverlayPath` from a MapCache `TileCoords`
+    /// - Parameter tileCoords: coordinates of the tile
     init(tileCoords: TileCoords) {
         self.init()
         x = Int(tileCoords.tileX)
@@ -20,6 +21,7 @@ extension MKTileOverlayPath {
         z = Int(tileCoords.zoom)
     }
     
+    /// Returns the tile overlay path as a `TileCoords` object.
     func toTileCoords() -> TileCoords? {
         return TileCoords(tileX: UInt64(x), tileY: UInt64(y), zoom: UInt8(z))
     }
