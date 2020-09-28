@@ -67,6 +67,7 @@ enum GPXTileServer: Int {
         case .openTopoMap: return ["a", "b", "c"]
         }
     }
+    
     /// Maximum zoom level the tile server supports
     /// Tile servers provide files till a certain level of zoom that ranges from 0 to maximumZ.
     /// If map zooms more than the limit level, tiles won't be requested.
@@ -107,22 +108,6 @@ enum GPXTileServer: Int {
             return 0
         case .openTopoMap:
             return 0
-        }
-    }
-    
-    /// Minimum distance from the floor of the camera (in meters)
-    ///
-    /// Note that there is a relationship between  the mazimumZ and the camera distance to the floor.
-    /// Because of that, this parameter be automatically calculated in the future.
-    /// For existing tile servers, it was calculated with trial and error.
-    ///
-    /// Negative value means no limit.
-    var minCameraDistance: Double {
-        switch self {
-        case .apple: return -1.0 // Not limited
-        case .openStreetMap: return -1.0
-        case .cartoDB: return -1.0
-        case .openTopoMap: return -1.0
         }
     }
 
