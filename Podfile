@@ -5,9 +5,9 @@ def shared_pods
 end
 
 target 'OpenGpxTracker' do
-    platform :ios, '8.0'
+    platform :ios, '9.0'
     shared_pods
-    pod 'MapCache', '~> 0.8.0'
+    pod 'MapCache', '~> 0.9.0'
     #pod 'MapCache', git: 'https://github.com/merlos/MapCache.git' :branch => 'master'
     
 end

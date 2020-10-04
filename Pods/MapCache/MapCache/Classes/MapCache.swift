@@ -13,7 +13,7 @@ import MapKit
 /// This is the main implementation of the MapCacheProtocol, the actual cache
 ///
 
-public class MapCache : MapCacheProtocol {
+open class MapCache : MapCacheProtocol {
     ///
     /// Cofiguration that will be used to set up the behavior of the `MapCache` instance
     ///

@@ -80,7 +80,7 @@ open class DiskCache {
         do {
             try FileManager.default.createDirectory(at: self.folderURL, withIntermediateDirectories: true, attributes: nil)
         } catch {
-            Log.error(message: "Failed to create directory \(folderURL.absoluteString)", error: error)
+            Log.error(message: "DiskCache::init --- Failed to create directory \(folderURL.absoluteString)", error: error)
         }
         self.capacity = capacity
         cacheQueue.async(execute: {
@@ -107,7 +107,7 @@ open class DiskCache {
     /// Sets the data for the key synchronously.
     open func setDataSync(_ data: Data, forKey key: String) {
         let filePath = path(forKey: key)
-        
+        Log.debug(message: "DiskCache::setDataSync --- filePath: \(filePath) data count: \(data.count) key: \(key) diskBlocks:\(Double(data.count) / 4096.0)")
         //If the file exists get the current file diskSize.
         let fileURL = URL(fileURLWithPath: filePath)
         do {
@@ -117,7 +117,7 @@ open class DiskCache {
         do {
             try data.write(to: URL(fileURLWithPath: filePath), options: Data.WritingOptions.atomicWrite)
         } catch {
-            Log.error(message: "Failed to write key \(key)", error: error)
+            Log.error(message: "DiskCache::setDataSync --- Failed to write key: \(key) filepath: \(filePath)", error: error)
         }
         //Now add to the diskSize the file size
         var diskBlocks = Double(data.count) / 4096.0
@@ -166,15 +166,15 @@ open class DiskCache {
                     let filePath = self.folderURL.appendingPathComponent(filename).path
                     do {
                         try fileManager.removeItem(atPath: filePath)
-                        print(" ------------- Removed path \(filename)")
+                        Log.debug(message: "DiskCache::removeAllData --- Removed path \(filename)")
                     } catch {
-                        Log.error(message: "Failed to remove path \(filePath)", error: error)
+                        Log.error(message: "DiskCache::removeAllData --- Failed to remove path \(filePath)", error: error)
                     }
                 }
                 self.diskSize = self.calculateDiskSize()
-                print("++++++++++++++++ Size at the end \(self.diskSize)")
+                Log.debug(message: "DiskCache::removeAllData --- Size at the end \(self.diskSize)")
             } catch {
-                Log.error(message: "Failed to list directory", error: error)
+                Log.error(message: "DiskCache::removeAllData --- Failed to list directory", error: error)
             }
             if let completion = completion {
                 DispatchQueue.main.async {
@@ -193,7 +193,7 @@ open class DiskCache {
         do {
             try FileManager.default.removeItem(at: self.folderURL)
         } catch {
-            Log.error(message: "ERROR removing DiskCache folder", error: error)
+            Log.error(message: "Diskcache::removeCache --- Error removing DiskCache folder", error: error)
         }
     }
     
@@ -206,7 +206,7 @@ open class DiskCache {
                 if let data = getData() {
                     self.setDataSync(data, forKey: key)
                 } else {
-                    Log.error(message: "Failed to get data for key \(key)")
+                    Log.error(message: "DiskCache::updateAccessDate --- Failed to get data for key \(key)")
                 }
             }
         })
@@ -220,7 +220,7 @@ open class DiskCache {
             currentSize = try fileManager.allocatedDiskSizeForDirectory(at: folderURL)
         }
         catch {
-            Log.error(message: "Failed to get diskSize of directory", error: error)
+            Log.error(message: "DiskCache::calculateDiskSize --- Failed to get diskSize of directory", error: error)
         }
         return currentSize
     }
@@ -249,7 +249,7 @@ open class DiskCache {
             try fileManager.setAttributes([FileAttributeKey.modificationDate : now], ofItemAtPath: path)
             return true
         } catch {
-            Log.error(message: "Failed to update access date", error: error)
+            Log.error(message: "DiskCache::updateDiskAccessDate --- Failed to update access date", error: error)
             return false
         }
     }
@@ -264,9 +264,9 @@ open class DiskCache {
             substract(diskSize: fileSize)
         } catch {
             if isNoSuchFileError(error) {
-                Log.error(message: "Failed to remove file. File not found", error: error)
+                Log.error(message: "DiskCache::removeFile --- Failed to remove file. File not found", error: error)
             } else {
-                Log.error(message: "Failed to remove file. Size or other error", error: error)
+                Log.error(message: "DiskCache::removeFile --- Failed to remove file. Size or other error", error: error)
             }
         }
     }
@@ -279,7 +279,7 @@ open class DiskCache {
         if (self.diskSize >= diskSize) {
             self.diskSize -= diskSize
         } else {
-            Log.error(message: "Disk cache diskSize (\(self.diskSize)) is smaller than diskSize to substract (\(diskSize))")
+            Log.error(message: "DiskCache::diskSize --- (\(self.diskSize)) is smaller than diskSize to substract (\(diskSize))")
             self.diskSize = 0
         }
     }

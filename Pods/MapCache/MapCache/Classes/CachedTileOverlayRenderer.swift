@@ -17,11 +17,11 @@ import MapKit
 ///
 /// This renderer takes the maximumZ tile and extracts the portion that would correspond to the requested level.
 ///
-class CachedTileOverlayRenderer: MKTileOverlayRenderer {
+open class CachedTileOverlayRenderer: MKTileOverlayRenderer {
     
     /// Indicates if the renderer is ready to draw. It´s always true
     /// - SeeAlso: [MKOverlayRenderer](https://developer.apple.com/documentation/mapkit/mkoverlayrenderer)
-    override func canDraw(_ mapRect: MKMapRect, zoomScale: MKZoomScale) -> Bool {
+    public override func canDraw(_ mapRect: MKMapRect, zoomScale: MKZoomScale) -> Bool {
         // very important to call super.canDraw first, some sort of side effect happening which allows this to work (???).
         let _ = super.canDraw(mapRect, zoomScale: zoomScale)
         return true
@@ -31,7 +31,7 @@ class CachedTileOverlayRenderer: MKTileOverlayRenderer {
     /// - Parameters:
     ///     - mapRect: the map rect where the tiles need to be drawn
     ///     - zoomScale: current zoom in the map
-    override func draw(_ mapRect: MKMapRect, zoomScale: MKZoomScale, in context: CGContext) {
+    public override func draw(_ mapRect: MKMapRect, zoomScale: MKZoomScale, in context: CGContext) {
         
         // use default rendering if the type of overlay is not CachedTileOverlay
         guard let cachedOverlay = overlay as? CachedTileOverlay else {

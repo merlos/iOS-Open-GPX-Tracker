@@ -18,13 +18,13 @@ public typealias Zoom = UInt8
 public typealias TileNumber = UInt64
 
 /// Errors for Zoom.
-enum ZoomError: Error {
+public enum ZoomError: Error {
     /// Zoom largest value is 19.
     case largerThan19
 }
 
 /// Errors for a latitude.
-enum LatitudeError: Error {
+public enum LatitudeError: Error {
     /// Overflow if latitud is smaller than the minimum.
     case overflowMin
     /// Overflow if latitud is greater than the maximum.
@@ -32,7 +32,7 @@ enum LatitudeError: Error {
 }
 
 /// Errors for a longitude.
-enum LongitudeError: Error {
+public enum LongitudeError: Error {
      /// Overflow if latitud is smaller than the minimum.
     case overflowMin
      /// Overflow if latitud is greater than the maximum.
@@ -40,7 +40,7 @@ enum LongitudeError: Error {
 }
 
 /// Errors for a tile
-enum TileError: Error {
+public enum TileError: Error {
     /// Overflow in the tile
     case overflow
 }
@@ -76,7 +76,7 @@ enum TileError: Error {
 /// All the wisdom of this class comes from:
 /// https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames
 ///
-public class TileCoords {
+open class TileCoords {
     
     /// Max value of latitude that can be retrieved with tiles (-85.0511 degrees)
     static let maxLatitude : Double = 85.0511

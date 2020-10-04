@@ -8,7 +8,7 @@
 import Foundation
 
 /// Errors for tile range
-enum TileRangeError: Error {
+public enum TileRangeError: Error {
     /// Error to be thrown in case of an issue during creation.
     case TileRangeCreation
 }

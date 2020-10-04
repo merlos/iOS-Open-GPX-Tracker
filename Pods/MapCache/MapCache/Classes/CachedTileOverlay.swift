@@ -15,7 +15,7 @@ import MapKit
 ///
 /// - SeeAlso: `MkMapView+MapCache`
 ///
-public class CachedTileOverlay : MKTileOverlay {
+open class CachedTileOverlay : MKTileOverlay {
     
     /// A class that implements the `MapCacheProtocol`
     let mapCache : MapCacheProtocol
@@ -76,7 +76,6 @@ public class CachedTileOverlay : MKTileOverlay {
         let tileSize = mapCache.config.tileSize
         var z = scale.toZoomLevel(tileSize: tileSize)
        
-        // Represents the number of tiles the current tile is going to be divided
         var overZoom = 1
         let tileSetMaxZ = mapCache.config.maximumZ
         if (z > tileSetMaxZ) {
@@ -105,7 +104,7 @@ public class CachedTileOverlay : MKTileOverlay {
                 guard rect.intersects(tileRect) else { continue }
                 
                 let path =  MKTileOverlayPath(x: x, y: y, z: z, contentScaleFactor: scale)
-                let tile = ZoomableTile(maximumZPath: path, rect: tileRect, overZoom: Zoom(overZoom))
+                let tile = ZoomableTile(maximumZPath: path, rect: tileRect, overZoom: overZoom)
                 tiles.append(tile)
             }
         }

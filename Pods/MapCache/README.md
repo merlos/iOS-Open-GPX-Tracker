@@ -14,13 +14,14 @@ The missing part of [MapKit](https://developer.apple.com/documentation/mapkit): 
 
 Current features:
 * Automatically save tiles in a disk cache as user browses the map.
-* You can to set cache capacity. Once the cache is full it will use a LRU (Least Recently Used) algorithm.
+* Generation of interpolated tiles beyond maximum server zoom level (`{z}`) 
+* Cache capacity. Once the cache is full it will use a LRU (Least Recently Used) algorithm.
 * Get Current cache size
 * Clear existing cache
 * Download a full region of the map (experimental)
+* Available [reference documentation](http://www.merlos.org/MapCache)
 
 What is coming:
- * Improve documentation
  * Smart predownloading/caching: anticipate tiles that may be needed during network idle
  * Background cache updates downloads
  
@@ -105,6 +106,8 @@ mapCache.calculateDiskSize()
 ```
 
 You can take a look at the [**Example/ folder**](https://github.com/merlos/MapCache/tree/master/Example/MapCache) to see a complete implementation.
+
+A [Reference documentation](http://www.merlos.org/MapCache) is also available.
 
 ## MapCache configuration
 Config map cache is pretty straight forward, typically you will need to set only `urlTemplate` and probably the `subdomains`.
@@ -230,7 +233,7 @@ If you need further information you can take a look at
 
 ## License - MIT
 
-Copyright (c) 2019-2020 Juan M. Merlos [@merlos](http://twitter.com/merlos), and contributors.
+Copyright (c) 2019-2020 Juan M. Merlos [@merlos](http://twitter.com/merlos) and contributors.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

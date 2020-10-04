@@ -44,7 +44,7 @@ public final class GPXMetadata: GPXElement, Codable {
     public var time: Date?
     
     /// Keyword of the GPX file.
-    public var keyword: String?
+    public var keywords: String?
 
     /// Boundaries of coordinates of the GPX file.
     public var bounds: GPXBounds?
@@ -66,18 +66,18 @@ public final class GPXMetadata: GPXElement, Codable {
     /// - Parameters:
     ///     - raw: Raw element expected from parser
     init(raw: GPXRawElement) {
-        super.init()
+        //super.init()
         for child in raw.children {
-            let text = child.text
+            //let text = child.text
             
             switch child.name {
-            case "name":        self.name = text
-            case "desc":        self.desc = text
+            case "name":        self.name = child.text
+            case "desc":        self.desc = child.text
             case "author":      self.author = GPXAuthor(raw: child)
             case "copyright":   self.copyright = GPXCopyright(raw: child)
             case "link":        self.link = GPXLink(raw: child)
-            case "time":        self.time = GPXDateParser.parse(date: text)
-            case "keywords":    self.keyword = text
+            case "time":        self.time = GPXDateParser.parse(date: child.text)
+            case "keywords":    self.keywords = child.text
             case "bounds":      self.bounds = GPXBounds(raw: child)
             case "extensions":  self.extensions = GPXExtensions(raw: child)
             default: continue
@@ -111,8 +111,8 @@ public final class GPXMetadata: GPXElement, Codable {
             self.link?.gpx(gpx, indentationLevel: indentationLevel)
         }
         
-        self.addProperty(forValue: Convert.toString(from: time), gpx: gpx, tagName: "time", indentationLevel: indentationLevel, defaultValue: "0")
-        self.addProperty(forValue: keyword, gpx: gpx, tagName: "keyword", indentationLevel: indentationLevel)
+        self.addProperty(forValue: Convert.toString(from: time), gpx: gpx, tagName: "time", indentationLevel: indentationLevel)
+        self.addProperty(forValue: keywords, gpx: gpx, tagName: "keywords", indentationLevel: indentationLevel)
         
         if bounds != nil {
             self.bounds?.gpx(gpx, indentationLevel: indentationLevel)

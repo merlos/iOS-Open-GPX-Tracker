@@ -35,7 +35,7 @@ import Foundation
 ///     +---------------------++---------------------++---------------------+
 ///
 ///
-public class TileCoordsRegion {
+open class TileCoordsRegion {
 
     /// Top left tile/coordinate.
     public var topLeft : TileCoords

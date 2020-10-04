@@ -11,7 +11,7 @@ import MapKit
 ///
 /// Specifies a single tile and area of the tile that should upscaled.
 ///
-struct ZoomableTile {
+public struct ZoomableTile {
     
     /// Path for the tile with `maximumZ` supported by the tile server set in the config.
     /// This is the path with the best resolution tile from wich this zoomable tile can be interpolated.
@@ -21,8 +21,12 @@ struct ZoomableTile {
     /// Rectangle area ocupied by this tile
     let rect: MKMapRect
     
-    /// Delta from given tile z to desired tile z.
-    /// Example: maximum zoom supported by the server is 20 and the desired tile is in zoom level 24, the delta is 4.
-    let overZoom: Zoom
+    /// Scale over the tile of the maximumZ path.
+    /// It is a multiple of 2 (2, 4, 8).
+    /// For a zoom larger than maximumZ represents the number of tiles the original tile is divided in
+    /// one axis. For example,  overZoom=4 means that in each axis the tile is divided in 4 as well as
+    /// in the Y axis. So, the original tile at maximumZ is divided in 16 subtiles.
+    /// The `rect`tells us, among those tiles, which one is this tile.
+    let overZoom: Int
 }
 

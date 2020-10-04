@@ -23,7 +23,7 @@ import Foundation
 /// ```
 ///
 ///
-struct Log {
+public struct Log {
     
     /// The tag [MapCache]
     fileprivate static let tag = "[MapCache]"
