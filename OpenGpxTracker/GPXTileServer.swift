@@ -29,6 +29,9 @@ enum GPXTileServer: Int {
     /// CartoDB tile server
     case cartoDB
     
+    /// CartoDB tile server (2x tiles)
+    case cartoDBRetina
+    
     /// OpenTopoMap tile server
     case openTopoMap
     
@@ -38,6 +41,7 @@ enum GPXTileServer: Int {
         case .apple: return "Apple Mapkit (no offline cache)"
         case .openStreetMap: return "Open Street Map"
         case .cartoDB: return "Carto DB"
+        case .cartoDBRetina: return "Carto DB (Retina resolution)"
         case .openTopoMap: return "OpenTopoMap"
         }
     }
@@ -48,6 +52,7 @@ enum GPXTileServer: Int {
         case .apple: return ""
         case .openStreetMap: return "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         case .cartoDB: return "https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}.png"
+        case .cartoDBRetina: return "https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}@2x.png"
         case .openTopoMap: return "https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png"
         }
     }
@@ -63,7 +68,7 @@ enum GPXTileServer: Int {
         switch self {
         case .apple: return []
         case .openStreetMap: return ["a", "b", "c"]
-        case .cartoDB: return ["a", "b", "c"]
+        case .cartoDB, .cartoDBRetina: return ["a", "b", "c"]
         case .openTopoMap: return ["a", "b", "c"]
         }
     }
@@ -84,7 +89,7 @@ enum GPXTileServer: Int {
             return -1
         case .openStreetMap:
             return 19
-        case .cartoDB:
+        case .cartoDB, .cartoDBRetina:
             return 21
         case .openTopoMap:
             return 17
@@ -104,10 +109,21 @@ enum GPXTileServer: Int {
             return 0
         case .openStreetMap:
             return 0
-        case .cartoDB:
+        case .cartoDB, .cartoDBRetina:
             return 0
         case .openTopoMap:
             return 0
+        }
+    }
+    
+    /// tile size of the third-party tile.
+    /// 
+    /// 1x tiles are 256x256
+    /// 2x/retina tiles are 512x512
+    var tileSize: Int {
+        switch self {
+        case .cartoDBRetina: return 512
+        default: return 256
         }
     }
 

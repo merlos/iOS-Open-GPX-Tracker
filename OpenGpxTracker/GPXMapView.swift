@@ -81,7 +81,7 @@ class GPXMapView: MKMapView {
                 //Update cacheConfig
                 var config = MapCacheConfig(withUrlTemplate: newValue.templateUrl)
                 config.subdomains = newValue.subdomains
-                
+                config.tileSize = CGSize(width: newValue.tileSize, height: newValue.tileSize)
                 if newValue.maximumZ > 0 {
                     config.maximumZ = newValue.maximumZ
                 }
