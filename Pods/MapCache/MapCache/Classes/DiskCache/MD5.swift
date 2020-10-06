@@ -13,6 +13,7 @@
 // The following is an altered source version that only includes MD5. The original software can be found at:
 // https://github.com/krzyzanowskim/CryptoSwift
 // This is the original copyright notice:
+
 /*
  Copyright (C) 2014 Marcin Krzyżanowski <marcin.krzyzanowski@gmail.com>
  This software is provided 'as-is', without any express or implied warranty.
@@ -25,7 +26,7 @@
 
 import Foundation
 
-/** array of bytes, little-endian representation */
+/// array of bytes, little-endian representation
 func arrayOfBytes<T>(value:T, length:Int? = nil) -> [UInt8] {
     let totalBytes = length ?? MemoryLayout<T>.size
     
@@ -44,27 +45,34 @@ func arrayOfBytes<T>(value:T, length:Int? = nil) -> [UInt8] {
     return bytes
 }
 
+/// Extension for the implementation of MD5
 extension Int {
-    /** Array of bytes with optional padding (little-endian) */
+    /// Array of bytes with optional padding (little-endian)
     public func bytes(totalBytes: Int = MemoryLayout<Int>.size) -> [UInt8] {
         return arrayOfBytes(value: self, length: totalBytes)
     }
     
 }
 
+/// Extension for the implementation of MD5
 extension NSMutableData {
     
-    /** Convenient way to append bytes */
+    /// Convenient way to append bytes
     internal func appendBytes(arrayOfBytes: [UInt8]) {
         self.append(arrayOfBytes, length: arrayOfBytes.count)
     }
     
 }
 
+/// Bytes sequence for the implementation of MD5
+/// The following is an altered source version that only includes MD5. The original software can be found at:
+/// https://github.com/krzyzanowskim/CryptoSwift
 struct BytesSequence: Sequence {
+    /// Chunk size
     let chunkSize: Int
+    /// Data
     let data: [UInt8]
-    
+    /// makeIterator
     func makeIterator() -> AnyIterator<ArraySlice<UInt8>> {
         var offset:Int = 0
         return AnyIterator {
@@ -76,16 +84,24 @@ struct BytesSequence: Sequence {
     }
 }
 
+/// HashBase
+/// The following is an altered source version that only includes MD5. The original software can be found at:
+/// https://github.com/krzyzanowskim/CryptoSwift
 class HashBase {
     
+    ///
     static let size:Int = 16 // 128 / 8
+    
+    /// Message to be converted into a MD5 string
     let message: [UInt8]
     
+    /// Constructor
+    /// - Parameter message the string as an array of UInt8
     init (_ message: [UInt8]) {
         self.message = message
     }
     
-    /** Common part for hash calculation. Prepare header data. */
+    /// Common part for hash calculation. Prepare header data.
     func prepare(_ len:Int) -> [UInt8] {
         var tmpMessage = message
         
@@ -106,10 +122,12 @@ class HashBase {
     }
 }
 
+/// Rotate left for MD5 implementation
 func rotateLeft(v: UInt32, n: UInt32) -> UInt32 {
     return ((v << n) & 0xFFFFFFFF) | (v >> (32 - n))
 }
 
+/// sliceToUInt32 for MD5 implementation
 func sliceToUInt32Array(_ slice: ArraySlice<UInt8>) -> [UInt32] {
     var result = [UInt32]()
     result.reserveCapacity(16)
@@ -124,16 +142,19 @@ func sliceToUInt32Array(_ slice: ArraySlice<UInt8>) -> [UInt32] {
     return result
 }
 
+/// An actual implementation of the MD5
+/// The following is an altered source version that only includes MD5. The original software can be found at:
+/// https://github.com/krzyzanowskim/CryptoSwift
 class MD5 : HashBase {
     
     
-    /** specifies the per-round shift amounts */
+    /// specifies the per-round shift amounts
     private let s: [UInt32] = [7, 12, 17, 22,  7, 12, 17, 22,  7, 12, 17, 22,  7, 12, 17, 22,
                                5,  9, 14, 20,  5,  9, 14, 20,  5,  9, 14, 20,  5,  9, 14, 20,
                                4, 11, 16, 23,  4, 11, 16, 23,  4, 11, 16, 23,  4, 11, 16, 23,
                                6, 10, 15, 21,  6, 10, 15, 21,  6, 10, 15, 21,  6, 10, 15, 21]
     
-    /** binary integer part of the sines of integers (Radians) */
+    /// binary integer part of the sines of integers (Radians)
     private let k: [UInt32] = [0xd76aa478,0xe8c7b756,0x242070db,0xc1bdceee,
                                0xf57c0faf,0x4787c62a,0xa8304613,0xfd469501,
                                0x698098d8,0x8b44f7af,0xffff5bb1,0x895cd7be,
@@ -151,8 +172,10 @@ class MD5 : HashBase {
                                0x6fa87e4f,0xfe2ce6e0,0xa3014314,0x4e0811a1,
                                0xf7537e82,0xbd3af235,0x2ad7d2bb,0xeb86d391]
     
+    /// H
     private let h: [UInt32] = [0x67452301, 0xefcdab89, 0x98badcfe, 0x10325476]
     
+    /// Calculates the MD5 as an array of UInt8
     func calculate() -> [UInt8] {
         var tmpMessage = prepare(64)
         tmpMessage.reserveCapacity(tmpMessage.count + 4)

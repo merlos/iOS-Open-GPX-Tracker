@@ -69,7 +69,7 @@ public final class GPXRoute: GPXElement, Codable {
         for child in raw.children {
             switch child.name {
             case "link":        self.link = GPXLink()
-            case "rtept":       self.routepoints = [GPXRoutePoint]()
+            case "rtept":       self.routepoints.append(GPXRoutePoint(raw: child))
             case "name":        self.name = child.text
             case "cmt":         self.comment = child.text
             case "desc":        self.desc = child.text

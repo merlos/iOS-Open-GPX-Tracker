@@ -241,6 +241,7 @@ public class GPXWaypoint: GPXElement, Codable {
             case "cmt":         self.comment = child.text
             case "desc":        self.desc = child.text
             case "src":         self.source = child.text
+            case "link":        self.link = GPXLink(raw: child)
             case "sym":         self.symbol = child.text
             case "type":        self.type = child.text
             case "fix":         self.fix = GPXFix(rawValue: child.text ?? "none")
@@ -304,7 +305,7 @@ public class GPXWaypoint: GPXElement, Codable {
         self.addProperty(forValue: name, gpx: gpx, tagName: "name", indentationLevel: indentationLevel)
         self.addProperty(forValue: comment, gpx: gpx, tagName: "cmt", indentationLevel: indentationLevel)
         self.addProperty(forValue: desc, gpx: gpx, tagName: "desc", indentationLevel: indentationLevel)
-        self.addProperty(forValue: source, gpx: gpx, tagName: "source", indentationLevel: indentationLevel)
+        self.addProperty(forValue: source, gpx: gpx, tagName: "src", indentationLevel: indentationLevel)
         
         if self.link != nil {
             self.link?.gpx(gpx, indentationLevel: indentationLevel)

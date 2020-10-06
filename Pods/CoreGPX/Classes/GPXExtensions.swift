@@ -33,9 +33,7 @@ public final class GPXExtensions: GPXElement, Codable {
     init(raw: GPXRawElement) {
         super.init()
         for child in raw.children {
-            let tmp = GPXExtensionsElement(name: child.name)
-            tmp.text = child.text
-            tmp.attributes = child.attributes
+            let tmp = GPXExtensionsElement(raw: child)
             children.append(tmp)
         }
         

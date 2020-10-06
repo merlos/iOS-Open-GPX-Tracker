@@ -76,13 +76,6 @@ class GPXMapView: MKMapView {
                 removeOverlay(tileServerOverlay)
             }
             
-            /// Min distance to the floor of the camera
-            if #available(iOS 13, *) {
-                let zoomRange = MKMapView.CameraZoomRange(minCenterCoordinateDistance: newValue.minCameraDistance,
-                                                          maxCenterCoordinateDistance: -1)
-                setCameraZoomRange(zoomRange, animated: true)
-            }
-            
             //add new overlay to map if not using Apple Maps
             if newValue != .apple {
                 //Update cacheConfig
@@ -102,7 +95,6 @@ class GPXMapView: MKMapView {
             }
         }
         didSet {
-            
             if #available(iOS 13, *) {
                 if tileServer == .apple {
                     overrideUserInterfaceStyle = .unspecified
@@ -112,7 +104,6 @@ class GPXMapView: MKMapView {
                     NotificationCenter.default.post(name: .updateAppearance, object: nil, userInfo: nil)
                 }
             }
-            
         }
     }
     
