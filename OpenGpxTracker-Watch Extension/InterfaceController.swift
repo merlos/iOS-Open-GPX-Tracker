@@ -269,7 +269,7 @@ class InterfaceController: WKInterfaceController {
     ///
     /// Saves current track and waypoints as a GPX file, with a default filename of date and time.
     ///
-    @IBAction func saveButtonTapped() {
+    @IBAction func saveButtonTapped(withReset: Bool = false) {
         print("save Button tapped")
         // ignore the save button if there is nothing to save.
         if (gpxTrackingStatus == .notStarted) && !self.hasWaypoints {
@@ -280,6 +280,10 @@ class InterfaceController: WKInterfaceController {
         GPXFileManager.save(filename, gpxContents: gpxString)
         self.lastGpxFilename = filename
         //print(gpxString)
+        
+        if withReset {
+            self.gpxTrackingStatus = .notStarted
+        }
         
         /// Just a 'done' button, without
         let action = WKAlertAction(title: "Done", style: .default) {}
@@ -295,7 +299,19 @@ class InterfaceController: WKInterfaceController {
     /// It sets map to status .notStarted which clears the map.
     ///
     @IBAction func resetButtonTapped() {
-        self.gpxTrackingStatus = .notStarted
+        
+        let cancelOption = WKAlertAction(title: NSLocalizedString("CANCEL", comment: "no comment"), style: .cancel) {}
+        let saveAndStartOption = WKAlertAction(title: NSLocalizedString("SAVE_START_NEW", comment: "no comment"), style: .default) {
+            self.saveButtonTapped(withReset: true)
+        }
+        let deleteOption = WKAlertAction(title: NSLocalizedString("RESET", comment: "no comment"), style: .destructive) {
+            self.gpxTrackingStatus = .notStarted
+        }
+        
+        presentAlert(withTitle: nil,
+                     message: NSLocalizedString("SELECT_OPTION", comment: "no comment"),
+                     preferredStyle: .actionSheet,
+                     actions: [cancelOption, saveAndStartOption, deleteOption])
     }
 
     /// returns a string with the format of current date dd-MMM-yyyy-HHmm' (20-Jun-2018-1133)
