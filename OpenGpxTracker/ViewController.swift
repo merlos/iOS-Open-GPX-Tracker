@@ -1060,7 +1060,31 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
     /// It sets map to status .notStarted which clears the map.
     ///
     @objc func resetButtonTapped() {
-        self.gpxTrackingStatus = .notStarted
+        
+        
+        let sheet = UIAlertController(title: nil, message: NSLocalizedString("SELECT_OPTION", comment: "no comment"), preferredStyle: .actionSheet)
+          
+        let cancelOption = UIAlertAction(title: NSLocalizedString("CANCEL", comment: "no comment"), style: .cancel) { _ in
+        }
+        
+        let saveAndStartOption = UIAlertAction(title: NSLocalizedString("SAVE_START_NEW", comment: "no comment"), style: .default) { _ in
+            //Save
+            self.saveButtonTapped(withReset: true)
+        }
+       
+        let deleteOption = UIAlertAction(title: NSLocalizedString("RESET", comment: "no comment"), style: .destructive) { _ in
+            self.gpxTrackingStatus = .notStarted
+        }
+        
+        
+        sheet.addAction(cancelOption)
+        sheet.addAction(saveAndStartOption)
+        sheet.addAction(deleteOption)
+        
+                
+        self.present(sheet, animated: true) {
+            print("Loaded actionSheet")
+        }
     }
 
     ///
@@ -1085,7 +1109,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
     ///
     /// It prompts the user to set a name of the file.
     ///
-    @objc func saveButtonTapped() {
+    @objc func saveButtonTapped(withReset: Bool = false) {
         print("save Button tapped")
         // ignore the save button if there is nothing to save.
         if (gpxTrackingStatus == .notStarted) && !self.hasWaypoints {
@@ -1110,6 +1134,9 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
             self.map.coreDataHelper.coreDataDeleteAll(of: CDRoot.self)//deleteCDRootFromCoreData()
             self.map.coreDataHelper.clearAllExceptWaypoints()
             self.map.coreDataHelper.add(toCoreData: filename!, willContinueAfterSave: true)
+            if withReset {
+                self.gpxTrackingStatus = .notStarted
+            }
         }
         let cancelAction = UIAlertAction(title: NSLocalizedString("CANCEL", comment: "no comment"), style: .cancel) { _ in }
         
