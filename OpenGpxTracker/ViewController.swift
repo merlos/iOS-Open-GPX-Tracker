@@ -386,10 +386,16 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
             case 1920, 2208:
                 print("device: IPHONE 6PLUS, 6SPLUS, 7PLUS, 8PLUS")
             case 2436:
-                print("device: IPHONE X, IPHONE XS")
+                print("device: IPHONE X, IPHONE XS, iPHONE 12_MINI")
+                isIPhoneX = true
+            case 2532:
+                print("device: IPHONE 12, IPHONE 12_PRO")
                 isIPhoneX = true
             case 2688:
                 print("device: IPHONE XS_MAX")
+                isIPhoneX = true
+            case 2778:
+                print("device: IPHONE_12_PRO_MAX")
                 isIPhoneX = true
             case 1792:
                 print("device: IPHONE XR")

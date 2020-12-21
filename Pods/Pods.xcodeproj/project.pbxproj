@@ -8,99 +8,99 @@
 
 /* Begin PBXBuildFile section */
 		0051F071C41EE79A1E0A27EE20E5B085 /* Pods-OpenGpxTracker-Watch Extension-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = ACC647A22F623093983DA656039BCC39 /* Pods-OpenGpxTracker-Watch Extension-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		0375EE2E92C662E84645B1B7B045E531 /* TileRangeIterator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 154ED3149B0984FE2EB138CFC1C3F28C /* TileRangeIterator.swift */; };
-		041CD9B69E76FB24E8F8DA7E4DF83256 /* CachedTileOverlayRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E84238FA76D38D5F1E617CC39180ECF5 /* CachedTileOverlayRenderer.swift */; };
-		099C6D69BC1EF5F0B6A4B46D820F6A9D /* GPXAuthor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 566D0C27E6A668994B9E20DD35F378C5 /* GPXAuthor.swift */; };
-		0A913D53740CA1F21A2A4BA1B3F6EAFD /* GPXRoutePoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54BE54D9EDFED0B797012F40A9464424 /* GPXRoutePoint.swift */; };
-		0C772E8D6AE87CFF3980634D4CB2D8F2 /* ZoomRange.swift in Sources */ = {isa = PBXBuildFile; fileRef = C55C39EA4B61E066D762F8E07DA3D741 /* ZoomRange.swift */; };
+		0375EE2E92C662E84645B1B7B045E531 /* TileRangeIterator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C1569D9E749C9A9D68528740AFC81F0 /* TileRangeIterator.swift */; };
+		041CD9B69E76FB24E8F8DA7E4DF83256 /* CachedTileOverlayRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE320004359B09A083C380FD822E4205 /* CachedTileOverlayRenderer.swift */; };
+		099C6D69BC1EF5F0B6A4B46D820F6A9D /* GPXAuthor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C483E13CE0AB968323BC7C89912228EF /* GPXAuthor.swift */; };
+		0A913D53740CA1F21A2A4BA1B3F6EAFD /* GPXRoutePoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC38F26EDC98D689560C9AB6BBE5EE4A /* GPXRoutePoint.swift */; };
+		0C772E8D6AE87CFF3980634D4CB2D8F2 /* ZoomRange.swift in Sources */ = {isa = PBXBuildFile; fileRef = B64A566CD80973918E23AD646A98DAAA /* ZoomRange.swift */; };
 		0D17527D7F4F848A264ECEBFB281A53A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82F1E3501EE0EE229AFC92FE011CA6A4 /* Foundation.framework */; };
 		1563F52C4589BEAE34FDFA4FD8AD4558 /* Pods-OpenGpxTracker-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 3F48E60050E3150BF104D2316FA1C144 /* Pods-OpenGpxTracker-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		1D35F909F90E1465EFD24429A05A6CE8 /* DateTimeParsers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CBAAB942818A667798C1059BC333B32 /* DateTimeParsers.swift */; };
-		1E8E6A316A70E09AA0AE068C4052FA79 /* GPXRoot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E028D2276249FC5342A3BB05D6546FC /* GPXRoot.swift */; };
-		25B6302DB6939000B5EF749B59265B1D /* MapCache-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = CA3D3652A828B610A5D18D9D73058380 /* MapCache-dummy.m */; };
-		262D20D5AAA59F77AF61EDC84409E123 /* GPXBounds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1D3A3B7E808D57179A05038F9E8D1F /* GPXBounds.swift */; };
-		26A27A1B3AFE785AFEEBF7647A3AA253 /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21AD1A21B75BAD52C8B40E0C68D569C5 /* Log.swift */; };
-		26F3D8E9EB1A11ABD5069EA272BF65BB /* GPXEmail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895E962A76A43048D02B48C2B0ED813D /* GPXEmail.swift */; };
-		27FE38F0F44FBBA1286CBE21FF533D70 /* NSMutableString+XML.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAED7BCE309E79C5A05754B7AB4B8C76 /* NSMutableString+XML.swift */; };
-		291D8D068B57BA580A372D8F1BEECA31 /* GPXTrackSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = F12B10B9C021B4C1EB5521F603045F40 /* GPXTrackSegment.swift */; };
-		29FF8240E736EF4B83F25CE89F5C83A4 /* GPXParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B3830E14B708D7AB0D9B63F130D3042 /* GPXParser.swift */; };
-		2B5A89E0874574FF51352ACA145FCA5A /* MapCacheProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52176D270DE1B6AAFDAFD7E5EC31F1E2 /* MapCacheProtocol.swift */; };
-		2B95E69240AE1C4B707285B98D04C3F1 /* GPXWaypoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D02BF342B812F086CC1387B1FDC70A7 /* GPXWaypoint.swift */; };
-		2E6A361920A4E45D7BC804CAAF60629F /* Converters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B19B5E5391E1BD10154389744CFAD2 /* Converters.swift */; };
-		312D9BC80C5E8D0195025E21B13EC222 /* RegionDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 656AE4CBE70DF5F5A5D56BCCA46895CE /* RegionDownloader.swift */; };
-		334C107F77D02EAE3FAEE75027642846 /* GPXPointSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504034719DD0DB19256286F51BEB8EF1 /* GPXPointSegment.swift */; };
-		366641B6A8116DD407905F69FDFD0E30 /* GPXError.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A16E657FEAD4C56AA2F65A01F3F94C /* GPXError.swift */; };
-		412B5E2A93B344EE32D57B8CDCAB736E /* MapCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE5935D9E3846F82CFF3B7E4BE8818BF /* MapCache.swift */; };
+		1D35F909F90E1465EFD24429A05A6CE8 /* DateTimeParsers.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF810A28BCBB345649EA78AA7DEFCC1F /* DateTimeParsers.swift */; };
+		1E8E6A316A70E09AA0AE068C4052FA79 /* GPXRoot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0102D70062BDBF99CB6DFDAE2A14B2 /* GPXRoot.swift */; };
+		25B6302DB6939000B5EF749B59265B1D /* MapCache-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = C0517B20B7BBB4E89DE22E74ACE5D1E2 /* MapCache-dummy.m */; };
+		262D20D5AAA59F77AF61EDC84409E123 /* GPXBounds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AB0693B6E8FA94CAF71114CA87574C7 /* GPXBounds.swift */; };
+		26A27A1B3AFE785AFEEBF7647A3AA253 /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = E327723F10499465ED81648BBB5429C3 /* Log.swift */; };
+		26F3D8E9EB1A11ABD5069EA272BF65BB /* GPXEmail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9C1538DC73C429B051E4A5B53B4EF8 /* GPXEmail.swift */; };
+		27FE38F0F44FBBA1286CBE21FF533D70 /* NSMutableString+XML.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1AB0B56C1CD5C10794D31DECEC55B45 /* NSMutableString+XML.swift */; };
+		291D8D068B57BA580A372D8F1BEECA31 /* GPXTrackSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0CDC2AFC5A3161C57C25DFB61796F40 /* GPXTrackSegment.swift */; };
+		29FF8240E736EF4B83F25CE89F5C83A4 /* GPXParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ABE340905977A6BBBEEDC5ABD99BB3C /* GPXParser.swift */; };
+		2B5A89E0874574FF51352ACA145FCA5A /* MapCacheProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB15EB92B0A7259455A4F6C1034DA173 /* MapCacheProtocol.swift */; };
+		2B95E69240AE1C4B707285B98D04C3F1 /* GPXWaypoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0E9E9197477BF1C08EE5E5E8951716E /* GPXWaypoint.swift */; };
+		2E6A361920A4E45D7BC804CAAF60629F /* Converters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47219531B2AAA57F7BF16DDC89547F0D /* Converters.swift */; };
+		312D9BC80C5E8D0195025E21B13EC222 /* RegionDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D4F86166C8C93BB5467AE04F0550D9A /* RegionDownloader.swift */; };
+		334C107F77D02EAE3FAEE75027642846 /* GPXPointSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E623B004A5D33D7517A678A13C8C1DD /* GPXPointSegment.swift */; };
+		366641B6A8116DD407905F69FDFD0E30 /* GPXError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F64FB9D3764ADAF36953631760D2089 /* GPXError.swift */; };
+		412B5E2A93B344EE32D57B8CDCAB736E /* MapCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 458BC03530F5E5CFA27A6F66849FEDAA /* MapCache.swift */; };
 		42D0BAB0F4CE1722E881484B1BE3160B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03A5943D5AA54E62D24DAD0B19639777 /* Foundation.framework */; };
-		43E08817051E3364B6F2CC24C928F54F /* LoadTileMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56A1CEEF85232C90C0F18EAF8B29839 /* LoadTileMode.swift */; };
-		48549F12FAE4767F7A80B7BED4F95627 /* GPXRoot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E028D2276249FC5342A3BB05D6546FC /* GPXRoot.swift */; };
-		48E4B2E6B34EF597BE4D5765E2DC4D20 /* GPXCompression.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9752D22471E373BBE3470DEE4D98471 /* GPXCompression.swift */; };
+		43E08817051E3364B6F2CC24C928F54F /* LoadTileMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10A379D5714659BB7A1A705C00F877BA /* LoadTileMode.swift */; };
+		48549F12FAE4767F7A80B7BED4F95627 /* GPXRoot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0102D70062BDBF99CB6DFDAE2A14B2 /* GPXRoot.swift */; };
+		48E4B2E6B34EF597BE4D5765E2DC4D20 /* GPXCompression.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E6C7CC6A062915AD2536D2B4F728228 /* GPXCompression.swift */; };
 		49E98DC1863D8A221168317252B0F7A3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82F1E3501EE0EE229AFC92FE011CA6A4 /* Foundation.framework */; };
-		4C61307CE33BB9456D8A930B2BE17544 /* GPXRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AA2D992E86C41ADDB38401631E10B50 /* GPXRoute.swift */; };
-		4D450D3E6ACEC24C83211B1803A45014 /* CoreGPX-watchOS-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 81436FE513DA5D8328E118C902128A15 /* CoreGPX-watchOS-dummy.m */; };
-		4D765B603EA6B4F813C4BBB4610F4FC4 /* GPXBounds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1D3A3B7E808D57179A05038F9E8D1F /* GPXBounds.swift */; };
-		5CAA71A601AA0977B9A5E7F5358E6C00 /* GPXWaypoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D02BF342B812F086CC1387B1FDC70A7 /* GPXWaypoint.swift */; };
-		614C683D2065A67DCEE0ABECFFD326E9 /* GPXTrack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 544BACF6CCFC3C17BC6947AD55B3AC64 /* GPXTrack.swift */; };
-		61712DB9A3C9B0404788DEF0CDFEC6C2 /* GPXTrackSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = F12B10B9C021B4C1EB5521F603045F40 /* GPXTrackSegment.swift */; };
-		63ECD307D351F4CFD8B9C27E6568E134 /* GPXCopyright.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD32E9E8926FC69AA35D1176CBFE1FDA /* GPXCopyright.swift */; };
-		675F5E76BE806CD8B872C3E72467F023 /* GPXPerson.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDCE7804879FF576FB59EA80862DE424 /* GPXPerson.swift */; };
+		4C61307CE33BB9456D8A930B2BE17544 /* GPXRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 994DC11480C8157D82909AF7269621EB /* GPXRoute.swift */; };
+		4D450D3E6ACEC24C83211B1803A45014 /* CoreGPX-watchOS-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DD5367E7F82712D4805F2A60998F697 /* CoreGPX-watchOS-dummy.m */; };
+		4D765B603EA6B4F813C4BBB4610F4FC4 /* GPXBounds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AB0693B6E8FA94CAF71114CA87574C7 /* GPXBounds.swift */; };
+		5CAA71A601AA0977B9A5E7F5358E6C00 /* GPXWaypoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0E9E9197477BF1C08EE5E5E8951716E /* GPXWaypoint.swift */; };
+		614C683D2065A67DCEE0ABECFFD326E9 /* GPXTrack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE3484A0B49C3F3B500E3E9E3D731B1 /* GPXTrack.swift */; };
+		61712DB9A3C9B0404788DEF0CDFEC6C2 /* GPXTrackSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0CDC2AFC5A3161C57C25DFB61796F40 /* GPXTrackSegment.swift */; };
+		63ECD307D351F4CFD8B9C27E6568E134 /* GPXCopyright.swift in Sources */ = {isa = PBXBuildFile; fileRef = D744627BDF9FF26DA7B2BD8C22A610AE /* GPXCopyright.swift */; };
+		675F5E76BE806CD8B872C3E72467F023 /* GPXPerson.swift in Sources */ = {isa = PBXBuildFile; fileRef = A736D3F8228163A4EAAF955AAE3D99C2 /* GPXPerson.swift */; };
 		683A76B9A6E730F8C15ED3B96A8686C2 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03A5943D5AA54E62D24DAD0B19639777 /* Foundation.framework */; };
-		6DF3C0198357F132325BAE47D50002C0 /* ZoomableTile.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A246CDAB00E5290D82DEF92D7A074A /* ZoomableTile.swift */; };
-		70F8A650FA8E5E76DCBB2867D2AD0C29 /* GPXCopyright.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD32E9E8926FC69AA35D1176CBFE1FDA /* GPXCopyright.swift */; };
-		7385A7A9C539517DFB0F12F2B3547E75 /* GPXFix.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B89588C9327DFE6E42D9E2F82C45FC6 /* GPXFix.swift */; };
-		745E764D87694218C63E532135E952A5 /* GPXExtensionsElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ACDC033F1A5449E815618D30B3044C1 /* GPXExtensionsElement.swift */; };
-		77485EFA0FAF7EBBF5085756212C0FB2 /* MapCache-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = B567A8A54987BC3EB5028EC526C1E9B4 /* MapCache-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7BE03A30129E4746B0CB56A40EE5642D /* MKTileOverlayPath+MapCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = B17AE21B935B0C18135FB65A28B0E6F0 /* MKTileOverlayPath+MapCache.swift */; };
-		8250B4D215F98E7CA8131942F41DA497 /* NSMutableString+XML.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAED7BCE309E79C5A05754B7AB4B8C76 /* NSMutableString+XML.swift */; };
-		8B2EB93B33A61F340D5D0F38198887E7 /* GPXRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AA2D992E86C41ADDB38401631E10B50 /* GPXRoute.swift */; };
-		8EC3E13BC610182C4053E2606068DCBB /* GPXLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1785855E5B1D1FF82C6CADC1B80B3E77 /* GPXLink.swift */; };
-		8F8461C8DB0F8DCBDF0BF57DF945F17E /* GPXExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D4AC1371C46754E56049DF693B72672 /* GPXExtensions.swift */; };
-		93199F0F4FB898944E90FBE2D646A8B8 /* Converters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B19B5E5391E1BD10154389744CFAD2 /* Converters.swift */; };
-		941D993668AA41C37AF7319394107BB1 /* TileCoords.swift in Sources */ = {isa = PBXBuildFile; fileRef = A15BE207E7C96F40EB3ED42C2CD66D95 /* TileCoords.swift */; };
-		95389DE0EFA4E02CC683ECF5231D3107 /* DateTimeParsers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CBAAB942818A667798C1059BC333B32 /* DateTimeParsers.swift */; };
-		97F1DAA08287D0EC866D97A8C4710614 /* String+DiskCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC145B978BE4553A552DC277D19B411F /* String+DiskCache.swift */; };
-		9A11B3B82D0AA316137499D8F6B052AE /* GPXEmail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895E962A76A43048D02B48C2B0ED813D /* GPXEmail.swift */; };
-		9A3B79DD4BF22A27FF054545D83F6C88 /* GPXMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = B11B683E079318FA1A7C86E827BBA383 /* GPXMetadata.swift */; };
-		9A81DC9244629C91DB13BB7C7997249C /* GPXExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D4AC1371C46754E56049DF693B72672 /* GPXExtensions.swift */; };
-		9AE91998A71CA56A71216BBC5EBD313C /* GPXExtensionsElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ACDC033F1A5449E815618D30B3044C1 /* GPXExtensionsElement.swift */; };
-		9C830BA8C8637026C5E9AE501B0C5FCE /* MKMapView+MapCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0E2900F3B2C831FD4A8BB5F53676F22 /* MKMapView+MapCache.swift */; };
-		9FA12E3DBD8602DF0AE18CA2FBC2748C /* ZoomRangeIterator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F1B3A4996B1511EDA30B804959F0ACB /* ZoomRangeIterator.swift */; };
-		9FDACF3C1FB1F0C36E5E46B93CB36A40 /* GPXParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B3830E14B708D7AB0D9B63F130D3042 /* GPXParser.swift */; };
-		A0B60561FA2530E2C419FF2FE2959326 /* MapCacheConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1344CBF808EADD276368349E7C07DCA2 /* MapCacheConfig.swift */; };
+		6DF3C0198357F132325BAE47D50002C0 /* ZoomableTile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70DE4182B79029BDA4C1D2EAAA008328 /* ZoomableTile.swift */; };
+		70F8A650FA8E5E76DCBB2867D2AD0C29 /* GPXCopyright.swift in Sources */ = {isa = PBXBuildFile; fileRef = D744627BDF9FF26DA7B2BD8C22A610AE /* GPXCopyright.swift */; };
+		7385A7A9C539517DFB0F12F2B3547E75 /* GPXFix.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B8B0962778A02ED6C4DB0E5E08B6154 /* GPXFix.swift */; };
+		745E764D87694218C63E532135E952A5 /* GPXExtensionsElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82669B91F9277AFC1D42F683693FA606 /* GPXExtensionsElement.swift */; };
+		77485EFA0FAF7EBBF5085756212C0FB2 /* MapCache-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = D94BC5949439D6CE6E05B2AE1F358D08 /* MapCache-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7BE03A30129E4746B0CB56A40EE5642D /* MKTileOverlayPath+MapCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69F5BDE8AF609811E52A5FCD3470CD1F /* MKTileOverlayPath+MapCache.swift */; };
+		8250B4D215F98E7CA8131942F41DA497 /* NSMutableString+XML.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1AB0B56C1CD5C10794D31DECEC55B45 /* NSMutableString+XML.swift */; };
+		8B2EB93B33A61F340D5D0F38198887E7 /* GPXRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 994DC11480C8157D82909AF7269621EB /* GPXRoute.swift */; };
+		8EC3E13BC610182C4053E2606068DCBB /* GPXLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDD4822E4D243F89493073756391972F /* GPXLink.swift */; };
+		8F8461C8DB0F8DCBDF0BF57DF945F17E /* GPXExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35D2EDF0DA9DEAF1C8D9B252FC7286B8 /* GPXExtensions.swift */; };
+		93199F0F4FB898944E90FBE2D646A8B8 /* Converters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47219531B2AAA57F7BF16DDC89547F0D /* Converters.swift */; };
+		941D993668AA41C37AF7319394107BB1 /* TileCoords.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20C0EA1931E68E8561BE5D49E4B6AAC0 /* TileCoords.swift */; };
+		95389DE0EFA4E02CC683ECF5231D3107 /* DateTimeParsers.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF810A28BCBB345649EA78AA7DEFCC1F /* DateTimeParsers.swift */; };
+		97F1DAA08287D0EC866D97A8C4710614 /* String+DiskCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDC7DC002C38FF51F58404D79893D9C1 /* String+DiskCache.swift */; };
+		9A11B3B82D0AA316137499D8F6B052AE /* GPXEmail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9C1538DC73C429B051E4A5B53B4EF8 /* GPXEmail.swift */; };
+		9A3B79DD4BF22A27FF054545D83F6C88 /* GPXMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77C50641176F90D580BBE880BD8B627B /* GPXMetadata.swift */; };
+		9A81DC9244629C91DB13BB7C7997249C /* GPXExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35D2EDF0DA9DEAF1C8D9B252FC7286B8 /* GPXExtensions.swift */; };
+		9AE91998A71CA56A71216BBC5EBD313C /* GPXExtensionsElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82669B91F9277AFC1D42F683693FA606 /* GPXExtensionsElement.swift */; };
+		9C830BA8C8637026C5E9AE501B0C5FCE /* MKMapView+MapCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 194768F7BA1F93B4A91DDC9A846DE980 /* MKMapView+MapCache.swift */; };
+		9FA12E3DBD8602DF0AE18CA2FBC2748C /* ZoomRangeIterator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6AC74DAA22947EC0119E7DC89BBC404 /* ZoomRangeIterator.swift */; };
+		9FDACF3C1FB1F0C36E5E46B93CB36A40 /* GPXParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ABE340905977A6BBBEEDC5ABD99BB3C /* GPXParser.swift */; };
+		A0B60561FA2530E2C419FF2FE2959326 /* MapCacheConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B68531A098BBE49CCC406939EB39D5 /* MapCacheConfig.swift */; };
 		AF400669D1D3B159A0E17AADDCF4E2AF /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 777D6AC9AD5B1E309E7EFBE542592CAC /* MapKit.framework */; };
-		B29A9883DA64ED9238F7974280D61B3C /* GPXError.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A16E657FEAD4C56AA2F65A01F3F94C /* GPXError.swift */; };
-		B6526A95C424F5A65C08CACC002D8A37 /* GPXRoutePoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54BE54D9EDFED0B797012F40A9464424 /* GPXRoutePoint.swift */; };
-		B815917FC803F08BFC9C4E49CFD91224 /* GPXRawElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CFB3D3BE9CE03B5043F16459E756648 /* GPXRawElement.swift */; };
+		B29A9883DA64ED9238F7974280D61B3C /* GPXError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F64FB9D3764ADAF36953631760D2089 /* GPXError.swift */; };
+		B6526A95C424F5A65C08CACC002D8A37 /* GPXRoutePoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC38F26EDC98D689560C9AB6BBE5EE4A /* GPXRoutePoint.swift */; };
+		B815917FC803F08BFC9C4E49CFD91224 /* GPXRawElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4676771D15964993054B324FCC037099 /* GPXRawElement.swift */; };
 		C0F242B2CB8ADA68816EAE9A2FAE4112 /* Pods-OpenGpxTracker-Watch Extension-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 57A236C1233AC0E09BB8F4F947211E82 /* Pods-OpenGpxTracker-Watch Extension-dummy.m */; };
-		C302B8A05364F3D5FA39822535CB1C20 /* MD5.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39D4C15D5870D2D1E1952624FA7A5FFC /* MD5.swift */; };
-		C3CE80F691E604441201151C1542FCBE /* FileManager+DiskCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 605D9B7062385ABC898908A71E491A80 /* FileManager+DiskCache.swift */; };
-		C7E35C15B68E52C31ACCAAF2A95D3A70 /* GPXLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1785855E5B1D1FF82C6CADC1B80B3E77 /* GPXLink.swift */; };
-		C84EA6ED9CA6ED96237F2F9CE67E3942 /* GPXCompression.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9752D22471E373BBE3470DEE4D98471 /* GPXCompression.swift */; };
-		CC0CA1CE5F5219D7B9404F4307E650C3 /* CachedTileOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75BB6AEA747D1DE75521505DBAEC76CE /* CachedTileOverlay.swift */; };
-		CFCF69C6A6F289DF7DF3840784B45840 /* GPXRawElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CFB3D3BE9CE03B5043F16459E756648 /* GPXRawElement.swift */; };
-		D46DD9634D6A3632A7056251B6AE22B9 /* GPXTrackPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB39F543E587B9E63FA6FBBEDA171550 /* GPXTrackPoint.swift */; };
-		D60203A041A730BE3DED9777C9823738 /* TileRange.swift in Sources */ = {isa = PBXBuildFile; fileRef = D82DF91FDBB9AB8718F05E7E005B9745 /* TileRange.swift */; };
-		D7374E60D9D1E4EE7994DB7290E0A9BA /* GPXTrack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 544BACF6CCFC3C17BC6947AD55B3AC64 /* GPXTrack.swift */; };
-		D886383583C44F6F1B41C570CCF29314 /* CoreGPX-watchOS-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 7211F281DC4F6321FBEFBBB7CDFF4BD8 /* CoreGPX-watchOS-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		DBBACAF78429235067AF07A1507C7878 /* GPXTrackPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB39F543E587B9E63FA6FBBEDA171550 /* GPXTrackPoint.swift */; };
-		DD1173A899B9DB47C5EBAFAF41A98888 /* RegionDownloaderDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73933B2F99C61DD7EEB2A109F490A01A /* RegionDownloaderDelegate.swift */; };
-		DF1A8E06C319DAD140782AE994B77BF4 /* GPXMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = B11B683E079318FA1A7C86E827BBA383 /* GPXMetadata.swift */; };
-		E0E99A03DBBF6D1BA71FED141CFD87D3 /* DiskCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2A686EF5D9F3F2C049B40FD469DC1D /* DiskCache.swift */; };
-		E4DC9E1BAA8E22B38734C9A3FEA6D8A0 /* GPXElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF21D17B9C82C8091DCC416187F1948 /* GPXElement.swift */; };
+		C302B8A05364F3D5FA39822535CB1C20 /* MD5.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99536DA66B2ABD03C37D8151058B0153 /* MD5.swift */; };
+		C3CE80F691E604441201151C1542FCBE /* FileManager+DiskCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDFF9CC31E7E237B49FD904772C631C /* FileManager+DiskCache.swift */; };
+		C7E35C15B68E52C31ACCAAF2A95D3A70 /* GPXLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDD4822E4D243F89493073756391972F /* GPXLink.swift */; };
+		C84EA6ED9CA6ED96237F2F9CE67E3942 /* GPXCompression.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E6C7CC6A062915AD2536D2B4F728228 /* GPXCompression.swift */; };
+		CC0CA1CE5F5219D7B9404F4307E650C3 /* CachedTileOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A03C9074D70571678B29F55D08A1D3F /* CachedTileOverlay.swift */; };
+		CFCF69C6A6F289DF7DF3840784B45840 /* GPXRawElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4676771D15964993054B324FCC037099 /* GPXRawElement.swift */; };
+		D46DD9634D6A3632A7056251B6AE22B9 /* GPXTrackPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FBE61683028088FE1B1789DD042459D /* GPXTrackPoint.swift */; };
+		D60203A041A730BE3DED9777C9823738 /* TileRange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1613F5566AF6A227364372E18ADA09F3 /* TileRange.swift */; };
+		D7374E60D9D1E4EE7994DB7290E0A9BA /* GPXTrack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE3484A0B49C3F3B500E3E9E3D731B1 /* GPXTrack.swift */; };
+		D886383583C44F6F1B41C570CCF29314 /* CoreGPX-watchOS-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = AC5D0F4E39DA976193B8C6A454B8F94B /* CoreGPX-watchOS-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		DBBACAF78429235067AF07A1507C7878 /* GPXTrackPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FBE61683028088FE1B1789DD042459D /* GPXTrackPoint.swift */; };
+		DD1173A899B9DB47C5EBAFAF41A98888 /* RegionDownloaderDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 597B51587555039A2F3432F7253C8AC3 /* RegionDownloaderDelegate.swift */; };
+		DF1A8E06C319DAD140782AE994B77BF4 /* GPXMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77C50641176F90D580BBE880BD8B627B /* GPXMetadata.swift */; };
+		E0E99A03DBBF6D1BA71FED141CFD87D3 /* DiskCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E979EDC89CE4A14976917421DC0EF00 /* DiskCache.swift */; };
+		E4DC9E1BAA8E22B38734C9A3FEA6D8A0 /* GPXElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = F49B2224E2FD7A27F828411389DFB936 /* GPXElement.swift */; };
 		E67A06D5C12D739DBDAF6DAA699D55AE /* Pods-OpenGpxTracker-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BD5E8F43EC1C8559EF6193B14855AE7 /* Pods-OpenGpxTracker-dummy.m */; };
-		E7D461768AF6AF3EE4AA2EFCD3E70AAA /* URL+DiskCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53089BDE1100B9A77D92FCD3822B5070 /* URL+DiskCache.swift */; };
-		E7D51833ABCFA88043E1024B4710D4C4 /* GPXPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 531D6CF55FBB4F5D1872A00C3B671D25 /* GPXPoint.swift */; };
-		E96095BC9712053C48D1A0A591F779FC /* GPXPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 531D6CF55FBB4F5D1872A00C3B671D25 /* GPXPoint.swift */; };
-		EB1EA9E9C1527976254F7754F283DC37 /* CoreGPX-iOS-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E16DA5334D1A047912B6F84AFAEFA82 /* CoreGPX-iOS-dummy.m */; };
-		EDD1E519720F0A6116A01DD5374AA728 /* GPXElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF21D17B9C82C8091DCC416187F1948 /* GPXElement.swift */; };
-		EE13CCD92558CD76C26D1382426477AB /* GPXPerson.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDCE7804879FF576FB59EA80862DE424 /* GPXPerson.swift */; };
-		EEF09ED996B646FCCAC72AEA941FA2E7 /* TileCoordsRegion.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD788F8D723ED316D2C55ED052C5F2FF /* TileCoordsRegion.swift */; };
-		F0A6FED3E288C641B9CB85D6853C2CCE /* GPXFix.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B89588C9327DFE6E42D9E2F82C45FC6 /* GPXFix.swift */; };
-		F171B4327F4A4E4DF104E45DCE9107C9 /* GPXAuthor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 566D0C27E6A668994B9E20DD35F378C5 /* GPXAuthor.swift */; };
+		E7D461768AF6AF3EE4AA2EFCD3E70AAA /* URL+DiskCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4AC2A421C4045E38F569790839E83AF /* URL+DiskCache.swift */; };
+		E7D51833ABCFA88043E1024B4710D4C4 /* GPXPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54C8027703EFB86D38550B82FD96D87B /* GPXPoint.swift */; };
+		E96095BC9712053C48D1A0A591F779FC /* GPXPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54C8027703EFB86D38550B82FD96D87B /* GPXPoint.swift */; };
+		EB1EA9E9C1527976254F7754F283DC37 /* CoreGPX-iOS-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = B0DFC58F7CE2F57F11F014AAE991CB86 /* CoreGPX-iOS-dummy.m */; };
+		EDD1E519720F0A6116A01DD5374AA728 /* GPXElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = F49B2224E2FD7A27F828411389DFB936 /* GPXElement.swift */; };
+		EE13CCD92558CD76C26D1382426477AB /* GPXPerson.swift in Sources */ = {isa = PBXBuildFile; fileRef = A736D3F8228163A4EAAF955AAE3D99C2 /* GPXPerson.swift */; };
+		EEF09ED996B646FCCAC72AEA941FA2E7 /* TileCoordsRegion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C59E9DDC389B5E77F2B9783E30FD3F9 /* TileCoordsRegion.swift */; };
+		F0A6FED3E288C641B9CB85D6853C2CCE /* GPXFix.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B8B0962778A02ED6C4DB0E5E08B6154 /* GPXFix.swift */; };
+		F171B4327F4A4E4DF104E45DCE9107C9 /* GPXAuthor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C483E13CE0AB968323BC7C89912228EF /* GPXAuthor.swift */; };
 		F37E5D553251C1080C36A9C64ACA219C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03A5943D5AA54E62D24DAD0B19639777 /* Foundation.framework */; };
-		F45DBF7A6DCFF011CE4B7B0AE27B4C50 /* CoreGPX-iOS-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = BCC1A07BD1D40618CC03767813C2E66F /* CoreGPX-iOS-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		FB2D25D799CD4266890309FB2FE6D99C /* MKZoomScale+MapCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3F81199CB287DE3FD8210D190C9FB09 /* MKZoomScale+MapCache.swift */; };
-		FF2104F6BEB994B634C292136B1C8CE0 /* GPXPointSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504034719DD0DB19256286F51BEB8EF1 /* GPXPointSegment.swift */; };
+		F45DBF7A6DCFF011CE4B7B0AE27B4C50 /* CoreGPX-iOS-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 4936C808FF6915DCFBECA63E1EF4A238 /* CoreGPX-iOS-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		FB2D25D799CD4266890309FB2FE6D99C /* MKZoomScale+MapCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7725E218A1A1D1857C507C4D68A70EBF /* MKZoomScale+MapCache.swift */; };
+		FF2104F6BEB994B634C292136B1C8CE0 /* GPXPointSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E623B004A5D33D7517A678A13C8C1DD /* GPXPointSegment.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -128,102 +128,105 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0205BAE8A0C30320533D461D53115CCD /* CoreGPX-watchOS-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; name = "CoreGPX-watchOS-Info.plist"; path = "../CoreGPX-watchOS/CoreGPX-watchOS-Info.plist"; sourceTree = "<group>"; };
 		03A5943D5AA54E62D24DAD0B19639777 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.2.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		078E5B78D31CEDCC266B51303D291BCB /* Pods-OpenGpxTracker-Watch Extension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-OpenGpxTracker-Watch Extension.debug.xcconfig"; sourceTree = "<group>"; };
-		0831DB8D40B672B070DB8034B3C83AD7 /* MapCache-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "MapCache-Info.plist"; sourceTree = "<group>"; };
+		0C59E9DDC389B5E77F2B9783E30FD3F9 /* TileCoordsRegion.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TileCoordsRegion.swift; path = MapCache/Classes/TileCoordsRegion.swift; sourceTree = "<group>"; };
+		0E979EDC89CE4A14976917421DC0EF00 /* DiskCache.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = DiskCache.swift; path = MapCache/Classes/DiskCache/DiskCache.swift; sourceTree = "<group>"; };
+		10A379D5714659BB7A1A705C00F877BA /* LoadTileMode.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = LoadTileMode.swift; path = MapCache/Classes/LoadTileMode.swift; sourceTree = "<group>"; };
 		115747451E3769DDB80BB07379405375 /* MapCache.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = MapCache.framework; path = MapCache.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		1344CBF808EADD276368349E7C07DCA2 /* MapCacheConfig.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MapCacheConfig.swift; path = MapCache/Classes/MapCacheConfig.swift; sourceTree = "<group>"; };
-		154ED3149B0984FE2EB138CFC1C3F28C /* TileRangeIterator.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TileRangeIterator.swift; path = MapCache/Classes/TileRangeIterator.swift; sourceTree = "<group>"; };
-		1785855E5B1D1FF82C6CADC1B80B3E77 /* GPXLink.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = GPXLink.swift; path = Classes/GPXLink.swift; sourceTree = "<group>"; };
+		1613F5566AF6A227364372E18ADA09F3 /* TileRange.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TileRange.swift; path = MapCache/Classes/TileRange.swift; sourceTree = "<group>"; };
+		194768F7BA1F93B4A91DDC9A846DE980 /* MKMapView+MapCache.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "MKMapView+MapCache.swift"; path = "MapCache/Classes/MKMapView+MapCache.swift"; sourceTree = "<group>"; };
+		1ABE340905977A6BBBEEDC5ABD99BB3C /* GPXParser.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = GPXParser.swift; path = Classes/GPXParser.swift; sourceTree = "<group>"; };
 		1BD5E8F43EC1C8559EF6193B14855AE7 /* Pods-OpenGpxTracker-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-OpenGpxTracker-dummy.m"; sourceTree = "<group>"; };
-		1F1D3A3B7E808D57179A05038F9E8D1F /* GPXBounds.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = GPXBounds.swift; path = Classes/GPXBounds.swift; sourceTree = "<group>"; };
-		21AD1A21B75BAD52C8B40E0C68D569C5 /* Log.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Log.swift; path = MapCache/Classes/Log.swift; sourceTree = "<group>"; };
-		27ECF853495901051FF15483EC0D662C /* CoreGPX-watchOS-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "CoreGPX-watchOS-prefix.pch"; path = "../CoreGPX-watchOS/CoreGPX-watchOS-prefix.pch"; sourceTree = "<group>"; };
-		2AA2D992E86C41ADDB38401631E10B50 /* GPXRoute.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = GPXRoute.swift; path = Classes/GPXRoute.swift; sourceTree = "<group>"; };
-		2ACDC033F1A5449E815618D30B3044C1 /* GPXExtensionsElement.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = GPXExtensionsElement.swift; path = Classes/GPXExtensionsElement.swift; sourceTree = "<group>"; };
-		2C0292468CBC25F4DE60B480132FF6BE /* MapCache-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "MapCache-prefix.pch"; sourceTree = "<group>"; };
-		2E16DA5334D1A047912B6F84AFAEFA82 /* CoreGPX-iOS-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "CoreGPX-iOS-dummy.m"; sourceTree = "<group>"; };
-		2F1B3A4996B1511EDA30B804959F0ACB /* ZoomRangeIterator.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ZoomRangeIterator.swift; path = MapCache/Classes/ZoomRangeIterator.swift; sourceTree = "<group>"; };
-		39D4C15D5870D2D1E1952624FA7A5FFC /* MD5.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MD5.swift; path = MapCache/Classes/DiskCache/MD5.swift; sourceTree = "<group>"; };
-		3CB929F831D26118E52A4F2A7F74A3C2 /* CoreGPX-iOS.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "CoreGPX-iOS.xcconfig"; sourceTree = "<group>"; };
+		1CE3484A0B49C3F3B500E3E9E3D731B1 /* GPXTrack.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = GPXTrack.swift; path = Classes/GPXTrack.swift; sourceTree = "<group>"; };
+		1EC40E9F57EEA02C54D00B028F78BAF9 /* MapCache.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = MapCache.modulemap; sourceTree = "<group>"; };
+		20C0EA1931E68E8561BE5D49E4B6AAC0 /* TileCoords.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TileCoords.swift; path = MapCache/Classes/TileCoords.swift; sourceTree = "<group>"; };
+		24B68531A098BBE49CCC406939EB39D5 /* MapCacheConfig.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MapCacheConfig.swift; path = MapCache/Classes/MapCacheConfig.swift; sourceTree = "<group>"; };
+		296FCF9C76500EF5163F7FEC85CF9959 /* CoreGPX-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "CoreGPX-iOS.release.xcconfig"; sourceTree = "<group>"; };
+		2A9C1538DC73C429B051E4A5B53B4EF8 /* GPXEmail.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = GPXEmail.swift; path = Classes/GPXEmail.swift; sourceTree = "<group>"; };
+		2B3973BB4B38C3F6C723F55D8A9D1217 /* MapCache.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = MapCache.release.xcconfig; sourceTree = "<group>"; };
+		2DD5367E7F82712D4805F2A60998F697 /* CoreGPX-watchOS-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "CoreGPX-watchOS-dummy.m"; path = "../CoreGPX-watchOS/CoreGPX-watchOS-dummy.m"; sourceTree = "<group>"; };
+		35D2EDF0DA9DEAF1C8D9B252FC7286B8 /* GPXExtensions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = GPXExtensions.swift; path = Classes/GPXExtensions.swift; sourceTree = "<group>"; };
+		3EDFF9CC31E7E237B49FD904772C631C /* FileManager+DiskCache.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "FileManager+DiskCache.swift"; path = "MapCache/Classes/DiskCache/FileManager+DiskCache.swift"; sourceTree = "<group>"; };
 		3F48E60050E3150BF104D2316FA1C144 /* Pods-OpenGpxTracker-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-OpenGpxTracker-umbrella.h"; sourceTree = "<group>"; };
-		414D59061970B808426ED261B63568F0 /* CoreGPX-iOS-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "CoreGPX-iOS-prefix.pch"; sourceTree = "<group>"; };
-		4E2A686EF5D9F3F2C049B40FD469DC1D /* DiskCache.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = DiskCache.swift; path = MapCache/Classes/DiskCache/DiskCache.swift; sourceTree = "<group>"; };
-		504034719DD0DB19256286F51BEB8EF1 /* GPXPointSegment.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = GPXPointSegment.swift; path = Classes/GPXPointSegment.swift; sourceTree = "<group>"; };
+		458BC03530F5E5CFA27A6F66849FEDAA /* MapCache.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MapCache.swift; path = MapCache/Classes/MapCache.swift; sourceTree = "<group>"; };
+		4676771D15964993054B324FCC037099 /* GPXRawElement.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = GPXRawElement.swift; path = Classes/GPXRawElement.swift; sourceTree = "<group>"; };
+		47219531B2AAA57F7BF16DDC89547F0D /* Converters.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Converters.swift; path = Classes/Converters.swift; sourceTree = "<group>"; };
+		4936C808FF6915DCFBECA63E1EF4A238 /* CoreGPX-iOS-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "CoreGPX-iOS-umbrella.h"; sourceTree = "<group>"; };
+		4AB0693B6E8FA94CAF71114CA87574C7 /* GPXBounds.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = GPXBounds.swift; path = Classes/GPXBounds.swift; sourceTree = "<group>"; };
+		4B8B0962778A02ED6C4DB0E5E08B6154 /* GPXFix.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = GPXFix.swift; path = Classes/GPXFix.swift; sourceTree = "<group>"; };
+		4FBE61683028088FE1B1789DD042459D /* GPXTrackPoint.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = GPXTrackPoint.swift; path = Classes/GPXTrackPoint.swift; sourceTree = "<group>"; };
 		5186880E91A7B0727CD5B90A0ACD9B22 /* Pods-OpenGpxTracker-Watch Extension-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-OpenGpxTracker-Watch Extension-acknowledgements.plist"; sourceTree = "<group>"; };
-		52176D270DE1B6AAFDAFD7E5EC31F1E2 /* MapCacheProtocol.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MapCacheProtocol.swift; path = MapCache/Classes/MapCacheProtocol.swift; sourceTree = "<group>"; };
-		53089BDE1100B9A77D92FCD3822B5070 /* URL+DiskCache.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "URL+DiskCache.swift"; path = "MapCache/Classes/DiskCache/URL+DiskCache.swift"; sourceTree = "<group>"; };
-		531D6CF55FBB4F5D1872A00C3B671D25 /* GPXPoint.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = GPXPoint.swift; path = Classes/GPXPoint.swift; sourceTree = "<group>"; };
-		544BACF6CCFC3C17BC6947AD55B3AC64 /* GPXTrack.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = GPXTrack.swift; path = Classes/GPXTrack.swift; sourceTree = "<group>"; };
-		54BE54D9EDFED0B797012F40A9464424 /* GPXRoutePoint.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = GPXRoutePoint.swift; path = Classes/GPXRoutePoint.swift; sourceTree = "<group>"; };
-		566D0C27E6A668994B9E20DD35F378C5 /* GPXAuthor.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = GPXAuthor.swift; path = Classes/GPXAuthor.swift; sourceTree = "<group>"; };
+		54C8027703EFB86D38550B82FD96D87B /* GPXPoint.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = GPXPoint.swift; path = Classes/GPXPoint.swift; sourceTree = "<group>"; };
+		553A3BF59AD7A80615213E00DD65F385 /* MapCache-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "MapCache-prefix.pch"; sourceTree = "<group>"; };
 		57A236C1233AC0E09BB8F4F947211E82 /* Pods-OpenGpxTracker-Watch Extension-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-OpenGpxTracker-Watch Extension-dummy.m"; sourceTree = "<group>"; };
-		605D9B7062385ABC898908A71E491A80 /* FileManager+DiskCache.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "FileManager+DiskCache.swift"; path = "MapCache/Classes/DiskCache/FileManager+DiskCache.swift"; sourceTree = "<group>"; };
-		656AE4CBE70DF5F5A5D56BCCA46895CE /* RegionDownloader.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = RegionDownloader.swift; path = MapCache/Classes/RegionDownloader.swift; sourceTree = "<group>"; };
+		597B51587555039A2F3432F7253C8AC3 /* RegionDownloaderDelegate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = RegionDownloaderDelegate.swift; path = MapCache/Classes/RegionDownloaderDelegate.swift; sourceTree = "<group>"; };
+		5C1569D9E749C9A9D68528740AFC81F0 /* TileRangeIterator.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TileRangeIterator.swift; path = MapCache/Classes/TileRangeIterator.swift; sourceTree = "<group>"; };
+		62A5C2745704B6204D5BC3E647D39E4E /* CoreGPX-watchOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "CoreGPX-watchOS.debug.xcconfig"; path = "../CoreGPX-watchOS/CoreGPX-watchOS.debug.xcconfig"; sourceTree = "<group>"; };
+		69F5BDE8AF609811E52A5FCD3470CD1F /* MKTileOverlayPath+MapCache.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "MKTileOverlayPath+MapCache.swift"; path = "MapCache/Classes/MKTileOverlayPath+MapCache.swift"; sourceTree = "<group>"; };
 		6DD862570929D701173800FC5B8781CF /* Pods-OpenGpxTracker-Watch Extension.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-OpenGpxTracker-Watch Extension.modulemap"; sourceTree = "<group>"; };
-		7211F281DC4F6321FBEFBBB7CDFF4BD8 /* CoreGPX-watchOS-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "CoreGPX-watchOS-umbrella.h"; path = "../CoreGPX-watchOS/CoreGPX-watchOS-umbrella.h"; sourceTree = "<group>"; };
-		73933B2F99C61DD7EEB2A109F490A01A /* RegionDownloaderDelegate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = RegionDownloaderDelegate.swift; path = MapCache/Classes/RegionDownloaderDelegate.swift; sourceTree = "<group>"; };
+		6DF40D7AC634B3BA523AE762D0CBFEE1 /* CoreGPX-watchOS-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "CoreGPX-watchOS-prefix.pch"; path = "../CoreGPX-watchOS/CoreGPX-watchOS-prefix.pch"; sourceTree = "<group>"; };
+		6E6C7CC6A062915AD2536D2B4F728228 /* GPXCompression.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = GPXCompression.swift; path = Classes/GPXCompression.swift; sourceTree = "<group>"; };
+		70DE4182B79029BDA4C1D2EAAA008328 /* ZoomableTile.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ZoomableTile.swift; path = MapCache/Classes/ZoomableTile.swift; sourceTree = "<group>"; };
 		73E097AB8D67061734EC7A63ABBF2E20 /* CoreGPX.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = CoreGPX.framework; path = "CoreGPX-watchOS.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
-		75BB6AEA747D1DE75521505DBAEC76CE /* CachedTileOverlay.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CachedTileOverlay.swift; path = MapCache/Classes/CachedTileOverlay.swift; sourceTree = "<group>"; };
+		76EEB05E041E6E9ED3C303B694C26466 /* MapCache-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "MapCache-Info.plist"; sourceTree = "<group>"; };
+		7725E218A1A1D1857C507C4D68A70EBF /* MKZoomScale+MapCache.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "MKZoomScale+MapCache.swift"; path = "MapCache/Classes/MKZoomScale+MapCache.swift"; sourceTree = "<group>"; };
 		777D6AC9AD5B1E309E7EFBE542592CAC /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.2.sdk/System/Library/Frameworks/MapKit.framework; sourceTree = DEVELOPER_DIR; };
+		77C50641176F90D580BBE880BD8B627B /* GPXMetadata.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = GPXMetadata.swift; path = Classes/GPXMetadata.swift; sourceTree = "<group>"; };
 		7882EE95967EA16611254BD23321635B /* Pods-OpenGpxTracker-Watch Extension-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-OpenGpxTracker-Watch Extension-Info.plist"; sourceTree = "<group>"; };
+		793DC56960A99120EC3A0F3CC713CC0D /* CoreGPX-iOS.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "CoreGPX-iOS.modulemap"; sourceTree = "<group>"; };
 		797EEC4171ED3C5633DA28C7D3F4502D /* Pods-OpenGpxTracker-Watch Extension-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-OpenGpxTracker-Watch Extension-frameworks.sh"; sourceTree = "<group>"; };
-		7BF21D17B9C82C8091DCC416187F1948 /* GPXElement.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = GPXElement.swift; path = Classes/GPXElement.swift; sourceTree = "<group>"; };
-		7F9DE7CD5599605CAD85629D964A5146 /* MapCache.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = MapCache.modulemap; sourceTree = "<group>"; };
-		81436FE513DA5D8328E118C902128A15 /* CoreGPX-watchOS-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "CoreGPX-watchOS-dummy.m"; path = "../CoreGPX-watchOS/CoreGPX-watchOS-dummy.m"; sourceTree = "<group>"; };
+		7B0102D70062BDBF99CB6DFDAE2A14B2 /* GPXRoot.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = GPXRoot.swift; path = Classes/GPXRoot.swift; sourceTree = "<group>"; };
+		7E623B004A5D33D7517A678A13C8C1DD /* GPXPointSegment.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = GPXPointSegment.swift; path = Classes/GPXPointSegment.swift; sourceTree = "<group>"; };
+		82669B91F9277AFC1D42F683693FA606 /* GPXExtensionsElement.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = GPXExtensionsElement.swift; path = Classes/GPXExtensionsElement.swift; sourceTree = "<group>"; };
 		82F1E3501EE0EE229AFC92FE011CA6A4 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS5.2.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
-		83B19B5E5391E1BD10154389744CFAD2 /* Converters.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Converters.swift; path = Classes/Converters.swift; sourceTree = "<group>"; };
-		895E962A76A43048D02B48C2B0ED813D /* GPXEmail.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = GPXEmail.swift; path = Classes/GPXEmail.swift; sourceTree = "<group>"; };
-		89E3F25A8DAF4D82790CD3AB73178379 /* CoreGPX-iOS-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "CoreGPX-iOS-Info.plist"; sourceTree = "<group>"; };
-		8B89588C9327DFE6E42D9E2F82C45FC6 /* GPXFix.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = GPXFix.swift; path = Classes/GPXFix.swift; sourceTree = "<group>"; };
-		8CBAAB942818A667798C1059BC333B32 /* DateTimeParsers.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = DateTimeParsers.swift; path = Classes/DateTimeParsers.swift; sourceTree = "<group>"; };
-		8CFB3D3BE9CE03B5043F16459E756648 /* GPXRawElement.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = GPXRawElement.swift; path = Classes/GPXRawElement.swift; sourceTree = "<group>"; };
-		8D02BF342B812F086CC1387B1FDC70A7 /* GPXWaypoint.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = GPXWaypoint.swift; path = Classes/GPXWaypoint.swift; sourceTree = "<group>"; };
-		8D4AC1371C46754E56049DF693B72672 /* GPXExtensions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = GPXExtensions.swift; path = Classes/GPXExtensions.swift; sourceTree = "<group>"; };
-		9A553B6B70C4B1C9F85F9C329B0D027C /* CoreGPX-watchOS.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; name = "CoreGPX-watchOS.modulemap"; path = "../CoreGPX-watchOS/CoreGPX-watchOS.modulemap"; sourceTree = "<group>"; };
-		9B3830E14B708D7AB0D9B63F130D3042 /* GPXParser.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = GPXParser.swift; path = Classes/GPXParser.swift; sourceTree = "<group>"; };
+		8A03C9074D70571678B29F55D08A1D3F /* CachedTileOverlay.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CachedTileOverlay.swift; path = MapCache/Classes/CachedTileOverlay.swift; sourceTree = "<group>"; };
+		8D4F86166C8C93BB5467AE04F0550D9A /* RegionDownloader.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = RegionDownloader.swift; path = MapCache/Classes/RegionDownloader.swift; sourceTree = "<group>"; };
+		8F64FB9D3764ADAF36953631760D2089 /* GPXError.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = GPXError.swift; path = Classes/GPXError.swift; sourceTree = "<group>"; };
+		994DC11480C8157D82909AF7269621EB /* GPXRoute.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = GPXRoute.swift; path = Classes/GPXRoute.swift; sourceTree = "<group>"; };
+		99536DA66B2ABD03C37D8151058B0153 /* MD5.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MD5.swift; path = MapCache/Classes/DiskCache/MD5.swift; sourceTree = "<group>"; };
+		9B0BB6BD40211E378949F2CEA8135DBA /* CoreGPX-watchOS.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; name = "CoreGPX-watchOS.modulemap"; path = "../CoreGPX-watchOS/CoreGPX-watchOS.modulemap"; sourceTree = "<group>"; };
 		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		9E028D2276249FC5342A3BB05D6546FC /* GPXRoot.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = GPXRoot.swift; path = Classes/GPXRoot.swift; sourceTree = "<group>"; };
-		9FDD439BF400AAC13DAA95F3B38C07D3 /* MapCache.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = MapCache.xcconfig; sourceTree = "<group>"; };
-		9FECF647E1C43F48E457FE3B8F3A5A1C /* CoreGPX-watchOS-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; name = "CoreGPX-watchOS-Info.plist"; path = "../CoreGPX-watchOS/CoreGPX-watchOS-Info.plist"; sourceTree = "<group>"; };
-		A15BE207E7C96F40EB3ED42C2CD66D95 /* TileCoords.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TileCoords.swift; path = MapCache/Classes/TileCoords.swift; sourceTree = "<group>"; };
+		9E719F218854C204C585DFA7FA20482A /* MapCache.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = MapCache.debug.xcconfig; sourceTree = "<group>"; };
+		9EEB0D60EE0A63E97A4CAAAB214F43C2 /* CoreGPX-watchOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "CoreGPX-watchOS.release.xcconfig"; path = "../CoreGPX-watchOS/CoreGPX-watchOS.release.xcconfig"; sourceTree = "<group>"; };
+		A0CDC2AFC5A3161C57C25DFB61796F40 /* GPXTrackSegment.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = GPXTrackSegment.swift; path = Classes/GPXTrackSegment.swift; sourceTree = "<group>"; };
+		A0E9E9197477BF1C08EE5E5E8951716E /* GPXWaypoint.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = GPXWaypoint.swift; path = Classes/GPXWaypoint.swift; sourceTree = "<group>"; };
 		A2E63597C890C9957E7BE7DC463D9F45 /* Pods-OpenGpxTracker-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-OpenGpxTracker-acknowledgements.markdown"; sourceTree = "<group>"; };
 		A68164FEC7AC344ECCFCE91085E5426A /* Pods-OpenGpxTracker-Watch Extension-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-OpenGpxTracker-Watch Extension-acknowledgements.markdown"; sourceTree = "<group>"; };
-		A9752D22471E373BBE3470DEE4D98471 /* GPXCompression.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = GPXCompression.swift; path = Classes/GPXCompression.swift; sourceTree = "<group>"; };
-		AAC5B303EB04086031DA30967E93F218 /* CoreGPX-watchOS.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "CoreGPX-watchOS.xcconfig"; path = "../CoreGPX-watchOS/CoreGPX-watchOS.xcconfig"; sourceTree = "<group>"; };
+		A736D3F8228163A4EAAF955AAE3D99C2 /* GPXPerson.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = GPXPerson.swift; path = Classes/GPXPerson.swift; sourceTree = "<group>"; };
+		AC5D0F4E39DA976193B8C6A454B8F94B /* CoreGPX-watchOS-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "CoreGPX-watchOS-umbrella.h"; path = "../CoreGPX-watchOS/CoreGPX-watchOS-umbrella.h"; sourceTree = "<group>"; };
 		ACC647A22F623093983DA656039BCC39 /* Pods-OpenGpxTracker-Watch Extension-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-OpenGpxTracker-Watch Extension-umbrella.h"; sourceTree = "<group>"; };
-		AD788F8D723ED316D2C55ED052C5F2FF /* TileCoordsRegion.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TileCoordsRegion.swift; path = MapCache/Classes/TileCoordsRegion.swift; sourceTree = "<group>"; };
-		B11B683E079318FA1A7C86E827BBA383 /* GPXMetadata.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = GPXMetadata.swift; path = Classes/GPXMetadata.swift; sourceTree = "<group>"; };
-		B17AE21B935B0C18135FB65A28B0E6F0 /* MKTileOverlayPath+MapCache.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "MKTileOverlayPath+MapCache.swift"; path = "MapCache/Classes/MKTileOverlayPath+MapCache.swift"; sourceTree = "<group>"; };
+		AE320004359B09A083C380FD822E4205 /* CachedTileOverlayRenderer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CachedTileOverlayRenderer.swift; path = MapCache/Classes/CachedTileOverlayRenderer.swift; sourceTree = "<group>"; };
+		B0DFC58F7CE2F57F11F014AAE991CB86 /* CoreGPX-iOS-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "CoreGPX-iOS-dummy.m"; sourceTree = "<group>"; };
 		B18FC1D6D85686B9480155EEDEC49DA1 /* Pods-OpenGpxTracker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-OpenGpxTracker.debug.xcconfig"; sourceTree = "<group>"; };
-		B2A16E657FEAD4C56AA2F65A01F3F94C /* GPXError.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = GPXError.swift; path = Classes/GPXError.swift; sourceTree = "<group>"; };
-		B3B1608E7BDBB3D1B23C4EB45C364C32 /* CoreGPX-iOS.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "CoreGPX-iOS.modulemap"; sourceTree = "<group>"; };
-		B567A8A54987BC3EB5028EC526C1E9B4 /* MapCache-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "MapCache-umbrella.h"; sourceTree = "<group>"; };
+		B5235981B243804CC471EE304082386F /* CoreGPX-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "CoreGPX-iOS.debug.xcconfig"; sourceTree = "<group>"; };
+		B64A566CD80973918E23AD646A98DAAA /* ZoomRange.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ZoomRange.swift; path = MapCache/Classes/ZoomRange.swift; sourceTree = "<group>"; };
 		BB28532C209E3063F9373DFB929A840D /* Pods_OpenGpxTracker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_OpenGpxTracker.framework; path = "Pods-OpenGpxTracker.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
-		BB39F543E587B9E63FA6FBBEDA171550 /* GPXTrackPoint.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = GPXTrackPoint.swift; path = Classes/GPXTrackPoint.swift; sourceTree = "<group>"; };
-		BCC1A07BD1D40618CC03767813C2E66F /* CoreGPX-iOS-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "CoreGPX-iOS-umbrella.h"; sourceTree = "<group>"; };
-		C55C39EA4B61E066D762F8E07DA3D741 /* ZoomRange.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ZoomRange.swift; path = MapCache/Classes/ZoomRange.swift; sourceTree = "<group>"; };
+		C0517B20B7BBB4E89DE22E74ACE5D1E2 /* MapCache-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "MapCache-dummy.m"; sourceTree = "<group>"; };
+		C483E13CE0AB968323BC7C89912228EF /* GPXAuthor.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = GPXAuthor.swift; path = Classes/GPXAuthor.swift; sourceTree = "<group>"; };
 		C5C1D4A56AD0F3360E927F474B255D47 /* Pods-OpenGpxTracker.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-OpenGpxTracker.release.xcconfig"; sourceTree = "<group>"; };
-		CA3D3652A828B610A5D18D9D73058380 /* MapCache-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "MapCache-dummy.m"; sourceTree = "<group>"; };
-		CD32E9E8926FC69AA35D1176CBFE1FDA /* GPXCopyright.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = GPXCopyright.swift; path = Classes/GPXCopyright.swift; sourceTree = "<group>"; };
-		CDCE7804879FF576FB59EA80862DE424 /* GPXPerson.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = GPXPerson.swift; path = Classes/GPXPerson.swift; sourceTree = "<group>"; };
 		CFF13F6F7F8932222CD5F2B41321A72F /* Pods-OpenGpxTracker.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-OpenGpxTracker.modulemap"; sourceTree = "<group>"; };
 		D1F6F978401AA9203C0068794566FB46 /* Pods-OpenGpxTracker-Watch Extension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-OpenGpxTracker-Watch Extension.release.xcconfig"; sourceTree = "<group>"; };
 		D5AB2CCD36447D3D914BCD88DF72C30B /* Pods-OpenGpxTracker-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-OpenGpxTracker-Info.plist"; sourceTree = "<group>"; };
-		D82DF91FDBB9AB8718F05E7E005B9745 /* TileRange.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TileRange.swift; path = MapCache/Classes/TileRange.swift; sourceTree = "<group>"; };
-		DAED7BCE309E79C5A05754B7AB4B8C76 /* NSMutableString+XML.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "NSMutableString+XML.swift"; path = "Classes/NSMutableString+XML.swift"; sourceTree = "<group>"; };
-		DE5935D9E3846F82CFF3B7E4BE8818BF /* MapCache.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MapCache.swift; path = MapCache/Classes/MapCache.swift; sourceTree = "<group>"; };
+		D744627BDF9FF26DA7B2BD8C22A610AE /* GPXCopyright.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = GPXCopyright.swift; path = Classes/GPXCopyright.swift; sourceTree = "<group>"; };
+		D94BC5949439D6CE6E05B2AE1F358D08 /* MapCache-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "MapCache-umbrella.h"; sourceTree = "<group>"; };
+		DC38F26EDC98D689560C9AB6BBE5EE4A /* GPXRoutePoint.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = GPXRoutePoint.swift; path = Classes/GPXRoutePoint.swift; sourceTree = "<group>"; };
+		E1AB0B56C1CD5C10794D31DECEC55B45 /* NSMutableString+XML.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "NSMutableString+XML.swift"; path = "Classes/NSMutableString+XML.swift"; sourceTree = "<group>"; };
 		E2743C4C98C8F0EEEB54228B67543388 /* Pods-OpenGpxTracker-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-OpenGpxTracker-acknowledgements.plist"; sourceTree = "<group>"; };
-		E56A1CEEF85232C90C0F18EAF8B29839 /* LoadTileMode.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = LoadTileMode.swift; path = MapCache/Classes/LoadTileMode.swift; sourceTree = "<group>"; };
+		E327723F10499465ED81648BBB5429C3 /* Log.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Log.swift; path = MapCache/Classes/Log.swift; sourceTree = "<group>"; };
 		E5A52280BF76FE36D8C9028535627888 /* Pods-OpenGpxTracker-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-OpenGpxTracker-frameworks.sh"; sourceTree = "<group>"; };
-		E84238FA76D38D5F1E617CC39180ECF5 /* CachedTileOverlayRenderer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CachedTileOverlayRenderer.swift; path = MapCache/Classes/CachedTileOverlayRenderer.swift; sourceTree = "<group>"; };
 		E9C30547DF968C73398DDA33A4BBDFB3 /* CoreGPX.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = CoreGPX.framework; path = "CoreGPX-iOS.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
-		F0E2900F3B2C831FD4A8BB5F53676F22 /* MKMapView+MapCache.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "MKMapView+MapCache.swift"; path = "MapCache/Classes/MKMapView+MapCache.swift"; sourceTree = "<group>"; };
+		EB15EB92B0A7259455A4F6C1034DA173 /* MapCacheProtocol.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MapCacheProtocol.swift; path = MapCache/Classes/MapCacheProtocol.swift; sourceTree = "<group>"; };
+		EDC7DC002C38FF51F58404D79893D9C1 /* String+DiskCache.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "String+DiskCache.swift"; path = "MapCache/Classes/DiskCache/String+DiskCache.swift"; sourceTree = "<group>"; };
+		EE11C0974EA9053DAFC915EC49481FEC /* CoreGPX-iOS-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "CoreGPX-iOS-Info.plist"; sourceTree = "<group>"; };
+		EF810A28BCBB345649EA78AA7DEFCC1F /* DateTimeParsers.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = DateTimeParsers.swift; path = Classes/DateTimeParsers.swift; sourceTree = "<group>"; };
 		F0FF0F6580378BD21A07C3AFAA1FFFA0 /* Pods_OpenGpxTracker_Watch_Extension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_OpenGpxTracker_Watch_Extension.framework; path = "Pods-OpenGpxTracker-Watch Extension.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
-		F12B10B9C021B4C1EB5521F603045F40 /* GPXTrackSegment.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = GPXTrackSegment.swift; path = Classes/GPXTrackSegment.swift; sourceTree = "<group>"; };
-		F3A246CDAB00E5290D82DEF92D7A074A /* ZoomableTile.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ZoomableTile.swift; path = MapCache/Classes/ZoomableTile.swift; sourceTree = "<group>"; };
-		F3F81199CB287DE3FD8210D190C9FB09 /* MKZoomScale+MapCache.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "MKZoomScale+MapCache.swift"; path = "MapCache/Classes/MKZoomScale+MapCache.swift"; sourceTree = "<group>"; };
-		FC145B978BE4553A552DC277D19B411F /* String+DiskCache.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "String+DiskCache.swift"; path = "MapCache/Classes/DiskCache/String+DiskCache.swift"; sourceTree = "<group>"; };
+		F49B2224E2FD7A27F828411389DFB936 /* GPXElement.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = GPXElement.swift; path = Classes/GPXElement.swift; sourceTree = "<group>"; };
+		F4AC2A421C4045E38F569790839E83AF /* URL+DiskCache.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "URL+DiskCache.swift"; path = "MapCache/Classes/DiskCache/URL+DiskCache.swift"; sourceTree = "<group>"; };
+		F6AC74DAA22947EC0119E7DC89BBC404 /* ZoomRangeIterator.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ZoomRangeIterator.swift; path = MapCache/Classes/ZoomRangeIterator.swift; sourceTree = "<group>"; };
+		FA240237BCCDCA5D79936C03A7DD9004 /* CoreGPX-iOS-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "CoreGPX-iOS-prefix.pch"; sourceTree = "<group>"; };
+		FDD4822E4D243F89493073756391972F /* GPXLink.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = GPXLink.swift; path = Classes/GPXLink.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -280,42 +283,6 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		0C9D8D009FA31B254C2C9E210636CBB3 /* CoreGPX */ = {
-			isa = PBXGroup;
-			children = (
-				83B19B5E5391E1BD10154389744CFAD2 /* Converters.swift */,
-				8CBAAB942818A667798C1059BC333B32 /* DateTimeParsers.swift */,
-				566D0C27E6A668994B9E20DD35F378C5 /* GPXAuthor.swift */,
-				1F1D3A3B7E808D57179A05038F9E8D1F /* GPXBounds.swift */,
-				A9752D22471E373BBE3470DEE4D98471 /* GPXCompression.swift */,
-				CD32E9E8926FC69AA35D1176CBFE1FDA /* GPXCopyright.swift */,
-				7BF21D17B9C82C8091DCC416187F1948 /* GPXElement.swift */,
-				895E962A76A43048D02B48C2B0ED813D /* GPXEmail.swift */,
-				B2A16E657FEAD4C56AA2F65A01F3F94C /* GPXError.swift */,
-				8D4AC1371C46754E56049DF693B72672 /* GPXExtensions.swift */,
-				2ACDC033F1A5449E815618D30B3044C1 /* GPXExtensionsElement.swift */,
-				8B89588C9327DFE6E42D9E2F82C45FC6 /* GPXFix.swift */,
-				1785855E5B1D1FF82C6CADC1B80B3E77 /* GPXLink.swift */,
-				B11B683E079318FA1A7C86E827BBA383 /* GPXMetadata.swift */,
-				9B3830E14B708D7AB0D9B63F130D3042 /* GPXParser.swift */,
-				CDCE7804879FF576FB59EA80862DE424 /* GPXPerson.swift */,
-				531D6CF55FBB4F5D1872A00C3B671D25 /* GPXPoint.swift */,
-				504034719DD0DB19256286F51BEB8EF1 /* GPXPointSegment.swift */,
-				8CFB3D3BE9CE03B5043F16459E756648 /* GPXRawElement.swift */,
-				9E028D2276249FC5342A3BB05D6546FC /* GPXRoot.swift */,
-				2AA2D992E86C41ADDB38401631E10B50 /* GPXRoute.swift */,
-				54BE54D9EDFED0B797012F40A9464424 /* GPXRoutePoint.swift */,
-				544BACF6CCFC3C17BC6947AD55B3AC64 /* GPXTrack.swift */,
-				BB39F543E587B9E63FA6FBBEDA171550 /* GPXTrackPoint.swift */,
-				F12B10B9C021B4C1EB5521F603045F40 /* GPXTrackSegment.swift */,
-				8D02BF342B812F086CC1387B1FDC70A7 /* GPXWaypoint.swift */,
-				DAED7BCE309E79C5A05754B7AB4B8C76 /* NSMutableString+XML.swift */,
-				F53EBAF130E4E1DFFF0535E479D717D8 /* Support Files */,
-			);
-			name = CoreGPX;
-			path = CoreGPX;
-			sourceTree = "<group>";
-		};
 		10BAB8A7894F634629C3D5D731E26E72 /* Targets Support Files */ = {
 			isa = PBXGroup;
 			children = (
@@ -323,6 +290,28 @@
 				69AD0D65D9C064ADA517276C9233866F /* Pods-OpenGpxTracker-Watch Extension */,
 			);
 			name = "Targets Support Files";
+			sourceTree = "<group>";
+		};
+		148B2D177A3D9E413A817A3719915FB2 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				793DC56960A99120EC3A0F3CC713CC0D /* CoreGPX-iOS.modulemap */,
+				B0DFC58F7CE2F57F11F014AAE991CB86 /* CoreGPX-iOS-dummy.m */,
+				EE11C0974EA9053DAFC915EC49481FEC /* CoreGPX-iOS-Info.plist */,
+				FA240237BCCDCA5D79936C03A7DD9004 /* CoreGPX-iOS-prefix.pch */,
+				4936C808FF6915DCFBECA63E1EF4A238 /* CoreGPX-iOS-umbrella.h */,
+				B5235981B243804CC471EE304082386F /* CoreGPX-iOS.debug.xcconfig */,
+				296FCF9C76500EF5163F7FEC85CF9959 /* CoreGPX-iOS.release.xcconfig */,
+				9B0BB6BD40211E378949F2CEA8135DBA /* CoreGPX-watchOS.modulemap */,
+				2DD5367E7F82712D4805F2A60998F697 /* CoreGPX-watchOS-dummy.m */,
+				0205BAE8A0C30320533D461D53115CCD /* CoreGPX-watchOS-Info.plist */,
+				6DF40D7AC634B3BA523AE762D0CBFEE1 /* CoreGPX-watchOS-prefix.pch */,
+				AC5D0F4E39DA976193B8C6A454B8F94B /* CoreGPX-watchOS-umbrella.h */,
+				62A5C2745704B6204D5BC3E647D39E4E /* CoreGPX-watchOS.debug.xcconfig */,
+				9EEB0D60EE0A63E97A4CAAAB214F43C2 /* CoreGPX-watchOS.release.xcconfig */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/CoreGPX-iOS";
 			sourceTree = "<group>";
 		};
 		1BB3EDF6BEBFEFDD929CFBA635912B7A /* Products */ = {
@@ -337,6 +326,21 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		2C6DDCB083872AA408E0B077E65CACA3 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				1EC40E9F57EEA02C54D00B028F78BAF9 /* MapCache.modulemap */,
+				C0517B20B7BBB4E89DE22E74ACE5D1E2 /* MapCache-dummy.m */,
+				76EEB05E041E6E9ED3C303B694C26466 /* MapCache-Info.plist */,
+				553A3BF59AD7A80615213E00DD65F385 /* MapCache-prefix.pch */,
+				D94BC5949439D6CE6E05B2AE1F358D08 /* MapCache-umbrella.h */,
+				9E719F218854C204C585DFA7FA20482A /* MapCache.debug.xcconfig */,
+				2B3973BB4B38C3F6C723F55D8A9D1217 /* MapCache.release.xcconfig */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/MapCache";
+			sourceTree = "<group>";
+		};
 		44EEE5A81684442C022C7DA5065B2D6B /* iOS */ = {
 			isa = PBXGroup;
 			children = (
@@ -344,39 +348,6 @@
 				777D6AC9AD5B1E309E7EFBE542592CAC /* MapKit.framework */,
 			);
 			name = iOS;
-			sourceTree = "<group>";
-		};
-		65BCEC35BEC44B422ACC4D7D0FF88759 /* MapCache */ = {
-			isa = PBXGroup;
-			children = (
-				75BB6AEA747D1DE75521505DBAEC76CE /* CachedTileOverlay.swift */,
-				E84238FA76D38D5F1E617CC39180ECF5 /* CachedTileOverlayRenderer.swift */,
-				4E2A686EF5D9F3F2C049B40FD469DC1D /* DiskCache.swift */,
-				605D9B7062385ABC898908A71E491A80 /* FileManager+DiskCache.swift */,
-				E56A1CEEF85232C90C0F18EAF8B29839 /* LoadTileMode.swift */,
-				21AD1A21B75BAD52C8B40E0C68D569C5 /* Log.swift */,
-				DE5935D9E3846F82CFF3B7E4BE8818BF /* MapCache.swift */,
-				1344CBF808EADD276368349E7C07DCA2 /* MapCacheConfig.swift */,
-				52176D270DE1B6AAFDAFD7E5EC31F1E2 /* MapCacheProtocol.swift */,
-				39D4C15D5870D2D1E1952624FA7A5FFC /* MD5.swift */,
-				F0E2900F3B2C831FD4A8BB5F53676F22 /* MKMapView+MapCache.swift */,
-				B17AE21B935B0C18135FB65A28B0E6F0 /* MKTileOverlayPath+MapCache.swift */,
-				F3F81199CB287DE3FD8210D190C9FB09 /* MKZoomScale+MapCache.swift */,
-				656AE4CBE70DF5F5A5D56BCCA46895CE /* RegionDownloader.swift */,
-				73933B2F99C61DD7EEB2A109F490A01A /* RegionDownloaderDelegate.swift */,
-				FC145B978BE4553A552DC277D19B411F /* String+DiskCache.swift */,
-				A15BE207E7C96F40EB3ED42C2CD66D95 /* TileCoords.swift */,
-				AD788F8D723ED316D2C55ED052C5F2FF /* TileCoordsRegion.swift */,
-				D82DF91FDBB9AB8718F05E7E005B9745 /* TileRange.swift */,
-				154ED3149B0984FE2EB138CFC1C3F28C /* TileRangeIterator.swift */,
-				53089BDE1100B9A77D92FCD3822B5070 /* URL+DiskCache.swift */,
-				F3A246CDAB00E5290D82DEF92D7A074A /* ZoomableTile.swift */,
-				C55C39EA4B61E066D762F8E07DA3D741 /* ZoomRange.swift */,
-				2F1B3A4996B1511EDA30B804959F0ACB /* ZoomRangeIterator.swift */,
-				6D4DEB928D4D78EC13456FF3AB1A95D6 /* Support Files */,
-			);
-			name = MapCache;
-			path = MapCache;
 			sourceTree = "<group>";
 		};
 		69AD0D65D9C064ADA517276C9233866F /* Pods-OpenGpxTracker-Watch Extension */ = {
@@ -396,27 +367,82 @@
 			path = "Target Support Files/Pods-OpenGpxTracker-Watch Extension";
 			sourceTree = "<group>";
 		};
-		6D4DEB928D4D78EC13456FF3AB1A95D6 /* Support Files */ = {
-			isa = PBXGroup;
-			children = (
-				7F9DE7CD5599605CAD85629D964A5146 /* MapCache.modulemap */,
-				9FDD439BF400AAC13DAA95F3B38C07D3 /* MapCache.xcconfig */,
-				CA3D3652A828B610A5D18D9D73058380 /* MapCache-dummy.m */,
-				0831DB8D40B672B070DB8034B3C83AD7 /* MapCache-Info.plist */,
-				2C0292468CBC25F4DE60B480132FF6BE /* MapCache-prefix.pch */,
-				B567A8A54987BC3EB5028EC526C1E9B4 /* MapCache-umbrella.h */,
-			);
-			name = "Support Files";
-			path = "../Target Support Files/MapCache";
-			sourceTree = "<group>";
-		};
 		958143A361BC2D6B0392E7109CBE4F82 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				0C9D8D009FA31B254C2C9E210636CBB3 /* CoreGPX */,
-				65BCEC35BEC44B422ACC4D7D0FF88759 /* MapCache */,
+				B8278DD225E9B184A496AB011C3369D7 /* CoreGPX */,
+				A4C450BF32BB7A4E960A5E8962991C3A /* MapCache */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		A4C450BF32BB7A4E960A5E8962991C3A /* MapCache */ = {
+			isa = PBXGroup;
+			children = (
+				8A03C9074D70571678B29F55D08A1D3F /* CachedTileOverlay.swift */,
+				AE320004359B09A083C380FD822E4205 /* CachedTileOverlayRenderer.swift */,
+				0E979EDC89CE4A14976917421DC0EF00 /* DiskCache.swift */,
+				3EDFF9CC31E7E237B49FD904772C631C /* FileManager+DiskCache.swift */,
+				10A379D5714659BB7A1A705C00F877BA /* LoadTileMode.swift */,
+				E327723F10499465ED81648BBB5429C3 /* Log.swift */,
+				458BC03530F5E5CFA27A6F66849FEDAA /* MapCache.swift */,
+				24B68531A098BBE49CCC406939EB39D5 /* MapCacheConfig.swift */,
+				EB15EB92B0A7259455A4F6C1034DA173 /* MapCacheProtocol.swift */,
+				99536DA66B2ABD03C37D8151058B0153 /* MD5.swift */,
+				194768F7BA1F93B4A91DDC9A846DE980 /* MKMapView+MapCache.swift */,
+				69F5BDE8AF609811E52A5FCD3470CD1F /* MKTileOverlayPath+MapCache.swift */,
+				7725E218A1A1D1857C507C4D68A70EBF /* MKZoomScale+MapCache.swift */,
+				8D4F86166C8C93BB5467AE04F0550D9A /* RegionDownloader.swift */,
+				597B51587555039A2F3432F7253C8AC3 /* RegionDownloaderDelegate.swift */,
+				EDC7DC002C38FF51F58404D79893D9C1 /* String+DiskCache.swift */,
+				20C0EA1931E68E8561BE5D49E4B6AAC0 /* TileCoords.swift */,
+				0C59E9DDC389B5E77F2B9783E30FD3F9 /* TileCoordsRegion.swift */,
+				1613F5566AF6A227364372E18ADA09F3 /* TileRange.swift */,
+				5C1569D9E749C9A9D68528740AFC81F0 /* TileRangeIterator.swift */,
+				F4AC2A421C4045E38F569790839E83AF /* URL+DiskCache.swift */,
+				70DE4182B79029BDA4C1D2EAAA008328 /* ZoomableTile.swift */,
+				B64A566CD80973918E23AD646A98DAAA /* ZoomRange.swift */,
+				F6AC74DAA22947EC0119E7DC89BBC404 /* ZoomRangeIterator.swift */,
+				2C6DDCB083872AA408E0B077E65CACA3 /* Support Files */,
+			);
+			name = MapCache;
+			path = MapCache;
+			sourceTree = "<group>";
+		};
+		B8278DD225E9B184A496AB011C3369D7 /* CoreGPX */ = {
+			isa = PBXGroup;
+			children = (
+				47219531B2AAA57F7BF16DDC89547F0D /* Converters.swift */,
+				EF810A28BCBB345649EA78AA7DEFCC1F /* DateTimeParsers.swift */,
+				C483E13CE0AB968323BC7C89912228EF /* GPXAuthor.swift */,
+				4AB0693B6E8FA94CAF71114CA87574C7 /* GPXBounds.swift */,
+				6E6C7CC6A062915AD2536D2B4F728228 /* GPXCompression.swift */,
+				D744627BDF9FF26DA7B2BD8C22A610AE /* GPXCopyright.swift */,
+				F49B2224E2FD7A27F828411389DFB936 /* GPXElement.swift */,
+				2A9C1538DC73C429B051E4A5B53B4EF8 /* GPXEmail.swift */,
+				8F64FB9D3764ADAF36953631760D2089 /* GPXError.swift */,
+				35D2EDF0DA9DEAF1C8D9B252FC7286B8 /* GPXExtensions.swift */,
+				82669B91F9277AFC1D42F683693FA606 /* GPXExtensionsElement.swift */,
+				4B8B0962778A02ED6C4DB0E5E08B6154 /* GPXFix.swift */,
+				FDD4822E4D243F89493073756391972F /* GPXLink.swift */,
+				77C50641176F90D580BBE880BD8B627B /* GPXMetadata.swift */,
+				1ABE340905977A6BBBEEDC5ABD99BB3C /* GPXParser.swift */,
+				A736D3F8228163A4EAAF955AAE3D99C2 /* GPXPerson.swift */,
+				54C8027703EFB86D38550B82FD96D87B /* GPXPoint.swift */,
+				7E623B004A5D33D7517A678A13C8C1DD /* GPXPointSegment.swift */,
+				4676771D15964993054B324FCC037099 /* GPXRawElement.swift */,
+				7B0102D70062BDBF99CB6DFDAE2A14B2 /* GPXRoot.swift */,
+				994DC11480C8157D82909AF7269621EB /* GPXRoute.swift */,
+				DC38F26EDC98D689560C9AB6BBE5EE4A /* GPXRoutePoint.swift */,
+				1CE3484A0B49C3F3B500E3E9E3D731B1 /* GPXTrack.swift */,
+				4FBE61683028088FE1B1789DD042459D /* GPXTrackPoint.swift */,
+				A0CDC2AFC5A3161C57C25DFB61796F40 /* GPXTrackSegment.swift */,
+				A0E9E9197477BF1C08EE5E5E8951716E /* GPXWaypoint.swift */,
+				E1AB0B56C1CD5C10794D31DECEC55B45 /* NSMutableString+XML.swift */,
+				148B2D177A3D9E413A817A3719915FB2 /* Support Files */,
+			);
+			name = CoreGPX;
+			path = CoreGPX;
 			sourceTree = "<group>";
 		};
 		CF1408CF629C7361332E53B88F7BD30C = {
@@ -436,26 +462,6 @@
 				82F1E3501EE0EE229AFC92FE011CA6A4 /* Foundation.framework */,
 			);
 			name = watchOS;
-			sourceTree = "<group>";
-		};
-		F53EBAF130E4E1DFFF0535E479D717D8 /* Support Files */ = {
-			isa = PBXGroup;
-			children = (
-				B3B1608E7BDBB3D1B23C4EB45C364C32 /* CoreGPX-iOS.modulemap */,
-				3CB929F831D26118E52A4F2A7F74A3C2 /* CoreGPX-iOS.xcconfig */,
-				2E16DA5334D1A047912B6F84AFAEFA82 /* CoreGPX-iOS-dummy.m */,
-				89E3F25A8DAF4D82790CD3AB73178379 /* CoreGPX-iOS-Info.plist */,
-				414D59061970B808426ED261B63568F0 /* CoreGPX-iOS-prefix.pch */,
-				BCC1A07BD1D40618CC03767813C2E66F /* CoreGPX-iOS-umbrella.h */,
-				9A553B6B70C4B1C9F85F9C329B0D027C /* CoreGPX-watchOS.modulemap */,
-				AAC5B303EB04086031DA30967E93F218 /* CoreGPX-watchOS.xcconfig */,
-				81436FE513DA5D8328E118C902128A15 /* CoreGPX-watchOS-dummy.m */,
-				9FECF647E1C43F48E457FE3B8F3A5A1C /* CoreGPX-watchOS-Info.plist */,
-				27ECF853495901051FF15483EC0D662C /* CoreGPX-watchOS-prefix.pch */,
-				7211F281DC4F6321FBEFBBB7CDFF4BD8 /* CoreGPX-watchOS-umbrella.h */,
-			);
-			name = "Support Files";
-			path = "../Target Support Files/CoreGPX-iOS";
 			sourceTree = "<group>";
 		};
 		F7FF33953E2DCD1125050F2F5F7DF931 /* Pods-OpenGpxTracker */ = {
@@ -629,6 +635,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = CF1408CF629C7361332E53B88F7BD30C;
 			productRefGroup = 1BB3EDF6BEBFEFDD929CFBA635912B7A /* Products */;
@@ -890,9 +897,9 @@
 			};
 			name = Debug;
 		};
-		320D26DF6210C4ACB1E543675F632AE7 /* Release */ = {
+		40341C04855A18C109064625A86DA108 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3CB929F831D26118E52A4F2A7F74A3C2 /* CoreGPX-iOS.xcconfig */;
+			baseConfigurationReference = B5235981B243804CC471EE304082386F /* CoreGPX-iOS.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -906,7 +913,7 @@
 				GCC_PREFIX_HEADER = "Target Support Files/CoreGPX-iOS/CoreGPX-iOS-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/CoreGPX-iOS/CoreGPX-iOS-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MODULEMAP_FILE = "Target Support Files/CoreGPX-iOS/CoreGPX-iOS.modulemap";
 				PRODUCT_MODULE_NAME = CoreGPX;
@@ -916,15 +923,47 @@
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
+			name = Debug;
+		};
+		46911164DB4144F0F8037CF9726B224A /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9EEB0D60EE0A63E97A4CAAAB214F43C2 /* CoreGPX-watchOS.release.xcconfig */;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/CoreGPX-watchOS/CoreGPX-watchOS-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/CoreGPX-watchOS/CoreGPX-watchOS-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/CoreGPX-watchOS/CoreGPX-watchOS.modulemap";
+				PRODUCT_MODULE_NAME = CoreGPX;
+				PRODUCT_NAME = CoreGPX;
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+				WATCHOS_DEPLOYMENT_TARGET = 2.0;
+			};
 			name = Release;
 		};
-		4B307D96EF761F5B4AA8943D3CCCB6C5 /* Debug */ = {
+		4CBE860AD540FCD6035D016AD10E44E0 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = AAC5B303EB04086031DA30967E93F218 /* CoreGPX-watchOS.xcconfig */;
+			baseConfigurationReference = 62A5C2745704B6204D5BC3E647D39E4E /* CoreGPX-watchOS.debug.xcconfig */;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CODE_SIGN_IDENTITY = "";
@@ -989,9 +1028,9 @@
 			};
 			name = Release;
 		};
-		7A3675420E0140BC625366BE7FF82C5E /* Debug */ = {
+		84040EE1DB2767938D96A8B038E77E74 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9FDD439BF400AAC13DAA95F3B38C07D3 /* MapCache.xcconfig */;
+			baseConfigurationReference = 9E719F218854C204C585DFA7FA20482A /* MapCache.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -1053,9 +1092,9 @@
 			};
 			name = Debug;
 		};
-		90DB8E77A5FC8190C757FC750D518F67 /* Debug */ = {
+		91BF9B42631F6891DB0E8EADF6CA82DB /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3CB929F831D26118E52A4F2A7F74A3C2 /* CoreGPX-iOS.xcconfig */;
+			baseConfigurationReference = 296FCF9C76500EF5163F7FEC85CF9959 /* CoreGPX-iOS.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -1069,7 +1108,7 @@
 				GCC_PREFIX_HEADER = "Target Support Files/CoreGPX-iOS/CoreGPX-iOS-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/CoreGPX-iOS/CoreGPX-iOS-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MODULEMAP_FILE = "Target Support Files/CoreGPX-iOS/CoreGPX-iOS.modulemap";
 				PRODUCT_MODULE_NAME = CoreGPX;
@@ -1079,16 +1118,16 @@
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
-			name = Debug;
+			name = Release;
 		};
-		A218C66EC608FF012C1CBA1B48A66AE4 /* Release */ = {
+		9C503D8748716041B41A3A279C1234B4 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = AAC5B303EB04086031DA30967E93F218 /* CoreGPX-watchOS.xcconfig */;
+			baseConfigurationReference = 2B3973BB4B38C3F6C723F55D8A9D1217 /* MapCache.release.xcconfig */;
 			buildSettings = {
-				APPLICATION_EXTENSION_API_ONLY = YES;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
@@ -1098,22 +1137,22 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "Target Support Files/CoreGPX-watchOS/CoreGPX-watchOS-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/CoreGPX-watchOS/CoreGPX-watchOS-Info.plist";
+				GCC_PREFIX_HEADER = "Target Support Files/MapCache/MapCache-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/MapCache/MapCache-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/CoreGPX-watchOS/CoreGPX-watchOS.modulemap";
-				PRODUCT_MODULE_NAME = CoreGPX;
-				PRODUCT_NAME = CoreGPX;
-				SDKROOT = watchos;
+				MODULEMAP_FILE = "Target Support Files/MapCache/MapCache.modulemap";
+				PRODUCT_MODULE_NAME = MapCache;
+				PRODUCT_NAME = MapCache;
+				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 4;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
-				WATCHOS_DEPLOYMENT_TARGET = 2.0;
 			};
 			name = Release;
 		};
@@ -1144,38 +1183,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
-		C122085FA26E7D8DE61ADFA9EF3B5F67 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9FDD439BF400AAC13DAA95F3B38C07D3 /* MapCache.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "Target Support Files/MapCache/MapCache-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/MapCache/MapCache-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/MapCache/MapCache.modulemap";
-				PRODUCT_MODULE_NAME = MapCache;
-				PRODUCT_NAME = MapCache;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -1284,8 +1291,8 @@
 		272115438C930133EF435FEDE8D36127 /* Build configuration list for PBXNativeTarget "MapCache" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				7A3675420E0140BC625366BE7FF82C5E /* Debug */,
-				C122085FA26E7D8DE61ADFA9EF3B5F67 /* Release */,
+				84040EE1DB2767938D96A8B038E77E74 /* Debug */,
+				9C503D8748716041B41A3A279C1234B4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1311,8 +1318,8 @@
 		D550DFCF11634DAA8AF20457BCFC68CC /* Build configuration list for PBXNativeTarget "CoreGPX-watchOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				4B307D96EF761F5B4AA8943D3CCCB6C5 /* Debug */,
-				A218C66EC608FF012C1CBA1B48A66AE4 /* Release */,
+				4CBE860AD540FCD6035D016AD10E44E0 /* Debug */,
+				46911164DB4144F0F8037CF9726B224A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1329,8 +1336,8 @@
 		F8FC92E9CD954C9775941C6152EC97CC /* Build configuration list for PBXNativeTarget "CoreGPX-iOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				90DB8E77A5FC8190C757FC750D518F67 /* Debug */,
-				320D26DF6210C4ACB1E543675F632AE7 /* Release */,
+				40341C04855A18C109064625A86DA108 /* Debug */,
+				91BF9B42631F6891DB0E8EADF6CA82DB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
