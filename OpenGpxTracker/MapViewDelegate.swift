@@ -50,7 +50,7 @@ class MapViewDelegate: NSObject, MKMapViewDelegate, UIAlertViewDelegate {
             pr.strokeColor = UIColor.blue
             
             if #available(iOS 13, *) {
-                pr.shouldRasterize = true
+                pr.shouldRasterize = false
                 if mapView.traitCollection.userInterfaceStyle == .dark {
                     pr.alpha = 0.5
                     pr.strokeColor = UIColor.yellow
