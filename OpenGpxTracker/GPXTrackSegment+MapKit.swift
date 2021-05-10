@@ -32,7 +32,7 @@ extension GPXTrackSegment {
     /// that belong to this segment
     func trackPointsToCoordinates() -> [CLLocationCoordinate2D] {
         var coords: [CLLocationCoordinate2D] = []
-        for point in self.trackpoints {
+        for point in self.points {
             coords.append(point.coordinate)
         }
         return coords
@@ -43,11 +43,11 @@ extension GPXTrackSegment {
         var length: CLLocationDistance = 0.0
         var distanceTwoPoints: CLLocationDistance
         //we need at least two points
-        if self.trackpoints.count < 2 {
+        if self.points.count < 2 {
             return length
         }
         var prev: CLLocation? //previous
-        for point in self.trackpoints {
+        for point in self.points {
             let pt: CLLocation = CLLocation(latitude: Double(point.latitude!), longitude: Double(point.longitude!) )
             if prev == nil { //if first point => set it as previous and go for next
                 prev = pt

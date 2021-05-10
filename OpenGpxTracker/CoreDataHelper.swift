@@ -357,7 +357,7 @@ class CoreDataHelper {
     func crashFileRecovery() {
         DispatchQueue.global().async {
             // checks if trackpoint and waypoint are available
-            if self.currentSegment.trackpoints.count > 0 || self.waypoints.count > 0 {
+            if self.currentSegment.points.count > 0 || self.waypoints.count > 0 {
                 let root: GPXRoot
                 let track = GPXTrack()
 
@@ -373,14 +373,14 @@ class CoreDataHelper {
                 if self.isContinued && self.tracksegments.count >= (self.lastTracksegmentId + 1) {
                     
                     //Check if there was a tracksegment
-                    if root.tracks.last?.tracksegments.count == 0 {
+                    if root.tracks.last?.segments.count == 0 {
                         root.tracks.last?.add(trackSegment: GPXTrackSegment())
                     }
                     // if gpx is saved, but further trkpts are added after save, and crashed, trkpt are appended, not adding to new trkseg.
-                    root.tracks.last?.tracksegments[Int(self.lastTracksegmentId)].add(trackpoints: self.tracksegments.first!.trackpoints)
+                    root.tracks.last?.segments[Int(self.lastTracksegmentId)].add(trackpoints: self.tracksegments.first!.points)
                     self.tracksegments.remove(at: 0)                    
                 } else {
-                    track.tracksegments = self.tracksegments
+                    track.segments = self.tracksegments
                     root.add(track: track)
                 }
                 root.waypoints = self.waypoints
@@ -429,7 +429,7 @@ class CoreDataHelper {
         
         if lastfileName != "" {
             fileName = lastfileName
-        } else if let lastTrkptDate = gpx.tracks.last?.tracksegments.last?.trackpoints.last?.time {
+        } else if let lastTrkptDate = gpx.tracks.last?.segments.last?.points.last?.time {
             fileName = dateFormatter.string(from: lastTrkptDate)
         } else {
             // File name's date will be as of recovery time, not of crash time.

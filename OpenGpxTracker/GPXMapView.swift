@@ -262,7 +262,7 @@ class GPXMapView: MKMapView {
     /// initializes currentSegment to a new one.
     ///
     func startNewTrackSegment() {
-        if session.currentSegment.trackpoints.count > 0 {
+        if session.currentSegment.points.count > 0 {
             session.startNewTrackSegment()
             currentSegmentOverlay = MKPolyline()
         }
@@ -331,10 +331,10 @@ class GPXMapView: MKMapView {
         session.tracks = gpx.tracks
         for oneTrack in session.tracks {
             session.totalTrackedDistance += oneTrack.length
-            for segment in oneTrack.tracksegments {
+            for segment in oneTrack.segments {
                 let overlay = segment.overlay
                 addOverlay(overlay)
-                let segmentTrackpoints = segment.trackpoints
+                let segmentTrackpoints = segment.points
                 //add point to map extent
                 for waypoint in segmentTrackpoints {
                     extent.extendAreaToIncludeLocation(waypoint.coordinate)
@@ -352,11 +352,11 @@ class GPXMapView: MKMapView {
         // for last session's previous tracks, through resuming
         for oneTrack in session.tracks {
             session.totalTrackedDistance += oneTrack.length
-            for segment in oneTrack.tracksegments {
+            for segment in oneTrack.segments {
                 let overlay = segment.overlay
                 addOverlay(overlay)
                 
-                let segmentTrackpoints = segment.trackpoints
+                let segmentTrackpoints = segment.points
                 //add point to map extent
                 for waypoint in segmentTrackpoints {
                     extent.extendAreaToIncludeLocation(waypoint.coordinate)
@@ -370,7 +370,7 @@ class GPXMapView: MKMapView {
             let overlay = trackSegment.overlay
             addOverlay(overlay)
             
-            let segmentTrackpoints = trackSegment.trackpoints
+            let segmentTrackpoints = trackSegment.points
             //add point to map extent
             for waypoint in segmentTrackpoints {
                 extent.extendAreaToIncludeLocation(waypoint.coordinate)

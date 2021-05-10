@@ -14,7 +14,7 @@ import Foundation
 */
 public final class GPXRoot: GPXElement, Codable {
     
-    /// GPX version that will be generated. Currently, only the latest (version 1.1) is supported.
+    /// GPX version that will be generated.
     public var version: String = "1.1"
     
     /// Name of the creator of the GPX content.
