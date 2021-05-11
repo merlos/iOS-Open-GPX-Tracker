@@ -331,14 +331,23 @@ class InterfaceController: WKInterfaceController {
     /// - Seealso: displayLocationServicesDisabledAlert, displayLocationServicesDeniedAlert
     ///
     func checkLocationServicesStatus() {
-        //Are location services enabled?
-        if !CLLocationManager.locationServicesEnabled() {
-            displayLocationServicesDisabledAlert()
+        let authorizationStatus = CLLocationManager.authorizationStatus()
+        
+        //Has the user already made a permission choice?
+        guard authorizationStatus != .notDetermined else {
+            //We should take no action until the user has made a choice
             return
         }
+        
         //Does the app have permissions to use the location servies?
-        if !([.authorizedAlways, .authorizedWhenInUse].contains(CLLocationManager.authorizationStatus())) {
+        guard [.authorizedAlways, .authorizedWhenInUse ].contains(authorizationStatus) else {
             displayLocationServicesDeniedAlert()
+            return
+        }
+        
+        //Are location services enabled?
+        guard CLLocationManager.locationServicesEnabled() else {
+            displayLocationServicesDisabledAlert()
             return
         }
     }

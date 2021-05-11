@@ -879,7 +879,6 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         if !wasSentToBackground {
             return
         }
-        checkLocationServicesStatus()
         locationManager.startUpdatingLocation()
         locationManager.startUpdatingHeading()
     }
@@ -1170,14 +1169,24 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
     /// - Seealso: displayLocationServicesDisabledAlert, displayLocationServicesDeniedAlert
     ///
     func checkLocationServicesStatus() {
-        //Are location services enabled?
-        if !CLLocationManager.locationServicesEnabled() {
-            displayLocationServicesDisabledAlert()
+        let authorizationStatus = CLLocationManager.authorizationStatus()
+        
+        //Has the user already made a permission choice?
+        guard authorizationStatus != .notDetermined else {
+            //We should take no action until the user has made a choice
+            //Note that we request location permission as part of the property `locationManager` init
             return
         }
+        
         //Does the app have permissions to use the location servies?
-        if !([.authorizedAlways, .authorizedWhenInUse].contains(CLLocationManager.authorizationStatus())) {
+        guard [.authorizedAlways, .authorizedWhenInUse ].contains(authorizationStatus) else {
             displayLocationServicesDeniedAlert()
+            return
+        }
+        
+        //Are location services enabled?
+        guard CLLocationManager.locationServicesEnabled() else {
+            displayLocationServicesDisabledAlert()
             return
         }
     }
@@ -1293,8 +1302,6 @@ extension ViewController: PreferencesTableViewControllerDelegate {
         speedLabel.text = kUnknownSpeedText
         signalAccuracyLabel.text = kUnknownAccuracyText
     }}
-
-// MARK: location manager Delegate
 
 /// Extends `ViewController`` to support `GPXFilesTableViewControllerDelegate` function
 /// that loads into the map a the file selected by the user.
@@ -1417,6 +1424,15 @@ extension ViewController: CLLocationManagerDelegate {
         map.heading = newHeading // updates heading variable
         map.updateHeading() // updates heading view's rotation
         
+    }
+    
+    ///
+    /// Called by the system when `CLLocationManager` is created and when the user makes a permission choice
+    ///
+    /// We handle this delegate callback so that we can check if the user has allowed location access, else we show a warning
+    ///
+    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+        checkLocationServicesStatus()
     }
 }
 
