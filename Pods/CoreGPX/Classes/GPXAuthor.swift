@@ -12,6 +12,13 @@ public final class GPXAuthor: GPXPerson {
     
     // MARK:- Initializers
     
+    public convenience init(name: String? = nil, email: GPXEmail? = nil, link: GPXLink? = nil) {
+        self.init()
+        self.name = name
+        self.email = email
+        self.link = link
+    }
+    
     /// Default Initializer
     public required init() {
         super.init()

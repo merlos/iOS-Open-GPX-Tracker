@@ -51,8 +51,6 @@ public final class GPXLink: GPXElement, Codable {
     ///
     public init(withHref href: String) {
         self.href = href
-        self.mimetype = String()
-        self.text = String()
     }
     
     /// Initializes with a URL.
@@ -86,6 +84,12 @@ public final class GPXLink: GPXElement, Codable {
             }
         }
         self.href = raw.attributes["href"]
+    }
+    
+    public init?(url: URL?, name: String? = nil) {
+        if url == nil && name == nil { return nil }
+        self.text = name
+        self.href = url?.absoluteString
     }
     
     // MARK:- Tag

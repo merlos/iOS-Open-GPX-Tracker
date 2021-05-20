@@ -17,7 +17,7 @@ public final class GPXBounds: GPXElement, Codable {
     /// Codable Implementation
     private enum CodingKeys: String, CodingKey {
         case minLatitude = "minlat"
-        case maxLatitude = "maxLat"
+        case maxLatitude = "maxlat"
         case minLongitude = "minlon"
         case maxLongitude = "maxlon"
     }

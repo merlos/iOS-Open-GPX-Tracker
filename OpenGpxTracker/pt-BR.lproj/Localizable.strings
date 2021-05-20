@@ -1,0 +1,156 @@
+/*
+ Localizable.strings
+ OpenGpxTracker
+ 
+ #201
+ Brazilian Portuguese translation by @renatofelixalmeida, submitted on 11/05/21.
+ */
+
+// App
+"NO_LOCATION" = "Não obtendo localização";
+"START_TRACKING" = "Iniciar rastreamento";
+"PAUSE" = "Pausar";
+"RESUME" = "Continuar";
+"SAVE" = "Salvar";
+"RESET" = "Resetar";
+"DONE" = "Feito";
+"CANCEL" = "Cancelar";
+"WATCH_FILE_RECEIVED_TITLE" = "Arquivo recebido do Apple Watch";
+"WATCH_FILE_RECEIVED_MESSAGE" = "Arquivo recebido: \"%@\"";
+"SAVE_AS" = "Salvar como";
+"ENTER_SESSION_NAME" = "Informe o nome da sessão GPX";
+"LOCATION_SERVICES_DISABLED" = "Serviço de localização desabilitado";
+"ENABLE_LOCATION_SERVICES" = "Vá em ajustes e habilite a localização.";
+"SETTINGS" = "Ajustes";
+"ACCESS_TO_LOCATION_DENIED" = "Acesso a localização negado";
+"ALLOW_LOCATION" = "Nas configurações de localização, sempre permita o acesso à localização para o GPX Tracker ";
+"COORDS_LABEL" = "(%@, %@) · altitude: %@";
+"NO_FILES" = "Sem arquivos GPX";
+"YOUR_FILES" = "Seus arquivos GPX";
+"LAST_SAVED" = "Salvo pela última vez %@ (%@)";
+"DELETE" = "Apagar";
+"SELECT_OPTION" = "Selecione uma opção";
+"LOAD_IN_MAP" = "Abrir no mapa";
+"SHARE" = "Compartilhar";
+"LOADING_FILE" = "Abrindo arquivo GPX...";
+"ABOUT" = "Sobre";
+"PREFERENCES" = "Preferências";
+"UNITS" = "Unidades";
+"CACHE" = "Cache";
+"MAP_SOURCE" = "Origem do mapa";
+"ACTIVITY_TYPE" = "Tipo de atividade";
+"USE_IMPERIAL_UNITS" = "Usar unidades imperiais?";
+"OFFLINE_CACHE" = "Cache Offline";
+"CLEAR_CACHE" = "Limpar cache";
+"CACHE_IS_EMPTY" = "Cache vazio";
+"EDIT_WAYPOINT_NAME_TITLE" = "Edite o nome do ponto";
+"EDIT_WAYPOINT_NAME_MESSAGE" = "Dica: Para alterar a localização do ponto arraste o pin";
+
+// Watch
+"SENDING" = "Enviando:";
+"X_FILES" = "%d arquivos";
+"SUCCESSFULLY_SENT" = "Enviado com sucesso:";
+"FAILED_TO_SEND" = "Falha ao enviar:";
+"SEND_TO_IOS" = "Enviar para o aplicativo IOS";
+"FILE_SELECTED_TITLE" = "Arquivo GPX selecionado";
+"FILE_SELECTED_MESSAGE" = "O que você gostaria de fazer?";
+"ERROR_OCCURED_TITLE" = "Ocorru um erro";
+"ERROR_OCCURED_MESSAGE" = "Arquivo GPX não foi enviado com sucessso para o aplicativo iOS, devido a %s ";
+"GPX_TRACKER" = "GPX Tracker";
+"FILE_SAVED_TITLE" = "Arquivo GPX salvo";
+"FILE_SAVED_MESSAGE" = "Sessão atual salva como %s.gpx ";
+
+// Activities
+"AT_AUTOMATIC" = "Automatici";
+"AT_AUTOMOTIVE" = "Navegação automotiva";
+"AT_FITNESS" = "Fitness";
+"AT_OTHER" = "Outra navegação";
+"AT_FLIGHT" = "Voo";
+
+"AT_AUTOMATIC_DESC" = "Padrão do sistema. Selecionar modo automaticamente.";
+"AT_AUTOMOTIVE_DESC" = "Carro, moto, caminhão...";
+"AT_FITNESS_DESC" = "Caminhada, corrida, ciclismo...";
+"AT_OTHER_DESC" = "Outra navegação não automotiva";
+"AT_FLIGHT_DESC" = "Atividades ao ar livre";
+
+// Dates
+"T_YEARS_AGO" = "%d anos anteriores";
+"T_YEAR_AGO" = "1 ano anterior";
+"T_LAST_YEAR" = "último ano";
+
+"T_MONTHS_AGO" = "%d meses anteriores";
+"T_MONTH_AGO" = "1 mês anterior";
+"T_LAST_MONTH" = "último mês";
+
+"T_WEEKS_AGO" = "%d semanas anteriores";
+"T_WEEK_AGO" = "1 semana anterior";
+"T_LAST_WEEK" = "última semana";
+
+"T_DAYS_AGO" = "%d dias anteriores";
+"T_DAY_AGO" = "1 dia anterior";
+"T_YESTERDAY" = "ontem";
+
+"T_HOURS_AGO" = "%d horas anteiores";
+"T_HOUR_AGO" = "1 hora anterior";
+"T_LAST_HOUR" = "última hora";
+
+"T_MINUTES_AGO" = "%d minutos anteriores";
+"T_MINUTE_AGO" = "1 minuto anteior";
+"T_MINUTE_HOUR" = "último minuto";
+
+"T_SECONDS_AGO" = "%d segundos anteriores";
+
+"T_JUST_NOW" = "Apena agora";
+
+// CoreDataHelper
+
+"CONTINUE_SESSION_TITLE" = "Continuar sessão anterior?";
+"CONTINUE_SESSION_MESSAGE" = "O que você gostaria de fazer com o conteúdo recuperado da última sessão?";
+
+"CONTINUE_SESSION" = "Continuar sessão";
+"SAVE_START_NEW" = "Salvar e iniciar nova";
+
+// Default File Name
+
+// in preferences section
+"DEFAULT_NAME_SECTION" = "Configuração de nome de arquivo padrão";
+
+// in default name editor view
+"DEFAULT_NAME_DATE_FORMAT" = "Formato do nome do arquivo";
+"DEFAULT_NAME_SETTINGS" = "Ajustes";
+"DEFAULT_NAME_PRESET" = "Pré-definições";
+
+"DEFAULT_NAME_INPUT_FOOTER" = "Clicar em concluído no teclado salva o formato de data para uso, independentemente de ser predefinido ou personalizado. O formato da data deve ser encapsulado em {...}. Para uma lista completa de sintaxe de formato de data aplicável, consulte o Unicode Technical Standard (UTS) #35.";
+
+"DEFAULT_NAME_SAMPLE_OUTPUT_TITLE" = "Amostra: ";
+"DEFAULT_NAME_USE_UTC" = "Usar formato UTC?";
+"DEFAULT_NAME_ENGLISH_LOCALE" = "Forçar formato de data inglês?";
+
+// DateFieldTypeView
+"YEAR" = "Ano";
+"MONTH" = "Mês";
+"DAY" = "Dia";
+"HOUR" = "Hora";
+"MINUTE" = "Minuto";
+"SECOND" = "Segundo";
+"DAY_OF_THE_WEEK" = "Dia da semana";
+"TIME_OF_DAY" = "Parte do dia";
+"WEEK" = "Semana";
+"QUARTER" = "Trimestre";
+"ERA" = "Época";
+"TIME_ZONE" = "Fuso horário";
+
+"SINGLE_DIGIT" = "Simples";
+"FULL_TEXT" = "Completo";
+"TEXT" = "Texto";
+
+"OF_MONTH" = "Do mês";
+"OF_YEAR" = "Do ano";
+
+"ABBR_GMT" = "Abbr. / GMT";
+"UTC_OFFSET" = "UTC offset";
+"GMT_SHORT" = "GMT curto";
+"GMT_FULL" = "GMT completo";
+"LOCATION" = "Localização";
+"LOCATION_TIME" = "Hora da localização";
+

@@ -1,0 +1,12 @@
+/*
+  InfoPlist.strings
+  OpenGpxTracker
+  
+  #201
+  Brazilian Portuguese translation by @renatofelixalmeida, submitted on 11/05/21.
+*/
+
+NSLocationAlwaysAndWhenInUseUsageDescription = "A localização é usada apenas para exibir sua posição no mapa. Selecione sempre permitir rastrear sua posição, mesmo quando o aplicativo estiver em segundo plano.";
+NSLocationAlwaysUsageDescription = "A localização é necessária para criar a trilha GPX mesmo quando o aplicativo está em segundo plano.";
+NSLocationUsageDescription = "A localização é necessária para criar GPX e adicionar POIs";
+NSLocationWhenInUseUsageDescription = "A localização é usada para exibir no mapa onde você está e onde esteve.";

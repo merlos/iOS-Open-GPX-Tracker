@@ -67,4 +67,13 @@ public struct GPXError {
         
         return nil
     }
+    
+    /// Other errors
+    enum others: Error {
+        /// When adding an email that is considered as invalid as per GPX v1.0 schema.
+        ///
+        /// Checks against regular expression of:
+        ///    [\p{L}_]+(\.[\p{L}_]+)*@[\p{L}_]+(\.[\p{L}_]+)+
+        case invalidEmail
+    }
 }
