@@ -1043,8 +1043,8 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
     ///
     @objc func addPinAtMyLocation() {
         print("Adding Pin at my location")
-        let altitude = map.userLocation.location?.altitude
-        let waypoint = GPXWaypoint(coordinate: map.userLocation.coordinate, altitude: altitude)
+        let altitude = locationManager.location?.altitude
+        let waypoint = GPXWaypoint(coordinate: locationManager.location?.coordinate ?? map.userLocation.coordinate, altitude: altitude)
         map.addWaypoint(waypoint)
         map.coreDataHelper.add(toCoreData: waypoint)
         self.hasWaypoints = true
