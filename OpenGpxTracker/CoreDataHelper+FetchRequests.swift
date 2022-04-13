@@ -50,7 +50,7 @@ extension CoreDataHelper {
                     guard let safePoint = self.appDelegate.managedObjectContext.object(with: objectID) as? CDTrackpoint else { continue }
                     
                     if self.tracksegmentId != safePoint.trackSegmentId {
-                        if self.currentSegment.trackpoints.count > 0 {
+                        if self.currentSegment.points.count > 0 {
                             self.tracksegments.append(self.currentSegment)
                             self.currentSegment = GPXTrackSegment()
                         }
@@ -63,7 +63,7 @@ extension CoreDataHelper {
                     pt.time = safePoint.time
                     pt.elevation = safePoint.elevation
                     
-                    self.currentSegment.trackpoints.append(pt)
+                    self.currentSegment.points.append(pt)
                     
                 }
                 self.trackpointId = trackPointResults.last?.trackpointId ?? Int64()

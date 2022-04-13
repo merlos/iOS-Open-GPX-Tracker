@@ -38,7 +38,13 @@ public final class GPXMetadata: GPXElement, Codable {
     public var copyright: GPXCopyright?
     
     /// A web link, usually one with information regarding the GPX file.
-    public var link: GPXLink?
+    @available(*, deprecated, message: "CoreGPX now support multiple links.", renamed: "links.first")
+    public var link: GPXLink? {
+        return links.first
+    }
+    
+    /// Web links, usually containing information regarding the current GPX file which houses this metadata.
+    public var links = [GPXLink]()
     
     /// Date and time of when the GPX file is created.
     public var time: Date?
@@ -75,7 +81,7 @@ public final class GPXMetadata: GPXElement, Codable {
             case "desc":        self.desc = child.text
             case "author":      self.author = GPXAuthor(raw: child)
             case "copyright":   self.copyright = GPXCopyright(raw: child)
-            case "link":        self.link = GPXLink(raw: child)
+            case "link":        self.links.append(GPXLink(raw: child))
             case "time":        self.time = GPXDateParser.parse(date: child.text)
             case "keywords":    self.keywords = child.text
             case "bounds":      self.bounds = GPXBounds(raw: child)
@@ -107,8 +113,8 @@ public final class GPXMetadata: GPXElement, Codable {
             self.copyright?.gpx(gpx, indentationLevel: indentationLevel)
         }
         
-        if link != nil {
-            self.link?.gpx(gpx, indentationLevel: indentationLevel)
+        for link in links {
+            link.gpx(gpx, indentationLevel: indentationLevel)
         }
         
         self.addProperty(forValue: Convert.toString(from: time), gpx: gpx, tagName: "time", indentationLevel: indentationLevel)

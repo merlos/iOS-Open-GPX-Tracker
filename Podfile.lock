@@ -1,5 +1,5 @@
 PODS:
-  - CoreGPX (0.8.2)
+  - CoreGPX (0.9.0)
   - MapCache (0.9.0)
 
 DEPENDENCIES:
@@ -12,9 +12,9 @@ SPEC REPOS:
     - MapCache
 
 SPEC CHECKSUMS:
-  CoreGPX: 452b72ac3281ad5587739043c27f9463f8fe5742
+  CoreGPX: 1381c8c47428c3a6bcac2f93d25ca1c5e3525811
   MapCache: b0a9f5f9a0ed7cbac45443fea0e7e03a97bf0c66
 
 PODFILE CHECKSUM: c61e9630b0b0516aedcfdcf6798dbfb7fc6c0eef
 
-COCOAPODS: 1.9.2
+COCOAPODS: 1.10.1
