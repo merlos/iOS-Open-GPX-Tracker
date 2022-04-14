@@ -14,29 +14,34 @@ import Foundation
 public typealias Zoom = UInt8
 
 /// Tile number in a map.
-/// - SeeAlso TileCoords
+/// - SeeAlso: TileCoords
 public typealias TileNumber = UInt64
 
-/// Errors for Zoom
-enum ZoomError: Error {
-    /// Zoom largest value is 19
+/// Errors for Zoom.
+public enum ZoomError: Error {
+    /// Zoom largest value is 19.
     case largerThan19
 }
 
-/// Errors for a latitude
-enum LatitudeError: Error {
+/// Errors for a latitude.
+public enum LatitudeError: Error {
+    /// Overflow if latitud is smaller than the minimum.
     case overflowMin
+    /// Overflow if latitud is greater than the maximum.
     case overflowMax
 }
 
-/// Errors for a longitude
-enum LongitudeError: Error {
+/// Errors for a longitude.
+public enum LongitudeError: Error {
+     /// Overflow if latitud is smaller than the minimum.
     case overflowMin
+     /// Overflow if latitud is greater than the maximum.
     case overflowMax
 }
 
 /// Errors for a tile
-enum TileError: Error {
+public enum TileError: Error {
+    /// Overflow in the tile
     case overflow
 }
 
@@ -71,7 +76,7 @@ enum TileError: Error {
 /// All the wisdom of this class comes from:
 /// https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames
 ///
-public class TileCoords {
+open class TileCoords {
     
     /// Max value of latitude that can be retrieved with tiles (-85.0511 degrees)
     static let maxLatitude : Double = 85.0511
@@ -172,7 +177,8 @@ public class TileCoords {
         return latitude
     }
    
-    /// Holds the zoom level
+    /// Holds the zoom level.
+    /// For internal use only.
     private var _zoom : Zoom = 0
     
     /// Zoom level. Read only. Use setZoom() to change it.
@@ -182,8 +188,10 @@ public class TileCoords {
         }
     }
     
-    /// Latitude for this tile. Use setCoords() to change it.
+    /// Holds the actual latitude
     private var _latitude: Double = 0.0
+    
+    /// Latitude for this tile. Use set() to change it.
     public var latitude: Double {
         get {
             return _latitude
@@ -210,9 +218,10 @@ public class TileCoords {
         }
     }
     
-    // Tile in the Y axis for current latitude and zoom. Use set() to change it.
+    /// Holds the actual tileY
     private var _tileY: TileNumber = 0
     
+    /// Tile in the Y axis for current latitude and zoom. Use set() to change it.
     public var tileY : TileNumber {
         get {
             return _tileY
@@ -238,7 +247,7 @@ public class TileCoords {
         _tileY = tileY
     }
     
-    /// Sets latitude and longitude
+    /// Sets latitude and longitude.
     /// Throws LatitudeError and LongitudeError if they are out of range.
     public func set(latitude: Double, longitude: Double) throws {
         
@@ -279,7 +288,7 @@ public class TileCoords {
     
     ///
     /// Creates a new Tile Coord with the same latitude and longitude
-    /// as the the parameter but with a different zoom
+    /// as the the parameter but with a different zoom.
     public init?(_ tileCoords: TileCoords, zoom: Zoom) {
         // we can assume that these are coorect so no need o test.
         self._latitude = tileCoords.latitude

@@ -1,20 +1,20 @@
 PODS:
-  - CoreGPX (0.7.4)
-  - MapCache (0.6.0)
+  - CoreGPX (0.9.0)
+  - MapCache (0.9.0)
 
 DEPENDENCIES:
   - CoreGPX
-  - MapCache (~> 0.6.0)
+  - MapCache (~> 0.9.0)
 
 SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
+  trunk:
     - CoreGPX
     - MapCache
 
 SPEC CHECKSUMS:
-  CoreGPX: 9927a0158614c4baed08ecdb772fdc24efd92e49
-  MapCache: 8afa98ddc3539a384ba75b019284cded95aaccab
+  CoreGPX: 1381c8c47428c3a6bcac2f93d25ca1c5e3525811
+  MapCache: b0a9f5f9a0ed7cbac45443fea0e7e03a97bf0c66
 
-PODFILE CHECKSUM: 97ad10775e58ef7100c884ba0bf97867e159a041
+PODFILE CHECKSUM: c61e9630b0b0516aedcfdcf6798dbfb7fc6c0eef
 
-COCOAPODS: 1.7.5
+COCOAPODS: 1.10.1

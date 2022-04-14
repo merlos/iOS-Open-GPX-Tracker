@@ -14,7 +14,7 @@ import Foundation
 */
 public final class GPXRoot: GPXElement, Codable {
     
-    /// GPX version that will be generated. Currently, only the latest (version 1.1) is supported.
+    /// GPX version that will be generated.
     public var version: String = "1.1"
     
     /// Name of the creator of the GPX content.
@@ -44,11 +44,11 @@ public final class GPXRoot: GPXElement, Codable {
     // MARK: GPX v1.1 Namespaces
     
     /// Link to the GPX v1.1 schema
-    private let schema = "http://www.topografix.com/GPX/1/1"
+    private var schema = "http://www.topografix.com/GPX/1/1"
     /// Link to the schema locations. If extended, the extended schema should be added.
     private var schemaLocation = "http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd"
     /// Link to XML schema instance
-    private let xsi = "http://www.w3.org/2001/XMLSchema-instance"
+    private var xsi = "http://www.w3.org/2001/XMLSchema-instance"
     /// For if GPX file is extended, and contains extra attributes on gpx main tag.
     private var extensionAttributes: [String : String]?
     

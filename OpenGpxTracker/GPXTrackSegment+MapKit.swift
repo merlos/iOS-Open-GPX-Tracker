@@ -5,7 +5,6 @@
 //  Created by merlos on 20/09/14.
 //
 
-
 import Foundation
 import UIKit
 import MapKit
@@ -20,11 +19,9 @@ extension GPXTrackSegment {
     /// Returns a MapKit polyline with the points of the segment.
     /// This polyline can be directly plotted on the map as an overlay
     public var overlay: MKPolyline {
-        get {
-            var coords: [CLLocationCoordinate2D] = self.trackPointsToCoordinates()
-            let pl = MKPolyline(coordinates: &coords, count:  coords.count)
-            return pl
-        }
+        var coords: [CLLocationCoordinate2D] = self.trackPointsToCoordinates()
+        let pl = MKPolyline(coordinates: &coords, count: coords.count)
+        return pl
     }
 }
 #endif
@@ -35,7 +32,7 @@ extension GPXTrackSegment {
     /// that belong to this segment
     func trackPointsToCoordinates() -> [CLLocationCoordinate2D] {
         var coords: [CLLocationCoordinate2D] = []
-        for point in self.trackpoints {
+        for point in self.points {
             coords.append(point.coordinate)
         }
         return coords
@@ -46,11 +43,11 @@ extension GPXTrackSegment {
         var length: CLLocationDistance = 0.0
         var distanceTwoPoints: CLLocationDistance
         //we need at least two points
-        if self.trackpoints.count < 2 {
+        if self.points.count < 2 {
             return length
         }
         var prev: CLLocation? //previous
-        for point in self.trackpoints {
+        for point in self.points {
             let pt: CLLocation = CLLocation(latitude: Double(point.latitude!), longitude: Double(point.longitude!) )
             if prev == nil { //if first point => set it as previous and go for next
                 prev = pt

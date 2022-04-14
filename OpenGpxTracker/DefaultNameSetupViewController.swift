@@ -21,6 +21,9 @@ class DefaultNameSetupViewController: UITableViewController, UITextFieldDelegate
     /// also used for final date formatting for use in default name callup when saving.
     var processedDateFormat = String()
     
+    /// A value denoting the validity of the processed date format.
+    var dateFormatIsInvalid = false
+    
     ///
     let defaultDateFormat = DefaultDateFormat()
     
@@ -31,7 +34,7 @@ class DefaultNameSetupViewController: UITableViewController, UITextFieldDelegate
     var useEN = false
     
     /// Global Preferences
-    var preferences : Preferences = Preferences.shared
+    var preferences: Preferences = Preferences.shared
 
     /// Built in presets. Should be made addable customs next time.
     let presets =  [("Defaults", "dd-MMM-yyyy-HHmm", "{dd}-{MMM}-{yyyy}-{HH}{mm}"),
@@ -41,7 +44,7 @@ class DefaultNameSetupViewController: UITableViewController, UITextFieldDelegate
                     ("Day, Date at time (24 hr)", "EEEE, MMM d, yyyy 'at' HH:mm", "{EEEE}, {MMM} {d}, {yyyy} at {HH}:{mm}")]
     
     /// Sections of table view
-    private enum kSections: Int, CaseIterable {
+    private enum Sections: Int, CaseIterable {
         case input, settings, presets
     }
 
@@ -59,17 +62,41 @@ class DefaultNameSetupViewController: UITableViewController, UITextFieldDelegate
         notificationCenter.addObserver(self, selector: #selector(dateButtonTapped(_:)), name: .dateFieldTapped, object: nil)
     }
     
-    // MARK:- Text Field Related
-    
+    // MARK: Text Field Related
     @objc func dateButtonTapped(_ sender: Notification) {
         if cellTextField.text != nil {
             guard let notificationValues = sender.userInfo else { return }
-            let patternDict = notificationValues as! [String : String]
+            // swiftlint:disable force_cast
+            let patternDict = notificationValues as! [String: String]
             guard let pattern = patternDict["sender"] else { return }
 
             cellTextField.insertText("{\(pattern)}")
 
         }
+    }
+    
+    /// Legacy date selection toolbar for iOS 8 use, as it lacks new API for the new toolbar layout.
+    func createSimpleDateSelectionBar() -> UIToolbar {
+        let bar = UIToolbar()
+        let bracket = UIBarButtonItem(title: "{ ... }", style: .plain, target: self, action: #selector(buttonTapped(_:for:)))
+        bracket.tag = 6
+        let day = UIBarButtonItem(title: "Day", style: .plain, target: self, action: #selector(buttonTapped(_:for:)))
+        day.tag = 0
+        let month = UIBarButtonItem(title: "Month", style: .plain, target: self, action: #selector(buttonTapped(_:for:)))
+        month.tag = 1
+        let year = UIBarButtonItem(title: "Year", style: .plain, target: self, action: #selector(buttonTapped(_:for:)))
+        year.tag = 2
+        let hour = UIBarButtonItem(title: "Hr", style: .plain, target: self, action: #selector(buttonTapped(_:for:)))
+        hour.tag = 3
+        let min = UIBarButtonItem(title: "Min", style: .plain, target: self, action: #selector(buttonTapped(_:for:)))
+        min.tag = 4
+        let sec = UIBarButtonItem(title: "Sec", style: .plain, target: self, action: #selector(buttonTapped(_:for:)))
+        sec.tag = 5
+
+        bar.items = [bracket, day, month, year, hour, min, sec]
+        bar.sizeToFit()
+        
+        return bar
     }
     
     /// Handles text insertion as per keyboard bar button pressed.
@@ -96,12 +123,14 @@ class DefaultNameSetupViewController: UITableViewController, UITextFieldDelegate
 
     /// Call when text field is currently editing, and an update to sample label is required.
     @objc func updateSampleTextField() {
-        processedDateFormat = defaultDateFormat.getDateFormat(unprocessed: self.cellTextField.text!)
+        let processed = defaultDateFormat.getDateFormat(unprocessed: self.cellTextField.text!)
+        processedDateFormat = processed.0
+        dateFormatIsInvalid = processed.1
         //dateFormatter.dateFormat = processedDateFormat
         cellSampleLabel.text = defaultDateFormat.getDate(processedFormat: processedDateFormat, useUTC: useUTC, useENLocale: useEN)
     }
     
-    // MARK:- UITextField Delegate
+    // MARK: UITextField Delegate
     
     /// Enables keyboard 'done' action to resign text field
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -113,7 +142,7 @@ class DefaultNameSetupViewController: UITableViewController, UITextFieldDelegate
     /// handling of textfield when editing commence.
     func textFieldDidBeginEditing(_ textField: UITextField) {
         //remove checkmark from selected date format preset, as textfield edited == not preset anymore
-        let selectedIndexPath = IndexPath(row: preferences.dateFormatPreset, section: kSections.presets.rawValue)
+        let selectedIndexPath = IndexPath(row: preferences.dateFormatPreset, section: Sections.presets.rawValue)
         tableView.cellForRow(at: selectedIndexPath)?.accessoryType = .none
         useUTC = false // clear UTC value, unlock UTC cell, as format may now be custom.
         lockUTCCell(useUTC)
@@ -124,10 +153,9 @@ class DefaultNameSetupViewController: UITableViewController, UITextFieldDelegate
         if cellTextField.text != preferences.dateFormatInput {
             saveDateFormat(processedDateFormat, input: cellTextField.text)
             // save if user input is custom / derivative of preset.
-        }
-        else {
+        } else {
             // to get back preset set, and its rules (such as UTC for ISO8601 preset)
-            let selectedIndexPath = IndexPath(row: preferences.dateFormatPreset, section: kSections.presets.rawValue)
+            let selectedIndexPath = IndexPath(row: preferences.dateFormatPreset, section: Sections.presets.rawValue)
             tableView.cellForRow(at: selectedIndexPath)?.accessoryType = .checkmark
             
             if preferences.dateFormatPreset == 1 {
@@ -142,24 +170,24 @@ class DefaultNameSetupViewController: UITableViewController, UITextFieldDelegate
         return true
     }
     
-    // MARK:- Preference Setting
+    // MARK: Preference Setting
     
     /// Saves date format to Preferences/UserDefaults
     func saveDateFormat(_ dateFormat: String, input: String?, index: Int = -1) {
         guard let input = input else { return }
         print(dateFormat)
-        if dateFormat == "invalid" || dateFormat == "'invalid'" || dateFormat == "'invalid: { ... } must not consecutively repeat'" || input.isEmpty || dateFormat.isEmpty { return } // ensures no invalid date format (revert)
+        if dateFormatIsInvalid || input.isEmpty || dateFormat.isEmpty { return } // ensures no invalid date format (revert)
         preferences.dateFormat = dateFormat
         preferences.dateFormatInput = input
         preferences.dateFormatPreset = index
         preferences.dateFormatUseUTC = useUTC
     }
     
-    // MARK:- Table View
+    // MARK: Table View
     
     /// Locks UTC cell such that it cannot be unchecked, for preset that require it.
     func lockUTCCell(_ state: Bool) {
-        let indexPath = IndexPath(row: 0, section: kSections.settings.rawValue)
+        let indexPath = IndexPath(row: 0, section: Sections.settings.rawValue)
         useUTC = state
         
         tableView.cellForRow(at: indexPath)?.accessoryType = state ? .checkmark : .none
@@ -168,39 +196,37 @@ class DefaultNameSetupViewController: UITableViewController, UITextFieldDelegate
         updateSampleTextField()
     }
     
-    /// return number of sections based on `kSections`
+    /// return number of sections based on `Sections`
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return kSections.allCases.count
+        return Sections.allCases.count
     }
     
     /// implement title of each section
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section {
-        case kSections.input.rawValue: return NSLocalizedString("DEFAULT_NAME_DATE_FORMAT", comment: "no comment")
-        case kSections.settings.rawValue: return NSLocalizedString("DEFAULT_NAME_SETTINGS", comment: "no comment")
-        case kSections.presets.rawValue: return NSLocalizedString("DEFAULT_NAME_PRESET", comment: "no comment")
+        case Sections.input.rawValue: return NSLocalizedString("DEFAULT_NAME_DATE_FORMAT", comment: "no comment")
+        case Sections.settings.rawValue: return NSLocalizedString("DEFAULT_NAME_SETTINGS", comment: "no comment")
+        case Sections.presets.rawValue: return NSLocalizedString("DEFAULT_NAME_PRESET", comment: "no comment")
         default: fatalError("Section out of range")
         }
     }
     
     /// implement footer for input section only
     override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
-        if section == kSections.input.rawValue {
+        if section == Sections.input.rawValue {
             return NSLocalizedString("DEFAULT_NAME_INPUT_FOOTER", comment: "no comment")
-        }
-        else { return nil }
+        } else { return nil }
     }
     
     /// return number of rows in each section
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
-        case kSections.input.rawValue: return 2
-        case kSections.settings.rawValue:
+        case Sections.input.rawValue: return 2
+        case Sections.settings.rawValue:
             if Locale.current.languageCode == "en" {
                 return 1 // force locale to EN should only be shown if Locale is not EN.
-            }
-            else { return 2 }
-        case kSections.presets.rawValue: return presets.count
+            } else { return 2 }
+        case Sections.presets.rawValue: return presets.count
         default: fatalError("Row out of range")
         }
     }
@@ -210,7 +236,7 @@ class DefaultNameSetupViewController: UITableViewController, UITextFieldDelegate
         
         var cell = UITableViewCell(style: .default, reuseIdentifier: "inputCell")
         
-        if indexPath.section == kSections.input.rawValue {
+        if indexPath.section == Sections.input.rawValue {
             if indexPath.row == 0 {
                 
                 cellSampleLabel = UILabel(frame: CGRect(x: 87, y: 0, width: view.frame.width - 99, height: cell.frame.height))
@@ -222,75 +248,44 @@ class DefaultNameSetupViewController: UITableViewController, UITextFieldDelegate
                 cell.textLabel!.text = NSLocalizedString("DEFAULT_NAME_SAMPLE_OUTPUT_TITLE", comment: "no comment")
                 cell.textLabel?.font = .systemFont(ofSize: 17)
                 
-            }
-            else if indexPath.row == 1 {
+            } else if indexPath.row == 1 {
+                
                 cellTextField = UITextField(frame: CGRect(x: 22, y: 0, width: view.frame.width - 48, height: cell.frame.height))
-                //let textView = UITextView(frame: CGRect(x: 25, y: 5, width: view.frame.width - 50, height: cell.frame.height))
                 cellTextField.text = preferences.dateFormatInput
                 updateSampleTextField()
                 cellTextField.clearButtonMode = .whileEditing
                 cellTextField.delegate = self
                 cellTextField.returnKeyType = .done
-                let bar = UIToolbar()
-                let bracket = UIBarButtonItem(title: "{ ... }", style: .plain, target: self, action: #selector(buttonTapped(_:for:)))
-                bracket.tag = 6
-                let day = UIBarButtonItem(title: "Day", style: .plain, target: self, action: #selector(buttonTapped(_:for:)))
-                day.tag = 0
-                let month = UIBarButtonItem(title: "Month", style: .plain, target: self, action: #selector(buttonTapped(_:for:)))
-                month.tag = 1
-                let year = UIBarButtonItem(title: "Year", style: .plain, target: self, action: #selector(buttonTapped(_:for:)))
-                year.tag = 2
-                let hour = UIBarButtonItem(title: "Hr", style: .plain, target: self, action: #selector(buttonTapped(_:for:)))
-                hour.tag = 3
-                let min = UIBarButtonItem(title: "Min", style: .plain, target: self, action: #selector(buttonTapped(_:for:)))
-                min.tag = 4
-                let sec = UIBarButtonItem(title: "Sec", style: .plain, target: self, action: #selector(buttonTapped(_:for:)))
-                sec.tag = 5
-
-                bar.items = [bracket, day, month, year, hour, min, sec]
-                bar.sizeToFit()
                 
                 if #available(iOS 9, *) {
                     let dateFieldSelector = DateFieldTypeView(frame: CGRect(x: 0, y: 0, width: cellTextField.frame.width, height: 75))
                     cellTextField.inputAccessoryView = dateFieldSelector
-                }
-                else {
-                    cellTextField.inputAccessoryView = bar
+                } else {
+                    cellTextField.inputAccessoryView = createSimpleDateSelectionBar()
                 }
                 cellTextField.addTarget(self, action: #selector(updateSampleTextField), for: UIControl.Event.editingChanged)
 
-
                 cell.contentView.addSubview(cellTextField)
-                if indexPath.section == kSections.input.rawValue {
-                    
-                }
             }
             cell.selectionStyle = .none
             cellTextField.autocorrectionType = .no
-        }
-            
-        else if indexPath.section == kSections.settings.rawValue {
+        } else if indexPath.section == Sections.settings.rawValue {
             if indexPath.row == 0 {
                 cell.textLabel!.text = NSLocalizedString("DEFAULT_NAME_USE_UTC", comment: "no comment")//"Use UTC?"
                 cell.accessoryType = preferences.dateFormatUseUTC ? .checkmark : .none
-                
                 if preferences.dateFormatPreset == 1 {
                     cell.isUserInteractionEnabled = !useUTC
                     cell.textLabel?.isEnabled = !useUTC
                 }
-                updateSampleTextField()
-            }
-            else if indexPath.row == 1 {
+            } else if indexPath.row == 1 {
                 cell.textLabel!.text = NSLocalizedString("DEFAULT_NAME_ENGLISH_LOCALE", comment: "no comment")//"Force English Locale?"
                 cell.accessoryType = preferences.dateFormatUseEN ? .checkmark : .none
-                updateSampleTextField()
             }
-        }
-        
-        else if indexPath.section == kSections.presets.rawValue {
+            updateSampleTextField()
+        } else if indexPath.section == Sections.presets.rawValue {
             cell = UITableViewCell(style: .subtitle, reuseIdentifier: "presetCell")
             cell.textLabel?.text = presets[indexPath.row].0
-            cell.detailTextLabel?.text = defaultDateFormat.getDate(processedFormat: presets[indexPath.row].1, useUTC: useUTC, useENLocale: useEN)//presets[indexPath.row].1
+            cell.detailTextLabel?.text = defaultDateFormat.getDate(processedFormat: presets[indexPath.row].1, useUTC: useUTC, useENLocale: useEN)
             
             if preferences.dateFormatPreset != -1 { // if not custom
                 cell.accessoryType = preferences.dateFormatPreset == indexPath.row ? .checkmark : .none
@@ -302,15 +297,14 @@ class DefaultNameSetupViewController: UITableViewController, UITextFieldDelegate
     
     /// handling of cell selection.
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.section == kSections.settings.rawValue {
+        if indexPath.section == Sections.settings.rawValue {
             if indexPath.row == 0 {
                 //remove checkmark from selected utc setting
                 let newUseUTC = !preferences.dateFormatUseUTC
                 preferences.dateFormatUseUTC = newUseUTC
                 useUTC = newUseUTC
                 tableView.cellForRow(at: indexPath)?.accessoryType = newUseUTC ? .checkmark : .none
-            }
-            else if indexPath.row == 1 {
+            } else if indexPath.row == 1 {
                 //remove checkmark from selected en locale setting
                 let newUseEN = !preferences.dateFormatUseEN
                 preferences.dateFormatUseEN = newUseEN
@@ -319,7 +313,7 @@ class DefaultNameSetupViewController: UITableViewController, UITextFieldDelegate
             }
             updateSampleTextField()
         }
-        if indexPath.section == kSections.presets.rawValue {
+        if indexPath.section == Sections.presets.rawValue {
             //cellSampleLabel.text = "{\(presets[indexPath.row].1)}"
             cellTextField.text = presets[indexPath.row].2
             
@@ -336,8 +330,7 @@ class DefaultNameSetupViewController: UITableViewController, UITextFieldDelegate
             preferences.dateFormat = processedDateFormat
             if preferences.dateFormatPreset == 1 {
                 lockUTCCell(true)
-            }
-            else {
+            } else {
                 lockUTCCell(false)
             }
             preferences.dateFormatUseUTC = useUTC

@@ -53,7 +53,6 @@ class GPXSession {
     /// Current segment distance in meters
     var currentSegmentDistance = 0.00
     
-    
     ///
     /// Adds a waypoint to the map.
     ///
@@ -87,8 +86,8 @@ class GPXSession {
         self.currentSegment.add(trackpoint: pt)
         
         //add the distance to previous tracked point
-        if self.currentSegment.trackpoints.count >= 2 { //at elast there are two points in the segment
-            let prevPt = self.currentSegment.trackpoints[self.currentSegment.trackpoints.count-2] //get previous point
+        if self.currentSegment.points.count >= 2 { //at elast there are two points in the segment
+            let prevPt = self.currentSegment.points[self.currentSegment.points.count-2] //get previous point
             guard let latitude = prevPt.latitude, let longitude = prevPt.longitude else { return }
             let prevPtLoc = CLLocation(latitude: latitude, longitude: longitude)
             //now get the distance
@@ -103,7 +102,7 @@ class GPXSession {
     /// Appends currentSegment to trackSegments and initializes currentSegment to a new one.
     ///
     func startNewTrackSegment() {
-        if self.currentSegment.trackpoints.count > 0 {
+        if self.currentSegment.points.count > 0 {
             self.trackSegments.append(self.currentSegment)
             self.currentSegment = GPXTrackSegment()
             self.currentSegmentDistance = 0.00
@@ -138,7 +137,7 @@ class GPXSession {
         let track = GPXTrack()
         track.add(trackSegments: self.trackSegments)
         //add current segment if not empty
-        if self.currentSegment.trackpoints.count > 0 {
+        if self.currentSegment.points.count > 0 {
             track.add(trackSegment: self.currentSegment)
         }
         //add existing tracks
@@ -155,11 +154,10 @@ class GPXSession {
         
         //add track segments
         self.tracks = gpx.tracks
+        self.trackSegments = lastTrack.segments
         
         // remove last track as that track is packaged by Core Data, but should its tracksegments should be seperated, into self.tracksegments.
-        //self.tracks.removeLast()
-        
-        self.trackSegments = lastTrack.tracksegments
+        self.tracks.removeLast()
         
     }
     

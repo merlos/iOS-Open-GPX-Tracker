@@ -14,12 +14,10 @@ extension GPXRoot {
     
     /// Distance in meters of all the track segments
     public var tracksLength: CLLocationDistance {
-        get {
-            var tLength: CLLocationDistance = 0.0
-            for track in self.tracks {
-                tLength += track.length
-            }
-            return tLength
+        var tLength: CLLocationDistance = 0.0
+        for track in self.tracks {
+            tLength += track.length
         }
+        return tLength
     }
 }

@@ -43,7 +43,9 @@ class AboutViewController: UIViewController {
         self.title = NSLocalizedString("ABOUT", comment: "no comment")
         
         //Add the done button
-        let shareItem = UIBarButtonItem(title: NSLocalizedString("DONE", comment: "no comment"), style: UIBarButtonItem.Style.plain, target: self, action: #selector(AboutViewController.closeViewController))
+        let shareItem = UIBarButtonItem(title: NSLocalizedString("DONE", comment: "no comment"),
+                                        style: UIBarButtonItem.Style.plain, target: self,
+                                        action: #selector(AboutViewController.closeViewController))
         self.navigationItem.rightBarButtonItems = [shareItem]
   
         //Add the Webview
@@ -73,7 +75,8 @@ class AboutViewController: UIViewController {
 extension AboutViewController: WKNavigationDelegate {
     
     /// Opens Safari when user clicks a link in the About page.
-    func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+    func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction,
+                 decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
         print("AboutViewController: decidePolicyForNavigationAction")
         
         if navigationAction.navigationType == .linkActivated {

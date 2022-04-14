@@ -17,7 +17,7 @@ import Foundation
  
  The waypoint should at least contain the attributes of both `latitude` and `longitude` in order to be considered a valid waypoint. Most attributes are optional, and are not required to be implemented.
 */
-public class GPXWaypoint: GPXElement, Codable {
+public class GPXWaypoint: GPXElement, GPXWaypointProtocol, Codable {
     
     // MARK: Codable Implementation
     
@@ -42,7 +42,7 @@ public class GPXWaypoint: GPXElement, Codable {
         case positionDilution = "pdop"
         case DGPSid = "dgpsid"
         case ageofDGPSData = "ageofdgpsdata"
-        case link
+        case links = "link"
         case extensions
     }
     
@@ -53,7 +53,15 @@ public class GPXWaypoint: GPXElement, Codable {
     /// A value type for link properties (see `GPXLink`)
     ///
     /// Intended for additional information about current point through a web link.
-    public var link: GPXLink?
+    @available(*, deprecated, message: "CoreGPX now support multiple links.", renamed: "links.first")
+    public var link: GPXLink? {
+        return links.first
+    }
+    
+    /// A value type for link properties (see `GPXLink`)
+    ///
+    /// Intended for additional information about current point through web links.
+    public var links = [GPXLink]()
     
     /// Elevation of current point
     ///
@@ -241,6 +249,7 @@ public class GPXWaypoint: GPXElement, Codable {
             case "cmt":         self.comment = child.text
             case "desc":        self.desc = child.text
             case "src":         self.source = child.text
+            case "link":        self.links.append(GPXLink(raw: child))
             case "sym":         self.symbol = child.text
             case "type":        self.type = child.text
             case "fix":         self.fix = GPXFix(rawValue: child.text ?? "none")
@@ -268,7 +277,7 @@ public class GPXWaypoint: GPXElement, Codable {
     @available(*, deprecated, message: "Initialize GPXLink first then, add it to this point type instead.")
     public func newLink(withHref href: String) -> GPXLink {
         let link = GPXLink(withHref: href)
-        self.link = link
+        self.links.append(link)
         return link
     }
     
@@ -304,10 +313,10 @@ public class GPXWaypoint: GPXElement, Codable {
         self.addProperty(forValue: name, gpx: gpx, tagName: "name", indentationLevel: indentationLevel)
         self.addProperty(forValue: comment, gpx: gpx, tagName: "cmt", indentationLevel: indentationLevel)
         self.addProperty(forValue: desc, gpx: gpx, tagName: "desc", indentationLevel: indentationLevel)
-        self.addProperty(forValue: source, gpx: gpx, tagName: "source", indentationLevel: indentationLevel)
+        self.addProperty(forValue: source, gpx: gpx, tagName: "src", indentationLevel: indentationLevel)
         
-        if self.link != nil {
-            self.link?.gpx(gpx, indentationLevel: indentationLevel)
+        for link in links {
+            link.gpx(gpx, indentationLevel: indentationLevel)
         }
  
         self.addProperty(forValue: symbol, gpx: gpx, tagName: "sym", indentationLevel: indentationLevel)

@@ -14,12 +14,10 @@ extension GPXTrack {
     
     /// Track length in meters
     public var length: CLLocationDistance {
-        get {
-            var trackLength: CLLocationDistance = 0.0
-            for segment in tracksegments {
-                trackLength += segment.length()
-            }
-            return trackLength
+        var trackLength: CLLocationDistance = 0.0
+        for segment in segments {
+            trackLength += segment.length()
         }
+        return trackLength
     }    
 }

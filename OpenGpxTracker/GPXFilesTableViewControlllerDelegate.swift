@@ -13,7 +13,7 @@ import CoreGPX
 ///
 /// Used to inform the main ViewController that user wants to load a GPX File on it.
 ///
-protocol GPXFilesTableViewControllerDelegate: class {
+protocol GPXFilesTableViewControllerDelegate: AnyObject {
   
     ///
     /// GPXFilesTableView controller will be dismissed after calling this method

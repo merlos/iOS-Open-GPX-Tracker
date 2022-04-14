@@ -7,7 +7,6 @@
 
 import Foundation
 
-
 /// Posible status of the stop watch
 enum StopWatchStatus {
     
@@ -17,7 +16,6 @@ enum StopWatchStatus {
     /// It is not counting time
     case stopped
 }
-
 
 ///
 /// This class handles the logic behind a stop watch timer
@@ -56,7 +54,9 @@ class StopWatch: NSObject {
         print("StopWatch: started")
         self.status = .started
         self.startedTime = Date.timeIntervalSinceReferenceDate
-        timer = Timer.scheduledTimer(timeInterval: timeInterval, target: self, selector: #selector(StopWatch.updateElapsedTime), userInfo: nil, repeats: true)
+        timer = Timer.scheduledTimer(timeInterval: timeInterval,
+                                     target: self, selector: #selector(StopWatch.updateElapsedTime),
+                                     userInfo: nil, repeats: true)
     }
     
     /// Stops counting time
@@ -66,7 +66,7 @@ class StopWatch: NSObject {
         //add difference between start and stop to elapsed time
         let currentTime = Date.timeIntervalSinceReferenceDate
         let diff = currentTime - startedTime
-        tmpElapsedTime = tmpElapsedTime + diff
+        tmpElapsedTime += diff
         timer.invalidate()
     }
  
@@ -81,13 +81,11 @@ class StopWatch: NSObject {
     
     /// Current elapsed time.
     var elapsedTime: TimeInterval {
-        get {
-            if self.status == .stopped {
-                return self.tmpElapsedTime
-            }
-            let diff = Date.timeIntervalSinceReferenceDate - startedTime
-            return tmpElapsedTime + diff
+        if self.status == .stopped {
+            return self.tmpElapsedTime
         }
+        let diff = Date.timeIntervalSinceReferenceDate - startedTime
+        return tmpElapsedTime + diff
     }
     
     ///
@@ -98,30 +96,28 @@ class StopWatch: NSObject {
     ///    2. 3h 40 min 30 sec, returns  `3h40:20`
     ///
     var elapsedTimeString: String {
-        get {
-            var tmpTime: TimeInterval = self.elapsedTime
-            //calculate the minutes and hours in elapsed time.
-            
-            let hours = UInt32(tmpTime / 3600.0)
-            tmpTime -= (TimeInterval(hours) * 3600)
-            
-            let minutes = UInt32(tmpTime / 60.0)
-            tmpTime -= (TimeInterval(minutes) * 60)
-           
-            //calculate the seconds in elapsed time.
-            let seconds = UInt32(tmpTime)
-            tmpTime -= TimeInterval(seconds)
-        
-            //display hours only if >0
-            let strHours = hours > 0 ? String(hours) + "h" : ""
-            //add the leading zero for minutes, seconds and millseconds and store them as string constants
- 
-            let strMinutes = minutes > 9 ? String(minutes):"0" + String(minutes)
-            let strSeconds = seconds > 9 ? String(seconds):"0" + String(seconds)
-           
-            //concatenate hours, minutes and seconds
-            return "\(strHours)\(strMinutes):\(strSeconds)"
-        }
+       var tmpTime: TimeInterval = self.elapsedTime
+       //calculate the minutes and hours in elapsed time.
+
+       let hours = UInt32(tmpTime / 3600.0)
+       tmpTime -= (TimeInterval(hours) * 3600)
+
+       let minutes = UInt32(tmpTime / 60.0)
+       tmpTime -= (TimeInterval(minutes) * 60)
+
+       //calculate the seconds in elapsed time.
+       let seconds = UInt32(tmpTime)
+       tmpTime -= TimeInterval(seconds)
+
+       //display hours only if >0
+       let strHours = hours > 0 ? String(hours) + "h" : ""
+       //add the leading zero for minutes, seconds and millseconds and store them as string constants
+
+       let strMinutes = minutes > 9 ? String(minutes):"0" + String(minutes)
+       let strSeconds = seconds > 9 ? String(seconds):"0" + String(seconds)
+
+       //concatenate hours, minutes and seconds
+       return "\(strHours)\(strMinutes):\(strSeconds)"
     }
     
     /// Calls the delegate (didUpdateElapsedTimeString) to inform there was an update of the elapsed time.

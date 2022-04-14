@@ -40,7 +40,7 @@ class MapViewDelegate: NSObject, MKMapViewDelegate, UIAlertViewDelegate {
     /// Displays the line for each segment
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         if overlay.isKind(of: MKTileOverlay.self) {
-            return MKTileOverlayRenderer(overlay: overlay)
+            return mapView.mapCacheRenderer(forOverlay: overlay)
         }
         
         if overlay is MKPolyline {
@@ -50,7 +50,12 @@ class MapViewDelegate: NSObject, MKMapViewDelegate, UIAlertViewDelegate {
             pr.strokeColor = UIColor.blue
             
             if #available(iOS 13, *) {
-                pr.shouldRasterize = true
+                if #available(iOS 14, *) {
+                    pr.shouldRasterize = false
+                }
+                else {
+                    pr.shouldRasterize = true
+                }
                 if mapView.traitCollection.userInterfaceStyle == .dark {
                     pr.alpha = 0.5
                     pr.strokeColor = UIColor.yellow
@@ -87,17 +92,19 @@ class MapViewDelegate: NSObject, MKMapViewDelegate, UIAlertViewDelegate {
             
             let indexofEditedWaypoint = map.session.waypoints.firstIndex(of: waypoint)
             
-            let alertController = UIAlertController(title: NSLocalizedString("EDIT_WAYPOINT_NAME_TITLE", comment: "no comment"), message: NSLocalizedString("EDIT_WAYPOINT_NAME_MESSAGE", comment: "no comment"), preferredStyle: .alert)
+            let alertController = UIAlertController(title: NSLocalizedString("EDIT_WAYPOINT_NAME_TITLE", comment: "no comment"),
+                                                    message: NSLocalizedString("EDIT_WAYPOINT_NAME_MESSAGE", comment: "no comment"),
+                                                    preferredStyle: .alert)
             alertController.addTextField { (textField) in
                 textField.text = waypoint.title
                 textField.clearButtonMode = .always
             }
-            let saveAction = UIAlertAction(title: NSLocalizedString("SAVE", comment: "no comment"), style: .default) { (action) in
+            let saveAction = UIAlertAction(title: NSLocalizedString("SAVE", comment: "no comment"), style: .default) { _ in
                 print("Edit waypoint alert view")
                 self.waypointBeingEdited.title = alertController.textFields?[0].text
                 map.coreDataHelper.update(toCoreData: self.waypointBeingEdited, from: indexofEditedWaypoint!)
             }
-            let cancelAction = UIAlertAction(title: NSLocalizedString("CANCEL", comment: "no comment"), style: .cancel) { (action) in }
+            let cancelAction = UIAlertAction(title: NSLocalizedString("CANCEL", comment: "no comment"), style: .cancel) { _ in }
             
             alertController.addAction(saveAction)
             alertController.addAction(cancelAction)
@@ -110,11 +117,13 @@ class MapViewDelegate: NSObject, MKMapViewDelegate, UIAlertViewDelegate {
             print("[calloutAccesoryControlTapped ERROR] unknown control")
         }
     }
-    
-    
+
     /// Handles the change of the coordinates when a pin is dropped.
-    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView,
-        didChange newState: MKAnnotationView.DragState, fromOldState oldState: MKAnnotationView.DragState) {
+    func mapView(_ mapView: MKMapView,
+                 annotationView view: MKAnnotationView,
+                 didChange newState: MKAnnotationView.DragState,
+                 fromOldState oldState: MKAnnotationView.DragState) {
+        // swiftlint:disable force_cast
         let gpxMapView = mapView as! GPXMapView
         
         if newState == MKAnnotationView.DragState.ending {
@@ -123,16 +132,18 @@ class MapViewDelegate: NSObject, MKMapViewDelegate, UIAlertViewDelegate {
                 if let index = gpxMapView.session.waypoints.firstIndex(of: point) {
                     gpxMapView.coreDataHelper.update(toCoreData: point, from: index)
                 }
-                
-                print("Annotation name: \(String(describing: point.title)) lat:\(String(describing:point.latitude)) lon \(String(describing:point.longitude))")
+                let titleDesc = String(describing: point.title)
+                let latDesc = String(describing: point.latitude)
+                let lonDesc = String(describing: point.longitude)
+                print("Annotation name: \(titleDesc) lat:\(latDesc) lon \(lonDesc)")
             }
         }
     }
     
-    
     /// Adds the pin to the map with an animation (comes from the top of the screen)
     func mapView(_ mapView: MKMapView, didAdd views: [MKAnnotationView]) {
         var i = 0
+        // swiftlint:disable force_cast
         let gpxMapView = mapView as! GPXMapView
         var hasImpacted = false
         //adds the pins with an animation
@@ -144,7 +155,10 @@ class MapViewDelegate: NSObject, MKMapViewDelegate, UIAlertViewDelegate {
                 if gpxMapView.headingImageView == nil {
                     let image = UIImage(named: "heading")!
                     gpxMapView.headingImageView = UIImageView(image: image)
-                    gpxMapView.headingImageView!.frame = CGRect(x: (annotationView.frame.size.width - image.size.width)/2, y: (annotationView.frame.size.height - image.size.height)/2, width: image.size.width, height: image.size.height)
+                    gpxMapView.headingImageView!.frame = CGRect(x: (annotationView.frame.size.width - image.size.width)/2,
+                                                                y: (annotationView.frame.size.height - image.size.height)/2,
+                                                                width: image.size.width,
+                                                                height: image.size.height)
                     annotationView.insertSubview(gpxMapView.headingImageView!, at: 0)
                     gpxMapView.headingImageView!.isHidden = true
                 }
@@ -155,7 +169,7 @@ class MapViewDelegate: NSObject, MKMapViewDelegate, UIAlertViewDelegate {
             
             let endFrame: CGRect = annotationView.frame
             annotationView.frame = CGRect(x: annotationView.frame.origin.x, y: annotationView.frame.origin.y - mapView.superview!.frame.size.height,
-                width: annotationView.frame.size.width, height:annotationView.frame.size.height)
+                width: annotationView.frame.size.width, height: annotationView.frame.size.height)
             let interval: TimeInterval = 0.04 * 1.1
             UIView.animate(withDuration: 0.5, delay: interval, options: UIView.AnimationOptions.curveLinear, animations: { () -> Void in
                 annotationView.frame = endFrame
@@ -165,7 +179,7 @@ class MapViewDelegate: NSObject, MKMapViewDelegate, UIAlertViewDelegate {
                             //aV.transform = CGAffineTransformMakeScale(1.0, 0.8)
                             annotationView.transform = CGAffineTransform(a: 1.0, b: 0, c: 0, d: 0.8, tx: 0, ty: annotationView.frame.size.height*0.1)
                             
-                            }, completion: { (finished: Bool) -> Void in
+                            }, completion: { _ -> Void in
                                 UIView.animate(withDuration: 0.1, animations: { () -> Void in
                                     annotationView.transform = CGAffineTransform.identity
                                 })

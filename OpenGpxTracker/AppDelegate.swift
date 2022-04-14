@@ -10,8 +10,6 @@ import UIKit
 import CoreData
 import WatchConnectivity
 
-
-///
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
@@ -57,8 +55,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 session.delegate = self
                 session.activate()
                 print("AppDelegate:: WCSession activated")
-            }
-            else {
+            } else {
                 print("AppDelegate:: WCSession is not supported")
             }
         }
@@ -74,15 +71,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     /// Default pandle load GPX file
-    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
+    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
         print("load gpx File: \(url.absoluteString)")
         let fileManager = FileManager.default
         do {
             _ = url.startAccessingSecurityScopedResource()
             try fileManager.copyItem(at: url, to: GPXFileManager.GPXFilesFolderURL.appendingPathComponent(url.lastPathComponent))
             url.stopAccessingSecurityScopedResource()
-        }
-        catch let error as NSError {
+        } catch let error as NSError {
             print("Ooops! Something went wrong: \(error)")
         }
         
@@ -121,7 +117,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         var failureReason = "There was an error creating or loading the application's saved data."
         do {
-            try coordinator.addPersistentStore(ofType: NSSQLiteStoreType, configurationName: nil, at: url, options: [NSMigratePersistentStoresAutomaticallyOption: true, NSInferMappingModelAutomaticallyOption: true])
+            try coordinator.addPersistentStore(ofType: NSSQLiteStoreType,
+                                               configurationName: nil,
+                                               at: url,
+                                               options: [NSMigratePersistentStoresAutomaticallyOption: true,
+                                                         NSInferMappingModelAutomaticallyOption: true])
         } catch {
             // Report any error we got.
             var dict = [String: AnyObject]()
@@ -211,6 +211,7 @@ extension AppDelegate: WCSessionDelegate {
     /// Called when a file is received from Apple Watch.
     /// Displays a popup informing about the reception of the file.
     func session(_ session: WCSession, didReceive file: WCSessionFile) {
+        // swiftlint:disable force_cast
         let fileName = file.metadata!["fileName"] as! String?
         
         DispatchQueue.global().sync {

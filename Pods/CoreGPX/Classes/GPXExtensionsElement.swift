@@ -38,6 +38,20 @@ open class GPXExtensionsElement: GPXElement, Codable {
         }
     }
     
+    /// For initializing with a raw element. Parser use only.
+    ///
+    /// - Parameters:
+    ///     - raw: parser's raw element
+    init(raw: GPXRawElement) {
+        self.name = raw.name
+        self.text = raw.text
+        self.attributes = raw.attributes
+        for child in raw.children {
+            let tmp = GPXExtensionsElement(raw: child)
+            self.children.append(tmp)
+        }
+    }
+    
     /// Initialize with a tagName.
     public init(name: String) {
         self.name = name

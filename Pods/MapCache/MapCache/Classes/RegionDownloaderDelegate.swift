@@ -8,14 +8,15 @@
 import Foundation
 
 ///
-/// Delegate protocol of `RegionDownloader`
-///
+/// Delegate protocol of `RegionDownloader`.
+/// Implement this protocol whenever  you use `RegionDownloader` it drovides feedback while donwloading a
+/// region (f.i, downloaded %) and callsback the delegate once the download finished.
 ///
 @objc public protocol RegionDownloaderDelegate: class {
     
-    /// Did download the percentage
+    /// Did download the percentage.
     @objc func regionDownloader(_ regionDownloader: RegionDownloader, didDownloadPercentage percentage: Double)
     
-    /// Did Finish Download all tiles
+    /// Did Finish Download all tiles.
     func regionDownloader(_ regionDownloader: RegionDownloader, didFinishDownload tilesDownloaded: TileNumber)
 }

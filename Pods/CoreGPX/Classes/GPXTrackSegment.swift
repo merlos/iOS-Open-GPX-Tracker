@@ -16,13 +16,18 @@ public final class GPXTrackSegment: GPXElement, Codable {
     
     /// For Codable use
     private enum CodingKeys: String, CodingKey {
-        case trackpoints = "trkpt"
+        case points = "trkpt"
         case extensions
     }
     
+    /// Track points stored in current segment.
+    @available(*, deprecated, renamed: "points")
+    public var trackpoints: [GPXTrackPoint] {
+        return points
+    }
     
     /// Track points stored in current segment.
-    public var trackpoints = [GPXTrackPoint]()
+    public var points = [GPXTrackPoint]()
     
     /// Custom Extensions, if needed.
     public var extensions: GPXExtensions?
@@ -42,7 +47,7 @@ public final class GPXTrackSegment: GPXElement, Codable {
     init(raw: GPXRawElement) {
         for child in raw.children {
             switch child.name {
-            case "trkpt":       self.trackpoints.append(GPXTrackPoint(raw: child))
+            case "trkpt":       self.points.append(GPXTrackPoint(raw: child))
             case "extensions":  self.extensions = GPXExtensions(raw: child)
             default: continue
             }
@@ -63,19 +68,19 @@ public final class GPXTrackSegment: GPXElement, Codable {
     /// Adds a single track point to this track segment.
     public func add(trackpoint: GPXTrackPoint?) {
         if let validPoint = trackpoint {
-            trackpoints.append(validPoint)
+            points.append(validPoint)
         }
     }
     
     /// Adds an array of track points to this track segment.
     public func add(trackpoints: [GPXTrackPoint]) {
-        self.trackpoints.append(contentsOf: trackpoints)
+        self.points.append(contentsOf: trackpoints)
     }
     
     /// Removes a track point from this track segment.
     public func remove(trackpoint: GPXTrackPoint) {
-        if let index = trackpoints.firstIndex(of: trackpoint) {
-            trackpoints.remove(at: index)
+        if let index = points.firstIndex(of: trackpoint) {
+            points.remove(at: index)
         }
     }
     
@@ -94,7 +99,7 @@ public final class GPXTrackSegment: GPXElement, Codable {
             self.extensions?.gpx(gpx, indentationLevel: indentationLevel)
         }
         
-        for trackpoint in trackpoints {
+        for trackpoint in points {
             trackpoint.gpx(gpx, indentationLevel: indentationLevel)
         }
     }

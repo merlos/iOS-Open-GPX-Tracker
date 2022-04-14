@@ -8,36 +8,50 @@
 import Foundation
 import MapKit
 
-/// Hey! I need to download this area
+/// Hey! I need to download this area of the map.
 /// No problemo.
+///
+/// This class allows you to download all the tiles of a region of the map.
+///
+/// Internally what it does is to iterate over every tile coordinate within the region and  request to a
+/// mapCache to download it by calling its `loadTile` method.
+///
+/// In order to keep track of the downloaded data you can implement `ReguionDownloaderDelegate`.
+///
+/// Based on the value of `incrementInPercentageNotification` the delegate will be called.
+///
+/// Experimental
 @objc public class RegionDownloader: NSObject {
-    /// Average number of bytes of a tile
+    
+    /// Approximation of the average number of bytes of a tile (used with 256x256 tiles).
     static let defaultAverageTileSizeBytes : UInt64 = 11664
     
-    /// region that will be downloaded
+    /// Region that will be downloaded.
+    ///
+    /// Initialized in the constructor
     public let region: TileCoordsRegion
     
     /// Cache that is going to be used for saving/loading the files.
     public let mapCache: MapCacheProtocol
     
-    /// Total number of tiles to be downloaded
+    /// Total number of tiles to be downloaded.
     public var totalTilesToDownload: TileNumber {
         get {
             return region.count
         }
     }
     
-    /// Number of tiles pending to be downloaded
+    /// Number of tiles pending to be downloaded.
     public var pendingTilesToDownload: TileNumber {
         get {
             return region.count - downloadedTiles
         }
     }
     
-    
+    /// The variable that actually keeps the count of the downloaded bytes.
     private var _downloadedBytes: UInt64 = 0
     
-    /// Total number of downloaded data bytes
+    /// Total number of downloaded data bytes.
     public var downloadedBytes: UInt64 {
         get {
             return _downloadedBytes
@@ -46,7 +60,7 @@ import MapKit
     
     /// Returns the average
     ///
-    /// This can be used to estimate the
+    /// This can be used to estimate the amount of bytes pending to be downloaded.
     public var averageTileSizeBytes: UInt64 {
         get {
             if downloadedTiles != 0 {
@@ -64,7 +78,7 @@ import MapKit
         }
     }
     
-    ///
+    /// Number of successfully downloaded tiles.
     private var _successfulTileDownloads : TileNumber = 0
     
     /// Keeps the number of tiles already downloaded.
@@ -74,8 +88,8 @@ import MapKit
         }
     }
     
-    /// Keeps the number of tiles failes to be downloaded
-    /// Publicly accessible through failledTIleDownloads
+    /// Keeps the number of tiles failes to be downloaded.
+    /// Publicly accessible through failledTIleDownloads.
     private var _failedTileDownloads : TileNumber = 0
     
     /// Number of tiles to be downloaded
@@ -85,17 +99,17 @@ import MapKit
         }
     }
     
-    /// Percentage to notify thought delegate
-    /// If set to >100 will only notify on finish download
-    /// If set to a percentage < `downloadedPercentage`, will never notify.
+    /// Percentage to notify thought delegate.
+    /// If set to >100 will only notify on finish download.
+    /// If set to a percentage  smaller than `downloadedPercentage`, it will never notify.
     public var nextPercentageToNotify: Double = 5.0
     
-    /// The downloader will notify the delegate every time this
-    /// For example if you set this to 5, it will notify when 5%, 10%, 15%, etc...
-    /// default value 5.
+    /// The downloader will notify the delegate every time this.
+    /// For example if you set this to 5, it will notify when 5%, 10%, 15%, etc.
+    /// Default value 5.
     public var incrementInPercentageNotification: Double = 5.0
     
-    /// Last notified
+    /// Last percentage notified to the deletage.
     var lastPercentageNotified: Double = 0.0
     
     
@@ -106,11 +120,11 @@ import MapKit
         }
     }
     
-    /// Delegate
+    /// Delegate.
     public var delegate : RegionDownloaderDelegate?
     
     
-    /// Queue to download stuff.
+    /// Queue to download the stuff.
     lazy var downloaderQueue : DispatchQueue = {
         let queueName = "MapCache.Downloader." + self.mapCache.config.cacheName
         //let downloaderQueue = DispatchQueue(label: queueName, attributes: [])
@@ -120,16 +134,29 @@ import MapKit
     
     
     ///
-    /// initializes the downloader with the region and the MapCache
+    /// Initializes the downloader with the region and the MapCache.
+    ///
+    ///  - Parameter forRegion: the region to be downloaded.
+    ///  - Parameter mapCache: the `MapCache` implementation used to download and store the downloaded data
     ///
     public init(forRegion region: TileCoordsRegion, mapCache: MapCacheProtocol) {
         self.region = region
         self.mapCache = mapCache
     }
     
-    /// Starts download
+    /// Resets downloader counters.
+    public func resetCounters() {
+        _downloadedBytes = 0
+        _successfulTileDownloads = 0
+        _failedTileDownloads = 0
+        lastPercentageNotified = 0.0
+        nextPercentageToNotify = incrementInPercentageNotification
+    }
+    
+    /// Starts download.
     public func start() {
         //Downloads stuff
+        resetCounters()
         downloaderQueue.async {
             for range: TileRange in self.region.tileRanges() ?? [] {
                 for tileCoords: TileCoords in range {
@@ -139,6 +166,8 @@ import MapKit
                         if error != nil {
                             print(error?.localizedDescription ?? "Error downloading tile")
                             self._failedTileDownloads += 1
+                            // TODO add to an array of tiles not downloaded
+                            // so a retry can be performed
                         } else {
                             self._successfulTileDownloads += 1
                             print("RegionDownloader:: Donwloaded zoom: \(tileCoords.zoom) (x:\(tileCoords.tileX),y:\(tileCoords.tileY)) \(self.downloadedTiles)/\(self.totalTilesToDownload) \(self.downloadedPercentage)%")
@@ -163,7 +192,7 @@ import MapKit
     }
     
     /// Returns an estimation of the total number of bytes the whole region may occupy.
-    /// It is an estimation.
+    /// Again, it is an estimation.
     public func estimateRegionByteSize() -> UInt64 {
         return RegionDownloader.defaultAverageTileSizeBytes * self.region.count
     }

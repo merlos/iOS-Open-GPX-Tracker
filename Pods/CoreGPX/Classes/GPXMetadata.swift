@@ -38,13 +38,19 @@ public final class GPXMetadata: GPXElement, Codable {
     public var copyright: GPXCopyright?
     
     /// A web link, usually one with information regarding the GPX file.
-    public var link: GPXLink?
+    @available(*, deprecated, message: "CoreGPX now support multiple links.", renamed: "links.first")
+    public var link: GPXLink? {
+        return links.first
+    }
+    
+    /// Web links, usually containing information regarding the current GPX file which houses this metadata.
+    public var links = [GPXLink]()
     
     /// Date and time of when the GPX file is created.
     public var time: Date?
     
     /// Keyword of the GPX file.
-    public var keyword: String?
+    public var keywords: String?
 
     /// Boundaries of coordinates of the GPX file.
     public var bounds: GPXBounds?
@@ -66,18 +72,18 @@ public final class GPXMetadata: GPXElement, Codable {
     /// - Parameters:
     ///     - raw: Raw element expected from parser
     init(raw: GPXRawElement) {
-        super.init()
+        //super.init()
         for child in raw.children {
-            let text = child.text
+            //let text = child.text
             
             switch child.name {
-            case "name":        self.name = text
-            case "desc":        self.desc = text
+            case "name":        self.name = child.text
+            case "desc":        self.desc = child.text
             case "author":      self.author = GPXAuthor(raw: child)
             case "copyright":   self.copyright = GPXCopyright(raw: child)
-            case "link":        self.link = GPXLink(raw: child)
-            case "time":        self.time = GPXDateParser.parse(date: text)
-            case "keywords":    self.keyword = text
+            case "link":        self.links.append(GPXLink(raw: child))
+            case "time":        self.time = GPXDateParser.parse(date: child.text)
+            case "keywords":    self.keywords = child.text
             case "bounds":      self.bounds = GPXBounds(raw: child)
             case "extensions":  self.extensions = GPXExtensions(raw: child)
             default: continue
@@ -107,12 +113,12 @@ public final class GPXMetadata: GPXElement, Codable {
             self.copyright?.gpx(gpx, indentationLevel: indentationLevel)
         }
         
-        if link != nil {
-            self.link?.gpx(gpx, indentationLevel: indentationLevel)
+        for link in links {
+            link.gpx(gpx, indentationLevel: indentationLevel)
         }
         
-        self.addProperty(forValue: Convert.toString(from: time), gpx: gpx, tagName: "time", indentationLevel: indentationLevel, defaultValue: "0")
-        self.addProperty(forValue: keyword, gpx: gpx, tagName: "keyword", indentationLevel: indentationLevel)
+        self.addProperty(forValue: Convert.toString(from: time), gpx: gpx, tagName: "time", indentationLevel: indentationLevel)
+        self.addProperty(forValue: keywords, gpx: gpx, tagName: "keywords", indentationLevel: indentationLevel)
         
         if bounds != nil {
             self.bounds?.gpx(gpx, indentationLevel: indentationLevel)

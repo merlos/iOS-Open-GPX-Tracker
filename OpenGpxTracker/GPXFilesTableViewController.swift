@@ -35,7 +35,7 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
     var fileList: NSMutableArray = [kNoFiles]
     
     /// Is there any GPX file in the directory?
-    var gpxFilesFound = false;
+    var gpxFilesFound = false
     
     /// Temporary variable to manage.
     var selectedRowIndex = -1
@@ -62,7 +62,10 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
         addNotificationObservers()
         
         // Button to return to the map
-        let shareItem = UIBarButtonItem(title: NSLocalizedString("DONE", comment: "no comment"), style: UIBarButtonItem.Style.plain, target: self, action: #selector(GPXFilesTableViewController.closeGPXFilesTableViewController))
+        let shareItem = UIBarButtonItem(title: NSLocalizedString("DONE", comment: "no comment"),
+                                        style: UIBarButtonItem.Style.plain,
+                                        target: self,
+                                        action: #selector(GPXFilesTableViewController.closeGPXFilesTableViewController))
         
         self.navigationItem.rightBarButtonItems = [shareItem]
         
@@ -97,8 +100,7 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-    
+
     // MARK: Table view data source
     
     /// returns the number of sections. Always returns 1.
@@ -106,20 +108,17 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
         // Return the number of sections.
         return 1
     }
-    
-    
+
     /// Returns the number of files in the section.
     override func tableView(_ tableView: UITableView?, numberOfRowsInSection section: Int) -> Int {
         return fileList.count
     }
-    
-    
+
     /// Allow edit rows? Returns true only if there are files.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return gpxFilesFound
     }
-    
-    
+
     /// Displays the delete button.
     override func tableView(_ tableView: UITableView,
                             commit editingStyle: UITableViewCell.EditingStyle,
@@ -129,8 +128,7 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
             actionDeleteFileAtIndex((indexPath as NSIndexPath).row)
         }
     }
-    
-    
+
     /// Displays the name of the cell.
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         //let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as UITableViewCell
@@ -138,13 +136,14 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
             let cell: UITableViewCell = UITableViewCell(style: UITableViewCell.CellStyle.subtitle, reuseIdentifier: "Cell")
             //cell.accessoryType = UITableViewCellAccessoryType.DetailDisclosureButton
             //cell.accessoryView = [[ UIImageView alloc ] initWithImage:[UIImage imageNamed:@"Something" ]];
+            // swiftlint:disable force_cast
             let gpxFileInfo = fileList.object(at: (indexPath as NSIndexPath).row) as! GPXFileInfo
+            let lastSaved = NSLocalizedString("LAST_SAVED", comment: "no comment")
             cell.textLabel?.text = gpxFileInfo.fileName
-            cell.detailTextLabel?.text = String(format: NSLocalizedString("LAST_SAVED", comment: "no comment"), gpxFileInfo.modifiedDatetimeAgo, gpxFileInfo.fileSizeHumanised)
+            cell.detailTextLabel?.text = String(format: lastSaved, gpxFileInfo.modifiedDatetimeAgo, gpxFileInfo.fileSizeHumanised)
             if #available(iOS 13, *) {
                 cell.detailTextLabel?.textColor = UIColor.secondaryLabel
-            }
-            else {
+            } else {
                 cell.detailTextLabel?.textColor = UIColor.darkGray
             }
             return cell
@@ -154,24 +153,23 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
             return cell
         }
     }
-    
-    
+
     /// Displays an action sheet with the actions for that file (Send it by email, Load in map and Delete).
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
         let sheet = UIAlertController(title: nil, message: NSLocalizedString("SELECT_OPTION", comment: "no comment"), preferredStyle: .actionSheet)
-        let mapOption = UIAlertAction(title: NSLocalizedString("LOAD_IN_MAP", comment: "no comment"), style: .default) { action in
+        let mapOption = UIAlertAction(title: NSLocalizedString("LOAD_IN_MAP", comment: "no comment"), style: .default) { _ in
             self.actionLoadFileAtIndex(indexPath.row)
         }
-        let shareOption = UIAlertAction(title: NSLocalizedString("SHARE", comment: "no comment"), style: .default) { action in
+        let shareOption = UIAlertAction(title: NSLocalizedString("SHARE", comment: "no comment"), style: .default) { _ in
             self.actionShareFileAtIndex(indexPath.row, tableView: tableView, indexPath: indexPath)
         }
         
-        let cancelOption = UIAlertAction(title: NSLocalizedString("CANCEL", comment: "no comment"), style: .cancel) { action in
+        let cancelOption = UIAlertAction(title: NSLocalizedString("CANCEL", comment: "no comment"), style: .cancel) { _ in
             self.actionSheetCancel(sheet)
         }
         
-        let deleteOption = UIAlertAction(title: NSLocalizedString("DELETE", comment: "no comment"), style: .destructive) { action in
+        let deleteOption = UIAlertAction(title: NSLocalizedString("DELETE", comment: "no comment"), style: .destructive) { _ in
             self.actionDeleteFileAtIndex(indexPath.row)
         }
         
@@ -201,6 +199,7 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
     
     /// Returns the name of the file in the `rowIndex` passed as parameter.
     internal func fileListObjectTitle(_ rowIndex: Int) -> String {
+        // swiftlint:disable force_cast
         return (fileList.object(at: rowIndex) as! GPXFileInfo).fileName
     }
     
@@ -214,8 +213,7 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
     internal func actionSheetCancel(_ actionSheet: UIAlertController) {
         print("ActionSheet cancel")
     }
-    
-    
+
     /// Deletes from the disk storage the file of `fileList` at `rowIndex`.
     internal func actionDeleteFileAtIndex(_ rowIndex: Int) {
 
@@ -231,8 +229,7 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
         tableView.deleteRows(at: [indexPath], with: UITableView.RowAnimation.fade)
         tableView.reloadData()
     }
-    
-    
+
     /// Loads the GPX file that corresponds to rowIndex in fileList in the map.
     internal func actionLoadFileAtIndex(_ rowIndex: Int) {
         DispatchQueue.global(qos: .userInitiated).async {
@@ -273,8 +270,7 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
         
         if #available(iOS 13, *) {
             activityIndicatorView.color = .blackAndWhite
-        }
-        else {
+        } else {
             activityIndicatorView.color = .black
         }
 
@@ -283,8 +279,7 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
             alertController.view.addSubview(activityIndicatorView)
             
             self.present(alertController, animated: true, completion: nil)
-        }
-        else { // will dismiss alert
+        } else { // will dismiss alert
             activityIndicatorView.stopAnimating()
             self.presentingViewController?.dismiss(animated: true, completion: nil)
         }
@@ -293,8 +288,7 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
         guard let completion = completion else { return }
         completion()
     }
-    
-    
+
     /// Shares file at `rowIndex`.
     internal func actionShareFileAtIndex(_ rowIndex: Int, tableView: UITableView, indexPath: IndexPath) {
         guard let gpxFileInfo: GPXFileInfo = (fileList.object(at: rowIndex) as? GPXFileInfo) else {
@@ -311,9 +305,11 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
         activityViewController.popoverPresentationController?.sourceView = tableView.cellForRow(at: indexPath)
         activityViewController.popoverPresentationController?.sourceRect = cellRect
         
-        // NOTE: as the activity view controller can be quite tall at times, the display of it may be offset automatically at times to ensure the activity view popup fits the screen.
+        // NOTE: As the activity view controller can be quite tall at times,
+        //       the display of it may be offset automatically at times to ensure the activity view popup fits the screen.
         
-        activityViewController.completionWithItemsHandler = {(activityType: UIActivity.ActivityType?, completed: Bool, returnedItems: [Any]?, error: Error?) in
+        activityViewController.completionWithItemsHandler = {
+            (activityType: UIActivity.ActivityType?, completed: Bool, returnedItems: [Any]?, error: Error?) in
             if !completed {
                 // User canceled
                 print("actionShareAtIndex: Cancelled")

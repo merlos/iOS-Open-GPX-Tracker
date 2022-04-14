@@ -11,7 +11,7 @@ import Foundation
 /// Delegate protocol of the view controller that displays the list of tile servers
 ///
 ///
-protocol PreferencesTableViewControllerDelegate: class {
+protocol PreferencesTableViewControllerDelegate: AnyObject {
     
     /// User updated tile server
     func didUpdateTileServer(_ newGpxTileServer: Int)

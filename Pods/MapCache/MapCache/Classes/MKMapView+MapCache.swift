@@ -8,40 +8,54 @@
 import Foundation
 import MapKit
 
-/// Extension that provides MKMapView support to use MapCache
+/// Extension that provides MKMapView support to use MapCache.
 ///
 /// - SeeAlso: Readme documentation
 extension MKMapView {
 
-    /// Will tell the map to use the cache passed as parameter.
-    public func useCache(_ cache: MapCache) -> CachedTileOverlay {
-        
+    /// Will tell the map to use the cache passed as parameter for getting the tiles.
+    ///
+    /// - Parameter cache: A cache that implements the `MapCacheProtocol`. Typically an instance of `MapCache`
+    ///
+    /// - SeeAlso: `Readme`
+    @discardableResult
+    public func useCache(_ cache: MapCacheProtocol) -> CachedTileOverlay {
+
         let tileServerOverlay = CachedTileOverlay(withCache: cache)
         tileServerOverlay.canReplaceMapContent = true
-        
+
+        // Don't set `maximumZ` when wanting "over zooming".
+        // TileOverlay will stop trying in zoom levels beyond `maximumZ`.
+        // Our custom renderer `CachedTileOverlayZoomRenderer` will catch these "over zooms".
+        if !cache.config.overZoomMaximumZ && cache.config.maximumZ > 0 {
+            tileServerOverlay.maximumZ = cache.config.maximumZ
+        }
         if cache.config.maximumZ > 0 {
             tileServerOverlay.maximumZ = cache.config.maximumZ
         }
-        
+
         if cache.config.minimumZ > 0 {
             tileServerOverlay.minimumZ = cache.config.minimumZ
         }
+        
+        tileServerOverlay.tileSize = cache.config.tileSize
         self.insertOverlay(tileServerOverlay, at: 0, level: .aboveLabels)
         return tileServerOverlay
     }
-    
+
     /// Call this method within the MKMapView delegate function
     /// `mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer`
     ///
     /// - SeeAlso: Example project and Readme documentation
     public func mapCacheRenderer(forOverlay overlay: MKOverlay) -> MKOverlayRenderer {
         if overlay.isKind(of: MKTileOverlay.self) {
-            return MKTileOverlayRenderer(overlay: overlay)
+            return CachedTileOverlayRenderer(overlay: overlay)
         }
         return MKOverlayRenderer()
     }
-    
+
     ///
+    /// TODO: Implement this correctly. 
     /// Returns current zoom level
     ///
     public var zoomLevel: Int {

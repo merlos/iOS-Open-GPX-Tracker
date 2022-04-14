@@ -1,0 +1,54 @@
+
+/* Class = "WKInterfaceLabel"; text = "signal"; ObjectID = "036-aK-7ie"; */
+"036-aK-7ie.text" = "сигнал";
+
+/* Class = "WKInterfaceLabel"; text = "File Name"; ObjectID = "19n-8m-sC5"; */
+"19n-8m-sC5.text" = "Имя файла";
+
+/* Class = "WKInterfaceButton"; title = "View files"; ObjectID = "3QZ-4r-aMl"; */
+"3QZ-4r-aMl.title" = "Просмотр файлов";
+
+/* Class = "WKInterfaceLabel"; text = "speedValue"; ObjectID = "9yb-Lf-Jav"; */
+"9yb-Lf-Jav.text" = "speedValue";
+
+/* Class = "WKInterfaceLabel"; text = "Sending"; ObjectID = "AyV-DL-c4U"; */
+"AyV-DL-c4U.text" = "Sending";
+
+/* Class = "WKInterfaceLabel"; text = "SPEED"; ObjectID = "HGe-sg-FuE"; */
+"HGe-sg-FuE.text" = "СКОРОСТЬ";
+
+/* Class = "WKInterfaceLabel"; text = "Alert Label"; ObjectID = "IdU-wH-bcW"; */
+"IdU-wH-bcW.text" = "Alert Label";
+
+/* Class = "WKInterfaceLabel"; text = "File Name"; ObjectID = "Nkq-Do-muS"; */
+"Nkq-Do-muS.text" = "Имя файла";
+
+/* Class = "WKInterfaceButton"; title = "Save"; ObjectID = "Yfa-t6-5Sk"; */
+"Yfa-t6-5Sk.title" = "Сохр.";
+
+/* Class = "WKInterfaceButton"; title = "Start Tracking"; ObjectID = "exN-t4-It8"; */
+"exN-t4-It8.title" = "Начать запись трека";
+
+/* Class = "WKInterfaceLabel"; text = "altValue"; ObjectID = "fLq-xh-Kj9"; */
+"fLq-xh-Kj9.text" = "altValue";
+
+/* Class = "WKInterfaceButton"; title = "Reset"; ObjectID = "g9l-MU-PFV"; */
+"g9l-MU-PFV.title" = "Сброс";
+
+/* Class = "WKInterfaceLabel"; text = "0m"; ObjectID = "jLD-vq-fZz"; */
+"jLD-vq-fZz.text" = "0м";
+
+/* Class = "WKInterfaceButton"; title = "📍"; ObjectID = "juk-oB-3vV"; */
+"juk-oB-3vV.title" = "📍";
+
+/* Class = "WKInterfaceLabel"; text = "COORDINATES"; ObjectID = "oWE-ge-dGJ"; */
+"oWE-ge-dGJ.text" = "КООРДИНАТЫ";
+
+/* Class = "WKInterfaceLabel"; text = "ALTITUDE"; ObjectID = "sOz-Cs-O7T"; */
+"sOz-Cs-O7T.text" = "ВЫСОТА";
+
+/* Class = "WKInterfaceLabel"; text = "coordinatesLabel"; ObjectID = "wh4-cP-QA2"; */
+"wh4-cP-QA2.text" = "coordinatesLabel";
+
+/* Class = "WKInterfaceLabel"; text = "00:00"; ObjectID = "xum-IR-If6"; */
+"xum-IR-If6.text" = "00:00";
