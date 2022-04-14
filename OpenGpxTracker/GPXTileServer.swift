@@ -23,7 +23,7 @@ enum GPXTileServer: Int {
     case apple
     
     /// Apple satellite tile server
-    case appleSat
+    case appleSatellite
     
     /// Open Street Map tile server
     case openStreetMap
@@ -42,7 +42,7 @@ enum GPXTileServer: Int {
     var name: String {
         switch self {
         case .apple: return "Apple Mapkit (no offline cache)"
-        case .appleSat: return "Apple Satellite (no offline cache)"
+        case .appleSatellite: return "Apple Satellite (no offline cache)"
         case .openStreetMap: return "Open Street Map"
         case .cartoDB: return "Carto DB"
         case .cartoDBRetina: return "Carto DB (Retina resolution)"
@@ -54,7 +54,7 @@ enum GPXTileServer: Int {
     var templateUrl: String {
         switch self {
         case .apple: return ""
-        case .appleSat: return ""
+        case .appleSatellite: return ""
         case .openStreetMap: return "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         case .cartoDB: return "https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}.png"
         case .cartoDBRetina: return "https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}@2x.png"
@@ -72,11 +72,11 @@ enum GPXTileServer: Int {
     var subdomains: [String] {
         switch self {
         case .apple: return []
-        case .appleSat: return []
+        case .appleSatellite: return []
         case .openStreetMap: return ["a", "b", "c"]
         case .cartoDB, .cartoDBRetina: return ["a", "b", "c"]
         case .openTopoMap: return ["a", "b", "c"]
-        //case .AnotherMap: return ["a","b"]
+        // case .AnotherMap: return ["a","b"]
         }
     }
     
@@ -94,7 +94,7 @@ enum GPXTileServer: Int {
         switch self {
         case .apple:
             return -1
-        case .appleSat: 
+        case .appleSatellite: 
             return -1
         case .openStreetMap:
             return 19
@@ -102,7 +102,7 @@ enum GPXTileServer: Int {
             return 21
         case .openTopoMap:
             return 17
-        //case .AnotherMap: return 10
+        // case .AnotherMap: return 10
         }
     }
     ///
@@ -117,7 +117,7 @@ enum GPXTileServer: Int {
         switch self {
         case .apple:
             return 0
-        case .appleSat:
+        case .appleSatellite:
             return 0
         case .openStreetMap:
             return 0
@@ -125,7 +125,7 @@ enum GPXTileServer: Int {
             return 0
         case .openTopoMap:
             return 0
-        //case .AnotherMap: return ["a","b"]
+        // case .AnotherMap: return ["a","b"]
         }
     }
     
@@ -138,6 +138,10 @@ enum GPXTileServer: Int {
         case .cartoDBRetina: return 512
         default: return 256
         }
+    }
+    
+    var needForceDarkMode: Bool {
+        return self == .appleSatellite
     }
 
     /// Returns the number of tile servers currently defined

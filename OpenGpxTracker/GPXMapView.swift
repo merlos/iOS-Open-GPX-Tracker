@@ -77,7 +77,7 @@ class GPXMapView: MKMapView {
             }
             
             //add new overlay to map if not using Apple Maps
-            if newValue != .apple && newValue != .appleSat {
+            if newValue != .apple && newValue != .appleSatellite {
                 //Update cacheConfig
                 var config = MapCacheConfig(withUrlTemplate: newValue.templateUrl)
                 config.subdomains = newValue.subdomains

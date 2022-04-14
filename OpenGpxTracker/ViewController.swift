@@ -655,6 +655,8 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
             compassButton.translatesAutoresizingMaskIntoConstraints = false
             addConstraintsToCompassView()
         }
+        
+        self.textColorAdaptations()
     }
     
     // MARK: - Add Constraints for views
@@ -1257,6 +1259,16 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         present(alertController, animated: true)
         isDisplayingLocationServicesDenied = false
     }
+    
+    /// force dark mode (i.e. white text, if map content is known to be dark)
+    func textColorAdaptations() {
+        let needForceDarkMode = self.map.tileServer.needForceDarkMode
+        self.signalAccuracyLabel.textColor = needForceDarkMode ? .white : nil
+        self.timeLabel.textColor = needForceDarkMode ? .white : nil
+        self.speedLabel.textColor = needForceDarkMode ? .white : nil
+        self.totalTrackedDistanceLabel.textColor = needForceDarkMode ? .white : nil
+        self.currentSegmentDistanceLabel.textColor = needForceDarkMode ? .white : nil
+    }
 
 }
 
@@ -1297,7 +1309,9 @@ extension ViewController: PreferencesTableViewControllerDelegate {
     ///
     func didUpdateTileServer(_ newGpxTileServer: Int) {
         print("PreferencesTableViewControllerDelegate:: didUpdateTileServer: \(newGpxTileServer)")
-        self.map.tileServer = GPXTileServer(rawValue: newGpxTileServer)!
+        let newTileServer = GPXTileServer(rawValue: newGpxTileServer)!
+        self.map.tileServer = newTileServer
+        self.textColorAdaptations()
     }
     
     ///
