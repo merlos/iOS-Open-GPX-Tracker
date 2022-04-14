@@ -137,6 +137,10 @@ class GPXMapView: MKMapView {
         addGestureRecognizer(rotationGesture)
         isUserInteractionEnabled = true
         isMultipleTouchEnabled = true
+        
+        if #available(iOS 11, *) {
+            self.showsCompass = false
+        }
     }
     
     ///

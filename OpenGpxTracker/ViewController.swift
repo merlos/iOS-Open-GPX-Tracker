@@ -288,6 +288,10 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
     /// Check if device is notched type phone
     var isIPhoneX = false
     
+    /// Compass View
+    @available(iOS 11, *)
+    lazy var compassButton = MKCompassButton(mapView: map)
+    
     // Signal accuracy images
     /// GPS signal image. Level 0 (no signal)
     let signalImage0 = UIImage(named: "signal0")
@@ -645,6 +649,12 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         if #available(iOS 13, *) {
             shareActivityColor = .mainUIColor
         }
+        
+        if #available(iOS 11, *) {
+            self.view.addSubview(compassButton)
+            compassButton.translatesAutoresizingMaskIntoConstraints = false
+            addConstraintsToCompassView()
+        }
     }
     
     // MARK: - Add Constraints for views
@@ -659,6 +669,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         addConstraintsToInfoLabels(isIPhoneX)
         addConstraintsToButtonBar(isIPhoneX)
     }
+    
     /// Adds constraints to subviews forming the app title bar (top bar)
     func addConstraintsToAppTitleBar(_ isIPhoneX: Bool) {
         // MARK: App Title Bar
@@ -750,6 +761,13 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         NSLayoutConstraint(item: saveButton, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: kButtonSmallSize).isActive = true
         NSLayoutConstraint(item: resetButton, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: kButtonSmallSize).isActive = true
         NSLayoutConstraint(item: resetButton, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: kButtonSmallSize).isActive = true
+    }
+    
+    @available(iOS 11, *)
+    func addConstraintsToCompassView() {
+        NSLayoutConstraint(item: self.compassButton, attribute: .top, relatedBy: .equal, toItem: self.signalAccuracyLabel, attribute: .bottom, multiplier: 1, constant: 8).isActive = true
+        
+        NSLayoutConstraint(item: self.compassButton, attribute: .centerX, relatedBy: .equal, toItem: self.view, attribute: .centerX, multiplier: 1, constant: 0).isActive = true
     }
     
     /// For handling compass location changes when orientation is switched.
