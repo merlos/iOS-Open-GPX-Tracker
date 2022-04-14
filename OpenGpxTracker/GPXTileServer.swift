@@ -22,7 +22,7 @@ enum GPXTileServer: Int {
     /// Apple tile server
     case apple
     
-    /// Apple satelite tile server
+    /// Apple satellite tile server
     case appleSat
     
     /// Open Street Map tile server
@@ -135,13 +135,7 @@ enum GPXTileServer: Int {
     /// 2x/retina tiles are 512x512
     var tileSize: Int {
         switch self {
-        case .apple: return -1.0 // Not limited
-        case .appleSat: return -1.0
-        case .openStreetMap: return 750.0
-        case .cartoDB: return 200.0
-        case .openTopoMap: return 2850.0
         case .cartoDBRetina: return 512
-        //case .AnotherMap: return 1000.0
         default: return 256
         }
     }
