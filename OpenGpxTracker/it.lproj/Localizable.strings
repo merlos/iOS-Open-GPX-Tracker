@@ -1,0 +1,123 @@
+/*
+ Localizable.strings
+ OpenGpxTracker
+ 
+ Created by Paolo Fehlmann on 19.05.21.
+ */
+
+"NO_LOCATION" = "Segnale GPS non presente";
+"START_TRACKING" = "Avvia Tracking";
+"PAUSE" = "Pausa";
+"RESUME" = "Continua";
+"SAVE" = "Salva";
+"RESET" = "Cancellare";
+"DONE" = "Fine";
+"CANCEL" = "Annulla";
+"WATCH_FILE_RECEIVED_TITLE" = "Ricevere dati da Apple Watch.";
+"WATCH_FILE_RECEIVED_MESSAGE" = "Dati ricevuti: \"%@\"";
+"SAVE_AS" = "Memorizzare...";
+"ENTER_SESSION_NAME" = "Nome sessione GPX";
+"LOCATION_SERVICES_DISABLED" = "Servizi di localizzazione disattivati";
+"ENABLE_LOCATION_SERVICES" = "Vai alle impostazioni e attiva i servizi di localizzazione.";
+"SETTINGS" = "Impostazioni";
+"ACCESS_TO_LOCATION_DENIED" = "Accesso alla posizione negato.";
+"ALLOW_LOCATION" = "Consenti sempre a GPX Tracker di accedere alla posizione corrente. ";
+"COORDS_LABEL" = "(%@, %@) · Altitudine: %@";
+"NO_FILES" = "Nessun documento GPX";
+"YOUR_FILES" = "I tuoi percorsi";
+"LAST_SAVED" = "%@ (%@) ultimo salvataggio";
+"DELETE" = "Eliminare";
+"SELECT_OPTION" = "Scegliere";
+"LOAD_IN_MAP" = "Caricare nella mappa";
+"SHARE" = "Condividere";
+"LOADING_FILE" = "Caricare Documento GPX...";
+"ABOUT" = "a proposito";
+"PREFERENCES" = "Impostazioni";
+"UNITS" = "Unità";
+"CACHE" = "Cache";
+"MAP_SOURCE" = "Tipo Mappe";
+"ACTIVITY_TYPE" = "Tipo di attività";
+"USE_IMPERIAL_UNITS" = "Usare Miglia";
+"OFFLINE_CACHE" = "Offline cache";
+"CLEAR_CACHE" = "Svuotare Cache";
+"CACHE_IS_EMPTY" = "La Cache ora è vuota";
+"EDIT_WAYPOINT_NAME_TITLE" = "Cambia intersezioni";
+"EDIT_WAYPOINT_NAME_MESSAGE" = "Nota: per modificare una intersezione, spostare il segnaposto.";
+
+// Watch
+"SENDING" = "Invia:";
+"X_FILES" = "%d Documenti";
+"SUCCESSFULLY_SENT" = "Inviato con successo:";
+"FAILED_TO_SEND" = "Invio fallito:";
+"SEND_TO_IOS" = "Invia a iOS App";
+"FILE_SELECTED_TITLE" = "GPX Documento selezionato";
+"FILE_SELECTED_MESSAGE" = "Cosa vuoi fare?";
+"ERROR_OCCURED_TITLE" = "Errore";
+"ERROR_OCCURED_MESSAGE" = "Il file GPX non è stato inviato all'app iOS: %s ";
+"GPX_TRACKER" = "GPX Tracker";
+"FILE_SAVED_TITLE" = "Percorso salvato";
+"FILE_SAVED_MESSAGE" = "Sessione corrente salvata come %s.gpx";
+
+"AT_AUTOMATIC" = "Automatico";
+"AT_AUTOMOTIVE" = "Auto/Moto";
+"AT_FITNESS" = "Fitness";
+"AT_OTHER" = "Altre Navigazioni";
+"AT_FLIGHT" = "Volare";
+
+"AT_AUTOMATIC_DESC" = "Standard. Il modo viene riconosciuto automaticamente";
+"AT_AUTOMOTIVE_DESC" = "Auto, Moto, Camion...";
+"AT_FITNESS_DESC" = "Camminare, Escursionismo, Bicicletta...";
+"AT_OTHER_DESC" = "Altri metodi di navigazione";
+"AT_FLIGHT_DESC" = "Attività di Volo";
+
+"T_YEARS_AGO" = "Prima di %d anni";
+"T_YEAR_AGO" = "Un anno fa";
+"T_LAST_YEAR" = "Ultimo anno";
+
+"T_MONTHS_AGO" = "Prima di %d mesi";
+"T_MONTH_AGO" = "Un mese fa";
+"T_LAST_MONTH" = "Ultimo mese";
+
+"T_WEEKS_AGO" = "Prima di %d settimane";
+"T_WEEK_AGO" = "Una settima fa";
+"T_LAST_WEEK" = "Ultima settimana";
+
+"T_DAYS_AGO" = "Prima di %d giorni";
+"T_DAY_AGO" = "Un giorno fa";
+"T_YESTERDAY" = "Ieri";
+
+"T_HOURS_AGO" = "Prima di %d ore";
+"T_HOUR_AGO" = "Un'ora fa";
+"T_LAST_HOUR" = "Ultima ora";
+
+"T_MINUTES_AGO" = "Prima di %d Minuti";
+"T_MINUTE_AGO" = "Un'ora fa";
+"T_MINUTE_HOUR" = "Ultimo minuto";
+
+"T_SECONDS_AGO" = "Prima di %d Secondi";
+
+"T_JUST_NOW" = "Ora";
+
+// CoreDataHelper
+
+"CONTINUE_SESSION_TITLE" = "Continua l'ultima sessione?";
+"CONTINUE_SESSION_MESSAGE" = "Cosa vuoi fare con la traccia ripristinata dall'ultima sessione?";
+
+"CONTINUE_SESSION" = "Continua sessione";
+"SAVE_START_NEW" = "Salva e riavvia";
+
+// Default File Name
+
+// in preferences section
+"DEFAULT_NAME_SECTION" = "Configurazione del nome file predefinito";
+
+// in default name editor view
+"DEFAULT_NAME_DATE_FORMAT" = "Data Formato";
+"DEFAULT_NAME_SETTINGS" = "Impostazioni";
+"DEFAULT_NAME_PRESET" = "Preset";
+
+"DEFAULT_NAME_INPUT_FOOTER" = "Facendo clic su Fine sulla tastiera si salva il formato della data per l'uso, indipendentemente dal fatto che sia preimpostato o personalizzato. Il formato della data deve essere incapsulato all'interno di {...}. Per l'elenco completo della sintassi del formato della data applicabile, fare riferimento allo standard tecnico Unicode (UTS) #35.";
+
+"DEFAULT_NAME_SAMPLE_OUTPUT_TITLE" = "Esempio: ";
+"DEFAULT_NAME_USE_UTC" = "Usare fuso orario UTC?";
+"DEFAULT_NAME_ENGLISH_LOCALE" = "Forza la formattazione della data basata sulla lingua inglese?";

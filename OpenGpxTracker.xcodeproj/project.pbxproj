@@ -183,6 +183,8 @@
 		84DE40632499509900ED7D6D /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		8913CD8B1BDB0A9A009EC729 /* PreferencesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferencesTableViewController.swift; sourceTree = "<group>"; };
 		8913CD8D1BDB2477009EC729 /* PreferencesTableViewControllerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferencesTableViewControllerDelegate.swift; sourceTree = "<group>"; };
+		892A573F2838A81C003FE8C5 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/Localizable.strings; sourceTree = "<group>"; };
+		892A57402838A865003FE8C5 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		893BEC8519C7E62200C77354 /* GPXWaypoint+MKAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "GPXWaypoint+MKAnnotation.swift"; sourceTree = "<group>"; };
 		895F04B31A7143CE004BEE8A /* GPXExtentCoordinates.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPXExtentCoordinates.swift; sourceTree = "<group>"; };
 		898E2BDD23129FE000DC4E3F /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Main.strings; sourceTree = "<group>"; };
@@ -653,6 +655,7 @@
 				fr,
 				nl,
 				"pt-BR",
+				it,
 			);
 			mainGroup = 898EECCC19C49B5800B4B207;
 			productRefGroup = 898EECD619C49B5800B4B207 /* Products */;
@@ -935,6 +938,7 @@
 				12D4905624C448540065D995 /* fr */,
 				1262DD9824F9568F00B5C2EA /* nl */,
 				12A804AD2656CE8300CA77C6 /* pt-BR */,
+				892A57402838A865003FE8C5 /* it */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -999,6 +1003,7 @@
 				12D4905524C448540065D995 /* fr */,
 				1262DD9724F9568F00B5C2EA /* nl */,
 				12A804AC2656CE8300CA77C6 /* pt-BR */,
+				892A573F2838A81C003FE8C5 /* it */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
