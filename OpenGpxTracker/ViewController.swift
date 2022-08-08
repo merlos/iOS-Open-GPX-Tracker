@@ -288,10 +288,6 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
     /// Check if device is notched type phone
     var isIPhoneX = false
     
-    /// Compass View
-    @available(iOS 11, *)
-    lazy var compassButton = MKCompassButton(mapView: map)
-    
     // Signal accuracy images
     /// GPS signal image. Level 0 (no signal)
     let signalImage0 = UIImage(named: "signal0")
@@ -651,9 +647,10 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         }
         
         if #available(iOS 11, *) {
+            let compassButton = MKCompassButton(mapView: map)
             self.view.addSubview(compassButton)
             compassButton.translatesAutoresizingMaskIntoConstraints = false
-            addConstraintsToCompassView()
+            addConstraintsToCompassView(compassButton)
         }
         
         self.textColorAdaptations()
@@ -766,10 +763,10 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
     }
     
     @available(iOS 11, *)
-    func addConstraintsToCompassView() {
-        NSLayoutConstraint(item: self.compassButton, attribute: .top, relatedBy: .equal, toItem: self.signalAccuracyLabel, attribute: .bottom, multiplier: 1, constant: 8).isActive = true
+    func addConstraintsToCompassView(_ view: MKCompassButton) {
+        NSLayoutConstraint(item: view, attribute: .top, relatedBy: .equal, toItem: self.signalAccuracyLabel, attribute: .bottom, multiplier: 1, constant: 8).isActive = true
         
-        NSLayoutConstraint(item: self.compassButton, attribute: .centerX, relatedBy: .equal, toItem: self.view, attribute: .centerX, multiplier: 1, constant: 0).isActive = true
+        NSLayoutConstraint(item: view, attribute: .centerX, relatedBy: .equal, toItem: self.view, attribute: .centerX, multiplier: 1, constant: 0).isActive = true
     }
     
     /// For handling compass location changes when orientation is switched.
