@@ -61,7 +61,7 @@
 		BF64602F220AE9CF00957FF6 /* GPXTrackSegment+MapKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 899D676B19CD9E9E00C88A0A /* GPXTrackSegment+MapKit.swift */; };
 		BF68ECC62448B887005C779F /* DateFieldTypeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF68ECC52448B887005C779F /* DateFieldTypeView.swift */; };
 		BF692F5D2209AAFB00F8A0F1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BF692F5C2209AAFB00F8A0F1 /* Assets.xcassets */; };
-		BF692F642209AAFB00F8A0F1 /* OpenGpxTracker-Watch Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = BF692F632209AAFB00F8A0F1 /* OpenGpxTracker-Watch Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		BF692F642209AAFB00F8A0F1 /* OpenGpxTracker-Watch Extension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = BF692F632209AAFB00F8A0F1 /* OpenGpxTracker-Watch Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		BF692F692209AAFB00F8A0F1 /* InterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF692F682209AAFB00F8A0F1 /* InterfaceController.swift */; };
 		BF692F6B2209AAFB00F8A0F1 /* ExtensionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF692F6A2209AAFB00F8A0F1 /* ExtensionDelegate.swift */; };
 		BF692F6D2209AAFB00F8A0F1 /* ComplicationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF692F6C2209AAFB00F8A0F1 /* ComplicationController.swift */; };
@@ -121,15 +121,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		BF692F792209AAFC00F8A0F1 /* Embed App Extensions */ = {
+		BF692F792209AAFC00F8A0F1 /* Embed Foundation Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				BF692F642209AAFB00F8A0F1 /* OpenGpxTracker-Watch Extension.appex in Embed App Extensions */,
+				BF692F642209AAFB00F8A0F1 /* OpenGpxTracker-Watch Extension.appex in Embed Foundation Extensions */,
 			);
-			name = "Embed App Extensions";
+			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		BF692F7B2209AAFC00F8A0F1 /* Embed Watch Content */ = {
@@ -566,7 +566,7 @@
 			buildConfigurationList = BF692F7A2209AAFC00F8A0F1 /* Build configuration list for PBXNativeTarget "OpenGpxTracker-Watch" */;
 			buildPhases = (
 				BF692F552209AAF900F8A0F1 /* Resources */,
-				BF692F792209AAFC00F8A0F1 /* Embed App Extensions */,
+				BF692F792209AAFC00F8A0F1 /* Embed Foundation Extensions */,
 				DF47EB2F9EF82452477E687E /* Frameworks */,
 			);
 			buildRules = (
@@ -606,7 +606,7 @@
 			attributes = {
 				LastSwiftMigration = 0700;
 				LastSwiftUpdateCheck = 1010;
-				LastUpgradeCheck = 1330;
+				LastUpgradeCheck = 1400;
 				ORGANIZATIONNAME = "";
 				TargetAttributes = {
 					898EECD419C49B5800B4B207 = {
@@ -1059,7 +1059,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -1109,7 +1109,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -1128,7 +1128,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = OpenGpxTracker/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MARKETING_VERSION = 1.8.0;
 				PRODUCT_BUNDLE_IDENTIFIER = org.merlos.OpenGpxTracker;
@@ -1149,7 +1149,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = OpenGpxTracker/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MARKETING_VERSION = 1.8.0;
 				PRODUCT_BUNDLE_IDENTIFIER = org.merlos.OpenGpxTracker;
