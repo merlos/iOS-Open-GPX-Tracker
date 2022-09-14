@@ -260,7 +260,15 @@ class GPXMapView: MKMapView {
         //First remove last overlay, then re-add the overlay updated with the new point
         removeOverlay(currentSegmentOverlay)
         currentSegmentOverlay = session.currentSegment.overlay
-        addOverlay(currentSegmentOverlay)
+
+        if let last = overlays.last {
+            insertOverlay(currentSegmentOverlay, above: last)
+        }
+        else {
+            addOverlay(currentSegmentOverlay)
+        }
+
+        print("[OVERLAYS] \(overlays)")
         extent.extendAreaToIncludeLocation(location.coordinate)
     }
     
