@@ -330,6 +330,7 @@
 				895F04B31A7143CE004BEE8A /* GPXExtentCoordinates.swift */,
 				89F8749A1BBB7362004EF41A /* GPXTrack+length.swift */,
 				89F8749E1BBCB97F004EF41A /* GPXRoot+length.swift */,
+				BFE026C1244A01DB005423E6 /* UIInsetLabel.swift */,
 				89EA86602157A08E002E03A7 /* Date+timeAgo.swift */,
 				89EA86642157C444002E03A7 /* Int+asFilesize.swift */,
 				89EA86622157B42C002E03A7 /* GPXFileInfo.swift */,
@@ -340,7 +341,6 @@
 				BF15092123916FC100F51F1B /* UIColor+DarkMode.swift */,
 				BFB06F01244A037300AC0CDC /* UIColor+Keyboard.swift */,
 				BFE026BF244A0160005423E6 /* String+CountInstances.swift */,
-				BFE026C1244A01DB005423E6 /* UIInsetLabel.swift */,
 				BFE026C3244A0281005423E6 /* DateField.swift */,
 				BF9AE57D2410012700B103A0 /* DefaultDateFormat.swift */,
 			);
