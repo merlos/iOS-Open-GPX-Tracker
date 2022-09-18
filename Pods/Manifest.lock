@@ -17,13 +17,13 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   MapCache:
-    :commit: 1ab206dc7c9d422ef1407597bb66f10bdae7213c
+    :commit: cf4b0b6505380c5d65bf089c32c4a35adf04f45d
     :git: https://github.com/vincentneo/MapCache.git
 
 SPEC CHECKSUMS:
   CoreGPX: 1381c8c47428c3a6bcac2f93d25ca1c5e3525811
-  MapCache: b0a9f5f9a0ed7cbac45443fea0e7e03a97bf0c66
+  MapCache: 1dd68aaa2d129af29596cb0a9cfb1b159deba8d8
 
-PODFILE CHECKSUM: c6a18c309fa0db5bee376b1879afc20a8b9084dc
+PODFILE CHECKSUM: baf3d0a2d893d0e6a330eb10464538d32939a8b4
 
 COCOAPODS: 1.11.3
