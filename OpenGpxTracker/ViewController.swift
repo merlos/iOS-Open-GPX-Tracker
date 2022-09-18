@@ -911,7 +911,10 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
     /// it has permissions to get the location.
     ///
     @objc func applicationDidBecomeActive() {
-        print("viewController:: applicationDidBecomeActive wasSentToBackground: \(wasSentToBackground) locationServices: \(CLLocationManager.locationServicesEnabled())")
+        DispatchQueue.global().async {
+            print("viewController:: applicationDidBecomeActive wasSentToBackground: \(self.wasSentToBackground) locationServices: \(CLLocationManager.locationServicesEnabled())")
+        }
+
         
         //If the app was never sent to background do nothing
         if !wasSentToBackground {
