@@ -10,6 +10,7 @@
 		0175ABFF23F014C7003323C3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0175AC0123F014C7003323C3 /* LaunchScreen.storyboard */; };
 		120DE71022B274910055C4CB /* GPXSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120DE70F22B274910055C4CB /* GPXSession.swift */; };
 		120DE71122B274A40055C4CB /* GPXSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120DE70F22B274910055C4CB /* GPXSession.swift */; };
+		12491EA328D7057D009F6BE1 /* MKMapView+ConvenientOverlayInserts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12491EA228D7057D009F6BE1 /* MKMapView+ConvenientOverlayInserts.swift */; };
 		12A1A44424D561AC0057ED7A /* CoreDataHelper+FetchRequests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12A1A44324D561AC0057ED7A /* CoreDataHelper+FetchRequests.swift */; };
 		4588D66B230D23AA009AA75F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4588D66D230D23AA009AA75F /* InfoPlist.strings */; };
 		4588D66F230D2476009AA75F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4588D671230D2476009AA75F /* InfoPlist.strings */; };
@@ -151,6 +152,7 @@
 		0175AC0523F01519003323C3 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		0175AC0723F01523003323C3 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		120DE70F22B274910055C4CB /* GPXSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPXSession.swift; sourceTree = "<group>"; };
+		12491EA228D7057D009F6BE1 /* MKMapView+ConvenientOverlayInserts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MKMapView+ConvenientOverlayInserts.swift"; sourceTree = "<group>"; };
 		1262DD9624F9568F00B5C2EA /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/Interface.strings; sourceTree = "<group>"; };
 		1262DD9724F9568F00B5C2EA /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/Localizable.strings; sourceTree = "<group>"; };
 		1262DD9824F9568F00B5C2EA /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -343,6 +345,7 @@
 				BFE026BF244A0160005423E6 /* String+CountInstances.swift */,
 				BFE026C3244A0281005423E6 /* DateField.swift */,
 				BF9AE57D2410012700B103A0 /* DefaultDateFormat.swift */,
+				12491EA228D7057D009F6BE1 /* MKMapView+ConvenientOverlayInserts.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -831,6 +834,7 @@
 				89F8749B1BBB7362004EF41A /* GPXTrack+length.swift in Sources */,
 				BF177EEA24D54F9200D5E021 /* CoreDataHelper+BatchDelete.swift in Sources */,
 				BFB06F02244A037300AC0CDC /* UIColor+Keyboard.swift in Sources */,
+				12491EA328D7057D009F6BE1 /* MKMapView+ConvenientOverlayInserts.swift in Sources */,
 				BFA3CE8222C23B2300A8B965 /* CoreDataAlertView.swift in Sources */,
 				899D678219D351DA00C88A0A /* AboutViewController.swift in Sources */,
 				89EA86612157A08E002E03A7 /* Date+timeAgo.swift in Sources */,

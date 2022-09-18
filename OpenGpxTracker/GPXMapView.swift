@@ -260,13 +260,8 @@ class GPXMapView: MKMapView {
         //First remove last overlay, then re-add the overlay updated with the new point
         removeOverlay(currentSegmentOverlay)
         currentSegmentOverlay = session.currentSegment.overlay
-
-        if let last = overlays.last {
-            insertOverlay(currentSegmentOverlay, above: last)
-        }
-        else {
-            addOverlay(currentSegmentOverlay)
-        }
+        
+        addOverlayOnTop(currentSegmentOverlay)
 
         print("[OVERLAYS] \(overlays)")
         extent.extendAreaToIncludeLocation(location.coordinate)
@@ -302,7 +297,7 @@ class GPXMapView: MKMapView {
         //add tile server overlay
         //by removing all overlays, tile server overlay is also removed. We need to add it back
         if tileServer != .apple {
-            addOverlay(tileServerOverlay, level: .aboveLabels)
+            addOverlayOnBottom(tileServerOverlay)
         }
     }
     
@@ -348,7 +343,8 @@ class GPXMapView: MKMapView {
             session.totalTrackedDistance += oneTrack.length
             for segment in oneTrack.segments {
                 let overlay = segment.overlay
-                addOverlay(overlay)
+                //addOverlay(overlay)
+                addOverlayOnTop(overlay)
                 let segmentTrackpoints = segment.points
                 //add point to map extent
                 for waypoint in segmentTrackpoints {
@@ -369,7 +365,8 @@ class GPXMapView: MKMapView {
             session.totalTrackedDistance += oneTrack.length
             for segment in oneTrack.segments {
                 let overlay = segment.overlay
-                addOverlay(overlay)
+                //addOverlay(overlay)
+                addOverlayOnTop(overlay)
                 
                 let segmentTrackpoints = segment.points
                 //add point to map extent
@@ -383,7 +380,8 @@ class GPXMapView: MKMapView {
         for trackSegment in session.trackSegments {
             
             let overlay = trackSegment.overlay
-            addOverlay(overlay)
+            //addOverlay(overlay)
+            addOverlayOnTop(overlay)
             
             let segmentTrackpoints = trackSegment.points
             //add point to map extent

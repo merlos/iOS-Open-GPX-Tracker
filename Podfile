@@ -7,8 +7,8 @@ end
 target 'OpenGpxTracker' do
     platform :ios, '9.0'
     shared_pods
-    pod 'MapCache', '~> 0.9.0'
-    #pod 'MapCache', git: 'https://github.com/merlos/MapCache.git' :branch => 'master'
+    #pod 'MapCache', '~> 0.9.0'
+    pod 'MapCache', git: 'https://github.com/vincentneo/MapCache.git', :branch => 'ios16-add-overlay-patch'
     
 end
 

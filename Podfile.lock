@@ -4,17 +4,26 @@ PODS:
 
 DEPENDENCIES:
   - CoreGPX
-  - MapCache (~> 0.9.0)
+  - MapCache (from `https://github.com/vincentneo/MapCache.git`, branch `ios16-add-overlay-patch`)
 
 SPEC REPOS:
   trunk:
     - CoreGPX
-    - MapCache
+
+EXTERNAL SOURCES:
+  MapCache:
+    :branch: ios16-add-overlay-patch
+    :git: https://github.com/vincentneo/MapCache.git
+
+CHECKOUT OPTIONS:
+  MapCache:
+    :commit: 1ab206dc7c9d422ef1407597bb66f10bdae7213c
+    :git: https://github.com/vincentneo/MapCache.git
 
 SPEC CHECKSUMS:
   CoreGPX: 1381c8c47428c3a6bcac2f93d25ca1c5e3525811
   MapCache: b0a9f5f9a0ed7cbac45443fea0e7e03a97bf0c66
 
-PODFILE CHECKSUM: c61e9630b0b0516aedcfdcf6798dbfb7fc6c0eef
+PODFILE CHECKSUM: c6a18c309fa0db5bee376b1879afc20a8b9084dc
 
-COCOAPODS: 1.11.2
+COCOAPODS: 1.11.3
