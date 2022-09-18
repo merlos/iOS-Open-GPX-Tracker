@@ -1238,7 +1238,12 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         let alertController = UIAlertController(title: NSLocalizedString("LOCATION_SERVICES_DISABLED", comment: "no comment"), message: NSLocalizedString("ENABLE_LOCATION_SERVICES", comment: "no comment"), preferredStyle: .alert)
         let settingsAction = UIAlertAction(title: NSLocalizedString("SETTINGS", comment: "no comment"), style: .default) { _ in
             if let url = URL(string: UIApplication.openSettingsURLString) {
-                UIApplication.shared.openURL(url)
+                if #available(iOS 10, *) {
+                    UIApplication.shared.open(url)
+                }
+                else {
+                    UIApplication.shared.openURL(url)
+                }
             }
         }
         let cancelAction = UIAlertAction(title: NSLocalizedString("CANCEL", comment: "no comment"), style: .cancel) { _ in }
@@ -1264,7 +1269,12 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         let settingsAction = UIAlertAction(title: NSLocalizedString("SETTINGS", comment: "no comment"),
                                            style: .default) { _ in
             if let url = URL(string: UIApplication.openSettingsURLString) {
-                UIApplication.shared.openURL(url)
+                if #available(iOS 10, *) {
+                    UIApplication.shared.open(url)
+                }
+                else {
+                    UIApplication.shared.openURL(url)
+                }
             }
         }
         let cancelAction = UIAlertAction(title: NSLocalizedString("CANCEL",
