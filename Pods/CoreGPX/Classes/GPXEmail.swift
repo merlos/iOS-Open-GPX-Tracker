@@ -70,13 +70,13 @@ public final class GPXEmail: GPXElement, Codable {
     
     // MARK:- GPX
     override func addOpenTag(toGPX gpx: NSMutableString, indentationLevel: Int) {
-        let attribute = NSMutableString()
+        let attribute = NSMutableString(string: "")
         
         if let emailID = emailID {
-            attribute.appendFormat(" id=\"%@\"", emailID)
+            attribute.append(" id=\"\(emailID)\"")
         }
         if let domain = domain {
-            attribute.appendFormat(" domain=\"%@\"", domain)
+            attribute.append(" domain=\"\(domain)\"")
         }
         gpx.appendOpenTag(indentation: indent(forIndentationLevel: indentationLevel), tag: tagName(), attribute: attribute)
     }

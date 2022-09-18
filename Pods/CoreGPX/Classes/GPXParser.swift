@@ -8,6 +8,9 @@
 //  XML Parser is referenced from GitHub, yahoojapan/SwiftyXMLParser.
 
 import Foundation
+#if canImport(FoundationXML)
+import FoundationXML
+#endif // canImport(FoundationXML)
 
  /**
  An event-driven parser (SAX parser), currently parses GPX v1.1 files only.

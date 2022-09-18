@@ -1,7 +1,7 @@
 use_frameworks!
 
 def shared_pods
-    pod 'CoreGPX'
+    pod 'CoreGPX', git: 'https://github.com/vincentneo/CoreGPX.git', :branch => 'xcode14Preparation'
 end
 
 target 'OpenGpxTracker' do
@@ -13,6 +13,6 @@ target 'OpenGpxTracker' do
 end
 
 target 'OpenGpxTracker-Watch Extension' do
-    platform :watchos, '2.0'
+    platform :watchos, '4.0'
     shared_pods
 end
