@@ -309,25 +309,25 @@ public final class GPXRoot: GPXElement, Codable {
     
     // MARK:- GPX
     override func addOpenTag(toGPX gpx: NSMutableString, indentationLevel: Int) {
-        let attribute = NSMutableString()
+        let attribute = NSMutableString(string: "")
         
-        attribute.appendFormat(" xmlns:xsi=\"%@\"", self.xsi)
-        attribute.appendFormat(" xmlns=\"%@\"", self.schema)
+        attribute.append(" xmlns:xsi=\"\(self.xsi)\"")
+        attribute.append(" xmlns=\"\(self.schema)\"")
         
         // for extensions attributes to be appended.
         if let extensionAttributes = self.extensionAttributes {
             for attributeKey in extensionAttributes.keys {
-                attribute.appendFormat(" %@=\"%@\"", attributeKey, extensionAttributes[attributeKey] ?? "Data is invalid")
+                attribute.append(" \(attributeKey)=\"\(extensionAttributes[attributeKey] ?? "Data is invalid")\"")
             }
         }
         
-        attribute.appendFormat(" xsi:schemaLocation=\"%@\"", self.schemaLocation)
+        attribute.append(" xsi:schemaLocation=\"\(self.schemaLocation)\"")
         
-        attribute.appendFormat(" version=\"%@\"", version)
+        attribute.append(" version=\"\(version)\"")
         
         
         if let creator = self.creator {
-            attribute.appendFormat(" creator=\"%@\"", creator)
+            attribute.append(" creator=\"\(creator)\"")
         }
         
         gpx.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n")

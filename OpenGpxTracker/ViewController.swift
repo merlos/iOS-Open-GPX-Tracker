@@ -288,10 +288,6 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
     /// Check if device is notched type phone
     var isIPhoneX = false
     
-    /// Compass View
-    @available(iOS 11, *)
-    lazy var compassButton = MKCompassButton(mapView: map)
-    
     // Signal accuracy images
     /// GPS signal image. Level 0 (no signal)
     let signalImage0 = UIImage(named: "signal0")
@@ -381,32 +377,8 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         
         //Because of the edges, iPhone X* is slightly different on the layout.
         //So, Is the current device an iPhone X?
-        if UIDevice.current.userInterfaceIdiom == .phone {
-            switch UIScreen.main.nativeBounds.height {
-            case 1136:
-                print("device: IPHONE 5,5S,5C")
-            case 1334:
-                print("device: IPHONE 6,7,8 IPHONE 6S,7S,8S ")
-            case 1920, 2208:
-                print("device: IPHONE 6PLUS, 6SPLUS, 7PLUS, 8PLUS")
-            case 2436:
-                print("device: IPHONE X, IPHONE XS, iPHONE 12_MINI")
-                isIPhoneX = true
-            case 2532:
-                print("device: IPHONE 12, IPHONE 12_PRO")
-                isIPhoneX = true
-            case 2688:
-                print("device: IPHONE XS_MAX")
-                isIPhoneX = true
-            case 2778:
-                print("device: IPHONE_12_PRO_MAX")
-                isIPhoneX = true
-            case 1792:
-                print("device: IPHONE XR")
-                isIPhoneX = true
-            default:
-                print("UNDETERMINED")
-            }
+        if UIDevice.current.userInterfaceIdiom == .phone, #available(iOS 11, *) {
+            self.isIPhoneX = UIApplication.shared.delegate?.window??.safeAreaInsets.top ?? 0 > 40
         }
         
         // Map autorotate configuration
@@ -568,13 +540,11 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         // Add signal accuracy images and labels
         signalImageView.image = signalImage0
         signalImageView.frame = CGRect(x: self.view.frame.width/2 - 25.0, y: 14 + 5 + iPhoneXdiff, width: 50, height: 30)
-        signalImageView.autoresizingMask  = [.flexibleLeftMargin, .flexibleRightMargin]
         map.addSubview(signalImageView)
         signalAccuracyLabel.frame = CGRect(x: self.view.frame.width/2 - 25.0, y: 14 + 5 + 30 + iPhoneXdiff, width: 50, height: 12)
         signalAccuracyLabel.font = font12
         signalAccuracyLabel.text = kUnknownAccuracyText
         signalAccuracyLabel.textAlignment = .center
-        signalAccuracyLabel.autoresizingMask = [.flexibleLeftMargin, .flexibleRightMargin]
         map.addSubview(signalAccuracyLabel)
 
         //
@@ -651,9 +621,10 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         }
         
         if #available(iOS 11, *) {
+            let compassButton = MKCompassButton(mapView: map)
             self.view.addSubview(compassButton)
             compassButton.translatesAutoresizingMaskIntoConstraints = false
-            addConstraintsToCompassView()
+            addConstraintsToCompassView(compassButton)
         }
         
         self.textColorAdaptations()
@@ -667,22 +638,25 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
     /// - Parameters:
     ///     - isIPhoneX: if device is >= iPhone X, bottom gap will be zero
     func addConstraints(_ isIPhoneX: Bool) {
-        addConstraintsToAppTitleBar(isIPhoneX)
-        addConstraintsToInfoLabels(isIPhoneX)
+        addConstraintsToAppTitleBar()
+        addConstraintsToTopInteractableElements()
         addConstraintsToButtonBar(isIPhoneX)
     }
     
     /// Adds constraints to subviews forming the app title bar (top bar)
-    func addConstraintsToAppTitleBar(_ isIPhoneX: Bool) {
+    func addConstraintsToAppTitleBar() {
         // MARK: App Title Bar
         
         // Switch off all autoresizing masks translate
         appTitleLabel.translatesAutoresizingMaskIntoConstraints = false
         coordsLabel.translatesAutoresizingMaskIntoConstraints = false
         
+        let safeAreaGuide = self.view.safeAreaLayoutGuide
+        let safeAreaInsets = self.view.safeAreaInsets
+        
         NSLayoutConstraint(item: coordsLabel, attribute: .trailing, relatedBy: .equal, toItem: self.view, attribute: .trailing, multiplier: 1, constant: -5).isActive = true
         // not using self.topLayoutGuide as it will leave a gap between status bar and this, if used on non-notch devices
-        NSLayoutConstraint(item: appTitleLabel, attribute: .top, relatedBy: .equal, toItem: self.view, attribute: .top, multiplier: 1, constant: isIPhoneX ? 40.0 : 20.0).isActive = true
+        NSLayoutConstraint(item: appTitleLabel, attribute: .top, relatedBy: .equal, toItem: safeAreaGuide, attribute: .top, multiplier: 1, constant: safeAreaInsets.top).isActive = true
         NSLayoutConstraint(item: appTitleLabel, attribute: .lastBaseline, relatedBy: .equal, toItem: coordsLabel, attribute: .lastBaseline, multiplier: 1, constant: 0).isActive = true
         NSLayoutConstraint(item: appTitleLabel, attribute: .trailing, relatedBy: .equal, toItem: coordsLabel, attribute: .trailing, multiplier: 1, constant: 5).isActive = true
         NSLayoutConstraint(item: appTitleLabel, attribute: .leading, relatedBy: .equal, toItem: coordsLabel, attribute: .leading, multiplier: 1, constant: 0).isActive = true
@@ -690,8 +664,8 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
     }
     
     /// Adds constraints to subviews forming the informational labels (top right side; i.e. speed, elapse time labels)
-    func addConstraintsToInfoLabels(_ isIPhoneX: Bool) {
-        // MARK: Information Labels
+    func addConstraintsToTopInteractableElements() {
+        // MARK: Information Labels (on right)
         
         /// offset from center, without obstructing signal view
         let kSignalViewOffset: CGFloat = 25
@@ -702,10 +676,12 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         totalTrackedDistanceLabel.translatesAutoresizingMaskIntoConstraints = false
         currentSegmentDistanceLabel.translatesAutoresizingMaskIntoConstraints = false
         
+        let safeAreaGuide = self.view.safeAreaLayoutGuide
+        
         NSLayoutConstraint(item: timeLabel, attribute: .trailing, relatedBy: .equal, toItem: self.view, attribute: .trailing, multiplier: 1, constant: -7).isActive = true
         NSLayoutConstraint(item: timeLabel, attribute: .leading, relatedBy: .equal, toItem: self.view, attribute: .centerX, multiplier: 1, constant: kSignalViewOffset).isActive = true
         // self.topLayoutGuide takes care of the iPhone X safe area, iPhoneXdiff not needed
-        NSLayoutConstraint(item: timeLabel, attribute: .top, relatedBy: .equal, toItem: self.topLayoutGuide, attribute: .bottom, multiplier: 1, constant: 20).isActive = true
+        NSLayoutConstraint(item: timeLabel, attribute: .top, relatedBy: .equal, toItem: self.appTitleLabel, attribute: .top, multiplier: 1, constant: 20).isActive = true
         
         NSLayoutConstraint(item: speedLabel, attribute: .trailing, relatedBy: .equal, toItem: self.view, attribute: .trailing, multiplier: 1, constant: -7).isActive = true
         NSLayoutConstraint(item: speedLabel, attribute: .leading, relatedBy: .equal, toItem: self.view, attribute: .centerX, multiplier: 1, constant: kSignalViewOffset).isActive = true
@@ -718,6 +694,45 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         NSLayoutConstraint(item: currentSegmentDistanceLabel, attribute: .trailing, relatedBy: .equal, toItem: self.view, attribute: .trailing, multiplier: 1, constant: -7).isActive = true
         NSLayoutConstraint(item: currentSegmentDistanceLabel, attribute: .leading, relatedBy: .equal, toItem: self.view, attribute: .centerX, multiplier: 1, constant: kSignalViewOffset).isActive = true
         NSLayoutConstraint(item: currentSegmentDistanceLabel, attribute: .top, relatedBy: .equal, toItem: totalTrackedDistanceLabel, attribute: .bottom, multiplier: 1, constant: 0).isActive = true
+        
+        // MARK: Signal Chart & Label (on center)
+        
+        signalImageView.translatesAutoresizingMaskIntoConstraints = false
+        signalAccuracyLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint(item: signalImageView, attribute: .centerX, relatedBy: .equal, toItem: safeAreaGuide, attribute: .centerX, multiplier: 1, constant: 0).isActive = true
+        NSLayoutConstraint(item: signalImageView, attribute: .top, relatedBy: .equal, toItem: self.appTitleLabel, attribute: .bottom, multiplier: 1, constant: 5).isActive = true
+        NSLayoutConstraint(item: signalImageView, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .width, multiplier: 1, constant: 50).isActive = true
+        NSLayoutConstraint(item: signalImageView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1, constant: 30).isActive = true
+        NSLayoutConstraint(item: signalAccuracyLabel, attribute: .centerX, relatedBy: .equal, toItem: safeAreaGuide, attribute: .centerX, multiplier: 1, constant: 0).isActive = true
+        NSLayoutConstraint(item: signalAccuracyLabel, attribute: .top, relatedBy: .equal, toItem: signalImageView, attribute: .bottom, multiplier: 1, constant: 2).isActive = true
+        
+        // MARK: Buttons (on left)
+        
+        folderButton.translatesAutoresizingMaskIntoConstraints = false
+        preferencesButton.translatesAutoresizingMaskIntoConstraints = false
+        shareButton.translatesAutoresizingMaskIntoConstraints = false
+        aboutButton.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint(item: folderButton, attribute: .leading, relatedBy: .equal, toItem: self.view, attribute: .leading, multiplier: 1, constant: 5).isActive = true
+        NSLayoutConstraint(item: folderButton, attribute: .top, relatedBy: .equal, toItem: appTitleLabel, attribute: .bottom, multiplier: 1, constant: 5).isActive = true
+        NSLayoutConstraint(item: folderButton, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .width, multiplier: 1, constant: kButtonSmallSize).isActive = true
+        NSLayoutConstraint(item: folderButton, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1, constant: kButtonSmallSize).isActive = true
+        
+        NSLayoutConstraint(item: preferencesButton, attribute: .centerY, relatedBy: .equal, toItem: folderButton, attribute: .centerY, multiplier: 1, constant: 0).isActive = true
+        NSLayoutConstraint(item: preferencesButton, attribute: .leading, relatedBy: .equal, toItem: folderButton, attribute: .trailing, multiplier: 1, constant: 10).isActive = true
+        NSLayoutConstraint(item: preferencesButton, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .width, multiplier: 1, constant: 32).isActive = true
+        NSLayoutConstraint(item: preferencesButton, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1, constant: 32).isActive = true
+        
+        NSLayoutConstraint(item: shareButton, attribute: .centerY, relatedBy: .equal, toItem: folderButton, attribute: .centerY, multiplier: 1, constant: 0).isActive = true
+        NSLayoutConstraint(item: shareButton, attribute: .leading, relatedBy: .equal, toItem: preferencesButton, attribute: .trailing, multiplier: 1, constant: 10).isActive = true
+        NSLayoutConstraint(item: shareButton, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .width, multiplier: 1, constant: 32).isActive = true
+        NSLayoutConstraint(item: shareButton, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1, constant: 32).isActive = true
+        
+        NSLayoutConstraint(item: aboutButton, attribute: .top, relatedBy: .equal, toItem: folderButton, attribute: .bottom, multiplier: 1, constant: 5).isActive = true
+        NSLayoutConstraint(item: aboutButton, attribute: .centerX, relatedBy: .equal, toItem: folderButton, attribute: .centerX, multiplier: 1, constant: 0).isActive = true
+        NSLayoutConstraint(item: aboutButton, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .width, multiplier: 1, constant: 32).isActive = true
+        NSLayoutConstraint(item: aboutButton, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1, constant: 32).isActive = true
 
     }
     
@@ -736,6 +751,8 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         saveButton.translatesAutoresizingMaskIntoConstraints = false
         resetButton.translatesAutoresizingMaskIntoConstraints = false
         
+        let safeAreaGuide = self.view.safeAreaLayoutGuide
+        
         // set trackerButton to horizontal center of view
         NSLayoutConstraint(item: trackerButton, attribute: .centerX, relatedBy: .equal, toItem: map, attribute: .centerX, multiplier: 1, constant: 0).isActive = true
         
@@ -746,11 +763,11 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         NSLayoutConstraint(item: resetButton, attribute: .leading, relatedBy: .equal, toItem: saveButton, attribute: .trailing, multiplier: 1, constant: kButtonSeparation).isActive = true
 
         // seperation distance between button and bottom of view
-        NSLayoutConstraint(item: self.bottomLayoutGuide, attribute: .top, relatedBy: .equal, toItem: followUserButton, attribute: .bottom, multiplier: 1, constant: kBottomDistance).isActive = true
-        NSLayoutConstraint(item: self.bottomLayoutGuide, attribute: .top, relatedBy: .equal, toItem: newPinButton, attribute: .bottom, multiplier: 1, constant: kBottomDistance).isActive = true
-        NSLayoutConstraint(item: self.bottomLayoutGuide, attribute: .top, relatedBy: .equal, toItem: trackerButton, attribute: .bottom, multiplier: 1, constant: kBottomGap).isActive = true
-        NSLayoutConstraint(item: self.bottomLayoutGuide, attribute: .top, relatedBy: .equal, toItem: saveButton, attribute: .bottom, multiplier: 1, constant: kBottomDistance).isActive = true
-        NSLayoutConstraint(item: self.bottomLayoutGuide, attribute: .top, relatedBy: .equal, toItem: resetButton, attribute: .bottom, multiplier: 1, constant: kBottomDistance).isActive = true
+        NSLayoutConstraint(item: safeAreaGuide, attribute: .bottom, relatedBy: .equal, toItem: followUserButton, attribute: .bottom, multiplier: 1, constant: kBottomDistance).isActive = true
+        NSLayoutConstraint(item: safeAreaGuide, attribute: .bottom, relatedBy: .equal, toItem: newPinButton, attribute: .bottom, multiplier: 1, constant: kBottomDistance).isActive = true
+        NSLayoutConstraint(item: safeAreaGuide, attribute: .bottom, relatedBy: .equal, toItem: trackerButton, attribute: .bottom, multiplier: 1, constant: kBottomGap).isActive = true
+        NSLayoutConstraint(item: safeAreaGuide, attribute: .bottom, relatedBy: .equal, toItem: saveButton, attribute: .bottom, multiplier: 1, constant: kBottomDistance).isActive = true
+        NSLayoutConstraint(item: safeAreaGuide, attribute: .bottom, relatedBy: .equal, toItem: resetButton, attribute: .bottom, multiplier: 1, constant: kBottomDistance).isActive = true
         
         // fixed dimensions for all buttons
         NSLayoutConstraint(item: followUserButton, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: kButtonSmallSize).isActive = true
@@ -766,10 +783,10 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
     }
     
     @available(iOS 11, *)
-    func addConstraintsToCompassView() {
-        NSLayoutConstraint(item: self.compassButton, attribute: .top, relatedBy: .equal, toItem: self.signalAccuracyLabel, attribute: .bottom, multiplier: 1, constant: 8).isActive = true
+    func addConstraintsToCompassView(_ view: MKCompassButton) {
+        NSLayoutConstraint(item: view, attribute: .top, relatedBy: .equal, toItem: self.signalAccuracyLabel, attribute: .bottom, multiplier: 1, constant: 8).isActive = true
         
-        NSLayoutConstraint(item: self.compassButton, attribute: .centerX, relatedBy: .equal, toItem: self.view, attribute: .centerX, multiplier: 1, constant: 0).isActive = true
+        NSLayoutConstraint(item: view, attribute: .centerX, relatedBy: .equal, toItem: self.view, attribute: .centerX, multiplier: 1, constant: 0).isActive = true
     }
     
     /// For handling compass location changes when orientation is switched.
@@ -792,9 +809,10 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
     
     /// Updates polyline color
     func updatePolylineColor() {
+        
         for overlay in map.overlays where overlay is MKPolyline {
-                map.removeOverlay(overlay)
-                map.addOverlay(overlay)
+            map.removeOverlay(overlay)
+            map.addOverlayOnTop(overlay)
         }
     }
     
@@ -893,7 +911,10 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
     /// it has permissions to get the location.
     ///
     @objc func applicationDidBecomeActive() {
-        print("viewController:: applicationDidBecomeActive wasSentToBackground: \(wasSentToBackground) locationServices: \(CLLocationManager.locationServicesEnabled())")
+        DispatchQueue.global().async {
+            print("viewController:: applicationDidBecomeActive wasSentToBackground: \(self.wasSentToBackground) locationServices: \(CLLocationManager.locationServicesEnabled())")
+        }
+
         
         //If the app was never sent to background do nothing
         if !wasSentToBackground {
@@ -1220,7 +1241,12 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         let alertController = UIAlertController(title: NSLocalizedString("LOCATION_SERVICES_DISABLED", comment: "no comment"), message: NSLocalizedString("ENABLE_LOCATION_SERVICES", comment: "no comment"), preferredStyle: .alert)
         let settingsAction = UIAlertAction(title: NSLocalizedString("SETTINGS", comment: "no comment"), style: .default) { _ in
             if let url = URL(string: UIApplication.openSettingsURLString) {
-                UIApplication.shared.openURL(url)
+                if #available(iOS 10, *) {
+                    UIApplication.shared.open(url)
+                }
+                else {
+                    UIApplication.shared.openURL(url)
+                }
             }
         }
         let cancelAction = UIAlertAction(title: NSLocalizedString("CANCEL", comment: "no comment"), style: .cancel) { _ in }
@@ -1246,7 +1272,12 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         let settingsAction = UIAlertAction(title: NSLocalizedString("SETTINGS", comment: "no comment"),
                                            style: .default) { _ in
             if let url = URL(string: UIApplication.openSettingsURLString) {
-                UIApplication.shared.openURL(url)
+                if #available(iOS 10, *) {
+                    UIApplication.shared.open(url)
+                }
+                else {
+                    UIApplication.shared.openURL(url)
+                }
             }
         }
         let cancelAction = UIAlertAction(title: NSLocalizedString("CANCEL",

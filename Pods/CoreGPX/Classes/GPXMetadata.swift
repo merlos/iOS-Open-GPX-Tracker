@@ -82,7 +82,7 @@ public final class GPXMetadata: GPXElement, Codable {
             case "author":      self.author = GPXAuthor(raw: child)
             case "copyright":   self.copyright = GPXCopyright(raw: child)
             case "link":        self.links.append(GPXLink(raw: child))
-            case "time":        self.time = GPXDateParser.parse(date: child.text)
+            case "time":        self.time = GPXDateParser().parse(date: child.text)
             case "keywords":    self.keywords = child.text
             case "bounds":      self.bounds = GPXBounds(raw: child)
             case "extensions":  self.extensions = GPXExtensions(raw: child)

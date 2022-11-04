@@ -27,21 +27,20 @@ What is coming:
  
 
 ## Installation
-MapCache is available through [CocoaPods](https://cocoapods.org). To install
-it, simply add the following line to your `Podfile`:
+MapCache is available through [CocoaPods](https://cocoapods.org). To install it, simply add the following line to your `Podfile`:
 
 ```ruby
 pod 'MapCache'
 ```
 
 ## How to use MapCache?
-In the view controller where you have the `MKMapView` import `MapCache`
+In the view controller where you have a `MKMapView`, import `MapCache`:
 
 ```swift
 import MapCache
 ```
 
-Then within the ViewController add
+Then, within the ViewController add:
 
 ```swift
 // ViewController.swift
@@ -51,11 +50,11 @@ class ViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
 
-    ...
+    //...
 
     map.delegate = self
 
-    ...
+    //...
 
     // First setup the config of our cache. 
     // The only thing we must provide is the url template of the tile server.
@@ -70,11 +69,11 @@ class ViewController: UIViewController {
     // cache 
     map.useCache(mapCache)
 
-    ...
+    //...
 }
 ```
 
-Finally, tell the map delegate to use `mapCacheRenderer`
+Finally, tell the map delegate to use `mapCacheRenderer`:
 
 ```swift
 //ViewController.swift
@@ -88,14 +87,14 @@ extension ViewController : MKMapViewDelegate {
 }
 
 ```
-After setting up map cache browsed areas of the map will be kept on disk. If user browses again that area it will use the local version.
+After setting up the map cache, browsed areas of the map will be kept on disk. If the user browses again, that area it will use the local version.
 
-Note that in current version cache has not expiration date so if you need to get an updated version of the tiles you must call `clear()` which will wipe out the whole cache.
+Note that in the current version, the cache does not support expiration dates, so if you need to get an updated version of the tiles you must call `clear()` which will wipe out the whole cache.
 
 ```swift
 mapCache.clear() {
-  // do something after clear
-  print("cache cleared!")
+    // do something after clear
+    print("cache cleared!")
 }
 ```
 
@@ -107,10 +106,10 @@ mapCache.calculateDiskSize()
 
 You can take a look at the [**Example/ folder**](https://github.com/merlos/MapCache/tree/master/Example/MapCache) to see a complete implementation.
 
-A [Reference documentation](http://www.merlos.org/MapCache) is also available.
+[Reference documentation](http://www.merlos.org/MapCache) is also available.
 
 ## MapCache configuration
-Config map cache is pretty straight forward, typically you will need to set only `urlTemplate` and probably the `subdomains`.
+Configurating the map cache is pretty straight forward. Typically, you will only need to set `urlTemplate` and, optionally, the `subdomains`.
 
 These are the options:
 
@@ -157,29 +156,29 @@ config.capacity = 200 * 1024 * 1024 // 200 Megabytes
 
 ```
 
-If you need to use MapCache in different controllers, to avoid issues just be sure to use the same values in the config.
+If you need to use MapCache in different controllers, be sure to use the same values in the config to avoid issues.
 
 ## How does `MapCache` work behind the scenes
 
-If you need to build on something top of MapCache read this. If not, you can ignore
+If you need to build something on top of MapCache, read the following.
 
-MapCache is a hack of [MapKit](https://developer.apple.com/documentation/mapkit), the map framework of Apple.
+MapCache is a hack of [MapKit](https://developer.apple.com/documentation/mapkit), the map framework from Apple, used on their iOS, macOS, tvOS, and watchOS platforms.
 
 ### Understanding MapCache bootstrap
 
-As explained in _How to use MapCache?_ section, in order to bootstrap MapCache we have to call this method
+As explained in _How to use MapCache?_ section, in order to bootstrap MapCache, we have to call this method:
 
 ```swift
 map.useCache(mapCache)
 ```
 
-Where map is an instance of `MKMapView`, the main class used to display a map in iOS. What MapCache does through the extension (`MKMapView+MapCache`) is to add a new method `useCache` that tells `MKMapView` to display in the map a new tile layer on top of the default layers.  Because of this while the tiles are loaded you may see  the names of the default Apple Maps.
+Where map is an instance of `MKMapView`, the main class used to display a map with MapKit. What MapCache does through the `MKMapView+MapCache` extension is to add a new method `useCache` that tells `MKMapView` to display a new tile layer on top of the default layers. Because of this, while the tiles are loaded you may see  the tiles of the default Apple Maps.
 
 This extension also adds a variable in the `MKMapView` to keep the cache config.
 
-A layer in the map is called _overlay_ in the MapKit terminology. MapCache uses [tile based overlay](https://en.wikipedia.org/wiki/Tiled_web_map).  implemented in the class `CachedTileOverlay` which is a subclass of [MKTileOverlay](https://developer.apple.com/documentation/mapkit/mktileoverlay). 
+A layer in the map is called _overlay_ in MapKit terminology. MapCache uses [tile based overlay](https://en.wikipedia.org/wiki/Tiled_web_map) implemented in the class `CachedTileOverlay`, which is a subclass of [MKTileOverlay](https://developer.apple.com/documentation/mapkit/mktileoverlay). 
 
-Overlays, have associated _renderers_ that are the actual classes that draw the content of an overlay in the screen. For example, there  are rendererers for points, lines, polygons, and tiles. When `MapView` needs to display an overlay it calls the delegate with the overlay it is going to render and you need to provide the renderer to use. In order to do that, We added a method `mapCacheRenderer` that just returns the default [MKTileOverlayRenderer](https://developer.apple.com/documentation/mapkit/mktileoverlay) when the class of the overlay passed as argument is of the type `CachedTileOverlay`.  That is why we need to add this code on the application in the delegate of the map view (`MKMapViewDelegate`) :
+Overlays have associated _renderers_ that are the actual classes that draw the content of an overlay on the screen. For example, there are rendererers for points, lines, polygons, and tiles. When `MapView` needs to display an overlay, it calls the delegate with the overlay it is going to render and you need to provide the renderer to use. In order to do that, We added a `mapCacheRenderer` method that returns the default [MKTileOverlayRenderer](https://developer.apple.com/documentation/mapkit/mktileoverlay) when the class of the overlay passed as the argument is of the type `CachedTileOverlay`. That is why we need to add this code on the application in the delegate of the map view (`MKMapViewDelegate`) :
 
 ```swift
 extension ViewController : MKMapViewDelegate {
@@ -191,23 +190,23 @@ extension ViewController : MKMapViewDelegate {
 
 ### `CachedTileOverlay` and `MapCacheProtocol`
 
-As mentioned earlier, `CachedTileOverlay` is tile based layer that is implemented as a subclass of [MKTileOverlay](https://developer.apple.com/documentation/mapkit/mktileoverlay). Basically, the only thing that it does is to override two methods of the parent class:
+As mentioned earlier, `CachedTileOverlay` is a tile based layer that is implemented as a subclass of [MKTileOverlay](https://developer.apple.com/documentation/mapkit/mktileoverlay). Basically, the only thing that it does is to override two methods of the parent class:
 
 1.  `func url(forTilePath path: MKTileOverlayPath) -> URL`. The goal of this method is to return the URL of the tile. We need to overwrite it to be able to use the tile server of our preference.    
 
 2. `func loadTile(at path: MKTileOverlayPath, result: @escaping (Data?, Error?) -> Void)`. This method is the one that returns the actual Tile.
 
-If you take a look to the [implementation of `CachedTileOverlay`](https://github.com/merlos/MapCache/blob/master/MapCache/Classes/CachedTileOverlay.swift) you will notice that it only forwards the request a method with the same signature of a variable called `mapCache` which is an instance of a class that implements  `MapCacheProtocol` 
+If you take a look at the [implementation of `CachedTileOverlay`](https://github.com/merlos/MapCache/blob/master/MapCache/Classes/CachedTileOverlay.swift), you will notice that it only forwards the request to the method with the same signature of a variable called `mapCache` which is an instance of a class that implements  `MapCacheProtocol` 
 
-```
-override public func url(forTilePath path: MKTileOverlayPath) -> URL {`
-       return mapCache.url(forTilePath: path)
-   }
+```swift
+override public func url(forTilePath path: MKTileOverlayPath) -> URL {
+    return mapCache.url(forTilePath: path)
+}
 ```
 
-The [`MapCacheProtocol definition`](https://github.com/merlos/MapCache/blob/master/MapCache/Classes/MapCacheProtocol.swift) is pretty simple, it just requires to have a config variable instance of a `MapCacheConfig` and an implementation of the two methods that are called from `CachedTileOverlay`
+The [`MapCacheProtocol definition`](https://github.com/merlos/MapCache/blob/master/MapCache/Classes/MapCacheProtocol.swift) is pretty simple, as it just requires to have a config variable instance of a `MapCacheConfig` and an implementation of the two methods that are called from `CachedTileOverlay`:
 
-```
+```swift
 public protocol MapCacheProtocol {
 
     var config: MapCacheConfig { get set }
@@ -215,11 +214,13 @@ public protocol MapCacheProtocol {
     func url(forTilePath path: MKTileOverlayPath) -> URL
 
     func loadTile(at path: MKTileOverlayPath, result: @escaping (Data?, Error?) -> Void)
+    
+}
 ```
 
-If you need to create a custom implementation of the cache, you just need to create a class that implements this protocol and initialize the cache using  `map.useCache(myCustomCacheImplementationInstance)`. The implementation provided by the library is on the class named as  `MapCache`.
+If you need to create a custom implementation of the cache, you need to create a class that implements this protocol and initialize the cache using  `map.useCache(myCustomCacheImplementationInstance)`. The implementation provided by the library is on the `MapCache` class.
 
-Something that may be useful too is the `DiskCache` class.
+Something that may also be useful is the `DiskCache` class.
 
 If you need further information you can take a look at 
 

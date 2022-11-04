@@ -10,6 +10,7 @@
 		0175ABFF23F014C7003323C3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0175AC0123F014C7003323C3 /* LaunchScreen.storyboard */; };
 		120DE71022B274910055C4CB /* GPXSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120DE70F22B274910055C4CB /* GPXSession.swift */; };
 		120DE71122B274A40055C4CB /* GPXSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120DE70F22B274910055C4CB /* GPXSession.swift */; };
+		12491EA328D7057D009F6BE1 /* MKMapView+ConvenientOverlayInserts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12491EA228D7057D009F6BE1 /* MKMapView+ConvenientOverlayInserts.swift */; };
 		12A1A44424D561AC0057ED7A /* CoreDataHelper+FetchRequests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12A1A44324D561AC0057ED7A /* CoreDataHelper+FetchRequests.swift */; };
 		4588D66B230D23AA009AA75F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4588D66D230D23AA009AA75F /* InfoPlist.strings */; };
 		4588D66F230D2476009AA75F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4588D671230D2476009AA75F /* InfoPlist.strings */; };
@@ -61,7 +62,7 @@
 		BF64602F220AE9CF00957FF6 /* GPXTrackSegment+MapKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 899D676B19CD9E9E00C88A0A /* GPXTrackSegment+MapKit.swift */; };
 		BF68ECC62448B887005C779F /* DateFieldTypeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF68ECC52448B887005C779F /* DateFieldTypeView.swift */; };
 		BF692F5D2209AAFB00F8A0F1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BF692F5C2209AAFB00F8A0F1 /* Assets.xcassets */; };
-		BF692F642209AAFB00F8A0F1 /* OpenGpxTracker-Watch Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = BF692F632209AAFB00F8A0F1 /* OpenGpxTracker-Watch Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		BF692F642209AAFB00F8A0F1 /* OpenGpxTracker-Watch Extension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = BF692F632209AAFB00F8A0F1 /* OpenGpxTracker-Watch Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		BF692F692209AAFB00F8A0F1 /* InterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF692F682209AAFB00F8A0F1 /* InterfaceController.swift */; };
 		BF692F6B2209AAFB00F8A0F1 /* ExtensionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF692F6A2209AAFB00F8A0F1 /* ExtensionDelegate.swift */; };
 		BF692F6D2209AAFB00F8A0F1 /* ComplicationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF692F6C2209AAFB00F8A0F1 /* ComplicationController.swift */; };
@@ -121,15 +122,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		BF692F792209AAFC00F8A0F1 /* Embed App Extensions */ = {
+		BF692F792209AAFC00F8A0F1 /* Embed Foundation Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				BF692F642209AAFB00F8A0F1 /* OpenGpxTracker-Watch Extension.appex in Embed App Extensions */,
+				BF692F642209AAFB00F8A0F1 /* OpenGpxTracker-Watch Extension.appex in Embed Foundation Extensions */,
 			);
-			name = "Embed App Extensions";
+			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		BF692F7B2209AAFC00F8A0F1 /* Embed Watch Content */ = {
@@ -151,6 +152,7 @@
 		0175AC0523F01519003323C3 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		0175AC0723F01523003323C3 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		120DE70F22B274910055C4CB /* GPXSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPXSession.swift; sourceTree = "<group>"; };
+		12491EA228D7057D009F6BE1 /* MKMapView+ConvenientOverlayInserts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MKMapView+ConvenientOverlayInserts.swift"; sourceTree = "<group>"; };
 		1262DD9624F9568F00B5C2EA /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/Interface.strings; sourceTree = "<group>"; };
 		1262DD9724F9568F00B5C2EA /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/Localizable.strings; sourceTree = "<group>"; };
 		1262DD9824F9568F00B5C2EA /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -330,6 +332,7 @@
 				895F04B31A7143CE004BEE8A /* GPXExtentCoordinates.swift */,
 				89F8749A1BBB7362004EF41A /* GPXTrack+length.swift */,
 				89F8749E1BBCB97F004EF41A /* GPXRoot+length.swift */,
+				BFE026C1244A01DB005423E6 /* UIInsetLabel.swift */,
 				89EA86602157A08E002E03A7 /* Date+timeAgo.swift */,
 				89EA86642157C444002E03A7 /* Int+asFilesize.swift */,
 				89EA86622157B42C002E03A7 /* GPXFileInfo.swift */,
@@ -340,9 +343,9 @@
 				BF15092123916FC100F51F1B /* UIColor+DarkMode.swift */,
 				BFB06F01244A037300AC0CDC /* UIColor+Keyboard.swift */,
 				BFE026BF244A0160005423E6 /* String+CountInstances.swift */,
-				BFE026C1244A01DB005423E6 /* UIInsetLabel.swift */,
 				BFE026C3244A0281005423E6 /* DateField.swift */,
 				BF9AE57D2410012700B103A0 /* DefaultDateFormat.swift */,
+				12491EA228D7057D009F6BE1 /* MKMapView+ConvenientOverlayInserts.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -566,7 +569,7 @@
 			buildConfigurationList = BF692F7A2209AAFC00F8A0F1 /* Build configuration list for PBXNativeTarget "OpenGpxTracker-Watch" */;
 			buildPhases = (
 				BF692F552209AAF900F8A0F1 /* Resources */,
-				BF692F792209AAFC00F8A0F1 /* Embed App Extensions */,
+				BF692F792209AAFC00F8A0F1 /* Embed Foundation Extensions */,
 				DF47EB2F9EF82452477E687E /* Frameworks */,
 			);
 			buildRules = (
@@ -606,7 +609,7 @@
 			attributes = {
 				LastSwiftMigration = 0700;
 				LastSwiftUpdateCheck = 1010;
-				LastUpgradeCheck = 1330;
+				LastUpgradeCheck = 1400;
 				ORGANIZATIONNAME = "";
 				TargetAttributes = {
 					898EECD419C49B5800B4B207 = {
@@ -831,6 +834,7 @@
 				89F8749B1BBB7362004EF41A /* GPXTrack+length.swift in Sources */,
 				BF177EEA24D54F9200D5E021 /* CoreDataHelper+BatchDelete.swift in Sources */,
 				BFB06F02244A037300AC0CDC /* UIColor+Keyboard.swift in Sources */,
+				12491EA328D7057D009F6BE1 /* MKMapView+ConvenientOverlayInserts.swift in Sources */,
 				BFA3CE8222C23B2300A8B965 /* CoreDataAlertView.swift in Sources */,
 				899D678219D351DA00C88A0A /* AboutViewController.swift in Sources */,
 				89EA86612157A08E002E03A7 /* Date+timeAgo.swift in Sources */,
@@ -1059,7 +1063,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -1109,7 +1113,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -1128,7 +1132,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = OpenGpxTracker/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MARKETING_VERSION = 1.8.0;
 				PRODUCT_BUNDLE_IDENTIFIER = org.merlos.OpenGpxTracker;
@@ -1149,7 +1153,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = OpenGpxTracker/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MARKETING_VERSION = 1.8.0;
 				PRODUCT_BUNDLE_IDENTIFIER = org.merlos.OpenGpxTracker;

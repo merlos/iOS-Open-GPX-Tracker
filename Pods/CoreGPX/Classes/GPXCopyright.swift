@@ -61,7 +61,7 @@ public final class GPXCopyright: GPXElement, Codable {
     init(raw: GPXRawElement) {
         for child in raw.children {
             switch child.name {
-            case "year":    self.year = GPXDateParser.parse(year: child.text)
+            case "year":    self.year = GPXDateParser().parse(year: child.text)
             case "license": self.license = child.text
             default: continue
             }
@@ -78,10 +78,10 @@ public final class GPXCopyright: GPXElement, Codable {
     // MARK: GPX XML markup
     
     override func addOpenTag(toGPX gpx: NSMutableString, indentationLevel: Int) {
-        let attribute = NSMutableString()
+        let attribute = NSMutableString(string: "")
         
         if let author = author {
-            attribute.appendFormat(" author=\"%@\"", author)
+            attribute.append(" author=\"\(author)\"")
         }
         
         gpx.appendOpenTag(indentation: indent(forIndentationLevel: indentationLevel), tag: tagName(), attribute: attribute)

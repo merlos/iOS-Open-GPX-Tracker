@@ -38,7 +38,7 @@ open class GPXElement: NSObject {
    
     /// for generating newly tracked data straight into a formatted `String` that holds formatted data according to GPX syntax
     open func gpx() -> String {
-        let gpx = NSMutableString()
+        let gpx = NSMutableString(string: "")
         self.gpx(gpx, indentationLevel: 0)
         return gpx as String
     }
@@ -62,7 +62,7 @@ open class GPXElement: NSObject {
     ///         <trk> // an open tag
     ///         <wpt lat=1.0 lon=2.0> // an open tag with extra attributes
     func addOpenTag(toGPX gpx: NSMutableString, indentationLevel: Int) {
-        gpx.append(String(format: "%@<%@>\r\n", indent(forIndentationLevel: indentationLevel), self.tagName()))
+        gpx.append("\(indent(forIndentationLevel: indentationLevel))<\(self.tagName())>\r\n")
     }
     
     /// Implements a child tag after an open tag, before a close tag.
@@ -92,7 +92,7 @@ open class GPXElement: NSObject {
     ///
     ///         </metadata> // a close tag
     func addCloseTag(toGPX gpx: NSMutableString, indentationLevel: Int) {
-        gpx.append(String(format: "%@</%@>\r\n", indent(forIndentationLevel: indentationLevel), self.tagName()))
+        gpx.append("\(indent(forIndentationLevel: indentationLevel))</\(self.tagName())>\r\n")
     }
     
     
@@ -170,10 +170,10 @@ open class GPXElement: NSObject {
         
         // will append as XML CDATA instead.
         if isCDATA {
-            gpx.appendFormat("%@<%@%@><![CDATA[%@]]></%@>\r\n", indent(forIndentationLevel: indentationLevel), tagName, (attribute != nil) ? " ".appending(attribute!): "", value?.replacingOccurrences(of: "]]>", with: "]]&gt;") ?? "", tagName)
+            gpx.append("\(indent(forIndentationLevel: indentationLevel))<\(tagName)\((attribute != nil) ? " ".appending(attribute!): "")><![CDATA[\(value?.replacingOccurrences(of: "]]>", with: "]]&gt;") ?? "")]]></\(tagName)>\r\n")
         }
         else {
-            gpx.appendFormat("%@<%@%@>%@</%@>\r\n", indent(forIndentationLevel: indentationLevel), tagName, (attribute != nil) ? " ".appending(attribute!): "", value ?? "", tagName)
+            gpx.append("\(indent(forIndentationLevel: indentationLevel))<\(tagName)\((attribute != nil) ? " ".appending(attribute!): "")>\(value ?? "")</\(tagName)>\r\n")
         }
     }
     
@@ -191,7 +191,7 @@ open class GPXElement: NSObject {
     ///         This is indented text (indentationLevel == 1)
     ///             This is indented text (indentationLevel == 2)
     func indent(forIndentationLevel indentationLevel: Int) -> NSMutableString {
-        let result = NSMutableString()
+        let result = NSMutableString(string: "")
         
         for _ in 0..<indentationLevel {
             result.append("\t")
