@@ -44,6 +44,9 @@
 "CACHE_IS_EMPTY" = "Кэш очищен";
 "EDIT_WAYPOINT_NAME_TITLE" = "Введите имя метки";
 "EDIT_WAYPOINT_NAME_MESSAGE" = "Подсказка: Чтобы изменить положение метки на карте, перетащите ее";
+"GPX_FILES_LOCATION_SECTION" = "Расположение GPX файлов";
+"PRESS_TO_SELECT_FOLDER" = "Нажмите, чтобы выбрать";
+"USING_DEFAULT_FOLDER" = "Исп. папка по-умолчанию";
 
 // Watch
 "SENDING" = "Отправка:";

@@ -44,6 +44,9 @@
 "CACHE_IS_EMPTY" = "Cache is now empty";
 "EDIT_WAYPOINT_NAME_TITLE" = "Edit waypoint name";
 "EDIT_WAYPOINT_NAME_MESSAGE" = "Hint: To change the waypoint location drag and drop the pin";
+"GPX_FILES_LOCATION_SECTION" = "GPX files location";
+"PRESS_TO_SELECT_FOLDER" = "Press to select folder";
+"USING_DEFAULT_FOLDER" = "Using default folder";
 
 // Watch
 "SENDING" = "Sending:";
