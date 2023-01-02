@@ -302,6 +302,10 @@ class Preferences: NSObject {
                 var isStale: Bool = false
                 let url = try URL(resolvingBookmarkData: bookmarkData, bookmarkDataIsStale: &isStale)
                 if isStale {
+                    _ = url.startAccessingSecurityScopedResource()
+                    defer {
+                        url.stopAccessingSecurityScopedResource()
+                    }
                     let newBookmark = try url.bookmarkData()
                     _gpxFilesFolderBookmark = newBookmark
                     defaults.set(newBookmark, forKey: kDefaultsKeyGPXFilesFolder)
@@ -318,6 +322,10 @@ class Preferences: NSObject {
                 return
             }
             do {
+                _ = newValue.startAccessingSecurityScopedResource()
+                defer {
+                    newValue.stopAccessingSecurityScopedResource()
+                }
                 let newBookmark = try newValue.bookmarkData()
                 _gpxFilesFolderBookmark = newBookmark
                 defaults.set(newBookmark, forKey: kDefaultsKeyGPXFilesFolder)

@@ -36,7 +36,9 @@ class GPXFileManager: NSObject {
         let documentsURL = fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0]
         var files = self.fetchFilesList(from: documentsURL)
         if let customFolderURL = Preferences.shared.gpxFilesFolderURL {
+            _ = customFolderURL.startAccessingSecurityScopedResource()
             files += self.fetchFilesList(from: customFolderURL)
+            customFolderURL.stopAccessingSecurityScopedResource()
         }
         return files.sorted { lhs, rhs in
             return lhs.modifiedDate > rhs.modifiedDate
