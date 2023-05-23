@@ -37,6 +37,9 @@ let kDefaultsKeyDateFormatUseUTC: String = "DateFormatPresetUseUTC"
 /// Key on Defaults for the current selected date format, to use local Locale or `en_US_POSIX`
 let kDefaultsKeyDateFormatUseEN: String = "DateFormatPresetUseEN"
 
+/// Key on Defaults for the folder where GPX files are store, `nil` means default folder
+let kDefaultsKeyGPXFilesFolder: String = "GPXFilesFolder"
+
 /// A class to handle app preferences in one single place.
 /// When the app starts for the first time the following preferences are set:
 ///
@@ -79,6 +82,9 @@ class Preferences: NSObject {
     
     ///
     private var _dateFormatUseEN: Bool = false
+    
+    ///
+    private var _gpxFilesFolderBookmark: Data? = nil
     
     /// UserDefaults.standard shortcut
     private let defaults = UserDefaults.standard
@@ -147,6 +153,12 @@ class Preferences: NSObject {
         if let dateFormatENBool = defaults.object(forKey: kDefaultsKeyDateFormatUseEN) as? Bool {
             _dateFormatUseEN = dateFormatENBool
             print("** Preferences:: loaded preference from defaults dateFormatPresetENBool \(dateFormatENBool)")
+        }
+        
+        // load previous gpx files folder bookmark
+        if let gpxFilesFolderBookmark = defaults.object(forKey: kDefaultsKeyGPXFilesFolder) as? Data {
+            _gpxFilesFolderBookmark = gpxFilesFolderBookmark
+            print("** Preferences:: loaded preference from defaults gpxFilesFolderBookmark \(gpxFilesFolderBookmark)")
         }
     }
     
@@ -278,6 +290,48 @@ class Preferences: NSObject {
         set {
             _dateFormatUseEN = newValue
              defaults.set(newValue, forKey: kDefaultsKeyDateFormatUseEN)
+        }
+    }
+    
+    var gpxFilesFolderURL: URL? {
+        get {
+            guard let bookmarkData = self._gpxFilesFolderBookmark else {
+                return nil
+            }
+            do {
+                var isStale: Bool = false
+                let url = try URL(resolvingBookmarkData: bookmarkData, bookmarkDataIsStale: &isStale)
+                if isStale {
+                    _ = url.startAccessingSecurityScopedResource()
+                    defer {
+                        url.stopAccessingSecurityScopedResource()
+                    }
+                    let newBookmark = try url.bookmarkData()
+                    _gpxFilesFolderBookmark = newBookmark
+                    defaults.set(newBookmark, forKey: kDefaultsKeyGPXFilesFolder)
+                }
+                return url
+            } catch {
+                print("** Preferences:: failed to retrieve url from bookmark data: \(String(describing: error))")
+                return nil
+            }
+        }
+        set {
+            guard let newValue else {
+                defaults.removeObject(forKey: kDefaultsKeyGPXFilesFolder)
+                return
+            }
+            do {
+                _ = newValue.startAccessingSecurityScopedResource()
+                defer {
+                    newValue.stopAccessingSecurityScopedResource()
+                }
+                let newBookmark = try newValue.bookmarkData()
+                _gpxFilesFolderBookmark = newBookmark
+                defaults.set(newBookmark, forKey: kDefaultsKeyGPXFilesFolder)
+            } catch {
+                print("** Preferences:: failed to generate bookmark data for url: \(String(describing: error))")
+            }
         }
     }
 }

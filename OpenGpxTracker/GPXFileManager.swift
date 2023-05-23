@@ -21,7 +21,10 @@ class GPXFileManager: NSObject {
     /// Folder that where all GPX files are stored
     ///
     class var GPXFilesFolderURL: URL {
-        let documentsUrl =  FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0] as URL
+        if let customFolderURL = Preferences.shared.gpxFilesFolderURL {
+            return customFolderURL
+        }
+        let documentsUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0] as URL
         return documentsUrl
     }
     
@@ -29,36 +32,17 @@ class GPXFileManager: NSObject {
     /// Gets the list of `.gpx` files in Documents directory ordered by modified date
     ///
     class var fileList: [GPXFileInfo] {
-        var GPXFiles: [GPXFileInfo] = []
         let fileManager = FileManager.default
         let documentsURL = fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0]
-        do {
-            // Get all files from the directory .documentsURL. Of each file get the URL (~path)
-            // last modification date and file size
-            if let directoryURLs = try? fileManager.contentsOfDirectory(at: documentsURL,
-                includingPropertiesForKeys: [.attributeModificationDateKey, .fileSizeKey],
-                options: .skipsSubdirectoryDescendants) {
-                //Order files based on the date
-                // This map creates a tuple (url: URL, modificationDate: String, filesize: Int)
-                // and then orders it by modificationDate
-                let sortedURLs = directoryURLs.map { url in
-                    (url: url,
-                     modificationDate: (try? url.resourceValues(forKeys: [.contentModificationDateKey]))?.contentModificationDate ?? Date.distantPast,
-                     fileSize: (try? url.resourceValues(forKeys: [.fileSizeKey]))?.fileSize ?? 0)
-                    }
-                    .sorted(by: { $0.1 > $1.1 }) // sort descending modification dates
-                print(sortedURLs)
-                //Now we filter GPX Files
-                for (url, modificationDate, fileSize) in sortedURLs {
-                    if kFileExt.contains(url.pathExtension) {
-                        GPXFiles.append(GPXFileInfo(fileURL: url))
-                        let lastPathComponent = url.deletingPathExtension().lastPathComponent
-                        print("\(modificationDate) \(modificationDate.timeAgo(numericDates: true)) \(fileSize)bytes -- \(lastPathComponent)")
-                    }
-                }
-            }
+        var files = self.fetchFilesList(from: documentsURL)
+        if let customFolderURL = Preferences.shared.gpxFilesFolderURL {
+            _ = customFolderURL.startAccessingSecurityScopedResource()
+            files += self.fetchFilesList(from: customFolderURL)
+            customFolderURL.stopAccessingSecurityScopedResource()
         }
-        return GPXFiles
+        return files.sorted { lhs, rhs in
+            return lhs.modifiedDate > rhs.modifiedDate
+        }
     }
     
     ///
@@ -198,5 +182,39 @@ class GPXFileManager: NSObject {
         } catch {
             print(error)
         }
+    }
+    
+    // MARK: - Private
+    
+    private class func fetchFilesList(from rootURL: URL) -> [GPXFileInfo] {
+        var GPXFiles: [GPXFileInfo] = []
+        let fileManager = FileManager.default
+        do {
+            // Get all files from the directory .documentsURL. Of each file get the URL (~path)
+            // last modification date and file size
+            if let directoryURLs = try? fileManager.contentsOfDirectory(at: rootURL,
+                includingPropertiesForKeys: [.attributeModificationDateKey, .fileSizeKey],
+                options: .skipsSubdirectoryDescendants) {
+                //Order files based on the date
+                // This map creates a tuple (url: URL, modificationDate: String, filesize: Int)
+                // and then orders it by modificationDate
+                let sortedURLs = directoryURLs.map { url in
+                    (url: url,
+                     modificationDate: (try? url.resourceValues(forKeys: [.contentModificationDateKey]))?.contentModificationDate ?? Date.distantPast,
+                     fileSize: (try? url.resourceValues(forKeys: [.fileSizeKey]))?.fileSize ?? 0)
+                    }
+                    .sorted(by: { $0.1 > $1.1 }) // sort descending modification dates
+                print(sortedURLs)
+                //Now we filter GPX Files
+                for (url, modificationDate, fileSize) in sortedURLs {
+                    if kFileExt.contains(url.pathExtension) {
+                        GPXFiles.append(GPXFileInfo(fileURL: url))
+                        let lastPathComponent = url.deletingPathExtension().lastPathComponent
+                        print("\(modificationDate) \(modificationDate.timeAgo(numericDates: true)) \(fileSize)bytes -- \(lastPathComponent)")
+                    }
+                }
+            }
+        }
+        return GPXFiles
     }
 }

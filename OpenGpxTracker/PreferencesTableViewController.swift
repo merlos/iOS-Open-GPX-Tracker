@@ -11,6 +11,7 @@ import Foundation
 import UIKit
 import CoreLocation
 import MapCache
+import CoreServices
 
 /// Units Section Id in PreferencesTableViewController
 let kUnitsSection = 0
@@ -26,6 +27,9 @@ let kActivityTypeSection = 3
 
 /// Default Name Section Id in PreferencesTableViewController
 let kDefaultNameSection = 4
+
+/// GPX Files Location Section Id in PreferencesTableViewController
+let kGPXFilesLocationSection = 5
 
 /// Cell Id of the Use Imperial units in UnitsSection
 let kUseImperialUnitsCell = 0
@@ -44,7 +48,7 @@ let kClearCacheCell = 1
 /// Preferences are kept on UserDefaults with the keys `kDefaultKeyTileServerInt` (Int)
 /// and `kDefaultUseCache`` (Bool)
 ///
-class PreferencesTableViewController: UITableViewController, UINavigationBarDelegate {
+class PreferencesTableViewController: UITableViewController, UINavigationBarDelegate, UIDocumentPickerDelegate {
     
     /// Delegate for this table view controller.
     weak var delegate: PreferencesTableViewControllerDelegate?
@@ -102,7 +106,7 @@ class PreferencesTableViewController: UITableViewController, UINavigationBarDele
     /// Returns 4 sections: Units, Cache, Map Source, Activity Type
     override func numberOfSections(in tableView: UITableView?) -> Int {
         // Return the number of sections.
-        return 5
+        return 6
     }
     
     /// Returns the title of the existing sections.
@@ -115,6 +119,7 @@ class PreferencesTableViewController: UITableViewController, UINavigationBarDele
         case kMapSourceSection: return NSLocalizedString("MAP_SOURCE", comment: "no comment")
         case kActivityTypeSection: return NSLocalizedString("ACTIVITY_TYPE", comment: "no comment")
         case kDefaultNameSection: return NSLocalizedString("DEFAULT_NAME_SECTION", comment: "no comment")
+        case kGPXFilesLocationSection: return NSLocalizedString("GPX_FILES_LOCATION_SECTION", comment: "no comment")
         default: fatalError("Unknown section")
         }
     }
@@ -129,6 +134,7 @@ class PreferencesTableViewController: UITableViewController, UINavigationBarDele
         case kMapSourceSection: return GPXTileServer.count
         case kActivityTypeSection: return CLActivityType.count
         case kDefaultNameSection: return 1
+        case kGPXFilesLocationSection: return 1
         default: fatalError("Unknown section")
         }
     }
@@ -211,6 +217,18 @@ class PreferencesTableViewController: UITableViewController, UINavigationBarDele
                                                  useUTC: preferences.dateFormatUseUTC,
                                                  useENLocale: preferences.dateFormatUseEN)
             cell.detailTextLabel?.text = dateText
+            cell.accessoryType = .disclosureIndicator
+        }
+        
+        if indexPath.section == kGPXFilesLocationSection {
+            cell = UITableViewCell(style: .subtitle, reuseIdentifier: "GPXFilesLocation")
+            cell.textLabel?.text = NSLocalizedString("PRESS_TO_SELECT_FOLDER", comment: "no comment")
+            if let url = preferences.gpxFilesFolderURL {
+                cell.detailTextLabel?.lineBreakMode = .byTruncatingHead
+                cell.detailTextLabel?.text = url.lastPathComponent
+            } else {
+                cell.detailTextLabel?.text = NSLocalizedString("USING_DEFAULT_FOLDER", comment: "no comment")
+            }
             cell.accessoryType = .disclosureIndicator
         }
         
@@ -312,7 +330,26 @@ class PreferencesTableViewController: UITableViewController, UINavigationBarDele
             self.navigationController?.pushViewController(DefaultNameSetupViewController(style: .grouped), animated: true)
         }
         
+        if indexPath.section == kGPXFilesLocationSection {
+            print("PreferencesTableView GPX Files Location cell clicked")
+            let documentVC = UIDocumentPickerViewController(documentTypes: [kUTTypeFolder as String], in: .open)
+            documentVC.allowsMultipleSelection = false
+            documentVC.delegate = self
+            self.present(documentVC, animated: true)
+        }
+        
         //unselect row
         tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+    // MARK: - UIDocumentPickerDelegate
+    
+    func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
+        guard let folderURL = urls.first else {
+            print("Didn't select any folder")
+            return
+        }
+        preferences.gpxFilesFolderURL = folderURL
+        tableView.reloadData()
     }
 }
