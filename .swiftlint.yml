@@ -1,7 +1,7 @@
 disabled_rules:
   - trailing_whitespace
   - nesting
-  - variable_name
+  - identifier_name
 
 excluded:
   - Pods
