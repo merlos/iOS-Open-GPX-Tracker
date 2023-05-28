@@ -119,7 +119,7 @@ class PreferencesTableViewController: UITableViewController, UINavigationBarDele
         case kMapSourceSection: return NSLocalizedString("MAP_SOURCE", comment: "no comment")
         case kActivityTypeSection: return NSLocalizedString("ACTIVITY_TYPE", comment: "no comment")
         case kDefaultNameSection: return NSLocalizedString("DEFAULT_NAME_SECTION", comment: "no comment")
-        case kGPXFilesLocationSection: return NSLocalizedString("GPX_FILES_LOCATION_SECTION", comment: "no comment")
+        case kGPXFilesLocationSection: return NSLocalizedString("GPX_FILES_FOLDER", comment: "no comment")
         default: fatalError("Unknown section")
         }
     }
@@ -221,13 +221,12 @@ class PreferencesTableViewController: UITableViewController, UINavigationBarDele
         }
         
         if indexPath.section == kGPXFilesLocationSection {
-            cell = UITableViewCell(style: .subtitle, reuseIdentifier: "GPXFilesLocation")
-            cell.textLabel?.text = NSLocalizedString("PRESS_TO_SELECT_FOLDER", comment: "no comment")
+            cell = UITableViewCell(style: .value1, reuseIdentifier: "GPXFilesLocation")
             if let url = preferences.gpxFilesFolderURL {
-                cell.detailTextLabel?.lineBreakMode = .byTruncatingHead
-                cell.detailTextLabel?.text = url.lastPathComponent
+             //cell.textLabel?.lineBreakMode = .byTruncatingHead
+                cell.textLabel?.text = url.lastPathComponent
             } else {
-                cell.detailTextLabel?.text = NSLocalizedString("USING_DEFAULT_FOLDER", comment: "no comment")
+                cell.textLabel?.text = NSLocalizedString("USING_DEFAULT_FOLDER", comment: "no comment")
             }
             cell.accessoryType = .disclosureIndicator
         }

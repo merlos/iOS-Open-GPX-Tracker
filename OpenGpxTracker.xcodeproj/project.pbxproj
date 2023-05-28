@@ -19,6 +19,7 @@
 		8913CD8E1BDB2477009EC729 /* PreferencesTableViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8913CD8D1BDB2477009EC729 /* PreferencesTableViewControllerDelegate.swift */; };
 		893BEC8619C7E62200C77354 /* GPXWaypoint+MKAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893BEC8519C7E62200C77354 /* GPXWaypoint+MKAnnotation.swift */; };
 		895F04B41A7143CE004BEE8A /* GPXExtentCoordinates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895F04B31A7143CE004BEE8A /* GPXExtentCoordinates.swift */; };
+		897056132A230AAF0004F133 /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897056122A230AAF0004F133 /* Toast.swift */; };
 		898EECDB19C49B5800B4B207 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 898EECDA19C49B5800B4B207 /* AppDelegate.swift */; };
 		898EECDE19C49B5800B4B207 /* OpenGpxTracker.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 898EECDC19C49B5800B4B207 /* OpenGpxTracker.xcdatamodeld */; };
 		898EECE019C49B5800B4B207 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 898EECDF19C49B5800B4B207 /* ViewController.swift */; };
@@ -189,6 +190,7 @@
 		892A57402838A865003FE8C5 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		893BEC8519C7E62200C77354 /* GPXWaypoint+MKAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "GPXWaypoint+MKAnnotation.swift"; sourceTree = "<group>"; };
 		895F04B31A7143CE004BEE8A /* GPXExtentCoordinates.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPXExtentCoordinates.swift; sourceTree = "<group>"; };
+		897056122A230AAF0004F133 /* Toast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Toast.swift; sourceTree = "<group>"; };
 		898E2BDD23129FE000DC4E3F /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Main.strings; sourceTree = "<group>"; };
 		898E2BDE23129FE000DC4E3F /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Interface.strings; sourceTree = "<group>"; };
 		898E2BDF23129FE000DC4E3F /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -332,7 +334,6 @@
 				895F04B31A7143CE004BEE8A /* GPXExtentCoordinates.swift */,
 				89F8749A1BBB7362004EF41A /* GPXTrack+length.swift */,
 				89F8749E1BBCB97F004EF41A /* GPXRoot+length.swift */,
-				BFE026C1244A01DB005423E6 /* UIInsetLabel.swift */,
 				89EA86602157A08E002E03A7 /* Date+timeAgo.swift */,
 				89EA86642157C444002E03A7 /* Int+asFilesize.swift */,
 				89EA86622157B42C002E03A7 /* GPXFileInfo.swift */,
@@ -342,6 +343,7 @@
 				BF214B5D22E60B64000E96AA /* CLActivityType+Info.swift */,
 				BF15092123916FC100F51F1B /* UIColor+DarkMode.swift */,
 				BFB06F01244A037300AC0CDC /* UIColor+Keyboard.swift */,
+				BFE026C1244A01DB005423E6 /* UIInsetLabel.swift */,
 				BFE026BF244A0160005423E6 /* String+CountInstances.swift */,
 				BFE026C3244A0281005423E6 /* DateField.swift */,
 				BF9AE57D2410012700B103A0 /* DefaultDateFormat.swift */,
@@ -457,6 +459,7 @@
 				DC4908A01C4A136F009484AE /* TrackerButton.swift */,
 				BFE026C5244A02A4005423E6 /* DatePatternButton.swift */,
 				BF68ECC52448B887005C779F /* DateFieldTypeView.swift */,
+				897056122A230AAF0004F133 /* Toast.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -855,6 +858,7 @@
 				893BEC8619C7E62200C77354 /* GPXWaypoint+MKAnnotation.swift in Sources */,
 				DC4908A31C4A332E009484AE /* MapViewDelegate.swift in Sources */,
 				898EED3619C6402900B4B207 /* GPXFilesTableViewController.swift in Sources */,
+				897056132A230AAF0004F133 /* Toast.swift in Sources */,
 				DC4908A11C4A136F009484AE /* TrackerButton.swift in Sources */,
 				89F8749F1BBCB97F004EF41A /* GPXRoot+length.swift in Sources */,
 			);

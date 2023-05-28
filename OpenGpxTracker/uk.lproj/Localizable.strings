@@ -44,6 +44,9 @@
 "CACHE_IS_EMPTY" = "Кеш порожній";
 "EDIT_WAYPOINT_NAME_TITLE" = "Редагувати назву маршрутної точки";
 "EDIT_WAYPOINT_NAME_MESSAGE" = "Підказка: щоб змініти місце розташування маршрутної точки, перетягніть шпильку";
+"GPX_FILES_FOLDER" = "Папка з файлами GPX";
+"USING_DEFAULT_FOLDER" = "Використання типової папки";
+"LAST_SESSION_LOADED" = "Остання сесія завантажена";
 
 // Watch
 "SENDING" = "Надсилання:";

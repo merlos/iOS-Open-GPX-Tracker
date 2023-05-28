@@ -44,6 +44,9 @@
 "CACHE_IS_EMPTY" = "La caché está ahora vacía";
 "EDIT_WAYPOINT_NAME_TITLE" = "Editar punto de interés";
 "EDIT_WAYPOINT_NAME_MESSAGE" = "Sugerencia: arrastra y suelta el pin para mover el punto.";
+"GPX_FILES_FOLDER" = "Carpeta de ficheros GPX";
+"USING_DEFAULT_FOLDER" = "Usando carpeta por defecto";
+"LAST_SESSION_LOADED" = "Última sesión recuperada";
 
 // Watch
 "SENDING" = "Enviando:";

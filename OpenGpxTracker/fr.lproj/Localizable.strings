@@ -45,6 +45,9 @@
 "CACHE_IS_EMPTY" = "Le cache est actuellement vide";
 "EDIT_WAYPOINT_NAME_TITLE" = "Editer le nom du point de repère";
 "EDIT_WAYPOINT_NAME_MESSAGE" = "Conseil: pour changer la position du point de repère, glissez-déposez l'épingle";
+"GPX_FILES_FOLDER" = "Dossier des fichiers GPX";
+"USING_DEFAULT_FOLDER" = "Utilisation du dossier par défaut";
+"LAST_SESSION_LOADED" = "Dernière session chargée";
 
 // Watch
 "SENDING" = "Envoi en cours:";

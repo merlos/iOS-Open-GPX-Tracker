@@ -43,6 +43,9 @@
 "CACHE_IS_EMPTY" = "La Cache ora è vuota";
 "EDIT_WAYPOINT_NAME_TITLE" = "Cambia intersezioni";
 "EDIT_WAYPOINT_NAME_MESSAGE" = "Nota: per modificare una intersezione, spostare il segnaposto.";
+"GPX_FILES_FOLDER" = "Cartella dei file GPX";
+"USING_DEFAULT_FOLDER" = "Utilizzo della cartella predefinita";
+"LAST_SESSION_LOADED" = "Ultima sessione caricata";
 
 // Watch
 "SENDING" = "Invia:";

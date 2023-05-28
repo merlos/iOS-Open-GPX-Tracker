@@ -48,7 +48,9 @@
 "CACHE_IS_EMPTY" = "高速缓存已被清空。";
 "EDIT_WAYPOINT_NAME_TITLE" = "改变导航点名";
 "EDIT_WAYPOINT_NAME_MESSAGE" = "暗示：要更改导航点位置吗？您只需要把地图上的红色针图案，拖和搬到新位置。";
-
+"GPX_FILES_FOLDER" = "GPX文件夹";
+"USING_DEFAULT_FOLDER" = "使用默认文件夹";
+"LAST_SESSION_LOADED" = "加载上次会话";
 // Watch
 "SENDING" = "正在发送中：";
 "X_FILES" = "%d 个文件";
