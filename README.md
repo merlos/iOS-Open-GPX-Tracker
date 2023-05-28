@@ -9,7 +9,8 @@ This app has no annoying time restrictions, no ads and no in-app-purchases. Crea
 
 If you are goint to track without Internet... don't worry! Just browse the area where you'll be tracking and it will be cached.
 
-Requires iOS 9.0 or above. Open GPX tracker is an open source app.
+We care about your privacy, all the data recorded using the application is kept in your phone (or in your iCloud), wherever you store it. The app does not share any GPS data with us or any other 3rd pary. For more information see the [Privacy Policy](https://github.com/merlos/iOS-Open-GPX-Tracker/wiki/Privacy-Policy)
+
 
 ![GPS Tracker logs](https://merlos.github.io/iOS-Open-GPX-Tracker/images/open-gpx-tracker-4-screenshots.png)
 
