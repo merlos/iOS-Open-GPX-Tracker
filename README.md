@@ -11,6 +11,7 @@ If you are goint to track without Internet... don't worry! Just browse the area 
 
 We care about your privacy, all the data recorded using the application is kept in your phone (or in your iCloud), wherever you store it. The app does not share any GPS data with us or any other 3rd pary. For more information see the [Privacy Policy](https://github.com/merlos/iOS-Open-GPX-Tracker/wiki/Privacy-Policy)
 
+Requires iOS 11.0 or above. Open GPX tracker is an open source app.
 
 ![GPS Tracker logs](https://merlos.github.io/iOS-Open-GPX-Tracker/images/open-gpx-tracker-4-screenshots.png)
 
