@@ -38,6 +38,9 @@ enum GPXTileServer: Int {
     /// OpenTopoMap tile server
     case openTopoMap
     
+    /// OpenSeaMap tile server
+    case openSeaMap
+    
     ///String that describes the selected tile server.
     var name: String {
         switch self {
@@ -47,6 +50,7 @@ enum GPXTileServer: Int {
         case .cartoDB: return "Carto DB"
         case .cartoDBRetina: return "Carto DB (Retina resolution)"
         case .openTopoMap: return "OpenTopoMap"
+        case .openSeaMap: return "OpenSeaMap"
         }
     }
     
@@ -59,6 +63,7 @@ enum GPXTileServer: Int {
         case .cartoDB: return "https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}.png"
         case .cartoDBRetina: return "https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}@2x.png"
         case .openTopoMap: return "https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png"
+        case .openSeaMap: return "https://tiles.openseamap.org/seamark/{z}/{x}/{y}.png"
         }
     }
     
@@ -76,6 +81,7 @@ enum GPXTileServer: Int {
         case .openStreetMap: return ["a", "b", "c"]
         case .cartoDB, .cartoDBRetina: return ["a", "b", "c"]
         case .openTopoMap: return ["a", "b", "c"]
+        case .openSeaMap: return []
         // case .AnotherMap: return ["a","b"]
         }
     }
@@ -103,6 +109,8 @@ enum GPXTileServer: Int {
         case .openTopoMap:
             return 17
         // case .AnotherMap: return 10
+        case .openSeaMap:
+            return 16
         }
     }
     ///
@@ -125,7 +133,18 @@ enum GPXTileServer: Int {
             return 0
         case .openTopoMap:
             return 0
-        // case .AnotherMap: return ["a","b"]
+        case .openSeaMap:
+            return 0
+        // case .AnotherMap: return 0
+        }
+    }
+    
+    /// Does the tile overlay replace the map?
+    ///  Generally all the tiles provided replace the AppleMaps. However there are some
+    var canReplaceMapContent: Bool {
+        switch self {
+        case .openSeaMap: return false
+        default: return true
         }
     }
     
@@ -145,5 +164,5 @@ enum GPXTileServer: Int {
     }
 
     /// Returns the number of tile servers currently defined
-    static var count: Int { return GPXTileServer.openTopoMap.rawValue + 1}
+    static var count: Int { return GPXTileServer.openSeaMap.rawValue + 1}
 }
