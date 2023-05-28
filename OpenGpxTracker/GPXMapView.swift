@@ -91,7 +91,8 @@ class GPXMapView: MKMapView {
                 let cache = MapCache(withConfig: config)
                 // the overlay returned substitutes Apple Maps tile overlay.
                 // we need to keep a reference to remove it, in case we return back to Apple Maps.
-                tileServerOverlay = useCache(cache)
+                //
+                tileServerOverlay = useCache(cache, canReplaceMapContent: newValue.canReplaceMapContent)
             }
             else {
                 self.mapType = (newValue == .apple) ? .standard : .satellite
