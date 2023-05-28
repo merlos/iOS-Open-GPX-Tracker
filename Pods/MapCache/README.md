@@ -30,8 +30,15 @@ What is coming:
 MapCache is available through [CocoaPods](https://cocoapods.org). To install it, simply add the following line to your `Podfile`:
 
 ```ruby
+#Podfile
 pod 'MapCache'
 ```
+
+Then in the folder where you have the `Podfile` run the command 
+```shell
+pod install
+```
+
 
 ## How to use MapCache?
 In the view controller where you have a `MKMapView`, import `MapCache`:
@@ -226,6 +233,39 @@ If you need further information you can take a look at
 
 ### [Reference documentation of MapCache](http://www.merlos.org/MapCache/).
 
+
+## Development
+
+Clone the repo
+
+```shell
+git clone https://github.com/merlos/MapCache
+```
+
+With Xcode Open the file `Example/MapCache.xcworkspace`
+
+To check if the pod is ready to be released run the command in the root folder folder 
+
+```shell
+pod lib lint MapCache.podspec
+```
+
+### Generate the documentation
+
+This project uses [jazzy](https://github.com/realm/jazzy) for generating the [reference documentation](http://www.merlos.org/MapCache/))
+
+To install jazzy
+```
+gem install jazzy --verbose
+```
+
+In the root folder of the project run
+
+```shell
+jazzy
+```
+
+It will generate the html in `docs/`
 
 ## You may also like
 
