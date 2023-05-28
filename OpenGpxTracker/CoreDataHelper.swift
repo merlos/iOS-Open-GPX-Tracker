@@ -384,35 +384,13 @@ class CoreDataHelper {
                     root.add(track: track)
                 }
                 root.waypoints = self.waypoints
+               
                 // asks user on what to do with recovered data
                 DispatchQueue.main.sync {
-                    // for debugging
-                    // print(root.gpx())
-
-                    // main action sheet setup
-                    let alertController = UIAlertController(title: NSLocalizedString("CONTINUE_SESSION_TITLE", comment: "no comment"),
-                                                            message: NSLocalizedString("CONTINUE_SESSION_MESSAGE", comment: "no comment"),
-                                                            preferredStyle: .actionSheet)
-                    
-                    // option to cancel
-                    let cancelAction = UIAlertAction(title: NSLocalizedString("CANCEL", comment: "no comment"), style: .cancel) { _ in
-                        self.clearAll()
-                    }
-                    // option to continue previous session, which will load it, but not save
-                    let continueAction = UIAlertAction(title: NSLocalizedString("CONTINUE_SESSION", comment: "no comment"), style: .default) { _ in
-                        NotificationCenter.default.post(name: .loadRecoveredFile, object: nil,
-                                                        userInfo: ["recoveredRoot": root, "fileName": self.lastFileName])
-                    }
-                    
-                    // option to save silently as file, session remains new
-                    let saveAction = UIAlertAction(title: NSLocalizedString("SAVE_START_NEW", comment: "no comment"), style: .default) { _ in
-                        self.saveFile(from: root, andIfAvailable: self.lastFileName)
-                    }
-                    
-                    alertController.addAction(cancelAction)
-                    alertController.addAction(continueAction)
-                    alertController.addAction(saveAction)
-                    CoreDataAlertView().showActionSheet(alertController)
+                    NotificationCenter.default.post(name: .loadRecoveredFile, object: nil,
+                                                    userInfo: ["recoveredRoot": root, "fileName": self.lastFileName])
+                    let toastMessage = NSLocalizedString("LAST_SESSION_LOADED", comment: "the filename displayed after the text") + " " + self.lastFileName
+                    Toast.regular(toastMessage, position: .top)
                 }
             } else {
                 // no recovery file will be generated if nothing is recovered (or did not crash).
@@ -421,6 +399,7 @@ class CoreDataHelper {
     }
     
     /// saves recovered data to a gpx file, silently, without loading on map.
+    
     func saveFile(from gpx: GPXRoot, andIfAvailable lastfileName: String) {
         // date format same as usual.
         let dateFormatter = DateFormatter()
