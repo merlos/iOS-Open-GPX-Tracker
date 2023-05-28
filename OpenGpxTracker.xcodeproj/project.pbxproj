@@ -82,7 +82,6 @@
 		BF692F892209B82500F8A0F1 /* StopWatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 899D677119CE8B3600C88A0A /* StopWatch.swift */; };
 		BF9AE57C2410011D00B103A0 /* DefaultNameSetupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9AE57B2410011D00B103A0 /* DefaultNameSetupViewController.swift */; };
 		BF9AE57E2410012700B103A0 /* DefaultDateFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9AE57D2410012700B103A0 /* DefaultDateFormat.swift */; };
-		BFA3CE8222C23B2300A8B965 /* CoreDataAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFA3CE8122C23B2300A8B965 /* CoreDataAlertView.swift */; };
 		BFB06F02244A037300AC0CDC /* UIColor+Keyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFB06F01244A037300AC0CDC /* UIColor+Keyboard.swift */; };
 		BFE026C0244A0160005423E6 /* String+CountInstances.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFE026BF244A0160005423E6 /* String+CountInstances.swift */; };
 		BFE026C2244A01DB005423E6 /* UIInsetLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFE026C1244A01DB005423E6 /* UIInsetLabel.swift */; };
@@ -262,7 +261,6 @@
 		BF692F702209AAFC00F8A0F1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BF9AE57B2410011D00B103A0 /* DefaultNameSetupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultNameSetupViewController.swift; sourceTree = "<group>"; };
 		BF9AE57D2410012700B103A0 /* DefaultDateFormat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultDateFormat.swift; sourceTree = "<group>"; };
-		BFA3CE8122C23B2300A8B965 /* CoreDataAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataAlertView.swift; sourceTree = "<group>"; };
 		BFB06F01244A037300AC0CDC /* UIColor+Keyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Keyboard.swift"; sourceTree = "<group>"; };
 		BFE026BF244A0160005423E6 /* String+CountInstances.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+CountInstances.swift"; sourceTree = "<group>"; };
 		BFE026C1244A01DB005423E6 /* UIInsetLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIInsetLabel.swift; sourceTree = "<group>"; };
@@ -455,7 +453,6 @@
 			children = (
 				899D677E19D2366100C88A0A /* GPXMapView.swift */,
 				BF5C0D2122D771D0001C2575 /* DistanceLabel.swift */,
-				BFA3CE8122C23B2300A8B965 /* CoreDataAlertView.swift */,
 				DC4908A01C4A136F009484AE /* TrackerButton.swift */,
 				BFE026C5244A02A4005423E6 /* DatePatternButton.swift */,
 				BF68ECC52448B887005C779F /* DateFieldTypeView.swift */,
@@ -838,7 +835,6 @@
 				BF177EEA24D54F9200D5E021 /* CoreDataHelper+BatchDelete.swift in Sources */,
 				BFB06F02244A037300AC0CDC /* UIColor+Keyboard.swift in Sources */,
 				12491EA328D7057D009F6BE1 /* MKMapView+ConvenientOverlayInserts.swift in Sources */,
-				BFA3CE8222C23B2300A8B965 /* CoreDataAlertView.swift in Sources */,
 				899D678219D351DA00C88A0A /* AboutViewController.swift in Sources */,
 				89EA86612157A08E002E03A7 /* Date+timeAgo.swift in Sources */,
 				895F04B41A7143CE004BEE8A /* GPXExtentCoordinates.swift in Sources */,
