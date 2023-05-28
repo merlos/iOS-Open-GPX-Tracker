@@ -5,9 +5,9 @@ Open GPX Tracker for iOS + WatchOS
 
 Open GPX Tracker is a GPS logger for iOS (iPhone, iPad, iPod) with offline map cache support. Track your location, add waypoints and send your logs by email as GPX files.
 
-This app has no annoying time restrictions, no ads and no in-app-purchases. Create unlimited GPX traces :).
+This app has no annoying time restrictions, no ads and no in-app-purchases. You can create unlimited GPX traces :).
 
-If you are goint to track without Internet... don't worry! Just browse the area where you'll be tracking and it will be cached.
+If you are goint to track without Internet... don't worry! Before you go offline, browse the area where you'll be tracking and it will be cached and available offline.
 
 We care about your privacy, all the data recorded using the application is kept in your phone (or in your iCloud), wherever you store it. The app does not share any GPS data with us or any other 3rd pary. For more information see the [Privacy Policy](https://github.com/merlos/iOS-Open-GPX-Tracker/wiki/Privacy-Policy)
 
@@ -20,11 +20,12 @@ You can use Open GPX tracker for:
  - Creating routes and waypoints for editing Open Street Map.
  - Publishing Open Street Map Traces.
  - [Creating GPX files for testing your iOS apps in Xcode](https://medium.com/@merlos/how-to-simulate-locations-in-xcode-b0f7f16e126d).
+ - Use it as GPS companion when you take pictures with your reflex camera.
 
 ## Main Features
 
  - Displays tracking route in a map
- - Supports Apple Map Kit, [Open Street Map](http://wiki.openstreetmap.org/wiki/Tile_usage_policy) and [Carto DB](http://www.cartodb.com) as map sources
+ - Supports Apple Map Kit, [Open Street Map](http://wiki.openstreetmap.org/wiki/Tile_usage_policy), and [Carto DB](http://www.cartodb.com) as map sources
  - Offline maps support (of browsed areas)
  - Pause / Resume tracking
  - Add waypoint to user location
@@ -59,14 +60,15 @@ You can use Open GPX tracker for:
 
 ## Install
 
-The app is [available on the App Store](https://itunes.apple.com/app/open-gpx-tracker/id984503772) since May 2015.
+The app is [available on the App Store](https://itunes.apple.com/app/open-gpx-tracker/id984503772), available since May 2015.
 
-Another option to install the app is to download the source code and compile it by yourself using Xcode. If you want to run it on a device, you also need an Apple developer account.
+Another option to install the app is to download the source code and compile it by yourself using [Xcode](https://developer.apple.com/xcode/) and the iOS simulator. If you want to run it on a iOS device, you also need an Apple developer account.
 
 ## Translate Open GPX Tracker
 Open GPX tracker supports language translations (since 1.7.0). [See list of supported languages and how to translate the app into your language](https://github.com/merlos/iOS-Open-GPX-Tracker/wiki/How-to-translate-Open-GPX-Tracker-into-my-language).
 
-## Download Source code
+## Development
+
 This application is written in Swift. To download the code run this command in a console:
 
 ```
@@ -75,9 +77,11 @@ This application is written in Swift. To download the code run this command in a
 
 Then, to test it open the file `OpenGpxTracker.xcworkspace` with XCode.
 
+Although the application uses some Cocoapods, all the pods are already included in our repo. So no need to run `pod install`.
+
 Please note the [limitations of using Open Street Maps Tile Servers](http://wiki.openstreetmap.org/wiki/Tile_usage_policy)
 
-### Add a tile server
+### Add a custom tile server
 Adding a tile server is easy, just edit the file `GPXTileServer.swift`, uncomment the lines with `AnotherMap` and modify the templateUrl to point to the new tile server.
 
 You have a list of tile servers in [Open Street Map Wiki](http://wiki.openstreetmap.org/wiki/Tile_servers)
@@ -88,7 +92,7 @@ The application is being documented using [jazzy](https://github.com/realm/jazzy
 
 ![Documentation Status](https://www.merlos.org/iOS-Open-GPX-Tracker/docs/badge.svg)
 
-[Read Source code documentation](https://www.merlos.org/iOS-Open-GPX-Tracker/docs/index.html)
+**[Read Source code documentation](https://www.merlos.org/iOS-Open-GPX-Tracker/docs/index.html)**
 
 ## Contribute
 
@@ -110,10 +114,11 @@ Some conditions for a PR to be accepted:
     ```
     **Note that it will generate the documents in the `../gh-pages/docs`.**
 
-Please note that by submitting any pull request you are providing me (Juan M. Merlos) the rights to include and distribute those changes also on the binary app published on the App Store (which is released under Apple's Standard License Agreement)
+**PR License** 
+Please note that though the source code is licensed under GPL 3.0 by submitting a pull request you are also providing me (Juan M. Merlos) the rights to distribute those changes also on the binary app published on the App Store (which is released under Apple's Standard License Agreement)
 
 ## License
-Open GPX Tracker app for iOS.  Copyright (C) 2014  Juan M. Merlos (@merlos)
+Open GPX Tracker app for iOS. Copyright (C) 2014  Juan M. Merlos (@merlos) & Contributors
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the **GNU General Public License** as published by
