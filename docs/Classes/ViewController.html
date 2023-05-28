@@ -8,6 +8,9 @@
     <script src="../js/jquery.min.js" defer></script>
     <script src="../js/jazzy.js" defer></script>
     
+    <script src="../js/lunr.min.js" defer></script>
+    <script src="../js/typeahead.jquery.js" defer></script>
+    <script src="../js/jazzy.search.js" defer></script>
   </head>
   <body>
     <a name="//apple_ref/swift/Class/ViewController" class="dashAnchor"></a>
@@ -15,13 +18,18 @@
     <header>
       <div class="content-wrapper">
         <p><a href="../index.html"> Docs</a> (100% documented)</p>
-        <p class="header-right"><a href="https://github.com/merlos/iOS-Open-GPX-Tracker"><img src="../img/gh.png"/>View on GitHub</a></p>
+        <p class="header-right"><a href="https://github.com/merlos/iOS-Open-GPX-Tracker"><img src="../img/gh.png" alt="GitHub"/>View on GitHub</a></p>
+        <div class="header-right">
+          <form role="search" action="../search.json">
+            <input type="text" placeholder="Search documentation" data-typeahead>
+          </form>
+        </div>
       </div>
     </header>
     <div class="content-wrapper">
       <p id="breadcrumbs">
         <a href="../index.html"> Reference</a>
-        <img id="carat" src="../img/carat.png" />
+        <img id="carat" src="../img/carat.png" alt=""/>
         ViewController Class Reference
       </p>
     </div>
@@ -38,7 +46,34 @@
                 <a href="../Classes/AppDelegate.html">AppDelegate</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Classes/CachedTileOverlay.html">CachedTileOverlay</a>
+                <a href="../Classes/CDRoot.html">CDRoot</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/CDTrackpoint.html">CDTrackpoint</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/CDWaypoint.html">CDWaypoint</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/CoreDataHelper.html">CoreDataHelper</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/DateFieldTypeView.html">DateFieldTypeView</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/DatePatternButton.html">DatePatternButton</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/DefaultDateFormat.html">DefaultDateFormat</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/DefaultNameSetupViewController.html">DefaultNameSetupViewController</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/DefaultNameSetupViewController/Sections.html">– Sections</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/DistanceLabel.html">DistanceLabel</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Classes/GPXExtentCoordinates.html">GPXExtentCoordinates</a>
@@ -56,7 +91,13 @@
                 <a href="../Classes/GPXMapView.html">GPXMapView</a>
               </li>
               <li class="nav-group-task">
+                <a href="../Classes/GPXSession.html">GPXSession</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Classes/MapViewDelegate.html">MapViewDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Preferences.html">Preferences</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Classes/PreferencesTableViewController.html">PreferencesTableViewController</a>
@@ -65,10 +106,19 @@
                 <a href="../Classes/StopWatch.html">StopWatch</a>
               </li>
               <li class="nav-group-task">
+                <a href="../Classes/Toast.html">Toast</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Toast/Position.html">– Position</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ToastLabel.html">ToastLabel</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Classes/TrackerButton.html">TrackerButton</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Classes/UIDistanceLabel.html">UIDistanceLabel</a>
+                <a href="../Classes/UIInsetLabel.html">UIInsetLabel</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Classes/ViewController.html">ViewController</a>
@@ -79,97 +129,154 @@
             </ul>
           </li>
           <li class="nav-group-name">
-            <a href="../Global Variables.html">Global Variables</a>
+            <a href="../Global%20Variables.html">Global Variables</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a href="../Global Variables.html#/s:14OpenGpxTracker26kBlueButtonBackgroundColorSo7UIColorCvp">kBlueButtonBackgroundColor</a>
+                <a href="../Global%20Variables.html#/s:14OpenGpxTracker20kActivityTypeSectionSivp">kActivityTypeSection</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Global Variables.html#/s:14OpenGpxTracker16kButtonLargeSize12CoreGraphics7CGFloatVvp">kButtonLargeSize</a>
+                <a href="../Global%20Variables.html#/s:14OpenGpxTracker26kBlueButtonBackgroundColorSo7UIColorCvp">kBlueButtonBackgroundColor</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Global Variables.html#/s:14OpenGpxTracker17kButtonSeparation12CoreGraphics7CGFloatVvp">kButtonSeparation</a>
+                <a href="../Global%20Variables.html#/s:14OpenGpxTracker16kButtonLargeSize14CoreFoundation7CGFloatVvp">kButtonLargeSize</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Global Variables.html#/s:14OpenGpxTracker16kButtonSmallSize12CoreGraphics7CGFloatVvp">kButtonSmallSize</a>
+                <a href="../Global%20Variables.html#/s:14OpenGpxTracker17kButtonSeparation14CoreFoundation7CGFloatVvp">kButtonSeparation</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Global Variables.html#/s:14OpenGpxTracker13kCacheSectionSivp">kCacheSection</a>
+                <a href="../Global%20Variables.html#/s:14OpenGpxTracker16kButtonSmallSize14CoreFoundation7CGFloatVvp">kButtonSmallSize</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Global Variables.html#/s:14OpenGpxTracker15kClearCacheCellSivp">kClearCacheCell</a>
+                <a href="../Global%20Variables.html#/s:14OpenGpxTracker13kCacheSectionSivp">kCacheSection</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Global Variables.html#/s:14OpenGpxTracker25kDefaultsKeyTileServerIntSSvp">kDefaultsKeyTileServerInt</a>
+                <a href="../Global%20Variables.html#/s:14OpenGpxTracker15kClearCacheCellSivp">kClearCacheCell</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Global Variables.html#/s:14OpenGpxTracker20kDefaultsKeyUseCacheSSvp">kDefaultsKeyUseCache</a>
+                <a href="../Global%20Variables.html#/s:14OpenGpxTracker19kDefaultNameSectionSivp">kDefaultNameSection</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Global Variables.html#/s:14OpenGpxTracker32kDeleteWaypointAccesoryButtonTagSivp">kDeleteWaypointAccesoryButtonTag</a>
+                <a href="../Global%20Variables.html#/s:14OpenGpxTracker24kDefaultsKeyActivityTypeSSvp">kDefaultsKeyActivityType</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Global Variables.html#/s:14OpenGpxTracker34kDisabledBlueButtonBackgroundColorSo7UIColorCvp">kDisabledBlueButtonBackgroundColor</a>
+                <a href="../Global%20Variables.html#/s:14OpenGpxTracker22kDefaultsKeyDateFormatSSvp">kDefaultsKeyDateFormat</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Global Variables.html#/s:14OpenGpxTracker33kDisabledRedButtonBackgroundColorSo7UIColorCvp">kDisabledRedButtonBackgroundColor</a>
+                <a href="../Global%20Variables.html#/s:14OpenGpxTracker27kDefaultsKeyDateFormatInputSSvp">kDefaultsKeyDateFormatInput</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Global Variables.html#/s:14OpenGpxTracker30kEditWaypointAccesoryButtonTagSivp">kEditWaypointAccesoryButtonTag</a>
+                <a href="../Global%20Variables.html#/s:14OpenGpxTracker28kDefaultsKeyDateFormatPresetSSvp">kDefaultsKeyDateFormatPreset</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Global Variables.html#/s:14OpenGpxTracker8kFileExtSSvp">kFileExt</a>
+                <a href="../Global%20Variables.html#/s:14OpenGpxTracker27kDefaultsKeyDateFormatUseENSSvp">kDefaultsKeyDateFormatUseEN</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Global Variables.html#/s:14OpenGpxTracker17kGPXCreatorStringSSvp">kGPXCreatorString</a>
+                <a href="../Global%20Variables.html#/s:14OpenGpxTracker28kDefaultsKeyDateFormatUseUTCSSvp">kDefaultsKeyDateFormatUseUTC</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Global Variables.html#/s:14OpenGpxTracker27kGreenButtonBackgroundColorSo7UIColorCvp">kGreenButtonBackgroundColor</a>
+                <a href="../Global%20Variables.html#/s:14OpenGpxTracker26kDefaultsKeyGPXFilesFolderSSvp">kDefaultsKeyGPXFilesFolder</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Global Variables.html#/s:14OpenGpxTracker17kMapSourceSectionSivp">kMapSourceSection</a>
+                <a href="../Global%20Variables.html#/s:14OpenGpxTracker25kDefaultsKeyTileServerIntSSvp">kDefaultsKeyTileServerInt</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Global Variables.html#/s:14OpenGpxTracker8kNoFilesSSvp">kNoFiles</a>
+                <a href="../Global%20Variables.html#/s:14OpenGpxTracker20kDefaultsKeyUseCacheSSvp">kDefaultsKeyUseCache</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Global Variables.html#/s:14OpenGpxTracker23kNotGettingLocationTextSSvp">kNotGettingLocationText</a>
+                <a href="../Global%20Variables.html#/s:14OpenGpxTracker23kDefaultsKeyUseImperialSSvp">kDefaultsKeyUseImperial</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Global Variables.html#/s:14OpenGpxTracker28kPurpleButtonBackgroundColorSo7UIColorCvp">kPurpleButtonBackgroundColor</a>
+                <a href="../Global%20Variables.html#/s:14OpenGpxTracker32kDeleteWaypointAccesoryButtonTagSivp">kDeleteWaypointAccesoryButtonTag</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Global Variables.html#/s:14OpenGpxTracker25kRedButtonBackgroundColorSo7UIColorCvp">kRedButtonBackgroundColor</a>
+                <a href="../Global%20Variables.html#/s:14OpenGpxTracker34kDisabledBlueButtonBackgroundColorSo7UIColorCvp">kDisabledBlueButtonBackgroundColor</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Global Variables.html#/s:14OpenGpxTracker16kSignalAccuracy1Sdvp">kSignalAccuracy1</a>
+                <a href="../Global%20Variables.html#/s:14OpenGpxTracker33kDisabledRedButtonBackgroundColorSo7UIColorCvp">kDisabledRedButtonBackgroundColor</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Global Variables.html#/s:14OpenGpxTracker16kSignalAccuracy2Sdvp">kSignalAccuracy2</a>
+                <a href="../Global%20Variables.html#/s:14OpenGpxTracker30kEditWaypointAccesoryButtonTagSivp">kEditWaypointAccesoryButtonTag</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Global Variables.html#/s:14OpenGpxTracker16kSignalAccuracy3Sdvp">kSignalAccuracy3</a>
+                <a href="../Global%20Variables.html#/s:14OpenGpxTracker8kFileExtSaySSGvp">kFileExt</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Global Variables.html#/s:14OpenGpxTracker16kSignalAccuracy4Sdvp">kSignalAccuracy4</a>
+                <a href="../Global%20Variables.html#/kGPXCreatorString">kGPXCreatorString</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Global Variables.html#/s:14OpenGpxTracker16kSignalAccuracy5Sdvp">kSignalAccuracy5</a>
+                <a href="../Global%20Variables.html#/s:14OpenGpxTracker17kGPXCreatorStringSSvp">kGPXCreatorString</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Global Variables.html#/s:14OpenGpxTracker16kSignalAccuracy6Sdvp">kSignalAccuracy6</a>
+                <a href="../Global%20Variables.html#/s:14OpenGpxTracker24kGPXFilesLocationSectionSivp">kGPXFilesLocationSection</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Global Variables.html#/s:14OpenGpxTracker20kUnknownAccuracyTextSSvp">kUnknownAccuracyText</a>
+                <a href="../Global%20Variables.html#/s:14OpenGpxTracker27kGreenButtonBackgroundColorSo7UIColorCvp">kGreenButtonBackgroundColor</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Global Variables.html#/s:14OpenGpxTracker17kUnknownSpeedTextSSvp">kUnknownSpeedText</a>
+                <a href="../Global%20Variables.html#/s:14OpenGpxTracker028kKilometersPerHourInOneMeterE6SecondSdvp">kKilometersPerHourInOneMeterPerSecond</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Global Variables.html#/s:14OpenGpxTracker20kUseOfflineCacheCellSivp">kUseOfflineCacheCell</a>
+                <a href="../Global%20Variables.html#/s:14OpenGpxTracker17kMapSourceSectionSivp">kMapSourceSection</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Global Variables.html#/s:14OpenGpxTracker21kWhiteBackgroundColorSo7UIColorCvp">kWhiteBackgroundColor</a>
+                <a href="../Global%20Variables.html#/s:14OpenGpxTracker14kMetersPerFeetSdvp">kMetersPerFeet</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Global%20Variables.html#/s:14OpenGpxTracker19kMetersPerKilometerSdvp">kMetersPerKilometer</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Global%20Variables.html#/s:14OpenGpxTracker14kMetersPerMileSdvp">kMetersPerMile</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Global%20Variables.html#/s:14OpenGpxTracker023kMilesPerHourInOneMeterE6SecondSdvp">kMilesPerHourInOneMeterPerSecond</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Global%20Variables.html#/s:14OpenGpxTracker8kNoFilesSSvp">kNoFiles</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Global%20Variables.html#/s:14OpenGpxTracker23kNotGettingLocationTextSSvp">kNotGettingLocationText</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Global%20Variables.html#/s:14OpenGpxTracker28kPurpleButtonBackgroundColorSo7UIColorCvp">kPurpleButtonBackgroundColor</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Global%20Variables.html#/s:14OpenGpxTracker25kRedButtonBackgroundColorSo7UIColorCvp">kRedButtonBackgroundColor</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Global%20Variables.html#/s:14OpenGpxTracker16kSignalAccuracy1Sdvp">kSignalAccuracy1</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Global%20Variables.html#/s:14OpenGpxTracker16kSignalAccuracy2Sdvp">kSignalAccuracy2</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Global%20Variables.html#/s:14OpenGpxTracker16kSignalAccuracy3Sdvp">kSignalAccuracy3</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Global%20Variables.html#/s:14OpenGpxTracker16kSignalAccuracy4Sdvp">kSignalAccuracy4</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Global%20Variables.html#/s:14OpenGpxTracker16kSignalAccuracy5Sdvp">kSignalAccuracy5</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Global%20Variables.html#/s:14OpenGpxTracker16kSignalAccuracy6Sdvp">kSignalAccuracy6</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Global%20Variables.html#/s:14OpenGpxTracker13kUnitsSectionSivp">kUnitsSection</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Global%20Variables.html#/s:14OpenGpxTracker20kUnknownAccuracyTextSSvp">kUnknownAccuracyText</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Global%20Variables.html#/s:14OpenGpxTracker17kUnknownSpeedTextSSvp">kUnknownSpeedText</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Global%20Variables.html#/s:14OpenGpxTracker21kUseImperialUnitsCellSivp">kUseImperialUnitsCell</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Global%20Variables.html#/s:14OpenGpxTracker20kUseOfflineCacheCellSivp">kUseOfflineCacheCell</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Global%20Variables.html#/s:14OpenGpxTracker21kWhiteBackgroundColorSo7UIColorCvp">kWhiteBackgroundColor</a>
               </li>
             </ul>
           </li>
@@ -188,7 +295,13 @@
             <a href="../Extensions.html">Extensions</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
+                <a href="../Extensions/CLActivityType.html">CLActivityType</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Extensions/Date.html">Date</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/Double.html">Double</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Extensions/GPXRoot.html">GPXRoot</a>
@@ -208,6 +321,21 @@
               <li class="nav-group-task">
                 <a href="../Extensions/Int.html">Int</a>
               </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/MKMapView.html">MKMapView</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/Notification.html">Notification</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/Notification/Name.html">– Name</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/String.html">String</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/UIColor.html">UIColor</a>
+              </li>
             </ul>
           </li>
           <li class="nav-group-name">
@@ -224,6 +352,22 @@
               </li>
             </ul>
           </li>
+          <li class="nav-group-name">
+            <a href="../Structs.html">Structures</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Structs/DateField.html">DateField</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Typealiases.html">Type Aliases</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/GPXMapView">GPXMapView</a>
+              </li>
+            </ul>
+          </li>
         </ul>
       </nav>
       <article class="main-content">
@@ -232,7 +376,12 @@
             <h1>ViewController</h1>
               <div class="declaration">
                 <div class="language">
+                  
                   <pre class="highlight swift"><code><span class="kd">class</span> <span class="kt">ViewController</span> <span class="p">:</span> <span class="kt">UIViewController</span><span class="p">,</span> <span class="kt">UIGestureRecognizerDelegate</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">ViewController</span><span class="p">:</span> <span class="kt"><a href="../Protocols/StopWatchDelegate.html">StopWatchDelegate</a></span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">ViewController</span><span class="p">:</span> <span class="kt"><a href="../Protocols/PreferencesTableViewControllerDelegate.html">PreferencesTableViewControllerDelegate</a></span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">ViewController</span><span class="p">:</span> <span class="kt"><a href="../Protocols/GPXFilesTableViewControllerDelegate.html">GPXFilesTableViewControllerDelegate</a></span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">ViewController</span><span class="p">:</span> <span class="kt">CLLocationManagerDelegate</span></code></pre>
 
                 </div>
               </div>
@@ -563,7 +712,7 @@ If yes, whenever the user moves, the center of the map too.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">gpxTrackingStatus</span><span class="p">:</span> <span class="kt">ViewController</span><span class="o">.</span><span class="kt"><a href="../Classes/ViewController/GpxTrackingStatus.html">GpxTrackingStatus</a></span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">gpxTrackingStatus</span><span class="p">:</span> <span class="kt"><a href="../Classes/ViewController/GpxTrackingStatus.html">GpxTrackingStatus</a></span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
 
                         </div>
                       </div>
@@ -762,9 +911,9 @@ If yes, whenever the user moves, the center of the map too.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:14OpenGpxTracker14ViewControllerC25totalTrackedDistanceLabelAA010UIDistanceI0Cvp"></a>
+                    <a name="/s:14OpenGpxTracker14ViewControllerC25totalTrackedDistanceLabelAA0hI0Cvp"></a>
                     <a name="//apple_ref/swift/Property/totalTrackedDistanceLabel" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14OpenGpxTracker14ViewControllerC25totalTrackedDistanceLabelAA010UIDistanceI0Cvp">totalTrackedDistanceLabel</a>
+                    <a class="token" href="#/s:14OpenGpxTracker14ViewControllerC25totalTrackedDistanceLabelAA0hI0Cvp">totalTrackedDistanceLabel</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -779,7 +928,7 @@ If yes, whenever the user moves, the center of the map too.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">totalTrackedDistanceLabel</span><span class="p">:</span> <span class="kt"><a href="../Classes/UIDistanceLabel.html">UIDistanceLabel</a></span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">totalTrackedDistanceLabel</span><span class="p">:</span> <span class="kt"><a href="../Classes/DistanceLabel.html">DistanceLabel</a></span></code></pre>
 
                         </div>
                       </div>
@@ -789,9 +938,9 @@ If yes, whenever the user moves, the center of the map too.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:14OpenGpxTracker14ViewControllerC27currentSegmentDistanceLabelAA010UIDistanceI0Cvp"></a>
+                    <a name="/s:14OpenGpxTracker14ViewControllerC27currentSegmentDistanceLabelAA0hI0Cvp"></a>
                     <a name="//apple_ref/swift/Property/currentSegmentDistanceLabel" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14OpenGpxTracker14ViewControllerC27currentSegmentDistanceLabelAA010UIDistanceI0Cvp">currentSegmentDistanceLabel</a>
+                    <a class="token" href="#/s:14OpenGpxTracker14ViewControllerC27currentSegmentDistanceLabelAA0hI0Cvp">currentSegmentDistanceLabel</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -806,7 +955,34 @@ If yes, whenever the user moves, the center of the map too.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">currentSegmentDistanceLabel</span><span class="p">:</span> <span class="kt"><a href="../Classes/UIDistanceLabel.html">UIDistanceLabel</a></span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">currentSegmentDistanceLabel</span><span class="p">:</span> <span class="kt"><a href="../Classes/DistanceLabel.html">DistanceLabel</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14OpenGpxTracker14ViewControllerC11useImperialSbvp"></a>
+                    <a name="//apple_ref/swift/Property/useImperial" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14OpenGpxTracker14ViewControllerC11useImperialSbvp">useImperial</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Used to display in imperial (foot, miles, mph) or metric system (m, km, km/h)</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">useImperial</span><span class="p">:</span> <span class="kt">Bool</span></code></pre>
 
                         </div>
                       </div>
@@ -978,6 +1154,60 @@ If yes, whenever the user moves, the center of the map too.</p>
                 <li class="item">
                   <div>
                     <code>
+                    <a name="/s:14OpenGpxTracker14ViewControllerC22shareActivityIndicatorSo010UIActivityhD0Cvp"></a>
+                    <a name="//apple_ref/swift/Property/shareActivityIndicator" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14OpenGpxTracker14ViewControllerC22shareActivityIndicatorSo010UIActivityhD0Cvp">shareActivityIndicator</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Spinning Activity Indicator for shareButton</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">let</span> <span class="nv">shareActivityIndicator</span><span class="p">:</span> <span class="kt">UIActivityIndicatorView</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14OpenGpxTracker14ViewControllerC18shareActivityColorSo7UIColorCvp"></a>
+                    <a name="//apple_ref/swift/Property/shareActivityColor" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14OpenGpxTracker14ViewControllerC18shareActivityColorSo7UIColorCvp">shareActivityColor</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Spinning Activity Indicator&rsquo;s color</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">shareActivityColor</span><span class="p">:</span> <span class="kt">UIColor</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
                     <a name="/s:14OpenGpxTracker14ViewControllerC11resetButtonSo8UIButtonCvp"></a>
                     <a name="//apple_ref/swift/Property/resetButton" class="dashAnchor"></a>
                     <a class="token" href="#/s:14OpenGpxTracker14ViewControllerC11resetButtonSo8UIButtonCvp">resetButton</a>
@@ -1050,6 +1280,33 @@ If yes, whenever the user moves, the center of the map too.</p>
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">saveButton</span><span class="p">:</span> <span class="kt">UIButton</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14OpenGpxTracker14ViewControllerC9isIPhoneXSbvp"></a>
+                    <a name="//apple_ref/swift/Property/isIPhoneX" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14OpenGpxTracker14ViewControllerC9isIPhoneXSbvp">isIPhoneX</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Check if device is notched type phone</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">isIPhoneX</span><span class="p">:</span> <span class="kt">Bool</span></code></pre>
 
                         </div>
                       </div>
@@ -1250,7 +1507,7 @@ If yes, whenever the user moves, the center of the map too.</p>
                     <code>
                     <a name="/c:@M@OpenGpxTracker@objc(cs)ViewController(im)initWithCoder:"></a>
                     <a name="//apple_ref/swift/Method/init(coder:)" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@OpenGpxTracker@objc(cs)ViewController(im)initWithCoder:">init(coder:)</a>
+                    <a class="token" href="#/c:@M@OpenGpxTracker@objc(cs)ViewController(im)initWithCoder:">init(coder:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -1304,6 +1561,33 @@ If yes, whenever the user moves, the center of the map too.</p>
                 <li class="item">
                   <div>
                     <code>
+                    <a name="/c:@M@OpenGpxTracker@objc(cs)ViewController(py)preferredStatusBarStyle"></a>
+                    <a name="//apple_ref/swift/Property/preferredStatusBarStyle" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@OpenGpxTracker@objc(cs)ViewController(py)preferredStatusBarStyle">preferredStatusBarStyle</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Handles status bar color as a result from iOS 13 appearance changes</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">override</span> <span class="k">var</span> <span class="nv">preferredStatusBarStyle</span><span class="p">:</span> <span class="kt">UIStatusBarStyle</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
                     <a name="/c:@M@OpenGpxTracker@objc(cs)ViewController(im)viewDidLoad"></a>
                     <a name="//apple_ref/swift/Method/viewDidLoad()" class="dashAnchor"></a>
                     <a class="token" href="#/c:@M@OpenGpxTracker@objc(cs)ViewController(im)viewDidLoad">viewDidLoad()</a>
@@ -1324,6 +1608,255 @@ If yes, whenever the user moves, the center of the map too.</p>
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="k">override</span> <span class="kd">func</span> <span class="nf">viewDidLoad</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Add%20Constraints%20for%20views"></a>
+                <a name="//apple_ref/swift/Section/Add Constraints for views" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Add%20Constraints%20for%20views"></a>
+                  <h3 class="section-name"><span>Add Constraints for views</span>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14OpenGpxTracker14ViewControllerC14addConstraintsyySbF"></a>
+                    <a name="//apple_ref/swift/Method/addConstraints(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14OpenGpxTracker14ViewControllerC14addConstraintsyySbF">addConstraints(_:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Adds Constraints to subviews</p>
+
+<p>The constraints will ensure that subviews will be positioned correctly, when there are orientation changes, or iPad split view width changes.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">addConstraints</span><span class="p">(</span><span class="n">_</span> <span class="nv">isIPhoneX</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>isIPhoneX</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>if device is &gt;= iPhone X, bottom gap will be zero</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14OpenGpxTracker14ViewControllerC27addConstraintsToAppTitleBaryyF"></a>
+                    <a name="//apple_ref/swift/Method/addConstraintsToAppTitleBar()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14OpenGpxTracker14ViewControllerC27addConstraintsToAppTitleBaryyF">addConstraintsToAppTitleBar()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Adds constraints to subviews forming the app title bar (top bar)</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">addConstraintsToAppTitleBar</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14OpenGpxTracker14ViewControllerC39addConstraintsToTopInteractableElementsyyF"></a>
+                    <a name="//apple_ref/swift/Method/addConstraintsToTopInteractableElements()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14OpenGpxTracker14ViewControllerC39addConstraintsToTopInteractableElementsyyF">addConstraintsToTopInteractableElements()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Adds constraints to subviews forming the informational labels (top right side; i.e. speed, elapse time labels)</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">addConstraintsToTopInteractableElements</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14OpenGpxTracker14ViewControllerC25addConstraintsToButtonBaryySbF"></a>
+                    <a name="//apple_ref/swift/Method/addConstraintsToButtonBar(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14OpenGpxTracker14ViewControllerC25addConstraintsToButtonBaryySbF">addConstraintsToButtonBar(_:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Adds constraints to subviews forming the button bar (bottom session controls bar)</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">addConstraintsToButtonBar</span><span class="p">(</span><span class="n">_</span> <span class="nv">isIPhoneX</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14OpenGpxTracker14ViewControllerC023addConstraintsToCompassD0yySo15MKCompassButtonCF"></a>
+                    <a name="//apple_ref/swift/Method/addConstraintsToCompassView(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14OpenGpxTracker14ViewControllerC023addConstraintsToCompassD0yySo15MKCompassButtonCF">addConstraintsToCompassView(_:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">addConstraintsToCompassView</span><span class="p">(</span><span class="n">_</span> <span class="nv">view</span><span class="p">:</span> <span class="kt">MKCompassButton</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@OpenGpxTracker@objc(cs)ViewController(im)viewWillTransitionToSize:withTransitionCoordinator:"></a>
+                    <a name="//apple_ref/swift/Method/viewWillTransition(to:with:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@OpenGpxTracker@objc(cs)ViewController(im)viewWillTransitionToSize:withTransitionCoordinator:">viewWillTransition(to:<wbr>with:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>For handling compass location changes when orientation is switched.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">override</span> <span class="kd">func</span> <span class="nf">viewWillTransition</span><span class="p">(</span><span class="n">to</span> <span class="nv">size</span><span class="p">:</span> <span class="kt">CGSize</span><span class="p">,</span> <span class="n">with</span> <span class="nv">coordinator</span><span class="p">:</span> <span class="kt">UIViewControllerTransitionCoordinator</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@OpenGpxTracker@objc(cs)ViewController(im)traitCollectionDidChange:"></a>
+                    <a name="//apple_ref/swift/Method/traitCollectionDidChange(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@OpenGpxTracker@objc(cs)ViewController(im)traitCollectionDidChange:">traitCollectionDidChange(_:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Will update polyline color when invoked</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">override</span> <span class="kd">func</span> <span class="nf">traitCollectionDidChange</span><span class="p">(</span><span class="n">_</span> <span class="nv">previousTraitCollection</span><span class="p">:</span> <span class="kt">UITraitCollection</span><span class="p">?)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14OpenGpxTracker14ViewControllerC19updatePolylineColoryyF"></a>
+                    <a name="//apple_ref/swift/Method/updatePolylineColor()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14OpenGpxTracker14ViewControllerC19updatePolylineColoryyF">updatePolylineColor()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Updates polyline color</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">updatePolylineColor</span><span class="p">()</span></code></pre>
 
                         </div>
                       </div>
@@ -1351,6 +1884,8 @@ If yes, whenever the user moves, the center of the map too.</p>
 <li>whenever it enters background</li>
 <li>whenever it becomes active</li>
 <li>whenever it will terminate</li>
+<li>whenever it receives a file from Apple Watch</li>
+<li>whenever it should load file from Core Data recovery mechanism</li>
 </ol>
 
                       </div>
@@ -1368,9 +1903,9 @@ If yes, whenever the user moves, the center of the map too.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:14OpenGpxTracker14ViewControllerC27removeNotificationObserversyyF"></a>
-                    <a name="//apple_ref/swift/Method/removeNotificationObservers()" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14OpenGpxTracker14ViewControllerC27removeNotificationObserversyyF">removeNotificationObservers()</a>
+                    <a name="/c:@M@OpenGpxTracker@objc(cs)ViewController(im)updateAppearance"></a>
+                    <a name="//apple_ref/swift/Method/updateAppearance()" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@OpenGpxTracker@objc(cs)ViewController(im)updateAppearance">updateAppearance()</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -1378,14 +1913,43 @@ If yes, whenever the user moves, the center of the map too.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Removes the notification observers</p>
+                        <p>To update appearance when mapView requests to do so</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">removeNotificationObservers</span><span class="p">()</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">@objc</span>
+<span class="kd">func</span> <span class="nf">updateAppearance</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@OpenGpxTracker@objc(cs)ViewController(im)presentReceivedFile:"></a>
+                    <a name="//apple_ref/swift/Method/presentReceivedFile(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@OpenGpxTracker@objc(cs)ViewController(im)presentReceivedFile:">presentReceivedFile(_:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Presents alert when file received from Apple Watch</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@objc</span>
+<span class="kd">func</span> <span class="nf">presentReceivedFile</span><span class="p">(</span><span class="n">_</span> <span class="nv">notification</span><span class="p">:</span> <span class="kt">Notification</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -1413,6 +1977,33 @@ If yes, whenever the user moves, the center of the map too.</p>
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">defaultFilename</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@OpenGpxTracker@objc(cs)ViewController(im)loadRecoveredFile:"></a>
+                    <a name="//apple_ref/swift/Method/loadRecoveredFile(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@OpenGpxTracker@objc(cs)ViewController(im)loadRecoveredFile:">loadRecoveredFile(_:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@objc</span>
+<span class="kd">func</span> <span class="nf">loadRecoveredFile</span><span class="p">(</span><span class="n">_</span> <span class="nv">notification</span><span class="p">:</span> <span class="kt">Notification</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -1624,9 +2215,36 @@ sharing the location to save battery.</p>
                 <li class="item">
                   <div>
                     <code>
+                    <a name="/s:14OpenGpxTracker14ViewControllerC32shouldShowShareActivityIndicatoryySbF"></a>
+                    <a name="//apple_ref/swift/Method/shouldShowShareActivityIndicator(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14OpenGpxTracker14ViewControllerC32shouldShowShareActivityIndicatoryySbF">shouldShowShareActivityIndicator(_:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Displays spinning activity indicator for share button when true</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">shouldShowShareActivityIndicator</span><span class="p">(</span><span class="n">_</span> <span class="nv">isTrue</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
                     <a name="/c:@M@OpenGpxTracker@objc(cs)ViewController(im)stopFollowingUser:"></a>
                     <a name="//apple_ref/swift/Method/stopFollowingUser(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@OpenGpxTracker@objc(cs)ViewController(im)stopFollowingUser:">stopFollowingUser(_:)</a>
+                    <a class="token" href="#/c:@M@OpenGpxTracker@objc(cs)ViewController(im)stopFollowingUser:">stopFollowingUser(_:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -1654,7 +2272,7 @@ sharing the location to save battery.</p>
                     <code>
                     <a name="/c:@M@OpenGpxTracker@objc(cs)ViewController(im)gestureRecognizer:shouldRecognizeSimultaneouslyWithGestureRecognizer:"></a>
                     <a name="//apple_ref/swift/Method/gestureRecognizer(_:shouldRecognizeSimultaneouslyWith:)" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@OpenGpxTracker@objc(cs)ViewController(im)gestureRecognizer:shouldRecognizeSimultaneouslyWithGestureRecognizer:">gestureRecognizer(_:shouldRecognizeSimultaneouslyWith:)</a>
+                    <a class="token" href="#/c:@M@OpenGpxTracker@objc(cs)ViewController(im)gestureRecognizer:shouldRecognizeSimultaneouslyWithGestureRecognizer:">gestureRecognizer(_:<wbr>shouldRecognizeSimultaneouslyWith:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -1670,7 +2288,7 @@ sharing the location to save battery.</p>
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">gestureRecognizer</span><span class="p">(</span><span class="n">_</span> <span class="nv">gestureRecognizer</span><span class="p">:</span> <span class="kt">UIGestureRecognizer</span><span class="p">,</span>
-    <span class="n">shouldRecognizeSimultaneouslyWith</span> <span class="nv">otherGestureRecognizer</span><span class="p">:</span> <span class="kt">UIGestureRecognizer</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
+                       <span class="n">shouldRecognizeSimultaneouslyWith</span> <span class="nv">otherGestureRecognizer</span><span class="p">:</span> <span class="kt">UIGestureRecognizer</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
 
                         </div>
                       </div>
@@ -1682,7 +2300,7 @@ sharing the location to save battery.</p>
                     <code>
                     <a name="/c:@M@OpenGpxTracker@objc(cs)ViewController(im)addPinAtTappedLocation:"></a>
                     <a name="//apple_ref/swift/Method/addPinAtTappedLocation(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@OpenGpxTracker@objc(cs)ViewController(im)addPinAtTappedLocation:">addPinAtTappedLocation(_:)</a>
+                    <a class="token" href="#/c:@M@OpenGpxTracker@objc(cs)ViewController(im)addPinAtTappedLocation:">addPinAtTappedLocation(_:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -1710,7 +2328,7 @@ sharing the location to save battery.</p>
                     <code>
                     <a name="/s:14OpenGpxTracker14ViewControllerC12pinchGestureyySo07UIPinchG10RecognizerCF"></a>
                     <a name="//apple_ref/swift/Method/pinchGesture(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14OpenGpxTracker14ViewControllerC12pinchGestureyySo07UIPinchG10RecognizerCF">pinchGesture(_:)</a>
+                    <a class="token" href="#/s:14OpenGpxTracker14ViewControllerC12pinchGestureyySo07UIPinchG10RecognizerCF">pinchGesture(_:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -1850,9 +2468,9 @@ sharing the location to save battery.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/c:@M@OpenGpxTracker@objc(cs)ViewController(im)saveButtonTapped"></a>
-                    <a name="//apple_ref/swift/Method/saveButtonTapped()" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@OpenGpxTracker@objc(cs)ViewController(im)saveButtonTapped">saveButtonTapped()</a>
+                    <a name="/c:@M@OpenGpxTracker@objc(cs)ViewController(im)saveButtonTappedWithReset:"></a>
+                    <a name="//apple_ref/swift/Method/saveButtonTapped(withReset:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@OpenGpxTracker@objc(cs)ViewController(im)saveButtonTappedWithReset:">saveButtonTapped(withReset:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -1870,7 +2488,7 @@ sharing the location to save battery.</p>
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">@objc</span>
-<span class="kd">func</span> <span class="nf">saveButtonTapped</span><span class="p">()</span></code></pre>
+<span class="kd">func</span> <span class="nf">saveButtonTapped</span><span class="p">(</span><span class="nv">withReset</span><span class="p">:</span> <span class="kt">Bool</span> <span class="o">=</span> <span class="kc">false</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -1918,9 +2536,11 @@ sharing the location to save battery.</p>
                       <div class="pointer"></div>
                       <div class="abstract">
                         <p>Checks the location services status</p>
+
+<ul>
 <li>Are location services enabled (access to location device wide)? If not =&gt; displays an alert</li>
 <li><p>Are location services allowed to this app? If not =&gt; displays an alert</p></li>
-<div class="aside aside-seealso">
+</ul><div class="aside aside-seealso">
     <p class="aside-title">Seealso</p>
     <p>displayLocationServicesDisabledAlert, displayLocationServicesDeniedAlert</p>
 
@@ -1995,15 +2615,44 @@ It also dispays a button allows the user to go to settings to activate the locat
                     </section>
                   </div>
                 </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14OpenGpxTracker14ViewControllerC20textColorAdaptationsyyF"></a>
+                    <a name="//apple_ref/swift/Method/textColorAdaptations()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14OpenGpxTracker14ViewControllerC20textColorAdaptationsyyF">textColorAdaptations()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>force dark mode (i.e. white text, if map content is known to be dark)</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">textColorAdaptations</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
               </ul>
             </div>
             <div class="task-group">
               <div class="task-name-container">
                 <a name="/StopWatchDelegate"></a>
                 <a name="//apple_ref/swift/Section/StopWatchDelegate" class="dashAnchor"></a>
-                <a href="#/StopWatchDelegate">
-                  <h3 class="section-name">StopWatchDelegate</h3>
-                </a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/StopWatchDelegate"></a>
+                  <h3 class="section-name"><span>StopWatchDelegate</span>
+</h3>
+                </div>
               </div>
               <ul>
                 <li class="item">
@@ -2011,7 +2660,7 @@ It also dispays a button allows the user to go to settings to activate the locat
                     <code>
                     <a name="/s:14OpenGpxTracker17StopWatchDelegateP04stopE0_26didUpdateElapsedTimeStringyAA0dE0C_SStF"></a>
                     <a name="//apple_ref/swift/Method/stopWatch(_:didUpdateElapsedTimeString:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14OpenGpxTracker17StopWatchDelegateP04stopE0_26didUpdateElapsedTimeStringyAA0dE0C_SStF">stopWatch(_:didUpdateElapsedTimeString:)</a>
+                    <a class="token" href="#/s:14OpenGpxTracker17StopWatchDelegateP04stopE0_26didUpdateElapsedTimeStringyAA0dE0C_SStF">stopWatch(_:<wbr>didUpdateElapsedTimeString:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -2038,17 +2687,48 @@ It also dispays a button allows the user to go to settings to activate the locat
               <div class="task-name-container">
                 <a name="/PreferencesTableViewControllerDelegate"></a>
                 <a name="//apple_ref/swift/Section/PreferencesTableViewControllerDelegate" class="dashAnchor"></a>
-                <a href="#/PreferencesTableViewControllerDelegate">
-                  <h3 class="section-name">PreferencesTableViewControllerDelegate</h3>
-                </a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/PreferencesTableViewControllerDelegate"></a>
+                  <h3 class="section-name"><span>PreferencesTableViewControllerDelegate</span>
+</h3>
+                </div>
               </div>
               <ul>
                 <li class="item">
                   <div>
                     <code>
+                    <a name="/s:14OpenGpxTracker14ViewControllerC21didUpdateActivityTypeyySiF"></a>
+                    <a name="//apple_ref/swift/Method/didUpdateActivityType(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14OpenGpxTracker14ViewControllerC21didUpdateActivityTypeyySiF">didUpdateActivityType(_:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Update the activity type that the location manager is using.</p>
+
+<p>When user changes the activity type in preferences, this function is invoked to update the activity type of the location manager.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">didUpdateActivityType</span><span class="p">(</span><span class="n">_</span> <span class="nv">newActivityType</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
                     <a name="/s:14OpenGpxTracker14ViewControllerC19didUpdateTileServeryySiF"></a>
                     <a name="//apple_ref/swift/Method/didUpdateTileServer(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14OpenGpxTracker14ViewControllerC19didUpdateTileServeryySiF">didUpdateTileServer(_:)</a>
+                    <a class="token" href="#/s:14OpenGpxTracker14ViewControllerC19didUpdateTileServeryySiF">didUpdateTileServer(_:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -2080,7 +2760,7 @@ the map of the main <code>ViewController</code> needs to be aware of it.</p>
                     <code>
                     <a name="/s:14OpenGpxTracker14ViewControllerC17didUpdateUseCacheyySbF"></a>
                     <a name="//apple_ref/swift/Method/didUpdateUseCache(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14OpenGpxTracker14ViewControllerC17didUpdateUseCacheyySbF">didUpdateUseCache(_:)</a>
+                    <a class="token" href="#/s:14OpenGpxTracker14ViewControllerC17didUpdateUseCacheyySbF">didUpdateUseCache(_:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -2103,23 +2783,38 @@ informs the map to behave accordingly.</p>
                     </section>
                   </div>
                 </li>
-              </ul>
-            </div>
-            <div class="task-group">
-              <div class="task-name-container">
-                <a name="/location%20manager%20Delegate"></a>
-                <a name="//apple_ref/swift/Section/location manager Delegate" class="dashAnchor"></a>
-                <a href="#/location%20manager%20Delegate">
-                  <h3 class="section-name">location manager Delegate</h3>
-                </a>
-              </div>
-              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14OpenGpxTracker38PreferencesTableViewControllerDelegateP20didUpdateUseImperialyySbF"></a>
+                    <a name="//apple_ref/swift/Method/didUpdateUseImperial(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14OpenGpxTracker38PreferencesTableViewControllerDelegateP20didUpdateUseImperialyySbF">didUpdateUseImperial(_:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">didUpdateUseImperial</span><span class="p">(</span><span class="n">_</span> <span class="nv">newUseImperial</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
                 <li class="item">
                   <div>
                     <code>
                     <a name="/s:14OpenGpxTracker14ViewControllerC22didLoadGPXFileWithName_7gpxRootySS_7CoreGPX7GPXRootCtF"></a>
                     <a name="//apple_ref/swift/Method/didLoadGPXFileWithName(_:gpxRoot:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14OpenGpxTracker14ViewControllerC22didLoadGPXFileWithName_7gpxRootySS_7CoreGPX7GPXRootCtF">didLoadGPXFileWithName(_:gpxRoot:)</a>
+                    <a class="token" href="#/s:14OpenGpxTracker14ViewControllerC22didLoadGPXFileWithName_7gpxRootySS_7CoreGPX7GPXRootCtF">didLoadGPXFileWithName(_:<wbr>gpxRoot:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -2149,9 +2844,11 @@ informs the map to behave accordingly.</p>
               <div class="task-name-container">
                 <a name="/CLLocationManagerDelegate"></a>
                 <a name="//apple_ref/swift/Section/CLLocationManagerDelegate" class="dashAnchor"></a>
-                <a href="#/CLLocationManagerDelegate">
-                  <h3 class="section-name">CLLocationManagerDelegate</h3>
-                </a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/CLLocationManagerDelegate"></a>
+                  <h3 class="section-name"><span>CLLocationManagerDelegate</span>
+</h3>
+                </div>
               </div>
               <ul>
                 <li class="item">
@@ -2159,7 +2856,7 @@ informs the map to behave accordingly.</p>
                     <code>
                     <a name="/c:@CM@OpenGpxTracker@objc(cs)ViewController(im)locationManager:didFailWithError:"></a>
                     <a name="//apple_ref/swift/Method/locationManager(_:didFailWithError:)" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@CM@OpenGpxTracker@objc(cs)ViewController(im)locationManager:didFailWithError:">locationManager(_:didFailWithError:)</a>
+                    <a class="token" href="#/c:@CM@OpenGpxTracker@objc(cs)ViewController(im)locationManager:didFailWithError:">locationManager(_:<wbr>didFailWithError:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -2172,7 +2869,7 @@ informs the map to behave accordingly.</p>
 <p>It performs the following actions:</p>
 
 <ul>
-<li>Sets coordsLabel with <code><a href="../Global Variables.html#/s:14OpenGpxTracker23kNotGettingLocationTextSSvp">kNotGettingLocationText</a></code>, signal accuracy to
+<li>Sets coordsLabel with <code><a href="../Global%20Variables.html#/s:14OpenGpxTracker23kNotGettingLocationTextSSvp">kNotGettingLocationText</a></code>, signal accuracy to
 kUnknownAccuracyText and signalImageView to signalImage0.</li>
 <li>If the error code is <code>CLError.denied</code> it calls <code>checkLocationServicesStatus</code></li>
 </ul>
@@ -2194,7 +2891,7 @@ kUnknownAccuracyText and signalImageView to signalImage0.</li>
                     <code>
                     <a name="/c:@CM@OpenGpxTracker@objc(cs)ViewController(im)locationManager:didUpdateLocations:"></a>
                     <a name="//apple_ref/swift/Method/locationManager(_:didUpdateLocations:)" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@CM@OpenGpxTracker@objc(cs)ViewController(im)locationManager:didUpdateLocations:">locationManager(_:didUpdateLocations:)</a>
+                    <a class="token" href="#/c:@CM@OpenGpxTracker@objc(cs)ViewController(im)locationManager:didUpdateLocations:">locationManager(_:<wbr>didUpdateLocations:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -2221,7 +2918,7 @@ kUnknownAccuracyText and signalImageView to signalImage0.</li>
                     <code>
                     <a name="/c:@CM@OpenGpxTracker@objc(cs)ViewController(im)locationManager:didUpdateHeading:"></a>
                     <a name="//apple_ref/swift/Method/locationManager(_:didUpdateHeading:)" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@CM@OpenGpxTracker@objc(cs)ViewController(im)locationManager:didUpdateHeading:">locationManager(_:didUpdateHeading:)</a>
+                    <a class="token" href="#/c:@CM@OpenGpxTracker@objc(cs)ViewController(im)locationManager:didUpdateHeading:">locationManager(_:<wbr>didUpdateHeading:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -2244,23 +2941,12 @@ to updathe the heading indicator (a small arrow next to user location point)</p>
                     </section>
                   </div>
                 </li>
-              </ul>
-            </div>
-            <div class="task-group">
-              <div class="task-name-container">
-                <a name="/WCSessionDelegate"></a>
-                <a name="//apple_ref/swift/Section/WCSessionDelegate" class="dashAnchor"></a>
-                <a href="#/WCSessionDelegate">
-                  <h3 class="section-name">WCSessionDelegate</h3>
-                </a>
-              </div>
-              <ul>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/c:@CM@OpenGpxTracker@objc(cs)ViewController(im)sessionDidBecomeInactive:"></a>
-                    <a name="//apple_ref/swift/Method/sessionDidBecomeInactive(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@CM@OpenGpxTracker@objc(cs)ViewController(im)sessionDidBecomeInactive:">sessionDidBecomeInactive(_:)</a>
+                    <a name="/c:@CM@OpenGpxTracker@objc(cs)ViewController(im)locationManagerDidChangeAuthorization:"></a>
+                    <a name="//apple_ref/swift/Method/locationManagerDidChangeAuthorization(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@CM@OpenGpxTracker@objc(cs)ViewController(im)locationManagerDidChangeAuthorization:">locationManagerDidChangeAuthorization(_:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -2268,97 +2954,16 @@ to updathe the heading indicator (a small arrow next to user location point)</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>called when <code>WCSession</code> goes inactive. Does nothing but display a debug message.</p>
+                        <p>Called by the system when <code>CLLocationManager</code> is created and when the user makes a permission choice</p>
+
+<p>We handle this delegate callback so that we can check if the user has allowed location access, else we show a warning</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">sessionDidBecomeInactive</span><span class="p">(</span><span class="n">_</span> <span class="nv">session</span><span class="p">:</span> <span class="kt">WCSession</span><span class="p">)</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/c:@CM@OpenGpxTracker@objc(cs)ViewController(im)sessionDidDeactivate:"></a>
-                    <a name="//apple_ref/swift/Method/sessionDidDeactivate(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@CM@OpenGpxTracker@objc(cs)ViewController(im)sessionDidDeactivate:">sessionDidDeactivate(_:)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>called when <code>WCSession</code> goes inactive. Does nothing but display a debug message</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">sessionDidDeactivate</span><span class="p">(</span><span class="n">_</span> <span class="nv">session</span><span class="p">:</span> <span class="kt">WCSession</span><span class="p">)</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/c:@CM@OpenGpxTracker@objc(cs)ViewController(im)session:activationDidCompleteWithState:error:"></a>
-                    <a name="//apple_ref/swift/Method/session(_:activationDidCompleteWith:error:)" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@CM@OpenGpxTracker@objc(cs)ViewController(im)session:activationDidCompleteWithState:error:">session(_:activationDidCompleteWith:error:)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>called when activation did complete. Does nothing but display a debug message.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">@available(iOS 9.3, *)</span>
-<span class="kd">func</span> <span class="nf">session</span><span class="p">(</span><span class="n">_</span> <span class="nv">session</span><span class="p">:</span> <span class="kt">WCSession</span><span class="p">,</span> <span class="n">activationDidCompleteWith</span> <span class="nv">activationState</span><span class="p">:</span> <span class="kt">WCSessionActivationState</span><span class="p">,</span> <span class="nv">error</span><span class="p">:</span> <span class="kt">Error</span><span class="p">?)</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/c:@CM@OpenGpxTracker@objc(cs)ViewController(im)session:didReceiveFile:"></a>
-                    <a name="//apple_ref/swift/Method/session(_:didReceive:)" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@CM@OpenGpxTracker@objc(cs)ViewController(im)session:didReceiveFile:">session(_:didReceive:)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Called when a file is received from Apple Watch.
-Displays a popup informing about the reception of the file.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">session</span><span class="p">(</span><span class="n">_</span> <span class="nv">session</span><span class="p">:</span> <span class="kt">WCSession</span><span class="p">,</span> <span class="n">didReceive</span> <span class="nv">file</span><span class="p">:</span> <span class="kt">WCSessionFile</span><span class="p">)</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">locationManagerDidChangeAuthorization</span><span class="p">(</span><span class="n">_</span> <span class="nv">manager</span><span class="p">:</span> <span class="kt">CLLocationManager</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -2370,11 +2975,10 @@ Displays a popup informing about the reception of the file.</p>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2019 <a class="link" href="https://github.com/merlos/iOS-Open-GPX-Tracker" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2019-05-03)</p>
-          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.6</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+          <p>&copy; 2023 <a class="link" href="https://github.com/merlos/iOS-Open-GPX-Tracker" target="_blank" rel="external noopener"></a>. All rights reserved. (Last updated: 2023-05-28)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.14.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
         </section>
       </article>
     </div>
   </body>
-</div>
 </html>

@@ -8,6 +8,9 @@
     <script src="../js/jquery.min.js" defer></script>
     <script src="../js/jazzy.js" defer></script>
     
+    <script src="../js/lunr.min.js" defer></script>
+    <script src="../js/typeahead.jquery.js" defer></script>
+    <script src="../js/jazzy.search.js" defer></script>
   </head>
   <body>
     <a name="//apple_ref/swift/Enum/GPXTileServer" class="dashAnchor"></a>
@@ -15,13 +18,18 @@
     <header>
       <div class="content-wrapper">
         <p><a href="../index.html"> Docs</a> (100% documented)</p>
-        <p class="header-right"><a href="https://github.com/merlos/iOS-Open-GPX-Tracker"><img src="../img/gh.png"/>View on GitHub</a></p>
+        <p class="header-right"><a href="https://github.com/merlos/iOS-Open-GPX-Tracker"><img src="../img/gh.png" alt="GitHub"/>View on GitHub</a></p>
+        <div class="header-right">
+          <form role="search" action="../search.json">
+            <input type="text" placeholder="Search documentation" data-typeahead>
+          </form>
+        </div>
       </div>
     </header>
     <div class="content-wrapper">
       <p id="breadcrumbs">
         <a href="../index.html"> Reference</a>
-        <img id="carat" src="../img/carat.png" />
+        <img id="carat" src="../img/carat.png" alt=""/>
         GPXTileServer Enumeration Reference
       </p>
     </div>
@@ -38,7 +46,34 @@
                 <a href="../Classes/AppDelegate.html">AppDelegate</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Classes/CachedTileOverlay.html">CachedTileOverlay</a>
+                <a href="../Classes/CDRoot.html">CDRoot</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/CDTrackpoint.html">CDTrackpoint</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/CDWaypoint.html">CDWaypoint</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/CoreDataHelper.html">CoreDataHelper</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/DateFieldTypeView.html">DateFieldTypeView</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/DatePatternButton.html">DatePatternButton</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/DefaultDateFormat.html">DefaultDateFormat</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/DefaultNameSetupViewController.html">DefaultNameSetupViewController</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/DefaultNameSetupViewController/Sections.html">– Sections</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/DistanceLabel.html">DistanceLabel</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Classes/GPXExtentCoordinates.html">GPXExtentCoordinates</a>
@@ -56,7 +91,13 @@
                 <a href="../Classes/GPXMapView.html">GPXMapView</a>
               </li>
               <li class="nav-group-task">
+                <a href="../Classes/GPXSession.html">GPXSession</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Classes/MapViewDelegate.html">MapViewDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Preferences.html">Preferences</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Classes/PreferencesTableViewController.html">PreferencesTableViewController</a>
@@ -65,10 +106,19 @@
                 <a href="../Classes/StopWatch.html">StopWatch</a>
               </li>
               <li class="nav-group-task">
+                <a href="../Classes/Toast.html">Toast</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Toast/Position.html">– Position</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ToastLabel.html">ToastLabel</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Classes/TrackerButton.html">TrackerButton</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Classes/UIDistanceLabel.html">UIDistanceLabel</a>
+                <a href="../Classes/UIInsetLabel.html">UIInsetLabel</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Classes/ViewController.html">ViewController</a>
@@ -79,97 +129,154 @@
             </ul>
           </li>
           <li class="nav-group-name">
-            <a href="../Global Variables.html">Global Variables</a>
+            <a href="../Global%20Variables.html">Global Variables</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a href="../Global Variables.html#/s:14OpenGpxTracker26kBlueButtonBackgroundColorSo7UIColorCvp">kBlueButtonBackgroundColor</a>
+                <a href="../Global%20Variables.html#/s:14OpenGpxTracker20kActivityTypeSectionSivp">kActivityTypeSection</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Global Variables.html#/s:14OpenGpxTracker16kButtonLargeSize12CoreGraphics7CGFloatVvp">kButtonLargeSize</a>
+                <a href="../Global%20Variables.html#/s:14OpenGpxTracker26kBlueButtonBackgroundColorSo7UIColorCvp">kBlueButtonBackgroundColor</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Global Variables.html#/s:14OpenGpxTracker17kButtonSeparation12CoreGraphics7CGFloatVvp">kButtonSeparation</a>
+                <a href="../Global%20Variables.html#/s:14OpenGpxTracker16kButtonLargeSize14CoreFoundation7CGFloatVvp">kButtonLargeSize</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Global Variables.html#/s:14OpenGpxTracker16kButtonSmallSize12CoreGraphics7CGFloatVvp">kButtonSmallSize</a>
+                <a href="../Global%20Variables.html#/s:14OpenGpxTracker17kButtonSeparation14CoreFoundation7CGFloatVvp">kButtonSeparation</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Global Variables.html#/s:14OpenGpxTracker13kCacheSectionSivp">kCacheSection</a>
+                <a href="../Global%20Variables.html#/s:14OpenGpxTracker16kButtonSmallSize14CoreFoundation7CGFloatVvp">kButtonSmallSize</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Global Variables.html#/s:14OpenGpxTracker15kClearCacheCellSivp">kClearCacheCell</a>
+                <a href="../Global%20Variables.html#/s:14OpenGpxTracker13kCacheSectionSivp">kCacheSection</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Global Variables.html#/s:14OpenGpxTracker25kDefaultsKeyTileServerIntSSvp">kDefaultsKeyTileServerInt</a>
+                <a href="../Global%20Variables.html#/s:14OpenGpxTracker15kClearCacheCellSivp">kClearCacheCell</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Global Variables.html#/s:14OpenGpxTracker20kDefaultsKeyUseCacheSSvp">kDefaultsKeyUseCache</a>
+                <a href="../Global%20Variables.html#/s:14OpenGpxTracker19kDefaultNameSectionSivp">kDefaultNameSection</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Global Variables.html#/s:14OpenGpxTracker32kDeleteWaypointAccesoryButtonTagSivp">kDeleteWaypointAccesoryButtonTag</a>
+                <a href="../Global%20Variables.html#/s:14OpenGpxTracker24kDefaultsKeyActivityTypeSSvp">kDefaultsKeyActivityType</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Global Variables.html#/s:14OpenGpxTracker34kDisabledBlueButtonBackgroundColorSo7UIColorCvp">kDisabledBlueButtonBackgroundColor</a>
+                <a href="../Global%20Variables.html#/s:14OpenGpxTracker22kDefaultsKeyDateFormatSSvp">kDefaultsKeyDateFormat</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Global Variables.html#/s:14OpenGpxTracker33kDisabledRedButtonBackgroundColorSo7UIColorCvp">kDisabledRedButtonBackgroundColor</a>
+                <a href="../Global%20Variables.html#/s:14OpenGpxTracker27kDefaultsKeyDateFormatInputSSvp">kDefaultsKeyDateFormatInput</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Global Variables.html#/s:14OpenGpxTracker30kEditWaypointAccesoryButtonTagSivp">kEditWaypointAccesoryButtonTag</a>
+                <a href="../Global%20Variables.html#/s:14OpenGpxTracker28kDefaultsKeyDateFormatPresetSSvp">kDefaultsKeyDateFormatPreset</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Global Variables.html#/s:14OpenGpxTracker8kFileExtSSvp">kFileExt</a>
+                <a href="../Global%20Variables.html#/s:14OpenGpxTracker27kDefaultsKeyDateFormatUseENSSvp">kDefaultsKeyDateFormatUseEN</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Global Variables.html#/s:14OpenGpxTracker17kGPXCreatorStringSSvp">kGPXCreatorString</a>
+                <a href="../Global%20Variables.html#/s:14OpenGpxTracker28kDefaultsKeyDateFormatUseUTCSSvp">kDefaultsKeyDateFormatUseUTC</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Global Variables.html#/s:14OpenGpxTracker27kGreenButtonBackgroundColorSo7UIColorCvp">kGreenButtonBackgroundColor</a>
+                <a href="../Global%20Variables.html#/s:14OpenGpxTracker26kDefaultsKeyGPXFilesFolderSSvp">kDefaultsKeyGPXFilesFolder</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Global Variables.html#/s:14OpenGpxTracker17kMapSourceSectionSivp">kMapSourceSection</a>
+                <a href="../Global%20Variables.html#/s:14OpenGpxTracker25kDefaultsKeyTileServerIntSSvp">kDefaultsKeyTileServerInt</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Global Variables.html#/s:14OpenGpxTracker8kNoFilesSSvp">kNoFiles</a>
+                <a href="../Global%20Variables.html#/s:14OpenGpxTracker20kDefaultsKeyUseCacheSSvp">kDefaultsKeyUseCache</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Global Variables.html#/s:14OpenGpxTracker23kNotGettingLocationTextSSvp">kNotGettingLocationText</a>
+                <a href="../Global%20Variables.html#/s:14OpenGpxTracker23kDefaultsKeyUseImperialSSvp">kDefaultsKeyUseImperial</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Global Variables.html#/s:14OpenGpxTracker28kPurpleButtonBackgroundColorSo7UIColorCvp">kPurpleButtonBackgroundColor</a>
+                <a href="../Global%20Variables.html#/s:14OpenGpxTracker32kDeleteWaypointAccesoryButtonTagSivp">kDeleteWaypointAccesoryButtonTag</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Global Variables.html#/s:14OpenGpxTracker25kRedButtonBackgroundColorSo7UIColorCvp">kRedButtonBackgroundColor</a>
+                <a href="../Global%20Variables.html#/s:14OpenGpxTracker34kDisabledBlueButtonBackgroundColorSo7UIColorCvp">kDisabledBlueButtonBackgroundColor</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Global Variables.html#/s:14OpenGpxTracker16kSignalAccuracy1Sdvp">kSignalAccuracy1</a>
+                <a href="../Global%20Variables.html#/s:14OpenGpxTracker33kDisabledRedButtonBackgroundColorSo7UIColorCvp">kDisabledRedButtonBackgroundColor</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Global Variables.html#/s:14OpenGpxTracker16kSignalAccuracy2Sdvp">kSignalAccuracy2</a>
+                <a href="../Global%20Variables.html#/s:14OpenGpxTracker30kEditWaypointAccesoryButtonTagSivp">kEditWaypointAccesoryButtonTag</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Global Variables.html#/s:14OpenGpxTracker16kSignalAccuracy3Sdvp">kSignalAccuracy3</a>
+                <a href="../Global%20Variables.html#/s:14OpenGpxTracker8kFileExtSaySSGvp">kFileExt</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Global Variables.html#/s:14OpenGpxTracker16kSignalAccuracy4Sdvp">kSignalAccuracy4</a>
+                <a href="../Global%20Variables.html#/kGPXCreatorString">kGPXCreatorString</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Global Variables.html#/s:14OpenGpxTracker16kSignalAccuracy5Sdvp">kSignalAccuracy5</a>
+                <a href="../Global%20Variables.html#/s:14OpenGpxTracker17kGPXCreatorStringSSvp">kGPXCreatorString</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Global Variables.html#/s:14OpenGpxTracker16kSignalAccuracy6Sdvp">kSignalAccuracy6</a>
+                <a href="../Global%20Variables.html#/s:14OpenGpxTracker24kGPXFilesLocationSectionSivp">kGPXFilesLocationSection</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Global Variables.html#/s:14OpenGpxTracker20kUnknownAccuracyTextSSvp">kUnknownAccuracyText</a>
+                <a href="../Global%20Variables.html#/s:14OpenGpxTracker27kGreenButtonBackgroundColorSo7UIColorCvp">kGreenButtonBackgroundColor</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Global Variables.html#/s:14OpenGpxTracker17kUnknownSpeedTextSSvp">kUnknownSpeedText</a>
+                <a href="../Global%20Variables.html#/s:14OpenGpxTracker028kKilometersPerHourInOneMeterE6SecondSdvp">kKilometersPerHourInOneMeterPerSecond</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Global Variables.html#/s:14OpenGpxTracker20kUseOfflineCacheCellSivp">kUseOfflineCacheCell</a>
+                <a href="../Global%20Variables.html#/s:14OpenGpxTracker17kMapSourceSectionSivp">kMapSourceSection</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Global Variables.html#/s:14OpenGpxTracker21kWhiteBackgroundColorSo7UIColorCvp">kWhiteBackgroundColor</a>
+                <a href="../Global%20Variables.html#/s:14OpenGpxTracker14kMetersPerFeetSdvp">kMetersPerFeet</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Global%20Variables.html#/s:14OpenGpxTracker19kMetersPerKilometerSdvp">kMetersPerKilometer</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Global%20Variables.html#/s:14OpenGpxTracker14kMetersPerMileSdvp">kMetersPerMile</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Global%20Variables.html#/s:14OpenGpxTracker023kMilesPerHourInOneMeterE6SecondSdvp">kMilesPerHourInOneMeterPerSecond</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Global%20Variables.html#/s:14OpenGpxTracker8kNoFilesSSvp">kNoFiles</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Global%20Variables.html#/s:14OpenGpxTracker23kNotGettingLocationTextSSvp">kNotGettingLocationText</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Global%20Variables.html#/s:14OpenGpxTracker28kPurpleButtonBackgroundColorSo7UIColorCvp">kPurpleButtonBackgroundColor</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Global%20Variables.html#/s:14OpenGpxTracker25kRedButtonBackgroundColorSo7UIColorCvp">kRedButtonBackgroundColor</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Global%20Variables.html#/s:14OpenGpxTracker16kSignalAccuracy1Sdvp">kSignalAccuracy1</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Global%20Variables.html#/s:14OpenGpxTracker16kSignalAccuracy2Sdvp">kSignalAccuracy2</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Global%20Variables.html#/s:14OpenGpxTracker16kSignalAccuracy3Sdvp">kSignalAccuracy3</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Global%20Variables.html#/s:14OpenGpxTracker16kSignalAccuracy4Sdvp">kSignalAccuracy4</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Global%20Variables.html#/s:14OpenGpxTracker16kSignalAccuracy5Sdvp">kSignalAccuracy5</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Global%20Variables.html#/s:14OpenGpxTracker16kSignalAccuracy6Sdvp">kSignalAccuracy6</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Global%20Variables.html#/s:14OpenGpxTracker13kUnitsSectionSivp">kUnitsSection</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Global%20Variables.html#/s:14OpenGpxTracker20kUnknownAccuracyTextSSvp">kUnknownAccuracyText</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Global%20Variables.html#/s:14OpenGpxTracker17kUnknownSpeedTextSSvp">kUnknownSpeedText</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Global%20Variables.html#/s:14OpenGpxTracker21kUseImperialUnitsCellSivp">kUseImperialUnitsCell</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Global%20Variables.html#/s:14OpenGpxTracker20kUseOfflineCacheCellSivp">kUseOfflineCacheCell</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Global%20Variables.html#/s:14OpenGpxTracker21kWhiteBackgroundColorSo7UIColorCvp">kWhiteBackgroundColor</a>
               </li>
             </ul>
           </li>
@@ -188,7 +295,13 @@
             <a href="../Extensions.html">Extensions</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
+                <a href="../Extensions/CLActivityType.html">CLActivityType</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Extensions/Date.html">Date</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/Double.html">Double</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Extensions/GPXRoot.html">GPXRoot</a>
@@ -208,6 +321,21 @@
               <li class="nav-group-task">
                 <a href="../Extensions/Int.html">Int</a>
               </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/MKMapView.html">MKMapView</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/Notification.html">Notification</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/Notification/Name.html">– Name</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/String.html">String</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/UIColor.html">UIColor</a>
+              </li>
             </ul>
           </li>
           <li class="nav-group-name">
@@ -224,6 +352,22 @@
               </li>
             </ul>
           </li>
+          <li class="nav-group-name">
+            <a href="../Structs.html">Structures</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Structs/DateField.html">DateField</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Typealiases.html">Type Aliases</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/GPXMapView">GPXMapView</a>
+              </li>
+            </ul>
+          </li>
         </ul>
       </nav>
       <article class="main-content">
@@ -232,6 +376,7 @@
             <h1>GPXTileServer</h1>
               <div class="declaration">
                 <div class="language">
+                  
                   <pre class="highlight swift"><code><span class="kd">enum</span> <span class="kt">GPXTileServer</span> <span class="p">:</span> <span class="kt">Int</span></code></pre>
 
                 </div>
@@ -269,6 +414,33 @@ on the interface and a URL template.</p>
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="k">case</span> <span class="n">apple</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14OpenGpxTracker13GPXTileServerO14appleSatelliteyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/appleSatellite" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14OpenGpxTracker13GPXTileServerO14appleSatelliteyA2CmF">appleSatellite</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Apple satellite tile server</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">appleSatellite</span></code></pre>
 
                         </div>
                       </div>
@@ -332,6 +504,87 @@ on the interface and a URL template.</p>
                 <li class="item">
                   <div>
                     <code>
+                    <a name="/s:14OpenGpxTracker13GPXTileServerO13cartoDBRetinayA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/cartoDBRetina" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14OpenGpxTracker13GPXTileServerO13cartoDBRetinayA2CmF">cartoDBRetina</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>CartoDB tile server (2x tiles)</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">cartoDBRetina</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14OpenGpxTracker13GPXTileServerO11openTopoMapyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/openTopoMap" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14OpenGpxTracker13GPXTileServerO11openTopoMapyA2CmF">openTopoMap</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>OpenTopoMap tile server</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">openTopoMap</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14OpenGpxTracker13GPXTileServerO10openSeaMapyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/openSeaMap" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14OpenGpxTracker13GPXTileServerO10openSeaMapyA2CmF">openSeaMap</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>OpenSeaMap tile server</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">openSeaMap</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
                     <a name="/s:14OpenGpxTracker13GPXTileServerO4nameSSvp"></a>
                     <a name="//apple_ref/swift/Property/name" class="dashAnchor"></a>
                     <a class="token" href="#/s:14OpenGpxTracker13GPXTileServerO4nameSSvp">name</a>
@@ -386,6 +639,193 @@ on the interface and a URL template.</p>
                 <li class="item">
                   <div>
                     <code>
+                    <a name="/s:14OpenGpxTracker13GPXTileServerO10subdomainsSaySSGvp"></a>
+                    <a name="//apple_ref/swift/Property/subdomains" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14OpenGpxTracker13GPXTileServerO10subdomainsSaySSGvp">subdomains</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>In the <code><a href="../Enums/GPXTileServer.html#/s:14OpenGpxTracker13GPXTileServerO11templateUrlSSvp">templateUrl</a></code> the {s} means subdomain, typically the subdomains available are a,b and c
+Check the subdomains available for your server.</p>
+
+<p>Set an empty array (<code>[]</code>) in case you don&rsquo;t use <code>{s}</code> in your <code><a href="../Enums/GPXTileServer.html#/s:14OpenGpxTracker13GPXTileServerO11templateUrlSSvp">templateUrl</a></code>.</p>
+
+<p>Subdomains is useful to distribute the tile request download among the diferent servers
+and displaying them faster as result.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">subdomains</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">]</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14OpenGpxTracker13GPXTileServerO8maximumZSivp"></a>
+                    <a name="//apple_ref/swift/Property/maximumZ" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14OpenGpxTracker13GPXTileServerO8maximumZSivp">maximumZ</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Maximum zoom level the tile server supports
+Tile servers provide files till a certain level of zoom that ranges from 0 to maximumZ.
+If map zooms more than the limit level, tiles won&rsquo;t be requested.</p>
+
+<p>Typically the value is around 19,20 or 21.</p>
+
+<p>Use negative to avoid setting a limit.</p>
+<div class="aside aside-see">
+    <p class="aside-title">See</p>
+    see <a href="https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames#Tile_servers">https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames#Tile_servers</a>
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">maximumZ</span><span class="p">:</span> <span class="kt">Int</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14OpenGpxTracker13GPXTileServerO8minimumZSivp"></a>
+                    <a name="//apple_ref/swift/Property/minimumZ" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14OpenGpxTracker13GPXTileServerO8minimumZSivp">minimumZ</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Minimum zoom supported by the tile server</p>
+
+<p>This limits the tiles requested based on current zoom level.
+No tiles will be requested for zooms levels lower that this.</p>
+
+<p>Needs to be 0 or larger.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">minimumZ</span><span class="p">:</span> <span class="kt">Int</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14OpenGpxTracker13GPXTileServerO20canReplaceMapContentSbvp"></a>
+                    <a name="//apple_ref/swift/Property/canReplaceMapContent" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14OpenGpxTracker13GPXTileServerO20canReplaceMapContentSbvp">canReplaceMapContent</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Does the tile overlay replace the map?
+ Generally all the tiles provided replace the AppleMaps. However there are some</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">canReplaceMapContent</span><span class="p">:</span> <span class="kt">Bool</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14OpenGpxTracker13GPXTileServerO8tileSizeSivp"></a>
+                    <a name="//apple_ref/swift/Property/tileSize" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14OpenGpxTracker13GPXTileServerO8tileSizeSivp">tileSize</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>tile size of the third-party tile.</p>
+
+<p>1x tiles are 256x256
+2x/retina tiles are 512x512</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">tileSize</span><span class="p">:</span> <span class="kt">Int</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14OpenGpxTracker13GPXTileServerO17needForceDarkModeSbvp"></a>
+                    <a name="//apple_ref/swift/Property/needForceDarkMode" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14OpenGpxTracker13GPXTileServerO17needForceDarkModeSbvp">needForceDarkMode</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">needForceDarkMode</span><span class="p">:</span> <span class="kt">Bool</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
                     <a name="/s:14OpenGpxTracker13GPXTileServerO5countSivpZ"></a>
                     <a name="//apple_ref/swift/Variable/count" class="dashAnchor"></a>
                     <a class="token" href="#/s:14OpenGpxTracker13GPXTileServerO5countSivpZ">count</a>
@@ -415,11 +855,10 @@ on the interface and a URL template.</p>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2019 <a class="link" href="https://github.com/merlos/iOS-Open-GPX-Tracker" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2019-05-03)</p>
-          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.6</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+          <p>&copy; 2023 <a class="link" href="https://github.com/merlos/iOS-Open-GPX-Tracker" target="_blank" rel="external noopener"></a>. All rights reserved. (Last updated: 2023-05-28)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.14.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
         </section>
       </article>
     </div>
   </body>
-</div>
 </html>

@@ -8,19 +8,27 @@
     <script src="js/jquery.min.js" defer></script>
     <script src="js/jazzy.js" defer></script>
     
+    <script src="js/lunr.min.js" defer></script>
+    <script src="js/typeahead.jquery.js" defer></script>
+    <script src="js/jazzy.search.js" defer></script>
   </head>
   <body>
     <a title="  Reference"></a>
     <header>
       <div class="content-wrapper">
         <p><a href="index.html"> Docs</a> (100% documented)</p>
-        <p class="header-right"><a href="https://github.com/merlos/iOS-Open-GPX-Tracker"><img src="img/gh.png"/>View on GitHub</a></p>
+        <p class="header-right"><a href="https://github.com/merlos/iOS-Open-GPX-Tracker"><img src="img/gh.png" alt="GitHub"/>View on GitHub</a></p>
+        <div class="header-right">
+          <form role="search" action="search.json">
+            <input type="text" placeholder="Search documentation" data-typeahead>
+          </form>
+        </div>
       </div>
     </header>
     <div class="content-wrapper">
       <p id="breadcrumbs">
         <a href="index.html"> Reference</a>
-        <img id="carat" src="img/carat.png" />
+        <img id="carat" src="img/carat.png" alt=""/>
           Reference
       </p>
     </div>
@@ -37,7 +45,34 @@
                 <a href="Classes/AppDelegate.html">AppDelegate</a>
               </li>
               <li class="nav-group-task">
-                <a href="Classes/CachedTileOverlay.html">CachedTileOverlay</a>
+                <a href="Classes/CDRoot.html">CDRoot</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/CDTrackpoint.html">CDTrackpoint</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/CDWaypoint.html">CDWaypoint</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/CoreDataHelper.html">CoreDataHelper</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/DateFieldTypeView.html">DateFieldTypeView</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/DatePatternButton.html">DatePatternButton</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/DefaultDateFormat.html">DefaultDateFormat</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/DefaultNameSetupViewController.html">DefaultNameSetupViewController</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/DefaultNameSetupViewController/Sections.html">– Sections</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/DistanceLabel.html">DistanceLabel</a>
               </li>
               <li class="nav-group-task">
                 <a href="Classes/GPXExtentCoordinates.html">GPXExtentCoordinates</a>
@@ -55,7 +90,13 @@
                 <a href="Classes/GPXMapView.html">GPXMapView</a>
               </li>
               <li class="nav-group-task">
+                <a href="Classes/GPXSession.html">GPXSession</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="Classes/MapViewDelegate.html">MapViewDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/Preferences.html">Preferences</a>
               </li>
               <li class="nav-group-task">
                 <a href="Classes/PreferencesTableViewController.html">PreferencesTableViewController</a>
@@ -64,10 +105,19 @@
                 <a href="Classes/StopWatch.html">StopWatch</a>
               </li>
               <li class="nav-group-task">
+                <a href="Classes/Toast.html">Toast</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/Toast/Position.html">– Position</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/ToastLabel.html">ToastLabel</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="Classes/TrackerButton.html">TrackerButton</a>
               </li>
               <li class="nav-group-task">
-                <a href="Classes/UIDistanceLabel.html">UIDistanceLabel</a>
+                <a href="Classes/UIInsetLabel.html">UIInsetLabel</a>
               </li>
               <li class="nav-group-task">
                 <a href="Classes/ViewController.html">ViewController</a>
@@ -78,97 +128,154 @@
             </ul>
           </li>
           <li class="nav-group-name">
-            <a href="Global Variables.html">Global Variables</a>
+            <a href="Global%20Variables.html">Global Variables</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a href="Global Variables.html#/s:14OpenGpxTracker26kBlueButtonBackgroundColorSo7UIColorCvp">kBlueButtonBackgroundColor</a>
+                <a href="Global%20Variables.html#/s:14OpenGpxTracker20kActivityTypeSectionSivp">kActivityTypeSection</a>
               </li>
               <li class="nav-group-task">
-                <a href="Global Variables.html#/s:14OpenGpxTracker16kButtonLargeSize12CoreGraphics7CGFloatVvp">kButtonLargeSize</a>
+                <a href="Global%20Variables.html#/s:14OpenGpxTracker26kBlueButtonBackgroundColorSo7UIColorCvp">kBlueButtonBackgroundColor</a>
               </li>
               <li class="nav-group-task">
-                <a href="Global Variables.html#/s:14OpenGpxTracker17kButtonSeparation12CoreGraphics7CGFloatVvp">kButtonSeparation</a>
+                <a href="Global%20Variables.html#/s:14OpenGpxTracker16kButtonLargeSize14CoreFoundation7CGFloatVvp">kButtonLargeSize</a>
               </li>
               <li class="nav-group-task">
-                <a href="Global Variables.html#/s:14OpenGpxTracker16kButtonSmallSize12CoreGraphics7CGFloatVvp">kButtonSmallSize</a>
+                <a href="Global%20Variables.html#/s:14OpenGpxTracker17kButtonSeparation14CoreFoundation7CGFloatVvp">kButtonSeparation</a>
               </li>
               <li class="nav-group-task">
-                <a href="Global Variables.html#/s:14OpenGpxTracker13kCacheSectionSivp">kCacheSection</a>
+                <a href="Global%20Variables.html#/s:14OpenGpxTracker16kButtonSmallSize14CoreFoundation7CGFloatVvp">kButtonSmallSize</a>
               </li>
               <li class="nav-group-task">
-                <a href="Global Variables.html#/s:14OpenGpxTracker15kClearCacheCellSivp">kClearCacheCell</a>
+                <a href="Global%20Variables.html#/s:14OpenGpxTracker13kCacheSectionSivp">kCacheSection</a>
               </li>
               <li class="nav-group-task">
-                <a href="Global Variables.html#/s:14OpenGpxTracker25kDefaultsKeyTileServerIntSSvp">kDefaultsKeyTileServerInt</a>
+                <a href="Global%20Variables.html#/s:14OpenGpxTracker15kClearCacheCellSivp">kClearCacheCell</a>
               </li>
               <li class="nav-group-task">
-                <a href="Global Variables.html#/s:14OpenGpxTracker20kDefaultsKeyUseCacheSSvp">kDefaultsKeyUseCache</a>
+                <a href="Global%20Variables.html#/s:14OpenGpxTracker19kDefaultNameSectionSivp">kDefaultNameSection</a>
               </li>
               <li class="nav-group-task">
-                <a href="Global Variables.html#/s:14OpenGpxTracker32kDeleteWaypointAccesoryButtonTagSivp">kDeleteWaypointAccesoryButtonTag</a>
+                <a href="Global%20Variables.html#/s:14OpenGpxTracker24kDefaultsKeyActivityTypeSSvp">kDefaultsKeyActivityType</a>
               </li>
               <li class="nav-group-task">
-                <a href="Global Variables.html#/s:14OpenGpxTracker34kDisabledBlueButtonBackgroundColorSo7UIColorCvp">kDisabledBlueButtonBackgroundColor</a>
+                <a href="Global%20Variables.html#/s:14OpenGpxTracker22kDefaultsKeyDateFormatSSvp">kDefaultsKeyDateFormat</a>
               </li>
               <li class="nav-group-task">
-                <a href="Global Variables.html#/s:14OpenGpxTracker33kDisabledRedButtonBackgroundColorSo7UIColorCvp">kDisabledRedButtonBackgroundColor</a>
+                <a href="Global%20Variables.html#/s:14OpenGpxTracker27kDefaultsKeyDateFormatInputSSvp">kDefaultsKeyDateFormatInput</a>
               </li>
               <li class="nav-group-task">
-                <a href="Global Variables.html#/s:14OpenGpxTracker30kEditWaypointAccesoryButtonTagSivp">kEditWaypointAccesoryButtonTag</a>
+                <a href="Global%20Variables.html#/s:14OpenGpxTracker28kDefaultsKeyDateFormatPresetSSvp">kDefaultsKeyDateFormatPreset</a>
               </li>
               <li class="nav-group-task">
-                <a href="Global Variables.html#/s:14OpenGpxTracker8kFileExtSSvp">kFileExt</a>
+                <a href="Global%20Variables.html#/s:14OpenGpxTracker27kDefaultsKeyDateFormatUseENSSvp">kDefaultsKeyDateFormatUseEN</a>
               </li>
               <li class="nav-group-task">
-                <a href="Global Variables.html#/s:14OpenGpxTracker17kGPXCreatorStringSSvp">kGPXCreatorString</a>
+                <a href="Global%20Variables.html#/s:14OpenGpxTracker28kDefaultsKeyDateFormatUseUTCSSvp">kDefaultsKeyDateFormatUseUTC</a>
               </li>
               <li class="nav-group-task">
-                <a href="Global Variables.html#/s:14OpenGpxTracker27kGreenButtonBackgroundColorSo7UIColorCvp">kGreenButtonBackgroundColor</a>
+                <a href="Global%20Variables.html#/s:14OpenGpxTracker26kDefaultsKeyGPXFilesFolderSSvp">kDefaultsKeyGPXFilesFolder</a>
               </li>
               <li class="nav-group-task">
-                <a href="Global Variables.html#/s:14OpenGpxTracker17kMapSourceSectionSivp">kMapSourceSection</a>
+                <a href="Global%20Variables.html#/s:14OpenGpxTracker25kDefaultsKeyTileServerIntSSvp">kDefaultsKeyTileServerInt</a>
               </li>
               <li class="nav-group-task">
-                <a href="Global Variables.html#/s:14OpenGpxTracker8kNoFilesSSvp">kNoFiles</a>
+                <a href="Global%20Variables.html#/s:14OpenGpxTracker20kDefaultsKeyUseCacheSSvp">kDefaultsKeyUseCache</a>
               </li>
               <li class="nav-group-task">
-                <a href="Global Variables.html#/s:14OpenGpxTracker23kNotGettingLocationTextSSvp">kNotGettingLocationText</a>
+                <a href="Global%20Variables.html#/s:14OpenGpxTracker23kDefaultsKeyUseImperialSSvp">kDefaultsKeyUseImperial</a>
               </li>
               <li class="nav-group-task">
-                <a href="Global Variables.html#/s:14OpenGpxTracker28kPurpleButtonBackgroundColorSo7UIColorCvp">kPurpleButtonBackgroundColor</a>
+                <a href="Global%20Variables.html#/s:14OpenGpxTracker32kDeleteWaypointAccesoryButtonTagSivp">kDeleteWaypointAccesoryButtonTag</a>
               </li>
               <li class="nav-group-task">
-                <a href="Global Variables.html#/s:14OpenGpxTracker25kRedButtonBackgroundColorSo7UIColorCvp">kRedButtonBackgroundColor</a>
+                <a href="Global%20Variables.html#/s:14OpenGpxTracker34kDisabledBlueButtonBackgroundColorSo7UIColorCvp">kDisabledBlueButtonBackgroundColor</a>
               </li>
               <li class="nav-group-task">
-                <a href="Global Variables.html#/s:14OpenGpxTracker16kSignalAccuracy1Sdvp">kSignalAccuracy1</a>
+                <a href="Global%20Variables.html#/s:14OpenGpxTracker33kDisabledRedButtonBackgroundColorSo7UIColorCvp">kDisabledRedButtonBackgroundColor</a>
               </li>
               <li class="nav-group-task">
-                <a href="Global Variables.html#/s:14OpenGpxTracker16kSignalAccuracy2Sdvp">kSignalAccuracy2</a>
+                <a href="Global%20Variables.html#/s:14OpenGpxTracker30kEditWaypointAccesoryButtonTagSivp">kEditWaypointAccesoryButtonTag</a>
               </li>
               <li class="nav-group-task">
-                <a href="Global Variables.html#/s:14OpenGpxTracker16kSignalAccuracy3Sdvp">kSignalAccuracy3</a>
+                <a href="Global%20Variables.html#/s:14OpenGpxTracker8kFileExtSaySSGvp">kFileExt</a>
               </li>
               <li class="nav-group-task">
-                <a href="Global Variables.html#/s:14OpenGpxTracker16kSignalAccuracy4Sdvp">kSignalAccuracy4</a>
+                <a href="Global%20Variables.html#/kGPXCreatorString">kGPXCreatorString</a>
               </li>
               <li class="nav-group-task">
-                <a href="Global Variables.html#/s:14OpenGpxTracker16kSignalAccuracy5Sdvp">kSignalAccuracy5</a>
+                <a href="Global%20Variables.html#/s:14OpenGpxTracker17kGPXCreatorStringSSvp">kGPXCreatorString</a>
               </li>
               <li class="nav-group-task">
-                <a href="Global Variables.html#/s:14OpenGpxTracker16kSignalAccuracy6Sdvp">kSignalAccuracy6</a>
+                <a href="Global%20Variables.html#/s:14OpenGpxTracker24kGPXFilesLocationSectionSivp">kGPXFilesLocationSection</a>
               </li>
               <li class="nav-group-task">
-                <a href="Global Variables.html#/s:14OpenGpxTracker20kUnknownAccuracyTextSSvp">kUnknownAccuracyText</a>
+                <a href="Global%20Variables.html#/s:14OpenGpxTracker27kGreenButtonBackgroundColorSo7UIColorCvp">kGreenButtonBackgroundColor</a>
               </li>
               <li class="nav-group-task">
-                <a href="Global Variables.html#/s:14OpenGpxTracker17kUnknownSpeedTextSSvp">kUnknownSpeedText</a>
+                <a href="Global%20Variables.html#/s:14OpenGpxTracker028kKilometersPerHourInOneMeterE6SecondSdvp">kKilometersPerHourInOneMeterPerSecond</a>
               </li>
               <li class="nav-group-task">
-                <a href="Global Variables.html#/s:14OpenGpxTracker20kUseOfflineCacheCellSivp">kUseOfflineCacheCell</a>
+                <a href="Global%20Variables.html#/s:14OpenGpxTracker17kMapSourceSectionSivp">kMapSourceSection</a>
               </li>
               <li class="nav-group-task">
-                <a href="Global Variables.html#/s:14OpenGpxTracker21kWhiteBackgroundColorSo7UIColorCvp">kWhiteBackgroundColor</a>
+                <a href="Global%20Variables.html#/s:14OpenGpxTracker14kMetersPerFeetSdvp">kMetersPerFeet</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Global%20Variables.html#/s:14OpenGpxTracker19kMetersPerKilometerSdvp">kMetersPerKilometer</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Global%20Variables.html#/s:14OpenGpxTracker14kMetersPerMileSdvp">kMetersPerMile</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Global%20Variables.html#/s:14OpenGpxTracker023kMilesPerHourInOneMeterE6SecondSdvp">kMilesPerHourInOneMeterPerSecond</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Global%20Variables.html#/s:14OpenGpxTracker8kNoFilesSSvp">kNoFiles</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Global%20Variables.html#/s:14OpenGpxTracker23kNotGettingLocationTextSSvp">kNotGettingLocationText</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Global%20Variables.html#/s:14OpenGpxTracker28kPurpleButtonBackgroundColorSo7UIColorCvp">kPurpleButtonBackgroundColor</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Global%20Variables.html#/s:14OpenGpxTracker25kRedButtonBackgroundColorSo7UIColorCvp">kRedButtonBackgroundColor</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Global%20Variables.html#/s:14OpenGpxTracker16kSignalAccuracy1Sdvp">kSignalAccuracy1</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Global%20Variables.html#/s:14OpenGpxTracker16kSignalAccuracy2Sdvp">kSignalAccuracy2</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Global%20Variables.html#/s:14OpenGpxTracker16kSignalAccuracy3Sdvp">kSignalAccuracy3</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Global%20Variables.html#/s:14OpenGpxTracker16kSignalAccuracy4Sdvp">kSignalAccuracy4</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Global%20Variables.html#/s:14OpenGpxTracker16kSignalAccuracy5Sdvp">kSignalAccuracy5</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Global%20Variables.html#/s:14OpenGpxTracker16kSignalAccuracy6Sdvp">kSignalAccuracy6</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Global%20Variables.html#/s:14OpenGpxTracker13kUnitsSectionSivp">kUnitsSection</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Global%20Variables.html#/s:14OpenGpxTracker20kUnknownAccuracyTextSSvp">kUnknownAccuracyText</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Global%20Variables.html#/s:14OpenGpxTracker17kUnknownSpeedTextSSvp">kUnknownSpeedText</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Global%20Variables.html#/s:14OpenGpxTracker21kUseImperialUnitsCellSivp">kUseImperialUnitsCell</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Global%20Variables.html#/s:14OpenGpxTracker20kUseOfflineCacheCellSivp">kUseOfflineCacheCell</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Global%20Variables.html#/s:14OpenGpxTracker21kWhiteBackgroundColorSo7UIColorCvp">kWhiteBackgroundColor</a>
               </li>
             </ul>
           </li>
@@ -187,7 +294,13 @@
             <a href="Extensions.html">Extensions</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
+                <a href="Extensions/CLActivityType.html">CLActivityType</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="Extensions/Date.html">Date</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Extensions/Double.html">Double</a>
               </li>
               <li class="nav-group-task">
                 <a href="Extensions/GPXRoot.html">GPXRoot</a>
@@ -207,6 +320,21 @@
               <li class="nav-group-task">
                 <a href="Extensions/Int.html">Int</a>
               </li>
+              <li class="nav-group-task">
+                <a href="Extensions/MKMapView.html">MKMapView</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Extensions/Notification.html">Notification</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Extensions/Notification/Name.html">– Name</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Extensions/String.html">String</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Extensions/UIColor.html">UIColor</a>
+              </li>
             </ul>
           </li>
           <li class="nav-group-name">
@@ -223,6 +351,22 @@
               </li>
             </ul>
           </li>
+          <li class="nav-group-name">
+            <a href="Structs.html">Structures</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Structs/DateField.html">DateField</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="Typealiases.html">Type Aliases</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Typealiases.html#/GPXMapView">GPXMapView</a>
+              </li>
+            </ul>
+          </li>
         </ul>
       </nav>
       <article class="main-content">
@@ -235,11 +379,13 @@
 
 <p>Open GPX Tracker is a GPS logger for iOS (iPhone, iPad, iPod) with offline map cache support. Track your location, add waypoints and send your logs by email as GPX files.</p>
 
-<p>This app has no annoying time restrictions, no ads and no in-app-purchases. Create unlimited GPX traces :).</p>
+<p>This app has no annoying time restrictions, no ads and no in-app-purchases. You can create unlimited GPX traces :).</p>
 
-<p>If you are goint to track without Internet&hellip; don&rsquo;t worry! Just browse the area where you&rsquo;ll be tracking and it will be cached.</p>
+<p>If you are goint to track without Internet&hellip; don&rsquo;t worry! Before you go offline, browse the area where you&rsquo;ll be tracking and it will be cached and available offline.</p>
 
-<p>Requires iOS 9.0 or above. Open GPX tracker is an open source app.</p>
+<p>We care about your privacy, all the data recorded using the application is kept in your phone (or in your iCloud), wherever you store it. The app does not share any GPS data with us or any other 3rd pary. For more information see the <a href="https://github.com/merlos/iOS-Open-GPX-Tracker/wiki/Privacy-Policy">Privacy Policy</a></p>
+
+<p>Requires iOS 11.0 or above. Open GPX tracker is an open source app.</p>
 
 <p><img src="https://merlos.github.io/iOS-Open-GPX-Tracker/images/open-gpx-tracker-4-screenshots.png" alt="GPS Tracker logs"></p>
 
@@ -248,13 +394,14 @@
 <ul>
 <li>Creating routes and waypoints for editing Open Street Map.</li>
 <li>Publishing Open Street Map Traces.</li>
-<li>Creating real GPX files for testing your iOS apps in Xcode.</li>
+<li><a href="https://medium.com/@merlos/how-to-simulate-locations-in-xcode-b0f7f16e126d">Creating GPX files for testing your iOS apps in Xcode</a>.</li>
+<li>Use it as GPS companion when you take pictures with your reflex camera.</li>
 </ul>
-<h1 id='main-features' class='heading'>Main Features</h1>
+<h2 id='main-features' class='heading'>Main Features</h2>
 
 <ul>
 <li>Displays tracking route in a map</li>
-<li>Supports Apple Map Kit, <a href="http://wiki.openstreetmap.org/wiki/Tile_usage_policy">Open Street Map</a> and <a href="http://www.cartodb.com">Carto DB</a> as map sources</li>
+<li>Supports Apple Map Kit, <a href="http://wiki.openstreetmap.org/wiki/Tile_usage_policy">Open Street Map</a>, and <a href="http://www.cartodb.com">Carto DB</a> as map sources</li>
 <li>Offline maps support (of browsed areas)</li>
 <li>Pause / Resume tracking</li>
 <li>Add waypoint to user location</li>
@@ -266,7 +413,7 @@
 <li>Displays current location and altitude</li>
 <li>Displays tracked time</li>
 <li>Displays user heading (device orientation)</li>
-<li>Displays location accuracy (in meters)</li>
+<li>Displays location accuracy</li>
 <li>Displays tracked distance (total and current segment)</li>
 <li>GPX files can be imported from any other app using the share option</li>
 <li>Share GPX files with other apps</li>
@@ -277,9 +424,11 @@
 <li>Offline cache On/Off</li>
 <li>Clear cache</li>
 <li>Select the map server.</li>
+<li>Darkmode</li>
+<li>Multi-language support (thanks to volunteers): German, English, Spanish, Finnish, French, Italian, Dutch, Portuguese (Brazil), Russian, Ukranian Chinese (simplified)</li>
 </ul></li>
 </ul>
-<h2 id='apple-watch-features-since-v1-6-0' class='heading'>Apple Watch Features (since v1.6.0 )</h2>
+<h3 id='apple-watch-features-since-1-6-0' class='heading'>Apple Watch Features (since 1.6.0)</h3>
 
 <ul>
 <li>Create GPX Files on your Apple Watch</li>
@@ -290,12 +439,15 @@
 <li>Display GPS Signal strength</li>
 <li>View current location information (speed, latitude, longitude, altitude)</li>
 </ul>
-<h1 id='install' class='heading'>Install</h1>
+<h2 id='install' class='heading'>Install</h2>
 
-<p>The app is <a href="https://itunes.apple.com/app/open-gpx-tracker/id984503772">available on the App Store</a> since May 2015.</p>
+<p>The app is <a href="https://itunes.apple.com/app/open-gpx-tracker/id984503772">available on the App Store</a>, available since May 2015.</p>
 
-<p>Another option to install the app is to download the source code and compile it by yourself using Xcode. If you want to run it on a device, you also need an Apple developer account.</p>
-<h1 id='download-source-code' class='heading'>Download Source code</h1>
+<p>Another option to install the app is to download the source code and compile it by yourself using <a href="https://developer.apple.com/xcode/">Xcode</a> and the iOS simulator. If you want to run it on a iOS device, you also need an Apple developer account.</p>
+<h2 id='translate-open-gpx-tracker' class='heading'>Translate Open GPX Tracker</h2>
+
+<p>Open GPX tracker supports language translations (since 1.7.0). <a href="https://github.com/merlos/iOS-Open-GPX-Tracker/wiki/How-to-translate-Open-GPX-Tracker-into-my-language">See list of supported languages and how to translate the app into your language</a>.</p>
+<h2 id='development' class='heading'>Development</h2>
 
 <p>This application is written in Swift. To download the code run this command in a console:</p>
 <pre class="highlight plaintext"><code> git clone https://github.com/merlos/iOS-Open-GPX-Tracker.git
@@ -303,27 +455,49 @@
 
 <p>Then, to test it open the file <code>OpenGpxTracker.xcworkspace</code> with XCode.</p>
 
+<p>Although the application uses some Cocoapods, all the pods are already included in our repo. So no need to run <code>pod install</code>.</p>
+
 <p>Please note the <a href="http://wiki.openstreetmap.org/wiki/Tile_usage_policy">limitations of using Open Street Maps Tile Servers</a></p>
-<h3 id='adding-another-tile-server' class='heading'>Adding another tile server</h3>
+<h3 id='add-a-custom-tile-server' class='heading'>Add a custom tile server</h3>
 
 <p>Adding a tile server is easy, just edit the file <code>GPXTileServer.swift</code>, uncomment the lines with <code>AnotherMap</code> and modify the templateUrl to point to the new tile server.</p>
 
 <p>You have a list of tile servers in <a href="http://wiki.openstreetmap.org/wiki/Tile_servers">Open Street Map Wiki</a></p>
-<h1 id='reference-documentation' class='heading'>Reference documentation</h1>
+<h2 id='reference-documentation' class='heading'>Reference documentation</h2>
 
 <p>The application is being documented using <a href="https://github.com/realm/jazzy">jazzy</a> and following <a href="https://nshipster.com/swift-documentation/">NSHipster tutorial on swift documentation</a>.</p>
 
 <p><img src="https://www.merlos.org/iOS-Open-GPX-Tracker/docs/badge.svg" alt="Documentation Status"></p>
 
-<p><a href="https://www.merlos.org/iOS-Open-GPX-Tracker/docs/index.html">Read Source code documentation</a></p>
-<h1 id='contribute' class='heading'>Contribute</h1>
+<p><strong><a href="https://www.merlos.org/iOS-Open-GPX-Tracker/docs/index.html">Read Source code documentation</a></strong></p>
+<h2 id='contribute' class='heading'>Contribute</h2>
 
-<p>You can contribute by forking and submitting a pull request.</p>
+<p>You can contribute by forking and submitting a pull request (PR).</p>
 
-<p>Please note that by submitting any pull request you are providing me (Juan M. Merlos) the rights to include and distribute those changes also on the binary app published on the App Store (which is released under Apple&rsquo;s Standard License Agreement)</p>
-<h1 id='license' class='heading'>License</h1>
+<p>Some conditions for a PR to be accepted:</p>
 
-<p>Open GPX Tracker app for iOS.  Copyright &copy; 2014  Juan M. Merlos (@merlos)</p>
+<p>1) Text displayed in the application shall be internationalized.</p>
+
+<ul>
+<li>To do that use <code>NSLocalizedString</code>. Search on the code to see examples of usage.</li>
+<li>Add the localized string in all the lproj files in the same position. Use ChatGPT or DeepL to translate them to other languages.
+2) You need to install <a href="https://github.com/realm/SwiftLint">swiftlint</a> and ensure you&rsquo;re not introducing additional lint warnings.
+3) You need to document the classes and methods that you create explaining what do they do from a blackbox perspective. We use <a href="https://github.com/realm/jazzy">jazzy</a> for the documentation. To install jazzy run:
+<code>shell
+gem install jazzy
+</code>
+Then, to view the documentation run 
+<code>shell
+jazzy
+</code>
+<strong>Note that it will generate the documents in the <code>../gh-pages/docs</code>.</strong></li>
+</ul>
+
+<p><strong>PR License</strong> 
+Please note that though the source code is licensed under GPL 3.0 by submitting a pull request you are also providing me (Juan M. Merlos) the rights to distribute those changes also on the binary app published on the App Store (which is released under Apple&rsquo;s Standard License Agreement)</p>
+<h2 id='license' class='heading'>License</h2>
+
+<p>Open GPX Tracker app for iOS. Copyright &copy; 2014  Juan M. Merlos (@merlos) &amp; Contributors</p>
 
 <p>This program is free software: you can redistribute it and/or modify
 it under the terms of the <strong>GNU General Public License</strong> as published by
@@ -352,14 +526,19 @@ along with this program.  If not, see <a href="http://www.gnu.org/licenses/">htt
 
 <p>Entry on the <a href="https://wiki.openstreetmap.org/wiki/OpenGpxTracker">Open Street Maps Wiki</a></p>
 
+<p>See also:</p>
+
+<ul>
+<li><a href="https://github.com/vincentneo/Avenue-GPX-Viewer">Avenue GPX Viewer</a>, a GPX viewer based on some of the codes used in this project. A side project by collaborator <a href="http://github.com/vincentneo">@vincentneo</a>.</li>
+</ul>
+
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2019 <a class="link" href="https://github.com/merlos/iOS-Open-GPX-Tracker" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2019-05-03)</p>
-          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.6</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+          <p>&copy; 2023 <a class="link" href="https://github.com/merlos/iOS-Open-GPX-Tracker" target="_blank" rel="external noopener"></a>. All rights reserved. (Last updated: 2023-05-28)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.14.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
         </section>
       </article>
     </div>
   </body>
-</div>
 </html>

@@ -8,6 +8,9 @@
     <script src="../js/jquery.min.js" defer></script>
     <script src="../js/jazzy.js" defer></script>
     
+    <script src="../js/lunr.min.js" defer></script>
+    <script src="../js/typeahead.jquery.js" defer></script>
+    <script src="../js/jazzy.search.js" defer></script>
   </head>
   <body>
     <a name="//apple_ref/swift/Class/GPXFilesTableViewController" class="dashAnchor"></a>
@@ -15,13 +18,18 @@
     <header>
       <div class="content-wrapper">
         <p><a href="../index.html"> Docs</a> (100% documented)</p>
-        <p class="header-right"><a href="https://github.com/merlos/iOS-Open-GPX-Tracker"><img src="../img/gh.png"/>View on GitHub</a></p>
+        <p class="header-right"><a href="https://github.com/merlos/iOS-Open-GPX-Tracker"><img src="../img/gh.png" alt="GitHub"/>View on GitHub</a></p>
+        <div class="header-right">
+          <form role="search" action="../search.json">
+            <input type="text" placeholder="Search documentation" data-typeahead>
+          </form>
+        </div>
       </div>
     </header>
     <div class="content-wrapper">
       <p id="breadcrumbs">
         <a href="../index.html"> Reference</a>
-        <img id="carat" src="../img/carat.png" />
+        <img id="carat" src="../img/carat.png" alt=""/>
         GPXFilesTableViewController Class Reference
       </p>
     </div>
@@ -38,7 +46,34 @@
                 <a href="../Classes/AppDelegate.html">AppDelegate</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Classes/CachedTileOverlay.html">CachedTileOverlay</a>
+                <a href="../Classes/CDRoot.html">CDRoot</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/CDTrackpoint.html">CDTrackpoint</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/CDWaypoint.html">CDWaypoint</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/CoreDataHelper.html">CoreDataHelper</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/DateFieldTypeView.html">DateFieldTypeView</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/DatePatternButton.html">DatePatternButton</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/DefaultDateFormat.html">DefaultDateFormat</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/DefaultNameSetupViewController.html">DefaultNameSetupViewController</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/DefaultNameSetupViewController/Sections.html">– Sections</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/DistanceLabel.html">DistanceLabel</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Classes/GPXExtentCoordinates.html">GPXExtentCoordinates</a>
@@ -56,7 +91,13 @@
                 <a href="../Classes/GPXMapView.html">GPXMapView</a>
               </li>
               <li class="nav-group-task">
+                <a href="../Classes/GPXSession.html">GPXSession</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Classes/MapViewDelegate.html">MapViewDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Preferences.html">Preferences</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Classes/PreferencesTableViewController.html">PreferencesTableViewController</a>
@@ -65,10 +106,19 @@
                 <a href="../Classes/StopWatch.html">StopWatch</a>
               </li>
               <li class="nav-group-task">
+                <a href="../Classes/Toast.html">Toast</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Toast/Position.html">– Position</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ToastLabel.html">ToastLabel</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Classes/TrackerButton.html">TrackerButton</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Classes/UIDistanceLabel.html">UIDistanceLabel</a>
+                <a href="../Classes/UIInsetLabel.html">UIInsetLabel</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Classes/ViewController.html">ViewController</a>
@@ -79,97 +129,154 @@
             </ul>
           </li>
           <li class="nav-group-name">
-            <a href="../Global Variables.html">Global Variables</a>
+            <a href="../Global%20Variables.html">Global Variables</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a href="../Global Variables.html#/s:14OpenGpxTracker26kBlueButtonBackgroundColorSo7UIColorCvp">kBlueButtonBackgroundColor</a>
+                <a href="../Global%20Variables.html#/s:14OpenGpxTracker20kActivityTypeSectionSivp">kActivityTypeSection</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Global Variables.html#/s:14OpenGpxTracker16kButtonLargeSize12CoreGraphics7CGFloatVvp">kButtonLargeSize</a>
+                <a href="../Global%20Variables.html#/s:14OpenGpxTracker26kBlueButtonBackgroundColorSo7UIColorCvp">kBlueButtonBackgroundColor</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Global Variables.html#/s:14OpenGpxTracker17kButtonSeparation12CoreGraphics7CGFloatVvp">kButtonSeparation</a>
+                <a href="../Global%20Variables.html#/s:14OpenGpxTracker16kButtonLargeSize14CoreFoundation7CGFloatVvp">kButtonLargeSize</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Global Variables.html#/s:14OpenGpxTracker16kButtonSmallSize12CoreGraphics7CGFloatVvp">kButtonSmallSize</a>
+                <a href="../Global%20Variables.html#/s:14OpenGpxTracker17kButtonSeparation14CoreFoundation7CGFloatVvp">kButtonSeparation</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Global Variables.html#/s:14OpenGpxTracker13kCacheSectionSivp">kCacheSection</a>
+                <a href="../Global%20Variables.html#/s:14OpenGpxTracker16kButtonSmallSize14CoreFoundation7CGFloatVvp">kButtonSmallSize</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Global Variables.html#/s:14OpenGpxTracker15kClearCacheCellSivp">kClearCacheCell</a>
+                <a href="../Global%20Variables.html#/s:14OpenGpxTracker13kCacheSectionSivp">kCacheSection</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Global Variables.html#/s:14OpenGpxTracker25kDefaultsKeyTileServerIntSSvp">kDefaultsKeyTileServerInt</a>
+                <a href="../Global%20Variables.html#/s:14OpenGpxTracker15kClearCacheCellSivp">kClearCacheCell</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Global Variables.html#/s:14OpenGpxTracker20kDefaultsKeyUseCacheSSvp">kDefaultsKeyUseCache</a>
+                <a href="../Global%20Variables.html#/s:14OpenGpxTracker19kDefaultNameSectionSivp">kDefaultNameSection</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Global Variables.html#/s:14OpenGpxTracker32kDeleteWaypointAccesoryButtonTagSivp">kDeleteWaypointAccesoryButtonTag</a>
+                <a href="../Global%20Variables.html#/s:14OpenGpxTracker24kDefaultsKeyActivityTypeSSvp">kDefaultsKeyActivityType</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Global Variables.html#/s:14OpenGpxTracker34kDisabledBlueButtonBackgroundColorSo7UIColorCvp">kDisabledBlueButtonBackgroundColor</a>
+                <a href="../Global%20Variables.html#/s:14OpenGpxTracker22kDefaultsKeyDateFormatSSvp">kDefaultsKeyDateFormat</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Global Variables.html#/s:14OpenGpxTracker33kDisabledRedButtonBackgroundColorSo7UIColorCvp">kDisabledRedButtonBackgroundColor</a>
+                <a href="../Global%20Variables.html#/s:14OpenGpxTracker27kDefaultsKeyDateFormatInputSSvp">kDefaultsKeyDateFormatInput</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Global Variables.html#/s:14OpenGpxTracker30kEditWaypointAccesoryButtonTagSivp">kEditWaypointAccesoryButtonTag</a>
+                <a href="../Global%20Variables.html#/s:14OpenGpxTracker28kDefaultsKeyDateFormatPresetSSvp">kDefaultsKeyDateFormatPreset</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Global Variables.html#/s:14OpenGpxTracker8kFileExtSSvp">kFileExt</a>
+                <a href="../Global%20Variables.html#/s:14OpenGpxTracker27kDefaultsKeyDateFormatUseENSSvp">kDefaultsKeyDateFormatUseEN</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Global Variables.html#/s:14OpenGpxTracker17kGPXCreatorStringSSvp">kGPXCreatorString</a>
+                <a href="../Global%20Variables.html#/s:14OpenGpxTracker28kDefaultsKeyDateFormatUseUTCSSvp">kDefaultsKeyDateFormatUseUTC</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Global Variables.html#/s:14OpenGpxTracker27kGreenButtonBackgroundColorSo7UIColorCvp">kGreenButtonBackgroundColor</a>
+                <a href="../Global%20Variables.html#/s:14OpenGpxTracker26kDefaultsKeyGPXFilesFolderSSvp">kDefaultsKeyGPXFilesFolder</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Global Variables.html#/s:14OpenGpxTracker17kMapSourceSectionSivp">kMapSourceSection</a>
+                <a href="../Global%20Variables.html#/s:14OpenGpxTracker25kDefaultsKeyTileServerIntSSvp">kDefaultsKeyTileServerInt</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Global Variables.html#/s:14OpenGpxTracker8kNoFilesSSvp">kNoFiles</a>
+                <a href="../Global%20Variables.html#/s:14OpenGpxTracker20kDefaultsKeyUseCacheSSvp">kDefaultsKeyUseCache</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Global Variables.html#/s:14OpenGpxTracker23kNotGettingLocationTextSSvp">kNotGettingLocationText</a>
+                <a href="../Global%20Variables.html#/s:14OpenGpxTracker23kDefaultsKeyUseImperialSSvp">kDefaultsKeyUseImperial</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Global Variables.html#/s:14OpenGpxTracker28kPurpleButtonBackgroundColorSo7UIColorCvp">kPurpleButtonBackgroundColor</a>
+                <a href="../Global%20Variables.html#/s:14OpenGpxTracker32kDeleteWaypointAccesoryButtonTagSivp">kDeleteWaypointAccesoryButtonTag</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Global Variables.html#/s:14OpenGpxTracker25kRedButtonBackgroundColorSo7UIColorCvp">kRedButtonBackgroundColor</a>
+                <a href="../Global%20Variables.html#/s:14OpenGpxTracker34kDisabledBlueButtonBackgroundColorSo7UIColorCvp">kDisabledBlueButtonBackgroundColor</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Global Variables.html#/s:14OpenGpxTracker16kSignalAccuracy1Sdvp">kSignalAccuracy1</a>
+                <a href="../Global%20Variables.html#/s:14OpenGpxTracker33kDisabledRedButtonBackgroundColorSo7UIColorCvp">kDisabledRedButtonBackgroundColor</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Global Variables.html#/s:14OpenGpxTracker16kSignalAccuracy2Sdvp">kSignalAccuracy2</a>
+                <a href="../Global%20Variables.html#/s:14OpenGpxTracker30kEditWaypointAccesoryButtonTagSivp">kEditWaypointAccesoryButtonTag</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Global Variables.html#/s:14OpenGpxTracker16kSignalAccuracy3Sdvp">kSignalAccuracy3</a>
+                <a href="../Global%20Variables.html#/s:14OpenGpxTracker8kFileExtSaySSGvp">kFileExt</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Global Variables.html#/s:14OpenGpxTracker16kSignalAccuracy4Sdvp">kSignalAccuracy4</a>
+                <a href="../Global%20Variables.html#/kGPXCreatorString">kGPXCreatorString</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Global Variables.html#/s:14OpenGpxTracker16kSignalAccuracy5Sdvp">kSignalAccuracy5</a>
+                <a href="../Global%20Variables.html#/s:14OpenGpxTracker17kGPXCreatorStringSSvp">kGPXCreatorString</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Global Variables.html#/s:14OpenGpxTracker16kSignalAccuracy6Sdvp">kSignalAccuracy6</a>
+                <a href="../Global%20Variables.html#/s:14OpenGpxTracker24kGPXFilesLocationSectionSivp">kGPXFilesLocationSection</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Global Variables.html#/s:14OpenGpxTracker20kUnknownAccuracyTextSSvp">kUnknownAccuracyText</a>
+                <a href="../Global%20Variables.html#/s:14OpenGpxTracker27kGreenButtonBackgroundColorSo7UIColorCvp">kGreenButtonBackgroundColor</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Global Variables.html#/s:14OpenGpxTracker17kUnknownSpeedTextSSvp">kUnknownSpeedText</a>
+                <a href="../Global%20Variables.html#/s:14OpenGpxTracker028kKilometersPerHourInOneMeterE6SecondSdvp">kKilometersPerHourInOneMeterPerSecond</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Global Variables.html#/s:14OpenGpxTracker20kUseOfflineCacheCellSivp">kUseOfflineCacheCell</a>
+                <a href="../Global%20Variables.html#/s:14OpenGpxTracker17kMapSourceSectionSivp">kMapSourceSection</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Global Variables.html#/s:14OpenGpxTracker21kWhiteBackgroundColorSo7UIColorCvp">kWhiteBackgroundColor</a>
+                <a href="../Global%20Variables.html#/s:14OpenGpxTracker14kMetersPerFeetSdvp">kMetersPerFeet</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Global%20Variables.html#/s:14OpenGpxTracker19kMetersPerKilometerSdvp">kMetersPerKilometer</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Global%20Variables.html#/s:14OpenGpxTracker14kMetersPerMileSdvp">kMetersPerMile</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Global%20Variables.html#/s:14OpenGpxTracker023kMilesPerHourInOneMeterE6SecondSdvp">kMilesPerHourInOneMeterPerSecond</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Global%20Variables.html#/s:14OpenGpxTracker8kNoFilesSSvp">kNoFiles</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Global%20Variables.html#/s:14OpenGpxTracker23kNotGettingLocationTextSSvp">kNotGettingLocationText</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Global%20Variables.html#/s:14OpenGpxTracker28kPurpleButtonBackgroundColorSo7UIColorCvp">kPurpleButtonBackgroundColor</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Global%20Variables.html#/s:14OpenGpxTracker25kRedButtonBackgroundColorSo7UIColorCvp">kRedButtonBackgroundColor</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Global%20Variables.html#/s:14OpenGpxTracker16kSignalAccuracy1Sdvp">kSignalAccuracy1</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Global%20Variables.html#/s:14OpenGpxTracker16kSignalAccuracy2Sdvp">kSignalAccuracy2</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Global%20Variables.html#/s:14OpenGpxTracker16kSignalAccuracy3Sdvp">kSignalAccuracy3</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Global%20Variables.html#/s:14OpenGpxTracker16kSignalAccuracy4Sdvp">kSignalAccuracy4</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Global%20Variables.html#/s:14OpenGpxTracker16kSignalAccuracy5Sdvp">kSignalAccuracy5</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Global%20Variables.html#/s:14OpenGpxTracker16kSignalAccuracy6Sdvp">kSignalAccuracy6</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Global%20Variables.html#/s:14OpenGpxTracker13kUnitsSectionSivp">kUnitsSection</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Global%20Variables.html#/s:14OpenGpxTracker20kUnknownAccuracyTextSSvp">kUnknownAccuracyText</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Global%20Variables.html#/s:14OpenGpxTracker17kUnknownSpeedTextSSvp">kUnknownSpeedText</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Global%20Variables.html#/s:14OpenGpxTracker21kUseImperialUnitsCellSivp">kUseImperialUnitsCell</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Global%20Variables.html#/s:14OpenGpxTracker20kUseOfflineCacheCellSivp">kUseOfflineCacheCell</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Global%20Variables.html#/s:14OpenGpxTracker21kWhiteBackgroundColorSo7UIColorCvp">kWhiteBackgroundColor</a>
               </li>
             </ul>
           </li>
@@ -188,7 +295,13 @@
             <a href="../Extensions.html">Extensions</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
+                <a href="../Extensions/CLActivityType.html">CLActivityType</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Extensions/Date.html">Date</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/Double.html">Double</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Extensions/GPXRoot.html">GPXRoot</a>
@@ -208,6 +321,21 @@
               <li class="nav-group-task">
                 <a href="../Extensions/Int.html">Int</a>
               </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/MKMapView.html">MKMapView</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/Notification.html">Notification</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/Notification/Name.html">– Name</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/String.html">String</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/UIColor.html">UIColor</a>
+              </li>
             </ul>
           </li>
           <li class="nav-group-name">
@@ -224,6 +352,22 @@
               </li>
             </ul>
           </li>
+          <li class="nav-group-name">
+            <a href="../Structs.html">Structures</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Structs/DateField.html">DateField</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Typealiases.html">Type Aliases</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/GPXMapView">GPXMapView</a>
+              </li>
+            </ul>
+          </li>
         </ul>
       </nav>
       <article class="main-content">
@@ -232,6 +376,7 @@
             <h1>GPXFilesTableViewController</h1>
               <div class="declaration">
                 <div class="language">
+                  
                   <pre class="highlight swift"><code><span class="kd">class</span> <span class="kt">GPXFilesTableViewController</span> <span class="p">:</span> <span class="kt">UITableViewController</span><span class="p">,</span> <span class="kt">UINavigationBarDelegate</span></code></pre>
 
                 </div>
@@ -248,7 +393,7 @@
 <li>Delete the file</li>
 </ol>
 
-<p>It also displays a button <q>Done</q> in the navigation bar to return to the map.</p>
+<p>It also displays a button &ldquo;Done&rdquo; in the navigation bar to return to the map.</p>
 
           </section>
           <section class="section task-group-section">
@@ -378,7 +523,7 @@
 
 <ol>
 <li>Sets the title</li>
-<li>Adds the <q>Done</q> button</li>
+<li>Adds the &ldquo;Done&rdquo; button</li>
 <li>Loads existing GPX File list.</li>
 </ol>
 
@@ -388,6 +533,33 @@
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="k">override</span> <span class="kd">func</span> <span class="nf">viewDidLoad</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@OpenGpxTracker@objc(cs)GPXFilesTableViewController(im)dealloc"></a>
+                    <a name="//apple_ref/swift/Method/deinit" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@OpenGpxTracker@objc(cs)GPXFilesTableViewController(im)dealloc">deinit</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Removes notfication observers</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">deinit</span></code></pre>
 
                         </div>
                       </div>
@@ -427,7 +599,7 @@
                     <code>
                     <a name="/c:@M@OpenGpxTracker@objc(cs)GPXFilesTableViewController(im)viewDidAppear:"></a>
                     <a name="//apple_ref/swift/Method/viewDidAppear(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@OpenGpxTracker@objc(cs)GPXFilesTableViewController(im)viewDidAppear:">viewDidAppear(_:)</a>
+                    <a class="token" href="#/c:@M@OpenGpxTracker@objc(cs)GPXFilesTableViewController(im)viewDidAppear:">viewDidAppear(_:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -482,9 +654,11 @@
               <div class="task-name-container">
                 <a name="/Table%20view%20data%20source"></a>
                 <a name="//apple_ref/swift/Section/Table view data source" class="dashAnchor"></a>
-                <a href="#/Table%20view%20data%20source">
-                  <h3 class="section-name">Table view data source</h3>
-                </a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Table%20view%20data%20source"></a>
+                  <h3 class="section-name"><span>Table view data source</span>
+</h3>
+                </div>
               </div>
               <ul>
                 <li class="item">
@@ -492,7 +666,7 @@
                     <code>
                     <a name="/c:@M@OpenGpxTracker@objc(cs)GPXFilesTableViewController(im)numberOfSectionsInTableView:"></a>
                     <a name="//apple_ref/swift/Method/numberOfSections(in:)" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@OpenGpxTracker@objc(cs)GPXFilesTableViewController(im)numberOfSectionsInTableView:">numberOfSections(in:)</a>
+                    <a class="token" href="#/c:@M@OpenGpxTracker@objc(cs)GPXFilesTableViewController(im)numberOfSectionsInTableView:">numberOfSections(in:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -519,7 +693,7 @@
                     <code>
                     <a name="/c:@M@OpenGpxTracker@objc(cs)GPXFilesTableViewController(im)tableView:numberOfRowsInSection:"></a>
                     <a name="//apple_ref/swift/Method/tableView(_:numberOfRowsInSection:)" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@OpenGpxTracker@objc(cs)GPXFilesTableViewController(im)tableView:numberOfRowsInSection:">tableView(_:numberOfRowsInSection:)</a>
+                    <a class="token" href="#/c:@M@OpenGpxTracker@objc(cs)GPXFilesTableViewController(im)tableView:numberOfRowsInSection:">tableView(_:<wbr>numberOfRowsInSection:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -546,7 +720,7 @@
                     <code>
                     <a name="/c:@M@OpenGpxTracker@objc(cs)GPXFilesTableViewController(im)tableView:canEditRowAtIndexPath:"></a>
                     <a name="//apple_ref/swift/Method/tableView(_:canEditRowAt:)" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@OpenGpxTracker@objc(cs)GPXFilesTableViewController(im)tableView:canEditRowAtIndexPath:">tableView(_:canEditRowAt:)</a>
+                    <a class="token" href="#/c:@M@OpenGpxTracker@objc(cs)GPXFilesTableViewController(im)tableView:canEditRowAtIndexPath:">tableView(_:<wbr>canEditRowAt:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -573,7 +747,7 @@
                     <code>
                     <a name="/c:@M@OpenGpxTracker@objc(cs)GPXFilesTableViewController(im)tableView:commitEditingStyle:forRowAtIndexPath:"></a>
                     <a name="//apple_ref/swift/Method/tableView(_:commit:forRowAt:)" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@OpenGpxTracker@objc(cs)GPXFilesTableViewController(im)tableView:commitEditingStyle:forRowAtIndexPath:">tableView(_:commit:forRowAt:)</a>
+                    <a class="token" href="#/c:@M@OpenGpxTracker@objc(cs)GPXFilesTableViewController(im)tableView:commitEditingStyle:forRowAtIndexPath:">tableView(_:<wbr>commit:<wbr>forRowAt:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -602,7 +776,7 @@
                     <code>
                     <a name="/c:@M@OpenGpxTracker@objc(cs)GPXFilesTableViewController(im)tableView:cellForRowAtIndexPath:"></a>
                     <a name="//apple_ref/swift/Method/tableView(_:cellForRowAt:)" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@OpenGpxTracker@objc(cs)GPXFilesTableViewController(im)tableView:cellForRowAtIndexPath:">tableView(_:cellForRowAt:)</a>
+                    <a class="token" href="#/c:@M@OpenGpxTracker@objc(cs)GPXFilesTableViewController(im)tableView:cellForRowAtIndexPath:">tableView(_:<wbr>cellForRowAt:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -629,7 +803,7 @@
                     <code>
                     <a name="/c:@M@OpenGpxTracker@objc(cs)GPXFilesTableViewController(im)tableView:didSelectRowAtIndexPath:"></a>
                     <a name="//apple_ref/swift/Method/tableView(_:didSelectRowAt:)" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@OpenGpxTracker@objc(cs)GPXFilesTableViewController(im)tableView:didSelectRowAtIndexPath:">tableView(_:didSelectRowAt:)</a>
+                    <a class="token" href="#/c:@M@OpenGpxTracker@objc(cs)GPXFilesTableViewController(im)tableView:didSelectRowAtIndexPath:">tableView(_:<wbr>didSelectRowAt:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -657,9 +831,11 @@
               <div class="task-name-container">
                 <a name="/UITableView%20delegate%20methods"></a>
                 <a name="//apple_ref/swift/Section/UITableView delegate methods" class="dashAnchor"></a>
-                <a href="#/UITableView%20delegate%20methods">
-                  <h3 class="section-name">UITableView delegate methods</h3>
-                </a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/UITableView%20delegate%20methods"></a>
+                  <h3 class="section-name"><span>UITableView delegate methods</span>
+</h3>
+                </div>
               </div>
               <ul>
                 <li class="item">
@@ -667,7 +843,7 @@
                     <code>
                     <a name="/c:@M@OpenGpxTracker@objc(cs)GPXFilesTableViewController(im)tableView:shouldHighlightRowAtIndexPath:"></a>
                     <a name="//apple_ref/swift/Method/tableView(_:shouldHighlightRowAt:)" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@OpenGpxTracker@objc(cs)GPXFilesTableViewController(im)tableView:shouldHighlightRowAtIndexPath:">tableView(_:shouldHighlightRowAt:)</a>
+                    <a class="token" href="#/c:@M@OpenGpxTracker@objc(cs)GPXFilesTableViewController(im)tableView:shouldHighlightRowAtIndexPath:">tableView(_:<wbr>shouldHighlightRowAt:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -695,7 +871,7 @@
                     <code>
                     <a name="/s:14OpenGpxTracker27GPXFilesTableViewControllerC19fileListObjectTitleySSSiF"></a>
                     <a name="//apple_ref/swift/Method/fileListObjectTitle(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14OpenGpxTracker27GPXFilesTableViewControllerC19fileListObjectTitleySSSiF">fileListObjectTitle(_:)</a>
+                    <a class="token" href="#/s:14OpenGpxTracker27GPXFilesTableViewControllerC19fileListObjectTitleySSSiF">fileListObjectTitle(_:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -723,9 +899,11 @@
               <div class="task-name-container">
                 <a name="/Action%20Sheet%20-%20Actions"></a>
                 <a name="//apple_ref/swift/Section/Action Sheet - Actions" class="dashAnchor"></a>
-                <a href="#/Action%20Sheet%20-%20Actions">
-                  <h3 class="section-name">Action Sheet - Actions</h3>
-                </a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Action%20Sheet%20-%20Actions"></a>
+                  <h3 class="section-name"><span>Action Sheet - Actions</span>
+</h3>
+                </div>
               </div>
               <ul>
                 <li class="item">
@@ -733,7 +911,7 @@
                     <code>
                     <a name="/s:14OpenGpxTracker27GPXFilesTableViewControllerC17actionSheetCancelyySo07UIAlertG0CF"></a>
                     <a name="//apple_ref/swift/Method/actionSheetCancel(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14OpenGpxTracker27GPXFilesTableViewControllerC17actionSheetCancelyySo07UIAlertG0CF">actionSheetCancel(_:)</a>
+                    <a class="token" href="#/s:14OpenGpxTracker27GPXFilesTableViewControllerC17actionSheetCancelyySo07UIAlertG0CF">actionSheetCancel(_:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -762,7 +940,7 @@
                     <code>
                     <a name="/s:14OpenGpxTracker27GPXFilesTableViewControllerC23actionDeleteFileAtIndexyySiF"></a>
                     <a name="//apple_ref/swift/Method/actionDeleteFileAtIndex(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14OpenGpxTracker27GPXFilesTableViewControllerC23actionDeleteFileAtIndexyySiF">actionDeleteFileAtIndex(_:)</a>
+                    <a class="token" href="#/s:14OpenGpxTracker27GPXFilesTableViewControllerC23actionDeleteFileAtIndexyySiF">actionDeleteFileAtIndex(_:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -789,7 +967,7 @@
                     <code>
                     <a name="/s:14OpenGpxTracker27GPXFilesTableViewControllerC21actionLoadFileAtIndexyySiF"></a>
                     <a name="//apple_ref/swift/Method/actionLoadFileAtIndex(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14OpenGpxTracker27GPXFilesTableViewControllerC21actionLoadFileAtIndexyySiF">actionLoadFileAtIndex(_:)</a>
+                    <a class="token" href="#/s:14OpenGpxTracker27GPXFilesTableViewControllerC21actionLoadFileAtIndexyySiF">actionLoadFileAtIndex(_:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -814,9 +992,36 @@
                 <li class="item">
                   <div>
                     <code>
+                    <a name="/s:14OpenGpxTracker27GPXFilesTableViewControllerC23displayLoadingFileAlert_10completionySb_yycSgtF"></a>
+                    <a name="//apple_ref/swift/Method/displayLoadingFileAlert(_:completion:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14OpenGpxTracker27GPXFilesTableViewControllerC23displayLoadingFileAlert_10completionySb_yycSgtF">displayLoadingFileAlert(_:<wbr>completion:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Displays an alert with a activity indicator view to indicate loading of gpx file to map</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">displayLoadingFileAlert</span><span class="p">(</span><span class="n">_</span> <span class="nv">loading</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="p">(()</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
                     <a name="/s:14OpenGpxTracker27GPXFilesTableViewControllerC22actionShareFileAtIndex_05tableF09indexPathySi_So07UITableF0C10Foundation0lO0VtF"></a>
                     <a name="//apple_ref/swift/Method/actionShareFileAtIndex(_:tableView:indexPath:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14OpenGpxTracker27GPXFilesTableViewControllerC22actionShareFileAtIndex_05tableF09indexPathySi_So07UITableF0C10Foundation0lO0VtF">actionShareFileAtIndex(_:tableView:indexPath:)</a>
+                    <a class="token" href="#/s:14OpenGpxTracker27GPXFilesTableViewControllerC22actionShareFileAtIndex_05tableF09indexPathySi_So07UITableF0C10Foundation0lO0VtF">actionShareFileAtIndex(_:<wbr>tableView:<wbr>indexPath:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -838,16 +1043,103 @@
                     </section>
                   </div>
                 </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14OpenGpxTracker27GPXFilesTableViewControllerC24addNotificationObserversyyF"></a>
+                    <a name="//apple_ref/swift/Method/addNotificationObservers()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14OpenGpxTracker27GPXFilesTableViewControllerC24addNotificationObserversyyF">addNotificationObservers()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Asks the system to notify the app on some events</p>
+
+<p>Current implementation requests the system to notify the app:</p>
+
+<p>When a file is received from an external source, (i.e AirDrop)</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">addNotificationObservers</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14OpenGpxTracker27GPXFilesTableViewControllerC27removeNotificationObserversyyF"></a>
+                    <a name="//apple_ref/swift/Method/removeNotificationObservers()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14OpenGpxTracker27GPXFilesTableViewControllerC27removeNotificationObserversyyF">removeNotificationObservers()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Removes the notification observers</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">removeNotificationObservers</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@CM@OpenGpxTracker@objc(cs)GPXFilesTableViewController(im)reloadTableData"></a>
+                    <a name="//apple_ref/swift/Method/reloadTableData()" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@CM@OpenGpxTracker@objc(cs)GPXFilesTableViewController(im)reloadTableData">reloadTableData()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Reload Table View data</p>
+
+<p>For reloading table when a new file is added while user is in <code>GPXFileTableViewController</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@objc</span>
+<span class="kd">func</span> <span class="nf">reloadTableData</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
               </ul>
             </div>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2019 <a class="link" href="https://github.com/merlos/iOS-Open-GPX-Tracker" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2019-05-03)</p>
-          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.6</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+          <p>&copy; 2023 <a class="link" href="https://github.com/merlos/iOS-Open-GPX-Tracker" target="_blank" rel="external noopener"></a>. All rights reserved. (Last updated: 2023-05-28)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.14.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
         </section>
       </article>
     </div>
   </body>
-</div>
 </html>
