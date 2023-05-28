@@ -91,7 +91,7 @@ class Toast {
         case top
     }
     
-    
+        
     ///
     /// Generic implementation to show toast
     /// - Parameters:
