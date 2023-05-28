@@ -91,7 +91,24 @@ The application is being documented using [jazzy](https://github.com/realm/jazzy
 [Read Source code documentation](https://www.merlos.org/iOS-Open-GPX-Tracker/docs/index.html)
 
 ## Contribute
-You can contribute by forking and submitting a pull request.
+
+You can contribute by forking and submitting a pull request (PR).
+
+Some conditions for a PR to be accepted:
+
+1) Text displayed in the application shall be internationalized.
+   - To do that use `NSLocalizedString`. Search on the code to see examples of usage.
+   - Add the localized string in all the lproj files in the same position. Use ChatGPT or DeepL to translate them to other languages.
+2) You need to install [swiftlint](https://github.com/realm/SwiftLint) and ensure you're not introducing additional lint warnings.
+3) You need to document the classes and methods that you create explaining what do they do from a blackbox perspective. We use [jazzy](https://github.com/realm/jazzy) for the documentation. To install jazzy run:
+    ```shell
+    gem install jazzy
+    ```
+    Then, to view the documentation run 
+    ```shell
+    jazzy
+    ```
+    **Note that it will generate the documents in the `../gh-pages/docs`.**
 
 Please note that by submitting any pull request you are providing me (Juan M. Merlos) the rights to include and distribute those changes also on the binary app published on the App Store (which is released under Apple's Standard License Agreement)
 
