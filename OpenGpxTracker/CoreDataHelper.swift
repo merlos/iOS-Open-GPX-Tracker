@@ -389,7 +389,7 @@ class CoreDataHelper {
                 DispatchQueue.main.sync {
                     NotificationCenter.default.post(name: .loadRecoveredFile, object: nil,
                                                     userInfo: ["recoveredRoot": root, "fileName": self.lastFileName])
-                    let toastMessage = NSLocalizedString("LAST_SESSION_LOADED", comment: "the filename displayed after the text") + " " + self.lastFileName
+                    let toastMessage = NSLocalizedString("LAST_SESSION_LOADED", comment: "the filename displayed after the text") + " \n" + self.lastFileName + ".gpx"
                     Toast.regular(toastMessage, position: .top)
                 }
             } else {
