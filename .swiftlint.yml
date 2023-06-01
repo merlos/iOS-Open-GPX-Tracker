@@ -14,5 +14,5 @@ type_body_length:
   - 300 # warning
   - 800 # error
 function_body_length:
-  - 40
-  - 246
+  - 50
+  - 250
