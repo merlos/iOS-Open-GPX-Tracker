@@ -14,6 +14,9 @@ import CoreGPX
 
 // swiftlint:disable line_length
 
+/// App title
+
+let kAppTitle: String = "  Open GPX Tracker"
 /// Purple color for button background
 let kPurpleButtonBackgroundColor: UIColor =  UIColor(red: 146.0/255.0, green: 166.0/255.0, blue: 218.0/255.0, alpha: 0.90)
 
@@ -126,7 +129,20 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
     var stopWatch = StopWatch()
     
     /// Name of the last file that was saved (without extension)
-    var lastGpxFilename: String = ""
+    var lastGpxFilename: String = "" {
+        didSet {
+            if lastGpxFilename == "" {
+                appTitleLabel.text = kAppTitle
+            } else {
+                // if name is too long arbitrary cut
+                var displayedName = lastGpxFilename
+                if lastGpxFilename.count > 20 {
+                    displayedName = lastGpxFilename.prefix(10) + "..." + lastGpxFilename.suffix(3)
+                }
+                appTitleLabel.text = "  " + displayedName + ".gpx"
+            }
+        }
+    }
     
     /// Status variable that indicates if the app was sent to background.
     var wasSentToBackground: Bool = false
@@ -411,9 +427,6 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         locationManager.startUpdatingLocation()
         locationManager.startUpdatingHeading()
         
-        //let pinchGesture = UIPinchGestureRecognizer(target: self, action: "pinchGesture")
-        //map.addGestureRecognizer(pinchGesture)
-        
         // Preferences
         map.tileServer = Preferences.shared.tileServer
         map.useCache = Preferences.shared.useCache
@@ -442,10 +455,9 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         let font12 = UIFont(name: "DinAlternate-Bold", size: 12.0)
         
         // Add the app title Label (Branding, branding, branding! )
-        appTitleLabel.text = "  Open GPX Tracker"
+        appTitleLabel.text = kAppTitle
         appTitleLabel.textAlignment = .left
         appTitleLabel.font = UIFont.boldSystemFont(ofSize: 10)
-        //appTitleLabel.textColor = UIColor(red: 0.0/255.0, green: 0.0/255.0, blue: 0.0/255.0, alpha: 1.0)
         appTitleLabel.textColor = UIColor.yellow
         appTitleLabel.backgroundColor = UIColor(red: 58.0/255.0, green: 57.0/255.0, blue: 54.0/255.0, alpha: 0.80)
         self.view.addSubview(appTitleLabel)
