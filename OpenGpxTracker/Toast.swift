@@ -8,8 +8,39 @@
 import Foundation
 import UIKit
 
+/// Font size of the toast
+
 /// Supporting UILabel for Toast.
+/// Setups the base label.
+///  The toast adds the position color
 class ToastLabel: UILabel {
+    
+    static let kFontSize = 16
+    
+    override init(frame: CGRect) {
+          super.init(frame: frame)
+          commonInit()
+      }
+      
+      required init?(coder aDecoder: NSCoder) {
+          super.init(coder: aDecoder)
+          commonInit()
+      }
+      
+      convenience init(text: String) {
+          self.init()
+          self.text = text
+      }
+      
+      private func commonInit() {
+          textAlignment = .center
+          font = UIFont.systemFont(ofSize: CGFloat(ToastLabel.kFontSize))
+          alpha = 0
+          numberOfLines = 0
+          layer.masksToBounds = true
+          layer.cornerRadius = 10
+      }
+    
     var textInsets = UIEdgeInsets.zero {
         didSet { invalidateIntrinsicContentSize() }
     }
@@ -56,9 +87,6 @@ class Toast {
     ///  Offset from the closest screen edge (top or bottom).
     static let kToastOffset = 120
     
-    /// Font size of the toast
-    static let kFontSize = 16
-    
     /// Toast.regular text color
     static let kRegularTextColor: UIColor = UIColor.white
     /// Toast.regular background color
@@ -91,7 +119,6 @@ class Toast {
         case top
     }
     
-        
     ///
     /// Generic implementation to show toast
     /// - Parameters:
@@ -100,18 +127,18 @@ class Toast {
     ///     - backgroundColor: Color of the text
     ///     - position: Position within the screen (.bottom, .center, .top)
     ///     - delay: time in seconds that the toast will be displayed
-    static func showToast(_ message: String, textColor: UIColor, backgroundColor: UIColor, position: Position, delay: Double) {
+    static func showToast(_ message: String,
+                          textColor: UIColor = kRegularTextColor,
+                          backgroundColor: UIColor = kRegularBackgroundColor,
+                          position: Position = .bottom,
+                          delay: Double = kDelayLong) {
         guard let window = UIApplication.shared.keyWindow else {
             return
         }
-        let label = ToastLabel()
+        let label = ToastLabel(text: message)
         label.textColor = textColor
         label.backgroundColor = backgroundColor
-        label.textAlignment = .center
-        label.font = UIFont.systemFont(ofSize: CGFloat(kFontSize))
-        label.alpha = 0
-        label.text = message
-        label.numberOfLines = 0
+        
         var vertical: CGFloat = 0
         var size = label.intrinsicContentSize
         var width = min(size.width, window.frame.width - 60)
@@ -120,32 +147,38 @@ class Toast {
             label.textAlignment = .justified
         }
         label.textInsets = UIEdgeInsets(top: vertical, left: 15, bottom: vertical, right: 15)
+       
         size = label.intrinsicContentSize
         width = min(size.width, window.frame.width - 60)
-        
-        if position == Position.bottom {
+        switch position {
+        case .bottom:
             label.frame = CGRect(x: CGFloat(kToastWidth),
                                  y: window.frame.height - CGFloat(kToastOffset),
                                  width: width,
                                  height: size.height + CGFloat(kToastHeight))
-        } else if position == Position.center {
-            label.frame = CGRect(x: CGFloat(kToastWidth), y: window.frame.height / 2, width: width, height: size.height + CGFloat(kToastHeight))
-        } else if position == Position.top {
-            label.frame = CGRect(x: CGFloat(kToastWidth), y: CGFloat(kToastOffset), width: width, height: size.height + CGFloat(kToastHeight))
+        case .center:
+            label.frame = CGRect(x: CGFloat(kToastWidth),
+                                 y: window.frame.height / 2,
+                                 width: width,
+                                 height: size.height + CGFloat(kToastHeight))
+        case .top:
+            label.frame = CGRect(x: CGFloat(kToastWidth),
+                                 y: CGFloat(kToastOffset),
+                                 width: width,
+                                 height: size.height + CGFloat(kToastHeight))
         }
         label.center.x = window.center.x
-        label.layer.cornerRadius = min(label.frame.height / 2, 32)
-        label.layer.masksToBounds = true
+        
         window.addSubview(label)
-        UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseIn, animations: {
-            label.alpha = 1
-        }, completion: { _ in
-            UIView.animate(withDuration: 0.5, delay: delay, options: .curveEaseOut, animations: {
-                label.alpha = 0
-            }, completion: {_ in
-                label.removeFromSuperview()
-            })
-        })
+        UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseIn,
+                       animations: { label.alpha = 1 },
+                       completion: { _ in
+                            UIView.animate(withDuration: 0.5, delay: delay,
+                            options: .curveEaseOut,
+                            animations: {label.alpha = 0 },
+                            completion: {_ in label.removeFromSuperview()
+                            })
+                        })
     }
     
     ///
@@ -160,35 +193,59 @@ class Toast {
     ///  Information toast (blue)
     ///
     /// - SeeAlso showToast
-    class func info(_ message: String, position: Position = Position.bottom, delay: Double = kDelayLong) {
-        showToast(String("\u{24D8}")+"  "+message, textColor: kInfoTextColor, backgroundColor: kInfoBackgroundColor,
-                  position: position, delay: delay)
+    class func info(_ message: String,
+                    position: Position = Position.bottom,
+                    delay: Double = kDelayLong) {
+        
+        showToast(String("\u{24D8}")+"  "+message,
+                  textColor: kInfoTextColor,
+                  backgroundColor: kInfoBackgroundColor,
+                  position: position,
+                  delay: delay)
     }
     
     ///
     /// Display a warning toast (orange)
     ///
     /// - SeeAlso showToast
-    class func warning(_ message: String, position: Position = Position.bottom, delay: Double = kDelayLong) {
-        showToast(String("\u{26A0}")+"  "+message, textColor: kWarningTextColor, backgroundColor: kWarningBackgroundColor,
-                  position: position, delay: delay)
+    class func warning(_ message: String,
+                       position: Position = Position.bottom,
+                       delay: Double = kDelayLong) {
+        
+        showToast(String("\u{26A0}")+"  "+message,
+                  textColor: kWarningTextColor,
+                  backgroundColor: kWarningBackgroundColor,
+                  position: position,
+                  delay: delay)
     }
     
     ///
     /// Display a Success toast
     ///
     /// - SeeAlso showToast
-    class func success(_ message: String, position: Position = Position.bottom, delay: Double = kDelayLong) {
-        showToast(String("\u{2705}")+"  "+message, textColor: kSuccessTextColor, backgroundColor: kSuccessBackgroundColor, position: position, delay:delay)
+    class func success(_ message: String,
+                       position: Position = Position.bottom,
+                       delay: Double = kDelayLong) {
+        
+        showToast(String("\u{2705}")+"  "+message,
+                  textColor: kSuccessTextColor,
+                  backgroundColor: kSuccessBackgroundColor,
+                  position: position,
+                  delay: delay)
     }
     
     ///
-    /// Display a error toast
+    /// Display a error toast.
     ///
     /// - SeeAlso showToast
-    class func error(_ message: String, position: Position = Position.bottom, delay: Double = kDelayLong) {//2757
-        showToast(String("\u{274C}")+"  "+message, textColor: kErrorTextColor, backgroundColor: kErrorBackgroundColor, position: position, delay: delay)
+    ///
+    class func error(_ message: String,
+                     position: Position = Position.bottom,
+                     delay: Double = kDelayLong) {
+        showToast(String("\u{274C}")+"  "+message,
+                  textColor: kErrorTextColor,
+                  backgroundColor: kErrorBackgroundColor,
+                  position: position,
+                  delay: delay)
     }
-    
 }
-
