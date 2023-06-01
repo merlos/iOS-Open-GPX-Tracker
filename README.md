@@ -101,9 +101,24 @@ You can contribute by forking and submitting a pull request (PR).
 Some conditions for a PR to be accepted:
 
 1) Text displayed in the application shall be internationalized.
-   - To do that use `NSLocalizedString`. Search on the code to see examples of usage.
-   - Add the localized string in all the lproj files in the same position. Use ChatGPT or DeepL to translate them to other languages.
+   - To do that use [NSLocalizedString](https://developer.apple.com/documentation/foundation/nslocalizedstring). Search on the code to see examples of usage.
+   - Add the keys of the localized string to all the `lproj` files. Keep this files organized in the same way (~ same line). 
+   - Use [ChatGPT](https://chat.openai.com) or [DeepL](https://www.deepl.com/translator) to translate them to other languages. For example, for ChatGPT you can use a prompt similar to:
+        ```
+          You are a language translator that is in the process of translating an mobile application for getting GPX traces in an iOS device. 
+          
+          Please provide the translation to the following languages:
+          German (de), Spanish (es), Chinese Simplified (zh-Hans), Ukranian (uk), Finnish (fi-FI), Russian (ru),French (fr), Dutch (nl), Portuguese Brazil (pt-BR), Italian (it) 
+
+          of the following strings:
+
+          "TEXT_KEY" = "This is the text";
+          "TEXT_KEY" = "This is the text";
+          ```
+
+
 2) You need to install [swiftlint](https://github.com/realm/SwiftLint) and ensure you're not introducing additional lint warnings.
+
 3) You need to document the classes and methods that you create explaining what do they do from a blackbox perspective. We use [jazzy](https://github.com/realm/jazzy) for the documentation. To install jazzy run:
     ```shell
     gem install jazzy
@@ -115,10 +130,10 @@ Some conditions for a PR to be accepted:
     **Note that it will generate the documents in the `../gh-pages/docs`.**
 
 **PR License** 
-Please note that though the source code is licensed under GPL 3.0 by submitting a pull request you are also providing me (Juan M. Merlos) the rights to distribute those changes also on the binary app published on the App Store (which is released under Apple's Standard License Agreement)
+Note that though the source code is licensed under GPL 3.0 by submitting a pull request you are also providing me (Juan M. Merlos) the rights to distribute those changes on the binary app published on the App Store (which is released under Apple's Standard License Agreement)
 
-## License
-Open GPX Tracker app for iOS. Copyright (C) 2014  Juan M. Merlos (@merlos) & Contributors
+## GPL License
+Open GPX Tracker app for iOS. Copyright (C) 2014-2023  Juan M. Merlos (@merlos) & Contributors
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the **GNU General Public License** as published by
