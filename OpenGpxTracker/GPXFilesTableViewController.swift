@@ -131,12 +131,9 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
 
     /// Displays the name of the cell.
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        //let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as UITableViewCell
         if gpxFilesFound {
             let cell: UITableViewCell = UITableViewCell(style: UITableViewCell.CellStyle.subtitle, reuseIdentifier: "Cell")
-            //cell.accessoryType = UITableViewCellAccessoryType.DetailDisclosureButton
-            //cell.accessoryView = [[ UIImageView alloc ] initWithImage:[UIImage imageNamed:@"Something" ]];
-            // swiftlint:disable force_cast
+            // swiftlint:disable:next force_cast
             let gpxFileInfo = fileList.object(at: (indexPath as NSIndexPath).row) as! GPXFileInfo
             let lastSaved = NSLocalizedString("LAST_SAVED", comment: "no comment")
             cell.textLabel?.text = gpxFileInfo.fileName
@@ -199,7 +196,7 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
     
     /// Returns the name of the file in the `rowIndex` passed as parameter.
     internal func fileListObjectTitle(_ rowIndex: Int) -> String {
-        // swiftlint:disable force_cast
+        // swiftlint:disable:next force_cast
         return (fileList.object(at: rowIndex) as! GPXFileInfo).fileName
     }
     
@@ -223,7 +220,7 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
         }
         GPXFileManager.removeFileFromURL(fileURL)
         
-        //Delete from list and Table
+        // Delete from list and Table
         fileList.removeObject(at: rowIndex)
         let indexPath = IndexPath(row: rowIndex, section: 0)
         tableView.deleteRows(at: [indexPath], with: UITableView.RowAnimation.fade)

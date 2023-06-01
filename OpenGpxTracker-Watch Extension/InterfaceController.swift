@@ -11,7 +11,7 @@ import MapKit
 import CoreLocation
 import CoreGPX
 
-//Button colors
+// Button colors
 let kPurpleButtonBackgroundColor: UIColor =  UIColor(red: 146.0/255.0, green: 166.0/255.0, blue: 218.0/255.0, alpha: 0.90)
 let kGreenButtonBackgroundColor: UIColor = UIColor(red: 142.0/255.0, green: 224.0/255.0, blue: 102.0/255.0, alpha: 0.90)
 let kRedButtonBackgroundColor: UIColor =  UIColor(red: 244.0/255.0, green: 94.0/255.0, blue: 94.0/255.0, alpha: 0.90)
@@ -20,7 +20,7 @@ let kDisabledBlueButtonBackgroundColor: UIColor = UIColor(red: 74.0/255.0, green
 let kDisabledRedButtonBackgroundColor: UIColor =  UIColor(red: 244.0/255.0, green: 94.0/255.0, blue: 94.0/255.0, alpha: 0.10)
 let kWhiteBackgroundColor: UIColor = UIColor(red: 254.0/255.0, green: 254.0/255.0, blue: 254.0/255.0, alpha: 0.90)
 
-//Accesory View buttons tags
+// Accesory View buttons tags
 let kDeleteWaypointAccesoryButtonTag = 666
 let kEditWaypointAccesoryButtonTag = 333
 
@@ -70,7 +70,7 @@ class InterfaceController: WKInterfaceController {
         manager.requestAlwaysAuthorization()
         
         manager.desiredAccuracy = kCLLocationAccuracyBest
-        manager.distanceFilter = 2 //meters
+        manager.distanceFilter = 2 // meters
         manager.allowsBackgroundLocationUpdates = true
         return manager
     }()
@@ -81,10 +81,10 @@ class InterfaceController: WKInterfaceController {
     /// Underlying class that handles background stuff
     let map = GPXMapView() // not even a map view. Considering renaming
     
-    //Status Vars
+    // Status Vars
     var stopWatch = StopWatch()
     var lastGpxFilename: String = ""
-    var wasSentToBackground: Bool = false //Was the app sent to background
+    var wasSentToBackground: Bool = false // Was the app sent to background
     var isDisplayingLocationServicesDenied: Bool = false
     
     /// Does the 'file' have any waypoint?
@@ -130,36 +130,24 @@ class InterfaceController: WKInterfaceController {
                 // set Tracker button to allow Start
                 trackerButton.setTitle(NSLocalizedString("START_TRACKING", comment: "no comment"))
                 trackerButton.setBackgroundColor(kGreenButtonBackgroundColor)
-                //save & reset button to transparent.
+                // Save & reset button to transparent.
                 saveButton.setBackgroundColor(kDisabledBlueButtonBackgroundColor)
                 resetButton.setBackgroundColor(kDisabledRedButtonBackgroundColor)
-                //reset clock
+                // Reset clock
                 stopWatch.reset()
                 timeLabel.setText(stopWatch.elapsedTimeString)
                 
-                map.reset() //reset gpx logging
-                lastGpxFilename = "" //clear last filename, so when saving it appears an empty field
+                map.reset() // Reset gpx logging
+                lastGpxFilename = "" // Clear last filename, so when saving it appears an empty field
                 
                 totalTrackedDistanceLabel.setText(map.totalTrackedDistance.toDistance(useImperial: preferences.useImperial))
-                
-                //currentSegmentDistanceLabel.distance = (map.currentSegmentDistance)
-                
-                /*
-                 // XXX Left here for reference
-                 UIView.animateWithDuration(0.2, delay: 0.0, options: UIViewAnimationOptions.CurveLinear, animations: { () -> Void in
-                 self.trackerButton.hidden = true
-                 self.pauseButton.hidden = false
-                 }, completion: {(f: Bool) -> Void in
-                 println("finished animation start tracking")
-                 })
-                 */
-                
+                                
             case .tracking:
                 print("switched to tracking mode")
                 // set trackerButton to allow Pause
                 trackerButton.setTitle(NSLocalizedString("PAUSE", comment: "no comment"))
                 trackerButton.setBackgroundColor(kPurpleButtonBackgroundColor)
-                //activate save & reset buttons
+                // Activate save & reset buttons
                 saveButton.setBackgroundColor(kBlueButtonBackgroundColor)
                 resetButton.setBackgroundColor(kRedButtonBackgroundColor)
                 // start clock
@@ -173,7 +161,7 @@ class InterfaceController: WKInterfaceController {
                 // activate save & reset (just in case switched from .NotStarted)
                 saveButton.setBackgroundColor(kBlueButtonBackgroundColor)
                 resetButton.setBackgroundColor(kRedButtonBackgroundColor)
-                //pause clock
+                // Pause clock
                 self.stopWatch.stop()
                 // start new track segment
                 self.map.startNewTrackSegment()
@@ -182,7 +170,7 @@ class InterfaceController: WKInterfaceController {
     }
     
     /// Editing Waypoint Temporal Reference
-    var lastLocation: CLLocation? //Last point of current segment.
+    var lastLocation: CLLocation? // Last point of current segment.
 
     override func awake(withContext context: Any?) {
         print("InterfaceController:: awake")
@@ -242,7 +230,7 @@ class InterfaceController: WKInterfaceController {
         case .tracking:
             gpxTrackingStatus = .paused
         case .paused:
-            //set to tracking
+            // Set to tracking
             gpxTrackingStatus = .tracking
         }
         
@@ -279,7 +267,7 @@ class InterfaceController: WKInterfaceController {
         let gpxString = self.map.exportToGPXString()
         GPXFileManager.save(filename, gpxContents: gpxString)
         self.lastGpxFilename = filename
-        //print(gpxString)
+        // print(gpxString)
         
         /// Just a 'done' button, without
         let action = WKAlertAction(title: "Done", style: .default) {}
@@ -330,19 +318,19 @@ class InterfaceController: WKInterfaceController {
     func checkLocationServicesStatus() {
         let authorizationStatus = CLLocationManager.authorizationStatus()
         
-        //Has the user already made a permission choice?
+        // Has the user already made a permission choice?
         guard authorizationStatus != .notDetermined else {
-            //We should take no action until the user has made a choice
+            // We should take no action until the user has made a choice
             return
         }
         
-        //Does the app have permissions to use the location servies?
+        // Does the app have permissions to use the location servies?
         guard [.authorizedAlways, .authorizedWhenInUse ].contains(authorizationStatus) else {
             displayLocationServicesDeniedAlert()
             return
         }
         
-        //Are location services enabled?
+        // Are location services enabled?
         guard CLLocationManager.locationServicesEnabled() else {
             displayLocationServicesDisabledAlert()
             return
@@ -408,8 +396,6 @@ extension InterfaceController: CLLocationManagerDelegate {
         altitudeLabel.setText(kUnknownAltitudeText)
         signalImageView.setImage(signalImage0)
         speedLabel.setText(kUnknownSpeedText)
-        //signalAccuracyLabel.text = kUnknownAccuracyText
-        //signalImageView.image = signalImage0
         let locationError = error as? CLError
         switch locationError?.code {
         case CLError.locationUnknown:
@@ -430,7 +416,7 @@ extension InterfaceController: CLLocationManagerDelegate {
     ///
     ///
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        //updates signal image accuracy
+        // Updates signal image accuracy
         let newLocation = locations.first!
         
         let hAcc = newLocation.horizontalAccuracy
@@ -461,14 +447,13 @@ extension InterfaceController: CLLocationManagerDelegate {
         coordinatesLabel.setText("\(latFormat),\(lonFormat)")
         altitudeLabel.setText(newLocation.altitude.toAltitude(useImperial: preferences.useImperial))
         
-        //Update speed (provided in m/s, but displayed in km/h)
+        // Update speed (provided in m/s, but displayed in km/h)
         speedLabel.setText(newLocation.speed.toSpeed(useImperial: preferences.useImperial))
         
         if gpxTrackingStatus == .tracking {
             print("didUpdateLocation: adding point to track (\(newLocation.coordinate.latitude),\(newLocation.coordinate.longitude))")
             map.addPointToCurrentTrackSegmentAtLocation(newLocation)
             totalTrackedDistanceLabel.setText(map.totalTrackedDistance.toDistance(useImperial: preferences.useImperial))
-            //currentSegmentDistanceLabel.distance = map.currentSegmentDistance
         }
     }
 }

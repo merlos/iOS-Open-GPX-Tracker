@@ -54,7 +54,7 @@ class GPXFileManager: NSObject {
     class func URLForFilename(_ filename: String) -> URL {
         var fullURL = self.GPXFilesFolderURL.appendingPathComponent(filename)
         print("URLForFilename(\(filename): pathForFilename: \(fullURL)")
-        //check if filename has extension
+        // Check if filename has extension
         if  !(kFileExt.contains(fullURL.pathExtension)) {
             fullURL = fullURL.appendingPathExtension(kFileExt[0])
         }
@@ -79,7 +79,7 @@ class GPXFileManager: NSObject {
     ///     - gpxContents: String with the contents to be saved. The XML contents of the GPX file
     ///
     class func saveToURL(_ fileURL: URL, gpxContents: String) {
-        //save file
+        // Save file
         print("Saving file at path: \(fileURL)")
         // write gpx to file
         var writeError: NSError?
@@ -106,7 +106,7 @@ class GPXFileManager: NSObject {
     ///     - gpxContents: String with the contents to be saved. The XML contents of the GPX file
     ///
     class func save(_ filename: String, gpxContents: String) {
-        //check if name exists
+        // Check if name exists
         let fileURL: URL = self.URLForFilename(filename)
         GPXFileManager.saveToURL(fileURL, gpxContents: gpxContents)
     }
@@ -195,7 +195,7 @@ class GPXFileManager: NSObject {
             if let directoryURLs = try? fileManager.contentsOfDirectory(at: rootURL,
                 includingPropertiesForKeys: [.attributeModificationDateKey, .fileSizeKey],
                 options: .skipsSubdirectoryDescendants) {
-                //Order files based on the date
+                // Order files based on the date
                 // This map creates a tuple (url: URL, modificationDate: String, filesize: Int)
                 // and then orders it by modificationDate
                 let sortedURLs = directoryURLs.map { url in
@@ -205,7 +205,7 @@ class GPXFileManager: NSObject {
                     }
                     .sorted(by: { $0.1 > $1.1 }) // sort descending modification dates
                 print(sortedURLs)
-                //Now we filter GPX Files
+                // Now we filter GPX Files
                 for (url, modificationDate, fileSize) in sortedURLs {
                     if kFileExt.contains(url.pathExtension) {
                         GPXFiles.append(GPXFileInfo(fileURL: url))

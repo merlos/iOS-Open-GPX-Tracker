@@ -46,7 +46,6 @@ class DefaultDateFormat {
     
     /// Returns sample date time based on user input.
     func getDate(processedFormat dateFormat: String, useUTC: Bool = false, useENLocale: Bool = false) -> String {
-        //processedDateFormat = DefaultDateFormat.getDateFormat(unprocessed: self.cellTextField.text!)
         dateFormatter.dateFormat = dateFormat
         dateFormatter.timeZone = useUTC ? TimeZone(secondsFromGMT: 0) : TimeZone.current
         dateFormatter.locale = useENLocale ? Locale(identifier: "en_US_POSIX") : Locale.current

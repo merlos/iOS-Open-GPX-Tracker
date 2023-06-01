@@ -27,7 +27,7 @@ enum GPXTileServer: Int {
     
     /// Open Street Map tile server
     case openStreetMap
-    //case AnotherMap
+    // case AnotherMap
     
     /// CartoDB tile server
     case cartoDB
@@ -41,7 +41,7 @@ enum GPXTileServer: Int {
     /// OpenSeaMap tile server
     case openSeaMap
     
-    ///String that describes the selected tile server.
+    /// String that describes the selected tile server.
     var name: String {
         switch self {
         case .apple: return "Apple Mapkit (no offline cache)"

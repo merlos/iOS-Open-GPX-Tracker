@@ -69,7 +69,6 @@ class PreferencesTableViewController: UITableViewController, UINavigationBarDele
     override func viewDidLoad() {
         super.viewDidLoad()
         let navBarFrame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: 64)
-        //let navigationBar : UINavigationBar = UINavigationBar(frame: navBarFrame)
         self.tableView.frame = CGRect(x: navBarFrame.width + 1, y: 0, width: self.view.frame.width, height:
             self.view.frame.height - navBarFrame.height)
         
@@ -188,8 +187,6 @@ class PreferencesTableViewController: UITableViewController, UINavigationBarDele
         
         // Map Section
         if indexPath.section == kMapSourceSection {
-            //cell.accessoryType = UITableViewCellAccessoryType.DetailDisclosureButton
-            //cell.accessoryView = [[ UIImageView alloc ] initWithImage:[UIImage imageNamed:@"Something" ]];
             let tileServer = GPXTileServer(rawValue: indexPath.row)
             cell.textLabel?.text = tileServer!.name
             if indexPath.row == preferences.tileServerInt {
@@ -223,7 +220,6 @@ class PreferencesTableViewController: UITableViewController, UINavigationBarDele
         if indexPath.section == kGPXFilesLocationSection {
             cell = UITableViewCell(style: .value1, reuseIdentifier: "GPXFilesLocation")
             if let url = preferences.gpxFilesFolderURL {
-             //cell.textLabel?.lineBreakMode = .byTruncatingHead
                 cell.textLabel?.text = url.lastPathComponent
             } else {
                 cell.textLabel?.text = NSLocalizedString("USING_DEFAULT_FOLDER", comment: "no comment")
@@ -259,9 +255,9 @@ class PreferencesTableViewController: UITableViewController, UINavigationBarDele
                 let newUseImperial = !preferences.useImperial
                 preferences.useImperial = newUseImperial
                 print("PreferencesTableViewController: toggle imperial units to \(newUseImperial)")
-                //update cell UI
+                // Update cell UI
                 tableView.cellForRow(at: indexPath)?.accessoryType = newUseImperial ? .checkmark : .none
-                //notify the map
+                // Notify the map
                 self.delegate?.didUpdateUseImperial(newUseImperial)
             default:
                 fatalError("didSelectRowAt: Unknown cell")
@@ -272,21 +268,21 @@ class PreferencesTableViewController: UITableViewController, UINavigationBarDele
             switch indexPath.row {
             case kUseOfflineCacheCell:
                 print("toggle cache")
-                let newUseCache = !preferences.useCache //toggle value
+                let newUseCache = !preferences.useCache // Toggle value
                 preferences.useCache = newUseCache
-                //update cell
+                // Update cell
                 tableView.cellForRow(at: indexPath)?.accessoryType = newUseCache ? .checkmark : .none
-                //notify the map
+                // Notify the map
                 self.delegate?.didUpdateUseCache(newUseCache)
             case kClearCacheCell:
                 print("clear cache")
-                //Create a cache
+                // Create a cache
                 cache.clear {
                     print("Cache cleaned")
                     let cell = tableView.cellForRow(at: indexPath)!
                     cell.textLabel?.text = NSLocalizedString("CACHE_IS_EMPTY", comment: "no comment")
                     cell.textLabel?.textColor = UIColor.gray
-                    //Clear the size text
+                    // Clear the size text
                     let cell2 = tableView.cellForRow(at: IndexPath(row: kUseOfflineCacheCell, section: kCacheSection))
                     self.cachedSize = 0.asFileSize()
                     cell2?.detailTextLabel?.text = self.cachedSize
@@ -299,15 +295,15 @@ class PreferencesTableViewController: UITableViewController, UINavigationBarDele
         if indexPath.section == kMapSourceSection { // section 1 (sets tileServerInt in defaults
             print("PreferenccesTableView Map Tile Server section Row at index:  \(indexPath.row)")
             
-            //remove checkmark from selected tile server
+            // Remove checkmark from selected tile server
             let selectedTileServerIndexPath = IndexPath(row: preferences.tileServerInt, section: indexPath.section)
             tableView.cellForRow(at: selectedTileServerIndexPath)?.accessoryType = .none
             
-            //add checkmark to new tile server
+            // Add checkmark to new tile server
             tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
             preferences.tileServerInt = indexPath.row
             
-            //update map
+            // Update map
             self.delegate?.didUpdateTileServer((indexPath as NSIndexPath).row)
         }
         
@@ -317,7 +313,7 @@ class PreferencesTableViewController: UITableViewController, UINavigationBarDele
             
             tableView.cellForRow(at: selected)?.accessoryType = .none
             
-            //add checkmark to new tile server
+            // Add checkmark to new tile server
             tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
             preferences.locationActivityTypeInt = indexPath.row + 1 // +1 as activityType raw value starts at index 1
             
@@ -337,7 +333,7 @@ class PreferencesTableViewController: UITableViewController, UINavigationBarDele
             self.present(documentVC, animated: true)
         }
         
-        //unselect row
+        // Unselect row
         tableView.deselectRow(at: indexPath, animated: true)
     }
     

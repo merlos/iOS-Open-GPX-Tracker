@@ -42,13 +42,13 @@ class AboutViewController: UIViewController {
         
         self.title = NSLocalizedString("ABOUT", comment: "no comment")
         
-        //Add the done button
+        // Add the done button
         let shareItem = UIBarButtonItem(title: NSLocalizedString("DONE", comment: "no comment"),
                                         style: UIBarButtonItem.Style.plain, target: self,
                                         action: #selector(AboutViewController.closeViewController))
         self.navigationItem.rightBarButtonItems = [shareItem]
   
-        //Add the Webview
+        // Add the Webview
         self.webView = WKWebView(frame: self.view.frame, configuration: WKWebViewConfiguration())
         
         self.webView?.navigationDelegate = self
@@ -82,8 +82,7 @@ extension AboutViewController: WKNavigationDelegate {
         if navigationAction.navigationType == .linkActivated {
             if #available(iOS 10, *) {
                 UIApplication.shared.open(navigationAction.request.url!)
-            }
-            else {
+            } else {
                 UIApplication.shared.openURL(navigationAction.request.url!)
             }
             print("AboutViewController: external link sent to Safari")

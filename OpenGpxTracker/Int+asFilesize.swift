@@ -17,7 +17,7 @@ extension Int {
         bcf.allowedUnits = [.useAll]
         bcf.countStyle = .file
         let string = bcf.string(fromByteCount: Int64(self))
-        //print("formatted result: \(string)")
+        // print("formatted result: \(string)")
         return string
     }
 }

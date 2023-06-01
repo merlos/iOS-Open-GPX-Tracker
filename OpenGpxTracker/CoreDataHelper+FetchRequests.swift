@@ -22,7 +22,8 @@ extension CoreDataHelper {
                 self.lastFileName = safePoint.lastFileName ?? ""
                 self.lastTracksegmentId = safePoint.lastTrackSegmentId
                 self.isContinued = safePoint.continuedAfterSave
-                print("Core Data Helper: fetched CDRoot lastFileName:\(self.lastFileName) lastTracksegmentId: \(self.lastTracksegmentId) isContinued: \(self.isContinued)")
+                // swiftlint:disable:next line_length
+                print("Core Data Helper: fetched CDRoot  lastFileName:\(self.lastFileName) lastTracksegmentId: \(self.lastTracksegmentId) isContinued: \(self.isContinued)")
             }
         }
         return asyncRootFetchRequest
@@ -70,6 +71,7 @@ extension CoreDataHelper {
                 }
                 self.trackpointId = trackPointResults.last?.trackpointId ?? Int64()
                 self.tracksegments.append(self.currentSegment)
+                // siftlint:disable:next line_length
                 print("Core Data Helper: fetched CDTrackpoints. # of tracksegments: \(self.tracksegments.count). trackPointId: \(self.trackpointId) trackSegmentId: \(self.tracksegmentId)")
             }
         }
