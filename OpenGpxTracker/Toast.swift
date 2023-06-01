@@ -60,27 +60,27 @@ class Toast {
     static let kFontSize = 16
     
     /// Toast.regular text color
-    static let kRegularTextColor: UIColor = UIColor(ciColor: .white)
+    static let kRegularTextColor: UIColor = UIColor.white
     /// Toast.regular background color
-    static let kRegularBackgroundColor: UIColor = UIColor(ciColor: .black)
+    static let kRegularBackgroundColor: UIColor = UIColor.black
     
     /// Toast.info text color
-    static let kInfoTextColor: UIColor = UIColor(ciColor: .white)
+    static let kInfoTextColor: UIColor = UIColor.white
     /// Toast.info background color
     static let kInfoBackgroundColor: UIColor = UIColor(red: 0/255, green: 100/255, blue: 225/255, alpha: kBackgroundOpacity)
     
     /// Toast.success text color
-    static let kSuccessTextColor: UIColor = UIColor(ciColor: .white)
+    static let kSuccessTextColor: UIColor = UIColor.white
     /// Toast.success background color
     static let kSuccessBackgroundColor: UIColor = UIColor(red: 0/255, green: 150/255, blue: 0/255, alpha: kBackgroundOpacity)
   
     /// Toast.warning text color
-    static let kWarningTextColor: UIColor = UIColor(ciColor: .black)
+    static let kWarningTextColor: UIColor = UIColor.black
     
     static let kWarningBackgroundColor: UIColor = UIColor(red: 255/255, green: 175/255, blue: 0/255, alpha: kBackgroundOpacity)
     
     /// Toast.error text color
-    static let kErrorTextColor: UIColor = UIColor(ciColor: .white)
+    static let kErrorTextColor: UIColor = UIColor.white
     /// Toast.error background color
     static let kErrorBackgroundColor: UIColor = UIColor(red: 175/255, green: 0/255, blue: 0/255, alpha: kBackgroundOpacity)
   
