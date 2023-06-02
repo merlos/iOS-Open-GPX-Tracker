@@ -34,9 +34,8 @@ class CoreDataHelper {
     // MARK: Other Declarations
     
     /// app delegate.
-    // swiftlint:disable force_cast
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
-    
+    // swiftlint:disable:previous force_cast
     // arrays for handling retrieval of data when needed.
     
     // recovered tracksegments
@@ -65,8 +64,8 @@ class CoreDataHelper {
         childManagedObjectContext.parent = appDelegate.managedObjectContext
         
         childManagedObjectContext.perform {
+            // swiftlint:disable:next force_cast
             let root = NSEntityDescription.insertNewObject(forEntityName: "CDRoot", into: childManagedObjectContext) as! CDRoot
-            
             root.lastFileName = lastFileName
             root.continuedAfterSave = willContinue
             root.lastTrackSegmentId = self.tracksegmentId
@@ -101,7 +100,7 @@ class CoreDataHelper {
         
         childManagedObjectContext.perform {
             print("Core Data Helper: Add trackpoint with id: \(self.trackpointId)")
-            // swiftlint:disable force_cast
+            // swiftlint:disable:next force_cast
             let pt = NSEntityDescription.insertNewObject(forEntityName: "CDTrackpoint", into: childManagedObjectContext) as! CDTrackpoint
             
             guard let elevation = trackpoint.elevation else { return }
@@ -153,9 +152,8 @@ class CoreDataHelper {
         
         waypointChildManagedObjectContext.perform {
             print("Core Data Helper: Add waypoint with id: \(self.waypointId)")
-            // swiftlint:disable force_cast
+            // swiftlint:disable:next force_cast
             let pt = NSEntityDescription.insertNewObject(forEntityName: "CDWaypoint", into: waypointChildManagedObjectContext) as! CDWaypoint
-            
             guard let latitude = waypoint.latitude   else { return }
             guard let longitude = waypoint.longitude else { return }
             
@@ -252,7 +250,6 @@ class CoreDataHelper {
                     print("Failure to update and save waypoint to context at child context: \(error)")
                 }
             }
-            
         }
         
         do {
@@ -332,7 +329,6 @@ class CoreDataHelper {
 
     /// Delete all objects of entity given as parameter in Core Data.
     func coreDataDeleteAll<T: NSManagedObject>(of type: T.Type) {
-        
         print("Core Data Helper: Batch Delete \(T.self) from Core Data")
 
         if #available(iOS 10.0, *) {
@@ -372,7 +368,7 @@ class CoreDataHelper {
                 // generates a GPXRoot from recovered data
                 if self.isContinued && self.tracksegments.count >= (self.lastTracksegmentId + 1) {
                     
-                    //Check if there was a tracksegment
+                    // Check if there was a tracksegment
                     if root.tracks.last?.segments.count == 0 {
                         root.tracks.last?.add(trackSegment: GPXTrackSegment())
                     }
@@ -384,35 +380,14 @@ class CoreDataHelper {
                     root.add(track: track)
                 }
                 root.waypoints = self.waypoints
+               
                 // asks user on what to do with recovered data
                 DispatchQueue.main.sync {
-                    // for debugging
-                    // print(root.gpx())
-
-                    // main action sheet setup
-                    let alertController = UIAlertController(title: NSLocalizedString("CONTINUE_SESSION_TITLE", comment: "no comment"),
-                                                            message: NSLocalizedString("CONTINUE_SESSION_MESSAGE", comment: "no comment"),
-                                                            preferredStyle: .actionSheet)
-                    
-                    // option to cancel
-                    let cancelAction = UIAlertAction(title: NSLocalizedString("CANCEL", comment: "no comment"), style: .cancel) { _ in
-                        self.clearAll()
-                    }
-                    // option to continue previous session, which will load it, but not save
-                    let continueAction = UIAlertAction(title: NSLocalizedString("CONTINUE_SESSION", comment: "no comment"), style: .default) { _ in
-                        NotificationCenter.default.post(name: .loadRecoveredFile, object: nil,
-                                                        userInfo: ["recoveredRoot": root, "fileName": self.lastFileName])
-                    }
-                    
-                    // option to save silently as file, session remains new
-                    let saveAction = UIAlertAction(title: NSLocalizedString("SAVE_START_NEW", comment: "no comment"), style: .default) { _ in
-                        self.saveFile(from: root, andIfAvailable: self.lastFileName)
-                    }
-                    
-                    alertController.addAction(cancelAction)
-                    alertController.addAction(continueAction)
-                    alertController.addAction(saveAction)
-                    CoreDataAlertView().showActionSheet(alertController)
+                    NotificationCenter.default.post(name: .loadRecoveredFile, object: nil,
+                                                    userInfo: ["recoveredRoot": root, "fileName": self.lastFileName])
+                    let toastMessage = NSLocalizedString("LAST_SESSION_LOADED",
+                                                         comment: "the filename displayed after the text") + " \n" + self.lastFileName + ".gpx"
+                    Toast.regular(toastMessage, position: .top)
                 }
             } else {
                 // no recovery file will be generated if nothing is recovered (or did not crash).
@@ -421,6 +396,7 @@ class CoreDataHelper {
     }
     
     /// saves recovered data to a gpx file, silently, without loading on map.
+    
     func saveFile(from gpx: GPXRoot, andIfAvailable lastfileName: String) {
         // date format same as usual.
         let dateFormatter = DateFormatter()
@@ -446,7 +422,6 @@ class CoreDataHelper {
         // clear aft save.
         self.clearAll()
         self.coreDataDeleteAll(of: CDRoot.self)
-        //self.deleteCDRootFromCoreData()
     }
     
     // MARK: Reset & Clear
@@ -459,7 +434,6 @@ class CoreDataHelper {
         self.trackpointId = 0
         self.waypointId = 0
         self.tracksegmentId = 0
-        
     }
     
     /// Clear all arrays and current segment after recovery.
@@ -498,7 +472,5 @@ class CoreDataHelper {
         
         // reset order sorting ids
         self.resetIds()
-        
     }
-    
 }

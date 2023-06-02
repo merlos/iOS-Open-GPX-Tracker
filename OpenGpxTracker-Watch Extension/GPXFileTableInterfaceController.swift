@@ -176,7 +176,7 @@ class GPXFileTableInterfaceController: WKInterfaceController {
         if gpxFilesFound {
             for index in 0..<fileTable.numberOfRows {
                 guard let cell = fileTable.rowController(at: index) as? GPXFileTableRowController else { continue }
-                // swiftlint:disable force_cast
+                // swiftlint:disable:next force_cast
                 let gpxFileInfo = fileList.object(at: index) as! GPXFileInfo
                 cell.fileLabel.setText(gpxFileInfo.fileName)
             }
@@ -232,7 +232,7 @@ class GPXFileTableInterfaceController: WKInterfaceController {
             self.hideProgressIndicators()
             return
         }
-        // swiftlint:disable force_cast
+        // swiftlint:disable:next force_cast
         let gpxFileInfo = fileList.object(at: rowIndex) as! GPXFileInfo
         self.scroll(to: progressGroup, at: .top, animated: true) // scrolls to top when indicator is shown.
         self.updateProgressIndicators(status: .sending, fileName: gpxFileInfo.fileName)
@@ -257,7 +257,7 @@ class GPXFileTableInterfaceController: WKInterfaceController {
         }
         GPXFileManager.removeFileFromURL(fileURL)
         
-        //Delete from list and Table
+        // Delete from list and Table
         fileList.removeObject(at: rowIndex)
         
     }

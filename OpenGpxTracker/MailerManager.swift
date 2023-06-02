@@ -27,13 +27,13 @@ class MailerManager: NSObject, MFMailComposeViewControllerDelegate {
         
         // set the subject
         composer.setSubject("[Open GPX tracker] Gpx File")
-        //Add some text to the message body
+        // Add some text to the message body
         var body = "Open GPX Tracker \n is an open source app for Apple devices. Create GPS tracks and export them to GPX files."
         composer.setMessageBody(body, isHTML: true)
         let fileData: NSData = NSData.dataWithContentsOfFile(filepath, options: .DataReadingMappedIfSafe, error: nil)
         composer.addAttachmentData(fileData, mimeType: "application/gpx+xml", fileName: filepath.lastPathComponent)
     
-        //Display the comopser view controller
+        // Display the comopser view controller
         controller.presentViewController(composer, animated: true, completion: nil)
     
     }

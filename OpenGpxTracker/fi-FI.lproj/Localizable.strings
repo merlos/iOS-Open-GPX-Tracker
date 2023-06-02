@@ -44,6 +44,9 @@ Created by Phiilman on 28.03.20.
 "CACHE_IS_EMPTY" = "Välimuisti on tyhjä";
 "EDIT_WAYPOINT_NAME_TITLE" = "Nimeä merkkipiste";
 "EDIT_WAYPOINT_NAME_MESSAGE" = "Vihje: Vedä ja pudota nuppineulaa siirtääksesi merkin paikkaa.";
+"GPX_FILES_FOLDER" = "GPX-tiedostojen kansio";
+"USING_DEFAULT_FOLDER" = "Käytetään oletuskansiota";
+"LAST_SESSION_LOADED" = "Viimeisin istunto ladattu";
 
 // Watch
 "SENDING" = "Lähettää:";

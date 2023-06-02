@@ -45,6 +45,10 @@
 "CACHE_IS_EMPTY" = "Cache vazio";
 "EDIT_WAYPOINT_NAME_TITLE" = "Edite o nome do ponto";
 "EDIT_WAYPOINT_NAME_MESSAGE" = "Dica: Para alterar a localização do ponto arraste o pin";
+"GPX_FILES_FOLDER" = "Pasta de arquivos GPX";
+"USING_DEFAULT_FOLDER" = "Usando pasta padrão";
+"LAST_SESSION_LOADED" = "Última sessão carregada";
+
 
 // Watch
 "SENDING" = "Enviando:";

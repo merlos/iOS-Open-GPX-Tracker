@@ -43,6 +43,9 @@
 "CACHE_IS_EMPTY" = "Die Cache ist jetzt leer";
 "EDIT_WAYPOINT_NAME_TITLE" = "Wegpunkt ändern";
 "EDIT_WAYPOINT_NAME_MESSAGE" = "Hinweis: Um einen Wegpunkt zu verändern, verschiebe den Pin.";
+"GPX_FILES_FOLDER" = "GPX-Dateien-Ordner";
+"USING_DEFAULT_FOLDER" = "Standardordner verwenden";
+"LAST_SESSION_LOADED" = "Letzte Sitzung geladen";
 
 // Watch
 "SENDING" = "Sende:";

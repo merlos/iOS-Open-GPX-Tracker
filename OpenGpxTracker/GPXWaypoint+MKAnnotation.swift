@@ -20,16 +20,14 @@ extension GPXWaypoint: MKAnnotation {
     ///
     convenience init (coordinate: CLLocationCoordinate2D) { 
         self.init(latitude: coordinate.latitude, longitude: coordinate.longitude)
-        //set default title and subtitle
+        // Set default title and subtitle
         
         // Default title now
         let timeFormat = DateFormatter()
         timeFormat.dateStyle = DateFormatter.Style.none
         timeFormat.timeStyle = DateFormatter.Style.medium
-        //timeFormat.setLocalizedDateFormatFromTemplate("HH:mm:ss")
         
         let subtitleFormat = DateFormatter()
-        //dateFormat.setLocalizedDateFormatFromTemplate("MMM dd, yyyy")
         subtitleFormat.dateStyle = DateFormatter.Style.medium
         subtitleFormat.timeStyle = DateFormatter.Style.medium
         
@@ -47,33 +45,35 @@ extension GPXWaypoint: MKAnnotation {
     /// Title displayed on the annotation bubble.
     /// Is the attribute name of the waypoint.
     public var title: String? {
-        set {
-            self.name = newValue
-        }
         get {
             return self.name
         }
+        set {
+            self.name = newValue
+        }
+        
     }
     
     /// Subtitle displayed on the annotation bubble
     /// Description of the GPXWaypoint.
     public var subtitle: String? {
-        set {
-            self.desc = newValue
-        }
         get {
             return self.desc
         }
+        set {
+            self.desc = newValue
+        }
+
     }
     
-    ///Annotation coordinates. Returns/Sets the waypoint latitude and longitudes.
+    /// Annotation coordinates. Returns/Sets the waypoint latitude and longitudes.
     public var coordinate: CLLocationCoordinate2D {
+        get {
+            return CLLocationCoordinate2D(latitude: self.latitude!, longitude: CLLocationDegrees(self.longitude!))
+        }
         set {
             self.latitude = newValue.latitude
             self.longitude = newValue.longitude
-        }
-        get {
-            return CLLocationCoordinate2D(latitude: self.latitude!, longitude: CLLocationDegrees(self.longitude!))
         }
     }    
 }

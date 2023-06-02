@@ -36,7 +36,6 @@ extension CoreDataHelper {
             } catch {
                 print("Failed to delete all from core data, error: \(error)")
             }
-            
         }
     }
     
@@ -75,6 +74,5 @@ extension CoreDataHelper {
         } catch let error {
             print("NSAsynchronousFetchRequest (while deleting \(T.self) error: \(error)")
         }
-
     }
 }

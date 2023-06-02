@@ -24,7 +24,7 @@ open class DistanceLabel: UILabel {
     /// Internal variable that keeps the actual distance
     private var _distance = 0.0
     
-    ///Internal variable to keep the use of imperial units
+    /// Internal variable to keep the use of imperial units
     private var _useImperial = false
     
     /// Use imperial units (miles)? False by default.
@@ -35,7 +35,7 @@ open class DistanceLabel: UILabel {
         }
         set {
             _useImperial = newValue
-            distance = _distance //updates text displayed to reflect the new units
+            distance = _distance // Updates text displayed to reflect the new units
         }
     }
     

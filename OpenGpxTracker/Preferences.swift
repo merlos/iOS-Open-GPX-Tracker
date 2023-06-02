@@ -84,14 +84,14 @@ class Preferences: NSObject {
     private var _dateFormatUseEN: Bool = false
     
     ///
-    private var _gpxFilesFolderBookmark: Data? = nil
+    private var _gpxFilesFolderBookmark: Data?
     
     /// UserDefaults.standard shortcut
     private let defaults = UserDefaults.standard
     
     /// Loads preferences from UserDefaults.
     private override init() {
-        //loads preferences into private vars
+        // Loads preferences into private vars
      
         // Use Imperial units
         if let useImperialDefaults = defaults.object(forKey: kDefaultsKeyUseImperial) as? Bool {
@@ -181,7 +181,7 @@ class Preferences: NSObject {
         }
         set {
             _useCache = newValue
-            //Set defaults
+            // Set defaults
             defaults.set(newValue, forKey: kDefaultsKeyUseCache)
         }
     }
