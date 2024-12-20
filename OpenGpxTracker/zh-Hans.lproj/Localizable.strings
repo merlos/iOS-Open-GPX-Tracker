@@ -37,9 +37,13 @@
 "SHARE" = "分享";
 "LOADING_FILE" = "在处理 GPX 文件中...";
 "ABOUT" = "资料";
+
+//Preferences
 "PREFERENCES" = "设置";
 "UNITS" = "计量单位";
 "CACHE" = "地图高速缓存系统"; // not quite confident in translation. Have never heard of anyone used “cache” in Chinese before.
+"SCREEN" = "屏幕";
+"KEEP_SCREEN_ALWAYS_ON" = "始终保持屏幕开启？";
 "MAP_SOURCE" = "地图款式";
 "ACTIVITY_TYPE" = "活动类别";
 "USE_IMPERIAL_UNITS" = "要用英制吗？";

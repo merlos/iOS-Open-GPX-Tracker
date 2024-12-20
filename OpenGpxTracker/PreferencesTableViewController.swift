@@ -16,23 +16,32 @@ import CoreServices
 /// Units Section Id in PreferencesTableViewController
 let kUnitsSection = 0
 
+/// Screen always on section id
+let kScreenSection = 1
+
 /// Cache Section Id in PreferencesTableViewController
-let kCacheSection = 1
+let kCacheSection = 2
 
 /// Map Source Section Id in PreferencesTableViewController
-let kMapSourceSection = 2
+let kMapSourceSection = 3
 
 /// Activity Type Section Id in PreferencesTableViewController
-let kActivityTypeSection = 3
+let kActivityTypeSection = 4
 
 /// Default Name Section Id in PreferencesTableViewController
-let kDefaultNameSection = 4
+let kDefaultNameSection = 5
 
 /// GPX Files Location Section Id in PreferencesTableViewController
-let kGPXFilesLocationSection = 5
+let kGPXFilesLocationSection = 6
 
 /// Cell Id of the Use Imperial units in UnitsSection
 let kUseImperialUnitsCell = 0
+
+
+/// Cell Id of the keepScreenAlwaysOnl units in ScreenSection
+let kKeepScreenAlwaysOnCell = 0
+
+
 
 /// Cell Id for Use offline cache in CacheSection of PreferencesTableViewController
 let kUseOfflineCacheCell = 0
@@ -119,6 +128,7 @@ class PreferencesTableViewController: UITableViewController, UINavigationBarDele
         case kActivityTypeSection: return NSLocalizedString("ACTIVITY_TYPE", comment: "no comment")
         case kDefaultNameSection: return NSLocalizedString("DEFAULT_NAME_SECTION", comment: "no comment")
         case kGPXFilesLocationSection: return NSLocalizedString("GPX_FILES_FOLDER", comment: "no comment")
+        case kScreenSection: return NSLocalizedString("SCREEN", comment: "no comment")
         default: fatalError("Unknown section")
         }
     }
@@ -134,6 +144,7 @@ class PreferencesTableViewController: UITableViewController, UINavigationBarDele
         case kActivityTypeSection: return CLActivityType.count
         case kDefaultNameSection: return 1
         case kGPXFilesLocationSection: return 1
+        case kScreenSection: return 1
         default: fatalError("Unknown section")
         }
     }
@@ -162,6 +173,19 @@ class PreferencesTableViewController: UITableViewController, UINavigationBarDele
                 if preferences.useImperial {
                     cell.accessoryType = .checkmark
                 }
+             default: fatalError("Unknown section")
+            }
+        }
+        
+        // Units section
+        if indexPath.section == kScreenSection {
+             switch indexPath.row {
+             case kKeepScreenAlwaysOnCell:
+                 cell = UITableViewCell(style: .value1, reuseIdentifier: "CacheCell")
+                 cell.textLabel?.text = NSLocalizedString("KEEP_SCREEN_ALWAYS_ON", comment: "no comment")
+                 if preferences.keepScreenAlwaysOn {
+                    cell.accessoryType = .checkmark
+                 }
              default: fatalError("Unknown section")
             }
         }
@@ -263,6 +287,22 @@ class PreferencesTableViewController: UITableViewController, UINavigationBarDele
                 fatalError("didSelectRowAt: Unknown cell")
             }
         }
+        
+        if indexPath.section == kScreenSection {
+            switch indexPath.row {
+            case kKeepScreenAlwaysOnCell:
+                let newKeepScreenAlwaysOn = !preferences.keepScreenAlwaysOn
+                preferences.keepScreenAlwaysOn = newKeepScreenAlwaysOn
+                print("PreferencesTableViewController: toggle keep screen always on to \(newKeepScreenAlwaysOn)")
+                // Update cell UI
+                tableView.cellForRow(at: indexPath)?.accessoryType = newKeepScreenAlwaysOn ? .checkmark : .none
+                // Notify the map
+                self.delegate?.didUpdateKeepScreenAlwaysOn(newKeepScreenAlwaysOn)
+            default:
+                fatalError("didSelectRowAt: Unknown cell")
+            }
+        }
+        
         
         if indexPath.section == kCacheSection {  // 0 -> sets and unsets cache
             switch indexPath.row {

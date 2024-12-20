@@ -75,6 +75,7 @@ class Toast {
     /// Long delay
     static let kDelayLong = 5.0
     
+    static let kDisabledDelay = -1.0
     /// Background opacity
     static let kBackgroundOpacity: Double = 0.9
     
@@ -118,7 +119,10 @@ class Toast {
         case center
         case top
     }
-    
+
+    /// Singleton instance of the loading toast
+    private static var manualToast: UIView?
+
     ///
     /// Generic implementation to show toast
     /// - Parameters:
@@ -169,16 +173,24 @@ class Toast {
         }
         label.center.x = window.center.x
         
-        window.addSubview(label)
-        UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseIn,
-                       animations: { label.alpha = 1 },
-                       completion: { _ in
-                            UIView.animate(withDuration: 0.5, delay: delay,
-                            options: .curveEaseOut,
-                            animations: {label.alpha = 0 },
-                            completion: {_ in label.removeFromSuperview()
-                            })
-                        })
+        if delay == kDisabledDelay {
+            manualToast = label
+            window.addSubview(manualToast!)
+            UIView.animate(withDuration: 0.3) {
+                manualToast!.alpha = 1
+            }
+        } else {
+            window.addSubview(label)
+            UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseIn,
+                           animations: { label.alpha = 1 },
+                           completion: { _ in
+                UIView.animate(withDuration: 0.5, delay: delay,
+                               options: .curveEaseOut,
+                               animations: {label.alpha = 0 },
+                               completion: {_ in label.removeFromSuperview()
+                })
+            })
+        }
     }
     
     ///
@@ -248,4 +260,30 @@ class Toast {
                   position: position,
                   delay: delay)
     }
-}
+    ///
+    /// Shows a persistent loading toast with a spinner
+    /// - Parameters:
+    ///   - message: Text message to display alongside the spinner
+    ///   - position: Position within the screen (.bottom, .center, .top)
+    ///
+    class func showLoading(_ message: String = "Loading...", position: Position = .center) {
+        showToast(String("⌛️")+"  "+message,
+                  textColor: kRegularTextColor,
+                  backgroundColor: kRegularBackgroundColor,
+                  position: position,
+                  delay: kDisabledDelay)
+    }
+        
+    ///
+    /// Hides the persistent loading toast
+    ///
+    class func hideLoading() {
+          guard let toast = manualToast else { return }
+          UIView.animate(withDuration: 0.3, animations: {
+              toast.alpha = 0
+          }, completion: { _ in
+              toast.removeFromSuperview()
+              manualToast = nil
+          })
+      }
+  }

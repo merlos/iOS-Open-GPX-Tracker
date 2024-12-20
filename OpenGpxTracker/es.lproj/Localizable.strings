@@ -33,9 +33,13 @@
 "SHARE" = "Compartir";
 "LOADING_FILE" = "Cargando ...";
 "ABOUT" = "Acerca de";
+
+//Preferences
 "PREFERENCES" = "Preferencias";
 "UNITS" = "Unidades";
 "CACHE" = "Caché";
+"SCREEN" = "Pantalla";
+"KEEP_SCREEN_ALWAYS_ON" = "¿Mantener la pantalla siempre encendida?";
 "MAP_SOURCE" = "Mapas";
 "ACTIVITY_TYPE" = "Tipo de actividad";
 "USE_IMPERIAL_UNITS" = "¿Usar sistema imperial?";

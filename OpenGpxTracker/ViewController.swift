@@ -433,6 +433,9 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         useImperial = Preferences.shared.useImperial
         // LocationManager.activityType = Preferences.shared.locationActivityType
         
+        // Shall it keep the screen always on?
+        UIApplication.shared.isIdleTimerDisabled = Preferences.shared.keepScreenAlwaysOn
+        
         //
         // Config user interface
         //
@@ -974,13 +977,28 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
     ///
     @objc func openPreferencesTableViewController() {
         print("openPreferencesTableViewController")
-        let vc = PreferencesTableViewController(style: .grouped)
-        vc.delegate = self
-        let navController = UINavigationController(rootViewController: vc)
-        self.present(navController, animated: true) { () -> Void in }
+
+        // Show loading toast
+        Toast.showLoading("Loading Preferences...")
+
+        // Perform all operations on the main thread
+        DispatchQueue.main.async {
+            // Simulate a delay for testing (remove in production)
+            //Thread.sleep(forTimeInterval: 4.5)
+
+            let vc = PreferencesTableViewController(style: .grouped)
+            vc.delegate = self
+            let navController = UINavigationController(rootViewController: vc)
+
+            // Hide the loading toast and present the view controller
+            Toast.hideLoading()
+            self.present(navController, animated: true)
+        }
     }
-    
+
+    ///
     /// Opens an Activity View Controller to share the file
+    /// 
     @objc func openShare() {
         print("ViewController: Share Button tapped")
         
@@ -1313,6 +1331,7 @@ extension ViewController: StopWatchDelegate {
 
 extension ViewController: PreferencesTableViewControllerDelegate {
     
+    
     /// Update the activity type that the location manager is using.
     ///
     /// When user changes the activity type in preferences, this function is invoked to update the activity type of the location manager.
@@ -1356,7 +1375,14 @@ extension ViewController: PreferencesTableViewControllerDelegate {
         // In regular circunstances it will go to the new units relatively fast.
         speedLabel.text = kUnknownSpeedText
         signalAccuracyLabel.text = kUnknownAccuracyText
-    }}
+    }
+    
+    // User changed the setting of use imperial units.
+    func didUpdateKeepScreenAlwaysOn(_ newKeepScreenAlwaysOn: Bool) {
+        print("PreferencesTableViewControllerDelegate:: didUpdateKeepScreenAlwaysOn: \(newKeepScreenAlwaysOn)")
+        UIApplication.shared.isIdleTimerDisabled = newKeepScreenAlwaysOn
+    }
+}
 
 /// Extends `ViewController`` to support `GPXFilesTableViewControllerDelegate` function
 /// that loads into the map a the file selected by the user.

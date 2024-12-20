@@ -33,9 +33,13 @@ Created by Phiilman on 28.03.20.
 "SHARE" = "Jaa";
 "LOADING_FILE" = "Lataa GPX tiedostoa";
 "ABOUT" = "Tietoja";
+
+// Preferences
 "PREFERENCES" = "Asetukset";
 "UNITS" = "Yksiköt";
 "CACHE" = "Välimuisti";
+"SCREEN" = "Näyttö";
+"KEEP_SCREEN_ALWAYS_ON" = "Pidä näyttö aina päällä?";
 "MAP_SOURCE" = "Kartan lähde";
 "ACTIVITY_TYPE" = "Aktiviteetti";
 "USE_IMPERIAL_UNITS" = "Käytä Britti-mittoja?";

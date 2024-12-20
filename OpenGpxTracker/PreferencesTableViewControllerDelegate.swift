@@ -22,6 +22,9 @@ protocol PreferencesTableViewControllerDelegate: AnyObject {
     /// User updated the usage of imperial units
     func didUpdateUseImperial(_ newUseImperial: Bool)
     
+    /// User updated the keep screen always on option
+    func didUpdateKeepScreenAlwaysOn(_ newKeepScreenAlwaysOn: Bool)
+  
     /// User updated the activity type
     func didUpdateActivityType(_ newActivityType: Int)
     
