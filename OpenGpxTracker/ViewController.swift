@@ -433,6 +433,9 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         useImperial = Preferences.shared.useImperial
         // LocationManager.activityType = Preferences.shared.locationActivityType
         
+        // Shall it keep the screen always on?
+        UIApplication.shared.isIdleTimerDisabled = Preferences.shared.keepScreenAlwaysOn
+        
         //
         // Config user interface
         //
