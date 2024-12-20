@@ -977,13 +977,28 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
     ///
     @objc func openPreferencesTableViewController() {
         print("openPreferencesTableViewController")
-        let vc = PreferencesTableViewController(style: .grouped)
-        vc.delegate = self
-        let navController = UINavigationController(rootViewController: vc)
-        self.present(navController, animated: true) { () -> Void in }
+
+        // Show loading toast
+        Toast.showLoading("Loading Preferences...")
+
+        // Perform all operations on the main thread
+        DispatchQueue.main.async {
+            // Simulate a delay for testing (remove in production)
+            //Thread.sleep(forTimeInterval: 4.5)
+
+            let vc = PreferencesTableViewController(style: .grouped)
+            vc.delegate = self
+            let navController = UINavigationController(rootViewController: vc)
+
+            // Hide the loading toast and present the view controller
+            Toast.hideLoading()
+            self.present(navController, animated: true)
+        }
     }
-    
+
+    ///
     /// Opens an Activity View Controller to share the file
+    /// 
     @objc func openShare() {
         print("ViewController: Share Button tapped")
         
