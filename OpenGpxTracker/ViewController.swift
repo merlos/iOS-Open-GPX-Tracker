@@ -1313,6 +1313,7 @@ extension ViewController: StopWatchDelegate {
 
 extension ViewController: PreferencesTableViewControllerDelegate {
     
+    
     /// Update the activity type that the location manager is using.
     ///
     /// When user changes the activity type in preferences, this function is invoked to update the activity type of the location manager.
@@ -1356,7 +1357,14 @@ extension ViewController: PreferencesTableViewControllerDelegate {
         // In regular circunstances it will go to the new units relatively fast.
         speedLabel.text = kUnknownSpeedText
         signalAccuracyLabel.text = kUnknownAccuracyText
-    }}
+    }
+    
+    // User changed the setting of use imperial units.
+    func didUpdateKeepScreenAlwaysOn(_ newKeepScreenAlwaysOn: Bool) {
+        print("PreferencesTableViewControllerDelegate:: didUpdateKeepScreenAlwaysOn: \(newKeepScreenAlwaysOn)")
+        UIApplication.shared.isIdleTimerDisabled = newKeepScreenAlwaysOn
+    }
+}
 
 /// Extends `ViewController`` to support `GPXFilesTableViewControllerDelegate` function
 /// that loads into the map a the file selected by the user.

@@ -33,8 +33,12 @@
 "SHARE" = "Share";
 "LOADING_FILE" = "Loading GPX File...";
 "ABOUT" = "About";
+
+// Preferences
 "PREFERENCES" = "Preferences";
 "UNITS" = "Units";
+"SCREEN" = "Screen";
+"KEEP_SCREEN_ALWAYS_ON" = "Keep Screen always on?";
 "CACHE" = "Cache";
 "MAP_SOURCE" = "Map Source";
 "ACTIVITY_TYPE" = "Activity Type";

@@ -40,6 +40,8 @@ let kDefaultsKeyDateFormatUseEN: String = "DateFormatPresetUseEN"
 /// Key on Defaults for the folder where GPX files are store, `nil` means default folder
 let kDefaultsKeyGPXFilesFolder: String = "GPXFilesFolder"
 
+let kDefaultsKeyKeepScreenAlwaysOn: String = "KeepScreenAlwaysOn"
+
 /// A class to handle app preferences in one single place.
 /// When the app starts for the first time the following preferences are set:
 ///
@@ -85,6 +87,9 @@ class Preferences: NSObject {
     
     ///
     private var _gpxFilesFolderBookmark: Data?
+    
+    ///
+    private var _keepScreenAlwaysOn: Bool = false
     
     /// UserDefaults.standard shortcut
     private let defaults = UserDefaults.standard
@@ -160,6 +165,13 @@ class Preferences: NSObject {
             _gpxFilesFolderBookmark = gpxFilesFolderBookmark
             print("** Preferences:: loaded preference from defaults gpxFilesFolderBookmark \(gpxFilesFolderBookmark)")
         }
+        
+        // load previous date format, to use EN locale instead of local locale
+        if let keepScreenAlwaysOnBool = defaults.object(forKey: kDefaultsKeyKeepScreenAlwaysOn) as? Bool {
+            _keepScreenAlwaysOn = keepScreenAlwaysOnBool
+            print("** Preferences:: loaded preference from defaults keepScreenAlwaysOn \(keepScreenAlwaysOnBool)")
+        }
+        
     }
     
     /// If true, user prefers to display imperial units (miles, feets). Otherwise metric units
@@ -290,6 +302,18 @@ class Preferences: NSObject {
         set {
             _dateFormatUseEN = newValue
              defaults.set(newValue, forKey: kDefaultsKeyDateFormatUseEN)
+        }
+    }
+    
+    /// Get and sets whether to set the screen always On or not
+    var keepScreenAlwaysOn: Bool {
+        get {
+            return _keepScreenAlwaysOn
+        }
+        set {
+            _keepScreenAlwaysOn = newValue
+            defaults.set(newValue, forKey: kDefaultsKeyKeepScreenAlwaysOn)
+            print("** Preferences:: setting keepScreenAlwaysOn: \(newValue)")
         }
     }
     
