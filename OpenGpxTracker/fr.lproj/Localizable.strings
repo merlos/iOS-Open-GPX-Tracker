@@ -34,9 +34,13 @@
 "SHARE" = "Partager";
 "LOADING_FILE" = "Chargement du fichier GPX...";
 "ABOUT" = "A propos";
+
+// Preferences
 "PREFERENCES" = "Préférences";
 "UNITS" = "Unités";
 "CACHE" = "Cache";
+"SCREEN" = "Écran";
+"KEEP_SCREEN_ALWAYS_ON" = "Garder l'écran toujours allumé ?";
 "MAP_SOURCE" = "Source de la carte";
 "ACTIVITY_TYPE" = "Type d'activité";
 "USE_IMPERIAL_UNITS" = "Utiliser les unités impériales?";

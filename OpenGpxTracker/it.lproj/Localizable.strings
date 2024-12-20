@@ -32,9 +32,13 @@
 "SHARE" = "Condividere";
 "LOADING_FILE" = "Caricare Documento GPX...";
 "ABOUT" = "a proposito";
+
+// Preferences
 "PREFERENCES" = "Impostazioni";
 "UNITS" = "Unità";
 "CACHE" = "Cache";
+"SCREEN" = "Schermo";
+"KEEP_SCREEN_ALWAYS_ON" = "Mantenere lo schermo sempre acceso?";
 "MAP_SOURCE" = "Tipo Mappe";
 "ACTIVITY_TYPE" = "Tipo di attività";
 "USE_IMPERIAL_UNITS" = "Usare Miglia";

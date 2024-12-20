@@ -33,9 +33,13 @@
 "SHARE" = "Delen";
 "LOADING_FILE" = "GPX bestand aan het laden...";
 "ABOUT" = "Over";
+
+// Preferences
 "PREFERENCES" = "Voorkeuren";
 "UNITS" = "Eenheden";
 "CACHE" = "Cache";
+"SCREEN" = "Scherm";
+"KEEP_SCREEN_ALWAYS_ON" = "Scherm altijd aanhouden?";
 "MAP_SOURCE" = "Kaartbron";
 "ACTIVITY_TYPE" = "Soort activiteit";
 "USE_IMPERIAL_UNITS" = "Gebruik imperiale eenheden?";

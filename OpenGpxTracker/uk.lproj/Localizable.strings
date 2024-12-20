@@ -33,9 +33,13 @@
 "SHARE" = "Поширити";
 "LOADING_FILE" = "Завантаження GPX-файлу...";
 "ABOUT" = "Про програму";
+
+//Preferences
 "PREFERENCES" = "Налаштування";
 "UNITS" = "Одиниці вимірювання";
 "CACHE" = "Кеш";
+"SCREEN" = "Екран";
+"KEEP_SCREEN_ALWAYS_ON" = "Завжди залишати екран увімкненим?";
 "MAP_SOURCE" = "Джерело мапи";
 "ACTIVITY_TYPE" = "Тип активності";
 "USE_IMPERIAL_UNITS" = "Використовувати англійську систему мір?";
