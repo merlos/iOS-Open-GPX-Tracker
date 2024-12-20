@@ -37,11 +37,8 @@ let kGPXFilesLocationSection = 6
 /// Cell Id of the Use Imperial units in UnitsSection
 let kUseImperialUnitsCell = 0
 
-
 /// Cell Id of the keepScreenAlwaysOnl units in ScreenSection
 let kKeepScreenAlwaysOnCell = 0
-
-
 
 /// Cell Id for Use offline cache in CacheSection of PreferencesTableViewController
 let kUseOfflineCacheCell = 0
@@ -114,7 +111,7 @@ class PreferencesTableViewController: UITableViewController, UINavigationBarDele
     /// Returns 4 sections: Units, Cache, Map Source, Activity Type
     override func numberOfSections(in tableView: UITableView?) -> Int {
         // Return the number of sections.
-        return 6
+        return 7
     }
     
     /// Returns the title of the existing sections.
