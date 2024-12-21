@@ -17,12 +17,13 @@ class GPXFileInfo: NSObject {
     /// file URL
     var fileURL: URL = URL(fileURLWithPath: "")
     
-    /// Last time the file was modified
     var modifiedDate: Date {
-        // swiftlint:disable:next force_try
-        return try! fileURL.resourceValues(forKeys: [.contentModificationDateKey]).contentModificationDate ?? Date.distantPast
+        guard let resourceValues = try? fileURL.resourceValues(forKeys: [.contentModificationDateKey]),
+              let modificationDate = resourceValues.contentModificationDate else {
+            return Date.distantPast // Default value if the modification date cannot be retrieved
+        }
+        return modificationDate
     }
-    
     /// modified date has a time ago string (for instance: 3 days ago)
     var modifiedDatetimeAgo: String {
         return modifiedDate.timeAgo(numericDates: true)
@@ -30,8 +31,11 @@ class GPXFileInfo: NSObject {
     
     /// File size in bytes
     var fileSize: Int {
-        // swiftlint:disable:next force_try
-        return try! fileURL.resourceValues(forKeys: [.fileSizeKey]).fileSize ?? 0
+        guard let resourceValues = try? fileURL.resourceValues(forKeys: [.fileSizeKey]),
+              let size = resourceValues.fileSize else {
+            return -1 // Default value if the file size cannot be retrieved
+        }
+        return size
     }
     
     /// File size as string in a more readable format (example: 10 KB)
