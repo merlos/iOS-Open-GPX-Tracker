@@ -39,6 +39,7 @@
 "PREFERENCES" = "Preferências";
 "UNITS" = "Unidades";
 "CACHE" = "Cache";
+"CALCULATING" = "Calculando...";
 "SCREEN" = "Tela";
 "KEEP_SCREEN_ALWAYS_ON" = "Manter a tela sempre ligada?";
 "MAP_SOURCE" = "Origem do mapa";

@@ -42,6 +42,7 @@
 "PREFERENCES" = "设置";
 "UNITS" = "计量单位";
 "CACHE" = "地图高速缓存系统"; // not quite confident in translation. Have never heard of anyone used “cache” in Chinese before.
+"CALCULATING" = "计算中..."; // Chinese Simplified
 "SCREEN" = "屏幕";
 "KEEP_SCREEN_ALWAYS_ON" = "始终保持屏幕开启？";
 "MAP_SOURCE" = "地图款式";

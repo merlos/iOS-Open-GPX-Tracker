@@ -40,6 +40,7 @@
 "SCREEN" = "Screen";
 "KEEP_SCREEN_ALWAYS_ON" = "Keep screen always on?";
 "CACHE" = "Cache";
+"CALCULATING" = "Calculating...";
 "MAP_SOURCE" = "Map Source";
 "ACTIVITY_TYPE" = "Activity Type";
 "USE_IMPERIAL_UNITS" = "Use imperial units?";

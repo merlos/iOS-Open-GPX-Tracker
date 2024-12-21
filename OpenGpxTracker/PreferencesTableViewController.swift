@@ -84,16 +84,13 @@ class PreferencesTableViewController: UITableViewController, UINavigationBarDele
                                         action: #selector(PreferencesTableViewController.closePreferencesTableViewController))
         self.navigationItem.rightBarButtonItems = [shareItem]
         
-        //let fileSize = cache.diskCache.fileSize ?? 0
-        //cachedSize = Int(fileSize).asFileSize()
         // Set a temporary value for cachedSize
-        cachedSize = "Calculating..."
+        cachedSize = NSLocalizedString("CALCULATING", comment: "Calculating cache")
         print("PreferencesTableViewConroller: Starting cache calculation")
         // Perform the file size calculation asynchronously
         DispatchQueue.global(qos: .background).async {
             let fileSize = self.cache.diskCache.fileSize ?? 0
             self.cachedSize = Int(fileSize).asFileSize()
-
             // Update the cachedSize on the main thread once the operation is complete
             DispatchQueue.main.async {
                 print("PreferencesTableViewController: Completing cache calculation")

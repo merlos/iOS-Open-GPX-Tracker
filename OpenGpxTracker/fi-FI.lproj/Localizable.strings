@@ -38,6 +38,7 @@ Created by Phiilman on 28.03.20.
 "PREFERENCES" = "Asetukset";
 "UNITS" = "Yksiköt";
 "CACHE" = "Välimuisti";
+"CALCULATING" = "Lasketaan..."; 
 "SCREEN" = "Näyttö";
 "KEEP_SCREEN_ALWAYS_ON" = "Pidä näyttö aina päällä?";
 "MAP_SOURCE" = "Kartan lähde";

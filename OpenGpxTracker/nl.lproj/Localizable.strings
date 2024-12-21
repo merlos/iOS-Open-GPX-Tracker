@@ -39,6 +39,7 @@
 "UNITS" = "Eenheden";
 "CACHE" = "Cache";
 "SCREEN" = "Scherm";
+"CALCULATING" = "Bezig met berekenen...";
 "KEEP_SCREEN_ALWAYS_ON" = "Scherm altijd aanhouden?";
 "MAP_SOURCE" = "Kaartbron";
 "ACTIVITY_TYPE" = "Soort activiteit";
