@@ -37,6 +37,7 @@
 "PREFERENCES" = "Einstellungen";
 "UNITS" = "Einheiten";
 "CACHE" = "Cache";
+"CALCULATING" = "Berechnung...";
 "SCREEN" = "Bildschirm";
 "KEEP_SCREEN_ALWAYS_ON" = "Bildschirm immer eingeschaltet lassen?";
 "MAP_SOURCE" = "Kartentyp";

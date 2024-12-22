@@ -7,9 +7,6 @@
 
 import Foundation
 
-/// GPX File extension
-let kFileExt = ["gpx", "GPX"]
-
 ///
 /// Class to handle actions with GPX files (save, delete, etc..)
 ///
@@ -17,11 +14,15 @@ let kFileExt = ["gpx", "GPX"]
 ///
 class GPXFileManager: NSObject {
     
+    /// List of GPX File extension
+    static let gpxExtList = ["gpx", "GPX"]
+
     ///
     /// Folder that where all GPX files are stored
     ///
     class var GPXFilesFolderURL: URL {
         if let customFolderURL = Preferences.shared.gpxFilesFolderURL {
+            print("GPXFileManager: using custom folder: \(customFolderURL)")
             return customFolderURL
         }
         let documentsUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0] as URL
@@ -32,17 +33,13 @@ class GPXFileManager: NSObject {
     /// Gets the list of `.gpx` files in Documents directory ordered by modified date
     ///
     class var fileList: [GPXFileInfo] {
-        let fileManager = FileManager.default
-        let documentsURL = fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0]
-        var files = self.fetchFilesList(from: documentsURL)
-        if let customFolderURL = Preferences.shared.gpxFilesFolderURL {
-            _ = customFolderURL.startAccessingSecurityScopedResource()
-            files += self.fetchFilesList(from: customFolderURL)
-            customFolderURL.stopAccessingSecurityScopedResource()
+        let documentsURL = GPXFileManager.GPXFilesFolderURL
+        if documentsURL.startAccessingSecurityScopedResource() {
+            let files = self.fetchFilesList(from: documentsURL)
+            documentsURL.stopAccessingSecurityScopedResource()
+            return files
         }
-        return files.sorted { lhs, rhs in
-            return lhs.modifiedDate > rhs.modifiedDate
-        }
+        return []
     }
     
     ///
@@ -55,8 +52,8 @@ class GPXFileManager: NSObject {
         var fullURL = self.GPXFilesFolderURL.appendingPathComponent(filename)
         print("URLForFilename(\(filename): pathForFilename: \(fullURL)")
         // Check if filename has extension
-        if  !(kFileExt.contains(fullURL.pathExtension)) {
-            fullURL = fullURL.appendingPathExtension(kFileExt[0])
+        if  !(gpxExtList.contains(fullURL.pathExtension)) {
+            fullURL = fullURL.appendingPathExtension(gpxExtList[0])
         }
         return fullURL
     }
@@ -189,6 +186,7 @@ class GPXFileManager: NSObject {
     private class func fetchFilesList(from rootURL: URL) -> [GPXFileInfo] {
         var GPXFiles: [GPXFileInfo] = []
         let fileManager = FileManager.default
+        print("====================================================================")
         do {
             // Get all files from the directory .documentsURL. Of each file get the URL (~path)
             // last modification date and file size
@@ -204,17 +202,18 @@ class GPXFileManager: NSObject {
                      fileSize: (try? url.resourceValues(forKeys: [.fileSizeKey]))?.fileSize ?? 0)
                     }
                     .sorted(by: { $0.1 > $1.1 }) // sort descending modification dates
-                print(sortedURLs)
                 // Now we filter GPX Files
                 for (url, modificationDate, fileSize) in sortedURLs {
-                    if kFileExt.contains(url.pathExtension) {
+                    if gpxExtList.contains(url.pathExtension) {
                         GPXFiles.append(GPXFileInfo(fileURL: url))
                         let lastPathComponent = url.deletingPathExtension().lastPathComponent
-                        print("\(modificationDate) \(modificationDate.timeAgo(numericDates: true)) \(fileSize)bytes -- \(lastPathComponent)")
+                        print("fetchFileList: GPXFileInfo added \(modificationDate) \(modificationDate.timeAgo(numericDates: true)) \(fileSize)bytes -- \(lastPathComponent)")
                     }
                 }
             }
         }
+        print("fetchFilesList: returned \(GPXFiles.count) files")
+        print("====================================================================")
         return GPXFiles
     }
 }

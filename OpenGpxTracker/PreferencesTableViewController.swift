@@ -37,11 +37,8 @@ let kGPXFilesLocationSection = 6
 /// Cell Id of the Use Imperial units in UnitsSection
 let kUseImperialUnitsCell = 0
 
-
 /// Cell Id of the keepScreenAlwaysOnl units in ScreenSection
 let kKeepScreenAlwaysOnCell = 0
-
-
 
 /// Cell Id for Use offline cache in CacheSection of PreferencesTableViewController
 let kUseOfflineCacheCell = 0
@@ -87,8 +84,21 @@ class PreferencesTableViewController: UITableViewController, UINavigationBarDele
                                         action: #selector(PreferencesTableViewController.closePreferencesTableViewController))
         self.navigationItem.rightBarButtonItems = [shareItem]
         
-        let fileSize = cache.diskCache.fileSize ?? 0
-        cachedSize = Int(fileSize).asFileSize()
+        // Set a temporary value for cachedSize
+        cachedSize = NSLocalizedString("CALCULATING", comment: "Calculating cache")
+        print("PreferencesTableViewConroller: Starting cache calculation")
+        // Perform the file size calculation asynchronously
+        DispatchQueue.global(qos: .background).async {
+            let fileSize = self.cache.diskCache.fileSize ?? 0
+            self.cachedSize = Int(fileSize).asFileSize()
+            // Update the cachedSize on the main thread once the operation is complete
+            DispatchQueue.main.async {
+                print("PreferencesTableViewController: Completing cache calculation")
+                if let cell = self.tableView.cellForRow(at: IndexPath(row: kUseOfflineCacheCell, section: kCacheSection)) {
+                    cell.detailTextLabel?.text = self.cachedSize
+                }
+            }
+        }
     }
     
     /// Close this controller.
@@ -114,7 +124,7 @@ class PreferencesTableViewController: UITableViewController, UINavigationBarDele
     /// Returns 4 sections: Units, Cache, Map Source, Activity Type
     override func numberOfSections(in tableView: UITableView?) -> Int {
         // Return the number of sections.
-        return 6
+        return 7
     }
     
     /// Returns the title of the existing sections.
@@ -302,7 +312,6 @@ class PreferencesTableViewController: UITableViewController, UINavigationBarDele
                 fatalError("didSelectRowAt: Unknown cell")
             }
         }
-        
         
         if indexPath.section == kCacheSection {  // 0 -> sets and unsets cache
             switch indexPath.row {

@@ -37,6 +37,7 @@
 "PREFERENCES" = "Impostazioni";
 "UNITS" = "Unità";
 "CACHE" = "Cache";
+"CALCULATING" = "Calcolando...";
 "SCREEN" = "Schermo";
 "KEEP_SCREEN_ALWAYS_ON" = "Mantenere lo schermo sempre acceso?";
 "MAP_SOURCE" = "Tipo Mappe";
