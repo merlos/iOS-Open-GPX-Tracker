@@ -14,15 +14,28 @@ import Foundation
 ///
 class GPXFileInfo: NSObject {
     
+    /// Cached modified date. Assumes a short lived time. It keeps the value of the size that only once is retrived from the filesystem
+    var _modifiedDate: Date?
+    
+    /// Cached filesize. Assuming a short lived time it keeps the value so only once is retrieved
+    var _fileSize: Int?
+    
     /// file URL
     var fileURL: URL = URL(fileURLWithPath: "")
     
+    /// Returns last time the file was modified
+    /// The date is cached in the internal variable _modifiedDate,.
+    /// If for some reason the date cannot be retrieved it returns `Date.distantPast`
+    ///
     var modifiedDate: Date {
+        if _modifiedDate != nil {
+            return _modifiedDate!
+        }
         guard let resourceValues = try? fileURL.resourceValues(forKeys: [.contentModificationDateKey]),
-              let modificationDate = resourceValues.contentModificationDate else {
+              let _modifiedDate = resourceValues.contentModificationDate else {
             return Date.distantPast // Default value if the modification date cannot be retrieved
         }
-        return modificationDate
+        return _modifiedDate
     }
     /// modified date has a time ago string (for instance: 3 days ago)
     var modifiedDatetimeAgo: String {
@@ -30,12 +43,17 @@ class GPXFileInfo: NSObject {
     }
     
     /// File size in bytes
+    /// It returns -1 if there is any issue geting the size from the filesystem
+    /// It caches the values in _filezise
     var fileSize: Int {
+        if (_fileSize != nil) {
+            return _fileSize!
+        }
         guard let resourceValues = try? fileURL.resourceValues(forKeys: [.fileSizeKey]),
-              let size = resourceValues.fileSize else {
+              let _filesize = resourceValues.fileSize else {
             return -1 // Default value if the file size cannot be retrieved
         }
-        return size
+        return _filesize
     }
     
     /// File size as string in a more readable format (example: 10 KB)
@@ -44,6 +62,9 @@ class GPXFileInfo: NSObject {
     }
     
     /// The filename without extension
+    /// Example:
+    ///  /path/to/file.ext => file
+    ///
     var fileName: String {
         return fileURL.deletingPathExtension().lastPathComponent
     }
