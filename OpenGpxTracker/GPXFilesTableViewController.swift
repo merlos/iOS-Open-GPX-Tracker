@@ -142,6 +142,7 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
         }
         self.navigationItem.leftBarButtonItems = [folderButton]
         
+        _ = GPXFileManager.GPXFilesFolderURL.startAccessingSecurityScopedResource()
         // Initial load of the data
         let list: [GPXFileInfo] = GPXFileManager.fileList
         gpxFilesFound =  list.count != 0
@@ -155,6 +156,7 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
     
     /// Removes notfication observers
     deinit {
+        GPXFileManager.GPXFilesFolderURL.stopAccessingSecurityScopedResource()
         NotificationCenter.default.removeObserver(self)
     }
     
@@ -313,27 +315,45 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
     
     /// Given a GPX file loads the file in the
     func loadGPXFile(gpxFileURL: URL) {
+
+        self.displayLoadingFileAlert(true)
         DispatchQueue.global(qos: .userInitiated).async {
-            DispatchQueue.main.sync {
-                self.displayLoadingFileAlert(true)
-            }
-            print("Load gpx File: \(gpxFileURL)")
-            guard let gpx = GPXParser(withURL: gpxFileURL)?.parsedData() else {
-                print("GPXFileTableViewController:: load of GPX file failed")
-                self.displayLoadingFileAlert(false)
-                return
-            }
-            
-            DispatchQueue.main.sync {
-                self.displayLoadingFileAlert(false) {
-                    self.delegate?.didLoadGPXFileWithName(gpxFileURL.deletingPathExtension().lastPathComponent, gpxRoot: gpx)
+            print("GPXFIlesTableViewController:: loadGPXFile Load gpx File: \(gpxFileURL)")
+            if GPXFileManager.GPXFilesFolderURL.startAccessingSecurityScopedResource() {
+                defer {
+                    GPXFileManager.GPXFilesFolderURL.stopAccessingSecurityScopedResource()
+                }
+                do {
+                    DispatchQueue.main.sync {
+                        self.displayLoadingFileAlert(true)
+                    }
+                    guard let gpx = GPXParser(withURL: gpxFileURL)?.parsedData() else {
+                        print("GPXFileTableViewController:: load of GPX file failed")
+                        DispatchQueue.main.sync {
+                            Toast.error("Could not open file")
+                            self.displayLoadingFileAlert(false)
+                        }
+                        return
+                    }
+                    DispatchQueue.main.sync {
+                        self.displayLoadingFileAlert(false) {
+                            self.delegate?.didLoadGPXFileWithName(gpxFileURL.deletingPathExtension().lastPathComponent, gpxRoot: gpx)
+                            self.dismiss(animated: true, completion: nil)
+                            self.presentingViewController?.dismiss(animated: true, completion: nil)
+                        }
+                    }
+                }
+            } else {
+                print("Could not access folder: \(GPXFileManager.GPXFilesFolderURL)")
+                DispatchQueue.main.sync {
+                    Toast.error("Could not open file")
+                    self.displayLoadingFileAlert(false)
                     self.dismiss(animated: true, completion: nil)
                 }
             }
         }
-        
     }
-    
+            
     /// Loads the GPX file that corresponds to rowIndex in fileList in the map.
     internal func actionLoadFileAtIndex(_ rowIndex: Int) {
         guard let gpxFileInfo: GPXFileInfo = (self.fileList.object(at: rowIndex) as? GPXFileInfo) else {
@@ -341,6 +361,7 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
             return
         }
         print("GPXFileTableViewController:: Load gpx File: \(gpxFileInfo.fileName)")
+        print("GPXFileTableViewController:: Load gpx URL: \(gpxFileInfo.fileURL)")
         loadGPXFile(gpxFileURL: gpxFileInfo.fileURL)
     }
     
@@ -365,7 +386,7 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
             self.present(alertController, animated: true, completion: nil)
         } else { // will dismiss alert
             activityIndicatorView.stopAnimating()
-            self.presentingViewController?.dismiss(animated: true, completion: nil)
+            //self.presentingViewController?.dismiss(animated: true, completion: nil)
         }
         
         // if completion handler is used
@@ -450,7 +471,7 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
     /// For reloading the tableView in `GPXFileTableViewController`
     ///
     /// It gets from the `GPXFileManager` the`fileList`
-    /// 
+    ///
     ///
     @objc func reloadTableData() {
         print("TableViewController: reloadTableData")
