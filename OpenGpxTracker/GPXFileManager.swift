@@ -7,7 +7,6 @@
 
 import Foundation
 
-
 ///
 /// Class to handle actions with GPX files (save, delete, etc..)
 ///
@@ -34,17 +33,13 @@ class GPXFileManager: NSObject {
     /// Gets the list of `.gpx` files in Documents directory ordered by modified date
     ///
     class var fileList: [GPXFileInfo] {
-        let fileManager = FileManager.default
-        // Default to app documents directory
-        var documentsURL = fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0]
-        // If user has a custom folder display the custom folder
-        if let customFolderURL = Preferences.shared.gpxFilesFolderURL {
-            documentsURL = customFolderURL
+        let documentsURL = GPXFileManager.GPXFilesFolderURL
+        if documentsURL.startAccessingSecurityScopedResource() {
+            let files = self.fetchFilesList(from: documentsURL)
+            documentsURL.stopAccessingSecurityScopedResource()
+            return files
         }
-        _ = documentsURL.startAccessingSecurityScopedResource()
-        let files = self.fetchFilesList(from: documentsURL)
-        documentsURL.stopAccessingSecurityScopedResource()
-        return files
+        return []
     }
     
     ///
