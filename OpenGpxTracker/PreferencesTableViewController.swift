@@ -313,7 +313,6 @@ class PreferencesTableViewController: UITableViewController, UINavigationBarDele
             }
         }
         
-        
         if indexPath.section == kCacheSection {  // 0 -> sets and unsets cache
             switch indexPath.row {
             case kUseOfflineCacheCell:
