@@ -17,15 +17,15 @@ Requires iOS 11.0 or above. Open GPX tracker is an open source app.
 
 You can use Open GPX tracker for:
 
- - Creating routes and waypoints for editing Open Street Map.
- - Publishing Open Street Map Traces.
+ - Creating routes and waypoints for editing OpenStreetMap.
+ - Publishing OpenStreetMap Traces.
  - [Creating GPX files for testing your iOS apps in Xcode](https://medium.com/@merlos/how-to-simulate-locations-in-xcode-b0f7f16e126d).
  - Use it as GPS companion when you take pictures with your reflex camera.
 
 ## Main Features
 
  - Displays tracking route in a map
- - Supports Apple Map Kit, [Open Street Map](http://wiki.openstreetmap.org/wiki/Tile_usage_policy), and [Carto DB](http://www.cartodb.com) as map sources
+ - Supports Apple Map Kit, [OpenStreetMap](http://wiki.openstreetmap.org/wiki/Tile_usage_policy), and [Carto DB](http://www.cartodb.com) as map sources
  - Offline maps support (of browsed areas)
  - Pause / Resume tracking
  - Add waypoint to user location
@@ -79,12 +79,12 @@ Then, to test it open the file `OpenGpxTracker.xcworkspace` with XCode.
 
 Although the application uses some Cocoapods, all the pods are already included in our repo. So no need to run `pod install`.
 
-Please note the [limitations of using Open Street Maps Tile Servers](http://wiki.openstreetmap.org/wiki/Tile_usage_policy)
+Please note the [limitations of using OpenStreetMap Tile Servers](http://wiki.openstreetmap.org/wiki/Tile_usage_policy)
 
 ### Add a custom tile server
 Adding a tile server is easy, just edit the file `GPXTileServer.swift`, uncomment the lines with `AnotherMap` and modify the templateUrl to point to the new tile server.
 
-You have a list of tile servers in [Open Street Map Wiki](http://wiki.openstreetmap.org/wiki/Tile_servers)
+You have a list of tile servers in [OpenStreetMap Wiki](http://wiki.openstreetmap.org/wiki/Tile_servers)
 
 ## Reference documentation
 
@@ -157,7 +157,7 @@ Please note that this source code was released under the GPL license.  So any ch
 This app uses:
 - [CoreGPX Framework](https://github.com/vincentneo/CoreGPX), a SWIFT library for using GPX files. Created by [@vincentneo](http://github.com/vincentneo)
 
-Entry on the [Open Street Maps Wiki](https://wiki.openstreetmap.org/wiki/OpenGpxTracker)
+Entry on the [OpenStreetMap Wiki](https://wiki.openstreetmap.org/wiki/OpenGpxTracker)
 
 See also:
 - [Avenue GPX Viewer](https://github.com/vincentneo/Avenue-GPX-Viewer), a GPX viewer based on some of the codes used in this project. A side project by collaborator [@vincentneo](http://github.com/vincentneo).

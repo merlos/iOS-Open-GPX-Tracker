@@ -25,7 +25,7 @@ enum GPXTileServer: Int {
     /// Apple satellite tile server
     case appleSatellite
     
-    /// Open Street Map tile server
+    /// OpenStreetMap tile server
     case openStreetMap
     // case AnotherMap
     
@@ -46,7 +46,7 @@ enum GPXTileServer: Int {
         switch self {
         case .apple: return "Apple Mapkit (no offline cache)"
         case .appleSatellite: return "Apple Satellite (no offline cache)"
-        case .openStreetMap: return "Open Street Map"
+        case .openStreetMap: return "OpenStreetMap"
         case .cartoDB: return "Carto DB"
         case .cartoDBRetina: return "Carto DB (Retina resolution)"
         case .openTopoMap: return "OpenTopoMap"
