@@ -624,16 +624,14 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         
         if #available(iOS 13, *) {
             shareActivityColor = .mainUIColor
-        }
-        
-        if #available(iOS 11, *) {
-            let compassButton = MKCompassButton(mapView: map)
-            self.view.addSubview(compassButton)
-            compassButton.translatesAutoresizingMaskIntoConstraints = false
-            addConstraintsToCompassView(compassButton)
-        }
-        
-        self.textColorAdaptations()
+		}
+		
+		let compassButton = MKCompassButton(mapView: map)
+		self.view.addSubview(compassButton)
+		compassButton.translatesAutoresizingMaskIntoConstraints = false
+		addConstraintsToCompassView(compassButton)
+		
+		self.textColorAdaptations()
 		
 		addScaleBarOnTopOfTrackButton()
     }
