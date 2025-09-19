@@ -300,6 +300,9 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
     
     /// Save current track into a GPX file
     var saveButton: UIButton
+	
+	/// MapKit ScaleBarView
+	let scaleBar = MKScaleView()
     
     /// Check if device is notched type phone
     var isIPhoneX = false
@@ -631,8 +634,10 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         }
         
         self.textColorAdaptations()
+		
+		addScaleBarOnTopOfTrackButton()
     }
-    
+	
     // MARK: - Add Constraints for views
     /// Adds Constraints to subviews
     ///
@@ -784,6 +789,22 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         NSLayoutConstraint(item: resetButton, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: kButtonSmallSize).isActive = true
         NSLayoutConstraint(item: resetButton, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: kButtonSmallSize).isActive = true
     }
+	
+	private func addScaleBarOnTopOfTrackButton() {
+		view.addSubview(scaleBar)
+		scaleBar.translatesAutoresizingMaskIntoConstraints = false
+		scaleBar.mapView = map
+		NSLayoutConstraint.activate([
+			scaleBar.centerXAnchor.constraint(
+				equalTo: trackerButton.centerXAnchor,
+				constant: 16 // Shift the bar slighly to right to make it look more centered
+			),
+			scaleBar.bottomAnchor.constraint(
+				equalTo: trackerButton.topAnchor,
+				constant: -16
+			)
+		])
+	}
     
     @available(iOS 11, *)
     func addConstraintsToCompassView(_ view: MKCompassButton) {
