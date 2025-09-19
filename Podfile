@@ -12,6 +12,12 @@ target 'OpenGpxTracker' do
     
 end
 
+target 'OpenGpxTrackerTests' do
+    platform :ios, '11.0'
+    shared_pods
+    pod 'MapCache', '~> 0.10.0'
+end
+
 target 'OpenGpxTracker-Watch Extension' do
     platform :watchos, '4.0'
     shared_pods
