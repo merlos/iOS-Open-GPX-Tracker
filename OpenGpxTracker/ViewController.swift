@@ -1244,9 +1244,8 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         }
         
         // Are location services enabled?
-        guard CLLocationManager.locationServicesEnabled() else {
+		if authorizationStatus == .denied {
             displayLocationServicesDisabledAlert()
-            return
         }
     }
     ///
