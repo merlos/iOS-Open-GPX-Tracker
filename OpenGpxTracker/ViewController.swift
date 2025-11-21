@@ -301,8 +301,8 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
     /// Save current track into a GPX file
     var saveButton: UIButton
 	
-	/// MapKit ScaleBarView
-	let scaleBar = MKScaleView()
+	/// Scale Bar View
+    var scaleBar: GPXScaleBar
     
     /// Check if device is notched type phone
     var isIPhoneX = false
@@ -349,7 +349,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         self.saveButton = UIButton(coder: aDecoder)!
         
         self.shareActivityIndicator = UIActivityIndicatorView(coder: aDecoder)
-        
+        self.scaleBar = GPXScaleBar(coder: aDecoder)!
         super.init(coder: aDecoder)!
     }
     
@@ -789,17 +789,20 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
     }
 	
 	private func addScaleBarOnTopOfTrackButton() {
-		view.addSubview(scaleBar)
+        scaleBar = GPXScaleBar(mapView: map, useImperial: Preferences.shared.useImperial)
+        view.addSubview(scaleBar)
+        
+        map.scaleBar = scaleBar
 		scaleBar.translatesAutoresizingMaskIntoConstraints = false
-		scaleBar.mapView = map
+        
 		NSLayoutConstraint.activate([
 			scaleBar.centerXAnchor.constraint(
 				equalTo: trackerButton.centerXAnchor,
-				constant: 16 // Shift the bar slighly to right to make it look more centered
+                constant: -scaleBar.frame.width / 2
 			),
 			scaleBar.bottomAnchor.constraint(
 				equalTo: trackerButton.topAnchor,
-				constant: -16
+				constant: -36
 			)
 		])
 	}

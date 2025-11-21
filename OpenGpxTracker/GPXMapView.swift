@@ -64,6 +64,9 @@ class GPXMapView: MKMapView {
     /// initialized on MapViewDelegate
     var headingImageView: UIImageView?
     
+    /// A custom ScaleBar
+    var scaleBar: GPXScaleBar?
+    
     /// Selected tile server.
     /// - SeeAlso: GPXTileServer
     var tileServer: GPXTileServer = .apple {

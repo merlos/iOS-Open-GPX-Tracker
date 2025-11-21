@@ -202,6 +202,8 @@ class MapViewDelegate: NSObject, MKMapViewDelegate, UIAlertViewDelegate {
         guard let map = mapView as? GPXMapView else {
             return
         }
+    
+        map.scaleBar?.updateForMapViewChange()
         map.updateHeading()
     }
     
