@@ -1374,6 +1374,10 @@ extension ViewController: PreferencesTableViewControllerDelegate {
         // In regular circunstances it will go to the new units relatively fast.
         speedLabel.text = kUnknownSpeedText
         signalAccuracyLabel.text = kUnknownAccuracyText
+        
+        //Update the Scale Bar units
+        map.scaleBar?.useImperial = useImperial
+        
     }
     
     func didUpdateShowScaleBar(_ newShowScaleBar: Bool) {
