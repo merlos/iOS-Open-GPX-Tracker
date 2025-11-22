@@ -1,6 +1,12 @@
 import UIKit
 import MapKit
 
+/// Min width of the ScaleBar
+let kMinScalebarWidth: CGFloat = 75.0
+
+/// Max width of the ScaleBar
+let kMaxScaleBarWidth: CGFloat = 300.0
+
 /// A custom scale view for MapKit that displays distance measurements with support for both imperial and metric units.
 ///
 /// `GPXScaleBar` provides a visual representation of map scale, automatically updating as the map region changes.
@@ -253,7 +259,7 @@ class GPXScaleBar: UIView {
     /// This method selects a "nice" round number for the scale distance (e.g., 100, 500, 1000)
     /// that fits within the maximum allowed width.
     private func calculateScale(metersPerPoint: Double) -> (distance: Double, width: CGFloat) {
-        let maxWidth: CGFloat = 300
+        let maxWidth: CGFloat = kMaxScaleBarWidth
         let maxMeters = Double(maxWidth) * metersPerPoint
         
         if useImperial {
@@ -281,13 +287,13 @@ class GPXScaleBar: UIView {
         for distance in distances {
             if distance <= maxMeters {
                 let width = CGFloat(distance / metersPerPoint)
-                if width >= 75 {
+                if width >= kMinScalebarWidth {
                     return (distance, width)
                 }
             }
         }
-        
-        return (distances[0], 75)
+        // default
+        return (distances[0], kMinScalebarWidth)
     }
     
     /// Calculates scale values using imperial units (feet and miles).
@@ -314,13 +320,13 @@ class GPXScaleBar: UIView {
             if distance <= maxFeet {
                 let metersForDistance = distance / feetPerMeter
                 let width = CGFloat(metersForDistance / metersPerPoint)
-                if width >= 40 {
+                if width >= kMinScalebarWidth {
                     return (distance, width)
                 }
             }
         }
         
-        return (distances[0], 40)
+        return (distances[0], kMinScalebarWidth)
     }
     
     /// Updates the visual layout of the scale view based on the calculated distance and width.
