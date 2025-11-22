@@ -24,6 +24,9 @@ protocol PreferencesTableViewControllerDelegate: AnyObject {
     
     /// User updated the keep screen always on option
     func didUpdateKeepScreenAlwaysOn(_ newKeepScreenAlwaysOn: Bool)
+    
+    /// User updated the show scale bar option
+    func didUpdateShowScaleBar(_ newShowScaleBar: Bool)
   
     /// User updated the activity type
     func didUpdateActivityType(_ newActivityType: Int)

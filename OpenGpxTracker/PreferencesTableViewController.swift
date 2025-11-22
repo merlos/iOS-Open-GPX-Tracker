@@ -40,6 +40,9 @@ let kUseImperialUnitsCell = 0
 /// Cell Id of the keepScreenAlwaysOnl units in ScreenSection
 let kKeepScreenAlwaysOnCell = 0
 
+/// Cell Id of the showScaleBar in ScreenSection
+let kShowScaleBarCell = 1
+
 /// Cell Id for Use offline cache in CacheSection of PreferencesTableViewController
 let kUseOfflineCacheCell = 0
 
@@ -154,7 +157,7 @@ class PreferencesTableViewController: UITableViewController, UINavigationBarDele
         case kActivityTypeSection: return CLActivityType.count
         case kDefaultNameSection: return 1
         case kGPXFilesLocationSection: return 1
-        case kScreenSection: return 1
+        case kScreenSection: return 2
         default: fatalError("Unknown section")
         }
     }
@@ -172,95 +175,120 @@ class PreferencesTableViewController: UITableViewController, UINavigationBarDele
     /// and description of the CLActivityType whose indexPath.row matches with the activity type.
     ///
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        var cell = UITableViewCell(style: .value1, reuseIdentifier: "MapCell")
-        
-        // Units section
-        if indexPath.section == kUnitsSection {
-             switch indexPath.row {
-             case kUseImperialUnitsCell:
-                cell = UITableViewCell(style: .value1, reuseIdentifier: "CacheCell")
-                cell.textLabel?.text = NSLocalizedString("USE_IMPERIAL_UNITS", comment: "no comment")
-                if preferences.useImperial {
-                    cell.accessoryType = .checkmark
-                }
-             default: fatalError("Unknown section")
-            }
+        switch indexPath.section {
+        case kUnitsSection:
+            return cellForUnitsSection(at: indexPath)
+        case kScreenSection:
+            return cellForScreenSection(at: indexPath)
+        case kCacheSection:
+            return cellForCacheSection(at: indexPath)
+        case kMapSourceSection:
+            return cellForMapSourceSection(at: indexPath)
+        case kActivityTypeSection:
+            return cellForActivityTypeSection(at: indexPath)
+        case kDefaultNameSection:
+            return cellForDefaultNameSection(at: indexPath)
+        case kGPXFilesLocationSection:
+            return cellForGPXFilesLocationSection(at: indexPath)
+        default:
+            fatalError("Unknown section")
         }
-        
-        // Units section
-        if indexPath.section == kScreenSection {
-             switch indexPath.row {
-             case kKeepScreenAlwaysOnCell:
-                 cell = UITableViewCell(style: .value1, reuseIdentifier: "CacheCell")
-                 cell.textLabel?.text = NSLocalizedString("KEEP_SCREEN_ALWAYS_ON", comment: "no comment")
-                 if preferences.keepScreenAlwaysOn {
-                    cell.accessoryType = .checkmark
-                 }
-             default: fatalError("Unknown section")
-            }
-        }
-        
-        // Cache Section
-        if indexPath.section == kCacheSection {
-            switch indexPath.row {
-            case kUseOfflineCacheCell:
-                cell = UITableViewCell(style: .subtitle, reuseIdentifier: "CacheCell")
-                cell.textLabel?.text = NSLocalizedString("OFFLINE_CACHE", comment: "no comment")
-                
-                cell.detailTextLabel?.text = cachedSize
-                if preferences.useCache {
-                    cell.accessoryType = .checkmark
-                }
-            case kClearCacheCell:
-                cell = UITableViewCell(style: .value1, reuseIdentifier: "CacheCell")
-                cell.textLabel?.text = NSLocalizedString("CLEAR_CACHE", comment: "no comment")
-                cell.textLabel?.textColor = UIColor.red
-            default: fatalError("Unknown section")
-            }
-        }
-        
-        // Map Section
-        if indexPath.section == kMapSourceSection {
-            let tileServer = GPXTileServer(rawValue: indexPath.row)
-            cell.textLabel?.text = tileServer!.name
-            if indexPath.row == preferences.tileServerInt {
+    }
+    
+    private func cellForUnitsSection(at indexPath: IndexPath) -> UITableViewCell {
+        let cell = UITableViewCell(style: .value1, reuseIdentifier: "CacheCell")
+        switch indexPath.row {
+        case kUseImperialUnitsCell:
+            cell.textLabel?.text = NSLocalizedString("USE_IMPERIAL_UNITS", comment: "no comment")
+            if preferences.useImperial {
                 cell.accessoryType = .checkmark
             }
+        default:
+            fatalError("Unknown cell")
         }
-        
-        // Activity type section
-        if indexPath.section == kActivityTypeSection {
-            cell = UITableViewCell(style: .subtitle, reuseIdentifier: "ActivityCell")
-            let activity = CLActivityType(rawValue: indexPath.row + 1)!
-            cell.textLabel?.text = activity.name
-            cell.detailTextLabel?.text = activity.description
-            if indexPath.row + 1 == preferences.locationActivityTypeInt {
+        return cell
+    }
+    
+    private func cellForScreenSection(at indexPath: IndexPath) -> UITableViewCell {
+        let cell = UITableViewCell(style: .value1, reuseIdentifier: "CacheCell")
+        switch indexPath.row {
+        case kKeepScreenAlwaysOnCell:
+            cell.textLabel?.text = NSLocalizedString("KEEP_SCREEN_ALWAYS_ON", comment: "no comment")
+            if preferences.keepScreenAlwaysOn {
                 cell.accessoryType = .checkmark
             }
-        }
-        
-        // Default Name section
-        if indexPath.section == kDefaultNameSection {
-            let dateFormatter = DefaultDateFormat()
-            cell = UITableViewCell(style: .subtitle, reuseIdentifier: "DefaultNameCell")
-            cell.textLabel?.text = preferences.dateFormatPreset == -1 ? preferences.dateFormatInput : preferences.dateFormatPresetName
-            let dateText = dateFormatter.getDate(processedFormat: preferences.dateFormat,
-                                                 useUTC: preferences.dateFormatUseUTC,
-                                                 useENLocale: preferences.dateFormatUseEN)
-            cell.detailTextLabel?.text = dateText
-            cell.accessoryType = .disclosureIndicator
-        }
-        
-        if indexPath.section == kGPXFilesLocationSection {
-            cell = UITableViewCell(style: .value1, reuseIdentifier: "GPXFilesLocation")
-            if let url = preferences.gpxFilesFolderURL {
-                cell.textLabel?.text = url.lastPathComponent
-            } else {
-                cell.textLabel?.text = NSLocalizedString("USING_DEFAULT_FOLDER", comment: "no comment")
+        case kShowScaleBarCell:
+            cell.textLabel?.text = NSLocalizedString("SHOW_SCALE_BAR", comment: "no comment")
+            if preferences.showScaleBar {
+                cell.accessoryType = .checkmark
             }
-            cell.accessoryType = .disclosureIndicator
+        default:
+            fatalError("Unknown cell")
         }
-        
+        return cell
+    }
+    
+    private func cellForCacheSection(at indexPath: IndexPath) -> UITableViewCell {
+        let cell: UITableViewCell
+        switch indexPath.row {
+        case kUseOfflineCacheCell:
+            cell = UITableViewCell(style: .subtitle, reuseIdentifier: "CacheCell")
+            cell.textLabel?.text = NSLocalizedString("OFFLINE_CACHE", comment: "no comment")
+            cell.detailTextLabel?.text = cachedSize
+            if preferences.useCache {
+                cell.accessoryType = .checkmark
+            }
+        case kClearCacheCell:
+            cell = UITableViewCell(style: .value1, reuseIdentifier: "CacheCell")
+            cell.textLabel?.text = NSLocalizedString("CLEAR_CACHE", comment: "no comment")
+            cell.textLabel?.textColor = UIColor.red
+        default:
+            fatalError("Unknown cell")
+        }
+        return cell
+    }
+    
+    private func cellForMapSourceSection(at indexPath: IndexPath) -> UITableViewCell {
+        let cell = UITableViewCell(style: .value1, reuseIdentifier: "MapCell")
+        let tileServer = GPXTileServer(rawValue: indexPath.row)
+        cell.textLabel?.text = tileServer!.name
+        if indexPath.row == preferences.tileServerInt {
+            cell.accessoryType = .checkmark
+        }
+        return cell
+    }
+    
+    private func cellForActivityTypeSection(at indexPath: IndexPath) -> UITableViewCell {
+        let cell = UITableViewCell(style: .subtitle, reuseIdentifier: "ActivityCell")
+        let activity = CLActivityType(rawValue: indexPath.row + 1)!
+        cell.textLabel?.text = activity.name
+        cell.detailTextLabel?.text = activity.description
+        if indexPath.row + 1 == preferences.locationActivityTypeInt {
+            cell.accessoryType = .checkmark
+        }
+        return cell
+    }
+    
+    private func cellForDefaultNameSection(at indexPath: IndexPath) -> UITableViewCell {
+        let cell = UITableViewCell(style: .subtitle, reuseIdentifier: "DefaultNameCell")
+        let dateFormatter = DefaultDateFormat()
+        cell.textLabel?.text = preferences.dateFormatPreset == -1 ? preferences.dateFormatInput : preferences.dateFormatPresetName
+        let dateText = dateFormatter.getDate(processedFormat: preferences.dateFormat,
+                                             useUTC: preferences.dateFormatUseUTC,
+                                             useENLocale: preferences.dateFormatUseEN)
+        cell.detailTextLabel?.text = dateText
+        cell.accessoryType = .disclosureIndicator
+        return cell
+    }
+    
+    private func cellForGPXFilesLocationSection(at indexPath: IndexPath) -> UITableViewCell {
+        let cell = UITableViewCell(style: .value1, reuseIdentifier: "GPXFilesLocation")
+        if let url = preferences.gpxFilesFolderURL {
+            cell.textLabel?.text = url.lastPathComponent
+        } else {
+            cell.textLabel?.text = NSLocalizedString("USING_DEFAULT_FOLDER", comment: "no comment")
+        }
+        cell.accessoryType = .disclosureIndicator
         return cell
     }
     
@@ -308,6 +336,14 @@ class PreferencesTableViewController: UITableViewController, UINavigationBarDele
                 tableView.cellForRow(at: indexPath)?.accessoryType = newKeepScreenAlwaysOn ? .checkmark : .none
                 // Notify the map
                 self.delegate?.didUpdateKeepScreenAlwaysOn(newKeepScreenAlwaysOn)
+            case kShowScaleBarCell:
+                let newShowScaleBar = !preferences.showScaleBar
+                preferences.showScaleBar = newShowScaleBar
+                print("PreferencesTableViewController: toggle show scale bar to \(newShowScaleBar)")
+                // Update cell UI
+                tableView.cellForRow(at: indexPath)?.accessoryType = newShowScaleBar ? .checkmark : .none
+                // Notify the map
+                self.delegate?.didUpdateShowScaleBar(newShowScaleBar)
             default:
                 fatalError("didSelectRowAt: Unknown cell")
             }

@@ -1376,6 +1376,11 @@ extension ViewController: PreferencesTableViewControllerDelegate {
         signalAccuracyLabel.text = kUnknownAccuracyText
     }
     
+    func didUpdateShowScaleBar(_ newShowScaleBar: Bool) {
+        print("PreferencesTableViewControllerDelegate:: didUpdateShowScaleBar: \(newShowScaleBar)")
+        self.scaleBar.isHidden = !newShowScaleBar
+    }
+    
     // User changed the setting of use imperial units.
     func didUpdateKeepScreenAlwaysOn(_ newKeepScreenAlwaysOn: Bool) {
         print("PreferencesTableViewControllerDelegate:: didUpdateKeepScreenAlwaysOn: \(newKeepScreenAlwaysOn)")

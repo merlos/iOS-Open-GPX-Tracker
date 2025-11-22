@@ -42,6 +42,8 @@ let kDefaultsKeyGPXFilesFolder: String = "GPXFilesFolder"
 
 let kDefaultsKeyKeepScreenAlwaysOn: String = "KeepScreenAlwaysOn"
 
+let kDefaultsKeyShowScaleBar: String = "ShowScaleBar"
+
 /// A class to handle app preferences in one single place.
 /// When the app starts for the first time the following preferences are set:
 ///
@@ -90,6 +92,9 @@ class Preferences: NSObject {
     
     ///
     private var _keepScreenAlwaysOn: Bool = false
+    
+    ///
+    private var _showScaleBar: Bool = true
     
     /// UserDefaults.standard shortcut
     private let defaults = UserDefaults.standard
@@ -170,6 +175,12 @@ class Preferences: NSObject {
         if let keepScreenAlwaysOnBool = defaults.object(forKey: kDefaultsKeyKeepScreenAlwaysOn) as? Bool {
             _keepScreenAlwaysOn = keepScreenAlwaysOnBool
             print("** Preferences:: loaded preference from defaults keepScreenAlwaysOn \(keepScreenAlwaysOnBool)")
+        }
+        
+        // load previous show scale bar preference
+        if let showScaleBarBool = defaults.object(forKey: kDefaultsKeyShowScaleBar) as? Bool {
+            _showScaleBar = showScaleBarBool
+            print("** Preferences:: loaded preference from defaults showScaleBar \(showScaleBarBool)")
         }
         
     }
@@ -314,6 +325,18 @@ class Preferences: NSObject {
             _keepScreenAlwaysOn = newValue
             defaults.set(newValue, forKey: kDefaultsKeyKeepScreenAlwaysOn)
             print("** Preferences:: setting keepScreenAlwaysOn: \(newValue)")
+        }
+    }
+    
+    /// Get and sets whether to display the scale bar on the map
+    var showScaleBar: Bool {
+        get {
+            return _showScaleBar
+        }
+        set {
+            _showScaleBar = newValue
+            defaults.set(newValue, forKey: kDefaultsKeyShowScaleBar)
+            print("** Preferences:: setting showScaleBar: \(newValue)")
         }
     }
     
