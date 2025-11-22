@@ -40,6 +40,7 @@
 "CALCULATING" = "Calcolando...";
 "SCREEN" = "Schermo";
 "KEEP_SCREEN_ALWAYS_ON" = "Mantenere lo schermo sempre acceso?";
+"SHOW_SCALE_BAR" = "Mostrare sempre la barra della scala?";
 "MAP_SOURCE" = "Tipo Mappe";
 "ACTIVITY_TYPE" = "Tipo di attività";
 "USE_IMPERIAL_UNITS" = "Usare Miglia";

@@ -41,6 +41,7 @@ Created by Phiilman on 28.03.20.
 "CALCULATING" = "Lasketaan..."; 
 "SCREEN" = "Näyttö";
 "KEEP_SCREEN_ALWAYS_ON" = "Pidä näyttö aina päällä?";
+"SHOW_SCALE_BAR" = "Näytä mittakaavapalkki aina?";
 "MAP_SOURCE" = "Kartan lähde";
 "ACTIVITY_TYPE" = "Aktiviteetti";
 "USE_IMPERIAL_UNITS" = "Käytä Britti-mittoja?";

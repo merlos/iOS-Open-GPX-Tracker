@@ -41,6 +41,7 @@
 "SCREEN" = "Scherm";
 "CALCULATING" = "Bezig met berekenen...";
 "KEEP_SCREEN_ALWAYS_ON" = "Scherm altijd aanhouden?";
+"SHOW_SCALE_BAR" = "Schaalbalk altijd weergeven?";
 "MAP_SOURCE" = "Kaartbron";
 "ACTIVITY_TYPE" = "Soort activiteit";
 "USE_IMPERIAL_UNITS" = "Gebruik imperiale eenheden?";

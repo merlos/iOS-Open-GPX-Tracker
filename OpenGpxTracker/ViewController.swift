@@ -300,6 +300,9 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
     
     /// Save current track into a GPX file
     var saveButton: UIButton
+	
+	/// Scale Bar View
+    var scaleBar: GPXScaleBar
     
     /// Check if device is notched type phone
     var isIPhoneX = false
@@ -346,7 +349,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         self.saveButton = UIButton(coder: aDecoder)!
         
         self.shareActivityIndicator = UIActivityIndicatorView(coder: aDecoder)
-        
+        self.scaleBar = GPXScaleBar(coder: aDecoder)!
         super.init(coder: aDecoder)!
     }
     
@@ -621,18 +624,18 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         
         if #available(iOS 13, *) {
             shareActivityColor = .mainUIColor
-        }
-        
-        if #available(iOS 11, *) {
-            let compassButton = MKCompassButton(mapView: map)
-            self.view.addSubview(compassButton)
-            compassButton.translatesAutoresizingMaskIntoConstraints = false
-            addConstraintsToCompassView(compassButton)
-        }
-        
-        self.textColorAdaptations()
+		}
+		
+		let compassButton = MKCompassButton(mapView: map)
+		self.view.addSubview(compassButton)
+		compassButton.translatesAutoresizingMaskIntoConstraints = false
+		addConstraintsToCompassView(compassButton)
+		
+		self.textColorAdaptations()
+		
+		addScaleBarOnTopOfTrackButton()
     }
-    
+	
     // MARK: - Add Constraints for views
     /// Adds Constraints to subviews
     ///
@@ -784,6 +787,25 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         NSLayoutConstraint(item: resetButton, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: kButtonSmallSize).isActive = true
         NSLayoutConstraint(item: resetButton, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: kButtonSmallSize).isActive = true
     }
+	
+	private func addScaleBarOnTopOfTrackButton() {
+        scaleBar = GPXScaleBar(mapView: map, useImperial: Preferences.shared.useImperial)
+        view.addSubview(scaleBar)
+        
+        map.scaleBar = scaleBar
+		scaleBar.translatesAutoresizingMaskIntoConstraints = false
+        
+		NSLayoutConstraint.activate([
+			scaleBar.centerXAnchor.constraint(
+				equalTo: trackerButton.centerXAnchor,
+                constant: -scaleBar.frame.width / 2
+			),
+			scaleBar.bottomAnchor.constraint(
+				equalTo: trackerButton.topAnchor,
+				constant: -36
+			)
+		])
+	}
     
     @available(iOS 11, *)
     func addConstraintsToCompassView(_ view: MKCompassButton) {
@@ -1225,9 +1247,8 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         }
         
         // Are location services enabled?
-        guard CLLocationManager.locationServicesEnabled() else {
+		if authorizationStatus == .denied {
             displayLocationServicesDisabledAlert()
-            return
         }
     }
     ///
@@ -1240,11 +1261,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         let alertController = UIAlertController(title: NSLocalizedString("LOCATION_SERVICES_DISABLED", comment: "no comment"), message: NSLocalizedString("ENABLE_LOCATION_SERVICES", comment: "no comment"), preferredStyle: .alert)
         let settingsAction = UIAlertAction(title: NSLocalizedString("SETTINGS", comment: "no comment"), style: .default) { _ in
             if let url = URL(string: UIApplication.openSettingsURLString) {
-                if #available(iOS 10, *) {
-                    UIApplication.shared.open(url)
-                } else {
-                    UIApplication.shared.openURL(url)
-                }
+				UIApplication.shared.open(url)
             }
         }
         let cancelAction = UIAlertAction(title: NSLocalizedString("CANCEL", comment: "no comment"), style: .cancel) { _ in }
@@ -1268,16 +1285,12 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
                                                 message: NSLocalizedString("ALLOW_LOCATION", comment: "no comment"),
                                                 preferredStyle: .alert)
         let settingsAction = UIAlertAction(title: NSLocalizedString("SETTINGS", comment: "no comment"),
-                                           style: .default) { _ in
-            if let url = URL(string: UIApplication.openSettingsURLString) {
-                if #available(iOS 10, *) {
-                    UIApplication.shared.open(url)
-                } else {
-                    UIApplication.shared.openURL(url)
-                }
-            }
-        }
-        let cancelAction = UIAlertAction(title: NSLocalizedString("CANCEL",
+										   style: .default) { _ in
+			if let url = URL(string: UIApplication.openSettingsURLString) {
+				UIApplication.shared.open(url)
+			}
+		}
+		let cancelAction = UIAlertAction(title: NSLocalizedString("CANCEL",
                                                                   comment: "no comment"),
                                          style: .cancel) { _ in }
         
@@ -1317,7 +1330,6 @@ extension ViewController: StopWatchDelegate {
 // MARK: PreferencesTableViewControllerDelegate
 
 extension ViewController: PreferencesTableViewControllerDelegate {
-    
     
     /// Update the activity type that the location manager is using.
     ///
@@ -1362,6 +1374,11 @@ extension ViewController: PreferencesTableViewControllerDelegate {
         // In regular circunstances it will go to the new units relatively fast.
         speedLabel.text = kUnknownSpeedText
         signalAccuracyLabel.text = kUnknownAccuracyText
+    }
+    
+    func didUpdateShowScaleBar(_ newShowScaleBar: Bool) {
+        print("PreferencesTableViewControllerDelegate:: didUpdateShowScaleBar: \(newShowScaleBar)")
+        self.scaleBar.isHidden = !newShowScaleBar
     }
     
     // User changed the setting of use imperial units.

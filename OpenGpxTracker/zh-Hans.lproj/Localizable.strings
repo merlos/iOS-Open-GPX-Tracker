@@ -45,6 +45,7 @@
 "CALCULATING" = "计算中..."; // Chinese Simplified
 "SCREEN" = "屏幕";
 "KEEP_SCREEN_ALWAYS_ON" = "始终保持屏幕开启？";
+"SHOW_SCALE_BAR" = "始终显示比例尺？";
 "MAP_SOURCE" = "地图款式";
 "ACTIVITY_TYPE" = "活动类别";
 "USE_IMPERIAL_UNITS" = "要用英制吗？";
