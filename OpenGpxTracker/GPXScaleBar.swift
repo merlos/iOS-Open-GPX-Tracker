@@ -64,6 +64,9 @@ class GPXScaleBar: UIView {
     /// Number of segments to display on the scale bar.
     private let numberOfSegments: Int = 2
     
+    /// The constant width of the container (slightly bigger than max scale width)
+    private let containerWidth: CGFloat = 320
+    
     // MARK: - Initialization
     
     /// Creates a new custom scale bar for the specified map view.
@@ -278,13 +281,13 @@ class GPXScaleBar: UIView {
         for distance in distances {
             if distance <= maxMeters {
                 let width = CGFloat(distance / metersPerPoint)
-                if width >= 50 {
+                if width >= 75 {
                     return (distance, width)
                 }
             }
         }
         
-        return (distances[0], 50)
+        return (distances[0], 75)
     }
     
     /// Calculates scale values using imperial units (feet and miles).
@@ -368,19 +371,21 @@ class GPXScaleBar: UIView {
             }
         }
         
-        // Calculate total dimensions
+        // Calculate total dimensions with constant container size
         let labelSpace: CGFloat = 4
         let maxLabelHeight = labels.compactMap { $0.isHidden ? nil : $0.frame.height }.max() ?? 0
-        let totalWidth = width + padding * 2
         let totalHeight = tickHeight + labelSpace + maxLabelHeight + padding * 2
         
-        // Update frame
-        frame.size = CGSize(width: totalWidth, height: totalHeight)
+        // Update frame to constant size
+        frame.size = CGSize(width: containerWidth, height: totalHeight)
+        
+        // Calculate offset to center the scale bar within the container
+        let horizontalOffset = (containerWidth - width) / 2
         
         // Position scale bar (centered horizontally, at top)
         let barY = padding
         scaleBar.frame = CGRect(
-            x: padding,
+            x: horizontalOffset,
             y: barY + (tickHeight - barHeight) / 2,
             width: width,
             height: barHeight
@@ -390,7 +395,7 @@ class GPXScaleBar: UIView {
         let labelY = barY + tickHeight + labelSpace
         
         for (index, tick) in ticks.enumerated() {
-            let x = padding + segmentWidth * CGFloat(index)
+            let x = horizontalOffset + segmentWidth * CGFloat(index)
             
             tick.frame = CGRect(
                 x: x - tickWidth / 2,
@@ -408,10 +413,10 @@ class GPXScaleBar: UIView {
                 
                 if index == 0 {
                     // Align left edge with left tick
-                    labelX = padding
+                    labelX = horizontalOffset
                 } else if index == numberOfSegments {
                     // Align right edge with right tick
-                    labelX = padding + width - label.frame.width
+                    labelX = horizontalOffset + width - label.frame.width
                 }
                 
                 label.frame = CGRect(
