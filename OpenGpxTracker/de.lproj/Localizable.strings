@@ -40,6 +40,7 @@
 "CALCULATING" = "Berechnung...";
 "SCREEN" = "Bildschirm";
 "KEEP_SCREEN_ALWAYS_ON" = "Bildschirm immer eingeschaltet lassen?";
+"SHOW_SCALE_BAR" = "Maßstabsleiste immer anzeigen?";
 "MAP_SOURCE" = "Kartentyp";
 "ACTIVITY_TYPE" = "Aktivitätstyp";
 "USE_IMPERIAL_UNITS" = "Meilen verwenden";

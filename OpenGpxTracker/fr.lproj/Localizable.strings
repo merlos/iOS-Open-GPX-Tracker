@@ -42,6 +42,7 @@
 "CALCULATING" = "Calcul en cours...";
 "SCREEN" = "Écran";
 "KEEP_SCREEN_ALWAYS_ON" = "Garder l'écran toujours allumé ?";
+"SHOW_SCALE_BAR" = "Toujours afficher l'échelle ?";
 "MAP_SOURCE" = "Source de la carte";
 "ACTIVITY_TYPE" = "Type d'activité";
 "USE_IMPERIAL_UNITS" = "Utiliser les unités impériales?";

@@ -41,6 +41,7 @@
 "CALCULATING" = "Calculando...";
 "SCREEN" = "Pantalla";
 "KEEP_SCREEN_ALWAYS_ON" = "¿Mantener la pantalla siempre encendida?";
+"SHOW_SCALE_BAR" = "¿Mostrar siempre la barra de escala?";
 "MAP_SOURCE" = "Mapas";
 "ACTIVITY_TYPE" = "Tipo de actividad";
 "USE_IMPERIAL_UNITS" = "¿Usar sistema imperial?";
