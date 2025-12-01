@@ -75,9 +75,7 @@ This application is written in Swift. To download the code run this command in a
  git clone https://github.com/merlos/iOS-Open-GPX-Tracker.git
 ```
 
-Then, to test it open the file `OpenGpxTracker.xcworkspace` with XCode.
-
-Although the application uses some Cocoapods, all the pods are already included in our repo. So no need to run `pod install`.
+Then, to test it open `OpenGpxTracker.xcodeproj` with Xcode.
 
 Please note the [limitations of using OpenStreetMap Tile Servers](http://wiki.openstreetmap.org/wiki/Tile_usage_policy)
 
