@@ -1,6 +1,0 @@
-framework module CoreGPX {
-  umbrella header "CoreGPX-iOS-umbrella.h"
-
-  export *
-  module * { export * }
-}
