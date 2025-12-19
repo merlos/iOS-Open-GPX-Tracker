@@ -34,12 +34,12 @@ class GPXFileManager: NSObject {
     ///
     class var fileList: [GPXFileInfo] {
         let documentsURL = GPXFileManager.GPXFilesFolderURL
-        if documentsURL.startAccessingSecurityScopedResource() {
-            let files = self.fetchFilesList(from: documentsURL)
+        let secured = documentsURL.startAccessingSecurityScopedResource()
+        let files = self.fetchFilesList(from: documentsURL)
+        if secured {
             documentsURL.stopAccessingSecurityScopedResource()
-            return files
         }
-        return []
+        return files
     }
     
     ///
