@@ -142,7 +142,6 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
         }
         self.navigationItem.leftBarButtonItems = [folderButton]
         
-        _ = GPXFileManager.GPXFilesFolderURL.startAccessingSecurityScopedResource()
         // Initial load of the data
         let list: [GPXFileInfo] = GPXFileManager.fileList
         gpxFilesFound =  list.count != 0
@@ -156,7 +155,6 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
     
     /// Removes notfication observers
     deinit {
-        GPXFileManager.GPXFilesFolderURL.stopAccessingSecurityScopedResource()
         NotificationCenter.default.removeObserver(self)
     }
     
@@ -319,36 +317,30 @@ class GPXFilesTableViewController: UITableViewController, UINavigationBarDelegat
         self.displayLoadingFileAlert(true)
         DispatchQueue.global(qos: .userInitiated).async {
             print("GPXFIlesTableViewController:: loadGPXFile Load gpx File: \(gpxFileURL)")
-            if GPXFileManager.GPXFilesFolderURL.startAccessingSecurityScopedResource() {
+            let folderURL = GPXFileManager.GPXFilesFolderURL
+            let secured = folderURL.startAccessingSecurityScopedResource()
+            if secured {
                 defer {
-                    GPXFileManager.GPXFilesFolderURL.stopAccessingSecurityScopedResource()
+                    folderURL.stopAccessingSecurityScopedResource()
                 }
-                do {
-                    DispatchQueue.main.sync {
-                        self.displayLoadingFileAlert(true)
-                    }
-                    guard let gpx = GPXParser(withURL: gpxFileURL)?.parsedData() else {
-                        print("GPXFileTableViewController:: load of GPX file failed")
-                        DispatchQueue.main.sync {
-                            Toast.error("Could not open file")
-                            self.displayLoadingFileAlert(false)
-                        }
-                        return
-                    }
-                    DispatchQueue.main.sync {
-                        self.displayLoadingFileAlert(false) {
-                            self.delegate?.didLoadGPXFileWithName(gpxFileURL.deletingPathExtension().lastPathComponent, gpxRoot: gpx)
-                            self.dismiss(animated: true, completion: nil)
-                            self.presentingViewController?.dismiss(animated: true, completion: nil)
-                        }
-                    }
-                }
-            } else {
-                print("Could not access folder: \(GPXFileManager.GPXFilesFolderURL)")
+            }
+            
+            DispatchQueue.main.sync {
+                self.displayLoadingFileAlert(true)
+            }
+            guard let gpx = GPXParser(withURL: gpxFileURL)?.parsedData() else {
+                print("GPXFileTableViewController:: load of GPX file failed")
                 DispatchQueue.main.sync {
                     Toast.error("Could not open file")
                     self.displayLoadingFileAlert(false)
+                }
+                return
+            }
+            DispatchQueue.main.sync {
+                self.displayLoadingFileAlert(false) {
+                    self.delegate?.didLoadGPXFileWithName(gpxFileURL.deletingPathExtension().lastPathComponent, gpxRoot: gpx)
                     self.dismiss(animated: true, completion: nil)
+                    self.presentingViewController?.dismiss(animated: true, completion: nil)
                 }
             }
         }
