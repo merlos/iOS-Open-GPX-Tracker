@@ -159,8 +159,20 @@ enum GPXTileServer: Int {
         }
     }
     
-    var needForceDarkMode: Bool {
-        return self == .appleSatellite
+    /// Defines the color mode for the tile server
+    enum GPXTileServerColorMode {
+        case lightMode
+        case system
+        case darkMode
+    }
+    
+    /// Returns the color mode for the tile server
+    var colorMode: GPXTileServerColorMode {
+        switch self {
+        case .apple: return .system
+        case .appleSatellite: return .darkMode
+        case .cartoDB, .cartoDBRetina, .openTopoMap, .openSeaMap, .openStreetMap: return .lightMode
+        }
     }
 
     /// Returns the number of tile servers currently defined

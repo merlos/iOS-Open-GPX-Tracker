@@ -805,6 +805,8 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
 				constant: -36
 			)
 		])
+        
+        textColorAdaptations()
 	}
     
     @available(iOS 11, *)
@@ -1303,12 +1305,29 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
     
     /// force dark mode (i.e. white text, if map content is known to be dark)
     func textColorAdaptations() {
-        let needForceDarkMode = self.map.tileServer.needForceDarkMode
-        self.signalAccuracyLabel.textColor = needForceDarkMode ? .white : nil
-        self.timeLabel.textColor = needForceDarkMode ? .white : nil
-        self.speedLabel.textColor = needForceDarkMode ? .white : nil
-        self.totalTrackedDistanceLabel.textColor = needForceDarkMode ? .white : nil
-        self.currentSegmentDistanceLabel.textColor = needForceDarkMode ? .white : nil
+        print("-- textColorAdaptation:: Tile server mode: \(self.map.tileServer.colorMode)")
+        let colorMode = self.map.tileServer.colorMode
+        
+        let color: UIColor?
+        switch colorMode {
+        case .lightMode:
+            color = .black
+        case .darkMode:
+            color = .white
+        case .system:
+            color = nil
+        }
+        
+        self.signalAccuracyLabel.textColor = color
+        self.timeLabel.textColor = color
+        self.speedLabel.textColor = color
+        self.totalTrackedDistanceLabel.textColor = color
+        self.currentSegmentDistanceLabel.textColor = color
+        
+        // Apply the same forced color behavior to the scale bar
+        if let scaleBar = self.map.scaleBar {
+            scaleBar.forcedColor = color
+        }
     }
 
 }
@@ -1532,3 +1551,4 @@ extension Notification.Name {
 }
 
 // swiftlint:enable line_length
+
