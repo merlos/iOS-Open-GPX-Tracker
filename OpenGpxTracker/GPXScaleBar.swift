@@ -46,6 +46,14 @@ class GPXScaleBar: UIView {
         }
     }
     
+    /// Optional forced color for all scale bar elements (bar, ticks, labels).
+    /// When set to a non-nil value, the scale bar will use this color instead of system-adaptive colors.
+    public var forcedColor: UIColor? {
+        didSet {
+            applyCurrentColors()
+        }
+    }
+    
     /// The horizontal bar representing the scale distance.
     private let scaleBar = UIView()
     
@@ -156,22 +164,14 @@ class GPXScaleBar: UIView {
         backgroundColor = .clear
         
         // Configure scale bar
-        if #available(iOS 13.0, *) {
-            scaleBar.backgroundColor = .label
-        } else {
-            scaleBar.backgroundColor = .black
-        }
+        scaleBar.backgroundColor = currentColor()
         scaleBar.layer.cornerRadius = barHeight / 2
         addSubview(scaleBar)
         
         // Create ticks (numberOfSegments + 1 for start and end)
         for _ in 0...numberOfSegments {
             let tick = UIView()
-            if #available(iOS 13.0, *) {
-                tick.backgroundColor = .label
-            } else {
-                tick.backgroundColor = .black
-            }
+            tick.backgroundColor = currentColor()
             tick.layer.cornerRadius = tickWidth / 2
             addSubview(tick)
             ticks.append(tick)
@@ -181,11 +181,7 @@ class GPXScaleBar: UIView {
         for _ in 0...numberOfSegments {
             let label = UILabel()
             label.font = .systemFont(ofSize: 11, weight: .medium)
-            if #available(iOS 13.0, *) {
-                label.textColor = .label
-            } else {
-                label.textColor = .black
-            }
+            label.textColor = currentColor()
             label.textAlignment = .center
             addSubview(label)
             labels.append(label)
@@ -193,6 +189,9 @@ class GPXScaleBar: UIView {
         
         // Set intrinsic size
         translatesAutoresizingMaskIntoConstraints = false
+        
+        // Apply initial colors respecting forcedColor if set
+        applyCurrentColors()
     }
     
     /// Sets up notification observer for map region changes.
@@ -205,6 +204,20 @@ class GPXScaleBar: UIView {
             name: NSNotification.Name("MKMapViewRegionDidChangeNotification"),
             object: mapView
         )
+    }
+    
+    /// Returns the appropriate color depending on whether a forcedColor is set
+    private func currentColor() -> UIColor {
+        if let forcedColor = forcedColor { return forcedColor }
+        if #available(iOS 13.0, *) { return .label } else { return .black }
+    }
+
+    /// Applies the current color to all subviews (bar, ticks, labels)
+    private func applyCurrentColors() {
+        let color = currentColor()
+        scaleBar.backgroundColor = color
+        ticks.forEach { $0.backgroundColor = color }
+        labels.forEach { $0.textColor = color }
     }
     
     /// Handles map region change notifications.
@@ -645,3 +658,4 @@ class SettingsViewController: UIViewController {
     }
 }
 */
+
