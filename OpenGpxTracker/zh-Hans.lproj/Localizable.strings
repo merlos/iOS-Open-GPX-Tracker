@@ -21,7 +21,7 @@
 "WATCH_FILE_RECEIVED_TITLE" = "成功收到 Apple Watch 发来的 GPX 文件";
 "WATCH_FILE_RECEIVED_MESSAGE" = "成功收到 GPX 文件: \"%@\"";
 "SAVE_AS" = "储存为...";
-"ENTER_SESSION_NAME" = "请您输入这 GPX 文件名";
+"ENTER_SESSION_NAME" = "输入 GPX 会话名称";
 "LOCATION_SERVICES_DISABLED" = "手机定位服务未开启";
 "ENABLE_LOCATION_SERVICES" = "请您到 “设置” app，确保本 app 的 “定位服务” 已打开";
 "SETTINGS" = "设置";
@@ -116,7 +116,7 @@
 // CoreDataHelper
 
 "CONTINUE_SESSION_TITLE" = "要继续未完成的记录吗？";
-"CONTINUE_SESSION_MESSAGE" = "应该如何处理已恢复好的定位记录？";
+"CONTINUE_SESSION_MESSAGE" = "如何处理已恢复好的定位记录？";
 
 "CONTINUE_SESSION" = "继续记录";
 "SAVE_START_NEW" = "保存并重新开始";
