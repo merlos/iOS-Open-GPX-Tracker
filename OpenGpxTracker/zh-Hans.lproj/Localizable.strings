@@ -63,7 +63,7 @@
 "SUCCESSFULLY_SENT" = "成功发送";
 "FAILED_TO_SEND" = "发送失败：";
 "SEND_TO_IOS" = "发送到 iOS app";
-"FILE_SELECTED_TITLE" = "GPX 文件已被选种";
+"FILE_SELECTED_TITLE" = "GPX 文件已被选中";
 "FILE_SELECTED_MESSAGE" = "请问您想怎样处理文件呢？";
 "ERROR_OCCURED_TITLE" = "差错事故";
 "ERROR_OCCURED_MESSAGE" = "很遗憾的，GPX 文件无法发送到 iOS app，因为： %s ";
