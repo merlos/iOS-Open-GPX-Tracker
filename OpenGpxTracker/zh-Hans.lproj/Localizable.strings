@@ -22,38 +22,38 @@
 "WATCH_FILE_RECEIVED_MESSAGE" = "成功收到 GPX 文件: \"%@\"";
 "SAVE_AS" = "储存为...";
 "ENTER_SESSION_NAME" = "请您输入这 GPX 文件名";
-"LOCATION_SERVICES_DISABLED" = "手机定位服务无法登入";
+"LOCATION_SERVICES_DISABLED" = "手机定位服务未开启";
 "ENABLE_LOCATION_SERVICES" = "请您到 “设置” app，确保本 app 的 “定位服务” 已打开";
 "SETTINGS" = "设置";
-"ACCESS_TO_LOCATION_DENIED" = "app 定位服务不被允许登入";
+"ACCESS_TO_LOCATION_DENIED" = "未被授予使用定位服务的权限";
 "ALLOW_LOCATION" = "在 “设置” app 里, 请您选择 “始终” 定位模式，让本 app 可以利用定位服务。本 app 需要此服务，才能完全操作。";
 "COORDS_LABEL" = "(%@, %@) · 海拔: %@";
-"NO_FILES" = "无法找到任何 GPX 文件";
+"NO_FILES" = "未找到任何 GPX 文件";
 "YOUR_FILES" = "您的 GPX 文件";
 "LAST_SAVED" = "最后记录： %@ (%@)";
 "DELETE" = "删除";
 "SELECT_OPTION" = "请选择";
 "LOAD_IN_MAP" = "用地图显示文件资料";
 "SHARE" = "分享";
-"LOADING_FILE" = "在处理 GPX 文件中...";
-"ABOUT" = "资料";
+"LOADING_FILE" = "正在加载 GPX 文件...";
+"ABOUT" = "关于";
 
 //Preferences
 "PREFERENCES" = "设置";
 "UNITS" = "计量单位";
-"CACHE" = "地图高速缓存系统"; // not quite confident in translation. Have never heard of anyone used “cache” in Chinese before.
-"CALCULATING" = "计算中..."; // Chinese Simplified
+"CACHE" = "地图缓存";
+"CALCULATING" = "计算中...";
 "SCREEN" = "屏幕";
 "KEEP_SCREEN_ALWAYS_ON" = "始终保持屏幕开启？";
 "SHOW_SCALE_BAR" = "始终显示比例尺？";
 "MAP_SOURCE" = "地图款式";
 "ACTIVITY_TYPE" = "活动类别";
 "USE_IMPERIAL_UNITS" = "要用英制吗？";
-"OFFLINE_CACHE" = "启用 - 线下高速缓存";
-"CLEAR_CACHE" = "清除 - 高速缓存";
-"CACHE_IS_EMPTY" = "高速缓存已被清空。";
+"OFFLINE_CACHE" = "本地缓存";
+"CLEAR_CACHE" = "清除缓存";
+"CACHE_IS_EMPTY" = "缓存已被清空。";
 "EDIT_WAYPOINT_NAME_TITLE" = "改变导航点名";
-"EDIT_WAYPOINT_NAME_MESSAGE" = "暗示：要更改导航点位置吗？您只需要把地图上的红色针图案，拖和搬到新位置。";
+"EDIT_WAYPOINT_NAME_MESSAGE" = "提示: 如需更改导航点，请拖动地图上的红色大头针到新位置。";
 "GPX_FILES_FOLDER" = "GPX文件夹";
 "USING_DEFAULT_FOLDER" = "使用默认文件夹";
 "LAST_SESSION_LOADED" = "加载上次会话";
@@ -65,7 +65,7 @@
 "SEND_TO_IOS" = "发送到 iOS app";
 "FILE_SELECTED_TITLE" = "GPX 文件已被选中";
 "FILE_SELECTED_MESSAGE" = "请问您想怎样处理文件呢？";
-"ERROR_OCCURED_TITLE" = "差错事故";
+"ERROR_OCCURED_TITLE" = "发生错误";
 "ERROR_OCCURED_MESSAGE" = "很遗憾的，GPX 文件无法发送到 iOS app，因为： %s ";
 "GPX_TRACKER" = "GPX 定位记录";
 "FILE_SAVED_TITLE" = "GPX 文件储存完毕";
@@ -78,7 +78,7 @@
 "AT_OTHER" = "其他导航";
 "AT_FLIGHT" = "飞行导航";
 
-"AT_AUTOMATIC_DESC" = "系统标准。自动选择导航记录法";
+"AT_AUTOMATIC_DESC" = "系统默认。自动选择导航模式";
 "AT_AUTOMOTIVE_DESC" = "汽车，摩托车，卡车...";
 "AT_FITNESS_DESC" = "跑步，登山，骑脚踏车...";
 "AT_OTHER_DESC" = "其他车辆类型";
@@ -116,10 +116,10 @@
 // CoreDataHelper
 
 "CONTINUE_SESSION_TITLE" = "要继续未完成的记录吗？";
-"CONTINUE_SESSION_MESSAGE" = "应该如何对待已恢复好的定位记录呢？";
+"CONTINUE_SESSION_MESSAGE" = "应该如何处理已恢复好的定位记录？";
 
 "CONTINUE_SESSION" = "继续记录";
-"SAVE_START_NEW" = "储存恢复好的记录，并从新开始";
+"SAVE_START_NEW" = "保存并重新开始";
 
 // Default File Name
 
@@ -129,7 +129,7 @@
 // in default name editor view
 "DEFAULT_NAME_DATE_FORMAT" = "文件名格式（根据日期和时间）";
 "DEFAULT_NAME_SETTINGS" = "设置";
-"DEFAULT_NAME_PRESET" = "预定程序";
+"DEFAULT_NAME_PRESET" = "预设";
 
 "DEFAULT_NAME_INPUT_FOOTER" = "在键盘上，按下 “完成” 按钮，无论预定程序有被更改或新程序，就等于设定了文件名格式。关于日期或时间的句法设定，请使用 { ... } 来包围。全部日期或时间的句法可在 Unicode Technical Standard (UTS) #35 里了解。";
 
