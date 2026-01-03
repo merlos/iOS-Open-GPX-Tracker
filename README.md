@@ -45,9 +45,9 @@ You can use Open GPX tracker for:
  - Settings
     - Offline cache On/Off
     - Clear cache
-    - Select the map server.
+    - Select the map server
   - Darkmode
-  - Multi-language support (thanks to volunteers): German, English, Spanish, Finnish, French, Italian, Dutch, Portuguese (Brazil), Russian, Ukranian Chinese (simplified)
+  - Multi-language support (thanks to volunteers): German, English, Spanish, Finnish, French, Italian, Dutch, Portuguese (Brazil), Russian, Ukranian and Chinese (simplified)
 
 ### Apple Watch Features (since 1.6.0)
 - Create GPX Files on your Apple Watch
