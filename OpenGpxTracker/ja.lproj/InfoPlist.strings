@@ -1,0 +1,11 @@
+/*
+  InfoPlist.strings
+  OpenGpxTracker
+
+  Japanese Translation created on 2026.03.27.
+*/
+
+NSLocationAlwaysAndWhenInUseUsageDescription = "位置情報は地図上にあなたの現在地を表示するためにのみ使用されます。アプリがバックグラウンドでも位置情報を記録するには「常に許可」を選択してください。";
+NSLocationAlwaysUsageDescription = "アプリがバックグラウンドでもGPXトラックを作成するために、位置情報が必要です。";
+NSLocationUsageDescription = "GPXの作成とPOIの追加に位置情報が必要です。";
+NSLocationWhenInUseUsageDescription = "地図上であなたの現在地と移動履歴を表示するために位置情報を使用します。";
