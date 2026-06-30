@@ -1,0 +1,163 @@
+/*
+ Localizable.strings
+ OpenGpxTracker
+
+ Japanese Translation created on 2026.03.27.
+ */
+
+// App
+"NO_LOCATION" = "位置情報を取得できません";
+"START_TRACKING" = "記録開始";
+"PAUSE" = "一時停止";
+"RESUME" = "再開";
+"SAVE" = "保存";
+"RESET" = "リセット";
+"DONE" = "完了";
+"CANCEL" = "キャンセル";
+"WATCH_FILE_RECEIVED_TITLE" = "Apple Watchからファイルを受信しました";
+"WATCH_FILE_RECEIVED_MESSAGE" = "受信したファイル: \"%@\"";
+"SAVE_AS" = "名前を付けて保存";
+"ENTER_SESSION_NAME" = "GPXセッション名を入力";
+"LOCATION_SERVICES_DISABLED" = "位置情報サービスが無効です";
+"ENABLE_LOCATION_SERVICES" = "設定アプリを開き、位置情報サービスを有効にしてください。";
+"SETTINGS" = "設定";
+"ACCESS_TO_LOCATION_DENIED" = "位置情報へのアクセスが拒否されました";
+"ALLOW_LOCATION" = "設定アプリの位置情報で、GPX Trackerに「常に許可」を選択してください。";
+"COORDS_LABEL" = "(%@, %@) · 高度: %@";
+"NO_FILES" = "GPXファイルがありません";
+"YOUR_FILES" = "GPXファイル一覧";
+"LAST_SAVED" = "最終保存 %@ (%@)";
+"DELETE" = "削除";
+"SELECT_OPTION" = "オプションを選択";
+"LOAD_IN_MAP" = "地図に表示";
+"SHARE" = "共有";
+"LOADING_FILE" = "GPXファイルを読み込み中...";
+"ABOUT" = "このアプリについて";
+
+// Preferences
+"PREFERENCES" = "設定";
+"UNITS" = "単位";
+"SCREEN" = "画面";
+"KEEP_SCREEN_ALWAYS_ON" = "画面を常にオンにしますか？";
+"SHOW_SCALE_BAR" = "スケールバーを表示しますか？";
+"CACHE" = "キャッシュ";
+"CALCULATING" = "計算中...";
+"MAP_SOURCE" = "地図ソース";
+"ACTIVITY_TYPE" = "アクティビティタイプ";
+"USE_IMPERIAL_UNITS" = "ヤード・ポンド法を使用しますか？";
+"OFFLINE_CACHE" = "オフラインキャッシュ";
+"CLEAR_CACHE" = "キャッシュを消去";
+"CACHE_IS_EMPTY" = "キャッシュは空です";
+"EDIT_WAYPOINT_NAME_TITLE" = "ウェイポイント名を編集";
+"EDIT_WAYPOINT_NAME_MESSAGE" = "ヒント: ウェイポイントの位置を変更するには、ピンをドラッグ＆ドロップしてください";
+"GPX_FILES_FOLDER" = "GPXファイルフォルダ";
+"USING_DEFAULT_FOLDER" = "デフォルトフォルダを使用中";
+"LAST_SESSION_LOADED" = "前回のセッションを読み込みました";
+
+// Watch
+"SENDING" = "送信中:";
+"X_FILES" = "%d件のファイル";
+"SUCCESSFULLY_SENT" = "送信完了:";
+"FAILED_TO_SEND" = "送信失敗:";
+"SEND_TO_IOS" = "iOSアプリに送信";
+"FILE_SELECTED_TITLE" = "GPXファイルを選択しました";
+"FILE_SELECTED_MESSAGE" = "どのように処理しますか？";
+"ERROR_OCCURED_TITLE" = "エラーが発生しました";
+"ERROR_OCCURED_MESSAGE" = "GPXファイルをiOSアプリに送信できませんでした。原因: %s ";
+"GPX_TRACKER" = "GPX Tracker";
+"FILE_SAVED_TITLE" = "GPXファイルを保存しました";
+"FILE_SAVED_MESSAGE" = "現在のセッションを %s.gpx として保存しました";
+
+// Activities
+"AT_AUTOMATIC" = "自動";
+"AT_AUTOMOTIVE" = "自動車ナビ";
+"AT_FITNESS" = "フィットネス";
+"AT_OTHER" = "その他のナビ";
+"AT_FLIGHT" = "フライト";
+
+"AT_AUTOMATIC_DESC" = "システムデフォルト。モードを自動選択します";
+"AT_AUTOMOTIVE_DESC" = "自動車、バイク、トラック...";
+"AT_FITNESS_DESC" = "ランニング、ハイキング、サイクリング...";
+"AT_OTHER_DESC" = "自動車以外のナビゲーション";
+"AT_FLIGHT_DESC" = "航空アクティビティ";
+
+// Dates
+"T_YEARS_AGO" = "%d年前";
+"T_YEAR_AGO" = "1年前";
+"T_LAST_YEAR" = "昨年";
+
+"T_MONTHS_AGO" = "%dか月前";
+"T_MONTH_AGO" = "1か月前";
+"T_LAST_MONTH" = "先月";
+
+"T_WEEKS_AGO" = "%d週間前";
+"T_WEEK_AGO" = "1週間前";
+"T_LAST_WEEK" = "先週";
+
+"T_DAYS_AGO" = "%d日前";
+"T_DAY_AGO" = "1日前";
+"T_YESTERDAY" = "昨日";
+
+"T_HOURS_AGO" = "%d時間前";
+"T_HOUR_AGO" = "1時間前";
+"T_LAST_HOUR" = "1時間以内";
+
+"T_MINUTES_AGO" = "%d分前";
+"T_MINUTE_AGO" = "1分前";
+"T_MINUTE_HOUR" = "1分前";
+
+"T_SECONDS_AGO" = "%d秒前";
+
+"T_JUST_NOW" = "たった今";
+
+// CoreDataHelper
+
+"CONTINUE_SESSION_TITLE" = "前回のセッションを続けますか？";
+"CONTINUE_SESSION_MESSAGE" = "前回のセッションから復元されたデータをどのように処理しますか？";
+
+"CONTINUE_SESSION" = "セッションを続ける";
+"SAVE_START_NEW" = "保存して新規開始";
+
+// Default File Name
+
+// in preferences section
+"DEFAULT_NAME_SECTION" = "デフォルトファイル名の設定";
+
+// in default name editor view
+"DEFAULT_NAME_DATE_FORMAT" = "ファイル名の形式";
+"DEFAULT_NAME_SETTINGS" = "設定";
+"DEFAULT_NAME_PRESET" = "プリセット";
+
+"DEFAULT_NAME_INPUT_FOOTER" = "キーボードの「完了」をタップすると、プリセットまたはカスタムに関わらず日付形式が保存されます。日付形式は { ... } で囲む必要があります。日付形式の構文の一覧については、Unicode Technical Standard (UTS) #35を参照してください。";
+
+"DEFAULT_NAME_SAMPLE_OUTPUT_TITLE" = "サンプル: ";
+"DEFAULT_NAME_USE_UTC" = "UTC時刻を使用しますか？";
+"DEFAULT_NAME_ENGLISH_LOCALE" = "英語の日付形式を使用しますか？";
+
+// DateFieldTypeView
+"YEAR" = "年";
+"MONTH" = "月";
+"DAY" = "日";
+"HOUR" = "時";
+"MINUTE" = "分";
+"SECOND" = "秒";
+"DAY_OF_THE_WEEK" = "曜日";
+"TIME_OF_DAY" = "午前/午後";
+"WEEK" = "週";
+"QUARTER" = "四半期";
+"ERA" = "時代";
+"TIME_ZONE" = "タイムゾーン";
+
+"SINGLE_DIGIT" = "1桁";
+"FULL_TEXT" = "全文";
+"TEXT" = "テキスト";
+
+"OF_MONTH" = "月の";
+"OF_YEAR" = "年の";
+
+"ABBR_GMT" = "略称 / GMT";
+"UTC_OFFSET" = "UTCオフセット";
+"GMT_SHORT" = "GMT短縮";
+"GMT_FULL" = "GMT完全";
+"LOCATION" = "地域";
+"LOCATION_TIME" = "地域の時刻";
