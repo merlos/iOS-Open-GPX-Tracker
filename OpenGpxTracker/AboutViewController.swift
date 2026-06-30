@@ -1,5 +1,5 @@
 //
-//  InfoWKViewController.swift
+//  AboutViewController.swift
 //  OpenGpxTracker
 //
 //  Created by merlos on 24/09/14.
@@ -7,18 +7,72 @@
 //  Localized by nitricware on 19/08/19.
 //
 
-import UIKit
+import SwiftUI
 import WebKit
 
 ///
-/// Controller to display the About page.
+/// SwiftUI view to display the About page.
 ///
-/// Internally it is a WKWebView that displays the resource file about.html.
+/// Internally it uses a WKWebView that displays the resource file about.html.
+///
+struct AboutView: View {
+    var body: some View {
+        WebViewContainer()
+            .edgesIgnoringSafeArea(.all)
+    }
+}
+
+/// UIViewRepresentable wrapper for WKWebView
+struct WebViewContainer: UIViewRepresentable {
+    
+    func makeUIView(context: Context) -> WKWebView {
+        let webView = WKWebView(frame: .zero, configuration: WKWebViewConfiguration())
+        webView.navigationDelegate = context.coordinator
+        
+        // Load the about.html file
+        if let path = Bundle.main.path(forResource: "about", ofType: "html"),
+           let html = try? String(contentsOfFile: path, encoding: .utf8) {
+            webView.loadHTMLString(html, baseURL: nil)
+        }
+        
+        return webView
+    }
+    
+    func updateUIView(_ uiView: WKWebView, context: Context) {
+        // No updates needed
+    }
+    
+    func makeCoordinator() -> WebViewCoordinator {
+        WebViewCoordinator()
+    }
+}
+
+/// Coordinator to handle WKNavigationDelegate
+class WebViewCoordinator: NSObject, WKNavigationDelegate {
+    
+    /// Opens Safari when user clicks a link in the About page.
+    func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction,
+                 decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+        print("AboutView: decidePolicyForNavigationAction")
+        
+        if navigationAction.navigationType == .linkActivated {
+            if let url = navigationAction.request.url {
+                UIApplication.shared.open(url)
+            }
+            print("AboutView: external link sent to Safari")
+            decisionHandler(.cancel)
+            return
+        }
+        decisionHandler(.allow)
+    }
+}
+
+// MARK: - UIViewController wrapper for backward compatibility
+///
+/// UIViewController wrapper to present the SwiftUI AboutView.
+/// This maintains compatibility with existing code that expects a UIViewController.
 ///
 class AboutViewController: UIViewController {
-    
-    /// Embedded web browser
-    var webView: WKWebView?
     
     /// Initializer. Only calls super
     required init?(coder aDecoder: NSCoder) {
@@ -31,11 +85,7 @@ class AboutViewController: UIViewController {
     }
     
     ///
-    /// Configures the view. Performs the following actions:
-    ///
-    /// 1. Sets the title to About
-    /// 2. Adds "Done" button
-    /// 3. Adds the webview that loads about.html from the bundle.
+    /// Configures the view with SwiftUI content.
     ///
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,54 +93,26 @@ class AboutViewController: UIViewController {
         self.title = NSLocalizedString("ABOUT", comment: "no comment")
         
         // Add the done button
-        let shareItem = UIBarButtonItem(title: NSLocalizedString("DONE", comment: "no comment"),
-                                        style: UIBarButtonItem.Style.plain, target: self,
-                                        action: #selector(AboutViewController.closeViewController))
-        self.navigationItem.rightBarButtonItems = [shareItem]
-  
-        // Add the Webview
-        self.webView = WKWebView(frame: self.view.frame, configuration: WKWebViewConfiguration())
+        let doneButton = UIBarButtonItem(title: NSLocalizedString("DONE", comment: "no comment"),
+                                         style: .plain,
+                                         target: self,
+                                         action: #selector(closeViewController))
+        self.navigationItem.rightBarButtonItem = doneButton
         
-        self.webView?.navigationDelegate = self
+        // Create and host the SwiftUI view
+        let aboutView = AboutView()
+        let hostingController = UIHostingController(rootView: aboutView)
         
-        let path = Bundle.main.path(forResource: "about", ofType: "html")
-        let text = try? String(contentsOfFile: path!, encoding: String.Encoding.utf8)
-        
-        webView?.loadHTMLString(text!, baseURL: nil)
-        webView?.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        
-        self.view.addSubview(webView!)
+        // Add as child view controller
+        addChild(hostingController)
+        hostingController.view.frame = view.bounds
+        hostingController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        view.addSubview(hostingController.view)
+        hostingController.didMove(toParent: self)
     }
     
     /// Closes this view controller. Triggered by pressing the "Done" button in navigation bar.
     @objc func closeViewController() {
-        self.dismiss(animated: true, completion: { () -> Void in
-            
-        })
+        self.dismiss(animated: true)
     }
-    
-}
-
-/// Handles all navigation related stuff for the web view
-extension AboutViewController: WKNavigationDelegate {
-    
-    /// Opens Safari when user clicks a link in the About page.
-    func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction,
-                 decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
-        print("AboutViewController: decidePolicyForNavigationAction")
-        
-        if navigationAction.navigationType == .linkActivated {
-            if #available(iOS 10, *) {
-                UIApplication.shared.open(navigationAction.request.url!)
-            } else {
-                UIApplication.shared.openURL(navigationAction.request.url!)
-            }
-            print("AboutViewController: external link sent to Safari")
-            
-            decisionHandler(.cancel)
-            return
-        }
-        decisionHandler(.allow)
-    }
-    
 }
