@@ -1,10 +1,12 @@
 //
-//  AboutViewController.swift
+//  AboutView.swift (former AboutViewController)
 //  OpenGpxTracker
 //
 //  Created by merlos on 24/09/14.
 //
 //  Localized by nitricware on 19/08/19.
+//
+//  Converted by merlos to SwiftUI on 2025-06-30
 //
 
 import SwiftUI
