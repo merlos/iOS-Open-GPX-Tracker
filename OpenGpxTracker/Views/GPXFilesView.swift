@@ -266,7 +266,7 @@ extension AppState: GPXFilesTableViewControllerDelegate {
         mapView?.coreDataHelper.add(toCoreData: gpxFilename, willContinueAfterSave: false)
         stopWatch.reset()
         mapView?.importFromGPXRoot(gpxRoot)
-        followUser = false
+        followUserMode = .none
         mapView?.regionToGPXExtent()
         gpxTrackingStatus = .paused
         totalDistance = mapView?.session.totalTrackedDistance ?? 0

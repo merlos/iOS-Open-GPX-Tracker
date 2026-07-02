@@ -32,6 +32,7 @@ struct MapViewRepresentable: UIViewRepresentable {
         let mapView = GPXMapView()
         mapView.delegate = context.coordinator
         mapView.showsUserLocation = true
+        mapView.userTrackingMode = .follow
         mapView.isZoomEnabled = true
         mapView.isRotateEnabled = true
         mapView.showsCompass = false
@@ -73,25 +74,47 @@ struct MapViewRepresentable: UIViewRepresentable {
         context.coordinator.appState = appState
         context.coordinator.locationViewModel = locationViewModel
 
-        // Subscribe to location updates for track point addition
-        context.coordinator.setupLocationSubscription(locationViewModel)
+        // Subscribe to location updates for track point addition and follow‑user
+        context.coordinator.setupSubscriptions(locationViewModel, appState: appState)
 
         // Create the container view that hosts both map and scale bar
         let container = MapContainerView(mapView: mapView, scaleBar: scaleBar)
         return container
     }
-
     func updateUIView(_ container: MapContainerView, context: Context) {
         let mapView = container.mapView
-
-        // Update heading
+        //print("** [updateUIView] called heading: \(locationViewModel.lastHeading)")
+        // Update heading indicator arrow whenever a new heading arrives.
+        // This is the reliable path: updateUIView is always called because
+        // locationViewModel is @ObservedObject and lastHeading is @Published.
         if let heading = locationViewModel.lastHeading {
+            //let h = heading.trueHeading >= 0 ? heading.trueHeading : heading.magneticHeading
+            //print("[updateUIView] heading trueHeading=\(heading.trueHeading) mag=\(heading.magneticHeading) using=\(h) followMode=\(appState.followUserMode) trackingMode=\(mapView.userTrackingMode.rawValue)")
             mapView.heading = heading
+            mapView.updateHeading()
+        } else {
+            // The simulator does not provide heading value is always nil
+            #if targetEnvironment(simulator)
+            if appState.followUserMode == .followWithHeading {
+                print("MapViewRepresentable::updateUIView - Running on simulator -> heading cannot be simulated")
+            }
+            #else
+            print("[updateUIView] heading is nil on device — no heading data available")
+            #endif
         }
 
-        // Follow user
-        if appState.followUser, let location = locationViewModel.lastLocation {
-            mapView.setCenter(location.coordinate, animated: true)
+        // Apply MKUserTrackingMode whenever followUserMode changes.
+        // updateUIView is called when appState.followUserMode changes because
+        // appState is @ObservedObject.
+        let desiredMode: MKUserTrackingMode
+        switch appState.followUserMode {
+        case .none:              desiredMode = .none
+        case .follow:            desiredMode = .follow
+        case .followWithHeading: desiredMode = .followWithHeading
+        }
+        if mapView.userTrackingMode != desiredMode {
+            print("[updateUIView] followUserMode=\(appState.followUserMode) → setUserTrackingMode(\(desiredMode.rawValue))")
+            mapView.setUserTrackingMode(desiredMode, animated: true)
         }
 
         // Update scale bar visibility and position
@@ -167,28 +190,33 @@ struct MapViewRepresentable: UIViewRepresentable {
         var locationViewModel: LocationViewModel?
         private var locationCancellable: AnyCancellable?
         private var lastAddedLocationTimestamp: Date?
+        private var panGestureActive = false
 
-        func setupLocationSubscription(_ locationVM: LocationViewModel) {
+        /// Sets up Combine subscription for track-point recording.
+        /// Heading indicator and tracking-mode changes are handled in updateUIView,
+        /// which is SwiftUI's guaranteed callback for @ObservedObject changes.
+        func setupSubscriptions(_ locationVM: LocationViewModel, appState: AppState) {
             locationCancellable = locationVM.$lastLocation
                 .compactMap { $0 }
                 .sink { [weak self] location in
                     guard let self = self,
-                          let appState = self.appState,
-                          appState.gpxTrackingStatus == .tracking,
+                          let state = self.appState,
                           let mapView = self.mapView else { return }
-
-                    if self.lastAddedLocationTimestamp == location.timestamp { return }
-                    self.lastAddedLocationTimestamp = location.timestamp
-
-                    mapView.addPointToCurrentTrackSegmentAtLocation(location)
-                    DispatchQueue.main.async {
-                        appState.totalDistance = mapView.session.totalTrackedDistance
-                        appState.currentSegmentDistance = mapView.session.currentSegmentDistance
+                    if state.gpxTrackingStatus == .tracking {
+                        if self.lastAddedLocationTimestamp == location.timestamp { return }
+                        self.lastAddedLocationTimestamp = location.timestamp
+                        mapView.addPointToCurrentTrackSegmentAtLocation(location)
+                        DispatchQueue.main.async {
+                            state.totalDistance = mapView.session.totalTrackedDistance
+                            state.currentSegmentDistance = mapView.session.currentSegmentDistance
+                        }
                     }
                 }
         }
 
-        deinit { locationCancellable?.cancel() }
+        deinit {
+            locationCancellable?.cancel()
+        }
 
         @objc func addPinAtTappedLocation(_ gesture: UILongPressGestureRecognizer) {
             guard gesture.state == .began, let mapView = mapView else { return }
@@ -198,16 +226,49 @@ struct MapViewRepresentable: UIViewRepresentable {
         }
 
         @objc func stopFollowingUser(_ gesture: UIPanGestureRecognizer) {
-            appState?.followUser = false
+            switch gesture.state {
+            case .began:
+                panGestureActive = true
+            case .ended, .cancelled:
+                panGestureActive = false
+                appState?.followUserMode = .none
+            default:
+                break
+            }
         }
 
         func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer,
-                                shouldRecognizeSimultaneouslyWith other: UIGestureRecognizer) -> Bool {
+                               shouldRecognizeSimultaneouslyWith other: UIGestureRecognizer) -> Bool {
             return true
         }
 
+        /// Sync MKMapView's userTrackingMode changes back to AppState.
+        /// Only pan gestures should exit follow mode — pinch/rotate just re-apply.
+        override func mapView(_ mapView: MKMapView, didChange mode: MKUserTrackingMode, animated: Bool) {
+            print("[Coordinator] mapView didChangeUserTrackingMode to \(mode.rawValue) animated=\(animated) panGestureActive=\(panGestureActive) appState.follow=\(String(describing: appState?.followUserMode))")
+            super.mapView(mapView, didChange: mode, animated: animated)
+            // When a non-pan gesture (pinch, rotate) drops tracking mode, re-apply it
+            // so the map keeps following the user. Only pan actually exits follow mode.
+            if mode == .none, let appState = appState, appState.followUserMode != .none, !panGestureActive {
+                let restoreMode: MKUserTrackingMode = appState.followUserMode == .followWithHeading ? .followWithHeading : .follow
+                print("[Coordinator] re-applying MKUserTrackingMode.\(restoreMode.rawValue) (pinch/rotate should not exit follow)")
+                mapView.setUserTrackingMode(restoreMode, animated: true)
+                return
+            }
+            let newMode: FollowUserMode
+            switch mode {
+            case .follow:            newMode = .follow
+            case .followWithHeading: newMode = .followWithHeading
+            case .none:              newMode = .none
+            @unknown default:        newMode = .none
+            }
+            if appState?.followUserMode != newMode {
+                appState?.followUserMode = newMode
+            }
+        }
+
         override func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView,
-                              calloutAccessoryControlTapped control: UIControl) {
+                               calloutAccessoryControlTapped control: UIControl) {
             guard let waypoint = view.annotation as? GPXWaypoint,
                   let button = control as? UIButton,
                   let gpxMapView = mapView as? GPXMapView else { return }

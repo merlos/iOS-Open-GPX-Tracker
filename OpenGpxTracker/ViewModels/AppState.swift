@@ -20,6 +20,16 @@ enum GpxTrackingStatus {
     case paused
 }
 
+/// Defines the possible modes for following the user's location on the map.
+enum FollowUserMode {
+    /// Map does not automatically center on the user.
+    case none
+    /// Map automatically centers on the user's location.
+    case follow
+    /// Map automatically centers on the user's location and rotates to match the device's heading.
+    case followWithHeading
+}
+
 /// Central observable state object for the application.
 ///
 /// `AppState` holds all shared state that drives the SwiftUI interface:
@@ -56,8 +66,8 @@ class AppState: ObservableObject {
         }
     }
 
-    /// When true the map is automatically centered on the user location.
-    @Published var followUser: Bool = true
+    /// Controls whether and how the map automatically follows the user.
+    @Published var followUserMode: FollowUserMode = .follow
 
     /// Name of the last GPX file saved (without extension).
     @Published var lastGpxFilename: String = "" {
@@ -108,7 +118,6 @@ class AppState: ObservableObject {
     /// after creation without creating a strong reference cycle.
     weak var mapView: GPXMapView? {
         didSet {
-            mapView?.delegate = mapViewDelegate
             isMapReady = mapView != nil
         }
     }
@@ -118,9 +127,6 @@ class AppState: ObservableObject {
 
     /// Optional reference to the scale bar (owned by the map container view).
     weak var scaleBar: GPXScaleBar?
-
-    /// The shared `MapViewDelegate` instance serving `MKMapViewDelegate`.
-    let mapViewDelegate = MapViewDelegate()
 
     // MARK: - Initialization
 
@@ -139,9 +145,13 @@ class AppState: ObservableObject {
         }
     }
 
-    /// Toggles follow‑user mode.
+    /// Cycles through follow‑user modes: none → follow → followWithHeading → none.
     func toggleFollowUser() {
-        followUser.toggle()
+        switch followUserMode {
+        case .none:              followUserMode = .follow
+        case .follow:            followUserMode = .followWithHeading
+        case .followWithHeading: followUserMode = .none
+        }
     }
 
     /// Generates the default filename based on user preferences.
@@ -169,7 +179,7 @@ class AppState: ObservableObject {
         mapView?.coreDataHelper.add(toCoreData: fileName, willContinueAfterSave: false)
         stopWatch.reset()
         mapView?.continueFromGPXRoot(root)
-        followUser = false
+        followUserMode = .none
         mapView?.regionToGPXExtent()
         gpxTrackingStatus = .paused
         if let mapView = mapView {

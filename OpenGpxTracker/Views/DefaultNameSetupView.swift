@@ -2,7 +2,7 @@
 //  DefaultNameSetupView.swift
 //  OpenGpxTracker
 //
-//  Created during SwiftUI refactoring
+//  Created by merlos during SwiftUI refactoring 02/Jul/2026
 //
 
 import SwiftUI
