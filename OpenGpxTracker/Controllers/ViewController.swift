@@ -83,25 +83,37 @@ let kSignalAccuracy1 = 201.0
 ///
 class ViewController: UIViewController, UIGestureRecognizerDelegate {
     
-    /// Shall the map be centered on current user position?
-    /// If yes, whenever the user moves, the center of the map too.
-    var followUser: Bool = true {
+    /// Controls whether and how the map automatically follows the user.
+    var followUserMode: FollowUserMode = .follow {
         didSet {
-            if followUser {
-                print("followUser=true")
-                followUserButton.setImage(UIImage(named: "follow_user_high"), for: UIControl.State())
-                map.setCenter((map.userLocation.coordinate), animated: true)
-                
-            } else {
-                print("followUser=false")
-               followUserButton.setImage(UIImage(named: "follow_user"), for: UIControl.State())
+            print("[followUserMode] changed to \(followUserMode)")
+            followUserButton.setImage(followUserImage, for: UIControl.State())
+            let trackingMode: MKUserTrackingMode
+            switch followUserMode {
+            case .none:              trackingMode = .none
+            case .follow:            trackingMode = .follow
+            case .followWithHeading: trackingMode = .followWithHeading
             }
-            
+            print("[followUserMode] setting map.userTrackingMode=\(trackingMode.rawValue)")
+            if map.userTrackingMode != trackingMode {
+                map.userTrackingMode = trackingMode
+            }
         }
     }
     
-    /// TBD (not currently used)
-    var followUserBeforePinchGesture = true
+    private var followUserImage: UIImage? {
+        switch followUserMode {
+        case .none:
+            return UIImage(named: "follow_user")
+        case .follow:
+            return UIImage(named: "follow_user_high")
+        case .followWithHeading:
+            return UIImage(named: "follow_user_heading")
+        }
+    }
+    
+    /// Tracks whether the user is actively panning (to distinguish from pinch/rotate).
+    private var panGestureActive = false
 
     /// location manager instance configuration
     let locationManager: CLLocationManager = {
@@ -420,11 +432,34 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         map.addGestureRecognizer(
             UILongPressGestureRecognizer(target: self, action: #selector(ViewController.addPinAtTappedLocation(_:)))
         )
-        
-        // Each time user pans, if the map is following the user, it stops doing that.
+        // Pan gesture to detect when the user deliberately pans the map (exits follow mode).
         let panGesture = UIPanGestureRecognizer(target: self, action: #selector(ViewController.stopFollowingUser(_:)))
         panGesture.delegate = self
         map.addGestureRecognizer(panGesture)
+        
+        // Sync MKMapView's userTrackingMode changes back to our FollowUserMode.
+        // Only pan gestures should exit follow mode — pinch/rotate just re-apply.
+        mapViewDelegate.onUserTrackingModeChange = { [weak self] mode in
+            guard let self = self else { return }
+            print("[onUserTrackingModeChange] mode=\(mode.rawValue) panGestureActive=\(self.panGestureActive) followUserMode=\(self.followUserMode)")
+            // When a non-pan gesture drops tracking mode, re-apply it.
+            if mode == .none, self.followUserMode != .none, !self.panGestureActive {
+                let restore: MKUserTrackingMode = self.followUserMode == .followWithHeading ? .followWithHeading : .follow
+                print("[onUserTrackingModeChange] re-applying MKUserTrackingMode.\(restore.rawValue) (pinch/rotate should not exit follow)")
+                self.map.userTrackingMode = restore
+                return
+            }
+            let newMode: FollowUserMode
+            switch mode {
+            case .follow:            newMode = .follow
+            case .followWithHeading: newMode = .followWithHeading
+            case .none:              newMode = .none
+            @unknown default:        newMode = .none
+            }
+            if self.followUserMode != newMode {
+                self.followUserMode = newMode
+            }
+        }
         
         locationManager.delegate = self
         locationManager.startUpdatingLocation()
@@ -923,7 +958,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         // Load data
         self.map.continueFromGPXRoot(root)
         // Stop following user
-        self.followUser = false
+        self.followUserMode = .none
         // Center map in GPX data
         self.map.regionToGPXExtent()
         self.gpxTrackingStatus = .paused
@@ -1072,19 +1107,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
     ///
     /// After invoking this fuction, the map will not be centered on current user position.
     ///
-    @objc func stopFollowingUser(_ gesture: UIPanGestureRecognizer) {
-        if self.followUser {
-            self.followUser = false
-        }
-    }
-    
-    ///
-    /// UIGestureRecognizerDelegate required for stopFollowingUser
-    ///
-    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer,
-                           shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-        return true
-    }
+
    
     ///
     /// If user long presses the map for a while a Pin (Waypoint/Annotation) will be dropped at that point.
@@ -1097,6 +1120,24 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
             // Allows save and reset
             self.hasWaypoints = true
         }
+    }
+
+    /// Exit follow mode when the user deliberately pans the map.
+    @objc func stopFollowingUser(_ gesture: UIPanGestureRecognizer) {
+        switch gesture.state {
+        case .began:
+            panGestureActive = true
+        case .ended, .cancelled:
+            panGestureActive = false
+            followUserMode = .none
+        default:
+            break
+        }
+    }
+
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer,
+                           shouldRecognizeSimultaneouslyWith other: UIGestureRecognizer) -> Bool {
+        return true
     }
     
     /// Does nothing in current implementation.
@@ -1123,7 +1164,11 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
     ///  in current user´s position.
     ///
     @objc func followButtonTroggler() {
-        self.followUser = !self.followUser
+        switch followUserMode {
+        case .none:              followUserMode = .follow
+        case .follow:            followUserMode = .followWithHeading
+        case .followWithHeading: followUserMode = .none
+        }
     }
     
     ///
@@ -1431,7 +1476,7 @@ extension ViewController: GPXFilesTableViewControllerDelegate {
         // Load data
         self.map.importFromGPXRoot(gpxRoot)
         // Stop following user
-        self.followUser = false
+        self.followUserMode = .none
         // Center map in GPX data
         self.map.regionToGPXExtent()
         self.gpxTrackingStatus = .paused
@@ -1509,10 +1554,8 @@ extension ViewController: CLLocationManagerDelegate {
         // Update speed
         speedLabel.text = (newLocation.speed < 0) ? kUnknownSpeedText : newLocation.speed.toSpeed(useImperial: useImperial)
         
-        // Update Map center and track overlay if user is being followed
-        if followUser {
-            map.setCenter(newLocation.coordinate, animated: true)
-        }
+        // Track overlay (userTrackingMode handles centering/heading)
+        lastLocation = newLocation
         if gpxTrackingStatus == .tracking {
             print("didUpdateLocation: adding point to track (\(newLocation.coordinate.latitude),\(newLocation.coordinate.longitude))")
             map.addPointToCurrentTrackSegmentAtLocation(newLocation)
@@ -1527,11 +1570,15 @@ extension ViewController: CLLocationManagerDelegate {
     /// to updathe the heading indicator (a small arrow next to user location point)
     ///
     func locationManager(_ manager: CLLocationManager, didUpdateHeading newHeading: CLHeading) {
-        print("ViewController::didUpdateHeading true: \(newHeading.trueHeading) magnetic: \(newHeading.magneticHeading)")
-        print("mkMapcamera heading=\(map.camera.heading)")
-        map.heading = newHeading // updates heading variable
-        map.updateHeading() // updates heading view's rotation
-        
+        // Always update the heading arrow indicator.
+        map.heading = newHeading
+        map.updateHeading()
+        let h = newHeading.trueHeading >= 0 ? newHeading.trueHeading : newHeading.magneticHeading
+        print("[HeadingRequest][UIKit] trueHeading=\(newHeading.trueHeading) mag=\(newHeading.magneticHeading) using=\(h) followMode=\(followUserMode) trackingMode=\(map.userTrackingMode.rawValue)")
+        // Do NOT call setCamera here. MKUserTrackingMode.followWithHeading
+        // has MapKit rotate and centre the camera automatically.
+        // Calling setCamera cancels the tracking mode, which resets
+        // followUserMode to .none and breaks heading-follow entirely.
     }
     
     ///

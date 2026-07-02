@@ -190,6 +190,13 @@ class MapViewDelegate: NSObject, MKMapViewDelegate, UIAlertViewDelegate, UIGestu
         }
     }
     
+    /// Called back when MKMapView changes userTrackingMode (e.g. after a pan gesture).
+    var onUserTrackingModeChange: ((MKUserTrackingMode) -> Void)?
+    
+    func mapView(_ mapView: MKMapView, didChange mode: MKUserTrackingMode, animated: Bool) {
+        onUserTrackingModeChange?(mode)
+    }
+    
     ///
     /// Adds a small arrow image to the annotationView.
     /// This annotationView should be the MKUserLocation

@@ -23,6 +23,9 @@ class LocationViewModel: NSObject, ObservableObject {
     /// The most recent heading received.
     @Published var lastHeading: CLHeading?
 
+    /// Fallback direction from GPS course when magnetic heading is unavailable.
+    @Published var lastCourse: CLLocationDirection?
+
     /// Horizontal accuracy of the last location, in meters.
     @Published var horizontalAccuracy: CLLocationAccuracy = -1
 
@@ -73,7 +76,7 @@ class LocationViewModel: NSObject, ObservableObject {
         super.init()
         locationManager.delegate = self
         locationManager.startUpdatingLocation()
-        locationManager.startUpdatingHeading()
+        startHeadingUpdatesIfPossible(reason: "init")
     }
 
     // MARK: - Public Helpers
@@ -86,12 +89,13 @@ class LocationViewModel: NSObject, ObservableObject {
     /// Starts location updates (called when returning from background).
     func startUpdating() {
         locationManager.startUpdatingLocation()
-        locationManager.startUpdatingHeading()
+        startHeadingUpdatesIfPossible(reason: "startUpdating")
     }
 
     /// Stops location updates (called when entering background and not tracking).
     func stopUpdating() {
         locationManager.stopUpdatingLocation()
+        locationManager.stopUpdatingHeading()
     }
 
     // MARK: - Private
@@ -128,6 +132,25 @@ class LocationViewModel: NSObject, ObservableObject {
             ? kUnknownSpeedText
             : location.speed.toSpeed(useImperial: useImperial)
     }
+
+    private func startHeadingUpdatesIfPossible(reason: String) {
+        let status = locationManager.authorizationStatus
+        let headingAvailable = CLLocationManager.headingAvailable()
+        print("[LocationViewModel] startHeadingUpdatesIfPossible reason=\(reason) auth=\(status.rawValue) headingAvailable=\(headingAvailable)")
+
+        guard [.authorizedAlways, .authorizedWhenInUse].contains(status) else {
+            print("[LocationViewModel] heading not started: location permission not granted yet")
+            return
+        }
+
+        guard headingAvailable else {
+            print("[LocationViewModel] heading not available on this device/simulator")
+            return
+        }
+
+        locationManager.startUpdatingHeading()
+        print("[LocationViewModel] startUpdatingHeading called")
+    }
 }
 
 // MARK: - CLLocationManagerDelegate
@@ -150,17 +173,26 @@ extension LocationViewModel: CLLocationManagerDelegate {
         lastLocation = newLocation
         horizontalAccuracy = newLocation.horizontalAccuracy
 
+        // GPS course can be used as a fallback directional signal while moving.
+        lastCourse = newLocation.course >= 0 ? newLocation.course : nil
+
         updateSignalDisplay(accuracy: newLocation.horizontalAccuracy)
         updateCoordsDisplay(newLocation)
         updateSpeedDisplay(newLocation)
     }
 
     func locationManager(_ manager: CLLocationManager, didUpdateHeading newHeading: CLHeading) {
+        print("[LocationViewModel] didUpdateHeading true=\(newHeading.trueHeading) mag=\(newHeading.magneticHeading) accuracy=\(newHeading.headingAccuracy)")
         lastHeading = newHeading
     }
 
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+        startHeadingUpdatesIfPossible(reason: "authorizationChanged")
         checkLocationServicesStatus()
+    }
+
+    func locationManagerShouldDisplayHeadingCalibration(_ manager: CLLocationManager) -> Bool {
+        true
     }
 
     // MARK: - Authorization Checks

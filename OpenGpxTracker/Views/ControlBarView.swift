@@ -59,12 +59,20 @@ struct ControlBarView: View {
         Button(action: {
             appState.toggleFollowUser()
         }) {
-            Image(appState.followUser ? "follow_user_high" : "follow_user")
+            Image(followImageName)
                 .resizable()
                 .frame(width: 24, height: 24)
                 .frame(width: buttonSmall, height: buttonSmall)
                 .background(Color.white.opacity(0.9))
                 .clipShape(Circle())
+        }
+    }
+
+    private var followImageName: String {
+        switch appState.followUserMode {
+        case .none:              return "follow_user"
+        case .follow:            return "follow_user_high"
+        case .followWithHeading: return "follow_user_heading"
         }
     }
 
