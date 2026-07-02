@@ -81,44 +81,22 @@ struct MapViewRepresentable: UIViewRepresentable {
         let container = MapContainerView(mapView: mapView, scaleBar: scaleBar)
         return container
     }
-    /// for faking heading in simulator
-    private static var simulatedHeading: Double = 0
-
     func updateUIView(_ container: MapContainerView, context: Context) {
         let mapView = container.mapView
-        print("** [updateUIView] called heading: \(locationViewModel.lastHeading)")
+        //print("** [updateUIView] called heading: \(locationViewModel.lastHeading)")
         // Update heading indicator arrow whenever a new heading arrives.
         // This is the reliable path: updateUIView is always called because
         // locationViewModel is @ObservedObject and lastHeading is @Published.
         if let heading = locationViewModel.lastHeading {
-            let h = heading.trueHeading >= 0 ? heading.trueHeading : heading.magneticHeading
+            //let h = heading.trueHeading >= 0 ? heading.trueHeading : heading.magneticHeading
             //print("[updateUIView] heading trueHeading=\(heading.trueHeading) mag=\(heading.magneticHeading) using=\(h) followMode=\(appState.followUserMode) trackingMode=\(mapView.userTrackingMode.rawValue)")
             mapView.heading = heading
             mapView.updateHeading()
         } else {
+            // The simulator does not provide heading value is always nil
             #if targetEnvironment(simulator)
-            Self.simulatedHeading += 10
-            if Self.simulatedHeading >= 360 { Self.simulatedHeading = 0 }
-            let h = Self.simulatedHeading
-            print("[updateUIView] heading is nil; courseFallback=\(String(describing: locationViewModel.lastCourse)) followMode=\(appState.followUserMode) trackingMode=\(mapView.userTrackingMode.rawValue) simulated=\(h)")
             if appState.followUserMode == .followWithHeading {
-                let center: CLLocationCoordinate2D
-                if let last = locationViewModel.lastLocation?.coordinate, CLLocationCoordinate2DIsValid(last) {
-                    center = last
-                } else if CLLocationCoordinate2DIsValid(mapView.userLocation.coordinate) {
-                    center = mapView.userLocation.coordinate
-                } else {
-                    center = mapView.centerCoordinate
-                }
-                let camera = MKMapCamera(lookingAtCenter: center,
-                                         fromDistance: mapView.camera.altitude,
-                                         pitch: mapView.camera.pitch,
-                                         heading: h)
-                print("[updateUIView] simulated setCamera(heading=\(h))")
-                mapView.setCamera(camera, animated: true)
-                if mapView.userTrackingMode != .followWithHeading {
-                    mapView.setUserTrackingMode(.followWithHeading, animated: true)
-                }
+                print("MapViewRepresentable::updateUIView - Running on simulator -> heading cannot be simulated")
             }
             #else
             print("[updateUIView] heading is nil on device — no heading data available")
