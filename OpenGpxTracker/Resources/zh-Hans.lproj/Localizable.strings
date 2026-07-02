@@ -32,6 +32,8 @@
 "YOUR_FILES" = "您的 GPX 文件";
 "LAST_SAVED" = "最后记录： %@ (%@)";
 "DELETE" = "删除";
+"DELETE_CONFIRM_TITLE" = "删除GPX文件";
+"DELETE_CONFIRM_MESSAGE" = "确定要删除\"%@\"吗？";
 "SELECT_OPTION" = "请选择";
 "LOAD_IN_MAP" = "用地图显示文件资料";
 "SHARE" = "分享";

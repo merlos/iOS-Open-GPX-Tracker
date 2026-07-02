@@ -28,6 +28,8 @@
 "YOUR_FILES" = "Tus archivos GPX";
 "LAST_SAVED" = "Guardado %@ (%@)";
 "DELETE" = "Borrar";
+"DELETE_CONFIRM_TITLE" = "Eliminar archivo GPX";
+"DELETE_CONFIRM_MESSAGE" = "¿Estás seguro de que quieres eliminar \"%@\"?";
 "SELECT_OPTION" = "Selecciona una opción";
 "LOAD_IN_MAP" = "Cargar en el mapa";
 "SHARE" = "Compartir";

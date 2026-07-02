@@ -27,6 +27,8 @@
 "YOUR_FILES" = "I tuoi percorsi";
 "LAST_SAVED" = "%@ (%@) ultimo salvataggio";
 "DELETE" = "Eliminare";
+"DELETE_CONFIRM_TITLE" = "Elimina file GPX";
+"DELETE_CONFIRM_MESSAGE" = "Sei sicuro di voler eliminare \"%@\"?";
 "SELECT_OPTION" = "Scegliere";
 "LOAD_IN_MAP" = "Caricare nella mappa";
 "SHARE" = "Condividere";

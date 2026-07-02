@@ -28,6 +28,8 @@
 "YOUR_FILES" = "Jouw GPX bestanden";
 "LAST_SAVED" = "Laatst opgeslagen %@ (%@)";
 "DELETE" = "Verwijderen";
+"DELETE_CONFIRM_TITLE" = "GPX-bestand verwijderen";
+"DELETE_CONFIRM_MESSAGE" = "Weet je zeker dat je \"%@\" wilt verwijderen?";
 "SELECT_OPTION" = "Selecteer optie";
 "LOAD_IN_MAP" = "Laad in kaart";
 "SHARE" = "Delen";

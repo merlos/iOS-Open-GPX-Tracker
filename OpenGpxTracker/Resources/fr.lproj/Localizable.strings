@@ -29,6 +29,8 @@
 "YOUR_FILES" = "Vos fichiers GPX";
 "LAST_SAVED" = "Dernier enregistrement %@ (%@)";
 "DELETE" = "Supprimer";
+"DELETE_CONFIRM_TITLE" = "Supprimer le fichier GPX";
+"DELETE_CONFIRM_MESSAGE" = "Êtes-vous sûr de vouloir supprimer \"%@\" ?";
 "SELECT_OPTION" = "Sélectionnez une option";
 "LOAD_IN_MAP" = "Charger sur la carte";
 "SHARE" = "Partager";
