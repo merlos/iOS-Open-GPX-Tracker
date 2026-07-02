@@ -181,27 +181,32 @@ struct ContentView: View {
     private func leftActionButtons(in geometry: GeometryProxy) -> some View {
         VStack(spacing: 5) {
             Button(action: { showGPXFiles = true }) {
-                Image("folder")
-                    .resizable()
-                    .frame(width: 24, height: 24)
-                    .frame(width: 48, height: 48)
-                    .background(Color.white.opacity(0.9))
+                Image(systemName: "folder")
+                    .font(.system(size: 16, weight: .medium))
+                    .foregroundColor(.primary)
+                    .frame(width: 44, height: 44)
+                    .background(.ultraThinMaterial)
                     .clipShape(Circle())
             }
 
             HStack(spacing: 10) {
                 Button(action: { showPreferences = true }) {
-                    Image("prefs")
-                        .resizable()
-                        .frame(width: 32, height: 32)
+                    Image(systemName: "gearshape")
+                        .font(.system(size: 20, weight: .medium))
+                        .foregroundColor(.primary)
+                        .frame(width: 40, height: 40)
+                        .background(.ultraThinMaterial)
+                        .clipShape(Circle())
                 }
                 Button(action: { shareGPX() }) {
-                    Image("share")
-                        .resizable()
-                        .frame(width: 32, height: 32)
+                    Image(systemName: "square.and.arrow.up")
+                        .font(.system(size: 20, weight: .medium))
+                        .foregroundColor(.primary)
+                        .frame(width: 40, height: 40)
+                        .background(.ultraThinMaterial)
+                        .clipShape(Circle())
                 }
             }
-
         }
         .padding(.leading, 5)
         .padding(.top, 49)
