@@ -33,9 +33,8 @@ class CoreDataHelper {
     
     // MARK: Other Declarations
     
-    /// app delegate.
-    let appDelegate = UIApplication.shared.delegate as! AppDelegate
-    // swiftlint:disable:previous force_cast
+    /// shared Core Data stack.
+    let coreDataStack = CoreDataStack.shared
     // arrays for handling retrieval of data when needed.
     
     // recovered tracksegments
@@ -61,7 +60,7 @@ class CoreDataHelper {
 
         let childManagedObjectContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
         // Creates the link between child and parent
-        childManagedObjectContext.parent = appDelegate.managedObjectContext
+        childManagedObjectContext.parent = coreDataStack.managedObjectContext
         
         childManagedObjectContext.perform {
             // swiftlint:disable:next force_cast
@@ -72,10 +71,10 @@ class CoreDataHelper {
             
             do {
                 try childManagedObjectContext.save()
-                self.appDelegate.managedObjectContext.performAndWait {
+                self.coreDataStack.managedObjectContext.performAndWait {
                     do {
                         // Saves the data from the child to the main context to be stored properly
-                        try self.appDelegate.managedObjectContext.save()
+                        try self.coreDataStack.managedObjectContext.save()
                     } catch {
                         print("Failure to save parent context when adding last file name: \(error)")
                     }
@@ -96,7 +95,7 @@ class CoreDataHelper {
     func add(toCoreData trackpoint: GPXTrackPoint, withTrackSegmentID Id: Int) {
         let childManagedObjectContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
         // Creates the link between child and parent
-        childManagedObjectContext.parent = appDelegate.managedObjectContext
+        childManagedObjectContext.parent = coreDataStack.managedObjectContext
         
         childManagedObjectContext.perform {
             print("Core Data Helper: Add trackpoint with id: \(self.trackpointId)")
@@ -126,10 +125,10 @@ class CoreDataHelper {
             
             do {
                 try childManagedObjectContext.save()
-                self.appDelegate.managedObjectContext.performAndWait {
+                self.coreDataStack.managedObjectContext.performAndWait {
                     do {
                         // Saves the data from the child to the main context to be stored properly
-                        try self.appDelegate.managedObjectContext.save()
+                        try self.coreDataStack.managedObjectContext.save()
                     } catch {
                         print("Failure to save parent context when adding trackpoint: \(error)")
                     }
@@ -148,7 +147,7 @@ class CoreDataHelper {
     func add(toCoreData waypoint: GPXWaypoint) {
         let waypointChildManagedObjectContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
         // Creates the link between child and parent
-        waypointChildManagedObjectContext.parent = appDelegate.managedObjectContext
+        waypointChildManagedObjectContext.parent = coreDataStack.managedObjectContext
         
         waypointChildManagedObjectContext.perform {
             print("Core Data Helper: Add waypoint with id: \(self.waypointId)")
@@ -182,10 +181,10 @@ class CoreDataHelper {
             
             do {
                 try waypointChildManagedObjectContext.save()
-                self.appDelegate.managedObjectContext.performAndWait {
+                self.coreDataStack.managedObjectContext.performAndWait {
                     do {
                         // Saves the data from the child to the main context to be stored properly
-                        try self.appDelegate.managedObjectContext.save()
+                        try self.coreDataStack.managedObjectContext.save()
                     } catch {
                         print("Failure to save parent context when adding waypoint: \(error)")
                     }
@@ -207,7 +206,7 @@ class CoreDataHelper {
     ///
     func update(toCoreData updatedWaypoint: GPXWaypoint, from index: Int) {
         let privateManagedObjectContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
-        privateManagedObjectContext.parent = appDelegate.managedObjectContext
+        privateManagedObjectContext.parent = coreDataStack.managedObjectContext
         // Creates a fetch request
         let wptFetchRequest = NSFetchRequest<CDWaypoint>(entityName: "CDWaypoint")
         
@@ -220,7 +219,7 @@ class CoreDataHelper {
             
             privateManagedObjectContext.perform {
                 let objectID = waypointResults[index].objectID
-                guard let pt = self.appDelegate.managedObjectContext.object(with: objectID) as? CDWaypoint else { return }
+                guard let pt = self.coreDataStack.managedObjectContext.object(with: objectID) as? CDWaypoint else { return }
                 
                 guard let latitude = updatedWaypoint.latitude   else { return }
                 guard let longitude = updatedWaypoint.longitude else { return }
@@ -238,10 +237,10 @@ class CoreDataHelper {
                 
                 do {
                     try privateManagedObjectContext.save()
-                    self.appDelegate.managedObjectContext.performAndWait {
+                    self.coreDataStack.managedObjectContext.performAndWait {
                         do {
                             // Saves the changes from the child to the main context to be applied properly
-                            try self.appDelegate.managedObjectContext.save()
+                            try self.coreDataStack.managedObjectContext.save()
                         } catch {
                             print("Failure to update and save waypoint to parent context: \(error)")
                         }
@@ -270,7 +269,7 @@ class CoreDataHelper {
     ///
     func retrieveFromCoreData() {
         let privateManagedObjectContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
-        privateManagedObjectContext.parent = appDelegate.managedObjectContext
+        privateManagedObjectContext.parent = coreDataStack.managedObjectContext
         
         do {
             // Note: it appears that the actual object context execution happens after all of this, probably due to its async nature.
@@ -291,7 +290,7 @@ class CoreDataHelper {
     ///
     func deleteWaypoint(fromCoreDataAt index: Int) {
         let privateManagedObjectContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
-        privateManagedObjectContext.parent = appDelegate.managedObjectContext
+        privateManagedObjectContext.parent = coreDataStack.managedObjectContext
         // Creates a fetch request
         let wptFetchRequest = NSFetchRequest<CDWaypoint>(entityName: "CDWaypoint")
         wptFetchRequest.includesPropertyValues = false
@@ -306,10 +305,10 @@ class CoreDataHelper {
             
             do {
                 try privateManagedObjectContext.save()
-                self.appDelegate.managedObjectContext.performAndWait {
+                self.coreDataStack.managedObjectContext.performAndWait {
                     do {
                         // Saves the changes from the child to the main context to be applied properly
-                        try self.appDelegate.managedObjectContext.save()
+                        try self.coreDataStack.managedObjectContext.save()
                     } catch {
                         print("Failure to save context (when deleting waypoint): \(error)")
                     }
@@ -351,6 +350,7 @@ class CoreDataHelper {
     /// - To delete and ignore recovered data, to start a fresh new session instead.
     ///
     func crashFileRecovery() {
+        print("** CoreDataHelper: crashFileRecovery called")
         DispatchQueue.global().async {
             // checks if trackpoint and waypoint are available
             if self.currentSegment.points.count > 0 || self.waypoints.count > 0 {
@@ -387,6 +387,7 @@ class CoreDataHelper {
                                                     userInfo: ["recoveredRoot": root, "fileName": self.lastFileName])
                     let toastMessage = NSLocalizedString("LAST_SESSION_LOADED",
                                                          comment: "the filename displayed after the text") + " \n" + self.lastFileName + ".gpx"
+                    print("Core Data Helper: toast: toastMessage: \(toastMessage)")
                     Toast.regular(toastMessage, position: .top)
                 }
             } else {

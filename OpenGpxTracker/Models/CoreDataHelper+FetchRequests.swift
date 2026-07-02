@@ -18,7 +18,7 @@ extension CoreDataHelper {
             DispatchQueue.main.async {
                 print("Core Data Helper: fetching recoverable CDRoot")
                 guard let objectID = rootResults.last?.objectID else { self.lastFileName = ""; return }
-                guard let safePoint = self.appDelegate.managedObjectContext.object(with: objectID) as? CDRoot else { self.lastFileName = ""; return }
+                guard let safePoint = self.coreDataStack.managedObjectContext.object(with: objectID) as? CDRoot else { self.lastFileName = ""; return }
                 self.lastFileName = safePoint.lastFileName ?? ""
                 self.lastTracksegmentId = safePoint.lastTrackSegmentId
                 self.isContinued = safePoint.continuedAfterSave
@@ -50,7 +50,7 @@ extension CoreDataHelper {
                     let objectID = result.objectID
                     
                     // thread safe
-                    guard let safePoint = self.appDelegate.managedObjectContext.object(with: objectID) as? CDTrackpoint else { continue }
+                    guard let safePoint = self.coreDataStack.managedObjectContext.object(with: objectID) as? CDTrackpoint else { continue }
                     
                     if self.tracksegmentId != safePoint.trackSegmentId {
                         if self.currentSegment.points.count > 0 {
@@ -96,7 +96,7 @@ extension CoreDataHelper {
                     let objectID = result.objectID
                     
                     // thread safe
-                    guard let safePoint = self.appDelegate.managedObjectContext.object(with: objectID) as? CDWaypoint else { continue }
+                    guard let safePoint = self.coreDataStack.managedObjectContext.object(with: objectID) as? CDWaypoint else { continue }
                     
                     let pt = GPXWaypoint(latitude: safePoint.latitude, longitude: safePoint.longitude)
                     

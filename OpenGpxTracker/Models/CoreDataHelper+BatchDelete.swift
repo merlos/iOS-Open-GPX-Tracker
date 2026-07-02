@@ -12,7 +12,7 @@ extension CoreDataHelper {
     @available(iOS 10.0, *)
     func modernBatchDelete<T: NSManagedObject>(of type: T.Type) {
         let privateManagedObjectContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
-        privateManagedObjectContext.parent = appDelegate.managedObjectContext
+        privateManagedObjectContext.parent = coreDataStack.managedObjectContext
         
         privateManagedObjectContext.perform {
             do {
@@ -25,10 +25,10 @@ extension CoreDataHelper {
                 
                 try privateManagedObjectContext.save()
                 
-                self.appDelegate.managedObjectContext.performAndWait {
+                self.coreDataStack.managedObjectContext.performAndWait {
                     do {
                         // Saves the changes from the child to the main context to be applied properly
-                        try self.appDelegate.managedObjectContext.save()
+                        try self.coreDataStack.managedObjectContext.save()
                     } catch {
                         print("Failure to save context after delete: \(error)")
                     }
@@ -41,7 +41,7 @@ extension CoreDataHelper {
     
     func legacyBatchDelete<T: NSManagedObject>(of type: T.Type) {
         let privateManagedObjectContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
-        privateManagedObjectContext.parent = appDelegate.managedObjectContext
+        privateManagedObjectContext.parent = coreDataStack.managedObjectContext
         // Creates a fetch request
         let fetchRequest = NSFetchRequest<T>(entityName: "\(T.self)")
         fetchRequest.includesPropertyValues = false
@@ -56,10 +56,10 @@ extension CoreDataHelper {
             
             do {
                 try privateManagedObjectContext.save()
-                self.appDelegate.managedObjectContext.performAndWait {
+                self.coreDataStack.managedObjectContext.performAndWait {
                     do {
                         // Saves the changes from the child to the main context to be applied properly
-                        try self.appDelegate.managedObjectContext.save()
+                        try self.coreDataStack.managedObjectContext.save()
                     } catch {
                         print("Failure to save context: \(error)")
                     }
