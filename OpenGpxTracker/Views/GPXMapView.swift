@@ -131,22 +131,27 @@ class GPXMapView: MKMapView {
     ///
     /// Initializes the map with an empty currentSegmentOverlay.
     ///
-    required init?(coder aDecoder: NSCoder) {
-        var tmpCoords: [CLLocationCoordinate2D] = [] // Init with empty
+    override init(frame: CGRect) {
+        var tmpCoords: [CLLocationCoordinate2D] = []
         currentSegmentOverlay = MKPolyline(coordinates: &tmpCoords, count: 0)
-        compassRect = CGRect.init(x: 0, y: 0, width: 36, height: 36)
+        compassRect = CGRect(x: 0, y: 0, width: 36, height: 36)
+        super.init(frame: frame)
+        commonInit()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        var tmpCoords: [CLLocationCoordinate2D] = []
+        currentSegmentOverlay = MKPolyline(coordinates: &tmpCoords, count: 0)
+        compassRect = CGRect(x: 0, y: 0, width: 36, height: 36)
         super.init(coder: aDecoder)
-        
-        // Rotation Gesture handling (for the map rotation's influence towards heading pointing arrow)
+        commonInit()
+    }
+    
+    private func commonInit() {
         rotationGesture = UIRotationGestureRecognizer(target: self, action: #selector(rotationGestureHandling(_:)))
-        
         addGestureRecognizer(rotationGesture)
         isUserInteractionEnabled = true
         isMultipleTouchEnabled = true
-        
-        if #available(iOS 11, *) {
-            self.showsCompass = false
-        }
     }
     
     ///

@@ -7,7 +7,7 @@ import CoreGPX
 
 /// Handles all delegate functions of the GPX Mapview
 ///
-class MapViewDelegate: NSObject, MKMapViewDelegate, UIAlertViewDelegate {
+class MapViewDelegate: NSObject, MKMapViewDelegate, UIAlertViewDelegate, UIGestureRecognizerDelegate {
 
     /// The Waypoint is being edited (if there is any)
     var waypointBeingEdited: GPXWaypoint = GPXWaypoint()
