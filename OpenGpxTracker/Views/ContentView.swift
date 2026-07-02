@@ -158,15 +158,7 @@ struct ContentView: View {
             .background(Color(red: 58/255, green: 57/255, blue: 54/255).opacity(0.8))
             .cornerRadius(4)
 
-            // Signal + accuracy underneath the bar
-            HStack(spacing: 4) {
-                Image(locationViewModel.signalImageName)
-                    .resizable()
-                    .frame(width: 50, height: 30)
-                Text(locationViewModel.accuracyString)
-                    .font(.system(size: 12, weight: .bold))
-                    .foregroundColor(textColor)
-            }
+            SignalView(locationViewModel: locationViewModel)
 
             // Compass button underneath the signal
             if appState.isMapReady {
@@ -363,6 +355,32 @@ struct CompassButtonView: UIViewRepresentable {
                 compass.widthAnchor.constraint(equalToConstant: 36),
                 compass.heightAnchor.constraint(equalToConstant: 36)
             ])
+        }
+    }
+}
+
+// MARK: - SignalView
+
+/// Displays the GPS signal strength image with the accuracy text underneath.
+struct SignalView: View {
+    @ObservedObject var locationViewModel: LocationViewModel
+
+    var body: some View {
+        VStack(spacing: 0) {
+            Image(locationViewModel.signalImageName)
+                .resizable()
+                .frame(width: 50, height: 30)
+            Text(locationViewModel.accuracyString)
+                .font(.system(size: 12, weight: .bold))
+                .foregroundColor(textColor)
+        }
+    }
+
+    private var textColor: Color {
+        switch Preferences.shared.tileServer.colorMode {
+        case .lightMode: return .black
+        case .darkMode: return .white
+        case .system:   return .primary
         }
     }
 }
