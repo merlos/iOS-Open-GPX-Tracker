@@ -29,6 +29,8 @@
 "YOUR_FILES" = "Seus arquivos GPX";
 "LAST_SAVED" = "Salvo pela última vez %@ (%@)";
 "DELETE" = "Apagar";
+"DELETE_CONFIRM_TITLE" = "Apagar arquivo GPX";
+"DELETE_CONFIRM_MESSAGE" = "Tem certeza de que deseja apagar \"%@\"?";
 "SELECT_OPTION" = "Selecione uma opção";
 "LOAD_IN_MAP" = "Abrir no mapa";
 "SHARE" = "Compartilhar";

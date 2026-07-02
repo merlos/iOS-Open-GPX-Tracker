@@ -28,6 +28,8 @@
 "YOUR_FILES" = "Ваши GPX-файлы";
 "LAST_SAVED" = "Сохранен %@ (%@)";
 "DELETE" = "Удалить";
+"DELETE_CONFIRM_TITLE" = "Удалить GPX-файл";
+"DELETE_CONFIRM_MESSAGE" = "Вы уверены, что хотите удалить \"%@\"?";
 "SELECT_OPTION" = "Выберите действие";
 "LOAD_IN_MAP" = "Показать на карте";
 "SHARE" = "Поделиться";

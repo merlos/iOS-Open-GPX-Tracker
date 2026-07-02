@@ -28,6 +28,8 @@ Created by Phiilman on 28.03.20.
 "YOUR_FILES" = "Sinun GPX tiedostosi";
 "LAST_SAVED" = "Viimeksi tallennettu %@ (%@)";
 "DELETE" = "Poista";
+"DELETE_CONFIRM_TITLE" = "Poista GPX-tiedosto";
+"DELETE_CONFIRM_MESSAGE" = "Haluatko varmasti poistaa \"%@\"?";
 "SELECT_OPTION" = "Valitse asetus";
 "LOAD_IN_MAP" = "Lataa kartalle";
 "SHARE" = "Jaa";

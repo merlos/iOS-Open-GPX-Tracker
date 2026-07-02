@@ -28,6 +28,8 @@
 "YOUR_FILES" = "GPXファイル一覧";
 "LAST_SAVED" = "最終保存 %@ (%@)";
 "DELETE" = "削除";
+"DELETE_CONFIRM_TITLE" = "GPXファイルを削除";
+"DELETE_CONFIRM_MESSAGE" = "\"%@\"を削除してもよろしいですか？";
 "SELECT_OPTION" = "オプションを選択";
 "LOAD_IN_MAP" = "地図に表示";
 "SHARE" = "共有";
