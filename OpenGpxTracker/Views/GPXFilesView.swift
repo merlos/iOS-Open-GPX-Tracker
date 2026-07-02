@@ -38,6 +38,12 @@ struct GPXFilesView: View {
     /// Whether to show the action sheet.
     @State private var showActionSheet = false
 
+    /// Whether to show the delete confirmation alert.
+    @State private var showDeleteConfirmation = false
+
+    /// File pending deletion confirmation.
+    @State private var fileToDelete: GPXFileInfo?
+
     /// Environment dismiss action.
     @Environment(\.dismiss) private var dismiss
 
@@ -103,8 +109,22 @@ struct GPXFilesView: View {
             }
             Button(NSLocalizedString("CANCEL", comment: "no comment"), role: .cancel) {}
             Button(NSLocalizedString("DELETE", comment: "no comment"), role: .destructive) {
+                fileToDelete = fileInfo
+                showDeleteConfirmation = true
+            }
+        }
+        .alert(
+            NSLocalizedString("DELETE_CONFIRM_TITLE", comment: "no comment"),
+            isPresented: $showDeleteConfirmation,
+            presenting: fileToDelete
+        ) { fileInfo in
+            Button(NSLocalizedString("CANCEL", comment: "no comment"), role: .cancel) {}
+            Button(NSLocalizedString("DELETE", comment: "no comment"), role: .destructive) {
                 deleteFile(fileInfo)
             }
+        } message: { fileInfo in
+            Text(String(format: NSLocalizedString("DELETE_CONFIRM_MESSAGE", comment: "no comment"),
+                        fileInfo.fileName))
         }
         .overlay {
             if isLoading {
@@ -157,7 +177,8 @@ struct GPXFilesView: View {
         Divider()
 
         Button(role: .destructive) {
-            deleteFile(fileInfo)
+            fileToDelete = fileInfo
+            showDeleteConfirmation = true
         } label: {
             Label(NSLocalizedString("DELETE", comment: "no comment"),
                   systemImage: "trash")
