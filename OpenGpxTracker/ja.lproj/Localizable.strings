@@ -161,3 +161,4 @@
 "GMT_FULL" = "GMT完全";
 "LOCATION" = "地域";
 "LOCATION_TIME" = "地域の時刻";
+"SAVE_ERROR_TITLE" = "Could not save GPX file";

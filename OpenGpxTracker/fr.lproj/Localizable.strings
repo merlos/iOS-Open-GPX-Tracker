@@ -163,3 +163,4 @@
 "LOCATION" = "Localisation";
 "LOCATION_TIME" = "Heure locale";
 
+"SAVE_ERROR_TITLE" = "Could not save GPX file";

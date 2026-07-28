@@ -74,26 +74,30 @@ class GPXFileManager: NSObject {
     /// - Parameters:
     ///     - fileURL: destination URL, basically it is file path.
     ///     - gpxContents: String with the contents to be saved. The XML contents of the GPX file
+    /// - Returns: `nil` on success, or the `Error` that caused the write to fail.
     ///
-    class func saveToURL(_ fileURL: URL, gpxContents: String) {
+    @discardableResult
+    class func saveToURL(_ fileURL: URL, gpxContents: String) -> Error? {
         // Save file
         print("Saving file at path: \(fileURL)")
-        // write gpx to file
-        var writeError: NSError?
-        let saved: Bool
-        do {
-            try gpxContents.write(toFile: fileURL.path, atomically: true, encoding: String.Encoding.utf8)
-            saved = true
-        } catch let error as NSError {
-            writeError = error
-            saved = false
-        }
-        if !saved {
-            if let error = writeError {
-                print("[ERROR] GPXFileManager:save: \(error.localizedDescription)")
+        // When the GPX files folder is a user-picked location (f.i. an iCloud
+        // Drive folder), the folder URL is security-scoped and must be unlocked
+        // before we can write into it. This mirrors what `fileList` does for reads.
+        let folderURL = GPXFileManager.GPXFilesFolderURL
+        let secured = folderURL.startAccessingSecurityScopedResource()
+        defer {
+            if secured {
+                folderURL.stopAccessingSecurityScopedResource()
             }
         }
-
+        // write gpx to file
+        do {
+            try gpxContents.write(toFile: fileURL.path, atomically: true, encoding: String.Encoding.utf8)
+            return nil
+        } catch {
+            print("[ERROR] GPXFileManager:save: \(error.localizedDescription)")
+            return error
+        }
     }
     ///
     /// Saves in the default folder the filename with the gpxContents
@@ -101,11 +105,13 @@ class GPXFileManager: NSObject {
     /// - Parameters:
     ///     - filename: gpx filename with .gpx extension (f.i: `hola.gpx`) or without extension (f.i: `hola`)
     ///     - gpxContents: String with the contents to be saved. The XML contents of the GPX file
+    /// - Returns: `nil` on success, or the `Error` that caused the write to fail.
     ///
-    class func save(_ filename: String, gpxContents: String) {
+    @discardableResult
+    class func save(_ filename: String, gpxContents: String) -> Error? {
         // Check if name exists
         let fileURL: URL = self.URLForFilename(filename)
-        GPXFileManager.saveToURL(fileURL, gpxContents: gpxContents)
+        return GPXFileManager.saveToURL(fileURL, gpxContents: gpxContents)
     }
     
     ///
@@ -123,12 +129,21 @@ class GPXFileManager: NSObject {
             return
         }
         
+        // The destination folder may be a security-scoped user-picked location
+        // (f.i. an iCloud Drive folder), so unlock it before moving into it.
+        let folderURL = GPXFilesFolderURL
+        let secured = folderURL.startAccessingSecurityScopedResource()
+        defer {
+            if secured {
+                folderURL.stopAccessingSecurityScopedResource()
+            }
+        }
         // attempt to move file
         do {
-            let url = GPXFilesFolderURL.path + "/" + fileName
+            let url = folderURL.path + "/" + fileName
             try FileManager().moveItem(atPath: fileURL.path, toPath: url)
         }
-            
+
         // file move failure
         catch {
             print("GPXFileManager:: save failed, error: \(error)")
@@ -138,6 +153,15 @@ class GPXFileManager: NSObject {
     /// Removes a file on the specified URL
     class func removeFileFromURL(_ fileURL: URL) {
         print("Removing file at path: \(fileURL)")
+        // The file may live in a security-scoped user-picked folder (f.i. an
+        // iCloud Drive folder), so unlock it before attempting to delete.
+        let folderURL = GPXFileManager.GPXFilesFolderURL
+        let secured = folderURL.startAccessingSecurityScopedResource()
+        defer {
+            if secured {
+                folderURL.stopAccessingSecurityScopedResource()
+            }
+        }
         let defaultManager = FileManager.default
         var error: NSError?
         let deleted: Bool
