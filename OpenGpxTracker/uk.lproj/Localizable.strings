@@ -133,3 +133,4 @@
 "DEFAULT_NAME_SAMPLE_OUTPUT_TITLE" = "Sample: ";
 "DEFAULT_NAME_USE_UTC" = "Use UTC Time?";
 "DEFAULT_NAME_ENGLISH_LOCALE" = "Force English language based date formatting?";
+"SAVE_ERROR_TITLE" = "Could not save GPX file";

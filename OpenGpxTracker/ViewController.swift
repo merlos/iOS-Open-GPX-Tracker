@@ -1198,7 +1198,12 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
             print("Save File \(String(describing: filename))")
             // Export to a file
             let gpxString = self.map.exportToGPXString()
-            GPXFileManager.save(filename!, gpxContents: gpxString)
+            if let error = GPXFileManager.save(filename!, gpxContents: gpxString) {
+                // The write failed (f.i. a stale/denied security-scoped iCloud
+                // folder). Tell the user instead of silently pretending it saved.
+                self.displaySaveErrorAlert(error)
+                return
+            }
             self.lastGpxFilename = filename!
             self.map.coreDataHelper.coreDataDeleteAll(of: CDRoot.self)
             self.map.coreDataHelper.clearAllExceptWaypoints()
@@ -1213,9 +1218,26 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         alertController.addAction(cancelAction)
         
         present(alertController, animated: true)
-        
+
     }
-    
+
+    ///
+    /// Displays an alert informing the user that saving the GPX file failed.
+    ///
+    /// This is most commonly hit when the GPX files folder is a user-picked
+    /// location (f.i. an iCloud Drive folder) whose security-scoped access could
+    /// not be acquired — e.g. the bookmark went stale or the folder was moved.
+    ///
+    /// - Parameter error: The underlying error returned by the file write.
+    ///
+    func displaySaveErrorAlert(_ error: Error) {
+        let alertController = UIAlertController(title: NSLocalizedString("SAVE_ERROR_TITLE", comment: "no comment"),
+                                                message: error.localizedDescription,
+                                                preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: NSLocalizedString("DONE", comment: "no comment"), style: .default))
+        present(alertController, animated: true)
+    }
+
     ///
     /// There was a memory warning. Right now, it does nothing but to log a line.
     ///
