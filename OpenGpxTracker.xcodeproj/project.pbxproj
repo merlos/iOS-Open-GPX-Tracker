@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 54;
+	objectVersion = 70;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -67,6 +67,8 @@
 		BF6408A3225C63E700BB5242 /* CoreDataHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF6408A2225C63E700BB5242 /* CoreDataHelper.swift */; };
 		BF6428B8220EC1A90015447E /* GPXFileTableRowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF6428B7220EC1A90015447E /* GPXFileTableRowController.swift */; };
 		BF64602F220AE9CF00957FF6 /* GPXTrackSegment+MapKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 899D676B19CD9E9E00C88A0A /* GPXTrackSegment+MapKit.swift */; };
+		BF6873AD303E083300C11309 /* OpenGpxTrackerWatch2 Watch App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = BF6873A3303E083200C11309 /* OpenGpxTrackerWatch2 Watch App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		BF6873C2303E0DFC00C11309 /* Double+Measures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89F6E0F4227D091900CE3E3F /* Double+Measures.swift */; };
 		BF68ECC62448B887005C779F /* DateFieldTypeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF68ECC52448B887005C779F /* DateFieldTypeView.swift */; };
 		BF692F5D2209AAFB00F8A0F1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BF692F5C2209AAFB00F8A0F1 /* Assets.xcassets */; };
 		BF692F642209AAFB00F8A0F1 /* OpenGpxTracker-Watch Extension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = BF692F632209AAFB00F8A0F1 /* OpenGpxTracker-Watch Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -74,7 +76,6 @@
 		BF692F6B2209AAFB00F8A0F1 /* ExtensionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF692F6A2209AAFB00F8A0F1 /* ExtensionDelegate.swift */; };
 		BF692F6D2209AAFB00F8A0F1 /* ComplicationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF692F6C2209AAFB00F8A0F1 /* ComplicationController.swift */; };
 		BF692F6F2209AAFC00F8A0F1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BF692F6E2209AAFC00F8A0F1 /* Assets.xcassets */; };
-		BF692F732209AAFC00F8A0F1 /* OpenGpxTracker-Watch.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = BF692F572209AAF900F8A0F1 /* OpenGpxTracker-Watch.app */; };
 		BF692F7E2209B36900F8A0F1 /* GPXWaypoint+MKAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893BEC8519C7E62200C77354 /* GPXWaypoint+MKAnnotation.swift */; };
 		BF692F802209B80300F8A0F1 /* GPXTrackPoint+MapKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 899D676D19CD9FAF00C88A0A /* GPXTrackPoint+MapKit.swift */; };
 		BF692F812209B80700F8A0F1 /* GPXFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 899D676F19CE024600C88A0A /* GPXFileManager.swift */; };
@@ -108,6 +109,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 898EECD419C49B5800B4B207;
 			remoteInfo = OpenGpxTracker;
+		};
+		BF6873AB303E083300C11309 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 898EECCD19C49B5800B4B207 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = BF6873A2303E083200C11309;
+			remoteInfo = "OpenGpxTrackerWatch2 Watch App";
 		};
 		BF692F652209AAFB00F8A0F1 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -143,7 +151,7 @@
 			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
 			dstSubfolderSpec = 16;
 			files = (
-				BF692F732209AAFC00F8A0F1 /* OpenGpxTracker-Watch.app in Embed Watch Content */,
+				BF6873AD303E083300C11309 /* OpenGpxTrackerWatch2 Watch App.app in Embed Watch Content */,
 			);
 			name = "Embed Watch Content";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -257,6 +265,7 @@
 		BF637D122216C5FA0003EC04 /* WatchConnectivity.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WatchConnectivity.framework; path = System/Library/Frameworks/WatchConnectivity.framework; sourceTree = SDKROOT; };
 		BF6408A2225C63E700BB5242 /* CoreDataHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataHelper.swift; sourceTree = "<group>"; };
 		BF6428B7220EC1A90015447E /* GPXFileTableRowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPXFileTableRowController.swift; sourceTree = "<group>"; };
+		BF6873A3303E083200C11309 /* OpenGpxTrackerWatch2 Watch App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "OpenGpxTrackerWatch2 Watch App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF68ECC52448B887005C779F /* DateFieldTypeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateFieldTypeView.swift; sourceTree = "<group>"; };
 		BF692F572209AAF900F8A0F1 /* OpenGpxTracker-Watch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "OpenGpxTracker-Watch.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF692F5C2209AAFB00F8A0F1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -287,6 +296,10 @@
 		DC4908A21C4A332E009484AE /* MapViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		BF6873A4303E083200C11309 /* OpenGpxTrackerWatch2 Watch App */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = "OpenGpxTrackerWatch2 Watch App"; sourceTree = "<group>"; };
+/* End PBXFileSystemSynchronizedRootGroup section */
+
 /* Begin PBXFrameworksBuildPhase section */
 		898EECD219C49B5800B4B207 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
@@ -303,6 +316,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		898EECEA19C49B5800B4B207 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BF6873A0303E083200C11309 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -366,6 +386,7 @@
 				898EECF019C49B5800B4B207 /* OpenGpxTrackerTests */,
 				BF692F582209AAF900F8A0F1 /* OpenGpxTracker-Watch */,
 				BF692F672209AAFB00F8A0F1 /* OpenGpxTracker-Watch Extension */,
+				BF6873A4303E083200C11309 /* OpenGpxTrackerWatch2 Watch App */,
 				898EED0119C4A16600B4B207 /* Frameworks */,
 				898EECD619C49B5800B4B207 /* Products */,
 			);
@@ -378,6 +399,7 @@
 				898EECED19C49B5800B4B207 /* OpenGpxTrackerTests.xctest */,
 				BF692F572209AAF900F8A0F1 /* OpenGpxTracker-Watch.app */,
 				BF692F632209AAFB00F8A0F1 /* OpenGpxTracker-Watch Extension.appex */,
+				BF6873A3303E083200C11309 /* OpenGpxTrackerWatch2 Watch App.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -536,6 +558,7 @@
 			);
 			dependencies = (
 				BF692F722209AAFC00F8A0F1 /* PBXTargetDependency */,
+				BF6873AC303E083300C11309 /* PBXTargetDependency */,
 			);
 			name = OpenGpxTracker;
 			productName = OpenGpxTracker;
@@ -559,6 +582,28 @@
 			productName = OpenGpxTrackerTests;
 			productReference = 898EECED19C49B5800B4B207 /* OpenGpxTrackerTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		BF6873A2303E083200C11309 /* OpenGpxTrackerWatch2 Watch App */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BF6873B0303E083300C11309 /* Build configuration list for PBXNativeTarget "OpenGpxTrackerWatch2 Watch App" */;
+			buildPhases = (
+				BF68739F303E083200C11309 /* Sources */,
+				BF6873A0303E083200C11309 /* Frameworks */,
+				BF6873A1303E083200C11309 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				BF6873A4303E083200C11309 /* OpenGpxTrackerWatch2 Watch App */,
+			);
+			name = "OpenGpxTrackerWatch2 Watch App";
+			packageProductDependencies = (
+			);
+			productName = "OpenGpxTrackerWatch2 Watch App";
+			productReference = BF6873A3303E083200C11309 /* OpenGpxTrackerWatch2 Watch App.app */;
+			productType = "com.apple.product-type.application";
 		};
 		BF692F562209AAF900F8A0F1 /* OpenGpxTracker-Watch */ = {
 			isa = PBXNativeTarget;
@@ -603,7 +648,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
 				LastSwiftMigration = 0700;
-				LastSwiftUpdateCheck = 1010;
+				LastSwiftUpdateCheck = 2660;
 				LastUpgradeCheck = 2610;
 				ORGANIZATIONNAME = "";
 				TargetAttributes = {
@@ -620,6 +665,9 @@
 						CreatedOnToolsVersion = 6.0;
 						LastSwiftMigration = 1020;
 						TestTargetID = 898EECD419C49B5800B4B207;
+					};
+					BF6873A2303E083200C11309 = {
+						CreatedOnToolsVersion = 26.6;
 					};
 					BF692F562209AAF900F8A0F1 = {
 						CreatedOnToolsVersion = 10.1;
@@ -669,6 +717,7 @@
 				898EECEC19C49B5800B4B207 /* OpenGpxTrackerTests */,
 				BF692F562209AAF900F8A0F1 /* OpenGpxTracker-Watch */,
 				BF692F622209AAFB00F8A0F1 /* OpenGpxTracker-Watch Extension */,
+				BF6873A2303E083200C11309 /* OpenGpxTrackerWatch2 Watch App */,
 			);
 		};
 /* End PBXProject section */
@@ -688,6 +737,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		898EECEB19C49B5800B4B207 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BF6873A1303E083200C11309 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -797,6 +853,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		BF68739F303E083200C11309 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BF6873C2303E0DFC00C11309 /* Double+Measures.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		BF692F5F2209AAFB00F8A0F1 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -832,6 +896,11 @@
 			isa = PBXTargetDependency;
 			target = 898EECD419C49B5800B4B207 /* OpenGpxTracker */;
 			targetProxy = 898EECEE19C49B5800B4B207 /* PBXContainerItemProxy */;
+		};
+		BF6873AC303E083300C11309 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = BF6873A2303E083200C11309 /* OpenGpxTrackerWatch2 Watch App */;
+			targetProxy = BF6873AB303E083300C11309 /* PBXContainerItemProxy */;
 		};
 		BF692F662209AAFB00F8A0F1 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -1158,6 +1227,101 @@
 			};
 			name = Release;
 		};
+		BF6873AE303E083300C11309 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_PREVIEWS = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "OpenGpxTrackerWatch2-Watch-App-Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = OpenGpxTrackerWatch2;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = org.merlos.OpenGpxTracker;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = org.merlos.OpenGpxTracker.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 10.0;
+			};
+			name = Debug;
+		};
+		BF6873AF303E083300C11309 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = "";
+				ENABLE_PREVIEWS = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "OpenGpxTrackerWatch2-Watch-App-Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = OpenGpxTrackerWatch2;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = org.merlos.OpenGpxTracker;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = org.merlos.OpenGpxTracker.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 10.0;
+			};
+			name = Release;
+		};
 		BF692F742209AAFC00F8A0F1 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1316,6 +1480,15 @@
 			buildConfigurations = (
 				898EECFB19C49B5800B4B207 /* Debug */,
 				898EECFC19C49B5800B4B207 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BF6873B0303E083300C11309 /* Build configuration list for PBXNativeTarget "OpenGpxTrackerWatch2 Watch App" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BF6873AE303E083300C11309 /* Debug */,
+				BF6873AF303E083300C11309 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
